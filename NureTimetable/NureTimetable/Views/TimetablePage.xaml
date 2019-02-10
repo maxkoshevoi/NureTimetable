@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NureTimetable.Views.TimetablePage"
+             xmlns:System="System"
+             xmlns:syncfusion="clr-namespace:Syncfusion.SfSchedule.XForms;assembly=Syncfusion.SfSchedule.XForms"
+             Title="Nure Timetable">
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Icon="today" Clicked="Today_Clicked" x:Name="Today" />
+        <ToolbarItem Icon="group" Clicked="ManageGroups_Clicked" x:Name="ManageGroups" />
+    </ContentPage.ToolbarItems>
+    
+    <ContentPage.Content>
+        <AbsoluteLayout>
+            <StackLayout x:Name="TimetableLayout" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="True">
+                <Label x:Name="GroupName" HorizontalOptions="Center" />
+                <syncfusion:SfSchedule 
+                        x:Name="Timetable"
+                        FirstDayOfWeek="2"
+                        ScheduleView="WeekView"
+                        VerticalOptions="FillAndExpand"
+                        HeaderHeight="50"
+                        ViewHeaderHeight="50">
+                    <syncfusion:SfSchedule.HeaderStyle>
+                        <syncfusion:HeaderStyle FontSize="10" FontAttributes="Bold"/>
+                    </syncfusion:SfSchedule.HeaderStyle>
+                    <syncfusion:SfSchedule.ViewHeaderStyle>
+                        <syncfusion:ViewHeaderStyle DateFontSize="13" DayFontSize="8" />
+                    </syncfusion:SfSchedule.ViewHeaderStyle>
+                    <syncfusion:SfSchedule.AppointmentMapping>
+                        <syncfusion:ScheduleAppointmentMapping
+			                SubjectMapping="DisplayInfo"
+			                StartTimeMapping="Start"
+			                EndTimeMapping="End"
+                            NotesMapping="Type"
+                            LocationMapping="Room"
+                            ColorMapping="Color"
+                            >
+                        </syncfusion:ScheduleAppointmentMapping>
+                    </syncfusion:SfSchedule.AppointmentMapping>
+                </syncfusion:SfSchedule>
+            </StackLayout>
+            <StackLayout x:Name="NoSourceLayout" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="False">
+                <Label Text="Добавте группу для просмотра расписания."
+                    VerticalOptions="CenterAndExpand" 
+                    HorizontalOptions="CenterAndExpand" />
+            </StackLayout>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>
