@@ -9,6 +9,7 @@ namespace NureTimetable
 {
     public partial class App : Application
     {
+        public static bool IsDebugMode = false;
 
         public App()
         {

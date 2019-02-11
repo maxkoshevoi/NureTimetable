@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
+using NureTimetable.Models.Consts;
 using System;
 using System.IO;
+using Xamarin.Forms;
 
 namespace NureTimetable.Helpers
 {
@@ -15,7 +17,10 @@ namespace NureTimetable.Helpers
             }
             catch (Exception ex)
             {
-                // Log error
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
+                });
             }
         }
 
@@ -29,7 +34,10 @@ namespace NureTimetable.Helpers
             }
             catch (Exception ex)
             {
-                // Log error
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
+                });
             }
             return default(T);
         }

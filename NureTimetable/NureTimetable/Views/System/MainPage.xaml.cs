@@ -1,4 +1,6 @@
-﻿using NureTimetable.Models.System;
+﻿using NureTimetable.Models.Consts;
+using NureTimetable.Models.System;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -15,8 +17,15 @@ namespace NureTimetable.Views
             InitializeComponent();
 
             MasterBehavior = MasterBehavior.Popover;
-
             MenuPages.Add((int)MenuItemType.Timetable, (NavigationPage)Detail);
+
+            MessagingCenter.Subscribe<Application, Exception>(this, MessageTypes.ExceptionOccurred, (sender, ex) =>
+            {
+                if (App.IsDebugMode)
+                {
+                    DisplayAlert("Детали ошибки:", ex.ToString(), "Ok");
+                }
+            });
         }
 
         public async Task NavigateFromMenu(int id)

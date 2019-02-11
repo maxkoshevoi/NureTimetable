@@ -62,6 +62,11 @@
                         BackgroundColor="{StaticResource Primary}"
                         TextColor="White" 
                         Clicked="Button_Clicked"/>
+                <Label Margin="0,300,0,0" Text="И, на всякий случай, оставлю здесь вот это." />
+                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                    <Label x:Name="label1" Text="Показывать ошибки: " />
+                    <Switch x:Name="SwDebugMode" Toggled="SwDebugMode_Toggled" />
+                </StackLayout>
             </StackLayout>
         </ScrollView>
     </Grid>

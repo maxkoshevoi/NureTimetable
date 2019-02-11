@@ -11,11 +11,18 @@ namespace NureTimetable.Views
         public AboutPage()
         {
             InitializeComponent();
+
+            SwDebugMode.IsToggled = App.IsDebugMode;
         }
 
         private void Button_Clicked(object sender, EventArgs e)
         {
-            DisplayAlert("Плейсхолдер", "Я пока ссылку ещё не добавил, но скоро добавлю =)", "Ну ладно");
+            Device.OpenUri(new Uri("https://github.com/maxkoshevoi/NureTimetable"));
+        }
+
+        private void SwDebugMode_Toggled(object sender, ToggledEventArgs e)
+        {
+            App.IsDebugMode = SwDebugMode.IsToggled;
         }
     }
 }

@@ -43,7 +43,7 @@ namespace NureTimetable.Views
                 }
 
                 savedGroups = GroupsDataStore.GetSaved();
-                groups = new ObservableCollection<Group>(allGroups);
+                groups = new ObservableCollection<Group>(allGroups.OrderBy(g => g.Name));
 
                 Device.BeginInvokeOnMainThread(() =>
                 {
@@ -82,6 +82,7 @@ namespace NureTimetable.Views
                 new ObservableCollection<Group>(
                     allGroups
                     .Where(g => g.Name.ToLower().Contains(searchQuery) || g.ID.ToString() == searchQuery)
+                    .OrderBy(g => g.Name)
                 );
             AllGroupsList.ItemsSource = groups;
         }

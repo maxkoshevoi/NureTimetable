@@ -53,7 +53,10 @@ namespace NureTimetable.DAL
                 }
                 catch (Exception ex)
                 {
-                    // Log error
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
+                    });
                 }
             }
             return null;
@@ -81,7 +84,10 @@ namespace NureTimetable.DAL
             }
             catch (Exception ex)
             {
-                // Log error
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
+                });
             }
             return null;
         }

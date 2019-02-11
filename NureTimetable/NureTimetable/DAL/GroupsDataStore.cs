@@ -28,22 +28,21 @@ namespace NureTimetable.DAL
 
         public static List<Group> GetAllLocal()
         {
-            List<Group> loadedGroups = new List<Group>();
+            List<Group> loadedGroups;
 
             string filePath = FilePath.AllGroupsList;
             if (!File.Exists(filePath))
             {
-                return loadedGroups;
+                return null;
             }
             
-            loadedGroups = Serialisation.FromJsonFile<List<Group>>(filePath) ?? loadedGroups;
+            loadedGroups = Serialisation.FromJsonFile<List<Group>>(filePath);
             return loadedGroups;
         }
 
         public static List<Group> GetAllFromCist(string url = Urls.CistAllKNGroupsSource)
         {
             List<Group> groups = new List<Group>();
-
             try
             {
                 string timetableSelectionPage;
@@ -76,9 +75,12 @@ namespace NureTimetable.DAL
             }
             catch (Exception ex)
             {
-                // Log
+                groups = null;
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
+                });
             }
-
             return groups;
         }
         #endregion
@@ -105,6 +107,10 @@ namespace NureTimetable.DAL
             {
                 MessagingCenter.Send(Application.Current, MessageTypes.SavedGroupsChanged, savedGroups);
             });
+            if (GetSelected() == null && savedGroups.Count > 0)
+            {
+                UpdateSelected(savedGroups[0]);
+            }
         }
         #endregion
 

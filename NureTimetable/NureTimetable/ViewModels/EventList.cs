@@ -1,8 +1,10 @@
 ﻿using NureTimetable.Models;
+using NureTimetable.Models.Consts;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using Xamarin.Forms;
 
 namespace NureTimetable.ViewModels
 {
@@ -94,7 +96,10 @@ namespace NureTimetable.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    // Log error
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
+                    });
                 }
             }
             return events;
