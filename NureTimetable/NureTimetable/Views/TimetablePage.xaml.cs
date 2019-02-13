@@ -96,6 +96,10 @@ namespace NureTimetable.Views
 
         private void Today_Clicked(object sender, EventArgs e)
         {
+            if (!TimetableLayout.IsVisible)
+            {
+                return;
+            }
             Timetable.NavigateTo(DateTime.Now);
         }
     }

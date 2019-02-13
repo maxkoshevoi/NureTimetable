@@ -49,7 +49,7 @@ namespace NureTimetable.DAL
 
         public static Dictionary<int, EventList> GetEventsFromCist(DateTime dateStart, DateTime dateEnd, params Group[] groups)
         {
-            if (groups.Length == 0 || CheckUpdateTimetableFromCistRights() == false)
+            if (groups == null || groups.Length == 0 || CheckUpdateTimetableFromCistRights() == false)
             {
                 return null;
             }

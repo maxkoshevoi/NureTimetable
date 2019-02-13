@@ -28,8 +28,6 @@ namespace NureTimetable.Views.Lessons
             EventList eventList = EventsDataStore.GetEventsLocal(group.ID);
             if (eventList == null)
             {
-                DisplayAlert("Управление предметами", "Для управления предметами необходимо сначала загрузить расписание группы.", "Ok");
-                Navigation.PopAsync();
                 return;
             }
             List<LessonSettings> lessonSettings = LessonSettingsDataStore.GetLessonSettings(group.ID);
@@ -44,6 +42,10 @@ namespace NureTimetable.Views.Lessons
                 })
             );
             LessonsList.ItemsSource = lessons;
+            if (lessons.Count == 0)
+            {
+                NoSourceLayout.IsVisible = true;
+            }
 
             MessagingCenter.Subscribe<LessonSettingsPage, LessonSettings>(this, "OneLessonSettingsChanged", (sender, newLessonSettings) =>
             {
@@ -57,6 +59,16 @@ namespace NureTimetable.Views.Lessons
                     }
                 }
             });
+        }
+
+        private void ContentPage_Appearing(object sender, EventArgs e)
+        {
+            if (lessons == null)
+            {
+                DisplayAlert("Управление предметами", "Для управления предметами необходимо сначала загрузить расписание группы.", "Ok");
+                Navigation.PopAsync();
+                return;
+            }
         }
 
         async void Handle_ItemTapped(object sender, ItemTappedEventArgs e)

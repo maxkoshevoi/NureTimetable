@@ -31,6 +31,8 @@ namespace NureTimetable.Views
 
         private void UpdateItems(List<SavedGroup> newItems)
         {
+            NoSourceLayout.IsVisible = (newItems.Count == 0);
+
             groups = new ObservableCollection<SavedGroup>(newItems);
             GroupsList.ItemsSource = groups;
         }
@@ -86,7 +88,7 @@ namespace NureTimetable.Views
 
         private async Task UpdateTimetable(params SavedGroup[] savedGroups)
         {
-            if (savedGroups.Length == 0 || CheckUpdateTimetableRights() == false)
+            if (savedGroups == null || savedGroups.Length == 0 || CheckUpdateTimetableRights() == false)
             {
                 return;
             }
@@ -145,7 +147,7 @@ namespace NureTimetable.Views
             }
             if (await DisplayAlert("Обновление расписания", "Обновить расписания всех сохранённых групп?", "Да", "Отмена"))
             {
-                await UpdateTimetable(groups.ToArray());
+                await UpdateTimetable(groups?.ToArray());
             }
         }
     }

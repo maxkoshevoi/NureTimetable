@@ -36,5 +36,10 @@
             <ActivityIndicator IsRunning="True" Color="#80000000"/>
             <Label Text="Подождите..." HorizontalOptions="Center" TextColor="LightSkyBlue"/>
         </StackLayout>
+        <StackLayout x:Name="NoSourceLayout" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="False">
+            <Label Text="У вас нет ни одной сохранённой группы."
+                    VerticalOptions="CenterAndExpand" 
+                    HorizontalOptions="CenterAndExpand" />
+        </StackLayout>
     </AbsoluteLayout>
 </ContentPage>

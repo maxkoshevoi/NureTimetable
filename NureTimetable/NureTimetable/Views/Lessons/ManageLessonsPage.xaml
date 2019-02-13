@@ -2,28 +2,37 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="NureTimetable.Views.Lessons.ManageLessonsPage"
+             Appearing="ContentPage_Appearing"
              Title="Управление предметами">
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Icon="save" Clicked="Save_Clicked" x:Name="Save" />
     </ContentPage.ToolbarItems>
-    
-    <ListView x:Name="LessonsList"
-            ItemsSource="{Binding lessons}"
-            ItemTapped="Handle_ItemTapped"
-            CachingStrategy="RecycleElement">
 
-        <ListView.ItemTemplate>
-            <DataTemplate>
-                <ViewCell>
-                    <StackLayout>
-                        <Label Text="{Binding LessonName}" 
-                   Style="{DynamicResource ListItemTextStyle}" />
-                        <Label Text="{Binding IsSomeSettingsApplied}" 
-                   Style="{DynamicResource ListItemDetailTextStyle}"/>
-                    </StackLayout>
-                </ViewCell>
-            </DataTemplate>
-        </ListView.ItemTemplate>
-    </ListView>
+    <AbsoluteLayout>
+        <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+            <ListView x:Name="LessonsList"
+                    ItemsSource="{Binding lessons}"
+                    ItemTapped="Handle_ItemTapped"
+                    CachingStrategy="RecycleElement">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout>
+                                <Label Text="{Binding LessonName}" 
+                            Style="{DynamicResource ListItemTextStyle}" />
+                                <Label Text="{Binding IsSomeSettingsApplied}" 
+                            Style="{DynamicResource ListItemDetailTextStyle}"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+        <StackLayout x:Name="NoSourceLayout" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="False">
+            <Label Text="В текущем расписании отсутствуют предметы (возможно оно пустое)."
+                    VerticalOptions="CenterAndExpand" 
+                    HorizontalOptions="CenterAndExpand" />
+        </StackLayout>
+    </AbsoluteLayout>
 </ContentPage>
