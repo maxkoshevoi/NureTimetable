@@ -3,7 +3,8 @@ using NureTimetable.Models;
 using NureTimetable.Models.Consts;
 using NureTimetable.ViewModels;
 using System;
-
+using System.Collections.Generic;
+using System.Linq;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -32,6 +33,15 @@ namespace NureTimetable.Views
                 }
                 UpdateEvents(selectedGroup);
             });
+            MessagingCenter.Subscribe<Application, int>(this, MessageTypes.LessonSettingsChanged, (sender, groupID) =>
+            {
+                Group selectedGroup = GroupsDataStore.GetSelected();
+                if (selectedGroup == null || selectedGroup.ID != groupID)
+                {
+                    return;
+                }
+                UpdateEvents(selectedGroup);
+            });
         }
 
         private void UpdateEvents(Group selectedGroup)
@@ -49,14 +59,34 @@ namespace NureTimetable.Views
             }
 
             GroupName.Text = selectedGroup.Name;
-            events = TimetableDataStore.GetEvents(selectedGroup.ID);
+            events = EventsDataStore.GetEvents(selectedGroup.ID);
 
-            if (events.Count > 0)
+            if (events == null || events.Count == 0)
             {
-                Timetable.MinDisplayDate = events.StartDate();
-                Timetable.MaxDisplayDate = events.EndDate();
-                Timetable.DataSource = events.Events;
+                return;
             }
+
+            List<LessonSettings> lessonSettings = LessonSettingsDataStore.GetLessonSettings(selectedGroup.ID)
+                .Where(ls => ls.IsSomeSettingsApplied)
+                .ToList();
+            for (int i = 0; i < events.Events.Count; i++)
+            {
+                LessonSettings lessonSetting = lessonSettings.FirstOrDefault(ls => ls.LessonName == events.Events[i].Lesson);
+                if (lessonSetting == null)
+                {
+                    continue;
+                }
+                if (lessonSetting.HidingSettings.HideLesson)
+                {
+                    events.Events.RemoveAt(i);
+                    i--;
+                    continue;
+                }
+            }
+
+            Timetable.MinDisplayDate = events.StartDate();
+            Timetable.MaxDisplayDate = events.EndDate();
+            Timetable.DataSource = events.Events;
         }
 
         private void ManageGroups_Clicked(object sender, EventArgs e)

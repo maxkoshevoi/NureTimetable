@@ -57,7 +57,7 @@ namespace NureTimetable.Views
 
         async void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            if (e.Item == null && e.Item is Group)
+            if (e.Item == null || !(e.Item is Group))
                 return;
 
             Group selectedGroup = (Group)e.Item;

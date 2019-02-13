@@ -9,9 +9,9 @@ using Android.App;
 [assembly: AssemblyTitle("NureTimetable.Android")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("WhiteBox")]
 [assembly: AssemblyProduct("NureTimetable.Android")]
-[assembly: AssemblyCopyright("Copyright ©  2019")]
+[assembly: AssemblyCopyright("Copyright © Maksym Koshovyi 2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
@@ -31,11 +31,10 @@ using Android.App;
 
 // Add some common permissions, these can be removed if not needed
 [assembly: UsesPermission(Android.Manifest.Permission.Internet)]
-[assembly: UsesPermission(Android.Manifest.Permission.WriteExternalStorage)]
 
 // Forbid debugging in release mode
 #if DEBUG
-[assembly: Application(Debuggable=true)]
+[assembly: Application(Debuggable = true)]
 #else
 [assembly: Application(Debuggable = false)]
 #endif

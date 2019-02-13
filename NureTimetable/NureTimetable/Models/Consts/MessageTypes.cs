@@ -6,5 +6,6 @@
         public const string SavedGroupsChanged = "SavedGroupsChanged";
         public const string SelectedGroupChanged = "SelectedGroupChanged";
         public const string ExceptionOccurred = "ExceptionOccurred";
+        public const string LessonSettingsChanged = "LessonSettingsChanged";
     }
 }

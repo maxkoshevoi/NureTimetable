@@ -5,7 +5,8 @@
              Title="Сохранённые группы">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Добавить" Clicked="AddGroup_Clicked" x:Name="AddGroup" />
+        <ToolbarItem Icon="update" Clicked="UpdateAll_Clicked" x:Name="UpdateAll" />
+        <ToolbarItem Icon="add" Clicked="AddGroup_Clicked" x:Name="AddGroup" />
     </ContentPage.ToolbarItems>
 
     <AbsoluteLayout>

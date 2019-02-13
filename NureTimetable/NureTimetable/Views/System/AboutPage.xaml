@@ -33,7 +33,7 @@
                             <FormattedString.Spans>
                                 <Span Text="Nure Timetable" FontAttributes="Bold" FontSize="22" />
                                 <Span Text=" " />
-                                <Span Text="1.0" ForegroundColor="{StaticResource LightTextColor}" />
+                                <Span x:Name="SVersion" Text="1.0" ForegroundColor="{StaticResource LightTextColor}" />
                             </FormattedString.Spans>
                         </FormattedString>
                     </Label.FormattedText>
@@ -64,7 +64,7 @@
                         Clicked="Button_Clicked"/>
                 <Label Margin="0,300,0,0" Text="И, на всякий случай, оставлю здесь вот это." />
                 <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                    <Label x:Name="label1" Text="Показывать ошибки: " />
+                    <Label Text="Показывать ошибки: " />
                     <Switch x:Name="SwDebugMode" Toggled="SwDebugMode_Toggled" />
                 </StackLayout>
             </StackLayout>

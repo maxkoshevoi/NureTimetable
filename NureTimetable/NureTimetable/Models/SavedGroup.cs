@@ -12,8 +12,11 @@ namespace NureTimetable.Models
 
         public SavedGroup(Group group)
         {
-            ID = group.ID;
-            Name = group.Name;
+            if (group != null)
+            {
+                ID = group.ID;
+                Name = group.Name;
+            }
         }
         
         private DateTime? _lastUpdated;

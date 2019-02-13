@@ -9,5 +9,8 @@ namespace NureTimetable.Models.Consts
 
         public static DateTime TimetableToDate
             => DateTime.Now.AddMonths(3);
+
+        public static TimeSpan TimetableManualUpdateMinInterval
+            => TimeSpan.FromDays(1);
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NureTimetable.Models.InterplatformCommunication;
+using System;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -12,6 +13,8 @@ namespace NureTimetable.Views
         {
             InitializeComponent();
 
+            var version = DependencyService.Get<IAppVersionProvider>();
+            SVersion.Text = version?.AppVersion ?? "1.0";
             SwDebugMode.IsToggled = App.IsDebugMode;
         }
 

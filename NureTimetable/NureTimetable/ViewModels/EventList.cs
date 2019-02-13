@@ -10,14 +10,19 @@ namespace NureTimetable.ViewModels
 {
     public class EventList
     {
-        public List<Event> Events = new List<Event>();
+        public List<Event> Events { get; } = new List<Event>();
         
         public EventList()
         { }
 
-        public EventList(string cistCsvData)
+        public EventList(string cistCsvDataForOneGroup)
         {
-            Events = Parse(cistCsvData);
+            Events = Parse(cistCsvDataForOneGroup);
+        }
+
+        public EventList(List<Event> events)
+        {
+            Events = events;
         }
 
         #region Statistics
@@ -31,6 +36,12 @@ namespace NureTimetable.ViewModels
 
         public IEnumerable<string> EventTypes()
             => Events.Select(e => e.Type).Distinct();
+
+        public IEnumerable<string> EventTypes(string lessonName)
+            => Events
+                .Where(e => e.Lesson == lessonName)
+                .Select(e => e.Type)
+                .Distinct();
 
         public DateTime StartDate()
             => Events.Min(e => e.Start.Date);
@@ -46,13 +57,17 @@ namespace NureTimetable.ViewModels
         #endregion
 
         #region static
-        protected static List<Event> Parse(string cistCsvData)
+        public static List<Event> Parse(string cistCsvDataForOneGroup)
+            => Parse(cistCsvDataForOneGroup, false).Values.FirstOrDefault() ?? new List<Event>();
+
+        public static Dictionary<string, List<Event>> Parse(string cistCsvData, bool isManyGroups)
         {
-            var rawData = cistCsvData
+            string defaultKey = string.Empty;
+            IEnumerable<string> rawData = cistCsvData
                 .Split(new char[] { '\r' }, StringSplitOptions.RemoveEmptyEntries)
                 .Skip(1); // Skipping headers
 
-            List<Event> events = new List<Event>();
+            var timetables = new Dictionary<string, List<Event>>();
             foreach (string eventStr in rawData)
             {
                 try
@@ -66,7 +81,7 @@ namespace NureTimetable.ViewModels
                     /*
                      * Data structure
                      * 
-                     * 0  - Тема (Lesson Type Room...)
+                     * 0  - Тема ([Group_Name - ]Lesson Type Room...)
                      * 1  - Дата начала 
                      * 2  - Время начала 
                      * 3  - Дата завершения 
@@ -83,16 +98,26 @@ namespace NureTimetable.ViewModels
 
                     Event ev = new Event
                     {
-                        Lesson = eventDescription[0],
-                        Type = eventDescription[1],
-                        Room = eventDescription[2],
+                        Lesson = eventDescription[isManyGroups ? 2 : 0],
+                        Type = eventDescription[isManyGroups ? 3 : 1],
+                        Room = eventDescription[isManyGroups ? 4 : 2],
 
                         Start = DateTime.ParseExact(rawEvent[1], "dd.MM.yyyy", CultureInfo.InvariantCulture)
                                     .Add(TimeSpan.ParseExact(rawEvent[2], "hh\\:mm\\:ss", CultureInfo.InvariantCulture)),
                         End = DateTime.ParseExact(rawEvent[3], "dd.MM.yyyy", CultureInfo.InvariantCulture)
                                     .Add(TimeSpan.ParseExact(rawEvent[4], "hh\\:mm\\:ss", CultureInfo.InvariantCulture)),
                     };
-                    events.Add(ev);
+                    string groupName = defaultKey;
+                    if (isManyGroups)
+                    {
+                        groupName = eventDescription[0];
+                    }
+
+                    if (!timetables.ContainsKey(groupName))
+                    {
+                        timetables.Add(groupName, new List<Event>());
+                    }
+                    timetables[groupName].Add(ev);
                 }
                 catch (Exception ex)
                 {
@@ -102,7 +127,7 @@ namespace NureTimetable.ViewModels
                     });
                 }
             }
-            return events;
+            return timetables;
         }
         #endregion
     }
