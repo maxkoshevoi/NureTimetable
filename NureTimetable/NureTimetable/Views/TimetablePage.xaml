@@ -17,9 +17,11 @@
                 <Label x:Name="GroupName" HorizontalOptions="Center" />
                 <syncfusion:SfSchedule 
                         x:Name="Timetable"
+                        VerticalOptions="FillAndExpand"
                         FirstDayOfWeek="2"
                         ScheduleView="WeekView"
-                        VerticalOptions="FillAndExpand"
+                        TimeIntervalHeight="70"
+                        TimeInterval="90"
                         HeaderHeight="50"
                         ViewHeaderHeight="50">
                     <syncfusion:SfSchedule.HeaderStyle>
@@ -28,6 +30,13 @@
                     <syncfusion:SfSchedule.ViewHeaderStyle>
                         <syncfusion:ViewHeaderStyle DateFontSize="13" DayFontSize="8" />
                     </syncfusion:SfSchedule.ViewHeaderStyle>
+                    <syncfusion:SfSchedule.WeekViewSettings>
+                        <syncfusion:WeekViewSettings>
+                            <syncfusion:WeekViewSettings.WeekLabelSettings>
+                                <syncfusion:WeekLabelSettings TimeFormat="HH:mm"/>
+                            </syncfusion:WeekViewSettings.WeekLabelSettings>
+                        </syncfusion:WeekViewSettings>
+                    </syncfusion:SfSchedule.WeekViewSettings>
                     <syncfusion:SfSchedule.AppointmentMapping>
                         <syncfusion:ScheduleAppointmentMapping
 			                SubjectMapping="DisplayInfo"

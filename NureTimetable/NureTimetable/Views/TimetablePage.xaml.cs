@@ -87,6 +87,8 @@ namespace NureTimetable.Views
 
             Timetable.MinDisplayDate = events.StartDate();
             Timetable.MaxDisplayDate = events.EndDate();
+            Timetable.WeekViewSettings.WorkStartHour = events.StartTime().TotalHours;
+            Timetable.WeekViewSettings.WorkEndHour = events.EndTime().TotalHours;
             Timetable.DataSource = events.Events;
         }
 

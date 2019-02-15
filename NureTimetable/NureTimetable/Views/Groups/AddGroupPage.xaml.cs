@@ -81,7 +81,7 @@ namespace NureTimetable.Views
             groups =
                 new ObservableCollection<Group>(
                     allGroups
-                    .Where(g => g.Name.ToLower().Contains(searchQuery) || g.ID.ToString() == searchQuery)
+                    .Where(g => g.Name.ToLower().Contains(searchQuery) || g.Name.ToLower().Contains(searchQuery.Replace('и', 'і')) || g.ID.ToString() == searchQuery)
                     .OrderBy(g => g.Name)
                 );
             AllGroupsList.ItemsSource = groups;
