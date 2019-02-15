@@ -63,6 +63,7 @@ namespace NureTimetable.Views
 
             if (events == null || events.Count == 0)
             {
+                Timetable.DataSource = null;
                 return;
             }
 

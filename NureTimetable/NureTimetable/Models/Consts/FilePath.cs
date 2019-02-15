@@ -8,7 +8,7 @@ namespace NureTimetable.Models.Consts
         public static string LocalStorage =>
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
 
-        public static string SavedTimetableFilename(int groupID) =>
+        public static string SavedTimetable(int groupID) =>
             Path.Combine(LocalStorage, $"timetable_{groupID}.json");
 
         public static string SavedGroupsList =>

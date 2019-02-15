@@ -102,11 +102,28 @@ namespace NureTimetable.DAL
 
         public static void UpdateSaved(List<SavedGroup> savedGroups)
         {
+            // Removing cash from deleted saved groups if needed
+            List<SavedGroup> deletedGroups = GetSaved()
+                .Where(oldGroup => !savedGroups.Exists(group => group.ID == oldGroup.ID))
+                .ToList();
+            if (deletedGroups.Count > 0)
+            {
+                deletedGroups.ForEach((dg) =>
+                {
+                    try
+                    {
+                        File.Delete(FilePath.SavedTimetable(dg.ID));
+                    }
+                    catch {}
+                });
+            }
+            // Saving saved groups list
             Serialisation.ToJsonFile(savedGroups, FilePath.SavedGroupsList);
             Device.BeginInvokeOnMainThread(() =>
             {
                 MessagingCenter.Send(Application.Current, MessageTypes.SavedGroupsChanged, savedGroups);
             });
+            // Updating selected group if needed
             if (GetSelected() == null && savedGroups.Count > 0)
             {
                 UpdateSelected(savedGroups[0]);

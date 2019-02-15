@@ -89,7 +89,7 @@ namespace NureTimetable.DAL
                     }
                     foreach (int groupID in timetables.Keys)
                     {
-                        Serialisation.ToJsonFile(timetables[groupID].Events, FilePath.SavedTimetableFilename(groupID));
+                        Serialisation.ToJsonFile(timetables[groupID].Events, FilePath.SavedTimetable(groupID));
                         Device.BeginInvokeOnMainThread(() =>
                         {
                             MessagingCenter.Send(Application.Current, MessageTypes.TimetableUpdated, groupID);
@@ -111,7 +111,7 @@ namespace NureTimetable.DAL
 
         public static EventList GetEventsLocal(int groupID)
         {
-            List<Event> localEvents = Serialisation.FromJsonFile<List<Event>>(FilePath.SavedTimetableFilename(groupID));
+            List<Event> localEvents = Serialisation.FromJsonFile<List<Event>>(FilePath.SavedTimetable(groupID));
             if (localEvents == null)
             {
                 return null;
