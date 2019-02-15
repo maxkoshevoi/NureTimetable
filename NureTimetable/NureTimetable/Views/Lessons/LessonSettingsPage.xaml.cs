@@ -59,7 +59,10 @@ namespace NureTimetable.Views.Lessons
         {
             lessonSettings.HidingSettings.ShowLesson = ShowLesson.IsChecked;
             UpdateEventTypesCheck();
-            MessagingCenter.Send(this, "OneLessonSettingsChanged", lessonSettings);
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                MessagingCenter.Send(this, "OneLessonSettingsChanged", lessonSettings);
+            });
         }
 
         private void UpdateEventTypesCheck()

@@ -2,8 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="NureTimetable.Views.TimetablePage"
-             xmlns:System="System"
              xmlns:syncfusion="clr-namespace:Syncfusion.SfSchedule.XForms;assembly=Syncfusion.SfSchedule.XForms"
+             Appearing="ContentPage_Appearing"
              Title="Nure Timetable">
     
     <ContentPage.ToolbarItems>
@@ -20,7 +20,6 @@
                         VerticalOptions="FillAndExpand"
                         FirstDayOfWeek="2"
                         ScheduleView="WeekView"
-                        TimeIntervalHeight="70"
                         TimeInterval="90"
                         HeaderHeight="50"
                         ViewHeaderHeight="50"
@@ -55,6 +54,12 @@
                 <Label Text="Добавте группу для просмотра расписания."
                     VerticalOptions="CenterAndExpand" 
                     HorizontalOptions="CenterAndExpand" />
+            </StackLayout>
+            <StackLayout x:Name="ProgressLayout" IsVisible="False" Padding="12"
+                    AbsoluteLayout.LayoutFlags="PositionProportional"
+                    AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
+                <ActivityIndicator IsRunning="True" Color="#80000000"/>
+                <Label Text="Подождите..." HorizontalOptions="Center" TextColor="LightSkyBlue"/>
             </StackLayout>
         </AbsoluteLayout>
     </ContentPage.Content>

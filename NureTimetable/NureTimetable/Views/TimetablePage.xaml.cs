@@ -6,6 +6,7 @@ using Syncfusion.SfSchedule.XForms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -15,12 +16,13 @@ namespace NureTimetable.Views
 	public partial class TimetablePage : ContentPage
     {
         public EventList events { get; set; }
+        Size PageSize;
+        bool isFirstLoad = true;
 
         public TimetablePage ()
 		{
 			InitializeComponent ();
-
-            UpdateEvents(GroupsDataStore.GetSelected());
+            
             MessagingCenter.Subscribe<Application, Group>(this, MessageTypes.SelectedGroupChanged, (sender, newSelectedGroup) =>
             {
                 UpdateEvents(newSelectedGroup);
@@ -44,6 +46,27 @@ namespace NureTimetable.Views
                 UpdateEvents(selectedGroup);
             });
         }
+        
+
+        private void ContentPage_Appearing(object sender, EventArgs e)
+        {
+            if (!isFirstLoad) return;
+            isFirstLoad = false;
+
+            Timetable.IsEnabled = false;
+            ProgressLayout.IsVisible = true;
+
+            Task.Factory.StartNew(() =>
+            {
+                UpdateEvents(GroupsDataStore.GetSelected());
+
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    ProgressLayout.IsVisible = false;
+                    Timetable.IsEnabled = true;
+                });
+            });
+        }
 
         private void UpdateEvents(Group selectedGroup)
         {
@@ -64,7 +87,10 @@ namespace NureTimetable.Views
 
             if (events == null || events.Count == 0)
             {
-                Timetable.DataSource = null;
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    Timetable.DataSource = null;
+                });
                 return;
             }
             
@@ -84,11 +110,52 @@ namespace NureTimetable.Views
                 }
             }
 
-            Timetable.MinDisplayDate = events.StartDate();
-            Timetable.MaxDisplayDate = events.EndDate();
-            Timetable.WeekViewSettings.WorkStartHour = events.StartTime().TotalHours;
-            Timetable.WeekViewSettings.WorkEndHour = events.EndTime().TotalHours;
-            Timetable.DataSource = events.Events;
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                Timetable.MinDisplayDate = events.StartDate();
+                Timetable.MaxDisplayDate = events.EndDate();
+                Timetable.WeekViewSettings.WorkStartHour = events.StartTime().TotalHours;
+                Timetable.WeekViewSettings.WorkEndHour = events.EndTime().TotalHours;
+
+                UpdateTimetableHeight();
+
+                Timetable.DataSource = events.Events;
+            });
+        }
+
+        protected override void OnSizeAllocated(double width, double height)
+        {
+            base.OnSizeAllocated(width, height); //must be called
+
+            if (PageSize.Width != width || PageSize.Height != height)
+            {
+                PageSize = new Size(width, height);
+
+                UpdateTimetableHeight();
+            }
+        }
+
+        private void UpdateTimetableHeight()
+        {
+            if (Application.Current.MainPage == null || events == null || events.Count == 0) return;
+
+            double timeIntrvalsCount = (Timetable.WeekViewSettings.WorkEndHour - Timetable.WeekViewSettings.WorkStartHour) / (Timetable.TimeInterval / 60);
+            double timeIntervalHeightToFit = Application.Current.MainPage.Height / (timeIntrvalsCount + 1);
+
+            if (timeIntervalHeightToFit < 50)
+            {
+                Timetable.TimeIntervalHeight = 50;
+            }
+            else
+            {
+                Timetable.TimeIntervalHeight = timeIntervalHeightToFit;
+
+                // Center 
+                DateTime dateTimeCenter = Timetable.SelectedDate ?? DateTime.Now;
+                TimeSpan timeCenter = TimeSpan.FromMinutes((Timetable.WeekViewSettings.WorkStartHour * 60) - (Timetable.TimeInterval / 2));
+                Timetable.NavigateTo(new DateTime(dateTimeCenter.Date.Ticks + timeCenter.Ticks));
+            }
+            Timetable.TimeIntervalHeight = Math.Max(50, timeIntervalHeightToFit);
         }
 
         private void ManageGroups_Clicked(object sender, EventArgs e)

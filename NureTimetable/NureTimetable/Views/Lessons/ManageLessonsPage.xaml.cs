@@ -33,13 +33,15 @@ namespace NureTimetable.Views.Lessons
             List<LessonSettings> lessonSettings = LessonSettingsDataStore.GetLessonSettings(group.ID);
             lessons = new ObservableCollection<LessonSettings>
             (
-                eventList.Lessons().Select(lesson =>
-                {
-                    LessonSettings res = lessonSettings.FirstOrDefault(ls => ls.LessonName == lesson)
-                        ?? new LessonSettings { LessonName = lesson };
-                    res.EventTypes = eventList.EventTypes(lesson).ToList();
-                    return res;
-                })
+                eventList.Lessons()
+                    .Select(lesson =>
+                    {
+                        LessonSettings res = lessonSettings.FirstOrDefault(ls => ls.LessonName == lesson)
+                            ?? new LessonSettings { LessonName = lesson };
+                        res.EventTypes = eventList.EventTypes(lesson).ToList();
+                        return res;
+                    })
+                    .OrderBy(lesson => lesson.LessonName)
             );
             LessonsList.ItemsSource = lessons;
             if (lessons.Count == 0)

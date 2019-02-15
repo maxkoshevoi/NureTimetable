@@ -12,7 +12,12 @@ namespace NureTimetable
 {
     public partial class App : Application
     {
-        public static bool IsDebugMode = false;
+        public static bool IsDebugMode
+#if DEBUG
+            = true;
+#else
+            = false;
+#endif
 
         public App()
         {
@@ -26,8 +31,9 @@ namespace NureTimetable
 
         protected override void OnStart()
         {
-#if !DEBUG
             // Handle when your app starts
+#if !DEBUG
+            //Register Microsoft App Center metrics
             AppCenter.Start("android=54a8f346-64c8-44f9-bbd5-6a0dae141d93;", typeof(Analytics), typeof(Crashes));
 #endif
         }
