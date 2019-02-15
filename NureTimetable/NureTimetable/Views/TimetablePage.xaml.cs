@@ -13,16 +13,17 @@ using Xamarin.Forms.Xaml;
 namespace NureTimetable.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class TimetablePage : ContentPage
+    public partial class TimetablePage : ContentPage
     {
-        public EventList events { get; set; }
-        Size PageSize;
-        bool isFirstLoad = true;
+        private Size PageSize;
+        private bool isFirstLoad = true;
+        private volatile EventList _events;
+        public EventList events { get => _events; set => _events = value; }
 
-        public TimetablePage ()
-		{
-			InitializeComponent ();
-            
+        public TimetablePage()
+        {
+            InitializeComponent();
+
             MessagingCenter.Subscribe<Application, Group>(this, MessageTypes.SelectedGroupChanged, (sender, newSelectedGroup) =>
             {
                 UpdateEvents(newSelectedGroup);
@@ -46,7 +47,7 @@ namespace NureTimetable.Views
                 UpdateEvents(selectedGroup);
             });
         }
-        
+
 
         private void ContentPage_Appearing(object sender, EventArgs e)
         {
@@ -93,7 +94,7 @@ namespace NureTimetable.Views
                 });
                 return;
             }
-            
+
             // Applying lesson settings
             foreach (LessonSettings lSetting in LessonSettingsDataStore.GetLessonSettings(selectedGroup.ID).Where(ls => ls.IsSomeSettingsApplied))
             {
@@ -112,12 +113,20 @@ namespace NureTimetable.Views
 
             Device.BeginInvokeOnMainThread(() =>
             {
-                Timetable.MinDisplayDate = events.StartDate();
-                Timetable.MaxDisplayDate = events.EndDate();
-                Timetable.WeekViewSettings.WorkStartHour = events.StartTime().TotalHours;
-                Timetable.WeekViewSettings.WorkEndHour = events.EndTime().TotalHours;
+                try
+                {
+                    Timetable.MinDisplayDate = events.StartDate();
+                    Timetable.MaxDisplayDate = events.EndDate();
+                    Timetable.WeekViewSettings.WorkStartHour = events.StartTime().TotalHours;
+                    Timetable.WeekViewSettings.WorkEndHour = events.EndTime().TotalHours;
 
-                UpdateTimetableHeight();
+                    UpdateTimetableHeight();
+                }
+                catch (Exception ex)
+                {
+                    // Potential error. Needs investigation!!!
+                    MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
+                }
 
                 Timetable.DataSource = events.Events;
             });

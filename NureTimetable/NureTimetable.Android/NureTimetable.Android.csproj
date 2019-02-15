@@ -113,7 +113,6 @@
     <AndroidResource Include="Resources\drawable-hdpi\save.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
-
   <!-- Added to provide autoamtic build number of android package -->
   <Target Name="BeforeBuild">
     <XmlPeek XmlInputPath="Properties\AndroidManifest.xml" Namespaces="&lt;Namespace Prefix='android' Uri='http://schemas.android.com/apk/res/android' /&gt;" Query="manifest/@android:versionCode">
@@ -130,7 +129,7 @@
     </PropertyGroup>
     <XmlPoke XmlInputPath="Properties\AndroidManifest.xml" Namespaces="&lt;Namespace Prefix='android' Uri='http://schemas.android.com/apk/res/android' /&gt;" Query="manifest/@android:versionCode" Value="$(NewBuildNumber)" />
     <XmlPoke XmlInputPath="Properties\AndroidManifest.xml" Namespaces="&lt;Namespace Prefix='android' Uri='http://schemas.android.com/apk/res/android' /&gt;" Query="manifest/@android:versionName" Value="$(NewVersion)" />
-    <Message Importance="High" Text="Build number: $(NewBuildNumber)"/>
-    <Message Importance="High" Text="Version: $(NewVersion)"/>
+    <Message Importance="High" Text="Build number: $(NewBuildNumber)" />
+    <Message Importance="High" Text="Version: $(NewVersion)" />
   </Target>
 </Project>
