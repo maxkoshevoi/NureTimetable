@@ -2,6 +2,7 @@
 using NureTimetable.Models;
 using NureTimetable.Models.Consts;
 using NureTimetable.ViewModels;
+using Syncfusion.SfSchedule.XForms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -104,6 +105,17 @@ namespace NureTimetable.Views
                 return;
             }
             Timetable.NavigateTo(DateTime.Now);
+        }
+
+        private void Timetable_CellTapped(object sender, CellTappedEventArgs e)
+        {
+            Event ev = (Event)e.Appointment;
+            if (ev == null)
+            {
+                return;
+            }
+            string nl = Environment.NewLine;
+            DisplayAlert($"{ev.Lesson} - {ev.Type}", $"Аудитория: {ev.Room}{nl}День: {ev.Start.ToString("ddd, dd.MM.yy")}{nl}Время: {ev.Start.ToString("HH:mm")} - {ev.End.ToString("HH:mm")}", "Ok");
         }
     }
 }

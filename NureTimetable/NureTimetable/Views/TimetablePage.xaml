@@ -23,7 +23,8 @@
                         TimeIntervalHeight="70"
                         TimeInterval="90"
                         HeaderHeight="50"
-                        ViewHeaderHeight="50">
+                        ViewHeaderHeight="50"
+                        CellTapped="Timetable_CellTapped">
                     <syncfusion:SfSchedule.HeaderStyle>
                         <syncfusion:HeaderStyle FontSize="10" FontAttributes="Bold"/>
                     </syncfusion:SfSchedule.HeaderStyle>
