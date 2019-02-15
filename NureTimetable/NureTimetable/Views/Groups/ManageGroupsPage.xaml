@@ -19,11 +19,9 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout>
-                                <Label Text="{Binding Name}" 
-                           Style="{DynamicResource ListItemTextStyle}" />
-                                <Label Text="{Binding LastUpdated}" 
-                           Style="{DynamicResource ListItemDetailTextStyle}"/>
+                            <StackLayout Margin="10,5,10,5">
+                                <Label Text="{Binding Name}" Style="{DynamicResource ListItemTextStyle}" />
+                                <Label Text="{Binding LastUpdated}" Style="{DynamicResource ListItemDetailTextStyle}"/>
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>

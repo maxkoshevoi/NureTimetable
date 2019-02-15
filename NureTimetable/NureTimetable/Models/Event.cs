@@ -13,6 +13,7 @@ namespace NureTimetable.Models
 
         public string DisplayInfo
             => $"{Lesson} {Room} {Type}";
+
         public Color Color
         {
             get

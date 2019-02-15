@@ -10,7 +10,7 @@ namespace NureTimetable.Models
         public string LessonName { get; set; }
         public List<string> EventTypes { get; set; } = new List<string>();
         public bool IsSomeSettingsApplied
-            => HidingSettings.HideLesson;
+            => HidingSettings.ShowLesson != true;
 
         public LessonHidingSettings HidingSettings { get; } = new LessonHidingSettings();
 
@@ -18,7 +18,7 @@ namespace NureTimetable.Models
         public event PropertyChangedEventHandler PropertyChanged;
         public void NotifyChanged()
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsSomeSettingsApplied)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(HidingSettings)));
         }
         #endregion
     }

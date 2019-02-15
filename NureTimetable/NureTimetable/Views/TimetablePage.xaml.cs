@@ -67,22 +67,20 @@ namespace NureTimetable.Views
                 Timetable.DataSource = null;
                 return;
             }
-
-            List<LessonSettings> lessonSettings = LessonSettingsDataStore.GetLessonSettings(selectedGroup.ID)
-                .Where(ls => ls.IsSomeSettingsApplied)
-                .ToList();
-            for (int i = 0; i < events.Events.Count; i++)
+            
+            // Applying lesson settings
+            foreach (LessonSettings lSetting in LessonSettingsDataStore.GetLessonSettings(selectedGroup.ID).Where(ls => ls.IsSomeSettingsApplied))
             {
-                LessonSettings lessonSetting = lessonSettings.FirstOrDefault(ls => ls.LessonName == events.Events[i].Lesson);
-                if (lessonSetting == null)
+                if (!lSetting.IsSomeSettingsApplied) continue;
+
+                // Hidding settings
+                if (lSetting.HidingSettings.ShowLesson == false)
                 {
-                    continue;
+                    events.Events.RemoveAll(ev => ev.Lesson == lSetting.LessonName);
                 }
-                if (lessonSetting.HidingSettings.HideLesson)
+                else if (lSetting.HidingSettings.ShowLesson == null)
                 {
-                    events.Events.RemoveAt(i);
-                    i--;
-                    continue;
+                    events.Events.RemoveAll(ev => ev.Lesson == lSetting.LessonName && lSetting.HidingSettings.HideOnlyThisEventTypes.Contains(ev.Type));
                 }
             }
 

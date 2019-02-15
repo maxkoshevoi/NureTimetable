@@ -13,7 +13,9 @@
                     CachingStrategy="RecycleElement">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <TextCell Text="{Binding Name}" />
+                        <ViewCell>
+                            <Label Text="{Binding Name}" Margin="10,0,10,0" VerticalOptions="Center" Style="{DynamicResource ListItemTextStyle}"/>
+                        </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

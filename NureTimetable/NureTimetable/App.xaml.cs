@@ -26,8 +26,10 @@ namespace NureTimetable
 
         protected override void OnStart()
         {
+#if !DEBUG
             // Handle when your app starts
             AppCenter.Start("android=54a8f346-64c8-44f9-bbd5-6a0dae141d93;", typeof(Analytics), typeof(Crashes));
+#endif
         }
 
         protected override void OnSleep()
