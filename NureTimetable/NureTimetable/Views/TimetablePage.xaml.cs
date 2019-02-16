@@ -6,6 +6,7 @@ using Syncfusion.SfSchedule.XForms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -84,17 +85,8 @@ namespace NureTimetable.Views
             }
 
             GroupName.Text = selectedGroup.Name;
-            events = EventsDataStore.GetEvents(selectedGroup.ID);
-
-            if (events == null || events.Count == 0)
-            {
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    Timetable.DataSource = null;
-                });
-                return;
-            }
-
+            events = EventsDataStore.GetEvents(selectedGroup.ID) ?? new EventList();
+            
             // Applying lesson settings
             foreach (LessonSettings lSetting in LessonSettingsDataStore.GetLessonSettings(selectedGroup.ID).Where(ls => ls.IsSomeSettingsApplied))
             {
@@ -113,22 +105,46 @@ namespace NureTimetable.Views
 
             Device.BeginInvokeOnMainThread(() =>
             {
-                try
+                if (events.Count == 0)
                 {
-                    Timetable.MinDisplayDate = events.StartDate();
-                    Timetable.MaxDisplayDate = events.EndDate();
-                    Timetable.WeekViewSettings.WorkStartHour = events.StartTime().TotalHours;
-                    Timetable.WeekViewSettings.WorkEndHour = events.EndTime().TotalHours;
-
-                    UpdateTimetableHeight();
+                    Timetable.DataSource = null;
                 }
-                catch (Exception ex)
+                else
                 {
-                    // Potential error. Needs investigation!!!
-                    MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
-                }
+                    int retriesLest = 25;
+                    Exception exception = null;
+                    do
+                    {
+                        try
+                        {
+                            Timetable.MinDisplayDate = events.StartDate();
+                            Timetable.MaxDisplayDate = events.EndDate();
+                            Timetable.WeekViewSettings.WorkStartHour = 0;
+                            Timetable.WeekViewSettings.WorkEndHour = 24;
+                            Timetable.WeekViewSettings.WorkStartHour = events.StartTime().TotalHours;
+                            Timetable.WeekViewSettings.WorkEndHour = events.EndTime().TotalHours;
 
-                Timetable.DataSource = events.Events;
+                            UpdateTimetableHeight();
+                            break;
+                        }
+                        catch (Exception ex)
+                        {
+                            // Potential error with the SfSchedule control. Needs investigation!
+                            exception = ex;
+                        }
+
+                        retriesLest--;
+                    } while (retriesLest > 0);
+                    if (retriesLest == 0 && exception != null)
+                    {
+                        MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, exception);
+
+                        DisplayAlert("Отоброжение расписания", "Произошла ошибка при попытке загрузить расписание", "Повторить попытку", "Ok");
+                        return;
+                    }
+
+                    Timetable.DataSource = events.Events;
+                }
             });
         }
 

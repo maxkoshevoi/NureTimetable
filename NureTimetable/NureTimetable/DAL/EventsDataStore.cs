@@ -14,6 +14,9 @@ namespace NureTimetable.DAL
 {
     public static class EventsDataStore
     {
+        /// <summary>
+        /// Returns events for one group. Null if error occurs 
+        /// </summary>
         public static EventList GetEvents(int groupID, bool tryUpdate = false, DateTime? dateStart = null, DateTime? dateEnd = null)
         {
             EventList eventList;
