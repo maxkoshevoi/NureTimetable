@@ -24,35 +24,9 @@ namespace NureTimetable.Views
             InitializeComponent();
         }
 
-        private void ContentPage_Appearing(object sender, EventArgs e)
+        private async void ContentPage_Appearing(object sender, EventArgs e)
         {
-            GroupsLayout.IsEnabled = false;
-            ProgressLayout.IsVisible = true;
-
-            Task.Factory.StartNew(() =>
-            {
-                allGroups = GroupsDataStore.GetAll();
-                if (allGroups == null)
-                {
-                    Device.BeginInvokeOnMainThread(() =>
-                    {
-                        DisplayAlert("Загрузка списка групп", "Не удолось загрузить список групп. Пожалуйста, попробуйте позже.", "Ok");
-                        Navigation.PopAsync();
-                    });
-                    return;
-                }
-
-                savedGroups = GroupsDataStore.GetSaved();
-                groups = new ObservableCollection<Group>(allGroups.OrderBy(g => g.Name));
-
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    AllGroupsList.ItemsSource = groups;
-
-                    ProgressLayout.IsVisible = false;
-                    GroupsLayout.IsEnabled = true;
-                });
-            });
+            await UpdateGroups();
         }
 
         async void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
@@ -77,7 +51,11 @@ namespace NureTimetable.Views
         
         private void Searchbar_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (!string.IsNullOrEmpty(Searchbar.Text))
+            if (string.IsNullOrEmpty(Searchbar.Text))
+            {
+                groups = new ObservableCollection<Group>(allGroups.OrderBy(g => g.Name));
+            }
+            else
             {
                 string searchQuery = Searchbar.Text.ToLower();
                 groups =
@@ -92,17 +70,29 @@ namespace NureTimetable.Views
 
         private async void UpdateFromCist_Clicked(object sender, EventArgs e)
         {
-            if (await DisplayAlert("Обновление из Cist", "Вы уверенны, что хотите загрузить список групп из Cist?", "Да", "Отмена") == false)
+            if (ProgressLayout.IsVisible || await DisplayAlert("Обновление из Cist", "Вы уверенны, что хотите загрузить список групп из Cist?", "Да", "Отмена") == false)
             {
                 return;
             }
 
+            await UpdateGroups(true);
+        }
+
+        private async Task UpdateGroups(bool fromCistOnly = false)
+        {
             GroupsLayout.IsEnabled = false;
             ProgressLayout.IsVisible = true;
 
             await Task.Factory.StartNew(() =>
             {
-                allGroups = GroupsDataStore.GetAllFromCist();
+                if (fromCistOnly)
+                {
+                    allGroups = GroupsDataStore.GetAllFromCist();
+                }
+                else
+                {
+                    allGroups = GroupsDataStore.GetAll();
+                }
                 if (allGroups == null)
                 {
                     Device.BeginInvokeOnMainThread(() =>
@@ -111,13 +101,14 @@ namespace NureTimetable.Views
                     });
                     return;
                 }
-                
+
+                savedGroups = GroupsDataStore.GetSaved();
                 groups = new ObservableCollection<Group>(allGroups.OrderBy(g => g.Name));
 
                 Device.BeginInvokeOnMainThread(() =>
                 {
                     AllGroupsList.ItemsSource = groups;
-                    Searchbar_TextChanged(sender, new TextChangedEventArgs(null, null));
+                    Searchbar_TextChanged(new object(), new TextChangedEventArgs(null, null));
 
                     ProgressLayout.IsVisible = false;
                     GroupsLayout.IsEnabled = true;

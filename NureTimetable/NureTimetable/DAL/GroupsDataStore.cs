@@ -90,6 +90,8 @@ namespace NureTimetable.DAL
                             }
                         }
                     }
+
+                    Serialisation.ToJsonFile(groups, FilePath.AllGroupsList);
                 }
                 catch (Exception ex)
                 {
