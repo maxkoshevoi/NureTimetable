@@ -77,14 +77,52 @@ namespace NureTimetable.Views
         
         private void Searchbar_TextChanged(object sender, TextChangedEventArgs e)
         {
-            string searchQuery = Searchbar.Text.ToLower();
-            groups =
-                new ObservableCollection<Group>(
-                    allGroups
-                    .Where(g => g.Name.ToLower().Contains(searchQuery) || g.Name.ToLower().Contains(searchQuery.Replace('и', 'і')) || g.ID.ToString() == searchQuery)
-                    .OrderBy(g => g.Name)
-                );
+            if (!string.IsNullOrEmpty(Searchbar.Text))
+            {
+                string searchQuery = Searchbar.Text.ToLower();
+                groups =
+                    new ObservableCollection<Group>(
+                        allGroups
+                        .Where(g => g.Name.ToLower().Contains(searchQuery) || g.Name.ToLower().Contains(searchQuery.Replace('и', 'і')) || g.ID.ToString() == searchQuery)
+                        .OrderBy(g => g.Name)
+                    );
+            }
             AllGroupsList.ItemsSource = groups;
+        }
+
+        private async void UpdateFromCist_Clicked(object sender, EventArgs e)
+        {
+            if (await DisplayAlert("Обновление из Cist", "Вы уверенны, что хотите загрузить список групп из Cist?", "Да", "Отмена") == false)
+            {
+                return;
+            }
+
+            GroupsLayout.IsEnabled = false;
+            ProgressLayout.IsVisible = true;
+
+            await Task.Factory.StartNew(() =>
+            {
+                allGroups = GroupsDataStore.GetAllFromCist();
+                if (allGroups == null)
+                {
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        DisplayAlert("Загрузка списка групп", "Не удолось загрузить список групп. Пожалуйста, попробуйте позже.", "Ok");
+                    });
+                    return;
+                }
+                
+                groups = new ObservableCollection<Group>(allGroups.OrderBy(g => g.Name));
+
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    AllGroupsList.ItemsSource = groups;
+                    Searchbar_TextChanged(sender, new TextChangedEventArgs(null, null));
+
+                    ProgressLayout.IsVisible = false;
+                    GroupsLayout.IsEnabled = true;
+                });
+            });
         }
     }
 }

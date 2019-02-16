@@ -165,7 +165,7 @@ namespace NureTimetable.Views
             if (Application.Current.MainPage == null || events == null || events.Count == 0) return;
 
             double timeIntrvalsCount = (Timetable.WeekViewSettings.WorkEndHour - Timetable.WeekViewSettings.WorkStartHour) / (Timetable.TimeInterval / 60);
-            double timeIntervalHeightToFit = Application.Current.MainPage.Height / (timeIntrvalsCount + 1);
+            double timeIntervalHeightToFit = Application.Current.MainPage.Height / (timeIntrvalsCount/* + 1*/);
 
             if (timeIntervalHeightToFit < 50)
             {

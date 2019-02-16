@@ -40,46 +40,65 @@ namespace NureTimetable.DAL
             return loadedGroups;
         }
 
-        public static List<Group> GetAllFromCist(string url = Urls.CistAllKNGroupsSource)
+        public static List<Group> GetAllFromCist()
         {
             List<Group> groups = new List<Group>();
-            try
+            using (var client = new WebClient())
             {
-                string timetableSelectionPage;
-                HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(url);
-                webRequest.CookieContainer = new CookieContainer();
-                using (HttpWebResponse response = (HttpWebResponse)webRequest.GetResponse())
+                client.Encoding = Encoding.GetEncoding("Windows-1251");
+                try
                 {
-                    using (Stream resStream = response.GetResponseStream())
+                    List<int> branches = new List<int>();
+
+                    // Getting branches
+                    Uri uri = new Uri(Urls.CistAllGroupsSource(null));
+                    string branchesListPage = client.DownloadString(uri);
+                    foreach (string part in branchesListPage.Split(new string[] { "IAS_Change_Groups(" }, StringSplitOptions.RemoveEmptyEntries).Skip(1))
                     {
-                        StreamReader reader = new StreamReader(resStream, Encoding.GetEncoding("Windows-1251"));
-                        timetableSelectionPage = reader.ReadToEnd();
+                        string branchIdStr = part.Remove(part.IndexOf(')'));
+                        if (!int.TryParse(branchIdStr, out int branchID))
+                        {
+                            continue;
+                        }
+                        branches.Add(branchID);
+                    }
+
+                    //Getting groups
+                    foreach (int branchID in branches)
+                    {
+                        uri = new Uri(Urls.CistAllGroupsSource(branchID));
+                        string branchGroupsPage = client.DownloadString(uri);
+                        foreach (string part in branchGroupsPage.Split(new string[] { "IAS_ADD_Group_in_List(" }, StringSplitOptions.RemoveEmptyEntries).Skip(1))
+                        {
+                            string[] groupInfo = part
+                                .Remove(part.IndexOf(")\">"))
+                                .Split(new char[] { ',', '\'' }, StringSplitOptions.RemoveEmptyEntries);
+
+                            if (groupInfo.Length < 2 || !int.TryParse(groupInfo.Last(), out int groupID))
+                            {
+                                continue;
+                            }
+
+                            for (int i = 0; i < groupInfo.Length - 1; i++)
+                            {
+                                Group group = new Group
+                                {
+                                    ID = groupID,
+                                    Name = groupInfo[i]
+                                };
+                                groups.Add(group);
+                            }
+                        }
                     }
                 }
-
-                foreach (string part in timetableSelectionPage.Split(new string[] { "IAS_ADD_Group_in_List(" }, StringSplitOptions.RemoveEmptyEntries).Skip(1))
+                catch (Exception ex)
                 {
-                    string[] groupInfo = part
-                        .Remove(part.IndexOf(')'))
-                        .Split(new char[] { ',', '\'' }, StringSplitOptions.RemoveEmptyEntries);
-
-                    Group group = new Group
+                    Device.BeginInvokeOnMainThread(() =>
                     {
-                        ID = int.Parse(groupInfo[1]),
-                        Name = groupInfo[0]
-                    };
-                    groups.Add(group);
+                        MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
+                    });
+                    groups = null;
                 }
-                
-                Serialisation.ToJsonFile(groups, FilePath.AllGroupsList);
-            }
-            catch (Exception ex)
-            {
-                groups = null;
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
-                });
             }
             return groups;
         }
