@@ -21,17 +21,17 @@ namespace NureTimetable.Models
                 switch (Type.ToLower())
                 {
                     case "лк":
-                        return Color.FromRgb(255, 204, 128);
+                        return Color.FromRgb(255, 228, 161);
                     case "пз":
-                        return Color.FromRgb(157, 242, 115);
+                        return Color.FromRgb(226, 240, 181);
                     case "лб":       
-                        return Color.FromRgb(217, 167, 241);
+                        return Color.FromRgb(229, 203, 242);
                     case "конс":     
-                        return Color.FromRgb(152, 220, 230);
+                        return Color.FromRgb(297, 235, 248);
                     case "зал":      
-                        return Color.FromRgb(241, 118, 116);
+                        return Color.FromRgb(254, 203, 202);
                     case "іспкомб": 
-                        return Color.FromRgb(241, 246, 136);
+                        return Color.FromRgb(244, 108, 105);
                     default:
                         return Color.LightSteelBlue;
                 }
