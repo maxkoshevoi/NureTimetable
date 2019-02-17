@@ -44,7 +44,6 @@
                             <FormattedString.Spans>
                                 <Span Text="Это приложение для отображения рассписания групп " />
                                 <Span Text="ХНУРЭ" FontAttributes="Bold" />
-                                <Span Text=". Пока что доступны группы только факультета КН (остальные добавить несложно, но пока руки не дошли)." />
                             </FormattedString.Spans>
                         </FormattedString>
                     </Label.FormattedText>
@@ -53,7 +52,7 @@
                     <Label.FormattedText>
                         <FormattedString>
                             <FormattedString.Spans>
-                                <Span Text="Приложение написано на коленке за выходные, потому что следующий семестр близко, а публичное API закрыли (так что пока всё в стадии бета). Если у кого-нибудь с опытом разработки на Xamarin будет желение помочь, вот ссылка на гитхаб: " />
+                                <Span Text="Если у кого-нибудь с опытом разработки на Xamarin будет желение помочь, вот ссылка на гитхаб: " />
                             </FormattedString.Spans>
                         </FormattedString>
                     </Label.FormattedText>
