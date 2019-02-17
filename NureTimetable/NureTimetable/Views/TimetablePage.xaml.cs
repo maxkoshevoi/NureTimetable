@@ -1,4 +1,4 @@
-﻿using NureTimetable.DAL;
+﻿using NureTimetable.DataStores;
 using NureTimetable.Models;
 using NureTimetable.Models.Consts;
 using NureTimetable.ViewModels;

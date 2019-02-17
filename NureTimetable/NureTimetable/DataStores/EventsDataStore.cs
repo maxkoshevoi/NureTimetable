@@ -10,7 +10,7 @@ using System.Net;
 using System.Text;
 using Xamarin.Forms;
 
-namespace NureTimetable.DAL
+namespace NureTimetable.DataStores
 {
     public static class EventsDataStore
     {
@@ -92,7 +92,7 @@ namespace NureTimetable.DAL
                     }
                     foreach (int groupID in timetables.Keys)
                     {
-                        Serialisation.ToJsonFile(timetables[groupID].Events, FilePath.SavedTimetable(groupID));
+                        SerializationHelper.ToJsonFile(timetables[groupID].Events, FilePath.SavedTimetable(groupID));
                         Device.BeginInvokeOnMainThread(() =>
                         {
                             MessagingCenter.Send(Application.Current, MessageTypes.TimetableUpdated, groupID);
@@ -114,7 +114,7 @@ namespace NureTimetable.DAL
 
         public static EventList GetEventsLocal(int groupID)
         {
-            List<Event> localEvents = Serialisation.FromJsonFile<List<Event>>(FilePath.SavedTimetable(groupID));
+            List<Event> localEvents = SerializationHelper.FromJsonFile<List<Event>>(FilePath.SavedTimetable(groupID));
             if (localEvents == null)
             {
                 return null;
