@@ -18,7 +18,7 @@
     <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="16.4.0.53" />
     <PackageReference Include="Syncfusion.Xamarin.SfSchedule" Version="16.4.0.53" />
     <PackageReference Include="Xam.Plugin.DeviceInfo" Version="4.1.1" />
-    <PackageReference Include="Xamarin.Forms" Version="3.4.0.1008975" />  
+    <PackageReference Include="Xamarin.Forms" Version="3.5.0.129452" />  
   </ItemGroup>
 
   <ItemGroup>
