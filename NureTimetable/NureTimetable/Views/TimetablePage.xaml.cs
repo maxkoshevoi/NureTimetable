@@ -162,25 +162,25 @@ namespace NureTimetable.Views
 
         private void UpdateTimetableHeight()
         {
-            if (Application.Current.MainPage == null || events == null || events.Count == 0) return;
+            if (Timetable.Height <= 0 || events == null || events.Count == 0) return;
 
             double timeIntrvalsCount = (Timetable.WeekViewSettings.WorkEndHour - Timetable.WeekViewSettings.WorkStartHour) / (Timetable.TimeInterval / 60);
-            double timeIntervalHeightToFit = Application.Current.MainPage.Height / (timeIntrvalsCount/* + 1*/);
+            double magicNumberToMakeMathWork = 1.4;
+            double timeIntervalHeightToFit = (Timetable.Height - Timetable.HeaderHeight)*magicNumberToMakeMathWork / (timeIntrvalsCount/* + 1*/);
+            double minTimeInterval = (50 * Timetable.TimeInterval) / 90; // Each 90 minute interval should be equal or more than 50 in size
 
-            if (timeIntervalHeightToFit < 50)
+            if (timeIntervalHeightToFit <= minTimeInterval)
             {
-                Timetable.TimeIntervalHeight = 50;
+                timeIntervalHeightToFit = minTimeInterval;
             }
-            else
-            {
-                Timetable.TimeIntervalHeight = timeIntervalHeightToFit;
-
-                // Center 
-                DateTime dateTimeCenter = Timetable.SelectedDate ?? DateTime.Now;
-                TimeSpan timeCenter = TimeSpan.FromMinutes((Timetable.WeekViewSettings.WorkStartHour * 60) - (Timetable.TimeInterval / 2));
-                Timetable.NavigateTo(new DateTime(dateTimeCenter.Date.Ticks + timeCenter.Ticks));
-            }
-            Timetable.TimeIntervalHeight = Math.Max(50, timeIntervalHeightToFit);
+            //else
+            //{
+            //    // Center 
+            //    DateTime dateCenter = Timetable.SelectedDate ?? DateTime.Now;
+            //    TimeSpan timeCenter = TimeSpan.FromMinutes((Timetable.WeekViewSettings.WorkStartHour * 60) - (Timetable.TimeInterval / 2));
+            //    Timetable.NavigateTo(new DateTime(dateCenter.Date.Ticks + timeCenter.Ticks));
+            //}
+            Timetable.TimeIntervalHeight = timeIntervalHeightToFit;
         }
 
         private void ManageGroups_Clicked(object sender, EventArgs e)
