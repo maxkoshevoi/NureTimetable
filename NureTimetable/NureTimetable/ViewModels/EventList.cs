@@ -76,12 +76,11 @@ namespace NureTimetable.ViewModels
                         .Split(new string[] { "\",\"" }, StringSplitOptions.RemoveEmptyEntries)
                         .Select(str => str.Trim('"'))
                         .ToArray();
-                    string[] eventDescription = rawEvent[0].Split(' ');
 
                     /*
                      * Data structure
                      * 
-                     * 0  - Тема ([Group_Name - ]Lesson Type Room...)
+                     * 0  - Тема ([Group_Name - ]Lesson Type Room; [Lesson2...; ][LessonN...])
                      * 1  - Дата начала 
                      * 2  - Время начала 
                      * 3  - Дата завершения 
@@ -96,28 +95,37 @@ namespace NureTimetable.ViewModels
                      * 12 - Пометка
                     */
 
-                    Event ev = new Event
-                    {
-                        Lesson = eventDescription[isManyGroups ? 2 : 0],
-                        Type = eventDescription[isManyGroups ? 3 : 1],
-                        Room = eventDescription[isManyGroups ? 4 : 2],
+                    string[] concurrentEventsList = rawEvent[0].Split(new string[] { "; " }, StringSplitOptions.RemoveEmptyEntries);
 
-                        Start = DateTime.ParseExact(rawEvent[1], "dd.MM.yyyy", CultureInfo.InvariantCulture)
-                                    .Add(TimeSpan.ParseExact(rawEvent[2], "hh\\:mm\\:ss", CultureInfo.InvariantCulture)),
-                        End = DateTime.ParseExact(rawEvent[3], "dd.MM.yyyy", CultureInfo.InvariantCulture)
-                                    .Add(TimeSpan.ParseExact(rawEvent[4], "hh\\:mm\\:ss", CultureInfo.InvariantCulture)),
-                    };
                     string groupName = defaultKey;
                     if (isManyGroups)
                     {
-                        groupName = eventDescription[0];
+                        groupName = concurrentEventsList[0].Remove(concurrentEventsList[0].IndexOf(' '));
+                        concurrentEventsList[0] = concurrentEventsList[0].Substring(concurrentEventsList[0].IndexOf(" - ") + 3);
                     }
 
-                    if (!timetables.ContainsKey(groupName))
+                    foreach (string eventDescriptionStr in concurrentEventsList)
                     {
-                        timetables.Add(groupName, new List<Event>());
+                        string[] eventDescription = eventDescriptionStr.Split(' ');
+
+                        Event ev = new Event
+                        {
+                            Lesson = eventDescription[0],
+                            Type = eventDescription[1],
+                            Room = eventDescription[2],
+
+                            Start = DateTime.ParseExact(rawEvent[1], "dd.MM.yyyy", CultureInfo.InvariantCulture)
+                                        .Add(TimeSpan.ParseExact(rawEvent[2], "hh\\:mm\\:ss", CultureInfo.InvariantCulture)),
+                            End = DateTime.ParseExact(rawEvent[3], "dd.MM.yyyy", CultureInfo.InvariantCulture)
+                                        .Add(TimeSpan.ParseExact(rawEvent[4], "hh\\:mm\\:ss", CultureInfo.InvariantCulture)),
+                        };
+
+                        if (!timetables.ContainsKey(groupName))
+                        {
+                            timetables.Add(groupName, new List<Event>());
+                        }
+                        timetables[groupName].Add(ev);
                     }
-                    timetables[groupName].Add(ev);
                 }
                 catch (Exception ex)
                 {
