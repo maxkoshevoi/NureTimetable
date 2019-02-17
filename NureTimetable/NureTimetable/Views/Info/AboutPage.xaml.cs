@@ -1,4 +1,8 @@
-﻿using NureTimetable.Models.InterplatformCommunication;
+﻿using NureTimetable.Models.Consts;
+using NureTimetable.Models.InterplatformCommunication;
+using Plugin.DeviceInfo;
+using Plugin.InAppBilling;
+using Plugin.InAppBilling.Abstractions;
 using System;
 
 using Xamarin.Forms;

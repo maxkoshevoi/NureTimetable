@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NureTimetable.Views.Info.DonatePage"
+             Title="Пожертвовать">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Primary">#3acc0a</Color>
+            <Color x:Key="Accent">#96d1ff</Color>
+            <Color x:Key="LightTextColor">#999999</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackLayout BackgroundColor="{StaticResource Accent}" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+                <ContentView Padding="0,40,0,40" VerticalOptions="FillAndExpand">
+                    <Image Source="coin.png" VerticalOptions="Center" HeightRequest="85" />
+                </ContentView>
+            </StackLayout>
+        </StackLayout>
+        <ScrollView Grid.Row="1">
+            <StackLayout Orientation="Vertical" Padding="16,40,16,40" Spacing="10">
+                <Label>
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <FormattedString.Spans>
+                                <Span Text="Это приложение " />
+                                <Span Text="бесплатное" FontAttributes="Bold" />
+                                <Span Text=" и всегда будет им оставаться." />
+                            </FormattedString.Spans>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label>
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <FormattedString.Spans>
+                                <Span Text="Ваш вклад поддерживает развитие его развитие и помогает не уходить в небытие." />
+                            </FormattedString.Spans>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Button Margin="0,10,0,0" Text="Сказать спасибо"
+                        BackgroundColor="{StaticResource Primary}"
+                        TextColor="White" 
+                        Clicked="DonateLow_Clicked" />
+                <Button Margin="0,10,0,0" Text="Сказать большое спасибо"
+                        BackgroundColor="{StaticResource Primary}"
+                        TextColor="White"
+                        Clicked="DonateMedium_Clicked" />
+                <Button Margin="0,10,0,0" Text="Сказать громадное спасибо"
+                        BackgroundColor="{StaticResource Primary}"
+                        TextColor="White"
+                        Clicked="DonateHigh_Clicked" />
+            </StackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

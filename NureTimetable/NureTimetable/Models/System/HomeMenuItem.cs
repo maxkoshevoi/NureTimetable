@@ -7,7 +7,8 @@ namespace NureTimetable.Models.System
     public enum MenuItemType
     {
         Timetable,
-        About
+        About,
+        Donate
     }
     public class HomeMenuItem
     {

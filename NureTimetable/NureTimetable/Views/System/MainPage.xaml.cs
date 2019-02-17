@@ -1,5 +1,6 @@
 ﻿using NureTimetable.Models.Consts;
 using NureTimetable.Models.System;
+using NureTimetable.Views.Info;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -40,6 +41,11 @@ namespace NureTimetable.Views
                     case (int)MenuItemType.About:
                         MenuPages.Add(id, new NavigationPage(new AboutPage()));
                         break;
+                    case (int)MenuItemType.Donate:
+                        MenuPages.Add(id, new NavigationPage(new DonatePage()));
+                        break;
+                    default:
+                        throw new ArgumentException("Unknown menu page");
                 }
             }
 

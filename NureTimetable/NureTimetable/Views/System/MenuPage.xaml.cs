@@ -18,7 +18,8 @@ namespace NureTimetable.Views
             menuItems = new List<HomeMenuItem>
             {
                 new HomeMenuItem {Id = MenuItemType.Timetable, Title="Расписание" },
-                new HomeMenuItem {Id = MenuItemType.About, Title="О программе" }
+                new HomeMenuItem {Id = MenuItemType.About, Title="О программе" },
+                new HomeMenuItem {Id = MenuItemType.Donate, Title="Пожертвовать" }
             };
 
             ListViewMenu.ItemsSource = menuItems;
