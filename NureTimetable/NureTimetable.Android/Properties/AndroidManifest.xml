@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="249" android:versionName="1.2.249" package="com.whitebox.nuretimetable" android:installLocation="auto">
-	<uses-sdk android:minSdkVersion="19" android:targetSdkVersion="28" />
-	<uses-permission android:name="android.permission.INTERNET" />
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="262" android:versionName="1.2.262" package="com.whitebox.nuretimetable" android:installLocation="auto">
+  <uses-sdk android:minSdkVersion="19" android:targetSdkVersion="28" />
+  <uses-permission android:name="android.permission.INTERNET" />
   <uses-permission android:name="com.android.vending.BILLING" />
-	<application android:label="Nure Timetable" android:icon="@mipmap/icon"></application>
+  <application android:label="Nure Timetable" android:icon="@mipmap/icon">
+  </application>
 </manifest>
