@@ -24,13 +24,13 @@ namespace NureTimetable.Models
                         return Color.FromRgb(255, 228, 161);
                     case "пз":
                         return Color.FromRgb(226, 240, 181);
-                    case "лб":       
+                    case "лб":
                         return Color.FromRgb(229, 203, 242);
-                    case "конс":     
-                        return Color.FromRgb(297, 235, 248);
-                    case "зал":      
-                        return Color.FromRgb(254, 203, 202);
-                    case "іспкомб": 
+                    case "конс":
+                        return Color.FromRgb(142, 216, 241);
+                    case "зал":
+                        return Color.FromRgb(255, 156, 167);
+                    case "іспкомб":
                         return Color.FromRgb(244, 108, 105);
                     default:
                         return Color.LightSteelBlue;
