@@ -80,7 +80,7 @@ namespace NureTimetable.ViewModels
                     /*
                      * Data structure
                      * 
-                     * 0  - Тема ([Group_Name - ]Lesson Type Room; [Lesson2...; ][LessonN...])
+                     * 0  - Тема ([Group_Name - ]Lesson Type Room[, Room2]; [Lesson2...; ][LessonN...])
                      * 1  - Дата начала 
                      * 2  - Время начала 
                      * 3  - Дата завершения 
@@ -106,7 +106,31 @@ namespace NureTimetable.ViewModels
 
                     foreach (string eventDescriptionStr in concurrentEventsList)
                     {
-                        string[] eventDescription = eventDescriptionStr.Split(' ');
+                        List<string> eventDescription = eventDescriptionStr.Split(' ').ToList();
+
+                        // Checking for lessons with spaces
+                        int typeIndex = -1;
+                        for (int i = eventDescription.Count - 1; i >= 0; i--)
+                        {
+                            if (KnownEventTypes.Values.Contains(eventDescription[i].ToLower()))
+                            {
+                                typeIndex = i;
+                                break;
+                            }
+                        }
+                        while (typeIndex > 1)
+                        {
+                            eventDescription[0] += $" {eventDescription[1]}";
+                            eventDescription.RemoveAt(1);
+                            typeIndex--;
+                        }
+
+                        // Checking for multiple rooms
+                        while (eventDescription[2].EndsWith(",") && eventDescription.Count > 2)
+                        {
+                            eventDescription[2] += $" {eventDescription[3]}";
+                            eventDescription.RemoveAt(3);
+                        }
 
                         Event ev = new Event
                         {
