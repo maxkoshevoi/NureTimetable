@@ -3,7 +3,7 @@ using NureTimetable.Models.Consts;
 using System;
 using System.IO;
 
-namespace NureTimetable.DAL
+namespace NureTimetable.DataStores
 {
     public static class SettingsDataStore
     {
@@ -19,13 +19,13 @@ return null;
                 return null;
             }
 
-            DateTime lastTimetableUpdate = Serialisation.FromJsonFile<DateTime>(filePath);
+            DateTime lastTimetableUpdate = SerializationHelper.FromJsonFile<DateTime>(filePath);
             return lastTimetableUpdate;
         }
 
         public static void UpdateLastTimetableUpdate()
         {
-            Serialisation.ToJsonFile(DateTime.Now, FilePath.LastTimetableUpdate);
+            SerializationHelper.ToJsonFile(DateTime.Now, FilePath.LastTimetableUpdate);
         }
     }
 }

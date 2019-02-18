@@ -6,7 +6,7 @@ using Xamarin.Forms;
 
 namespace NureTimetable.Helpers
 {
-    public static class Serialisation
+    public static class SerializationHelper
     {
         public static void ToJsonFile<T>(T instance, string filePath)
         {

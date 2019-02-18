@@ -6,6 +6,13 @@
         <ResourceDictionary>
             <!--Global Styles-->
             <Color x:Key="NavigationPrimary">#2196F3</Color>
+            <!-- Events colors -->
+            <Color x:Key="лкColor">#ffe4a1</Color>
+            <Color x:Key="пзColor">#e2f0b5</Color>
+            <Color x:Key="лбColor">#e5cbf2</Color>
+            <Color x:Key="консColor">#8ed8f1</Color>
+            <Color x:Key="залColor">#ff9ca7</Color>
+            <Color x:Key="іспкомбColor">#f46c69</Color>
             <Style TargetType="NavigationPage">
                 <Setter Property="BarBackgroundColor" Value="{StaticResource NavigationPrimary}" />
                 <Setter Property="BarTextColor" Value="White" />

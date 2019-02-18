@@ -9,7 +9,7 @@ using System.Net;
 using System.Text;
 using Xamarin.Forms;
 
-namespace NureTimetable.DAL
+namespace NureTimetable.DataStores
 {
     public static class GroupsDataStore
     {
@@ -36,7 +36,7 @@ namespace NureTimetable.DAL
                 return null;
             }
             
-            loadedGroups = Serialisation.FromJsonFile<List<Group>>(filePath);
+            loadedGroups = SerializationHelper.FromJsonFile<List<Group>>(filePath);
             return loadedGroups;
         }
 
@@ -91,7 +91,7 @@ namespace NureTimetable.DAL
                         }
                     }
 
-                    Serialisation.ToJsonFile(groups, FilePath.AllGroupsList);
+                    SerializationHelper.ToJsonFile(groups, FilePath.AllGroupsList);
                 }
                 catch (Exception ex)
                 {
@@ -117,7 +117,7 @@ namespace NureTimetable.DAL
                 return loadedGroups;
             }
             
-            loadedGroups = Serialisation.FromJsonFile<List<SavedGroup>>(filePath) ?? loadedGroups;
+            loadedGroups = SerializationHelper.FromJsonFile<List<SavedGroup>>(filePath) ?? loadedGroups;
             return loadedGroups;
         }
 
@@ -139,7 +139,7 @@ namespace NureTimetable.DAL
                 });
             }
             // Saving saved groups list
-            Serialisation.ToJsonFile(savedGroups, FilePath.SavedGroupsList);
+            SerializationHelper.ToJsonFile(savedGroups, FilePath.SavedGroupsList);
             Device.BeginInvokeOnMainThread(() =>
             {
                 MessagingCenter.Send(Application.Current, MessageTypes.SavedGroupsChanged, savedGroups);
@@ -161,13 +161,13 @@ namespace NureTimetable.DAL
                 return null;
             }
 
-            Group selectedGroup = Serialisation.FromJsonFile<Group>(filePath);
+            Group selectedGroup = SerializationHelper.FromJsonFile<Group>(filePath);
             return selectedGroup;
         }
 
         public static void UpdateSelected(SavedGroup selectedGroup)
         {
-            Serialisation.ToJsonFile((Group)selectedGroup, FilePath.SelectedGroup);
+            SerializationHelper.ToJsonFile((Group)selectedGroup, FilePath.SelectedGroup);
             Device.BeginInvokeOnMainThread(() =>
             {
                 MessagingCenter.Send(Application.Current, MessageTypes.SelectedGroupChanged, (Group)selectedGroup);

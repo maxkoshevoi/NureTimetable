@@ -7,7 +7,7 @@ using System.IO;
 using System.Text;
 using Xamarin.Forms;
 
-namespace NureTimetable.DAL
+namespace NureTimetable.DataStores
 {
     public static class LessonSettingsDataStore
     {
@@ -20,13 +20,13 @@ namespace NureTimetable.DAL
                 return lessonSettings;
             }
 
-            lessonSettings = Serialisation.FromJsonFile<List<LessonSettings>>(filePath) ?? lessonSettings;
+            lessonSettings = SerializationHelper.FromJsonFile<List<LessonSettings>>(filePath) ?? lessonSettings;
             return lessonSettings;
         }
 
         public static void UpdateLessonSettings(int groupID, List<LessonSettings> lessonSettings)
         {
-            Serialisation.ToJsonFile(lessonSettings, FilePath.LessonSettings(groupID));
+            SerializationHelper.ToJsonFile(lessonSettings, FilePath.LessonSettings(groupID));
             Device.BeginInvokeOnMainThread(() =>
             {
                 MessagingCenter.Send(Application.Current, MessageTypes.LessonSettingsChanged, groupID);

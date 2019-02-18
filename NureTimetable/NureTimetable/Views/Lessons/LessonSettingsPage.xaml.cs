@@ -1,4 +1,4 @@
-﻿using NureTimetable.DAL;
+﻿using NureTimetable.DataStores;
 using NureTimetable.Helpers;
 using NureTimetable.Models;
 using Syncfusion.XForms.Buttons;
