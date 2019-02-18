@@ -1,17 +1,12 @@
-﻿using System;
-
+﻿
 using Android.App;
-using Android.Content.PM;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-using Android.OS;
-using Plugin.InAppBilling;
 using Android.Content;
+using Android.Content.PM;
+using Android.OS;
 using Plugin.CurrentActivity;
+using Plugin.InAppBilling;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
-using NureTimetable.Droid.BugFixes;
 
 namespace NureTimetable.Droid
 {
@@ -27,14 +22,6 @@ namespace NureTimetable.Droid
             Forms.Init(this, savedInstanceState);
             CrossCurrentActivity.Current.Activity = this;
             LoadApplication(new App());
-            
-            // Fix the keyboard so it doesn't overlap the grid icons above keyboard etc, and makes Android 5+ work as AdjustResize in Android 4
-            Window.SetSoftInputMode(SoftInput.AdjustResize);
-            if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
-            {
-                // Bug in Android 5+, this is an adequate workaround
-                AndroidBug5497WorkaroundForXamarinAndroid.assistActivity(this, WindowManager);
-            }
         }
 
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)

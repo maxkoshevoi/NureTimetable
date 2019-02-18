@@ -69,7 +69,6 @@
     <PackageReference Include="Xamarin.Android.Support.v7.MediaRouter" Version="27.0.2.1" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BugFixes\AndroidBug5497WorkaroundForXamarinAndroid.cs" />
     <Compile Include="Dependences\AppVersionProvider.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />

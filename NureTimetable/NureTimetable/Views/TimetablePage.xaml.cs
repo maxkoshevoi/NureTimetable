@@ -5,6 +5,7 @@ using NureTimetable.ViewModels;
 using Syncfusion.SfSchedule.XForms;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -24,6 +25,7 @@ namespace NureTimetable.Views
         public TimetablePage()
         {
             InitializeComponent();
+            Timetable.Locale = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
 
             MessagingCenter.Subscribe<Application, Group>(this, MessageTypes.SelectedGroupChanged, (sender, newSelectedGroup) =>
             {
@@ -165,7 +167,7 @@ namespace NureTimetable.Views
             if (Timetable.Height <= 0 || events == null || events.Count == 0) return;
 
             double timeIntrvalsCount = (Timetable.WeekViewSettings.EndHour - Timetable.WeekViewSettings.StartHour) / (Timetable.TimeInterval / 60);
-            double magicNumberToMakeMathWork = 1.6;
+            double magicNumberToMakeMathWork = 1.55;
             double timeIntervalHeightToFit = (Timetable.Height - Timetable.HeaderHeight - Timetable.ViewHeaderHeight)*magicNumberToMakeMathWork / (timeIntrvalsCount/* + 1*/);
             double minTimeInterval = (50 * Timetable.TimeInterval) / 90; // Each 90 minute interval should be equal or more than 50 in size
 
@@ -178,7 +180,7 @@ namespace NureTimetable.Views
             //    // Center 
             //    DateTime dateCenter = Timetable.SelectedDate ?? DateTime.Now;
             //    TimeSpan timeCenter = TimeSpan.FromMinutes((Timetable.WeekViewSettings.WorkStartHour * 60) - (Timetable.TimeInterval / 2));
-            //    Timetable.NavigateTo(new DateTime(dateCenter.Date.Ticks + timeCenter.Ticks));
+            //    Timetable.NavigateTo(new DateTime(dateCenter.Date.Ticks + timeCenter.Ticks)); // Potential System.ObjectDisposedException on this line
             //}
             Timetable.TimeIntervalHeight = timeIntervalHeightToFit;
         }

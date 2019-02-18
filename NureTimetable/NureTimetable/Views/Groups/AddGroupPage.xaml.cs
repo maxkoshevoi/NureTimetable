@@ -52,6 +52,8 @@ namespace NureTimetable.Views
         
         private void Searchbar_TextChanged(object sender, TextChangedEventArgs e)
         {
+            if (allGroups == null) return;
+
             if (string.IsNullOrEmpty(Searchbar.Text))
             {
                 groups = new ObservableCollection<Group>(allGroups.OrderBy(g => g.Name));
