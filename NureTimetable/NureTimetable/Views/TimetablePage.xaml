@@ -23,8 +23,9 @@
                         ViewHeaderHeight="50"
                         FirstDayOfWeek="2"
                         ScheduleView="WeekView"
-                        ShowAppointmentsInline="true"
-                        CellTapped="Timetable_CellTapped">
+                        ShowAppointmentsInline="True"
+                        CellTapped="Timetable_CellTapped"
+                        MonthInlineAppointmentTapped="Timetable_MonthInlineAppointmentTapped">
                     <syncfusion:SfSchedule.HeaderStyle>
                         <syncfusion:HeaderStyle FontSize="10" FontAttributes="Bold"/>
                     </syncfusion:SfSchedule.HeaderStyle>

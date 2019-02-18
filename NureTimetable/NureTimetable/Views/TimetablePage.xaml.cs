@@ -141,7 +141,7 @@ namespace NureTimetable.Views
                     {
                         MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, exception);
 
-                        DisplayAlert("Отоброжение расписания", "Произошла ошибка при попытке загрузить расписание", "Повторить попытку", "Ok");
+                        DisplayAlert("Отображение расписания", "Произошла ошибка при попытке загрузить расписание", "Повторить попытку", "Ok");
                         return;
                     }
 
@@ -216,7 +216,16 @@ namespace NureTimetable.Views
 
         private void Timetable_CellTapped(object sender, CellTappedEventArgs e)
         {
-            Event ev = (Event)e.Appointment;
+            DisplayEventDetails((Event)e.Appointment);
+        }
+
+        private void Timetable_MonthInlineAppointmentTapped(object sender, MonthInlineAppointmentTappedEventArgs e)
+        {
+            DisplayEventDetails((Event)e.Appointment);
+        }
+
+        private void DisplayEventDetails(Event ev)
+        {
             if (ev == null)
             {
                 return;
