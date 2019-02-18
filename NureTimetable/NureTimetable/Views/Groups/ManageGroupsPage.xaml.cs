@@ -74,22 +74,18 @@ namespace NureTimetable.Views
                     break;
             }
         }
-        
-        private bool CheckUpdateTimetableRights()
-        {
-            TimeSpan? timePass = DateTime.Now - SettingsDataStore.GetLastTimetableUpdate();
-            if (timePass != null && timePass <= Config.TimetableManualUpdateMinInterval)
-            {
-                DisplayAlert("Обновление расписания", $"В связи с большой нагрузкой на cist, обновление расписания ограничено одним разом в 24 часа. Пожалуйста, подождите ещё {(Config.TimetableManualUpdateMinInterval - timePass.Value).ToString("hh\\:mm")}, и попробуйте снова.", "Хорошо");
-                return false;
-            }
-            return true;
-        }
 
         private async Task UpdateTimetable(params SavedGroup[] savedGroups)
         {
-            if (savedGroups == null || savedGroups.Length == 0 || CheckUpdateTimetableRights() == false)
+            if (savedGroups == null || savedGroups.Length == 0)
             {
+                return;
+            }
+
+            if (SettingsDataStore.CheckGetDataFromCistRights() == false)
+            {
+                TimeSpan? timePass = DateTime.Now - SettingsDataStore.GetLastCistRequestTime();
+                await DisplayAlert("Обновление расписания", $"В связи с большой нагрузкой на cist, обновление данных ограничено одним разом в 16 часов. Пожалуйста, подождите ещё {(Config.CistRequestMinInterval - timePass.Value).ToString("hh\\:mm")}, и попробуйте снова.", "Хорошо");
                 return;
             }
 

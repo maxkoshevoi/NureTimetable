@@ -31,7 +31,7 @@
                         <syncfusion:ViewHeaderStyle DateFontSize="13" DayFontSize="8" />
                     </syncfusion:SfSchedule.ViewHeaderStyle>
                     <syncfusion:SfSchedule.WeekViewSettings>
-                        <syncfusion:WeekViewSettings>
+                        <syncfusion:WeekViewSettings WorkStartHour="0" WorkEndHour="24">
                             <syncfusion:WeekViewSettings.WeekLabelSettings>
                                 <syncfusion:WeekLabelSettings TimeFormat="HH:mm"/>
                             </syncfusion:WeekViewSettings.WeekLabelSettings>

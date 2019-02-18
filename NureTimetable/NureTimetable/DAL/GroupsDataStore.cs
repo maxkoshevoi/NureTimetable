@@ -22,7 +22,7 @@ namespace NureTimetable.DAL
             {
                 return groupList;
             }
-            groupList = GetAllFromCist();
+            groupList = GetAllFromCist(false);
             return groupList;
         }
 
@@ -41,7 +41,15 @@ namespace NureTimetable.DAL
         }
 
         public static List<Group> GetAllFromCist()
+            => GetAllFromCist(true);
+
+        private static List<Group> GetAllFromCist(bool applyToCistRequestRestrictions)
         {
+            if (applyToCistRequestRestrictions && SettingsDataStore.CheckGetDataFromCistRights() == false)
+            {
+                return null;
+            }
+
             List<Group> groups = new List<Group>();
             using (var client = new WebClient())
             {
@@ -92,6 +100,11 @@ namespace NureTimetable.DAL
                     }
 
                     Serialisation.ToJsonFile(groups, FilePath.AllGroupsList);
+
+                    if (applyToCistRequestRestrictions)
+                    {
+                        SettingsDataStore.UpdateLastCistRequestTime();
+                    }
                 }
                 catch (Exception ex)
                 {

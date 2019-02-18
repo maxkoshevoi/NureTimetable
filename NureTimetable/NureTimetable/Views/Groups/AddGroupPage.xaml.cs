@@ -1,5 +1,6 @@
 ﻿using NureTimetable.DAL;
 using NureTimetable.Models;
+using NureTimetable.Models.Consts;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -70,8 +71,15 @@ namespace NureTimetable.Views
 
         private async void UpdateFromCist_Clicked(object sender, EventArgs e)
         {
-            if (ProgressLayout.IsVisible || await DisplayAlert("Обновление из Cist", "Вы уверенны, что хотите загрузить список групп из Cist?", "Да", "Отмена") == false)
+            if (ProgressLayout.IsVisible || await DisplayAlert("Загрузка списка групп", "Вы уверенны, что хотите загрузить список групп из Cist?", "Да", "Отмена") == false)
             {
+                return;
+            }
+
+            if (SettingsDataStore.CheckGetDataFromCistRights() == false)
+            {
+                TimeSpan? timePass = DateTime.Now - SettingsDataStore.GetLastCistRequestTime();
+                await DisplayAlert("Загрузка списка групп", $"В связи с большой нагрузкой на cist, обновление данных ограничено одним разом в 16 часов. Пожалуйста, подождите ещё {(Config.CistRequestMinInterval - timePass.Value).ToString("hh\\:mm")}, и попробуйте снова.", "Хорошо");
                 return;
             }
 
@@ -98,6 +106,9 @@ namespace NureTimetable.Views
                     Device.BeginInvokeOnMainThread(() =>
                     {
                         DisplayAlert("Загрузка списка групп", "Не удолось загрузить список групп. Пожалуйста, попробуйте позже.", "Ok");
+
+                        ProgressLayout.IsVisible = false;
+                        GroupsLayout.IsEnabled = true;
                     });
                     return;
                 }

@@ -7,7 +7,17 @@ namespace NureTimetable.DAL
 {
     public static class SettingsDataStore
     {
-        public static DateTime? GetLastTimetableUpdate()
+        public static bool CheckGetDataFromCistRights()
+        {
+            TimeSpan? timePass = DateTime.Now - GetLastCistRequestTime();
+            if (timePass != null && timePass <= Config.CistRequestMinInterval)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public static DateTime? GetLastCistRequestTime()
         {
 #if DEBUG
 return null;
@@ -23,7 +33,7 @@ return null;
             return lastTimetableUpdate;
         }
 
-        public static void UpdateLastTimetableUpdate()
+        public static void UpdateLastCistRequestTime()
         {
             Serialisation.ToJsonFile(DateTime.Now, FilePath.LastTimetableUpdate);
         }

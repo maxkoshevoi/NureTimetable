@@ -119,10 +119,10 @@ namespace NureTimetable.Views
                         {
                             Timetable.MinDisplayDate = events.StartDate();
                             Timetable.MaxDisplayDate = events.EndDate();
-                            Timetable.WeekViewSettings.WorkStartHour = 0;
-                            Timetable.WeekViewSettings.WorkEndHour = 24;
-                            Timetable.WeekViewSettings.WorkStartHour = events.StartTime().TotalHours;
-                            Timetable.WeekViewSettings.WorkEndHour = events.EndTime().TotalHours;
+                            Timetable.WeekViewSettings.StartHour = 0;
+                            Timetable.WeekViewSettings.EndHour = 24;
+                            Timetable.WeekViewSettings.StartHour = events.StartTime().TotalHours;
+                            Timetable.WeekViewSettings.EndHour = events.EndTime().TotalHours;
 
                             UpdateTimetableHeight();
                             break;
@@ -164,9 +164,9 @@ namespace NureTimetable.Views
         {
             if (Timetable.Height <= 0 || events == null || events.Count == 0) return;
 
-            double timeIntrvalsCount = (Timetable.WeekViewSettings.WorkEndHour - Timetable.WeekViewSettings.WorkStartHour) / (Timetable.TimeInterval / 60);
-            double magicNumberToMakeMathWork = 1.4;
-            double timeIntervalHeightToFit = (Timetable.Height - Timetable.HeaderHeight)*magicNumberToMakeMathWork / (timeIntrvalsCount/* + 1*/);
+            double timeIntrvalsCount = (Timetable.WeekViewSettings.EndHour - Timetable.WeekViewSettings.StartHour) / (Timetable.TimeInterval / 60);
+            double magicNumberToMakeMathWork = 1.6;
+            double timeIntervalHeightToFit = (Timetable.Height - Timetable.HeaderHeight - Timetable.ViewHeaderHeight)*magicNumberToMakeMathWork / (timeIntrvalsCount/* + 1*/);
             double minTimeInterval = (50 * Timetable.TimeInterval) / 90; // Each 90 minute interval should be equal or more than 50 in size
 
             if (timeIntervalHeightToFit <= minTimeInterval)

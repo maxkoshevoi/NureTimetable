@@ -37,22 +37,13 @@ namespace NureTimetable.DAL
             return eventList;
         }
         
-        public static bool CheckUpdateTimetableFromCistRights()
-        {
-            TimeSpan? timePass = DateTime.Now - SettingsDataStore.GetLastTimetableUpdate();
-            if (timePass != null && timePass <= Config.TimetableManualUpdateMinInterval)
-            {
-                return false;
-            }
-            return true;
-        }
 
         public static EventList GetEventsFromCist(DateTime dateStart, DateTime dateEnd, int groupID)
             => GetEventsFromCist(dateStart, dateEnd, new Group { ID = groupID }).Values.FirstOrDefault();
 
         public static Dictionary<int, EventList> GetEventsFromCist(DateTime dateStart, DateTime dateEnd, params Group[] groups)
         {
-            if (groups == null || groups.Length == 0 || CheckUpdateTimetableFromCistRights() == false)
+            if (groups == null || groups.Length == 0 || SettingsDataStore.CheckGetDataFromCistRights() == false)
             {
                 return null;
             }
@@ -66,7 +57,7 @@ namespace NureTimetable.DAL
                     Uri uri = new Uri(Urls.CistTimetableUrl(dateStart, dateEnd, groups.Select(g => g.ID).ToArray()));
                     string data = client.DownloadString(uri);
 
-                    SettingsDataStore.UpdateLastTimetableUpdate();
+                    SettingsDataStore.UpdateLastCistRequestTime();
 
                     if (groups.Length == 1)
                     {
