@@ -139,7 +139,7 @@ namespace NureTimetable.Views
                     {
                         MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, exception);
 
-                        DisplayAlert("Отоброжение расписания", "Произошла ошибка при попытке загрузить расписание", "Повторить попытку", "Ok");
+                        DisplayAlert("Отображение расписания", "Произошла ошибка при попытке загрузить расписание", "Повторить попытку", "Ок");
                         return;
                     }
 

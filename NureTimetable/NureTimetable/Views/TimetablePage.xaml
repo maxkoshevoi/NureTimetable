@@ -5,7 +5,7 @@
              xmlns:syncfusion="clr-namespace:Syncfusion.SfSchedule.XForms;assembly=Syncfusion.SfSchedule.XForms"
              Appearing="ContentPage_Appearing"
              Title="Nure Timetable">
-    
+
     <ContentPage.ToolbarItems>
         <ToolbarItem Icon="today" Clicked="Today_Clicked" x:Name="Today" />
         <ToolbarItem Icon="group" Clicked="ManageGroups_Clicked" x:Name="ManageGroups" />
@@ -44,9 +44,7 @@
 			                EndTimeMapping="End"
                             NotesMapping="Type"
                             LocationMapping="Room"
-                            ColorMapping="Color"
-                            >
-                        </syncfusion:ScheduleAppointmentMapping>
+                            ColorMapping="Color" />
                     </syncfusion:SfSchedule.AppointmentMapping>
                 </syncfusion:SfSchedule>
             </StackLayout>
