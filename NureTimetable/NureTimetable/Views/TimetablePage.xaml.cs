@@ -167,7 +167,7 @@ namespace NureTimetable.Views
             if (Timetable.Height <= 0 || events == null || events.Count == 0) return;
 
             double timeIntrvalsCount = (Timetable.WeekViewSettings.EndHour - Timetable.WeekViewSettings.StartHour) / (Timetable.TimeInterval / 60);
-            double magicNumberToMakeMathWork = 1.55;
+            double magicNumberToMakeMathWork = 1.57;
             double timeIntervalHeightToFit = (Timetable.Height - Timetable.HeaderHeight - Timetable.ViewHeaderHeight)*magicNumberToMakeMathWork / (timeIntrvalsCount/* + 1*/);
             double minTimeInterval = (50 * Timetable.TimeInterval) / 90; // Each 90 minute interval should be equal or more than 50 in size
 
@@ -196,7 +196,22 @@ namespace NureTimetable.Views
             {
                 return;
             }
-            Timetable.NavigateTo(DateTime.Now);
+
+            DateTime? selected = Timetable.SelectedDate;
+            Timetable.SelectedDate = null;
+            if (Timetable.ScheduleView == ScheduleView.WeekView)
+            {
+                Timetable.ScheduleView = ScheduleView.MonthView;
+            }
+            else
+            {
+                Timetable.ScheduleView = ScheduleView.WeekView;
+            }
+            if (selected != null)
+            {
+                Timetable.NavigateTo(selected.Value);
+                //Timetable.SelectedDate = selected;
+            }
         }
 
         private void Timetable_CellTapped(object sender, CellTappedEventArgs e)

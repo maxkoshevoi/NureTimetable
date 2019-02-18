@@ -41,7 +41,7 @@
                     <Label.FormattedText>
                         <FormattedString>
                             <FormattedString.Spans>
-                                <Span Text="Ваш вклад поддерживает развитие его развитие и помогает не уходить в небытие." />
+                                <Span Text="Ваш вклад поддерживает его развитие и помогает не уходить в небытие." />
                             </FormattedString.Spans>
                         </FormattedString>
                     </Label.FormattedText>

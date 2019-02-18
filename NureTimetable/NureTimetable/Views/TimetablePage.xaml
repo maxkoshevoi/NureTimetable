@@ -18,11 +18,12 @@
                 <syncfusion:SfSchedule 
                         x:Name="Timetable"
                         VerticalOptions="FillAndExpand"
-                        FirstDayOfWeek="2"
-                        ScheduleView="WeekView"
                         TimeInterval="90"
                         HeaderHeight="50"
                         ViewHeaderHeight="50"
+                        FirstDayOfWeek="2"
+                        ScheduleView="WeekView"
+                        ShowAppointmentsInline="true"
                         CellTapped="Timetable_CellTapped">
                     <syncfusion:SfSchedule.HeaderStyle>
                         <syncfusion:HeaderStyle FontSize="10" FontAttributes="Bold"/>
@@ -37,6 +38,9 @@
                             </syncfusion:WeekViewSettings.WeekLabelSettings>
                         </syncfusion:WeekViewSettings>
                     </syncfusion:SfSchedule.WeekViewSettings>
+                    <syncfusion:SfSchedule.MonthViewSettings>
+                        <syncfusion:MonthViewSettings AppointmentIndicatorCount = "6" />
+                    </syncfusion:SfSchedule.MonthViewSettings>
                     <syncfusion:SfSchedule.AppointmentMapping>
                         <syncfusion:ScheduleAppointmentMapping
 			                SubjectMapping="DisplayInfo"

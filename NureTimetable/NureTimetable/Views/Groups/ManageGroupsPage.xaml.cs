@@ -82,13 +82,6 @@ namespace NureTimetable.Views
                 return;
             }
 
-            if (SettingsDataStore.CheckGetDataFromCistRights() == false)
-            {
-                TimeSpan? timePass = DateTime.Now - SettingsDataStore.GetLastCistRequestTime();
-                await DisplayAlert("Обновление расписания", $"В связи с большой нагрузкой на cist, обновление данных ограничено одним разом в 16 часов. Пожалуйста, подождите ещё {(Config.CistRequestMinInterval - timePass.Value).ToString("hh\\:mm")}, и попробуйте снова.", "Хорошо");
-                return;
-            }
-
             GroupsLayout.IsEnabled = false;
             ProgressLayout.IsVisible = true;
 

@@ -43,7 +43,7 @@ namespace NureTimetable.DAL
 
         public static Dictionary<int, EventList> GetEventsFromCist(DateTime dateStart, DateTime dateEnd, params Group[] groups)
         {
-            if (groups == null || groups.Length == 0 || SettingsDataStore.CheckGetDataFromCistRights() == false)
+            if (groups == null || groups.Length == 0)
             {
                 return null;
             }
@@ -56,8 +56,6 @@ namespace NureTimetable.DAL
                     var timetables = new Dictionary<int, EventList>();
                     Uri uri = new Uri(Urls.CistTimetableUrl(dateStart, dateEnd, groups.Select(g => g.ID).ToArray()));
                     string data = client.DownloadString(uri);
-
-                    SettingsDataStore.UpdateLastCistRequestTime();
 
                     if (groups.Length == 1)
                     {
