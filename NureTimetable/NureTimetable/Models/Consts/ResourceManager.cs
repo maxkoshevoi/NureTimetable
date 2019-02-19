@@ -4,9 +4,9 @@ using System.Text;
 
 namespace NureTimetable.Models.Consts
 {
-    public static class EventResourceManager
+    public static class ResourceManager
     {
-        public static string ResourceKeyForColor(this Event e)
+        public static string KeyForEventColor(Event e)
         {
             string compType = e.Type.ToLower();
 

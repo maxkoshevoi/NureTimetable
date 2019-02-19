@@ -17,6 +17,6 @@ namespace NureTimetable.Models
             => $"{Lesson} {Room} {Type}";
 
         public Color Color
-            => (Color) App.Current.Resources[this.ResourceKeyForColor()];
+            => (Color) App.Current.Resources[ResourceManager.KeyForEventColor(this)];
     }
 }

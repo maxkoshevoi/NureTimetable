@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-
-namespace NureTimetable.Models
+﻿namespace NureTimetable.Models
 {
     public static class KnownEventTypes
     {
-        public static readonly string[] Values =
+        public static readonly string[] Values = 
         {
             "лк",
             "пз",
