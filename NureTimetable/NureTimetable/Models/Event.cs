@@ -14,13 +14,9 @@ namespace NureTimetable.Models
         public DateTime End { get; set; }
 
         public string DisplayInfo
-        {
-            get => $"{Lesson} {Room} {Type}";
-        }
+            => $"{Lesson} {Room} {Type}";
 
         public Color Color
-        {
-            get => (Color) App.Current.Resources[this.ResourceKeyForColor()];
-        }
+            => (Color) App.Current.Resources[this.ResourceKeyForColor()];
     }
 }
