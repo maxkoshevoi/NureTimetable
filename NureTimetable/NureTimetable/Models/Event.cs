@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using Xamarin.Forms;
 using NureTimetable.Models.Consts;
 
@@ -17,6 +16,6 @@ namespace NureTimetable.Models
             => $"{Lesson} {Room} {Type}";
 
         public Color Color
-            => ResourceManager.EventColor(this);
+            => (Color) App.Current.Resources[ResourceManager.KeyForEventColor(Type)];
     }
 }

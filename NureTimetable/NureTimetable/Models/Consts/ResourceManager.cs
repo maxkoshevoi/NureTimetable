@@ -1,10 +1,16 @@
-﻿using Xamarin.Forms;
+﻿using System.Linq;
 
 namespace NureTimetable.Models.Consts
 {
     public static class ResourceManager
     {
-        public static Color EventColor(Event e)
-            => (Color) App.Current.Resources[ResourceNames.EventColor(e.Type)];
+        public static string KeyForEventColor(string type)
+        {
+            string comparableType = type.ToLower();
+
+            return KnownEventTypes.Values.Contains(comparableType)
+                ? $"{comparableType}Color"
+                : "defaultColor";
+        }
     }
 }
