@@ -1,30 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Linq;
 using Xamarin.Forms;
+using NureTimetable.Models.Consts;
 
 namespace NureTimetable.Models
 {
     public class Event
     {
-        private string type;
-
         public string Lesson { get; set; }
         public string Room { get; set; }
-        public string Type { get => type; set => type = value.ToLowerInvariant(); }
+        public string Type { get; set; }
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
 
-        public string DisplayInfo => $"{Lesson} {Room} {Type}";
-        private Color DefaultColor => Color.LightSteelBlue;
+        public string DisplayInfo
+        {
+            get => $"{Lesson} {Room} {Type}";
+        }
 
         public Color Color
         {
-            get
-            {
-                return KnownEventTypes.Values.Contains(Type)
-                    ? (Color) App.Current.Resources[$"{Type}Color"]
-                    : DefaultColor;
-            }
+            get => (Color) App.Current.Resources[this.ResourceKeyForColor()];
         }
     }
 }

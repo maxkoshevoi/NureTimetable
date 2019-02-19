@@ -7,6 +7,7 @@
             <!--Global Styles-->
             <Color x:Key="NavigationPrimary">#2196F3</Color>
             <!--Events colors-->
+            <Color x:Key="defaultColor">#ffb0c4de</Color>
             <Color x:Key="лкColor">#ffcc80</Color>
             <Color x:Key="пзColor">#9df273</Color>
             <Color x:Key="лбColor">#d9a7f1</Color>

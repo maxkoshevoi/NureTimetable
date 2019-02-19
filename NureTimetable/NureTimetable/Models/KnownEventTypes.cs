@@ -4,7 +4,7 @@ namespace NureTimetable.Models
 {
     public static class KnownEventTypes
     {
-        public static readonly List<string> Values = new List<string>()
+        public static readonly string[] Values =
         {
             "лк",
             "пз",
