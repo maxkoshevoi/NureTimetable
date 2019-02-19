@@ -1,5 +1,6 @@
 ﻿using System;
 using Xamarin.Forms;
+using NureTimetable.Models.Consts;
 
 namespace NureTimetable.Models
 {
@@ -15,27 +16,6 @@ namespace NureTimetable.Models
             => $"{Lesson} {Room} {Type}";
 
         public Color Color
-        {
-            get
-            {
-                switch (Type.ToLower())
-                {
-                    case "лк":
-                        return Color.FromRgb(255, 204, 128);
-                    case "пз":
-                        return Color.FromRgb(157, 242, 115);
-                    case "лб":
-                        return Color.FromRgb(217, 167, 241);
-                    case "конс":
-                        return Color.FromRgb(152, 220, 230);
-                    case "зал":
-                        return Color.FromRgb(241, 246, 136);
-                    case "іспкомб":
-                        return Color.FromRgb(241, 118, 116);
-                    default:
-                        return Color.LightSteelBlue;
-                }
-            }
-        }
+            => (Color) App.Current.Resources[ResourceManager.KeyForEventColor(Type)];
     }
 }
