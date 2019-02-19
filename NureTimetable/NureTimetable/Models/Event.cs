@@ -6,7 +6,6 @@ namespace NureTimetable.Models
 {
     public class Event
     {
-        public static List<string> knownEventTypes = new List<string> { "лк", "пз", "лб", "конс", "зал", "іспкомб" };
         private string type;
 
         public string Lesson { get; set; }
@@ -22,7 +21,7 @@ namespace NureTimetable.Models
         {
             get
             {
-                return knownEventTypes.Contains(Type)
+                return KnownEventTypes.Values.Contains(Type)
                     ? (Color) App.Current.Resources[$"{Type}Color"]
                     : DefaultColor;
             }
