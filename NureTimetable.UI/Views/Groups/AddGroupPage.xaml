@@ -1,19 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="NureTimetable.Views.AddGroupPage"
-             Title="Добавление группы"
-             Appearing="ContentPage_Appearing">
+             xmlns:behaviors="clr-namespace:NureTimetable.UI.Behaviors;assembly=NureTimetable.UI"
+             x:Class="NureTimetable.UI.Views.Groups.AddGroupPage"
+             Title="Добавление группы">
+
+ 
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Icon="update" Clicked="UpdateFromCist_Clicked" x:Name="UpdateFromCist" />
+        <ToolbarItem Icon="update" Command="{Binding UpdateCommand}" x:Name="UpdateFromCist" >
+
+        </ToolbarItem>
     </ContentPage.ToolbarItems>
 
     <AbsoluteLayout>
         <StackLayout x:Name="GroupsLayout" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
-            <SearchBar x:Name="Searchbar" TextChanged="Searchbar_TextChanged" />
+            <SearchBar x:Name="Searchbar" Text="{Binding SearchBarText}" >
+                <SearchBar.Behaviors>
+                    <behaviors:EventToCommandBehavior EventName="TextChanged" Command="{Binding SearchBarTextChangedCommand}"/>
+                </SearchBar.Behaviors>
+            </SearchBar>
             <ListView x:Name="AllGroupsList"
-                    ItemsSource="{Binding groups}"
+                    ItemsSource="{Binding Groups}"
+                      SelectedItem="{Binding SelectedGroup}"
                     ItemTapped="Handle_ItemTapped"
                     CachingStrategy="RecycleElement">
                 <ListView.ItemTemplate>
@@ -25,7 +34,8 @@
                 </ListView.ItemTemplate>
             </ListView>
         </StackLayout>
-        <StackLayout x:Name="ProgressLayout" IsVisible="False" Padding="12"
+        <StackLayout x:Name="ProgressLayout" IsVisible="{Binding ProgressLayoutIsVisable}" 
+                     IsEnabled="{Binding ProgressLayoutIsEnable}" Padding="12"
                     AbsoluteLayout.LayoutFlags="PositionProportional"
                     AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
             <ActivityIndicator IsRunning="True" Color="#80000000"/>
