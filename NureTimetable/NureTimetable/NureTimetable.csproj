@@ -22,15 +22,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\NureTimetable.Services\NureTimetable.Services.csproj" />
+    <ProjectReference Include="..\..\NureTimetable.UI\NureTimetable.UI.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="Views\Lessons\ManageLessonsPage.xaml.cs">
       <DependentUpon>ManageLessonsPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Views\Groups\AddGroupPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Update="Views\Groups\ManageGroupsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
