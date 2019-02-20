@@ -119,5 +119,10 @@ namespace NureTimetable.Views.Lessons
             }
             updatingProgrammatically = false;
         }
+
+        private void LessonsEventTypes_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            ((ListView)sender).SelectedItem = null;
+        }
     }
 }

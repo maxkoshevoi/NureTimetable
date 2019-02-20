@@ -15,19 +15,28 @@
     <PackageReference Include="Microsoft.AppCenter.Crashes" Version="1.13.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
     <PackageReference Include="Plugin.InAppBilling" Version="2.0.0" />
-    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="16.4.0.53" />
-    <PackageReference Include="Syncfusion.Xamarin.SfSchedule" Version="16.4.0.53" />
+    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="16.4.0.54" />
+    <PackageReference Include="Syncfusion.Xamarin.SfSchedule" Version="16.4.0.54" />
     <PackageReference Include="Xam.Plugin.DeviceInfo" Version="4.1.1" />
     <PackageReference Include="Xamarin.Forms" Version="3.4.0.1008975" />  
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Licalization\LN.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>LN.resx</DependentUpon>
+    </Compile>
     <Compile Update="Views\Lessons\ManageLessonsPage.xaml.cs">
       <DependentUpon>ManageLessonsPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Licalization\LN.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>LN.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Views\Groups\AddGroupPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

@@ -41,7 +41,8 @@ namespace NureTimetable.Views.Lessons
                         res.EventTypes = eventList.EventTypes(lesson).ToList();
                         return res;
                     })
-                    .OrderBy(lesson => lesson.LessonName)
+                    .OrderBy(lesson => !eventList.Events.Where(e => e.Start >= DateTime.Now).Any(e => e.Lesson == lesson.LessonName))
+                    .ThenBy(lesson => lesson.LessonName)
             );
             LessonsList.ItemsSource = lessons;
             if (lessons.Count == 0)

@@ -1,4 +1,5 @@
 ﻿using NureTimetable.DAL;
+using NureTimetable.Licalization;
 using NureTimetable.Models;
 using NureTimetable.Models.Consts;
 using NureTimetable.ViewModels;
@@ -17,15 +18,21 @@ namespace NureTimetable.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class TimetablePage : ContentPage
     {
-        private Size PageSize;
         private bool isFirstLoad = true;
-        private volatile EventList _events;
-        public EventList events { get => _events; set => _events = value; }
+        private List<DateTime> visibleDates = new List<DateTime>();
+        public EventList events { get; set; } = null;
 
         public TimetablePage()
         {
             InitializeComponent();
-            Timetable.Locale = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
+
+            Timetable.VisibleDatesChangedEvent += Timetable_VisibleDatesChangedEvent;
+            string activeCultureCode = Cultures.SupportedCultures[0].TwoLetterISOLanguageName;
+            if (Cultures.SupportedCultures.Any(c => c.TwoLetterISOLanguageName == CultureInfo.CurrentCulture.TwoLetterISOLanguageName))
+            {
+                activeCultureCode = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
+            }
+            Timetable.Locale = activeCultureCode;
 
             MessagingCenter.Subscribe<Application, Group>(this, MessageTypes.SelectedGroupChanged, (sender, newSelectedGroup) =>
             {
@@ -51,6 +58,10 @@ namespace NureTimetable.Views
             });
         }
 
+        private void Timetable_VisibleDatesChangedEvent(object sender, VisibleDatesChangedEventArgs e)
+        {
+            visibleDates = e.visibleDates;
+        }
 
         private void ContentPage_Appearing(object sender, EventArgs e)
         {
@@ -145,21 +156,19 @@ namespace NureTimetable.Views
                         return;
                     }
 
+                    // Fix for bug when view header isn`t updating on first swipe
+                    DateTime currebtDate = visibleDates.Count > 0 ? visibleDates[0] : DateTime.Now;
+                    Timetable.NavigateTo(currebtDate.AddDays(7));
+                    Timetable.NavigateTo(currebtDate);
+
                     Timetable.DataSource = events.Events;
                 }
             });
         }
 
-        protected override void OnSizeAllocated(double width, double height)
+        private void ContentPage_SizeChanged(object sender, EventArgs e)
         {
-            base.OnSizeAllocated(width, height); //must be called
-
-            if (PageSize.Width != width || PageSize.Height != height)
-            {
-                PageSize = new Size(width, height);
-
-                UpdateTimetableHeight();
-            }
+            UpdateTimetableHeight();
         }
 
         private void UpdateTimetableHeight()

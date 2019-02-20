@@ -100,7 +100,7 @@ namespace NureTimetable.Views
                 {
                     Device.BeginInvokeOnMainThread(() =>
                     {
-                        DisplayAlert("Загрузка списка групп", "Не удолось загрузить список групп. Пожалуйста, попробуйте позже.", "Ok");
+                        DisplayAlert("Загрузка списка групп", "Не удалось загрузить список групп. Пожалуйста, попробуйте позже.", "Ok");
 
                         ProgressLayout.IsVisible = false;
                         GroupsLayout.IsEnabled = true;

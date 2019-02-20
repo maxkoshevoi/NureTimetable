@@ -145,9 +145,14 @@ namespace NureTimetable.DAL
                 MessagingCenter.Send(Application.Current, MessageTypes.SavedGroupsChanged, savedGroups);
             });
             // Updating selected group if needed
-            if (GetSelected() == null && savedGroups.Count > 0)
+            Group selectedGroup = GetSelected();
+            if ((selectedGroup == null || !savedGroups.Exists(g => g.ID == selectedGroup.ID)) && savedGroups.Count > 0)
             {
                 UpdateSelected(savedGroups[0]);
+            }
+            else if(savedGroups.Count == 0)
+            {
+                UpdateSelected(null);
             }
         }
         #endregion

@@ -56,7 +56,10 @@ namespace NureTimetable.Views
             {
                 case "Выбрать":
                     GroupsDataStore.UpdateSelected(selectedGroup);
-                    await DisplayAlert("Выбор группы", "Группа успешно выбрана", "Ok");
+                    if (await DisplayAlert("Выбор группы", "Группа успешно выбрана", "К расписанию", "Ok"))
+                    {
+                        await Navigation.PopAsync();
+                    }
                     break;
                 case "Обновить расписание":
                     await UpdateTimetable(selectedGroup);
@@ -67,10 +70,6 @@ namespace NureTimetable.Views
                 case "Удалить":
                     groups.Remove(selectedGroup);
                     GroupsDataStore.UpdateSaved(groups.ToList());
-                    if (selectedGroup.ID == GroupsDataStore.GetSelected()?.ID)
-                    {
-                        GroupsDataStore.UpdateSelected(null);
-                    }
                     break;
             }
         }

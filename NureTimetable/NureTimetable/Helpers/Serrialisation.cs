@@ -28,9 +28,12 @@ namespace NureTimetable.Helpers
         {
             try
             {
-                string fileContent = File.ReadAllText(filePath);
-                T instance = FromJson<T>(fileContent);
-                return instance;
+                if (File.Exists(filePath))
+                {
+                    string fileContent = File.ReadAllText(filePath);
+                    T instance = FromJson<T>(fileContent);
+                    return instance;
+                }
             }
             catch (Exception ex)
             {
