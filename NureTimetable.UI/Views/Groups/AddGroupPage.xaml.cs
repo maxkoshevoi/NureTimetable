@@ -17,7 +17,5 @@ namespace NureTimetable.UI.Views.Groups
             ((ListView)sender).SelectedItem = null;
         }
 
-
-
     }
 }

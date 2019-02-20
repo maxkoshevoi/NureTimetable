@@ -13,14 +13,27 @@ namespace NureTimetable.ViewModels.Groups
 {
     public class AddGroupViewModel : BaseViewModel
     {
+        #region variables
 
-        List<Group> AllGroups;
+        private List<Group> _allGroups;
 
-        List<SavedGroup> SavedGroups;
-
-        public ObservableCollection<Group> Groups { get => _groups; set => SetProperty(ref _groups, value); }
+        private List<SavedGroup> _savedGroups;
 
         private ObservableCollection<Group> _groups;
+
+        private bool _progressLayoutIsVisable;
+
+        private bool _progressLayoutIsEnable;
+
+        private string _searchBarText;
+
+        private Group _selectedGroup;
+
+        #endregion
+
+        #region Properties
+
+        public ObservableCollection<Group> Groups { get => _groups; set => SetProperty(ref _groups, value); }
 
         public bool ProgressLayoutIsVisable
         {
@@ -28,83 +41,75 @@ namespace NureTimetable.ViewModels.Groups
             set => SetProperty(ref _progressLayoutIsVisable, value);
         }
 
-        public ICommand UpdateCommand { get; protected set; }
-
         public bool ProgressLayoutIsEnable
         {
             get => _progressLayoutIsEnable;
             set => SetProperty(ref _progressLayoutIsEnable, value);
         }
 
-        private bool _progressLayoutIsVisable;
-        private bool _progressLayoutIsEnable;
-
         public string SearchBarText { get => _searchBarText; set => SetProperty(ref _searchBarText, value); }
 
-        private string _searchBarText;
+        public ICommand UpdateCommand { get; protected set; }
 
         public ICommand SearchBarTextChangedCommand { get; protected set; }
 
         public ICommand ContentPageAppearingCommand { get; protected set; }
 
+        #endregion
 
         public AddGroupViewModel(INavigation navigation) : base(navigation)
         {
             SearchBarTextChangedCommand = CommandHelper.CreateCommand(SearchBarTextChanged);
             ContentPageAppearingCommand = CommandHelper.CreateCommand(UpdateGroups);
             UpdateCommand = CommandHelper.CreateCommand(Update);
-            Device.BeginInvokeOnMainThread((async () =>
-            {
-                await UpdateGroups(false);
-            }));
+            Device.BeginInvokeOnMainThread((async () => await UpdateGroups(false)));
         }
 
+        #region Methods
 
         public Group SelectedGroup
         {
-            get => _selectedGroupt;
+            get => _selectedGroup;
             set
             {
                 if (value != null)
                 {
                     Device.BeginInvokeOnMainThread(async () => { await GroupSelected(value); });
-                    
                 }
 
-                _selectedGroupt = value;
+                _selectedGroup = value;
             }
         }
 
-        private Group _selectedGroupt;
-
-
         private async Task GroupSelected(Group group)
         {
-            if (SavedGroups.Exists(g => g.ID == group.ID))
+            if (_savedGroups.Exists(g => g.ID == group.ID))
             {
                 await App.Current.MainPage.DisplayAlert("Добавление группы", "Группа уже находится в сохранённых", "OK");
                 return;
             }
 
-            SavedGroups.Add(new SavedGroup(group));
-            GroupsDataStore.UpdateSaved(SavedGroups);
+            _savedGroups.Add(new SavedGroup(group));
+
+            GroupsDataStore.UpdateSaved(_savedGroups);
+
             await App.Current.MainPage.DisplayAlert("Добавление группы", "Группа добавлена в сохранённые", "OK");
         }
 
         private async Task SearchBarTextChanged()
         {
-            if (AllGroups == null) return;
+            if (_allGroups == null) return;
 
             if (string.IsNullOrEmpty(SearchBarText))
             {
-                Groups = new ObservableCollection<Group>(AllGroups.OrderBy(g => g.Name));
+                Groups = new ObservableCollection<Group>(_allGroups.OrderBy(g => g.Name));
             }
             else
             {
                 string searchQuery = SearchBarText.ToLower();
                 Groups =
                     new ObservableCollection<Group>(
-                        AllGroups
+                        _allGroups
                             .Where(g => g.Name.ToLower().Contains(searchQuery) || g.Name.ToLower().Contains(searchQuery.Replace('и', 'і')) || g.ID.ToString() == searchQuery)
                             .OrderBy(g => g.Name)
                     );
@@ -124,6 +129,7 @@ namespace NureTimetable.ViewModels.Groups
         {
             await UpdateGroups(false);
         }
+
         private async Task UpdateGroups(bool fromCistOnly = false)
         {
             ProgressLayoutIsVisable = true;
@@ -133,13 +139,13 @@ namespace NureTimetable.ViewModels.Groups
             {
                 if (fromCistOnly)
                 {
-                    AllGroups = GroupsDataStore.GetAllFromCist();
+                    _allGroups = GroupsDataStore.GetAllFromCist();
                 }
                 else
                 {
-                    AllGroups = GroupsDataStore.GetAll();
+                    _allGroups = GroupsDataStore.GetAll();
                 }
-                if (AllGroups == null)
+                if (_allGroups == null)
                 {
                     App.Current.MainPage.DisplayAlert("Загрузка списка групп", "Не удолось загрузить список групп. Пожалуйста, попробуйте позже.", "Ok");
 
@@ -149,8 +155,8 @@ namespace NureTimetable.ViewModels.Groups
                     return;
                 }
 
-                SavedGroups = GroupsDataStore.GetSaved();
-                Groups = new ObservableCollection<Group>(AllGroups.OrderBy(g => g.Name));
+                _savedGroups = GroupsDataStore.GetSaved();
+                Groups = new ObservableCollection<Group>(_allGroups.OrderBy(g => g.Name));
 
 
                 if (SearchBarTextChangedCommand.CanExecute(null))
@@ -161,7 +167,6 @@ namespace NureTimetable.ViewModels.Groups
 
             });
         }
-
-      
+        #endregion
     }
 }
