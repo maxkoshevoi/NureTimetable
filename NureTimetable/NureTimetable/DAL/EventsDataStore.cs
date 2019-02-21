@@ -43,7 +43,8 @@ namespace NureTimetable.DAL
 
         public static Dictionary<int, EventList> GetEventsFromCist(DateTime dateStart, DateTime dateEnd, params Group[] groups)
         {
-            if (groups == null || groups.Length == 0)
+            List<SavedGroup> groupsAllowed = SettingsDataStore.CheckCistTimetableUpdateRights(groups);
+            if (groupsAllowed.Count == 0)
             {
                 return null;
             }
@@ -54,22 +55,22 @@ namespace NureTimetable.DAL
                 try
                 {
                     var timetables = new Dictionary<int, EventList>();
-                    Uri uri = new Uri(Urls.CistTimetableUrl(dateStart, dateEnd, groups.Select(g => g.ID).ToArray()));
+                    Uri uri = new Uri(Urls.CistTimetableUrl(dateStart, dateEnd, groupsAllowed.Select(g => g.ID).ToArray()));
                     string data = client.DownloadString(uri);
-
-                    if (groups.Length == 1)
+                    
+                    if (groupsAllowed.Count == 1)
                     {
                         List<Event> events = EventList.Parse(data);
                         if (events == null)
                         {
                             return null;
                         }
-                        timetables.Add(groups[0].ID, new EventList(events));
+                        timetables.Add(groupsAllowed[0].ID, new EventList(events));
                     }
                     else
                     {
                         Dictionary<string, List<Event>> timetablesStr = EventList.Parse(data, true);
-                        foreach (Group group in groups)
+                        foreach (Group group in groupsAllowed)
                         {
                             List<Event> groupEvents = new List<Event>();
                             if (timetablesStr.Keys.Contains(group.Name))
@@ -79,6 +80,18 @@ namespace NureTimetable.DAL
                             timetables.Add(group.ID, new EventList(groupEvents));
                         }
                     }
+
+                    // Updating LastUpdated for saved groups 
+                    List<SavedGroup> AllSavedGroups = GroupsDataStore.GetSaved();
+                    foreach (SavedGroup group in AllSavedGroups)
+                    {
+                        if (groupsAllowed.Exists(g => g.ID == group.ID))
+                        {
+                            group.LastUpdated = DateTime.Now;
+                        }
+                    }
+                    GroupsDataStore.UpdateSaved(AllSavedGroups);
+
                     foreach (int groupID in timetables.Keys)
                     {
                         Serialisation.ToJsonFile(timetables[groupID].Events, FilePath.SavedTimetable(groupID));

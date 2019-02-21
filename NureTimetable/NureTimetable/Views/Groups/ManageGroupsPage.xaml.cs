@@ -75,10 +75,17 @@ namespace NureTimetable.Views
             }
         }
 
-        private async Task UpdateTimetable(params SavedGroup[] savedGroups)
+        private async Task UpdateTimetable(params Group[] groups)
         {
-            if (savedGroups == null || savedGroups.Length == 0)
+            if (groups == null || groups.Length == 0)
             {
+                return;
+            }
+
+            List<SavedGroup> groupsAllowed = SettingsDataStore.CheckCistTimetableUpdateRights(groups);
+            if (groupsAllowed.Count == 0)
+            {
+                await DisplayAlert("Обновление расписания", "У вас уже загружена последняя версия расписания", "Ок");
                 return;
             }
 
@@ -88,21 +95,15 @@ namespace NureTimetable.Views
             await Task.Factory.StartNew(() =>
             {
                 string result;
-                if (EventsDataStore.GetEventsFromCist(Config.TimetableFromDate, Config.TimetableToDate, savedGroups) != null)
+                if (EventsDataStore.GetEventsFromCist(Config.TimetableFromDate, Config.TimetableToDate, groupsAllowed.ToArray()) != null)
                 {
-                    foreach (SavedGroup group in savedGroups)
+                    if (groupsAllowed.Count == 1)
                     {
-                        group.LastUpdated = DateTime.Now;
-                    }
-                    GroupsDataStore.UpdateSaved(groups.ToList());
-
-                    if (savedGroups.Length == 1)
-                    {
-                        result = $"Расписание группы {savedGroups[0].Name} успешно обновлено.";
+                        result = $"Расписание группы {groupsAllowed[0].Name} успешно обновлено.";
                     }
                     else
                     {
-                        result = $"Расписание успешно обновлено для групп:{Environment.NewLine}{string.Join(", ", savedGroups.Select(g => g.Name))}";
+                        result = $"Расписание успешно обновлено для групп:{Environment.NewLine}{string.Join(", ", groupsAllowed.Select(g => g.Name))}";
                     }
                 }
                 else

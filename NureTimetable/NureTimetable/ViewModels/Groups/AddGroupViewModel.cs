@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -61,7 +62,7 @@ namespace NureTimetable.ViewModels.Groups
         {
             SearchBarTextChangedCommand = CommandHelper.CreateCommand(SearchBarTextChanged);
             ContentPageAppearingCommand = CommandHelper.CreateCommand(UpdateGroups);
-            UpdateCommand = CommandHelper.CreateCommand(Update);
+            UpdateCommand = CommandHelper.CreateCommand(UpdateFromCist);
             Device.BeginInvokeOnMainThread((async () => await UpdateGroups(false)));
         }
 
@@ -116,8 +117,14 @@ namespace NureTimetable.ViewModels.Groups
             }
         }
 
-        private async Task Update()
+        private async Task UpdateFromCist()
         {
+            if (SettingsDataStore.CheckCistAllGroupsUpdateRights() == false)
+            {
+                await App.Current.MainPage.DisplayAlert("Загрузка списка групп", "У вас уже загружена последняя версия списка групп", "Ok");
+                return;
+            }
+
             if (!ProgressLayoutIsVisable && await App.Current.MainPage.DisplayAlert("Загрузка списка групп",
                     "Вы уверенны, что хотите загрузить список групп из Cist?", "Да", "Отмена"))
             {

@@ -39,9 +39,14 @@ namespace NureTimetable.DAL
             loadedGroups = Serialisation.FromJsonFile<List<Group>>(filePath);
             return loadedGroups;
         }
-        
+
         public static List<Group> GetAllFromCist()
         {
+            if (SettingsDataStore.CheckCistAllGroupsUpdateRights() == false)
+            {
+                return null;
+            }
+
             List<Group> groups = new List<Group>();
             using (var client = new WebClient())
             {
@@ -92,6 +97,7 @@ namespace NureTimetable.DAL
                     }
 
                     Serialisation.ToJsonFile(groups, FilePath.AllGroupsList);
+                    SettingsDataStore.UpdateCistAllGroupsUpdateTime();
                 }
                 catch (Exception ex)
                 {
