@@ -5,6 +5,7 @@
              xmlns:syncfusion="clr-namespace:Syncfusion.SfSchedule.XForms;assembly=Syncfusion.SfSchedule.XForms"
              xmlns:LN="clr-namespace:NureTimetable.Licalization"
              Appearing="ContentPage_Appearing"
+             Disappearing="ContentPage_Disappearing"
              SizeChanged="ContentPage_SizeChanged"
              Title="{LN:Translate AppName}">
     
@@ -17,6 +18,7 @@
         <AbsoluteLayout>
             <StackLayout x:Name="TimetableLayout" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="True">
                 <Label x:Name="GroupName" HorizontalOptions="Center" />
+                <Label x:Name="TimeLeft" HorizontalOptions="Center" IsVisible="False" />
                 <syncfusion:SfSchedule 
                         x:Name="Timetable"
                         VerticalOptions="FillAndExpand"

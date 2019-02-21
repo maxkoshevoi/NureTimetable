@@ -120,6 +120,9 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\coin.png" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\info.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- Added to provide autoamtic build number of android package -->
   <Target Name="BeforeBuild">

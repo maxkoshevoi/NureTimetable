@@ -50,6 +50,7 @@ namespace NureTimetable.Views.Lessons
                 {
                     EventType = et
                 })
+                .OrderBy(et => et.EventType)
                 .ToList();
             LessonsEventTypes.ItemsSource = eventTypes;
             UpdateEventTypesCheck();

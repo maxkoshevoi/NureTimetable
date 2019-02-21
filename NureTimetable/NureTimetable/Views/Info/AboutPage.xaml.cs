@@ -1,10 +1,5 @@
-﻿using NureTimetable.Models.Consts;
-using NureTimetable.Models.InterplatformCommunication;
-using Plugin.DeviceInfo;
-using Plugin.InAppBilling;
-using Plugin.InAppBilling.Abstractions;
+﻿using NureTimetable.Models.InterplatformCommunication;
 using System;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -22,9 +17,15 @@ namespace NureTimetable.Views
             SwDebugMode.IsToggled = App.IsDebugMode;
         }
 
-        private void Button_Clicked(object sender, EventArgs e)
+        private void NavigateUrl_Handler(object sender, EventArgs e)
         {
-            Device.OpenUri(new Uri("https://github.com/maxkoshevoi/NureTimetable"));
+            TappedEventArgs tappedEventArgs = (TappedEventArgs)e;
+            NavigateUrl(tappedEventArgs.Parameter.ToString());
+        }
+
+        private void NavigateUrl(string url)
+        {
+            Device.OpenUri(new Uri(url));
         }
 
         private void SwDebugMode_Toggled(object sender, ToggledEventArgs e)

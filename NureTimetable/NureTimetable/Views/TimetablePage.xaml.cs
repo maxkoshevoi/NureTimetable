@@ -19,6 +19,7 @@ namespace NureTimetable.Views
     public partial class TimetablePage : ContentPage
     {
         private bool isFirstLoad = true;
+        private bool isPageVisible = false;
         private List<DateTime> visibleDates = new List<DateTime>();
         public EventList events { get; set; } = null;
 
@@ -65,22 +66,69 @@ namespace NureTimetable.Views
 
         private void ContentPage_Appearing(object sender, EventArgs e)
         {
-            if (!isFirstLoad) return;
-            isFirstLoad = false;
+            isPageVisible = true;
 
-            Timetable.IsEnabled = false;
-            ProgressLayout.IsVisible = true;
-
-            Task.Factory.StartNew(() =>
+            if (isFirstLoad)
             {
-                UpdateEvents(GroupsDataStore.GetSelected());
+                isFirstLoad = false;
 
-                Device.BeginInvokeOnMainThread(() =>
+                Timetable.IsEnabled = false;
+                ProgressLayout.IsVisible = true;
+
+                Task.Factory.StartNew(() =>
                 {
-                    ProgressLayout.IsVisible = false;
-                    Timetable.IsEnabled = true;
+                    UpdateEvents(GroupsDataStore.GetSelected());
+
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        ProgressLayout.IsVisible = false;
+                        Timetable.IsEnabled = true;
+                    });
                 });
-            });
+            }
+
+            Device.StartTimer(TimeSpan.FromSeconds(1), UpdateTimeLeft);
+        }
+
+        private void ContentPage_Disappearing(object sender, EventArgs e)
+        {
+            isPageVisible = false;
+        }
+
+        private bool UpdateTimeLeft()
+        {
+            if (events != null && events.Count > 0)
+            {
+                string text = null;
+
+                Event currentEvent = events.Events.FirstOrDefault(e => e.Start <= DateTime.Now && e.End >= DateTime.Now);
+                if (currentEvent != null)
+                {
+                    text = $"Время до перерыва: {(currentEvent.End - DateTime.Now).ToString("hh\\:mm\\:ss")}";
+                }
+                else
+                {
+                    Event nextEvent = events.Events
+                        .Where(e => e.Start > DateTime.Now)
+                        .OrderBy(e => e.Start)
+                        .FirstOrDefault();
+                    if (nextEvent != null && (nextEvent.Start - DateTime.Now).TotalHours <= 12)
+                    {
+                        text = $"Время до {nextEvent.Lesson} - {nextEvent.Type}: {(nextEvent.Start - DateTime.Now).ToString("hh\\:mm\\:ss")}";
+                    }
+                }
+                
+                if (string.IsNullOrEmpty(text) || !isPageVisible)
+                {
+                    TimeLeft.IsVisible = false;
+                }
+                else
+                {
+                    TimeLeft.Text = text;
+                    TimeLeft.IsVisible = true;
+                }
+            }
+            return isPageVisible;
         }
 
         private void UpdateEvents(Group selectedGroup)
@@ -162,6 +210,8 @@ namespace NureTimetable.Views
                     Timetable.NavigateTo(currebtDate);
 
                     Timetable.DataSource = events.Events;
+
+                    UpdateTimeLeft();
                 }
             });
         }
