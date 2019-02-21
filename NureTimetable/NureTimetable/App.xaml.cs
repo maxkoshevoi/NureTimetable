@@ -6,6 +6,7 @@ using Syncfusion.Licensing;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
+using NureTimetable.Models.Consts;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace NureTimetable
@@ -22,7 +23,7 @@ namespace NureTimetable
         public App()
         {
             //Register Syncfusion license
-            SyncfusionLicenseProvider.RegisterLicense("Njc3NDVAMzEzNjJlMzQyZTMwYUJReFEwbjdlU1BNSndTYTcramc0cmdxL2dDdEFVT0syOU5xa2hlLzdhOD0=");
+            SyncfusionLicenseProvider.RegisterLicense(Keys.SyncfusionLicenseKey);
             
             InitializeComponent();
             
