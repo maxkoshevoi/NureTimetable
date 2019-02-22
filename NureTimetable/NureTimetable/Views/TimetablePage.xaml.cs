@@ -112,7 +112,7 @@ namespace NureTimetable.Views
                         .Where(e => e.Start > DateTime.Now)
                         .OrderBy(e => e.Start)
                         .FirstOrDefault();
-                    if (nextEvent != null && (nextEvent.Start - DateTime.Now).TotalHours <= 12)
+                    if (nextEvent != null && nextEvent.Start.Date == DateTime.Now.Date)
                     {
                         text = $"Время до {nextEvent.Lesson} - {nextEvent.Type}: {(nextEvent.Start - DateTime.Now).ToString("hh\\:mm\\:ss")}";
                     }
@@ -205,9 +205,13 @@ namespace NureTimetable.Views
                     }
 
                     // Fix for bug when view header isn`t updating on first swipe
-                    DateTime currebtDate = visibleDates.Count > 0 ? visibleDates[0] : DateTime.Now;
-                    Timetable.NavigateTo(currebtDate.AddDays(7));
-                    Timetable.NavigateTo(currebtDate);
+                    try
+                    {
+                        DateTime currebtDate = visibleDates.Count > 0 ? visibleDates[0] : DateTime.Now;
+                        Timetable.NavigateTo(currebtDate.AddDays(7));
+                        Timetable.NavigateTo(currebtDate);
+                    }
+                    catch { }
 
                     Timetable.DataSource = events.Events;
 
