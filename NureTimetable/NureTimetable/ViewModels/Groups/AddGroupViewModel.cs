@@ -154,7 +154,10 @@ namespace NureTimetable.ViewModels.Groups
                 }
                 if (_allGroups == null)
                 {
-                    App.Current.MainPage.DisplayAlert("Загрузка списка групп", "Не удалось загрузить список групп. Пожалуйста, попробуйте позже.", "Ok");
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        App.Current.MainPage.DisplayAlert("Загрузка списка групп", "Не удалось загрузить список групп. Пожалуйста, попробуйте позже.", "Ok");
+                    });
 
                     ProgressLayoutIsVisable = false;
                     ProgressLayoutIsEnable = true;

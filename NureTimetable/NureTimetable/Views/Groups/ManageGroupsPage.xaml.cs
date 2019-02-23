@@ -11,6 +11,7 @@ using NureTimetable.UI.Views.Groups;
 using NureTimetable.ViewModels.Groups;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Plugin.DeviceInfo;
 
 namespace NureTimetable.Views
 {
@@ -51,6 +52,11 @@ namespace NureTimetable.Views
             if (GroupsDataStore.GetSelected()?.ID != selectedGroup.ID)
             {
                 actionList.Insert(0, "Выбрать");
+            }
+            if (Device.RuntimePlatform == Device.Android && CrossDeviceInfo.Current.VersionNumber.Major < 5)
+            {
+                // It seems like SfCheckBox doesn`t support Android 4
+                actionList.Remove("Настроить отображение предметов");
             }
             string action = await DisplayActionSheet("Выберете действие:", "Отмена", null, actionList.ToArray());
             switch (action)

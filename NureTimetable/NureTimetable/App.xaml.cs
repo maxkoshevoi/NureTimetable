@@ -35,7 +35,7 @@ namespace NureTimetable
             // Handle when your app starts
 #if !DEBUG
             //Register Microsoft App Center metrics
-            AppCenter.Start("android=54a8f346-64c8-44f9-bbd5-6a0dae141d93;", typeof(Analytics), typeof(Crashes));
+            AppCenter.Start(Keys.MicrosoftAppCenterKey, typeof(Analytics), typeof(Crashes));
 #endif
         }
 
