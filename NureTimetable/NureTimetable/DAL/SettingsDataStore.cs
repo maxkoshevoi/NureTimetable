@@ -29,7 +29,7 @@ namespace NureTimetable.DAL
                     continue;
                 }
 
-                if (savedGroup.LastUpdated == null || (DateTime.Now.TimeOfDay.Hours >= 5 && DateTime.Now.TimeOfDay.Hours <= 7))
+                if (savedGroup.LastUpdated == null || (DateTime.Now.TimeOfDay.Hours >= 5 && DateTime.Now.TimeOfDay.Hours < 7))
                 {
                     // Update allowed if never updated before
                     // Unlimited updates between 5 and 7 AM

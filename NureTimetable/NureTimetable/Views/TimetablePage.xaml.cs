@@ -186,6 +186,19 @@ namespace NureTimetable.Views
                             Timetable.WeekViewSettings.EndHour = events.EndTime().TotalHours;
 
                             UpdateTimetableHeight();
+
+                            // Fix for bug when view header isn`t updating on first swipe
+                            try
+                            {
+                                DateTime currebtDate = visibleDates.Count > 0 ? visibleDates[0] : DateTime.Now;
+                                Timetable.NavigateTo(currebtDate.AddDays(7));
+                                Timetable.NavigateTo(currebtDate);
+                            }
+                            catch { }
+
+                            Timetable.DataSource = events.Events;
+
+                            UpdateTimeLeft();
                             break;
                         }
                         catch (Exception ex)
@@ -200,22 +213,9 @@ namespace NureTimetable.Views
                     {
                         MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, exception);
 
-                        DisplayAlert("Отображение расписания", "Произошла ошибка при попытке загрузить расписание", "Повторить попытку", "Ok");
+                        DisplayAlert("Отображение расписания", "Произошла ошибка при попытке отобразить расписание", "Ok");
                         return;
                     }
-
-                    // Fix for bug when view header isn`t updating on first swipe
-                    try
-                    {
-                        DateTime currebtDate = visibleDates.Count > 0 ? visibleDates[0] : DateTime.Now;
-                        Timetable.NavigateTo(currebtDate.AddDays(7));
-                        Timetable.NavigateTo(currebtDate);
-                    }
-                    catch { }
-
-                    Timetable.DataSource = events.Events;
-
-                    UpdateTimeLeft();
                 }
             });
         }
