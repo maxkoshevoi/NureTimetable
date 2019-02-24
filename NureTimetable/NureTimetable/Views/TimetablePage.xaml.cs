@@ -18,10 +18,12 @@ namespace NureTimetable.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class TimetablePage : ContentPage
     {
+        public TimetableInfo timetableInfo { get; set; } = null;
+
         private bool isFirstLoad = true;
         private bool isPageVisible = false;
         private List<DateTime> visibleDates = new List<DateTime>();
-        public EventList events { get; set; } = null;
+        private object enumeratingEvents = new object();
 
         public TimetablePage()
         {
@@ -97,35 +99,38 @@ namespace NureTimetable.Views
 
         private bool UpdateTimeLeft()
         {
-            if (events != null && events.Count > 0)
+            if (timetableInfo != null && timetableInfo.Count > 0)
             {
-                string text = null;
+                lock (enumeratingEvents)
+                {
+                    string text = null;
 
-                Event currentEvent = events.Events.FirstOrDefault(e => e.Start <= DateTime.Now && e.End >= DateTime.Now);
-                if (currentEvent != null)
-                {
-                    text = $"Время до перерыва: {(currentEvent.End - DateTime.Now).ToString("hh\\:mm\\:ss")}";
-                }
-                else
-                {
-                    Event nextEvent = events.Events
-                        .Where(e => e.Start > DateTime.Now)
-                        .OrderBy(e => e.Start)
-                        .FirstOrDefault();
-                    if (nextEvent != null && nextEvent.Start.Date == DateTime.Now.Date)
+                    Event currentEvent = timetableInfo.Events.FirstOrDefault(e => e.Start <= DateTime.Now && e.End >= DateTime.Now);
+                    if (currentEvent != null)
                     {
-                        text = $"Время до {nextEvent.Lesson} - {nextEvent.Type}: {(nextEvent.Start - DateTime.Now).ToString("hh\\:mm\\:ss")}";
+                        text = $"Время до перерыва: {(currentEvent.End - DateTime.Now).ToString("hh\\:mm\\:ss")}";
                     }
-                }
+                    else
+                    {
+                        Event nextEvent = timetableInfo.Events
+                            .Where(e => e.Start > DateTime.Now)
+                            .OrderBy(e => e.Start)
+                            .FirstOrDefault();
+                        if (nextEvent != null && nextEvent.Start.Date == DateTime.Now.Date)
+                        {
+                            text = $"Время до {nextEvent.Lesson} - {nextEvent.Type}: {(nextEvent.Start - DateTime.Now).ToString("hh\\:mm\\:ss")}";
+                        }
+                    }
                 
-                if (string.IsNullOrEmpty(text) || !isPageVisible)
-                {
-                    TimeLeft.IsVisible = false;
-                }
-                else
-                {
-                    TimeLeft.Text = text;
-                    TimeLeft.IsVisible = true;
+                    if (string.IsNullOrEmpty(text) || !isPageVisible)
+                    {
+                        TimeLeft.IsVisible = false;
+                    }
+                    else
+                    {
+                        TimeLeft.Text = text;
+                        TimeLeft.IsVisible = true;
+                    }
                 }
             }
             return isPageVisible;
@@ -145,45 +150,36 @@ namespace NureTimetable.Views
                 TimetableLayout.IsVisible = true;
             }
 
-            GroupName.Text = selectedGroup.Name;
-            events = EventsDataStore.GetEvents(selectedGroup.ID) ?? new EventList();
-            
-            // Applying lesson settings
-            foreach (LessonSettings lSetting in LessonSettingsDataStore.GetLessonSettings(selectedGroup.ID).Where(ls => ls.IsSomeSettingsApplied))
+            lock (enumeratingEvents)
             {
-                if (!lSetting.IsSomeSettingsApplied) continue;
-
-                // Hidding settings
-                if (lSetting.HidingSettings.ShowLesson == false)
-                {
-                    events.Events.RemoveAll(ev => ev.Lesson == lSetting.LessonName);
-                }
-                else if (lSetting.HidingSettings.ShowLesson == null)
-                {
-                    events.Events.RemoveAll(ev => ev.Lesson == lSetting.LessonName && lSetting.HidingSettings.HideOnlyThisEventTypes.Contains(ev.Type));
-                }
+                GroupName.Text = selectedGroup.Name;
+                timetableInfo = EventsDataStore.GetEvents(selectedGroup.ID) ?? new TimetableInfo();
+                timetableInfo.ApplyLessonSettings();
             }
 
             Device.BeginInvokeOnMainThread(() =>
             {
-                if (events.Count == 0)
+                if (timetableInfo.Count == 0)
                 {
                     Timetable.DataSource = null;
                 }
                 else
                 {
-                    int retriesLest = 25;
+                    int retriesLeft = 25;
                     Exception exception = null;
                     do
                     {
                         try
                         {
-                            Timetable.MinDisplayDate = events.StartDate();
-                            Timetable.MaxDisplayDate = events.EndDate();
-                            Timetable.WeekViewSettings.StartHour = 0;
-                            Timetable.WeekViewSettings.EndHour = 24;
-                            Timetable.WeekViewSettings.StartHour = events.StartTime().TotalHours;
-                            Timetable.WeekViewSettings.EndHour = events.EndTime().TotalHours;
+                            lock (enumeratingEvents)
+                            {
+                                Timetable.MinDisplayDate = timetableInfo.StartDate();
+                                Timetable.MaxDisplayDate = timetableInfo.EndDate();
+                                Timetable.WeekViewSettings.StartHour = 0;
+                                Timetable.WeekViewSettings.EndHour = 24;
+                                Timetable.WeekViewSettings.StartHour = timetableInfo.StartTime().TotalHours;
+                                Timetable.WeekViewSettings.EndHour = timetableInfo.EndTime().TotalHours;
+                            }
 
                             UpdateTimetableHeight();
 
@@ -196,7 +192,7 @@ namespace NureTimetable.Views
                             }
                             catch { }
 
-                            Timetable.DataSource = events.Events;
+                            Timetable.DataSource = timetableInfo.Events;
 
                             UpdateTimeLeft();
                             break;
@@ -207,9 +203,9 @@ namespace NureTimetable.Views
                             exception = ex;
                         }
 
-                        retriesLest--;
-                    } while (retriesLest > 0);
-                    if (retriesLest == 0 && exception != null)
+                        retriesLeft--;
+                    } while (retriesLeft > 0);
+                    if (retriesLeft == 0 && exception != null)
                     {
                         MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, exception);
 
@@ -227,7 +223,7 @@ namespace NureTimetable.Views
 
         private void UpdateTimetableHeight()
         {
-            if (Timetable.Height <= 0 || events == null || events.Count == 0) return;
+            if (Timetable.Height <= 0 || timetableInfo == null || timetableInfo.Count == 0) return;
 
             double timeIntrvalsCount = (Timetable.WeekViewSettings.EndHour - Timetable.WeekViewSettings.StartHour) / (Timetable.TimeInterval / 60);
             double magicNumberToMakeMathWork = 1.57;
@@ -294,7 +290,21 @@ namespace NureTimetable.Views
                 return;
             }
             string nl = Environment.NewLine;
-            DisplayAlert($"{ev.Lesson} - {ev.Type}", $"Аудитория: {ev.Room}{nl}День: {ev.Start.ToString("ddd, dd.MM.yy")}{nl}Время: {ev.Start.ToString("HH:mm")} - {ev.End.ToString("HH:mm")}", "Ok");
+
+            LessonInfo lessonInfo = timetableInfo.LessonsInfo.FirstOrDefault(li => li.ShortName == ev.Lesson);
+            if (lessonInfo == null)
+            {
+                DisplayAlert($"{ev.Lesson} - {ev.Type}", $"Аудитория: {ev.Room}{nl}Преподаватель: Не найден{nl}День: {ev.Start.ToString("ddd, dd.MM.yy")}{nl}Время: {ev.Start.ToString("HH:mm")} - {ev.End.ToString("HH:mm")}", "Ok");
+            }
+            else
+            {
+                string teacher = string.Join(", ", lessonInfo.EventTypesInfo.FirstOrDefault(et => et.Name == ev.Type)?.Teachers ?? new List<string>());
+                if (string.IsNullOrEmpty(teacher))
+                {
+                    teacher = "Не найден";
+                }
+                DisplayAlert($"{lessonInfo.LongName}", $"Тип: {ev.Type}{nl}Аудитория: {ev.Room}{nl}Преподаватель: {teacher}{nl}День: {ev.Start.ToString("ddd, dd.MM.yy")}{nl}Время: {ev.Start.ToString("HH:mm")} - {ev.End.ToString("HH:mm")}", "Ok");
+            }
         }
     }
 }

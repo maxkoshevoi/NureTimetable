@@ -101,7 +101,7 @@ namespace NureTimetable.Views
             await Task.Factory.StartNew(() =>
             {
                 string result;
-                if (EventsDataStore.GetEventsFromCist(Config.TimetableFromDate, Config.TimetableToDate, groupsAllowed.ToArray()) != null)
+                if (EventsDataStore.GetTimetableFromCist(Config.TimetableFromDate, Config.TimetableToDate, groupsAllowed.ToArray()) != null)
                 {
                     if (groupsAllowed.Count == 1)
                     {
@@ -117,11 +117,14 @@ namespace NureTimetable.Views
                     result = "Произошла ошибка, пожалуйста, попробуйте позже.";
                 }
 
-                Device.BeginInvokeOnMainThread(() =>
+                Device.BeginInvokeOnMainThread(async () =>
                 {
-                    DisplayAlert("Обновление расписания", result, "Ok");
                     ProgressLayout.IsVisible = false;
                     GroupsLayout.IsEnabled = true;
+                    if (await DisplayAlert("Обновление расписания", result, "К расписанию", "Ok"))
+                    {
+                        await Navigation.PopAsync();
+                    }
                 });
             });
         }

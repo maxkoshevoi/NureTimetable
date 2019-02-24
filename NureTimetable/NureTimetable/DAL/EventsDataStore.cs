@@ -4,6 +4,7 @@ using NureTimetable.Models.Consts;
 using NureTimetable.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -17,9 +18,9 @@ namespace NureTimetable.DAL
         /// <summary>
         /// Returns events for one group. Null if error occurs 
         /// </summary>
-        public static EventList GetEvents(int groupID, bool tryUpdate = false, DateTime? dateStart = null, DateTime? dateEnd = null)
+        public static TimetableInfo GetEvents(int groupID, bool tryUpdate = false, DateTime? dateStart = null, DateTime? dateEnd = null)
         {
-            EventList eventList;
+            TimetableInfo timetable;
             if (tryUpdate)
             {
                 if (dateStart == null || dateEnd == null)
@@ -27,21 +28,63 @@ namespace NureTimetable.DAL
                     throw new ArgumentNullException("dateStart and dateEnd should be set");
                 }
 
-                eventList = GetEventsFromCist(dateStart.Value, dateEnd.Value, groupID);
-                if (eventList != null)
+                timetable = GetTimetableFromCist(dateStart.Value, dateEnd.Value, groupID);
+                if (timetable != null)
                 {
-                    return eventList;
+                    return timetable;
                 }
             }
-            eventList = GetEventsLocal(groupID);
-            return eventList;
+            timetable = GetTimetableLocal(groupID);
+            return timetable;
         }
-        
 
-        public static EventList GetEventsFromCist(DateTime dateStart, DateTime dateEnd, int groupID)
-            => GetEventsFromCist(dateStart, dateEnd, new Group { ID = groupID }).Values.FirstOrDefault();
+        #region Local
+        public static TimetableInfo GetTimetableLocal(int groupID)
+            => GetTimetableLocal(new Group { ID = groupID }).FirstOrDefault();
 
-        public static Dictionary<int, EventList> GetEventsFromCist(DateTime dateStart, DateTime dateEnd, params Group[] groups)
+        public static List<TimetableInfo> GetTimetableLocal(params Group[] groups)
+        {
+            var timetables = new List<TimetableInfo>();
+            if (groups == null)
+            {
+                return timetables;
+            }
+            foreach (int groupID in groups.Select(g => g.ID))
+            {
+                TimetableInfo timetableInfo = Serialisation.FromJsonFile<TimetableInfo>(FilePath.SavedTimetable(groupID));
+                if (timetableInfo == null)
+                {
+                    continue;
+                }
+                timetables.Add(timetableInfo);
+            }
+            return timetables;
+        }
+
+        private static void UpdateTimetableLocal(TimetableInfo newTimetable)
+        {
+            Serialisation.ToJsonFile(newTimetable, FilePath.SavedTimetable(newTimetable.Group.ID));
+        }
+
+        #region Lesson Info
+        public static void UpdateLessonsInfo(int groupID, List<LessonInfo> lessonsInfo)
+        {
+            TimetableInfo timetable = GetTimetableLocal(groupID);
+            timetable.LessonsInfo = lessonsInfo;
+            UpdateTimetableLocal(timetable);
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                MessagingCenter.Send(Application.Current, MessageTypes.LessonSettingsChanged, groupID);
+            });
+        }
+        #endregion
+        #endregion
+
+        #region Cist
+        public static TimetableInfo GetTimetableFromCist(DateTime dateStart, DateTime dateEnd, int groupID)
+            => GetTimetableFromCist(dateStart, dateEnd, new Group { ID = groupID })?.FirstOrDefault();
+
+        public static List<TimetableInfo> GetTimetableFromCist(DateTime dateStart, DateTime dateEnd, params Group[] groups)
         {
             List<SavedGroup> groupsAllowed = SettingsDataStore.CheckCistTimetableUpdateRights(groups);
             if (groupsAllowed.Count == 0)
@@ -54,30 +97,66 @@ namespace NureTimetable.DAL
                 client.Encoding = Encoding.GetEncoding("Windows-1251");
                 try
                 {
-                    var timetables = new Dictionary<int, EventList>();
-                    Uri uri = new Uri(Urls.CistTimetableUrl(dateStart, dateEnd, groupsAllowed.Select(g => g.ID).ToArray()));
+                    List<TimetableInfo> timetables = GetTimetableLocal(groupsAllowed.ToArray());
+
+                    // Getting events
+                    Uri uri = new Uri(Urls.CistTimetableUrl(Urls.CistTimetableType.Csv, dateStart, dateEnd, groupsAllowed.Select(g => g.ID).ToArray()));
                     string data = client.DownloadString(uri);
-                    
-                    if (groupsAllowed.Count == 1)
+                    Dictionary<string, List<Event>> newEvents = ParseCistCsvTimetable(data, groupsAllowed.Count > 1);
+                    if (newEvents == null)
                     {
-                        List<Event> events = EventList.Parse(data);
-                        if (events == null)
-                        {
-                            return null;
-                        }
-                        timetables.Add(groupsAllowed[0].ID, new EventList(events));
+                        // Parsing error
+                        return null;
                     }
-                    else
+
+                    // Updating events and adding new timetables
+                    foreach (Group group in groupsAllowed)
                     {
-                        Dictionary<string, List<Event>> timetablesStr = EventList.Parse(data, true);
-                        foreach (Group group in groupsAllowed)
+                        var groupEvents = new List<Event>();
+                        if (newEvents.Keys.Contains(group.Name))
                         {
-                            List<Event> groupEvents = new List<Event>();
-                            if (timetablesStr.Keys.Contains(group.Name))
+                            groupEvents = newEvents[group.Name];
+                        }
+                        else if (groupsAllowed.Count == 1 && newEvents.Count == 1)
+                        {
+                            groupEvents = newEvents.Values.First();
+                        }
+                        TimetableInfo groupTimetable = timetables.FirstOrDefault(tt => tt.Group.ID == group.ID);
+                        if (groupTimetable == null)
+                        {
+                            groupTimetable = new TimetableInfo(group);
+                            timetables.Add(groupTimetable);
+                        }
+                        groupTimetable.Events = groupEvents;
+                    }
+
+                    // Updating lesson info if needed
+                    List<Group> groupsLessonInfoAllowed = SettingsDataStore.CheckCistLessonsInfoUpdateRights(groupsAllowed.ToArray());
+                    if (groupsLessonInfoAllowed.Count > 0)
+                    {
+                        uri = new Uri(Urls.CistTimetableUrl(Urls.CistTimetableType.Xls, dateStart, dateEnd, groupsLessonInfoAllowed.Select(g => g.ID).ToArray()));
+                        data = client.DownloadString(uri);
+                        Dictionary<string, List<LessonInfo>> groupsLessons = ParseCistXlsLessonInfo(data, groupsLessonInfoAllowed.ToArray());
+                        if (groupsLessons != null)
+                        {
+                            foreach (Group group in groupsLessonInfoAllowed)
                             {
-                                groupEvents = timetablesStr[group.Name];
+                                TimetableInfo timetable = timetables.First(tt => tt.Group.ID == group.ID);
+                                // Updating lesson info excluding lesson settings
+                                foreach (LessonInfo newLessonInfo in groupsLessons[group.Name])
+                                {
+                                    LessonInfo oldLessonInfo = timetable.LessonsInfo.FirstOrDefault(li => li.ShortName == newLessonInfo.ShortName);
+                                    if (oldLessonInfo == null)
+                                    {
+                                        oldLessonInfo = new LessonInfo();
+                                        timetable.LessonsInfo.Add(oldLessonInfo);
+                                    }
+                                    oldLessonInfo.ShortName = newLessonInfo.ShortName;
+                                    oldLessonInfo.LongName = newLessonInfo.LongName;
+                                    oldLessonInfo.EventTypesInfo = newLessonInfo.EventTypesInfo;
+                                    oldLessonInfo.LastUpdated = DateTime.Now;
+                                }
                             }
-                            timetables.Add(group.ID, new EventList(groupEvents));
                         }
                     }
 
@@ -92,12 +171,13 @@ namespace NureTimetable.DAL
                     }
                     GroupsDataStore.UpdateSaved(AllSavedGroups);
 
-                    foreach (int groupID in timetables.Keys)
+                    // Saving timetables
+                    foreach (TimetableInfo newTimetable in timetables)
                     {
-                        Serialisation.ToJsonFile(timetables[groupID].Events, FilePath.SavedTimetable(groupID));
+                        UpdateTimetableLocal(newTimetable);
                         Device.BeginInvokeOnMainThread(() =>
                         {
-                            MessagingCenter.Send(Application.Current, MessageTypes.TimetableUpdated, groupID);
+                            MessagingCenter.Send(Application.Current, MessageTypes.TimetableUpdated, newTimetable.Group.ID);
                         });
                     }
 
@@ -114,29 +194,191 @@ namespace NureTimetable.DAL
             return null;
         }
 
-        public static EventList GetEventsLocal(int groupID)
+        #region Parsers
+        public static List<Event> ParseCistCsvTimetable(string cistCsvDataForOneGroup)
+            => ParseCistCsvTimetable(cistCsvDataForOneGroup, false)?.Values.FirstOrDefault();
+
+        public static Dictionary<string, List<Event>> ParseCistCsvTimetable(string cistCsvData, bool isManyGroups)
         {
-            List<Event> localEvents = Serialisation.FromJsonFile<List<Event>>(FilePath.SavedTimetable(groupID));
-            if (localEvents == null)
+            string defaultKey = "default";
+            IEnumerable<string> rawData = cistCsvData
+                .Split(new char[] { '\r' }, StringSplitOptions.RemoveEmptyEntries)
+                .Skip(1); // Skipping headers
+
+            var timetables = new Dictionary<string, List<Event>>();
+            foreach (string eventStr in rawData)
             {
-                return null;
+                try
+                {
+                    string[] rawEvent = eventStr
+                        .Split(new string[] { "\",\"" }, StringSplitOptions.RemoveEmptyEntries)
+                        .Select(str => str.Trim('"'))
+                        .ToArray();
+
+                    /*
+                     * Data structure
+                     * 
+                     * 0  - Тема ([Group_Name - ]Lesson Type Room[, Room2]; [Lesson2...; ][LessonN...])
+                     * 1  - Дата начала 
+                     * 2  - Время начала 
+                     * 3  - Дата завершения 
+                     * 4  - Время завершения 
+                     * 5  - Ежедневное событие 
+                     * 6  - Оповещение вкл / выкл 
+                     * 7  - Дата оповещения 
+                     * 8  - Время оповещения    
+                     * 9  - В это время 
+                     * 10 - Важность    
+                     * 11 - Описание 
+                     * 12 - Пометка
+                    */
+
+                    string[] concurrentEventsList = rawEvent[0].Split(new string[] { "; " }, StringSplitOptions.RemoveEmptyEntries);
+
+                    string groupName = defaultKey;
+                    if (isManyGroups)
+                    {
+                        groupName = concurrentEventsList[0].Remove(concurrentEventsList[0].IndexOf(' '));
+                        concurrentEventsList[0] = concurrentEventsList[0].Substring(concurrentEventsList[0].IndexOf(" - ") + 3);
+                    }
+
+                    foreach (string eventDescriptionStr in concurrentEventsList)
+                    {
+                        List<string> eventDescription = eventDescriptionStr.Split(' ').ToList();
+
+                        // Checking for lessons with spaces
+                        int typeIndex = -1;
+                        for (int i = eventDescription.Count - 1; i >= 0; i--)
+                        {
+                            if (KnownEventTypes.Values.Contains(eventDescription[i].ToLower()))
+                            {
+                                typeIndex = i;
+                                break;
+                            }
+                        }
+                        while (typeIndex > 1)
+                        {
+                            eventDescription[0] += $" {eventDescription[1]}";
+                            eventDescription.RemoveAt(1);
+                            typeIndex--;
+                        }
+
+                        // Checking for multiple rooms
+                        while (eventDescription[2].EndsWith(",") && eventDescription.Count > 2)
+                        {
+                            eventDescription[2] += $" {eventDescription[3]}";
+                            eventDescription.RemoveAt(3);
+                        }
+
+                        Event ev = new Event
+                        {
+                            Lesson = eventDescription[0],
+                            Type = eventDescription[1],
+                            Room = eventDescription[2],
+
+                            Start = DateTime.ParseExact(rawEvent[1], "dd.MM.yyyy", CultureInfo.InvariantCulture)
+                                        .Add(TimeSpan.ParseExact(rawEvent[2], "hh\\:mm\\:ss", CultureInfo.InvariantCulture)),
+                            End = DateTime.ParseExact(rawEvent[3], "dd.MM.yyyy", CultureInfo.InvariantCulture)
+                                        .Add(TimeSpan.ParseExact(rawEvent[4], "hh\\:mm\\:ss", CultureInfo.InvariantCulture)),
+                        };
+
+                        if (!timetables.ContainsKey(groupName))
+                        {
+                            timetables.Add(groupName, new List<Event>());
+                        }
+                        timetables[groupName].Add(ev);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
+                    });
+                    return null;
+                }
             }
-            var events = new EventList(localEvents);
-            return events;
+            return timetables;
         }
 
-        public static EventList GetEventsFromCistCsv(string filePath, bool isMultipleGroups = false)
+        public static Dictionary<string, List<LessonInfo>> ParseCistXlsLessonInfo(string cistXlsTimetableData, params Group[] searchGroups)
         {
-            if (!File.Exists(filePath))
+            var groupsLessons = new Dictionary<string, List<LessonInfo>>();
+            if (searchGroups == null || searchGroups.Length == 0)
             {
-                return null;
+                return groupsLessons;
             }
-
+            
             try
             {
-                string data = File.ReadAllText(filePath, Encoding.GetEncoding(1251));
-                var events = new EventList(data);
-                return events;
+                // Setting default values
+                foreach (string searchGroup in searchGroups.Select(sg => sg.Name))
+                {
+                    if (string.IsNullOrEmpty(searchGroup))
+                    {
+                        throw new ArgumentNullException("Group name must be specified");
+                    }
+                    groupsLessons.Add(searchGroup, new List<LessonInfo>());
+                }
+
+                cistXlsTimetableData = cistXlsTimetableData.Substring(cistXlsTimetableData.IndexOf("\n\n"));
+                List<string> timetableInfoRaw = cistXlsTimetableData
+                    .Split(new string[] { @"ss:Type=""String"">" }, StringSplitOptions.RemoveEmptyEntries)
+                    .Skip(1)
+                    .ToList();
+
+                for (int i = 0; i < timetableInfoRaw.Count; i += 2)
+                {
+                    List<string> infoRaw = timetableInfoRaw[i + 1]
+                        .Remove(timetableInfoRaw[i + 1].IndexOf("</Data>"))
+                        .Split(new string[] { ": ", "\n" }, StringSplitOptions.RemoveEmptyEntries)
+                        .ToList();
+
+                    string lessonShortName = timetableInfoRaw[i].Remove(timetableInfoRaw[i].IndexOf("</Data>"));
+                    string lessonLongName = infoRaw[0].Trim();
+                    foreach (string groupName in groupsLessons.Keys)
+                    {
+                        groupsLessons[groupName].Add(new LessonInfo
+                        {
+                            ShortName =lessonShortName,
+                            LongName = lessonLongName
+                        });
+                    }
+
+                    foreach (string eventTypeInfoRaw in infoRaw.Skip(1))
+                    {
+                        List<string> eventTypeInfo = eventTypeInfoRaw.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+                        if (eventTypeInfo.Count <= 4)
+                        {
+                            // Event type doesn`t have teacher
+                            continue;
+                        }
+
+                        foreach (string groupName in groupsLessons.Keys)
+                        {
+                            if (!IsGroupsListFromXlsContains(eventTypeInfo[3], groupName))
+                            {
+                                // Teachers for different groups
+                                continue;
+                            }
+                            LessonInfo lessonInfo = groupsLessons[groupName].First(li => li.ShortName == lessonShortName);
+
+                            string type = eventTypeInfo[0];
+                            string teacher = $"{eventTypeInfo[4]} {eventTypeInfo[5]}{eventTypeInfo[6]}".TrimEnd(',');
+                                
+                            EventTypeInfo eventType = lessonInfo.EventTypesInfo.FirstOrDefault(et => et.Name == type);
+                            if (eventType == null)
+                            {
+                                eventType = new EventTypeInfo
+                                {
+                                    Name = type
+                                };
+                                lessonInfo.EventTypesInfo.Add(eventType);
+                            }
+                            eventType.Teachers.Add(teacher);
+                        }
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -144,8 +386,46 @@ namespace NureTimetable.DAL
                 {
                     MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
                 });
+                groupsLessons = null;
             }
-            return null;
+            return groupsLessons;
         }
+
+        private static bool IsGroupsListFromXlsContains(string groupsStr, string searchGroup)
+        {
+            //*РNet(ПЗПІ-16-)-2,
+            //*РNet(ПЗПІ-16-)-1;*РNet(ПЗПІ-16-)-2,
+            if (groupsStr.Contains("("))
+            {
+                return true;
+            }
+
+            //ПЗПІ-16-5,
+            //ПЗПІи-16-4;ПЗПІ-16-4,5,6,7,8,
+            foreach (string groupSection in groupsStr.Split(';'))
+            {
+                List<string> groupList = groupSection.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+                if (groupList.Count == 1)
+                {
+                    if (groupList[0] == searchGroup)
+                    {
+                        return true;
+                    }
+                    continue;
+                }
+                string groupTemplate = groupList[0].Remove(groupList[0].LastIndexOf('-') + 1);
+                foreach (string groupLeftPart in groupList.Skip(1))
+                {
+                    if (groupTemplate + groupLeftPart == searchGroup)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+        #endregion
+        #endregion
     }
 }

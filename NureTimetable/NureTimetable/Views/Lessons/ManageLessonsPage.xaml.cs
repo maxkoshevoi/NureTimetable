@@ -16,7 +16,7 @@ namespace NureTimetable.Views.Lessons
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ManageLessonsPage : ContentPage
     {
-        public ObservableCollection<LessonSettings> lessons { get; set; }
+        public ObservableCollection<LessonInfo> lessons { get; set; }
         Group group;
 
         public ManageLessonsPage(SavedGroup group)
@@ -25,24 +25,26 @@ namespace NureTimetable.Views.Lessons
             Title += $": {group.Name}";
             this.group = group;
 
-            EventList eventList = EventsDataStore.GetEventsLocal(group.ID);
-            if (eventList == null)
+            TimetableInfo timetable = EventsDataStore.GetTimetableLocal(group.ID);
+            if (timetable == null)
             {
                 return;
             }
-            List<LessonSettings> lessonSettings = LessonSettingsDataStore.GetLessonSettings(group.ID);
-            lessons = new ObservableCollection<LessonSettings>
+            List<LessonInfo> lessonInfo = timetable.LessonsInfo;
+            lessons = new ObservableCollection<LessonInfo>
             (
-                eventList.Lessons()
+                timetable.Lessons()
                     .Select(lesson =>
                     {
-                        LessonSettings res = lessonSettings.FirstOrDefault(ls => ls.LessonName == lesson)
-                            ?? new LessonSettings { LessonName = lesson };
-                        res.EventTypes = eventList.EventTypes(lesson).ToList();
+                        LessonInfo res = lessonInfo.FirstOrDefault(li => li.ShortName == lesson)
+                            ?? new LessonInfo { ShortName = lesson };
+                        res.EventTypesInfo = timetable.EventTypes(lesson)
+                            .Select(et => res.EventTypesInfo.FirstOrDefault(eti => eti.Name == et) ?? new EventTypeInfo { Name = et })
+                            .ToList();
                         return res;
                     })
-                    .OrderBy(lesson => !eventList.Events.Where(e => e.Start >= DateTime.Now).Any(e => e.Lesson == lesson.LessonName))
-                    .ThenBy(lesson => lesson.LessonName)
+                    .OrderBy(lesson => !timetable.Events.Where(e => e.Start >= DateTime.Now).Any(e => e.Lesson == lesson.ShortName))
+                    .ThenBy(lesson => lesson.ShortName)
             );
             LessonsList.ItemsSource = lessons;
             if (lessons.Count == 0)
@@ -50,14 +52,14 @@ namespace NureTimetable.Views.Lessons
                 NoSourceLayout.IsVisible = true;
             }
 
-            MessagingCenter.Subscribe<LessonSettingsPage, LessonSettings>(this, "OneLessonSettingsChanged", (sender, newLessonSettings) =>
+            MessagingCenter.Subscribe<LessonSettingsPage, LessonInfo>(this, "OneLessonSettingsChanged", (sender, newLessonSettings) =>
             {
                 for (int i = 0; i < lessons.Count; i++)
                 {
-                    if (lessons[i].LessonName == newLessonSettings.LessonName)
+                    if (lessons[i].ShortName == newLessonSettings.ShortName)
                     {
                         lessons[i] = newLessonSettings;
-                        lessons[i].NotifyChanged();
+                        lessons[i].Settings.NotifyChanged();
                         break;
                     }
                 }
@@ -76,10 +78,10 @@ namespace NureTimetable.Views.Lessons
 
         async void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            if (e.Item == null || !(e.Item is LessonSettings))
+            if (e.Item == null || !(e.Item is LessonInfo))
                 return;
 
-            LessonSettings selectedLesson = (LessonSettings)e.Item;
+            LessonInfo selectedLesson = (LessonInfo)e.Item;
             //Deselect Item
             ((ListView)sender).SelectedItem = null;
             
@@ -88,7 +90,7 @@ namespace NureTimetable.Views.Lessons
 
         private void Save_Clicked(object sender, EventArgs e)
         {
-            LessonSettingsDataStore.UpdateLessonSettings(group.ID, lessons.ToList());
+            EventsDataStore.UpdateLessonsInfo(group.ID, lessons.ToList());
             DisplayAlert("Сохранение настроек", $"Настройки предметов для группы {group.Name} успешно сохранены.", "Ok");
             Navigation.PopAsync();
         }

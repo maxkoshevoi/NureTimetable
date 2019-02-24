@@ -22,7 +22,7 @@
                 <syncfusion:SfSchedule 
                         x:Name="Timetable"
                         VerticalOptions="FillAndExpand"
-                        TimeInterval="90"
+                        TimeInterval="60"
                         HeaderHeight="50"
                         ViewHeaderHeight="50"
                         FirstDayOfWeek="2"

@@ -22,8 +22,5 @@ namespace NureTimetable.Models.Consts
 
         public static string LastCistAllGroupsUpdate =>
             Path.Combine(LocalStorage, "last_all_groups_update.json");
-
-        public static string LessonSettings(int groupID) =>
-            Path.Combine(LocalStorage, $"lesson_settings_{groupID}.json");
     }
 }

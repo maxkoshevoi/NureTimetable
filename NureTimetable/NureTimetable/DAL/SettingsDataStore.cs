@@ -1,6 +1,7 @@
 ﻿using NureTimetable.Helpers;
 using NureTimetable.Models;
 using NureTimetable.Models.Consts;
+using NureTimetable.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,7 +14,7 @@ namespace NureTimetable.DAL
         #region Timetable Update Rights
         public static List<SavedGroup> CheckCistTimetableUpdateRights(params Group[] groupsToUpdate)
         {
-            List<SavedGroup> allowedGroups = new List<SavedGroup>();
+            var allowedGroups = new List<SavedGroup>();
             if (groupsToUpdate == null)
             {
                 return allowedGroups;
@@ -51,6 +52,48 @@ namespace NureTimetable.DAL
                     allowedGroups.Add(savedGroup);
                     continue;
                 }
+#if DEBUG
+                allowedGroups.Add(savedGroup);
+#endif
+            }
+            return allowedGroups;
+        }
+        #endregion
+
+        #region Lessons Info Update Rights
+        public static List<Group> CheckCistLessonsInfoUpdateRights(params Group[] groupsToUpdate)
+        {
+            var allowedGroups = new List<Group>();
+            if (groupsToUpdate == null)
+            {
+                return allowedGroups;
+            }
+
+            List<TimetableInfo> localTimetables = EventsDataStore.GetTimetableLocal(groupsToUpdate);
+            foreach (Group group in groupsToUpdate)
+            {
+                TimetableInfo groupTimetable = localTimetables.FirstOrDefault(tt => tt.Group.ID == group.ID);
+                if (groupTimetable == null)
+                {
+                    allowedGroups.Add(group);
+                    continue;
+                }
+                if (groupTimetable.Lessons().Any(lesson => !groupTimetable.LessonsInfo.Exists(li => li.ShortName == lesson)) 
+                    || groupTimetable.LessonsInfo.Exists(li => li.LastUpdated == null))
+                {
+                    // Allow update if at least one lesson never updated before
+                    allowedGroups.Add(group);
+                    continue;
+                }
+                if (groupTimetable.LessonsInfo.Exists(li => (DateTime.Now - li.LastUpdated) >= Config.CistLessonsInfoUpdateMinInterval))
+                {
+                    // Allow update if enough time passed
+                    allowedGroups.Add(group);
+                    continue;
+                }
+#if DEBUG
+                allowedGroups.Add(group);
+#endif
             }
             return allowedGroups;
         }
@@ -59,6 +102,10 @@ namespace NureTimetable.DAL
         #region All Groups Update Rights
         public static bool CheckCistAllGroupsUpdateRights()
         {
+#if DEBUG
+            return true;
+#endif
+
             TimeSpan? timePass = DateTime.Now - GetLastCistAllGroupsUpdateTime();
             if (timePass != null && timePass <= Config.CistAllGroupsUpdateMinInterval)
             {
@@ -69,10 +116,6 @@ namespace NureTimetable.DAL
 
         private static DateTime? GetLastCistAllGroupsUpdateTime()
         {
-//#if DEBUG
-//return null;
-//#endif
-
             string filePath = FilePath.LastCistAllGroupsUpdate;
             if (!File.Exists(filePath))
             {

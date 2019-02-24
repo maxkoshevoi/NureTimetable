@@ -15,5 +15,8 @@ namespace NureTimetable.Models.Consts
 
         public static TimeSpan CistAllGroupsUpdateMinInterval
             => TimeSpan.FromHours(24);
+
+        public static TimeSpan CistLessonsInfoUpdateMinInterval
+            => TimeSpan.FromDays(7);
     }
 }

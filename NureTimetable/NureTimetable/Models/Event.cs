@@ -13,7 +13,7 @@ namespace NureTimetable.Models
         public DateTime End { get; set; }
 
         public string DisplayInfo
-            => $"{Lesson}{Environment.NewLine}{Room} {Type}";
+            => $"{Lesson}{Environment.NewLine}{Room} {Type}{Environment.NewLine}{Start.ToString("HH:mm")} - {End.ToString("HH:mm")}";
 
         public Color Color
             => (Color) App.Current.Resources[ResourceManager.KeyForEventColor(Type)];
