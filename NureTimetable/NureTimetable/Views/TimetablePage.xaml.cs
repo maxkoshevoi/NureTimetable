@@ -124,12 +124,20 @@ namespace NureTimetable.Views
                 
                     if (string.IsNullOrEmpty(text) || !isPageVisible)
                     {
-                        TimeLeft.IsVisible = false;
+                        if (TimeLeft.IsVisible == true)
+                        {
+                            TimeLeft.IsVisible = false;
+                            UpdateTimetableHeight();
+                        }
                     }
                     else
                     {
                         TimeLeft.Text = text;
-                        TimeLeft.IsVisible = true;
+                        if (TimeLeft.IsVisible == false)
+                        {
+                            TimeLeft.IsVisible = true;
+                            UpdateTimetableHeight();
+                        }
                     }
                 }
             }
@@ -178,7 +186,7 @@ namespace NureTimetable.Views
                                 Timetable.WeekViewSettings.StartHour = 0;
                                 Timetable.WeekViewSettings.EndHour = 24;
                                 Timetable.WeekViewSettings.StartHour = timetableInfo.StartTime().TotalHours;
-                                Timetable.WeekViewSettings.EndHour = timetableInfo.EndTime().TotalHours;
+                                Timetable.WeekViewSettings.EndHour = timetableInfo.EndTime().TotalHours + (Timetable.TimeInterval / 60 / 2);
                             }
 
                             UpdateTimetableHeight();
@@ -225,9 +233,10 @@ namespace NureTimetable.Views
         {
             if (Timetable.Height <= 0 || timetableInfo == null || timetableInfo.Count == 0) return;
 
+            Timetable.HeightRequest = TimetableLayout.Height - GroupName.Height - (TimeLeft.IsVisible ? TimeLeft.Height : 0);
             double timeIntrvalsCount = (Timetable.WeekViewSettings.EndHour - Timetable.WeekViewSettings.StartHour) / (Timetable.TimeInterval / 60);
             double magicNumberToMakeMathWork = 1.57;
-            double timeIntervalHeightToFit = (Timetable.Height - Timetable.HeaderHeight - Timetable.ViewHeaderHeight)*magicNumberToMakeMathWork / (timeIntrvalsCount/* + 1*/);
+            double timeIntervalHeightToFit = (Timetable.HeightRequest - Timetable.HeaderHeight - Timetable.ViewHeaderHeight)*magicNumberToMakeMathWork / (timeIntrvalsCount/* + 1*/);
             double minTimeInterval = (50 * Timetable.TimeInterval) / 90; // Each 90 minute interval should be equal or more than 50 in size
 
             if (timeIntervalHeightToFit <= minTimeInterval)

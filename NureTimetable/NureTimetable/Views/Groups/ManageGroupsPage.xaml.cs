@@ -123,7 +123,14 @@ namespace NureTimetable.Views
                     GroupsLayout.IsEnabled = true;
                     if (await DisplayAlert("Обновление расписания", result, "К расписанию", "Ok"))
                     {
-                        await Navigation.PopAsync();
+                        try
+                        {
+                            await Navigation.PopAsync();
+                        }
+                        catch
+                        {
+                            // Sometimes this gives ArgumentOutOfRangeException
+                        }
                     }
                 });
             });

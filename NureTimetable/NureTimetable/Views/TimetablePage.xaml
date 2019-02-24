@@ -15,13 +15,12 @@
     </ContentPage.ToolbarItems>
     
     <ContentPage.Content>
-        <AbsoluteLayout>
+        <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
             <StackLayout x:Name="TimetableLayout" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="True">
                 <Label x:Name="GroupName" HorizontalOptions="Center" />
                 <Label x:Name="TimeLeft" HorizontalOptions="Center" IsVisible="False" />
                 <syncfusion:SfSchedule 
                         x:Name="Timetable"
-                        VerticalOptions="FillAndExpand"
                         TimeInterval="60"
                         HeaderHeight="50"
                         ViewHeaderHeight="50"
