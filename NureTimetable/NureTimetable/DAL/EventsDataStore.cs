@@ -340,7 +340,7 @@ namespace NureTimetable.DAL
                     {
                         groupsLessons[groupName].Add(new LessonInfo
                         {
-                            ShortName =lessonShortName,
+                            ShortName = lessonShortName,
                             LongName = lessonLongName
                         });
                     }
@@ -401,16 +401,17 @@ namespace NureTimetable.DAL
             }
 
             //ПЗПІ-16-5,
+            //ПЗПІ-16-4,5,6,7,8,
             //ПЗПІи-16-4;ПЗПІ-16-4,5,6,7,8,
             foreach (string groupSection in groupsStr.Split(';'))
             {
                 List<string> groupList = groupSection.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
-                if (groupList.Count == 1)
+                if (groupList[0] == searchGroup)
                 {
-                    if (groupList[0] == searchGroup)
-                    {
-                        return true;
-                    }
+                    return true;
+                }
+                else if (groupList.Count == 1)
+                {
                     continue;
                 }
                 string groupTemplate = groupList[0].Remove(groupList[0].LastIndexOf('-') + 1);
