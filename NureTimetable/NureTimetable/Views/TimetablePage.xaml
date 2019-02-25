@@ -16,9 +16,12 @@
     
     <ContentPage.Content>
         <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-            <StackLayout x:Name="TimetableLayout" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="True">
-                <Label x:Name="GroupName" HorizontalOptions="Center" />
-                <Label x:Name="TimeLeft" HorizontalOptions="Center" IsVisible="False" />
+            <StackLayout 
+                    x:Name="TimetableLayout" 
+                    AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                    AbsoluteLayout.LayoutFlags="All" 
+                    BackgroundColor="White" >
+                <Label x:Name="TimeLeft" HorizontalOptions="Center" FontSize="20" Margin="0,15,0,0" IsVisible="False" />
                 <syncfusion:SfSchedule 
                         x:Name="Timetable"
                         TimeInterval="60"

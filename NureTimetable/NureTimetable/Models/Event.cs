@@ -16,6 +16,16 @@ namespace NureTimetable.Models
             => $"{Lesson}{Environment.NewLine}{Room} {Type}{Environment.NewLine}{Start.ToString("HH:mm")} - {End.ToString("HH:mm")}";
 
         public Color Color
-            => (Color) App.Current.Resources[ResourceManager.KeyForEventColor(Type)];
+        {
+            get
+            {
+                Color baseColor = (Color) App.Current.Resources[ResourceManager.KeyForEventColor(Type)];
+                //if (End <= DateTime.Now)
+                //{
+                //    baseColor = Color.FromRgb(baseColor.R * 0.9, baseColor.G * 0.9, baseColor.B * 0.9);
+                //}
+                return baseColor;
+            }
+        }
     }
 }

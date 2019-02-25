@@ -5,17 +5,13 @@
              x:Class="NureTimetable.UI.Views.Groups.AddGroupPage"
              Title="Добавление группы">
 
- 
-
     <ContentPage.ToolbarItems>
-        <ToolbarItem Icon="update" Command="{Binding UpdateCommand}" x:Name="UpdateFromCist" >
-
-        </ToolbarItem>
+        <ToolbarItem Icon="update" Command="{Binding UpdateCommand}" x:Name="UpdateFromCist" />
     </ContentPage.ToolbarItems>
 
     <AbsoluteLayout>
         <StackLayout x:Name="GroupsLayout" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
-            <SearchBar x:Name="Searchbar" Text="{Binding SearchBarText}" >
+            <SearchBar x:Name="Searchbar" Text="{Binding SearchBarText}" HeightRequest="42">
                 <SearchBar.Behaviors>
                     <behaviors:EventToCommandBehavior EventName="TextChanged" Command="{Binding SearchBarTextChangedCommand}"/>
                 </SearchBar.Behaviors>

@@ -134,7 +134,7 @@ namespace NureTimetable.DAL
                     List<Group> groupsLessonInfoAllowed = SettingsDataStore.CheckCistLessonsInfoUpdateRights(groupsAllowed.ToArray());
                     if (groupsLessonInfoAllowed.Count > 0)
                     {
-                        uri = new Uri(Urls.CistTimetableUrl(Urls.CistTimetableType.Xls, dateStart, dateEnd, groupsLessonInfoAllowed.Select(g => g.ID).ToArray()));
+                        uri = new Uri(Urls.CistTimetableUrl(Urls.CistTimetableType.Xls, DateTime.Now, dateEnd, groupsLessonInfoAllowed.Select(g => g.ID).ToArray()));
                         data = client.DownloadString(uri);
                         Dictionary<string, List<LessonInfo>> groupsLessons = ParseCistXlsLessonInfo(data, groupsLessonInfoAllowed.ToArray());
                         if (groupsLessons != null)

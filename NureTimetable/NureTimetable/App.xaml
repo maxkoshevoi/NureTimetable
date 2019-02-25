@@ -9,7 +9,7 @@
             <!--Events colors-->
             <Color x:Key="defaultColor">#ffb0c4de</Color>
             <Color x:Key="лкColor">#ffcc80</Color>
-            <Color x:Key="пзColor">#9df273</Color>
+            <Color x:Key="пзColor">#8dd967</Color>
             <Color x:Key="лбColor">#d9a7f1</Color>
             <Color x:Key="консColor">#98dce6</Color>
             <Color x:Key="залColor">#f1f688</Color>

@@ -24,11 +24,14 @@ namespace NureTimetable.Views
         private bool isPageVisible = false;
         private List<DateTime> visibleDates = new List<DateTime>();
         private object enumeratingEvents = new object();
+        bool lastTimeLeftVisible;
 
         public TimetablePage()
         {
             InitializeComponent();
 
+            lastTimeLeftVisible = TimeLeft.IsVisible;
+            Timetable.VerticalOptions = LayoutOptions.FillAndExpand;
             Timetable.VisibleDatesChangedEvent += Timetable_VisibleDatesChangedEvent;
             string activeCultureCode = Cultures.SupportedCultures[0].TwoLetterISOLanguageName;
             if (Cultures.SupportedCultures.Any(c => c.TwoLetterISOLanguageName == CultureInfo.CurrentCulture.TwoLetterISOLanguageName))
@@ -101,10 +104,9 @@ namespace NureTimetable.Views
         {
             if (timetableInfo != null && timetableInfo.Count > 0)
             {
+                string text = null;
                 lock (enumeratingEvents)
                 {
-                    string text = null;
-
                     Event currentEvent = timetableInfo.Events.FirstOrDefault(e => e.Start <= DateTime.Now && e.End >= DateTime.Now);
                     if (currentEvent != null)
                     {
@@ -121,24 +123,26 @@ namespace NureTimetable.Views
                             text = $"Время до {nextEvent.Lesson} - {nextEvent.Type}: {(nextEvent.Start - DateTime.Now).ToString("hh\\:mm\\:ss")}";
                         }
                     }
-                
-                    if (string.IsNullOrEmpty(text) || !isPageVisible)
+                }
+                if (string.IsNullOrEmpty(text) || !isPageVisible)
+                {
+                    if (TimeLeft.IsVisible == true)
                     {
-                        if (TimeLeft.IsVisible == true)
-                        {
-                            TimeLeft.IsVisible = false;
-                            UpdateTimetableHeight();
-                        }
+                        TimeLeft.IsVisible = false;
+                        TimeLeft.Text = null;
+                        UpdateTimetableHeight();
                     }
-                    else
-                    {
-                        TimeLeft.Text = text;
-                        if (TimeLeft.IsVisible == false)
-                        {
-                            TimeLeft.IsVisible = true;
-                            UpdateTimetableHeight();
-                        }
-                    }
+                }
+                else
+                {
+                    TimeLeft.Text = text;
+                    TimeLeft.IsVisible = true;
+                }
+
+                if (TimeLeft.IsVisible != lastTimeLeftVisible && TimeLeft.Height > 0)
+                {
+                    UpdateTimetableHeight();
+                    lastTimeLeftVisible = TimeLeft.IsVisible;
                 }
             }
             return isPageVisible;
@@ -148,19 +152,26 @@ namespace NureTimetable.Views
         {
             if (selectedGroup == null)
             {
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    Title = LN.AppName;
+                });
                 TimetableLayout.IsVisible = false;
                 NoSourceLayout.IsVisible = true;
                 return;
             }
             else
             {
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    Title = selectedGroup.Name;
+                });
                 NoSourceLayout.IsVisible = false;
                 TimetableLayout.IsVisible = true;
             }
 
             lock (enumeratingEvents)
             {
-                GroupName.Text = selectedGroup.Name;
                 timetableInfo = EventsDataStore.GetEvents(selectedGroup.ID) ?? new TimetableInfo();
                 timetableInfo.ApplyLessonSettings();
             }
@@ -233,7 +244,8 @@ namespace NureTimetable.Views
         {
             if (Timetable.Height <= 0 || timetableInfo == null || timetableInfo.Count == 0) return;
 
-            Timetable.HeightRequest = TimetableLayout.Height - GroupName.Height - (TimeLeft.IsVisible ? TimeLeft.Height : 0);
+            Timetable.VerticalOptions = LayoutOptions.Fill;
+            Timetable.HeightRequest = TimetableLayout.Height - (TimeLeft.IsVisible ? TimeLeft.Height + TimeLeft.Margin.VerticalThickness : 0);
             double timeIntrvalsCount = (Timetable.WeekViewSettings.EndHour - Timetable.WeekViewSettings.StartHour) / (Timetable.TimeInterval / 60);
             double magicNumberToMakeMathWork = 1.57;
             double timeIntervalHeightToFit = (Timetable.HeightRequest - Timetable.HeaderHeight - Timetable.ViewHeaderHeight)*magicNumberToMakeMathWork / (timeIntrvalsCount/* + 1*/);
