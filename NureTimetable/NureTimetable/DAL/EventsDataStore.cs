@@ -353,6 +353,13 @@ namespace NureTimetable.DAL
                             // Event type doesn`t have teacher
                             continue;
                         }
+                        
+                        // Checking for groups with spaces
+                        while (!eventTypeInfo[3].EndsWith(",") && eventTypeInfo.Count > 3)
+                        {
+                            eventTypeInfo[3] += $" {eventTypeInfo[4]}";
+                            eventTypeInfo.RemoveAt(4);
+                        }
 
                         foreach (string groupName in groupsLessons.Keys)
                         {

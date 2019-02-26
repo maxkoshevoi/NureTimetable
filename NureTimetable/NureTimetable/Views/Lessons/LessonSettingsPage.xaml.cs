@@ -43,6 +43,7 @@ namespace NureTimetable.Views.Lessons
             this.lessonInfo = lessonInfo;
             updatingProgrammatically = true;
             ShowLesson.IsChecked = lessonInfo.Settings.Hiding.ShowLesson;
+            LessonNotes.Text = lessonInfo.Notes;
             updatingProgrammatically = false;
 
             eventTypes = lessonInfo.EventTypesInfo.Select(et => et.Name)
@@ -124,6 +125,11 @@ namespace NureTimetable.Views.Lessons
         private void LessonsEventTypes_ItemTapped(object sender, ItemTappedEventArgs e)
         {
             ((ListView)sender).SelectedItem = null;
+        }
+
+        private void LessonNotes_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            lessonInfo.Notes = LessonNotes.Text;
         }
     }
 }

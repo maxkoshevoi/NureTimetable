@@ -6,6 +6,7 @@ namespace NureTimetable.Models
 {
     public class LessonInfo
     {
+        #region Details
         public string ShortName { get; set; }
         public string LongName { get; set; }
         private List<EventTypeInfo> eventTypesInfo = new List<EventTypeInfo>();
@@ -15,13 +16,18 @@ namespace NureTimetable.Models
             set => eventTypesInfo = value ?? throw new NullReferenceException($"Attemt to set {EventTypesInfo} to null");
         }
         public DateTime? LastUpdated { get; set; }
+        #endregion
 
+        public string Notes { get; set; }
+
+        #region Settings
         private LessonSettings settings = new LessonSettings();
         public LessonSettings Settings
         {
             get => settings;
             set => settings = value ?? throw new NullReferenceException($"Attemt to set {Settings} to null");
         }
+        #endregion
 
         public override string ToString()
         {

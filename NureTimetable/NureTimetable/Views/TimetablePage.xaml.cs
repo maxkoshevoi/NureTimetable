@@ -319,12 +319,17 @@ namespace NureTimetable.Views
             }
             else
             {
+                string notes = null;
+                if (!string.IsNullOrEmpty(lessonInfo.Notes))
+                {
+                    notes = nl + nl + lessonInfo.Notes;
+                }
                 string teacher = string.Join(", ", lessonInfo.EventTypesInfo.FirstOrDefault(et => et.Name == ev.Type)?.Teachers ?? new List<string>());
                 if (string.IsNullOrEmpty(teacher))
                 {
                     teacher = "Не найден";
                 }
-                DisplayAlert($"{lessonInfo.LongName}", $"Тип: {ev.Type}{nl}Аудитория: {ev.Room}{nl}Преподаватель: {teacher}{nl}День: {ev.Start.ToString("ddd, dd.MM.yy")}{nl}Время: {ev.Start.ToString("HH:mm")} - {ev.End.ToString("HH:mm")}", "Ok");
+                DisplayAlert($"{lessonInfo.LongName}", $"Тип: {ev.Type}{nl}Аудитория: {ev.Room}{nl}Преподаватель: {teacher}{nl}День: {ev.Start.ToString("ddd, dd.MM.yy")}{nl}Время: {ev.Start.ToString("HH:mm")} - {ev.End.ToString("HH:mm")}{notes}", "Ok");
             }
         }
     }

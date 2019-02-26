@@ -22,5 +22,11 @@
                 </ViewCell>
             </DataTemplate>
         </ListView.ItemTemplate>
+        <ListView.Footer>
+            <StackLayout Margin="0,20,0,0">
+                <Label Text="Заметки: " />
+                <Editor HeightRequest="84" x:Name="LessonNotes" TextChanged="LessonNotes_TextChanged"></Editor>
+            </StackLayout>
+        </ListView.Footer>
     </ListView>
 </ContentPage>
