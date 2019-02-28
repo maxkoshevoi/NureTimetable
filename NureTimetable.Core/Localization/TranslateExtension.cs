@@ -4,12 +4,12 @@ using System.Resources;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace NureTimetable.Licalization
+namespace NureTimetable.Core.Localization
 {
     [ContentProperty(nameof(Text))]
     public class TranslateExtension : IMarkupExtension
     {
-        const string ResourceId = "NureTimetable.Licalization.LN";
+        const string ResourceId = "NureTimetable.Core.Localization.LN";
 
         static readonly Lazy<ResourceManager> resmgr =
             new Lazy<ResourceManager>(() =>

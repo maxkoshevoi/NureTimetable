@@ -4,6 +4,9 @@ using NureTimetable.Views.Info;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using NureTimetable.UI.Views.Info;
+using NureTimetable.ViewModels;
+using NureTimetable.ViewModels.Info;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -39,7 +42,7 @@ namespace NureTimetable.Views
                         MenuPages.Add(id, new NavigationPage(new TimetablePage()));
                         break;
                     case (int)MenuItemType.About:
-                        MenuPages.Add(id, new NavigationPage(new AboutPage()));
+                        MenuPages.Add(id, new NavigationPage(new AboutPage(){BindingContext = new InfoViewModel()}));
                         break;
                     case (int)MenuItemType.Donate:
                         MenuPages.Add(id, new NavigationPage(new DonatePage()));

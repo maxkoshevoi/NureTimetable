@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="NureTimetable.Views.TimetablePage"
              xmlns:syncfusion="clr-namespace:Syncfusion.SfSchedule.XForms;assembly=Syncfusion.SfSchedule.XForms"
-             xmlns:LN="clr-namespace:NureTimetable.Licalization"
+             xmlns:LN="clr-namespace:NureTimetable.Core.Localization;assembly=NureTimetable.Core"
              Appearing="ContentPage_Appearing"
              Disappearing="ContentPage_Disappearing"
              SizeChanged="ContentPage_SizeChanged"

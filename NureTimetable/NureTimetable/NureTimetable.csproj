@@ -22,11 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Licalization\LN.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>LN.resx</DependentUpon>
-    </Compile>
     <ProjectReference Include="..\..\NureTimetable.Services\NureTimetable.Services.csproj" />
     <ProjectReference Include="..\..\NureTimetable.UI\NureTimetable.UI.csproj" />
   </ItemGroup>
@@ -38,13 +33,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Licalization\LN.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>LN.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\Groups\ManageGroupsPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Update="Views\Info\DonatePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -57,5 +45,9 @@
     <EmbeddedResource Update="Views\TimetablePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Groups\" />
   </ItemGroup>
 </Project>

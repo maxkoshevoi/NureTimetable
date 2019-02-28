@@ -1,15 +1,16 @@
 ﻿using NureTimetable.DAL;
-using NureTimetable.Licalization;
 using NureTimetable.Models;
 using NureTimetable.Models.Consts;
+using NureTimetable.UI.Views.Groups;
 using NureTimetable.ViewModels;
+using NureTimetable.ViewModels.Groups;
 using Syncfusion.SfSchedule.XForms;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
+using NureTimetable.Core.Localization;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -267,7 +268,10 @@ namespace NureTimetable.Views
 
         private void ManageGroups_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new ManageGroupsPage());
+            Navigation.PushAsync(new ManageGroupsPage()
+            {
+                BindingContext = new ManageGroupsViewModel(Navigation)
+            });
         }
 
         private void Today_Clicked(object sender, EventArgs e)
