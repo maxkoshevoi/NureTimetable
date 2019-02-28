@@ -3,11 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="NureTimetable.Views.TimetablePage"
              xmlns:syncfusion="clr-namespace:Syncfusion.SfSchedule.XForms;assembly=Syncfusion.SfSchedule.XForms"
-             xmlns:localization="clr-namespace:NureTimetable.Core.Localization;assembly=NureTimetable.Core"
+             xmlns:LN="clr-namespace:NureTimetable.Core.Localization;assembly=NureTimetable.Core"
              Appearing="ContentPage_Appearing"
              Disappearing="ContentPage_Disappearing"
              SizeChanged="ContentPage_SizeChanged"
-             Title="{localization:Translate AppName}">
+             Title="{LN:Translate AppName}">
     
     <ContentPage.ToolbarItems>
         <ToolbarItem Icon="today" Clicked="Today_Clicked" x:Name="Today" />
