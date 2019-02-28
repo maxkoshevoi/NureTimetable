@@ -1,17 +1,16 @@
 ﻿using NureTimetable.DAL;
-using NureTimetable.Licalization;
 using NureTimetable.Models;
 using NureTimetable.Models.Consts;
+using NureTimetable.UI.Views.Groups;
 using NureTimetable.ViewModels;
+using NureTimetable.ViewModels.Groups;
 using Syncfusion.SfSchedule.XForms;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
-using NureTimetable.UI.Views.Groups;
-using NureTimetable.ViewModels.Groups;
+using NureTimetable.Core.Localization;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

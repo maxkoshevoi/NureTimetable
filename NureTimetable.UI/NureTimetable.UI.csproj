@@ -9,10 +9,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\NureTimetable.Core\NureTimetable.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="Views\Groups\AddGroupPage.xaml.cs">
       <DependentUpon>%(Filename)</DependentUpon>
     </Compile>
     <Compile Update="Views\Groups\ManageGroupsPage.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Info\AboutPage.xaml.cs">
       <DependentUpon>%(Filename)</DependentUpon>
     </Compile>
   </ItemGroup>

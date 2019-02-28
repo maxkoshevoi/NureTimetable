@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace NureTimetable.Licalization
+namespace NureTimetable.Core.Localization
 {
     public static class Cultures
     {

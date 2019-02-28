@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="NureTimetable.Views.AboutPage"
-             xmlns:LN="clr-namespace:NureTimetable.Licalization"
+             xmlns:localization="clr-namespace:NureTimetable.Core.Localization;assembly=NureTimetable.Core"
+             x:Class="NureTimetable.UI.Views.Info.AboutPage"
              Title="О приложении">
     
     <ContentPage.Resources>
@@ -32,9 +32,9 @@
                     <Label.FormattedText>
                         <FormattedString>
                             <FormattedString.Spans>
-                                <Span Text="{LN:Translate AppName}" FontAttributes="Bold" FontSize="22" />
+                                <Span Text="{localization:Translate AppName}" FontAttributes="Bold" FontSize="22" />
                                 <Span Text=" " />
-                                <Span x:Name="SVersion" Text="1.0" ForegroundColor="{StaticResource LightTextColor}" />
+                                <Span x:Name="SVersion" Text="{Binding VersionText}" ForegroundColor="{StaticResource LightTextColor}" />
                             </FormattedString.Spans>
                         </FormattedString>
                     </Label.FormattedText>
@@ -56,7 +56,7 @@
                                 <Span Text="Если у кого-нибудь с опытом разработки на Xamarin будет желение помочь, вот ссылка на гитхаб: " />
                                 <Span Text="github.com/maxkoshevoi/NureTimetable" ForegroundColor="{StaticResource LightTextColor}" TextDecorations="Underline">
                                     <Span.GestureRecognizers>
-                                        <TapGestureRecognizer Tapped="NavigateUrl_Handler"
+                                        <TapGestureRecognizer Command="{Binding NavigateUriCommand}"
                                           CommandParameter="https://github.com/maxkoshevoi/NureTimetable" />
                                     </Span.GestureRecognizers>
                                 </Span>
@@ -80,14 +80,14 @@
                                 <Span Text="Официальная страница ХНУРЭ: " />
                                 <Span Text="Сайт" ForegroundColor="{StaticResource LightTextColor}" TextDecorations="Underline">
                                     <Span.GestureRecognizers>
-                                        <TapGestureRecognizer Tapped="NavigateUrl_Handler"
+                                        <TapGestureRecognizer Command="{Binding NavigateUriCommand}"
                                           CommandParameter="http://nure.ua/" />
                                     </Span.GestureRecognizers>
                                 </Span>
                                 <Span Text=", " />
                                 <Span Text="Facebook" ForegroundColor="{StaticResource LightTextColor}" TextDecorations="Underline">
                                     <Span.GestureRecognizers>
-                                        <TapGestureRecognizer Tapped="NavigateUrl_Handler"
+                                        <TapGestureRecognizer Command="{Binding NavigateUriCommand}"
                                           CommandParameter="https://www.facebook.com/nureKharkiv/" />
                                     </Span.GestureRecognizers>
                                 </Span>
@@ -102,14 +102,14 @@
                                 <Span Text="Студент ХНУРЭ: " />
                                 <Span Text="Telegram" ForegroundColor="{StaticResource LightTextColor}" TextDecorations="Underline">
                                     <Span.GestureRecognizers>
-                                        <TapGestureRecognizer Tapped="NavigateUrl_Handler"
+                                        <TapGestureRecognizer Command="{Binding NavigateUriCommand}"
                                           CommandParameter="https://t.me/studentnure" />
                                     </Span.GestureRecognizers>
                                 </Span>
                                 <Span Text=", " />
                                 <Span Text="Instagram" ForegroundColor="{StaticResource LightTextColor}" TextDecorations="Underline">
                                     <Span.GestureRecognizers>
-                                        <TapGestureRecognizer Tapped="NavigateUrl_Handler"
+                                        <TapGestureRecognizer Command="{Binding NavigateUriCommand}"
                                           CommandParameter="https://www.instagram.com/student.nure/" />
                                     </Span.GestureRecognizers>
                                 </Span>
@@ -121,7 +121,7 @@
                 <Label Margin="0,300,0,0" Text="И, на всякий случай, оставлю здесь вот это." />
                 <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                     <Label Text="Показывать ошибки: " />
-                    <Switch x:Name="SwDebugMode" Toggled="SwDebugMode_Toggled" />
+                    <Switch x:Name="SwDebugMode" IsToggled="{Binding IsDebugModeActive}"/>
                 </StackLayout>
             </StackLayout>
         </ScrollView>
