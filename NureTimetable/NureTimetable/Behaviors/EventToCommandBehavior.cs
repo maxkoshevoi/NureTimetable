@@ -4,9 +4,9 @@ using System.Windows.Input;
 using NureTimetable.UI.Behaviors.Base;
 using Xamarin.Forms;
 
-namespace NureTimetable.UI.Behaviors
+namespace NureTimetable.Behaviors
 {
-    public class EventToCommandBehavior : BehaviorBase<View>
+    public class EventToCommandBehavior : Base.BehaviorBase<View>
     {
         private Delegate _eventHandler;
 
@@ -21,6 +21,10 @@ namespace NureTimetable.UI.Behaviors
 
         public static readonly BindableProperty InputConverterProperty 
             = BindableProperty.Create(nameof(Converter), typeof(IValueConverter), typeof(EventToCommandBehavior));
+
+        internal EventToCommandBehavior()
+        {
+        }
 
         public string EventName
         {

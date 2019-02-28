@@ -1,7 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 
-namespace NureTimetable.UI.Behaviors.Base
+namespace NureTimetable.Behaviors.Base
 {
     public class BehaviorBase<T> : Behavior<T> where T : BindableObject
     {
