@@ -10,6 +10,8 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using NureTimetable.UI.Views.Groups;
+using NureTimetable.ViewModels.Groups;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -267,7 +269,10 @@ namespace NureTimetable.Views
 
         private void ManageGroups_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new ManageGroupsPage());
+            Navigation.PushAsync(new ManageGroupsPage()
+            {
+                BindingContext = new ManageGroupsViewModel(Navigation)
+            });
         }
 
         private void Today_Clicked(object sender, EventArgs e)
