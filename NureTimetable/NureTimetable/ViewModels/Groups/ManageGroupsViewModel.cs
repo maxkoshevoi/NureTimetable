@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using NureTimetable.DAL;
+﻿using NureTimetable.DAL;
 using NureTimetable.Models;
 using NureTimetable.Models.Consts;
 using NureTimetable.Services.Helpers;
@@ -12,18 +6,30 @@ using NureTimetable.UI.Views.Groups;
 using NureTimetable.ViewModels.Core;
 using NureTimetable.Views.Lessons;
 using Plugin.DeviceInfo;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace NureTimetable.ViewModels.Groups
 {
     public class ManageGroupsViewModel : BaseViewModel
     {
+        #region variables
         private bool _isNoSourceLayoutVisable;
 
         private bool _isGroupsLayoutEnable;
 
         private bool _isProgressVisable;
 
+        private ObservableCollection<SavedGroup> _groups;
+        #endregion
+
+
+        #region Properties
         public bool IsNoSourceLayoutVisable
         {
             get => _isNoSourceLayoutVisable;
@@ -58,9 +64,26 @@ namespace NureTimetable.ViewModels.Groups
             }
         }
 
+        public ObservableCollection<SavedGroup> Groups { get => _groups; set => SetProperty(ref _groups, value); }
+
         public ICommand UpdateAllCommand { get; protected set; }
+
         public ICommand AddGroupCommand { get; protected set; }
 
+        #endregion
+
+        public ManageGroupsViewModel(INavigation navigation) : base(navigation)
+        {
+            IsProgressVisable = false;
+            IsGroupsLayoutEnalbe = true;
+            UpdateItems(GroupsDataStore.GetSaved());
+            MessagingCenter.Subscribe<Application, List<SavedGroup>>(this, MessageTypes.SavedGroupsChanged,
+                (sender, newSavedGroups) => { UpdateItems(newSavedGroups); });
+            UpdateAllCommand = CommandHelper.CreateCommand(UpdateAll);
+            AddGroupCommand = CommandHelper.CreateCommand(AddGroup);
+        }
+
+        #region Methods
         public async Task SavedGroupSelected(SavedGroup selectedGroup)
         {
             List<string> actionList = new List<string> { "Обновить расписание", "Настроить отображение предметов", "Удалить" };
@@ -94,19 +117,6 @@ namespace NureTimetable.ViewModels.Groups
                     GroupsDataStore.UpdateSaved(Groups.ToList());
                     break;
             }
-        }
-
-        public ObservableCollection<SavedGroup> Groups { get; set; }
-
-        public ManageGroupsViewModel(INavigation navigation) : base(navigation)
-        {
-            IsProgressVisable = false;
-            IsGroupsLayoutEnalbe = true;
-            UpdateItems(GroupsDataStore.GetSaved());
-            MessagingCenter.Subscribe<Application, List<SavedGroup>>(this, MessageTypes.SavedGroupsChanged,
-                (sender, newSavedGroups) => { UpdateItems(newSavedGroups); });
-            UpdateAllCommand = CommandHelper.CreateCommand(UpdateAll);
-            AddGroupCommand = CommandHelper.CreateCommand(AddGroup);
         }
 
         private async Task UpdateAll()
@@ -194,5 +204,6 @@ namespace NureTimetable.ViewModels.Groups
                 });
             });
         }
+        #endregion
     }
 }
