@@ -70,6 +70,15 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to and will always be..
+        /// </summary>
+        public static string AndWillAlwaysBe {
+            get {
+                return ResourceManager.GetString("AndWillAlwaysBe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Application for displaying groups schedule for.
         /// </summary>
         public static string AppDescription {
@@ -124,6 +133,15 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to is free .
+        /// </summary>
+        public static string IsFree {
+            get {
+                return ResourceManager.GetString("IsFree", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Homepage.
         /// </summary>
         public static string NureHomepage {
@@ -160,11 +178,56 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Thank.
+        /// </summary>
+        public static string Thank {
+            get {
+                return ResourceManager.GetString("Thank", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Big thank.
+        /// </summary>
+        public static string Thank2 {
+            get {
+                return ResourceManager.GetString("Thank2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Huge thank.
+        /// </summary>
+        public static string Thank3 {
+            get {
+                return ResourceManager.GetString("Thank3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This app .
+        /// </summary>
+        public static string ThisApp {
+            get {
+                return ResourceManager.GetString("ThisApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Timetable.
         /// </summary>
         public static string Timetable {
             get {
                 return ResourceManager.GetString("Timetable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your contribution supports development and doesn&apos;t let me fall into oblivion..
+        /// </summary>
+        public static string YourContribution {
+            get {
+                return ResourceManager.GetString("YourContribution", resourceCulture);
             }
         }
     }

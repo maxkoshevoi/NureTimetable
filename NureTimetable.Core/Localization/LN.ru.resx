@@ -147,10 +147,31 @@
   <data name="About" xml:space="preserve">
     <value>О программе</value>
   </data>
+  <data name="AndWillAlwaysBe" xml:space="preserve">
+    <value>и всегда будет таковым.</value>
+  </data>
   <data name="Donate" xml:space="preserve">
     <value>Пожертвовать</value>
   </data>
+  <data name="IsFree" xml:space="preserve">
+    <value>бесплатное </value>
+  </data>
+  <data name="Thank" xml:space="preserve">
+    <value>Сказать спасибо</value>
+  </data>
+  <data name="Thank2" xml:space="preserve">
+    <value>Сказать большое спасибо</value>
+  </data>
+  <data name="Thank3" xml:space="preserve">
+    <value>Сказать огромное спасибо</value>
+  </data>
+  <data name="ThisApp" xml:space="preserve">
+    <value>Это приложение </value>
+  </data>
   <data name="Timetable" xml:space="preserve">
     <value>Расписание</value>
+  </data>
+  <data name="YourContribution" xml:space="preserve">
+    <value>Ваш вклад поддерживает его развитие и помогает не уходить в небытие.</value>
   </data>
 </root>

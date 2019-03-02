@@ -31,9 +31,9 @@
                     <Label.FormattedText>
                         <FormattedString>
                             <FormattedString.Spans>
-                                <Span Text="Это приложение " />
-                                <Span Text="бесплатное" FontAttributes="Bold" />
-                                <Span Text=" и всегда будет им оставаться." />
+                                <Span Text="{LN:Translate ThisApp}" />
+                                <Span Text="{LN:Translate IsFree}" FontAttributes="Bold" />
+                                <Span Text="{LN:Translate AndWillAlwaysBe}" />
                             </FormattedString.Spans>
                         </FormattedString>
                     </Label.FormattedText>
@@ -42,20 +42,20 @@
                     <Label.FormattedText>
                         <FormattedString>
                             <FormattedString.Spans>
-                                <Span Text="Ваш вклад поддерживает его развитие и помогает не уходить в небытие." />
+                                <Span Text="{LN:Translate YourContribution}" />
                             </FormattedString.Spans>
                         </FormattedString>
                     </Label.FormattedText>
                 </Label>
-                <Button Margin="0,10,0,0" Text="Сказать спасибо"
+                <Button Margin="0,10,0,0" Text="{LN:Translate Thank}"
                         BackgroundColor="{StaticResource Primary}"
                         TextColor="White" 
                         Clicked="DonateLow_Clicked" />
-                <Button Margin="0,10,0,0" Text="Сказать большое спасибо"
+                <Button Margin="0,10,0,0" Text="{LN:Translate Thank2}"
                         BackgroundColor="{StaticResource Primary}"
                         TextColor="White"
                         Clicked="DonateMedium_Clicked" />
-                <Button Margin="0,10,0,0" Text="Сказать громадное спасибо"
+                <Button Margin="0,10,0,0" Text="{LN:Translate Thank3}"
                         BackgroundColor="{StaticResource Primary}"
                         TextColor="White"
                         Clicked="DonateHigh_Clicked" />
