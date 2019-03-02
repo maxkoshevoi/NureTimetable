@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:LN="clr-namespace:NureTimetable.Core.Localization;assembly=NureTimetable.Core"
              x:Class="NureTimetable.UI.Views.Groups.ManageGroupsPage"
-             Title="Сохранённые группы">
+             Title="{LN:Translate SavedGroups}">
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Icon="update" Command="{Binding UpdateAllCommand}" x:Name="UpdateAll" />

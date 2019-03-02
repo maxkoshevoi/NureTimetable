@@ -1,13 +1,11 @@
-﻿using NureTimetable.DAL;
+﻿using NureTimetable.Core.Localization;
+using NureTimetable.DAL;
 using NureTimetable.Models;
 using NureTimetable.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -91,7 +89,8 @@ namespace NureTimetable.Views.Lessons
         private void Save_Clicked(object sender, EventArgs e)
         {
             EventsDataStore.UpdateLessonsInfo(group.ID, lessons.ToList());
-            DisplayAlert("Сохранение настроек", $"Настройки предметов для группы {group.Name} успешно сохранены.", "Ok");
+
+            DisplayAlert(LN.SavingSettings, string.Format(LN.GroupSettingsSavedSuccessfully, group.Name), "Ok");
             Navigation.PopAsync();
         }
     }

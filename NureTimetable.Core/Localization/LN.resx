@@ -153,11 +153,53 @@
   <data name="AndWillAlwaysBe" xml:space="preserve">
     <value>and will always be.</value>
   </data>
+  <data name="DisplayLesson" xml:space="preserve">
+    <value>Display lesson</value>
+  </data>
+  <data name="DisplayLessonsForTypes" xml:space="preserve">
+    <value>Display lesson types for this lesson:</value>
+  </data>
   <data name="Donate" xml:space="preserve">
     <value>Donate</value>
   </data>
+  <data name="EmptyLessonsList" xml:space="preserve">
+    <value>Timetable has no classes to display (maybe it's empty).</value>
+  </data>
+  <data name="EventClassroom" xml:space="preserve">
+    <value>Classroom: {0}</value>
+  </data>
+  <data name="EventDay" xml:space="preserve">
+    <value>Day: {0}</value>
+  </data>
+  <data name="EventTeacher" xml:space="preserve">
+    <value>Teacher: {0}</value>
+  </data>
+  <data name="EventTeacherNotFound" xml:space="preserve">
+    <value>Teacher: not found</value>
+  </data>
+  <data name="EventTime" xml:space="preserve">
+    <value>Time: {0} - {1}</value>
+  </data>
+  <data name="EventType" xml:space="preserve">
+    <value>Type: {0}</value>
+  </data>
+  <data name="GroupSettingsSavedSuccessfully" xml:space="preserve">
+    <value>Settings for group {0} saved successfully.</value>
+  </data>
   <data name="IsFree" xml:space="preserve">
     <value>is free </value>
+  </data>
+  <data name="Lessons" xml:space="preserve">
+    <value>Lessons</value>
+  </data>
+  <data name="Notes" xml:space="preserve">
+    <value>Notes: </value>
+  </data>
+  <data name="SavedGroups" xml:space="preserve">
+    <value>Saved groups</value>
+  </data>
+  <data name="SavingSettings" xml:space="preserve">
+    <value>Saving settings</value>
   </data>
   <data name="Thank" xml:space="preserve">
     <value>Thank</value>
@@ -173,6 +215,18 @@
   </data>
   <data name="Timetable" xml:space="preserve">
     <value>Timetable</value>
+  </data>
+  <data name="TimetableDisplay" xml:space="preserve">
+    <value>Timetable display</value>
+  </data>
+  <data name="TimetableDisplayError" xml:space="preserve">
+    <value>An error occured while trying to display timetable</value>
+  </data>
+  <data name="TimeUntilBreak" xml:space="preserve">
+    <value>Time until break: {0}</value>
+  </data>
+  <data name="TimeUntilLesson" xml:space="preserve">
+    <value>Time until {0} - {1}: {2}</value>
   </data>
   <data name="Wait" xml:space="preserve">
     <value>Wait...</value>
