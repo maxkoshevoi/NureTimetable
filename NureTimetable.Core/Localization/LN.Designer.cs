@@ -70,6 +70,15 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add group to view timetable..
+        /// </summary>
+        public static string AddGroup {
+            get {
+                return ResourceManager.GetString("AddGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to and will always be..
         /// </summary>
         public static string AndWillAlwaysBe {
@@ -219,6 +228,15 @@ namespace NureTimetable.Core.Localization {
         public static string Timetable {
             get {
                 return ResourceManager.GetString("Timetable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wait....
+        /// </summary>
+        public static string Wait {
+            get {
+                return ResourceManager.GetString("Wait", resourceCulture);
             }
         }
         

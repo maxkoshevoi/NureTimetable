@@ -147,6 +147,9 @@
   <data name="About" xml:space="preserve">
     <value>About</value>
   </data>
+  <data name="AddGroup" xml:space="preserve">
+    <value>Add group to view timetable.</value>
+  </data>
   <data name="AndWillAlwaysBe" xml:space="preserve">
     <value>and will always be.</value>
   </data>
@@ -170,6 +173,9 @@
   </data>
   <data name="Timetable" xml:space="preserve">
     <value>Timetable</value>
+  </data>
+  <data name="Wait" xml:space="preserve">
+    <value>Wait...</value>
   </data>
   <data name="YourContribution" xml:space="preserve">
     <value>Your contribution supports development and doesn't let me fall into oblivion.</value>
