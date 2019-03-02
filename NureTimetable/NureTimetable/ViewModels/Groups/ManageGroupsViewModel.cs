@@ -5,6 +5,7 @@ using NureTimetable.Services.Helpers;
 using NureTimetable.UI.Views.Groups;
 using NureTimetable.ViewModels.Core;
 using NureTimetable.Views.Lessons;
+using NureTimetable.Core.Localization;
 using Plugin.DeviceInfo;
 using System;
 using System.Collections.Generic;
@@ -23,11 +24,10 @@ namespace NureTimetable.ViewModels.Groups
 
         private bool _isGroupsLayoutEnable;
 
-        private bool _isProgressVisable;
+        private bool _isProgressVisible;
 
         private ObservableCollection<SavedGroup> _groups;
         #endregion
-
 
         #region Properties
         public bool IsNoSourceLayoutVisable
@@ -36,10 +36,10 @@ namespace NureTimetable.ViewModels.Groups
             set => SetProperty(ref _isNoSourceLayoutVisable, value);
         }
 
-        public bool IsProgressVisable
+        public bool IsProgressVisible
         {
-            get => _isProgressVisable;
-            set => SetProperty(ref _isProgressVisable, value);
+            get => _isProgressVisible;
+            set => SetProperty(ref _isProgressVisible, value);
         }
 
         public bool IsGroupsLayoutEnalbe
@@ -74,7 +74,7 @@ namespace NureTimetable.ViewModels.Groups
 
         public ManageGroupsViewModel(INavigation navigation) : base(navigation)
         {
-            IsProgressVisable = false;
+            IsProgressVisible = false;
             IsGroupsLayoutEnalbe = true;
             UpdateItems(GroupsDataStore.GetSaved());
             MessagingCenter.Subscribe<Application, List<SavedGroup>>(this, MessageTypes.SavedGroupsChanged,
@@ -86,36 +86,38 @@ namespace NureTimetable.ViewModels.Groups
         #region Methods
         public async Task SavedGroupSelected(SavedGroup selectedGroup)
         {
-            List<string> actionList = new List<string> { "Обновить расписание", "Настроить отображение предметов", "Удалить" };
+            List<string> actionList = new List<string> { LN.UpdateTimetable, LN.SetUpLessonDisplay, LN.Delete };
             if (GroupsDataStore.GetSelected()?.ID != selectedGroup.ID)
             {
-                actionList.Insert(0, "Выбрать");
+                actionList.Insert(0, LN.Select);
             }
             if (Device.RuntimePlatform == Device.Android && CrossDeviceInfo.Current.VersionNumber.Major < 5)
             {
                 // It seems like SfCheckBox doesn`t support Android 4
-                actionList.Remove("Настроить отображение предметов");
+                actionList.Remove(LN.SetUpLessonDisplay);
             }
-            string action = await App.Current.MainPage.DisplayActionSheet("Выберете действие:", "Отмена", null, actionList.ToArray());
-            switch (action)
+            string action = await App.Current.MainPage.DisplayActionSheet(LN.ChooseAction, LN.Cancel, null, actionList.ToArray());
+
+            if (action == LN.Select)
             {
-                case "Выбрать":
-                    GroupsDataStore.UpdateSelected(selectedGroup);
-                    if (await App.Current.MainPage.DisplayAlert("Выбор группы", "Группа успешно выбрана", "К расписанию", "Ok"))
-                    {
-                        await Navigation.PopAsync();
-                    }
-                    break;
-                case "Обновить расписание":
-                    await UpdateTimetable(selectedGroup);
-                    break;
-                case "Настроить отображение предметов":
-                    await Navigation.PushAsync(new ManageLessonsPage(selectedGroup));
-                    break;
-                case "Удалить":
-                    Groups.Remove(selectedGroup);
-                    GroupsDataStore.UpdateSaved(Groups.ToList());
-                    break;
+                GroupsDataStore.UpdateSelected(selectedGroup);
+                if (await App.Current.MainPage.DisplayAlert(LN.GroupSelect, LN.GroupSelected, LN.ToTimetable, LN.Ok))
+                {
+                    await Navigation.PopAsync();
+                }
+            }
+            else if (action == LN.UpdateTimetable)
+            {
+                await UpdateTimetable(selectedGroup);
+            }
+            else if (action == LN.SetUpLessonDisplay)
+            {
+                await Navigation.PushAsync(new ManageLessonsPage(selectedGroup));
+            }
+            else if (action == LN.Delete)
+            {
+                Groups.Remove(selectedGroup);
+                GroupsDataStore.UpdateSaved(Groups.ToList());
             }
         }
 
@@ -125,7 +127,7 @@ namespace NureTimetable.ViewModels.Groups
             {
                 return;
             }
-            if (await App.Current.MainPage.DisplayAlert("Обновление расписания", "Обновить расписания всех сохранённых групп?", "Да", "Отмена"))
+            if (await App.Current.MainPage.DisplayAlert(LN.TimetableUpdate, LN.UpdateSavedGroupsTimetable, LN.Yes, LN.Cancel))
             {
                 await UpdateTimetable(Groups?.ToArray());
             }
@@ -137,7 +139,7 @@ namespace NureTimetable.ViewModels.Groups
             {
                 return;
             }
-            Navigation.PushAsync(new AddGroupPage()
+            await Navigation.PushAsync(new AddGroupPage()
             {
                 BindingContext = new AddGroupViewModel(Navigation)
             });
@@ -160,12 +162,12 @@ namespace NureTimetable.ViewModels.Groups
             List<SavedGroup> groupsAllowed = SettingsDataStore.CheckCistTimetableUpdateRights(groups);
             if (groupsAllowed.Count == 0)
             {
-                await App.Current.MainPage.DisplayAlert("Обновление расписания", "У вас уже загружена последняя версия расписания", "Ок");
+                await App.Current.MainPage.DisplayAlert(LN.TimetableUpdate, LN.TimetableLatest, LN.Ok);
                 return;
             }
 
             IsGroupsLayoutEnalbe = false;
-            IsProgressVisable = true;
+            IsProgressVisible = true;
 
             await Task.Factory.StartNew(() =>
             {
@@ -174,23 +176,24 @@ namespace NureTimetable.ViewModels.Groups
                 {
                     if (groupsAllowed.Count == 1)
                     {
-                        result = $"Расписание группы {groupsAllowed[0].Name} успешно обновлено.";
+                        result = string.Format(LN.GroupTimetableUpdated, groupsAllowed[0].Name);
                     }
                     else
                     {
-                        result = $"Расписание успешно обновлено для групп:{Environment.NewLine}{string.Join(", ", groupsAllowed.Select(g => g.Name))}";
+                        var groupsUpdated = Environment.NewLine + string.Join(", ", groupsAllowed.Select(g => g.Name));
+                        result = string.Format(LN.GroupsTimetableUpdated, groupsUpdated);
                     }
                 }
                 else
                 {
-                    result = "Произошла ошибка, пожалуйста, попробуйте позже.";
+                    result = LN.ErrorTryAgainLater;
                 }
 
                 Device.BeginInvokeOnMainThread(async () =>
                 {
-                    IsProgressVisable = false;
+                    IsProgressVisible = false;
                     IsGroupsLayoutEnalbe = true;
-                    if (await App.Current.MainPage.DisplayAlert("Обновление расписания", result, "К расписанию", "Ok"))
+                    if (await App.Current.MainPage.DisplayAlert(LN.TimetableUpdate, result, LN.ToTimetable, LN.Ok))
                     {
                         try
                         {

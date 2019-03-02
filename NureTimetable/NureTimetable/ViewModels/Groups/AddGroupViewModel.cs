@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using NureTimetable.Core.Localization;
 using NureTimetable.DAL;
 using NureTimetable.Models;
 using NureTimetable.Services.Helpers;
@@ -74,9 +75,7 @@ namespace NureTimetable.ViewModels.Groups
             set
             {
                 if (value != null)
-                {
                     Device.BeginInvokeOnMainThread(async () => { await GroupSelected(value); });
-                }
 
                 _selectedGroup = value;
             }
@@ -86,7 +85,7 @@ namespace NureTimetable.ViewModels.Groups
         {
             if (_savedGroups.Exists(g => g.ID == group.ID))
             {
-                await App.Current.MainPage.DisplayAlert("Добавление группы", "Группа уже находится в сохранённых", "OK");
+                await App.Current.MainPage.DisplayAlert(LN.AddingGroup, LN.GroupAlreadySaved, "OK");
                 return;
             }
 
@@ -94,7 +93,7 @@ namespace NureTimetable.ViewModels.Groups
 
             GroupsDataStore.UpdateSaved(_savedGroups);
 
-            await App.Current.MainPage.DisplayAlert("Добавление группы", "Группа добавлена в сохранённые", "OK");
+            await App.Current.MainPage.DisplayAlert(LN.AddingGroup, LN.GroupSaved, "OK");
         }
 
         private async Task SearchBarTextChanged()
@@ -111,7 +110,10 @@ namespace NureTimetable.ViewModels.Groups
                 Groups =
                     new ObservableCollection<Group>(
                         _allGroups
-                            .Where(g => g.Name.ToLower().Contains(searchQuery) || g.Name.ToLower().Contains(searchQuery.Replace('и', 'і')) || g.ID.ToString() == searchQuery)
+                            .Where(g =>
+                                g.Name.ToLower().Contains(searchQuery) || 
+                                g.Name.ToLower().Contains(searchQuery.Replace('и', 'і')) || 
+                                g.ID.ToString() == searchQuery)
                             .OrderBy(g => g.Name)
                     );
             }
@@ -121,15 +123,18 @@ namespace NureTimetable.ViewModels.Groups
         {
             if (SettingsDataStore.CheckCistAllGroupsUpdateRights() == false)
             {
-                await App.Current.MainPage.DisplayAlert("Загрузка списка групп", "У вас уже загружена последняя версия списка групп", "Ok");
+                await App.Current.MainPage.DisplayAlert(LN.GroupsListLoading, LN.GroupsListLatest, LN.Ok);
                 return;
             }
 
-            if (!ProgressLayoutIsVisable && await App.Current.MainPage.DisplayAlert("Загрузка списка групп",
-                    "Вы уверенны, что хотите загрузить список групп из Cist?", "Да", "Отмена"))
-            {
+            bool displayAlert = await App.Current.MainPage.DisplayAlert(
+                LN.GroupsListLoading,
+                LN.GroupsListLoadingConfirmation,
+                LN.Yes, LN.Cancel
+            );
+
+            if (!ProgressLayoutIsVisable && displayAlert)
                 await UpdateGroups(true);
-            }
         }
 
         private async Task UpdateGroups()
@@ -145,18 +150,19 @@ namespace NureTimetable.ViewModels.Groups
             await Task.Factory.StartNew(() =>
             {
                 if (fromCistOnly)
-                {
                     _allGroups = GroupsDataStore.GetAllFromCist();
-                }
                 else
-                {
                     _allGroups = GroupsDataStore.GetAll();
-                }
+
                 if (_allGroups == null)
                 {
                     Device.BeginInvokeOnMainThread(() =>
                     {
-                        App.Current.MainPage.DisplayAlert("Загрузка списка групп", "Не удалось загрузить список групп. Пожалуйста, попробуйте позже.", "Ok");
+                        App.Current.MainPage.DisplayAlert(
+                            LN.GroupsListLoading,
+                            LN.GroupsListLoadingFail,
+                            LN.Ok
+                        );
                     });
 
                     ProgressLayoutIsVisable = false;
@@ -168,13 +174,11 @@ namespace NureTimetable.ViewModels.Groups
                 _savedGroups = GroupsDataStore.GetSaved();
                 Groups = new ObservableCollection<Group>(_allGroups.OrderBy(g => g.Name));
 
-
                 if (SearchBarTextChangedCommand.CanExecute(null))
                     SearchBarTextChangedCommand.Execute(null);
 
                 ProgressLayoutIsVisable = false;
                 ProgressLayoutIsEnable = true;
-
             });
         }
         #endregion

@@ -235,7 +235,7 @@ namespace NureTimetable.Views
                     {
                         MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, exception);
 
-                        DisplayAlert(LN.TimetableDisplay, LN.TimetableDisplayError, "Ok");
+                        DisplayAlert(LN.TimetableDisplay, LN.TimetableDisplayError, LN.Ok);
                         return;
                     }
                 }
@@ -328,7 +328,7 @@ namespace NureTimetable.Views
                     string.Format(LN.EventDay, e.Start.ToString("ddd, dd.MM.yy")),
                     string.Format(LN.EventTime, e.Start.ToShortTimeString(), e.End.ToShortTimeString())
                 );
-                DisplayAlert($"{e.Lesson} - {e.Type}", linesBuilder.ToString(), "Ok");
+                DisplayAlert($"{e.Lesson} - {e.Type}", linesBuilder.ToString(), LN.Ok);
             }
             else
             {
@@ -353,7 +353,7 @@ namespace NureTimetable.Views
                     string.Format(LN.EventTime, e.Start.ToShortTimeString(), e.End.ToShortTimeString()),
                     notes
                 );
-                DisplayAlert(lessonInfo.LongName, linesBuilder.ToString(), "Ok");
+                DisplayAlert(lessonInfo.LongName, linesBuilder.ToString(), LN.Ok);
             }
         }
     }

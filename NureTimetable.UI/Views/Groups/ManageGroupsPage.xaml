@@ -14,8 +14,8 @@
         <StackLayout IsEnabled="{Binding IsGroupsLayoutEnalbe}" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
             <ListView x:Name="GroupsList"
                     ItemsSource="{Binding Groups}"
-                      SelectedItem="{Binding SavedGroupSelectedItem}"
-                      ItemTapped="GroupsList_OnItemTapped"
+                    SelectedItem="{Binding SavedGroupSelectedItem}"
+                    ItemTapped="GroupsList_OnItemTapped"
                     CachingStrategy="RecycleElement"
                     HasUnevenRows="True">
                 <ListView.ItemTemplate>
@@ -30,16 +30,16 @@
                 </ListView.ItemTemplate>
             </ListView>
         </StackLayout>
-        <StackLayout IsVisible="{Binding IsProgressVisable}" Padding="12"
+        <StackLayout IsVisible="{Binding IsProgressVisible}" Padding="12"
                 AbsoluteLayout.LayoutFlags="PositionProportional"
                 AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
             <ActivityIndicator IsRunning="True" Color="#80000000"/>
-            <Label Text="Подождите..." HorizontalOptions="Center" TextColor="LightSkyBlue"/>
+            <Label Text="{LN:Translate Wait}" HorizontalOptions="Center" TextColor="LightSkyBlue"/>
         </StackLayout>
         <StackLayout IsVisible="{Binding IsNoSourceLayoutVisable}"  AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
-            <Label Text="У вас нет ни одной сохранённой группы."
-                    VerticalOptions="CenterAndExpand" 
-                    HorizontalOptions="CenterAndExpand" />
+            <Label Text="{LN:Translate NoSavedGroups}"
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="CenterAndExpand" />
         </StackLayout>
     </AbsoluteLayout>
 </ContentPage>

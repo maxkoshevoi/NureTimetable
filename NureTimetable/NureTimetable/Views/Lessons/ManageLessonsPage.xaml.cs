@@ -68,7 +68,7 @@ namespace NureTimetable.Views.Lessons
         {
             if (lessons == null)
             {
-                DisplayAlert("Управление предметами", "Для управления предметами необходимо сначала загрузить расписание группы.", "Ok");
+                DisplayAlert("Управление предметами", "Для управления предметами необходимо сначала загрузить расписание группы.", LN.Ok);
                 Navigation.PopAsync();
                 return;
             }
@@ -90,7 +90,7 @@ namespace NureTimetable.Views.Lessons
         {
             EventsDataStore.UpdateLessonsInfo(group.ID, lessons.ToList());
 
-            DisplayAlert(LN.SavingSettings, string.Format(LN.GroupSettingsSavedSuccessfully, group.Name), "Ok");
+            DisplayAlert(LN.SavingSettings, string.Format(LN.GroupSettingsSaved, group.Name), LN.Ok);
             Navigation.PopAsync();
         }
     }

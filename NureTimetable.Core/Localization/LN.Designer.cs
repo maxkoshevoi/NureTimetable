@@ -79,6 +79,15 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Adding group.
+        /// </summary>
+        public static string AddingGroup {
+            get {
+                return ResourceManager.GetString("AddingGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to and will always be..
         /// </summary>
         public static string AndWillAlwaysBe {
@@ -102,6 +111,33 @@ namespace NureTimetable.Core.Localization {
         public static string AppName {
             get {
                 return ResourceManager.GetString("AppName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose action.
+        /// </summary>
+        public static string ChooseAction {
+            get {
+                return ResourceManager.GetString("ChooseAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string Delete {
+            get {
+                return ResourceManager.GetString("Delete", resourceCulture);
             }
         }
         
@@ -138,6 +174,15 @@ namespace NureTimetable.Core.Localization {
         public static string EmptyLessonsList {
             get {
                 return ResourceManager.GetString("EmptyLessonsList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error occured. Please, try again later..
+        /// </summary>
+        public static string ErrorTryAgainLater {
+            get {
+                return ResourceManager.GetString("ErrorTryAgainLater", resourceCulture);
             }
         }
         
@@ -196,11 +241,101 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Settings for group {0} saved successfully..
+        ///   Looks up a localized string similar to Group already saved.
         /// </summary>
-        public static string GroupSettingsSavedSuccessfully {
+        public static string GroupAlreadySaved {
             get {
-                return ResourceManager.GetString("GroupSettingsSavedSuccessfully", resourceCulture);
+                return ResourceManager.GetString("GroupAlreadySaved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Group saved.
+        /// </summary>
+        public static string GroupSaved {
+            get {
+                return ResourceManager.GetString("GroupSaved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Group select.
+        /// </summary>
+        public static string GroupSelect {
+            get {
+                return ResourceManager.GetString("GroupSelect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Group selected successfully.
+        /// </summary>
+        public static string GroupSelected {
+            get {
+                return ResourceManager.GetString("GroupSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings for group {0} saved..
+        /// </summary>
+        public static string GroupSettingsSaved {
+            get {
+                return ResourceManager.GetString("GroupSettingsSaved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Groups list is already up-to-date.
+        /// </summary>
+        public static string GroupsListLatest {
+            get {
+                return ResourceManager.GetString("GroupsListLatest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Groups list loading.
+        /// </summary>
+        public static string GroupsListLoading {
+            get {
+                return ResourceManager.GetString("GroupsListLoading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to load groups list from Cist?.
+        /// </summary>
+        public static string GroupsListLoadingConfirmation {
+            get {
+                return ResourceManager.GetString("GroupsListLoadingConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to load groups list. Try again later..
+        /// </summary>
+        public static string GroupsListLoadingFail {
+            get {
+                return ResourceManager.GetString("GroupsListLoadingFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Timetable updated for groups: {0}.
+        /// </summary>
+        public static string GroupsTimetableUpdated {
+            get {
+                return ResourceManager.GetString("GroupsTimetableUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Timetable updated for group {0}.
+        /// </summary>
+        public static string GroupTimetableUpdated {
+            get {
+                return ResourceManager.GetString("GroupTimetableUpdated", resourceCulture);
             }
         }
         
@@ -250,6 +385,15 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You don&apos;t have any groups saved..
+        /// </summary>
+        public static string NoSavedGroups {
+            get {
+                return ResourceManager.GetString("NoSavedGroups", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Notes: .
         /// </summary>
         public static string Notes {
@@ -277,6 +421,15 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string Ok {
+            get {
+                return ResourceManager.GetString("Ok", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Saved groups.
         /// </summary>
         public static string SavedGroups {
@@ -291,6 +444,24 @@ namespace NureTimetable.Core.Localization {
         public static string SavingSettings {
             get {
                 return ResourceManager.GetString("SavingSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select.
+        /// </summary>
+        public static string Select {
+            get {
+                return ResourceManager.GetString("Select", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set up lesson display.
+        /// </summary>
+        public static string SetUpLessonDisplay {
+            get {
+                return ResourceManager.GetString("SetUpLessonDisplay", resourceCulture);
             }
         }
         
@@ -376,6 +547,24 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Timetable is already up-to-date.
+        /// </summary>
+        public static string TimetableLatest {
+            get {
+                return ResourceManager.GetString("TimetableLatest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Timetable update.
+        /// </summary>
+        public static string TimetableUpdate {
+            get {
+                return ResourceManager.GetString("TimetableUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Time until break: {0}.
         /// </summary>
         public static string TimeUntilBreak {
@@ -394,11 +583,47 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to To timetable.
+        /// </summary>
+        public static string ToTimetable {
+            get {
+                return ResourceManager.GetString("ToTimetable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update saved groups timetable?.
+        /// </summary>
+        public static string UpdateSavedGroupsTimetable {
+            get {
+                return ResourceManager.GetString("UpdateSavedGroupsTimetable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update timetable.
+        /// </summary>
+        public static string UpdateTimetable {
+            get {
+                return ResourceManager.GetString("UpdateTimetable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Wait....
         /// </summary>
         public static string Wait {
             get {
                 return ResourceManager.GetString("Wait", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        public static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
         

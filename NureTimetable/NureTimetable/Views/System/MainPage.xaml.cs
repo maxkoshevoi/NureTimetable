@@ -1,6 +1,7 @@
 ﻿using NureTimetable.Models.Consts;
 using NureTimetable.Models.System;
 using NureTimetable.Views.Info;
+using NureTimetable.Core.Localization;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -27,7 +28,7 @@ namespace NureTimetable.Views
             {
                 if (App.IsDebugMode)
                 {
-                    DisplayAlert("Детали ошибки:", ex.ToString(), "Ok");
+                    DisplayAlert("Детали ошибки:", ex.ToString(), LN.Ok);
                 }
             });
         }

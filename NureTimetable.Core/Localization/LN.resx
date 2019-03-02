@@ -183,14 +183,17 @@
   <data name="EventType" xml:space="preserve">
     <value>Type: {0}</value>
   </data>
-  <data name="GroupSettingsSavedSuccessfully" xml:space="preserve">
-    <value>Settings for group {0} saved successfully.</value>
+  <data name="GroupSettingsSaved" xml:space="preserve">
+    <value>Settings for group {0} saved.</value>
   </data>
   <data name="IsFree" xml:space="preserve">
     <value>is free </value>
   </data>
   <data name="Lessons" xml:space="preserve">
     <value>Lessons</value>
+  </data>
+  <data name="NoSavedGroups" xml:space="preserve">
+    <value>You don't have any groups saved.</value>
   </data>
   <data name="Notes" xml:space="preserve">
     <value>Notes: </value>
@@ -233,5 +236,77 @@
   </data>
   <data name="YourContribution" xml:space="preserve">
     <value>Your contribution supports development and doesn't let me fall into oblivion.</value>
+  </data>
+  <data name="AddingGroup" xml:space="preserve">
+    <value>Adding group</value>
+  </data>
+  <data name="GroupAlreadySaved" xml:space="preserve">
+    <value>Group already saved</value>
+  </data>
+  <data name="GroupSaved" xml:space="preserve">
+    <value>Group saved</value>
+  </data>
+  <data name="GroupsListLoading" xml:space="preserve">
+    <value>Groups list loading</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ChooseAction" xml:space="preserve">
+    <value>Choose action</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="ErrorTryAgainLater" xml:space="preserve">
+    <value>Error occured. Please, try again later.</value>
+  </data>
+  <data name="GroupSelect" xml:space="preserve">
+    <value>Group select</value>
+  </data>
+  <data name="GroupSelected" xml:space="preserve">
+    <value>Group selected successfully</value>
+  </data>
+  <data name="GroupsListLatest" xml:space="preserve">
+    <value>Groups list is already up-to-date</value>
+  </data>
+  <data name="GroupsListLoadingConfirmation" xml:space="preserve">
+    <value>Are you sure you want to load groups list from Cist?</value>
+  </data>
+  <data name="GroupsListLoadingFail" xml:space="preserve">
+    <value>Failed to load groups list. Try again later.</value>
+  </data>
+  <data name="GroupsTimetableUpdated" xml:space="preserve">
+    <value>Timetable updated for groups: {0}</value>
+  </data>
+  <data name="GroupTimetableUpdated" xml:space="preserve">
+    <value>Timetable updated for group {0}</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="SetUpLessonDisplay" xml:space="preserve">
+    <value>Set up lesson display</value>
+  </data>
+  <data name="TimetableLatest" xml:space="preserve">
+    <value>Timetable is already up-to-date</value>
+  </data>
+  <data name="TimetableUpdate" xml:space="preserve">
+    <value>Timetable update</value>
+  </data>
+  <data name="ToTimetable" xml:space="preserve">
+    <value>To timetable</value>
+  </data>
+  <data name="UpdateSavedGroupsTimetable" xml:space="preserve">
+    <value>Update saved groups timetable?</value>
+  </data>
+  <data name="UpdateTimetable" xml:space="preserve">
+    <value>Update timetable</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
   </data>
 </root>
