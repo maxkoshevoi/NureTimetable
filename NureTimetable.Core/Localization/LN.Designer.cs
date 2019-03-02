@@ -61,6 +61,15 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to About.
+        /// </summary>
+        public static string About {
+            get {
+                return ResourceManager.GetString("About", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Application for displaying groups schedule for.
         /// </summary>
         public static string AppDescription {
@@ -75,6 +84,15 @@ namespace NureTimetable.Core.Localization {
         public static string AppName {
             get {
                 return ResourceManager.GetString("AppName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Donate.
+        /// </summary>
+        public static string Donate {
+            get {
+                return ResourceManager.GetString("Donate", resourceCulture);
             }
         }
         
@@ -138,6 +156,15 @@ namespace NureTimetable.Core.Localization {
         public static string StudentNure {
             get {
                 return ResourceManager.GetString("StudentNure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Timetable.
+        /// </summary>
+        public static string Timetable {
+            get {
+                return ResourceManager.GetString("Timetable", resourceCulture);
             }
         }
     }

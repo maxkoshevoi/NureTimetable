@@ -42,7 +42,7 @@ namespace NureTimetable.Views
                         MenuPages.Add(id, new NavigationPage(new TimetablePage()));
                         break;
                     case (int)MenuItemType.About:
-                        MenuPages.Add(id, new NavigationPage(new AboutPage(){BindingContext = new InfoViewModel()}));
+                        MenuPages.Add(id, new NavigationPage(new AboutPage() {BindingContext = new InfoViewModel()}));
                         break;
                     case (int)MenuItemType.Donate:
                         MenuPages.Add(id, new NavigationPage(new DonatePage()));

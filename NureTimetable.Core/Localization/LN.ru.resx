@@ -144,4 +144,13 @@
   <data name="StudentNure" xml:space="preserve">
     <value>Студент ХНУРЭ: </value>
   </data>
+  <data name="About" xml:space="preserve">
+    <value>О программе</value>
+  </data>
+  <data name="Donate" xml:space="preserve">
+    <value>Пожертвовать</value>
+  </data>
+  <data name="Timetable" xml:space="preserve">
+    <value>Расписание</value>
+  </data>
 </root>
