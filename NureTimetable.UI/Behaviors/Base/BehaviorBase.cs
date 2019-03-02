@@ -5,7 +5,6 @@ namespace NureTimetable.UI.Behaviors.Base
 {
     public class BehaviorBase<T> : Behavior<T> where T : BindableObject
     {
-
         public T AssociatedObject { get; private set; }
 
         internal BehaviorBase()

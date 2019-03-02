@@ -117,7 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AppDescription" xml:space="preserve">
+    <value>Application for displaying groups schedule for</value>
+  </data>
   <data name="AppName" xml:space="preserve">
-    <value>Nure Timetable</value>
+    <value>NURE Timetable</value>
+  </data>
+  <data name="HelpfulLinks" xml:space="preserve">
+    <value>Helpful links</value>
+  </data>
+  <data name="HelpWanted" xml:space="preserve">
+    <value>If you have experience with Xamarin apps development and you are willing to help, submit to: </value>
+  </data>
+  <data name="Institution" xml:space="preserve">
+    <value>NURE</value>
+  </data>
+  <data name="NureHomepage" xml:space="preserve">
+    <value>Homepage</value>
+  </data>
+  <data name="NureWebpages" xml:space="preserve">
+    <value>NURE official webpages: </value>
+  </data>
+  <data name="ShowErrors" xml:space="preserve">
+    <value>Show errors</value>
+  </data>
+  <data name="StudentNure" xml:space="preserve">
+    <value>Student NURE: </value>
   </data>
 </root>

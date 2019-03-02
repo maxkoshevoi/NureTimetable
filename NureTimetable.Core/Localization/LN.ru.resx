@@ -117,7 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AppDescription" xml:space="preserve">
+    <value>Это приложение для отображения расписания групп</value>
+  </data>
   <data name="AppName" xml:space="preserve">
     <value>Расписание ХНУРЭ</value>
+  </data>
+  <data name="HelpfulLinks" xml:space="preserve">
+    <value>Полезные ссылки</value>
+  </data>
+  <data name="HelpWanted" xml:space="preserve">
+    <value>Если у кого-нибудь с опытом разработки на Xamarin будет желение помочь, вот ссылка на гитхаб: </value>
+  </data>
+  <data name="Institution" xml:space="preserve">
+    <value>ХНУРЭ</value>
+  </data>
+  <data name="NureHomepage" xml:space="preserve">
+    <value>Сайт</value>
+  </data>
+  <data name="NureWebpages" xml:space="preserve">
+    <value>Официальные страницы ХНУРЭ:</value>
+  </data>
+  <data name="ShowErrors" xml:space="preserve">
+    <value>Показывать ошибки</value>
+  </data>
+  <data name="StudentNure" xml:space="preserve">
+    <value>Студент ХНУРЭ: </value>
   </data>
 </root>

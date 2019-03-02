@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using NureTimetable.Core.Localization;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace NureTimetable.UI.Views.Info

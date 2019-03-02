@@ -61,11 +61,83 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nure Timetable.
+        ///   Looks up a localized string similar to Application for displaying groups schedule for.
+        /// </summary>
+        public static string AppDescription {
+            get {
+                return ResourceManager.GetString("AppDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NURE Timetable.
         /// </summary>
         public static string AppName {
             get {
                 return ResourceManager.GetString("AppName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Helpful links.
+        /// </summary>
+        public static string HelpfulLinks {
+            get {
+                return ResourceManager.GetString("HelpfulLinks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you have experience with Xamarin apps development and you are willing to help, submit to: .
+        /// </summary>
+        public static string HelpWanted {
+            get {
+                return ResourceManager.GetString("HelpWanted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NURE.
+        /// </summary>
+        public static string Institution {
+            get {
+                return ResourceManager.GetString("Institution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Homepage.
+        /// </summary>
+        public static string NureHomepage {
+            get {
+                return ResourceManager.GetString("NureHomepage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NURE official webpages: .
+        /// </summary>
+        public static string NureWebpages {
+            get {
+                return ResourceManager.GetString("NureWebpages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show errors.
+        /// </summary>
+        public static string ShowErrors {
+            get {
+                return ResourceManager.GetString("ShowErrors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Student NURE: .
+        /// </summary>
+        public static string StudentNure {
+            get {
+                return ResourceManager.GetString("StudentNure", resourceCulture);
             }
         }
     }
