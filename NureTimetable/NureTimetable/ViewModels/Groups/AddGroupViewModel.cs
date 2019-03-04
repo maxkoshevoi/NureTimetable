@@ -75,7 +75,9 @@ namespace NureTimetable.ViewModels.Groups
             set
             {
                 if (value != null)
-                    Device.BeginInvokeOnMainThread(async () => { await GroupSelected(value); });
+                {
+                    Device.BeginInvokeOnMainThread(async () => await GroupSelected(value));
+                }     
 
                 _selectedGroup = value;
             }
@@ -136,7 +138,7 @@ namespace NureTimetable.ViewModels.Groups
             if (!ProgressLayoutIsVisible && displayAlert)
             {
                 await UpdateGroups(true);
-            }     
+            }
         }
 
         private async Task UpdateGroups()
