@@ -11,7 +11,7 @@
     </ContentPage.ToolbarItems>
 
     <AbsoluteLayout>
-        <StackLayout IsEnabled="{Binding IsGroupsLayoutEnalbe}" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+        <StackLayout IsEnabled="{Binding IsGroupsLayoutEnabled}" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
             <ListView x:Name="GroupsList"
                     ItemsSource="{Binding Groups}"
                     SelectedItem="{Binding SavedGroupSelectedItem}"
@@ -36,7 +36,7 @@
             <ActivityIndicator IsRunning="True" Color="#80000000"/>
             <Label Text="{LN:Translate Wait}" HorizontalOptions="Center" TextColor="LightSkyBlue"/>
         </StackLayout>
-        <StackLayout IsVisible="{Binding IsNoSourceLayoutVisable}"  AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+        <StackLayout IsVisible="{Binding IsNoSourceLayoutVisible}"  AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
             <Label Text="{LN:Translate NoSavedGroups}"
                 VerticalOptions="CenterAndExpand"
                 HorizontalOptions="CenterAndExpand" />

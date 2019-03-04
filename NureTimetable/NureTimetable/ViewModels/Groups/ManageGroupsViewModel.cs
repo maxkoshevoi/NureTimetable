@@ -20,9 +20,9 @@ namespace NureTimetable.ViewModels.Groups
     public class ManageGroupsViewModel : BaseViewModel
     {
         #region variables
-        private bool _isNoSourceLayoutVisable;
+        private bool _isNoSourceLayoutVisible;
 
-        private bool _isGroupsLayoutEnable;
+        private bool _isGroupsLayoutEnabled;
 
         private bool _isProgressVisible;
 
@@ -30,10 +30,10 @@ namespace NureTimetable.ViewModels.Groups
         #endregion
 
         #region Properties
-        public bool IsNoSourceLayoutVisable
+        public bool IsNoSourceLayoutVisible
         {
-            get => _isNoSourceLayoutVisable;
-            set => SetProperty(ref _isNoSourceLayoutVisable, value);
+            get => _isNoSourceLayoutVisible;
+            set => SetProperty(ref _isNoSourceLayoutVisible, value);
         }
 
         public bool IsProgressVisible
@@ -42,10 +42,10 @@ namespace NureTimetable.ViewModels.Groups
             set => SetProperty(ref _isProgressVisible, value);
         }
 
-        public bool IsGroupsLayoutEnalbe
+        public bool IsGroupsLayoutEnabled
         {
-            get => _isGroupsLayoutEnable;
-            set => SetProperty(ref _isGroupsLayoutEnable, value);
+            get => _isGroupsLayoutEnabled;
+            set => SetProperty(ref _isGroupsLayoutEnabled, value);
         }
 
         private SavedGroup _savedGroupSelectedItem;
@@ -75,7 +75,7 @@ namespace NureTimetable.ViewModels.Groups
         public ManageGroupsViewModel(INavigation navigation) : base(navigation)
         {
             IsProgressVisible = false;
-            IsGroupsLayoutEnalbe = true;
+            IsGroupsLayoutEnabled = true;
             UpdateItems(GroupsDataStore.GetSaved());
             MessagingCenter.Subscribe<Application, List<SavedGroup>>(this, MessageTypes.SavedGroupsChanged,
                 (sender, newSavedGroups) => { UpdateItems(newSavedGroups); });
@@ -123,7 +123,7 @@ namespace NureTimetable.ViewModels.Groups
 
         private async Task UpdateAll()
         {
-            if (!IsGroupsLayoutEnalbe)
+            if (!IsGroupsLayoutEnabled)
             {
                 return;
             }
@@ -135,7 +135,7 @@ namespace NureTimetable.ViewModels.Groups
 
         private async Task AddGroup()
         {
-            if (!IsGroupsLayoutEnalbe)
+            if (!IsGroupsLayoutEnabled)
             {
                 return;
             }
@@ -147,7 +147,7 @@ namespace NureTimetable.ViewModels.Groups
 
         private void UpdateItems(List<SavedGroup> newItems)
         {
-            IsNoSourceLayoutVisable = (newItems.Count == 0);
+            IsNoSourceLayoutVisible = (newItems.Count == 0);
 
             Groups = new ObservableCollection<SavedGroup>(newItems);
         }
@@ -166,7 +166,7 @@ namespace NureTimetable.ViewModels.Groups
                 return;
             }
 
-            IsGroupsLayoutEnalbe = false;
+            IsGroupsLayoutEnabled = false;
             IsProgressVisible = true;
 
             await Task.Factory.StartNew(() =>
@@ -192,7 +192,7 @@ namespace NureTimetable.ViewModels.Groups
                 Device.BeginInvokeOnMainThread(async () =>
                 {
                     IsProgressVisible = false;
-                    IsGroupsLayoutEnalbe = true;
+                    IsGroupsLayoutEnabled = true;
                     if (await App.Current.MainPage.DisplayAlert(LN.TimetableUpdate, result, LN.ToTimetable, LN.Ok))
                     {
                         try
