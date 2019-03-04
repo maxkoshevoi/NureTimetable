@@ -115,6 +115,15 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Необходимо сначала загрузить расписание группы..
+        /// </summary>
+        public static string AtFirstLoadTimetable {
+            get {
+                return ResourceManager.GetString("AtFirstLoadTimetable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string Cancel {
@@ -174,6 +183,15 @@ namespace NureTimetable.Core.Localization {
         public static string EmptyLessonsList {
             get {
                 return ResourceManager.GetString("EmptyLessonsList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error details.
+        /// </summary>
+        public static string ErrorDetails {
+            get {
+                return ResourceManager.GetString("ErrorDetails", resourceCulture);
             }
         }
         
@@ -385,6 +403,15 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Управление предметами.
+        /// </summary>
+        public static string LessonsManagement {
+            get {
+                return ResourceManager.GetString("LessonsManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You don&apos;t have any groups saved..
         /// </summary>
         public static string NoSavedGroups {
@@ -426,6 +453,24 @@ namespace NureTimetable.Core.Localization {
         public static string Ok {
             get {
                 return ResourceManager.GetString("Ok", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Покупка.
+        /// </summary>
+        public static string Purchase {
+            get {
+                return ResourceManager.GetString("Purchase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Что-то пошло не так, покупка не удалась..
+        /// </summary>
+        public static string PurchaseFailed {
+            get {
+                return ResourceManager.GetString("PurchaseFailed", resourceCulture);
             }
         }
         
@@ -507,6 +552,15 @@ namespace NureTimetable.Core.Localization {
         public static string Thank3 {
             get {
                 return ResourceManager.GetString("Thank3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Спасибо за вашу поддержку!.
+        /// </summary>
+        public static string ThanksForYourSupport {
+            get {
+                return ResourceManager.GetString("ThanksForYourSupport", resourceCulture);
             }
         }
         

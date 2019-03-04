@@ -309,4 +309,22 @@
   <data name="Yes" xml:space="preserve">
     <value>Yes</value>
   </data>
+  <data name="AtFirstLoadTimetable" xml:space="preserve">
+    <value>Необходимо сначала загрузить расписание группы.</value>
+  </data>
+  <data name="ErrorDetails" xml:space="preserve">
+    <value>Error details</value>
+  </data>
+  <data name="LessonsManagement" xml:space="preserve">
+    <value>Управление предметами</value>
+  </data>
+  <data name="Purchase" xml:space="preserve">
+    <value>Покупка</value>
+  </data>
+  <data name="PurchaseFailed" xml:space="preserve">
+    <value>Что-то пошло не так, покупка не удалась.</value>
+  </data>
+  <data name="ThanksForYourSupport" xml:space="preserve">
+    <value>Спасибо за вашу поддержку!</value>
+  </data>
 </root>

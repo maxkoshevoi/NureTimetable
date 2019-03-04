@@ -85,7 +85,7 @@ namespace NureTimetable.ViewModels.Groups
         {
             if (_savedGroups.Exists(g => g.ID == group.ID))
             {
-                await App.Current.MainPage.DisplayAlert(LN.AddingGroup, LN.GroupAlreadySaved, "OK");
+                await App.Current.MainPage.DisplayAlert(LN.AddingGroup, LN.GroupAlreadySaved, LN.Ok);
                 return;
             }
 
@@ -93,7 +93,7 @@ namespace NureTimetable.ViewModels.Groups
 
             GroupsDataStore.UpdateSaved(_savedGroups);
 
-            await App.Current.MainPage.DisplayAlert(LN.AddingGroup, LN.GroupSaved, "OK");
+            await App.Current.MainPage.DisplayAlert(LN.AddingGroup, LN.GroupSaved, LN.Ok);
         }
 
         private async Task SearchBarTextChanged()

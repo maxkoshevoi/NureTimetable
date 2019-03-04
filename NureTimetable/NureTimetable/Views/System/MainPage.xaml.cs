@@ -28,7 +28,7 @@ namespace NureTimetable.Views
             {
                 if (App.IsDebugMode)
                 {
-                    DisplayAlert("Детали ошибки:", ex.ToString(), LN.Ok);
+                    DisplayAlert(LN.ErrorDetails, ex.ToString(), LN.Ok);
                 }
             });
         }

@@ -68,7 +68,7 @@ namespace NureTimetable.Views.Lessons
         {
             if (lessons == null)
             {
-                DisplayAlert("Управление предметами", "Для управления предметами необходимо сначала загрузить расписание группы.", LN.Ok);
+                DisplayAlert(LN.LessonsManagement, LN.AtFirstLoadTimetable, LN.Ok);
                 Navigation.PopAsync();
                 return;
             }

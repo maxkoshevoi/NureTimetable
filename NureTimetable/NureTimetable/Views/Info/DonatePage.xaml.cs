@@ -1,11 +1,7 @@
-﻿using NureTimetable.Helpers;
+﻿using System;
+using NureTimetable.Core.Localization;
+using NureTimetable.Helpers;
 using NureTimetable.Models.Consts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -23,11 +19,11 @@ namespace NureTimetable.Views.Info
         {
             if (await InAppPurchase.Buy(InAppProducts.DonateLow, true) != null)
             {
-                await DisplayAlert("Покупка", "Спасибо за поддержку проекта!", "Ок");
+                await DisplayAlert(LN.Purchase, LN.ThanksForYourSupport, LN.Ok);
             }
             else
             {
-                await DisplayAlert("Покупка", "Что-то пошло не так, покупка не удалась.", "Ок");
+                await DisplayAlert(LN.Purchase, LN.PurchaseFailed, LN.Ok);
             }
         }
 
@@ -35,11 +31,11 @@ namespace NureTimetable.Views.Info
         {
             if (await InAppPurchase.Buy(InAppProducts.DonateMedium, true) != null)
             {
-                await DisplayAlert("Покупка", "Спасибо за поддержку проекта!", "Ок");
+                await DisplayAlert(LN.Purchase, LN.ThanksForYourSupport, LN.Ok);
             }
             else
             {
-                await DisplayAlert("Покупка", "Что-то пошло не так, покупка не удалась.", "Ок");
+                await DisplayAlert(LN.Purchase, LN.PurchaseFailed, LN.Ok);
             }
         }
 
@@ -47,11 +43,11 @@ namespace NureTimetable.Views.Info
         {
             if (await InAppPurchase.Buy(InAppProducts.DonateHigh, true) != null)
             {
-                await DisplayAlert("Покупка", "Спасибо за поддержку проекта!", "Ок");
+                await DisplayAlert(LN.Purchase, LN.ThanksForYourSupport, LN.Ok);
             }
             else
             {
-                await DisplayAlert("Покупка", "Что-то пошло не так, покупка не удалась.", "Ок");
+                await DisplayAlert(LN.Purchase, LN.PurchaseFailed, LN.Ok);
             }
         }
     }

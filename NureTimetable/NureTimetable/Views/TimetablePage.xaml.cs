@@ -337,18 +337,20 @@ namespace NureTimetable.Views
                 if (!string.IsNullOrEmpty(lessonInfo.Notes))
                     notes = nl + nl + lessonInfo.Notes;
 
-                var eventTypeInfo = lessonInfo.EventTypesInfo.FirstOrDefault(et => et.Name == e.Type);
-                string teacher = string.Join(", ", eventTypeInfo?.Teachers ?? new List<string>());
+                string teacher = null;
 
-                if (string.IsNullOrEmpty(teacher))
-                    teacher = "Не найден";
+                var eventTypeInfo = lessonInfo.EventTypesInfo.FirstOrDefault(et => et.Name == e.Type);
+                if (eventTypeInfo?.Teachers.Count > 0)
+                    teacher = string.Join(", ", eventTypeInfo?.Teachers);
 
                 // This repeated piece of code looks like a refactoring candidate 🤔
                 string lessonDisplayInfo = string.Join(
                     Environment.NewLine,
                     string.Format(LN.EventType, e.Type),
                     string.Format(LN.EventClassroom, e.Room),
-                    string.Format(LN.EventTeacher, teacher),
+                    string.IsNullOrEmpty(teacher)
+                        ? LN.EventTeacherNotFound
+                        : string.Format(LN.EventTeacher, teacher),
                     string.Format(LN.EventDay, e.Start.ToString("ddd, dd.MM.yy")),
                     string.Format(LN.EventTime, e.Start.ToShortTimeString(), e.End.ToShortTimeString()),
                     notes
