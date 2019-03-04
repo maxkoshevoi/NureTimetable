@@ -134,7 +134,9 @@ namespace NureTimetable.ViewModels.Groups
             );
 
             if (!ProgressLayoutIsVisible && displayAlert)
+            {
                 await UpdateGroups(true);
+            }     
         }
 
         private async Task UpdateGroups()
@@ -150,9 +152,13 @@ namespace NureTimetable.ViewModels.Groups
             await Task.Factory.StartNew(() =>
             {
                 if (fromCistOnly)
+                {
                     _allGroups = GroupsDataStore.GetAllFromCist();
+                }
                 else
+                {
                     _allGroups = GroupsDataStore.GetAll();
+                }
 
                 if (_allGroups == null)
                 {
@@ -175,7 +181,9 @@ namespace NureTimetable.ViewModels.Groups
                 Groups = new ObservableCollection<Group>(_allGroups.OrderBy(g => g.Name));
 
                 if (SearchBarTextChangedCommand.CanExecute(null))
+                {
                     SearchBarTextChangedCommand.Execute(null);
+                } 
 
                 ProgressLayoutIsVisible = false;
                 ProgressLayoutIsEnabled = true;

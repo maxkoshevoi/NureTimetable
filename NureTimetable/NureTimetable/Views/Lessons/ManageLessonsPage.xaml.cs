@@ -76,8 +76,7 @@ namespace NureTimetable.Views.Lessons
 
         async void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            if (e.Item == null || !(e.Item is LessonInfo))
-                return;
+            if (e.Item == null || !(e.Item is LessonInfo)) return;
 
             LessonInfo selectedLesson = (LessonInfo)e.Item;
             //Deselect Item
@@ -89,7 +88,6 @@ namespace NureTimetable.Views.Lessons
         private void Save_Clicked(object sender, EventArgs e)
         {
             EventsDataStore.UpdateLessonsInfo(group.ID, lessons.ToList());
-
             DisplayAlert(LN.SavingSettings, string.Format(LN.GroupSettingsSaved, group.Name), LN.Ok);
             Navigation.PopAsync();
         }

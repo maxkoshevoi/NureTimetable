@@ -17,17 +17,17 @@ namespace NureTimetable.ViewModels.System
                     new HomeMenuItem
                     {
                         Id = MenuItemType.Timetable,
-                        Title = LN.Timetable //"Расписание"
+                        Title = LN.Timetable
                     },
                     new HomeMenuItem
                     {
                         Id = MenuItemType.About,
-                        Title = LN.About //"О программе"
+                        Title = LN.About
                     },
                     new HomeMenuItem
                     {
                         Id = MenuItemType.Donate,
-                        Title = LN.Donate //"Пожертвовать"
+                        Title = LN.Donate
 }
             };
 
