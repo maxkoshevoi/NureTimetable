@@ -4,7 +4,6 @@ using NureTimetable.Models.Consts;
 using NureTimetable.UI.Views.Groups;
 using NureTimetable.ViewModels;
 using NureTimetable.ViewModels.Groups;
-using NureTimetable.Services.Helpers;
 using Syncfusion.SfSchedule.XForms;
 using System;
 using System.Collections.Generic;
@@ -322,30 +321,31 @@ namespace NureTimetable.Views
             LessonInfo lessonInfo = timetableInfo.LessonsInfo.FirstOrDefault(li => li.ShortName == e.Lesson);
             if (lessonInfo == null)
             {
-                var linesBuilder = new LinesBuilder(
+                string lessonDisplayInfo = string.Join(
+                    Environment.NewLine,
                     string.Format(LN.EventClassroom, e.Room),
                     string.Format(LN.EventTeacherNotFound),
                     string.Format(LN.EventDay, e.Start.ToString("ddd, dd.MM.yy")),
                     string.Format(LN.EventTime, e.Start.ToShortTimeString(), e.End.ToShortTimeString())
                 );
-                DisplayAlert($"{e.Lesson} - {e.Type}", linesBuilder.ToString(), LN.Ok);
+                DisplayAlert($"{e.Lesson} - {e.Type}", lessonDisplayInfo, LN.Ok);
             }
             else
             {
                 string notes = null;
+
                 if (!string.IsNullOrEmpty(lessonInfo.Notes))
-                {
                     notes = nl + nl + lessonInfo.Notes;
-                }
 
-                string teacher = string.Join(", ", lessonInfo.EventTypesInfo.FirstOrDefault(et => et.Name == e.Type)?.Teachers ?? new List<string>());
+                var eventTypeInfo = lessonInfo.EventTypesInfo.FirstOrDefault(et => et.Name == e.Type);
+                string teacher = string.Join(", ", eventTypeInfo?.Teachers ?? new List<string>());
+
                 if (string.IsNullOrEmpty(teacher))
-                {
                     teacher = "Не найден";
-                }
 
-                // This construct looks like a refactoring candidate 🤔
-                var linesBuilder = new LinesBuilder(
+                // This repeated piece of code looks like a refactoring candidate 🤔
+                string lessonDisplayInfo = string.Join(
+                    Environment.NewLine,
                     string.Format(LN.EventType, e.Type),
                     string.Format(LN.EventClassroom, e.Room),
                     string.Format(LN.EventTeacher, teacher),
@@ -353,7 +353,7 @@ namespace NureTimetable.Views
                     string.Format(LN.EventTime, e.Start.ToShortTimeString(), e.End.ToShortTimeString()),
                     notes
                 );
-                DisplayAlert(lessonInfo.LongName, linesBuilder.ToString(), LN.Ok);
+                DisplayAlert(lessonInfo.LongName, lessonDisplayInfo, LN.Ok);
             }
         }
     }
