@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using NureTimetable.Core.Localization;
 using NureTimetable.DAL;
 using NureTimetable.Models;
 using NureTimetable.Services.Helpers;
@@ -22,9 +23,9 @@ namespace NureTimetable.ViewModels.Groups
 
         private ObservableCollection<Group> _groups;
 
-        private bool _progressLayoutIsVisable;
+        private bool _progressLayoutIsVisible;
 
-        private bool _progressLayoutIsEnable;
+        private bool _progressLayoutIsEnabled;
 
         private string _searchBarText;
 
@@ -36,16 +37,16 @@ namespace NureTimetable.ViewModels.Groups
 
         public ObservableCollection<Group> Groups { get => _groups; set => SetProperty(ref _groups, value); }
 
-        public bool ProgressLayoutIsVisable
+        public bool ProgressLayoutIsVisible
         {
-            get => _progressLayoutIsVisable;
-            set => SetProperty(ref _progressLayoutIsVisable, value);
+            get => _progressLayoutIsVisible;
+            set => SetProperty(ref _progressLayoutIsVisible, value);
         }
 
-        public bool ProgressLayoutIsEnable
+        public bool ProgressLayoutIsEnabled
         {
-            get => _progressLayoutIsEnable;
-            set => SetProperty(ref _progressLayoutIsEnable, value);
+            get => _progressLayoutIsEnabled;
+            set => SetProperty(ref _progressLayoutIsEnabled, value);
         }
 
         public string SearchBarText { get => _searchBarText; set => SetProperty(ref _searchBarText, value); }
@@ -75,8 +76,8 @@ namespace NureTimetable.ViewModels.Groups
             {
                 if (value != null)
                 {
-                    Device.BeginInvokeOnMainThread(async () => { await GroupSelected(value); });
-                }
+                    Device.BeginInvokeOnMainThread(async () => await GroupSelected(value));
+                }     
 
                 _selectedGroup = value;
             }
@@ -86,7 +87,7 @@ namespace NureTimetable.ViewModels.Groups
         {
             if (_savedGroups.Exists(g => g.ID == group.ID))
             {
-                await App.Current.MainPage.DisplayAlert("Добавление группы", "Группа уже находится в сохранённых", "OK");
+                await App.Current.MainPage.DisplayAlert(LN.AddingGroup, LN.GroupAlreadySaved, LN.Ok);
                 return;
             }
 
@@ -94,7 +95,7 @@ namespace NureTimetable.ViewModels.Groups
 
             GroupsDataStore.UpdateSaved(_savedGroups);
 
-            await App.Current.MainPage.DisplayAlert("Добавление группы", "Группа добавлена в сохранённые", "OK");
+            await App.Current.MainPage.DisplayAlert(LN.AddingGroup, LN.GroupSaved, LN.Ok);
         }
 
         private async Task SearchBarTextChanged()
@@ -111,7 +112,10 @@ namespace NureTimetable.ViewModels.Groups
                 Groups =
                     new ObservableCollection<Group>(
                         _allGroups
-                            .Where(g => g.Name.ToLower().Contains(searchQuery) || g.Name.ToLower().Contains(searchQuery.Replace('и', 'і')) || g.ID.ToString() == searchQuery)
+                            .Where(g =>
+                                g.Name.ToLower().Contains(searchQuery) || 
+                                g.Name.ToLower().Contains(searchQuery.Replace('и', 'і')) || 
+                                g.ID.ToString() == searchQuery)
                             .OrderBy(g => g.Name)
                     );
             }
@@ -121,12 +125,17 @@ namespace NureTimetable.ViewModels.Groups
         {
             if (SettingsDataStore.CheckCistAllGroupsUpdateRights() == false)
             {
-                await App.Current.MainPage.DisplayAlert("Загрузка списка групп", "У вас уже загружена последняя версия списка групп", "Ok");
+                await App.Current.MainPage.DisplayAlert(LN.GroupsListLoading, LN.GroupsListLatest, LN.Ok);
                 return;
             }
 
-            if (!ProgressLayoutIsVisable && await App.Current.MainPage.DisplayAlert("Загрузка списка групп",
-                    "Вы уверенны, что хотите загрузить список групп из Cist?", "Да", "Отмена"))
+            bool displayAlert = await App.Current.MainPage.DisplayAlert(
+                LN.GroupsListLoading,
+                LN.GroupsListLoadingConfirmation,
+                LN.Yes, LN.Cancel
+            );
+
+            if (!ProgressLayoutIsVisible && displayAlert)
             {
                 await UpdateGroups(true);
             }
@@ -139,8 +148,8 @@ namespace NureTimetable.ViewModels.Groups
 
         private async Task UpdateGroups(bool fromCistOnly = false)
         {
-            ProgressLayoutIsVisable = true;
-            ProgressLayoutIsEnable = false;
+            ProgressLayoutIsVisible = true;
+            ProgressLayoutIsEnabled = false;
 
             await Task.Factory.StartNew(() =>
             {
@@ -152,15 +161,20 @@ namespace NureTimetable.ViewModels.Groups
                 {
                     _allGroups = GroupsDataStore.GetAll();
                 }
+
                 if (_allGroups == null)
                 {
                     Device.BeginInvokeOnMainThread(() =>
                     {
-                        App.Current.MainPage.DisplayAlert("Загрузка списка групп", "Не удалось загрузить список групп. Пожалуйста, попробуйте позже.", "Ok");
+                        App.Current.MainPage.DisplayAlert(
+                            LN.GroupsListLoading,
+                            LN.GroupsListLoadingFail,
+                            LN.Ok
+                        );
                     });
 
-                    ProgressLayoutIsVisable = false;
-                    ProgressLayoutIsEnable = true;
+                    ProgressLayoutIsVisible = false;
+                    ProgressLayoutIsEnabled = true;
 
                     return;
                 }
@@ -168,13 +182,13 @@ namespace NureTimetable.ViewModels.Groups
                 _savedGroups = GroupsDataStore.GetSaved();
                 Groups = new ObservableCollection<Group>(_allGroups.OrderBy(g => g.Name));
 
-
                 if (SearchBarTextChangedCommand.CanExecute(null))
+                {
                     SearchBarTextChangedCommand.Execute(null);
+                } 
 
-                ProgressLayoutIsVisable = false;
-                ProgressLayoutIsEnable = true;
-
+                ProgressLayoutIsVisible = false;
+                ProgressLayoutIsEnabled = true;
             });
         }
         #endregion

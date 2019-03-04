@@ -111,7 +111,7 @@ namespace NureTimetable.Views
                     Event currentEvent = timetableInfo.Events.FirstOrDefault(e => e.Start <= DateTime.Now && e.End >= DateTime.Now);
                     if (currentEvent != null)
                     {
-                        text = $"Время до перерыва: {(currentEvent.End - DateTime.Now).ToString("hh\\:mm\\:ss")}";
+                        text = string.Format(LN.TimeUntilBreak, (currentEvent.End - DateTime.Now).ToString("hh\\:mm\\:ss"));
                     }
                     else
                     {
@@ -121,7 +121,12 @@ namespace NureTimetable.Views
                             .FirstOrDefault();
                         if (nextEvent != null && nextEvent.Start.Date == DateTime.Now.Date)
                         {
-                            text = $"Время до {nextEvent.Lesson} - {nextEvent.Type}: {(nextEvent.Start - DateTime.Now).ToString("hh\\:mm\\:ss")}";
+                            text = string.Format(
+                                LN.TimeUntilLesson, 
+                                nextEvent.Lesson, 
+                                nextEvent.Type, 
+                                (nextEvent.Start - DateTime.Now).ToString("hh\\:mm\\:ss")
+                            );
                         }
                     }
                 }
@@ -229,7 +234,7 @@ namespace NureTimetable.Views
                     {
                         MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, exception);
 
-                        DisplayAlert("Отображение расписания", "Произошла ошибка при попытке отобразить расписание", "Ok");
+                        DisplayAlert(LN.TimetableDisplay, LN.TimetableDisplayError, LN.Ok);
                         return;
                     }
                 }
@@ -308,32 +313,49 @@ namespace NureTimetable.Views
             DisplayEventDetails((Event)e.Appointment);
         }
 
-        private void DisplayEventDetails(Event ev)
+        private void DisplayEventDetails(Event e)
         {
-            if (ev == null)
-            {
-                return;
-            }
+            if (e == null) return;
             string nl = Environment.NewLine;
 
-            LessonInfo lessonInfo = timetableInfo.LessonsInfo.FirstOrDefault(li => li.ShortName == ev.Lesson);
+            LessonInfo lessonInfo = timetableInfo.LessonsInfo.FirstOrDefault(li => li.ShortName == e.Lesson);
             if (lessonInfo == null)
             {
-                DisplayAlert($"{ev.Lesson} - {ev.Type}", $"Аудитория: {ev.Room}{nl}Преподаватель: Не найден{nl}День: {ev.Start.ToString("ddd, dd.MM.yy")}{nl}Время: {ev.Start.ToString("HH:mm")} - {ev.End.ToString("HH:mm")}", "Ok");
+                string lessonDisplayInfo = string.Join(
+                    Environment.NewLine,
+                    string.Format(LN.EventClassroom, e.Room),
+                    string.Format(LN.EventTeacherNotFound),
+                    string.Format(LN.EventDay, e.Start.ToString("ddd, dd.MM.yy")),
+                    string.Format(LN.EventTime, e.Start.ToShortTimeString(), e.End.ToShortTimeString())
+                );
+                DisplayAlert($"{e.Lesson} - {e.Type}", lessonDisplayInfo, LN.Ok);
             }
             else
             {
                 string notes = null;
+
                 if (!string.IsNullOrEmpty(lessonInfo.Notes))
-                {
                     notes = nl + nl + lessonInfo.Notes;
-                }
-                string teacher = string.Join(", ", lessonInfo.EventTypesInfo.FirstOrDefault(et => et.Name == ev.Type)?.Teachers ?? new List<string>());
-                if (string.IsNullOrEmpty(teacher))
-                {
-                    teacher = "Не найден";
-                }
-                DisplayAlert($"{lessonInfo.LongName}", $"Тип: {ev.Type}{nl}Аудитория: {ev.Room}{nl}Преподаватель: {teacher}{nl}День: {ev.Start.ToString("ddd, dd.MM.yy")}{nl}Время: {ev.Start.ToString("HH:mm")} - {ev.End.ToString("HH:mm")}{notes}", "Ok");
+
+                string teacher = null;
+
+                var eventTypeInfo = lessonInfo.EventTypesInfo.FirstOrDefault(et => et.Name == e.Type);
+                if (eventTypeInfo?.Teachers.Count > 0)
+                    teacher = string.Join(", ", eventTypeInfo?.Teachers);
+
+                // This repeated piece of code looks like a refactoring candidate 🤔
+                string lessonDisplayInfo = string.Join(
+                    Environment.NewLine,
+                    string.Format(LN.EventType, e.Type),
+                    string.Format(LN.EventClassroom, e.Room),
+                    string.IsNullOrEmpty(teacher)
+                        ? LN.EventTeacherNotFound
+                        : string.Format(LN.EventTeacher, teacher),
+                    string.Format(LN.EventDay, e.Start.ToString("ddd, dd.MM.yy")),
+                    string.Format(LN.EventTime, e.Start.ToShortTimeString(), e.End.ToShortTimeString()),
+                    notes
+                );
+                DisplayAlert(lessonInfo.LongName, lessonDisplayInfo, LN.Ok);
             }
         }
     }

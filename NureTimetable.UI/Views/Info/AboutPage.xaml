@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:LN="clr-namespace:NureTimetable.Core.Localization;assembly=NureTimetable.Core"
              x:Class="NureTimetable.UI.Views.Info.AboutPage"
-             Title="О приложении">
+             Title="{LN:Translate About}">
     
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -43,8 +43,9 @@
                     <Label.FormattedText>
                         <FormattedString>
                             <FormattedString.Spans>
-                                <Span Text="Это приложение для отображения расписания групп " />
-                                <Span Text="ХНУРЭ" FontAttributes="Bold" />
+                                <Span Text="{LN:Translate AppDescription}" />
+                                <Span Text=" " />
+                                <Span Text="{LN:Translate Institution}" FontAttributes="Bold" />
                             </FormattedString.Spans>
                         </FormattedString>
                     </Label.FormattedText>
@@ -53,11 +54,11 @@
                     <Label.FormattedText>
                         <FormattedString>
                             <FormattedString.Spans>
-                                <Span Text="Если у кого-нибудь с опытом разработки на Xamarin будет желение помочь, вот ссылка на гитхаб: " />
+                                <Span Text="{LN:Translate HelpWanted}" />
                                 <Span Text="github.com/maxkoshevoi/NureTimetable" ForegroundColor="{StaticResource LightTextColor}" TextDecorations="Underline">
                                     <Span.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding NavigateUriCommand}"
-                                          CommandParameter="https://github.com/maxkoshevoi/NureTimetable" />
+                                            CommandParameter="https://github.com/maxkoshevoi/NureTimetable" />
                                     </Span.GestureRecognizers>
                                 </Span>
                             </FormattedString.Spans>
@@ -68,7 +69,7 @@
                     <Label.FormattedText>
                         <FormattedString>
                             <FormattedString.Spans>
-                                <Span Text="Полезные ссылки: " FontAttributes="Bold" FontSize="16" />
+                                <Span Text="{LN:Translate HelpfulLinks}" FontAttributes="Bold" FontSize="16" />
                             </FormattedString.Spans>
                         </FormattedString>
                     </Label.FormattedText>
@@ -77,18 +78,18 @@
                     <Label.FormattedText>
                         <FormattedString>
                             <FormattedString.Spans>
-                                <Span Text="Официальная страница ХНУРЭ: " />
-                                <Span Text="Сайт" ForegroundColor="{StaticResource LightTextColor}" TextDecorations="Underline">
+                                <Span Text="{LN:Translate NureWebpages}" />
+                                <Span Text="{LN:Translate NureHomepage}" ForegroundColor="{StaticResource LightTextColor}" TextDecorations="Underline">
                                     <Span.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding NavigateUriCommand}"
-                                          CommandParameter="http://nure.ua/" />
+                                            CommandParameter="http://nure.ua/" />
                                     </Span.GestureRecognizers>
                                 </Span>
                                 <Span Text=", " />
                                 <Span Text="Facebook" ForegroundColor="{StaticResource LightTextColor}" TextDecorations="Underline">
                                     <Span.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding NavigateUriCommand}"
-                                          CommandParameter="https://www.facebook.com/nureKharkiv/" />
+                                            CommandParameter="https://www.facebook.com/nureKharkiv/" />
                                     </Span.GestureRecognizers>
                                 </Span>
                             </FormattedString.Spans>
@@ -99,18 +100,18 @@
                     <Label.FormattedText>
                         <FormattedString>
                             <FormattedString.Spans>
-                                <Span Text="Студент ХНУРЭ: " />
+                                <Span Text="{LN:Translate StudentNure}" />
                                 <Span Text="Telegram" ForegroundColor="{StaticResource LightTextColor}" TextDecorations="Underline">
                                     <Span.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding NavigateUriCommand}"
-                                          CommandParameter="https://t.me/studentnure" />
+                                            CommandParameter="https://t.me/studentnure" />
                                     </Span.GestureRecognizers>
                                 </Span>
                                 <Span Text=", " />
                                 <Span Text="Instagram" ForegroundColor="{StaticResource LightTextColor}" TextDecorations="Underline">
                                     <Span.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding NavigateUriCommand}"
-                                          CommandParameter="https://www.instagram.com/student.nure/" />
+                                            CommandParameter="https://www.instagram.com/student.nure/" />
                                     </Span.GestureRecognizers>
                                 </Span>
                             </FormattedString.Spans>
@@ -120,7 +121,7 @@
                 
                 <Label Margin="0,300,0,0" Text="И, на всякий случай, оставлю здесь вот это." />
                 <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                    <Label Text="Показывать ошибки: " />
+                    <Label Text="{LN:Translate ShowErrors}" />
                     <Switch x:Name="SwDebugMode" IsToggled="{Binding IsDebugModeActive}"/>
                 </StackLayout>
             </StackLayout>

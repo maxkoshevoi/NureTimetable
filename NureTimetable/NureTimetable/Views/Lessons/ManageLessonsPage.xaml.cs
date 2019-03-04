@@ -1,13 +1,11 @@
-﻿using NureTimetable.DAL;
+﻿using NureTimetable.Core.Localization;
+using NureTimetable.DAL;
 using NureTimetable.Models;
 using NureTimetable.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -70,7 +68,7 @@ namespace NureTimetable.Views.Lessons
         {
             if (lessons == null)
             {
-                DisplayAlert("Управление предметами", "Для управления предметами необходимо сначала загрузить расписание группы.", "Ok");
+                DisplayAlert(LN.LessonsManagement, LN.AtFirstLoadTimetable, LN.Ok);
                 Navigation.PopAsync();
                 return;
             }
@@ -78,8 +76,7 @@ namespace NureTimetable.Views.Lessons
 
         async void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            if (e.Item == null || !(e.Item is LessonInfo))
-                return;
+            if (e.Item == null || !(e.Item is LessonInfo)) return;
 
             LessonInfo selectedLesson = (LessonInfo)e.Item;
             //Deselect Item
@@ -91,7 +88,7 @@ namespace NureTimetable.Views.Lessons
         private void Save_Clicked(object sender, EventArgs e)
         {
             EventsDataStore.UpdateLessonsInfo(group.ID, lessons.ToList());
-            DisplayAlert("Сохранение настроек", $"Настройки предметов для группы {group.Name} успешно сохранены.", "Ok");
+            DisplayAlert(LN.SavingSettings, string.Format(LN.GroupSettingsSaved, group.Name), LN.Ok);
             Navigation.PopAsync();
         }
     }

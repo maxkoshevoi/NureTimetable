@@ -1,6 +1,7 @@
 ﻿using NureTimetable.Models.Consts;
 using NureTimetable.Models.System;
 using NureTimetable.Views.Info;
+using NureTimetable.Core.Localization;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -27,7 +28,7 @@ namespace NureTimetable.Views
             {
                 if (App.IsDebugMode)
                 {
-                    DisplayAlert("Детали ошибки:", ex.ToString(), "Ok");
+                    DisplayAlert(LN.ErrorDetails, ex.ToString(), LN.Ok);
                 }
             });
         }
@@ -42,7 +43,7 @@ namespace NureTimetable.Views
                         MenuPages.Add(id, new NavigationPage(new TimetablePage()));
                         break;
                     case (int)MenuItemType.About:
-                        MenuPages.Add(id, new NavigationPage(new AboutPage(){BindingContext = new InfoViewModel()}));
+                        MenuPages.Add(id, new NavigationPage(new AboutPage() {BindingContext = new InfoViewModel()}));
                         break;
                     case (int)MenuItemType.Donate:
                         MenuPages.Add(id, new NavigationPage(new DonatePage()));
