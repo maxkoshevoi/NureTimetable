@@ -18,6 +18,63 @@ namespace NureTimetable.ViewModels.Groups
 {
     public class ManageGroupsViewModel : BaseViewModel
     {
+        #region Classes
+        public class SavedGroupItemViewModel
+        {
+            #region variables
+            private ManageGroupsViewModel _manageGroupsViewModel;
+            #endregion
+
+            #region Properties
+            public SavedGroup SavedGroup { get; }
+
+            // TODO: Move this property inside SavedGroup and replace SelectedGroup functionality with it
+            public bool IsSelected { get; set; }
+
+            public ICommand SettingsClickedCommand { get; }
+            #endregion
+
+            public SavedGroupItemViewModel(SavedGroup savedGroup, ManageGroupsViewModel manageGroupsViewModel)
+            {
+                SavedGroup = savedGroup;
+                _manageGroupsViewModel = manageGroupsViewModel;
+                SettingsClickedCommand = CommandHelper.CreateCommand(SettingsClicked);
+            }
+            
+            public async Task SettingsClicked()
+            {
+                List<string> actionList = new List<string> { "Обновить расписание", "Настроить отображение предметов", "Удалить" };
+                if (!IsSelected)
+                {
+                    actionList.Insert(0, "Выбрать");
+                }
+                if (Device.RuntimePlatform == Device.Android && CrossDeviceInfo.Current.VersionNumber.Major < 5)
+                {
+                    // SfCheckBox doesn`t support Android 4
+                    actionList.Remove("Настроить отображение предметов");
+                }
+                string action = await App.Current.MainPage.DisplayActionSheet("Выберете действие:", "Отмена", null, actionList.ToArray());
+                switch (action)
+                {
+                    case "Выбрать":
+                        GroupsDataStore.UpdateSelected(SavedGroup);
+                        await _manageGroupsViewModel.Navigation.PopToRootAsync();
+                        break;
+                    case "Обновить расписание":
+                        await _manageGroupsViewModel.UpdateTimetable(SavedGroup);
+                        break;
+                    case "Настроить отображение предметов":
+                        await _manageGroupsViewModel.Navigation.PushAsync(new ManageLessonsPage(SavedGroup));
+                        break;
+                    case "Удалить":
+                        _manageGroupsViewModel.Groups.Remove(this);
+                        GroupsDataStore.UpdateSaved(_manageGroupsViewModel.Groups.Select(vm => vm.SavedGroup).ToList());
+                        break;
+                }
+            }
+        }
+        #endregion
+
         #region variables
         private bool _isNoSourceLayoutVisable;
 
@@ -25,9 +82,8 @@ namespace NureTimetable.ViewModels.Groups
 
         private bool _isProgressVisable;
 
-        private ObservableCollection<SavedGroup> _groups;
+        private ObservableCollection<SavedGroupItemViewModel> _groups;
         #endregion
-
 
         #region Properties
         public bool IsNoSourceLayoutVisable
@@ -48,9 +104,9 @@ namespace NureTimetable.ViewModels.Groups
             set => SetProperty(ref _isGroupsLayoutEnable, value);
         }
 
-        private SavedGroup _savedGroupSelectedItem;
+        private SavedGroupItemViewModel _savedGroupSelectedItem;
 
-        public SavedGroup SavedGroupSelectedItem
+        public SavedGroupItemViewModel SavedGroupSelectedItem
         {
             get => _savedGroupSelectedItem;
             set
@@ -64,11 +120,11 @@ namespace NureTimetable.ViewModels.Groups
             }
         }
 
-        public ObservableCollection<SavedGroup> Groups { get => _groups; set => SetProperty(ref _groups, value); }
+        public ObservableCollection<SavedGroupItemViewModel> Groups { get => _groups; set => SetProperty(ref _groups, value); }
 
-        public ICommand UpdateAllCommand { get; protected set; }
+        public ICommand UpdateAllCommand { get; }
 
-        public ICommand AddGroupCommand { get; protected set; }
+        public ICommand AddGroupCommand { get; }
 
         #endregion
 
@@ -76,47 +132,25 @@ namespace NureTimetable.ViewModels.Groups
         {
             IsProgressVisable = false;
             IsGroupsLayoutEnalbe = true;
+
             UpdateItems(GroupsDataStore.GetSaved());
-            MessagingCenter.Subscribe<Application, List<SavedGroup>>(this, MessageTypes.SavedGroupsChanged,
-                (sender, newSavedGroups) => { UpdateItems(newSavedGroups); });
+            MessagingCenter.Subscribe<Application, List<SavedGroup>>(this, MessageTypes.SavedGroupsChanged, (sender, newSavedGroups) => 
+            {
+                UpdateItems(newSavedGroups);
+            });
+
             UpdateAllCommand = CommandHelper.CreateCommand(UpdateAll);
             AddGroupCommand = CommandHelper.CreateCommand(AddGroup);
         }
 
         #region Methods
-        public async Task SavedGroupSelected(SavedGroup selectedGroup)
+        public async Task SavedGroupSelected(SavedGroupItemViewModel selectedGroup)
         {
-            List<string> actionList = new List<string> { "Обновить расписание", "Настроить отображение предметов", "Удалить" };
-            if (GroupsDataStore.GetSelected()?.ID != selectedGroup.ID)
+            if (!selectedGroup.IsSelected)
             {
-                actionList.Insert(0, "Выбрать");
+                GroupsDataStore.UpdateSelected(selectedGroup.SavedGroup);
             }
-            if (Device.RuntimePlatform == Device.Android && CrossDeviceInfo.Current.VersionNumber.Major < 5)
-            {
-                // It seems like SfCheckBox doesn`t support Android 4
-                actionList.Remove("Настроить отображение предметов");
-            }
-            string action = await App.Current.MainPage.DisplayActionSheet("Выберете действие:", "Отмена", null, actionList.ToArray());
-            switch (action)
-            {
-                case "Выбрать":
-                    GroupsDataStore.UpdateSelected(selectedGroup);
-                    if (await App.Current.MainPage.DisplayAlert("Выбор группы", "Группа успешно выбрана", "К расписанию", "Ok"))
-                    {
-                        await Navigation.PopAsync();
-                    }
-                    break;
-                case "Обновить расписание":
-                    await UpdateTimetable(selectedGroup);
-                    break;
-                case "Настроить отображение предметов":
-                    await Navigation.PushAsync(new ManageLessonsPage(selectedGroup));
-                    break;
-                case "Удалить":
-                    Groups.Remove(selectedGroup);
-                    GroupsDataStore.UpdateSaved(Groups.ToList());
-                    break;
-            }
+            await Navigation.PopToRootAsync();
         }
 
         private async Task UpdateAll()
@@ -127,7 +161,7 @@ namespace NureTimetable.ViewModels.Groups
             }
             if (await App.Current.MainPage.DisplayAlert("Обновление расписания", "Обновить расписания всех сохранённых групп?", "Да", "Отмена"))
             {
-                await UpdateTimetable(Groups?.ToArray());
+                await UpdateTimetable(Groups?.Select(vm => vm.SavedGroup).ToArray());
             }
         }
 
@@ -137,7 +171,7 @@ namespace NureTimetable.ViewModels.Groups
             {
                 return;
             }
-            Navigation.PushAsync(new AddGroupPage()
+            await Navigation.PushAsync(new AddGroupPage()
             {
                 BindingContext = new AddGroupViewModel(Navigation)
             });
@@ -147,7 +181,13 @@ namespace NureTimetable.ViewModels.Groups
         {
             IsNoSourceLayoutVisable = (newItems.Count == 0);
 
-            Groups = new ObservableCollection<SavedGroup>(newItems);
+            Group selectedGroup = GroupsDataStore.GetSelected();
+            Groups = new ObservableCollection<SavedGroupItemViewModel>(
+                newItems.Select(sg => new SavedGroupItemViewModel(sg, this)
+                {
+                    IsSelected = sg.ID == selectedGroup?.ID
+                })
+            );
         }
 
         private async Task UpdateTimetable(params Group[] groups)
@@ -192,14 +232,7 @@ namespace NureTimetable.ViewModels.Groups
                     IsGroupsLayoutEnalbe = true;
                     if (await App.Current.MainPage.DisplayAlert("Обновление расписания", result, "К расписанию", "Ok"))
                     {
-                        try
-                        {
-                            await Navigation.PopAsync();
-                        }
-                        catch
-                        {
-                            // Sometimes this gives ArgumentOutOfRangeException
-                        }
+                        await Navigation.PopToRootAsync();
                     }
                 });
             });

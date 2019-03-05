@@ -7,7 +7,7 @@ using Xamarin.Forms;
 
 namespace NureTimetable.ViewModels.Info
 {
-    public class InfoViewModel
+    public class AboutViewModel
     {
         public string VersionText { get; set; }
 
@@ -19,9 +19,9 @@ namespace NureTimetable.ViewModels.Info
             }
         }
 
-        public ICommand NavigateUriCommand { get; protected set; }
+        public ICommand NavigateUriCommand { get; }
 
-        public InfoViewModel()
+        public AboutViewModel()
         {
             NavigateUriCommand = CommandHelper.CreateCommand<string>(NavigateUri);
             var version = DependencyService.Get<IAppVersionProvider>();

@@ -14,10 +14,13 @@
             <Color x:Key="консColor">#98dce6</Color>
             <Color x:Key="залColor">#f1f688</Color>
             <Color x:Key="іспкомбColor">#f17674</Color>
+            <!--Page colors-->
             <Style TargetType="NavigationPage">
                 <Setter Property="BarBackgroundColor" Value="{StaticResource NavigationPrimary}" />
                 <Setter Property="BarTextColor" Value="White" />
             </Style>
+            <!--Other colors-->
+            <Color x:Key="SelectedGroupColor">#AED9FA</Color>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

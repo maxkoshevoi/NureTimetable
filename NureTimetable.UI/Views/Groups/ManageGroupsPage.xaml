@@ -13,17 +13,30 @@
         <StackLayout IsEnabled="{Binding IsGroupsLayoutEnalbe}" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
             <ListView x:Name="GroupsList"
                     ItemsSource="{Binding Groups}"
-                      SelectedItem="{Binding SavedGroupSelectedItem}"
-                      ItemTapped="GroupsList_OnItemTapped"
+                    SelectedItem="{Binding SavedGroupSelectedItem}"
+                    ItemTapped="GroupsList_OnItemTapped"
                     CachingStrategy="RecycleElement"
                     HasUnevenRows="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout Margin="10,5,10,5">
-                                <Label Text="{Binding Name}" Style="{DynamicResource ListItemTextStyle}" />
-                                <Label Text="{Binding LastUpdated}" Style="{DynamicResource ListItemDetailTextStyle}"/>
-                            </StackLayout>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="10" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" BackgroundColor="{StaticResource SelectedGroupColor}" HorizontalOptions="FillAndExpand" IsVisible="{Binding IsSelected}" />
+                                <StackLayout Grid.Column="1" Margin="10,5,0,5">
+                                    <Label Text="{Binding SavedGroup.Name}" Style="{DynamicResource ListItemTextStyle}" />
+                                    <Label Text="{Binding SavedGroup.LastUpdated}" Style="{DynamicResource ListItemDetailTextStyle}"/>
+                                </StackLayout>
+                                <Image Grid.Column="2" Margin="0,5,10,5" Source="settings" WidthRequest="30" >
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding SettingsClickedCommand}" />
+                                    </Image.GestureRecognizers>
+                                </Image>
+                            </Grid>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
