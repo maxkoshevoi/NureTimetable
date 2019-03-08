@@ -53,7 +53,7 @@ namespace NureTimetable.ViewModels.Groups
                     // SfCheckBox doesn`t support Android 4
                     actionList.Remove("Настроить отображение предметов");
                 }
-                string action = await App.Current.MainPage.DisplayActionSheet("Выберете действие:", "Отмена", null, actionList.ToArray());
+                string action = await App.Current.MainPage.DisplayActionSheet("Выберите действие:", "Отмена", null, actionList.ToArray());
                 switch (action)
                 {
                     case "Выбрать":

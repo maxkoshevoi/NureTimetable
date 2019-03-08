@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using NureTimetable.Core.Localization;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using NureTimetable.Models.InterplatformCommunication;
 
 namespace NureTimetable.Views
 {
@@ -20,6 +21,7 @@ namespace NureTimetable.Views
     public partial class TimetablePage : ContentPage
     {
         public TimetableInfo timetableInfo { get; set; } = null;
+        public bool ApplyHiddingSettings = true;
 
         private bool isFirstLoad = true;
         private bool isPageVisible = false;
@@ -78,19 +80,7 @@ namespace NureTimetable.Views
             {
                 isFirstLoad = false;
 
-                Timetable.IsEnabled = false;
-                ProgressLayout.IsVisible = true;
-
-                Task.Factory.StartNew(() =>
-                {
-                    UpdateEvents(GroupsDataStore.GetSelected());
-
-                    Device.BeginInvokeOnMainThread(() =>
-                    {
-                        ProgressLayout.IsVisible = false;
-                        Timetable.IsEnabled = true;
-                    });
-                });
+                UpdateEventsWithUI();
             }
 
             Device.StartTimer(TimeSpan.FromSeconds(1), UpdateTimeLeft);
@@ -148,6 +138,23 @@ namespace NureTimetable.Views
             }
             return isPageVisible;
         }
+        
+        private void UpdateEventsWithUI()
+        {
+            Timetable.IsEnabled = false;
+            ProgressLayout.IsVisible = true;
+
+            Task.Factory.StartNew(() =>
+            {
+                UpdateEvents(GroupsDataStore.GetSelected());
+
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    ProgressLayout.IsVisible = false;
+                    Timetable.IsEnabled = true;
+                });
+            });
+        }
 
         private void UpdateEvents(Group selectedGroup)
         {
@@ -174,7 +181,10 @@ namespace NureTimetable.Views
             lock (enumeratingEvents)
             {
                 timetableInfo = EventsDataStore.GetEvents(selectedGroup.ID) ?? new TimetableInfo();
-                timetableInfo.ApplyLessonSettings();
+                if (ApplyHiddingSettings)
+                {
+                    timetableInfo.ApplyLessonSettings();
+                }
             }
 
             Device.BeginInvokeOnMainThread(() =>
@@ -195,10 +205,16 @@ namespace NureTimetable.Views
                             {
                                 Timetable.MinDisplayDate = timetableInfo.StartDate();
                                 Timetable.MaxDisplayDate = timetableInfo.EndDate();
+
                                 Timetable.WeekViewSettings.StartHour = 0;
                                 Timetable.WeekViewSettings.EndHour = 24;
                                 Timetable.WeekViewSettings.StartHour = timetableInfo.StartTime().TotalHours;
                                 Timetable.WeekViewSettings.EndHour = timetableInfo.EndTime().TotalHours + (Timetable.TimeInterval / 60 / 2);
+
+                                Timetable.DayViewSettings.StartHour = 0;
+                                Timetable.DayViewSettings.EndHour = 24;
+                                Timetable.DayViewSettings.StartHour = timetableInfo.StartTime().TotalHours;
+                                Timetable.DayViewSettings.EndHour = timetableInfo.EndTime().TotalHours + (Timetable.TimeInterval / 60 / 2);
                             }
 
                             UpdateTimetableHeight();
@@ -274,22 +290,28 @@ namespace NureTimetable.Views
             });
         }
 
-        private void Today_Clicked(object sender, EventArgs e)
+        private async void Today_Clicked(object sender, EventArgs e)
         {
             if (!TimetableLayout.IsVisible)
             {
                 return;
             }
 
+            string view = await DisplayActionSheet("Выберите вид:", "Отмена", null, "День", "Неделя", "Месяц");
+
             DateTime? selected = Timetable.SelectedDate;
             Timetable.SelectedDate = null;
-            if (Timetable.ScheduleView == ScheduleView.WeekView)
+            if (view == "День")
             {
-                Timetable.ScheduleView = ScheduleView.MonthView;
+                Timetable.ScheduleView = ScheduleView.DayView;
             }
-            else
+            else if (view == "Неделя")
             {
                 Timetable.ScheduleView = ScheduleView.WeekView;
+            }
+            else if (view == "Месяц")
+            {
+                Timetable.ScheduleView = ScheduleView.MonthView;
             }
             if (selected != null)
             {
@@ -335,6 +357,32 @@ namespace NureTimetable.Views
                 }
                 DisplayAlert($"{lessonInfo.LongName}", $"Тип: {ev.Type}{nl}Аудитория: {ev.Room}{nl}Преподаватель: {teacher}{nl}День: {ev.Start.ToString("ddd, dd.MM.yy")}{nl}Время: {ev.Start.ToString("HH:mm")} - {ev.End.ToString("HH:mm")}{notes}", "Ok");
             }
+        }
+
+        private void HideSelectedEvents_Clicked(object sender, EventArgs e)
+        {
+            if (!TimetableLayout.IsVisible)
+            {
+                return;
+            }
+
+            ApplyHiddingSettings = !ApplyHiddingSettings;
+
+            string message, icon;
+            if (ApplyHiddingSettings)
+            {
+                icon = "bookmark_border";
+                message = "Показаны выбранные события";
+            }
+            else
+            {
+                icon = "bookmark";
+                message = "Показаны все события";
+            }
+            HideSelectedEvents.Icon = icon;
+            DependencyService.Get<IMessage>().LongAlert(message);
+
+            UpdateEventsWithUI();
         }
     }
 }

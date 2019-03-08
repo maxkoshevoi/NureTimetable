@@ -8,8 +8,9 @@
              Disappearing="ContentPage_Disappearing"
              SizeChanged="ContentPage_SizeChanged"
              Title="{LN:Translate AppName}">
-    
+
     <ContentPage.ToolbarItems>
+        <ToolbarItem Icon="bookmark_border" Clicked="HideSelectedEvents_Clicked" x:Name="HideSelectedEvents" />
         <ToolbarItem Icon="today" Clicked="Today_Clicked" x:Name="Today" />
         <ToolbarItem Icon="group" Clicked="ManageGroups_Clicked" x:Name="ManageGroups" />
     </ContentPage.ToolbarItems>
@@ -45,6 +46,13 @@
                             </syncfusion:WeekViewSettings.WeekLabelSettings>
                         </syncfusion:WeekViewSettings>
                     </syncfusion:SfSchedule.WeekViewSettings>
+                    <syncfusion:SfSchedule.DayViewSettings>
+                        <syncfusion:DayViewSettings WorkStartHour="0" WorkEndHour="24">
+                            <syncfusion:DayViewSettings.DayLabelSettings>
+                                <syncfusion:DayLabelSettings TimeFormat="HH:mm"/>
+                            </syncfusion:DayViewSettings.DayLabelSettings>
+                        </syncfusion:DayViewSettings>
+                    </syncfusion:SfSchedule.DayViewSettings>
                     <syncfusion:SfSchedule.MonthViewSettings>
                         <syncfusion:MonthViewSettings AppointmentIndicatorCount = "6" />
                     </syncfusion:SfSchedule.MonthViewSettings>
