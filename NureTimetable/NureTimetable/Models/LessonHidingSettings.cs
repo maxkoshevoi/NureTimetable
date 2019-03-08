@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using Xamarin.Forms;
 
 namespace NureTimetable.Models
 {
-    public class LessonHidingSettings
+    // BindableObject needed for nullable types to bind properly
+    public class LessonHidingSettings : BindableObject
     {
         /// <summary>
         /// if null, take settings from HideOnlyThisEventTypes list

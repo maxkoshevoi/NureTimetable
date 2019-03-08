@@ -25,7 +25,7 @@
         <ListView.Footer>
             <StackLayout Margin="0,20,0,0">
                 <Label Text="Заметки: " />
-                <Editor HeightRequest="84" x:Name="LessonNotes" TextChanged="LessonNotes_TextChanged"></Editor>
+                <Editor HeightRequest="84" x:Name="LessonNotes" TextChanged="LessonNotes_TextChanged" />
             </StackLayout>
         </ListView.Footer>
     </ListView>
