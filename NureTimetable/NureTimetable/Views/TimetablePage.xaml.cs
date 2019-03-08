@@ -117,10 +117,10 @@ namespace NureTimetable.Views
                 }
                 if (string.IsNullOrEmpty(text) || !isPageVisible)
                 {
-                    if (TimeLeft.IsVisible == true)
+                    TimeLeft.Text = null;
+                    if (string.IsNullOrEmpty(text) && TimeLeft.IsVisible)
                     {
                         TimeLeft.IsVisible = false;
-                        TimeLeft.Text = null;
                         UpdateTimetableHeight();
                     }
                 }
