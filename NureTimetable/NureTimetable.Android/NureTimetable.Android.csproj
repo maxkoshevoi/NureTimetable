@@ -147,6 +147,12 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-hdpi\bookmark_border.png" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\arrow_left.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\arrow_right.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- Added to provide autoamtic build number of android package -->
   <Target Name="BeforeBuild">

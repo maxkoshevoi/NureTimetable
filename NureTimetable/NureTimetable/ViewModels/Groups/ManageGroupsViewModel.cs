@@ -48,7 +48,9 @@ namespace NureTimetable.ViewModels.Groups
                 {
                     actionList.Insert(0, "Выбрать");
                 }
-                if (Device.RuntimePlatform == Device.Android && CrossDeviceInfo.Current.VersionNumber.Major < 5)
+                if (Device.RuntimePlatform == Device.Android 
+                    && CrossDeviceInfo.Current.VersionNumber.Major > 0 
+                    && CrossDeviceInfo.Current.VersionNumber.Major < 5)
                 {
                     // SfCheckBox doesn`t support Android 4
                     actionList.Remove("Настроить отображение предметов");

@@ -67,9 +67,30 @@ namespace NureTimetable.Views
             });
         }
 
-        private void Timetable_VisibleDatesChangedEvent(object sender, VisibleDatesChangedEventArgs e)
+        async void Timetable_VisibleDatesChangedEvent(object sender, VisibleDatesChangedEventArgs e)
         {
             visibleDates = e.visibleDates;
+
+            // Updating Today button
+            if (visibleDates.Any(d => d.Date == DateTime.Now.Date))
+            {
+                if (BToday.Scale == 1)
+                {
+                    await BToday.ScaleTo(0, 250);
+                }
+            }
+            else if (BToday.Scale == 0)
+            {
+                if (visibleDates[0].Date > DateTime.Now)
+                {
+                    BToday.Image = "arrow_left";
+                }
+                else
+                {
+                    BToday.Image = "arrow_right";
+                }
+                await BToday.ScaleTo(1, 250);
+            }
         }
 
         private void ContentPage_Appearing(object sender, EventArgs e)
@@ -222,11 +243,17 @@ namespace NureTimetable.Views
                             // Fix for bug when view header isn`t updating on first swipe
                             try
                             {
+                                Timetable.VisibleDatesChangedEvent -= Timetable_VisibleDatesChangedEvent;
+
                                 DateTime currebtDate = visibleDates.Count > 0 ? visibleDates[0] : DateTime.Now;
                                 Timetable.NavigateTo(currebtDate.AddDays(7));
                                 Timetable.NavigateTo(currebtDate);
                             }
                             catch { }
+                            finally
+                            {
+                                Timetable.VisibleDatesChangedEvent += Timetable_VisibleDatesChangedEvent;
+                            }
 
                             Timetable.DataSource = timetableInfo.Events;
 
@@ -371,7 +398,7 @@ namespace NureTimetable.Views
             string message, icon;
             if (ApplyHiddingSettings)
             {
-                icon = "bookmark_border";
+                icon = "bookmark-border";
                 message = "Показаны выбранные события";
             }
             else
@@ -383,6 +410,11 @@ namespace NureTimetable.Views
             DependencyService.Get<IMessage>().LongAlert(message);
 
             UpdateEventsWithUI();
+        }
+
+        void BToday_Clicked(object sender, EventArgs e)
+        {
+            Timetable.MoveToDate = DateTime.Now;
         }
     }
 }

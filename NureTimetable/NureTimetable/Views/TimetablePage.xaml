@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="NureTimetable.Views.TimetablePage"
              xmlns:syncfusion="clr-namespace:Syncfusion.SfSchedule.XForms;assembly=Syncfusion.SfSchedule.XForms"
+             xmlns:controls="clr-namespace:SuaveControls.Views;assembly=SuaveControls.FloatingActionButton"
              xmlns:LN="clr-namespace:NureTimetable.Core.Localization;assembly=NureTimetable.Core"
              Appearing="ContentPage_Appearing"
              Disappearing="ContentPage_Disappearing"
@@ -10,7 +11,7 @@
              Title="{LN:Translate AppName}">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Icon="bookmark_border" Clicked="HideSelectedEvents_Clicked" x:Name="HideSelectedEvents" />
+        <ToolbarItem Icon="bookmark-border" Clicked="HideSelectedEvents_Clicked" x:Name="HideSelectedEvents" />
         <ToolbarItem Icon="today" Clicked="Today_Clicked" x:Name="Today" />
         <ToolbarItem Icon="group" Clicked="ManageGroups_Clicked" x:Name="ManageGroups" />
     </ContentPage.ToolbarItems>
@@ -32,7 +33,8 @@
                         ScheduleView="WeekView"
                         ShowAppointmentsInline="True"
                         CellTapped="Timetable_CellTapped"
-                        MonthInlineAppointmentTapped="Timetable_MonthInlineAppointmentTapped">
+                        MonthInlineAppointmentTapped="Timetable_MonthInlineAppointmentTapped"
+                        VisibleDatesChangedEvent="Timetable_VisibleDatesChangedEvent">
                     <syncfusion:SfSchedule.HeaderStyle>
                         <syncfusion:HeaderStyle FontSize="10" FontAttributes="Bold"/>
                     </syncfusion:SfSchedule.HeaderStyle>
@@ -69,6 +71,18 @@
                     </syncfusion:SfSchedule.AppointmentMapping>
                 </syncfusion:SfSchedule>
             </StackLayout>
+            <controls:FloatingActionButton 
+                x:Name="BToday" 
+                HorizontalOptions="Center"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                AbsoluteLayout.LayoutBounds="1,1,AutoSize,AutoSize"
+                Padding="8"
+                WidthRequest="70" 
+                HeightRequest="82" 
+                Image="arrow_left" 
+                ButtonColor="#03A9F4" 
+                Clicked="BToday_Clicked"
+                Scale="0"/>
             <StackLayout x:Name="NoSourceLayout" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="False">
                 <Label Text="Добавьте группу для просмотра расписания."
                     VerticalOptions="CenterAndExpand" 
