@@ -131,5 +131,17 @@ namespace NureTimetable.DAL
             Serialisation.ToJsonFile(DateTime.Now, FilePath.LastCistAllGroupsUpdate);
         }
         #endregion
+
+        #region Application Settings
+        public static AppSettings GetSettings()
+        {
+            return Serialisation.FromJsonFile<AppSettings>(FilePath.AppSettings) ?? new AppSettings();
+        }
+
+        public static void UpdateSettings(AppSettings settings)
+        {
+            Serialisation.ToJsonFile(settings, FilePath.AppSettings);
+        }
+        #endregion
     }
 }

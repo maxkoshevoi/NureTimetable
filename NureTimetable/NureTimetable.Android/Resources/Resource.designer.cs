@@ -826,6 +826,8 @@ namespace NureTimetable.Droid
 			global::SuaveControls.FloatingActionButton.Droid.Resource.Layout.select_dialog_multichoice_material = global::NureTimetable.Droid.Resource.Layout.select_dialog_multichoice_material;
 			global::SuaveControls.FloatingActionButton.Droid.Resource.Layout.select_dialog_singlechoice_material = global::NureTimetable.Droid.Resource.Layout.select_dialog_singlechoice_material;
 			global::SuaveControls.FloatingActionButton.Droid.Resource.Layout.support_simple_spinner_dropdown_item = global::NureTimetable.Droid.Resource.Layout.support_simple_spinner_dropdown_item;
+			global::SuaveControls.FloatingActionButton.Droid.Resource.String.ApplicationName = global::NureTimetable.Droid.Resource.String.ApplicationName;
+			global::SuaveControls.FloatingActionButton.Droid.Resource.String.Hello = global::NureTimetable.Droid.Resource.String.Hello;
 			global::SuaveControls.FloatingActionButton.Droid.Resource.String.abc_action_bar_home_description = global::NureTimetable.Droid.Resource.String.abc_action_bar_home_description;
 			global::SuaveControls.FloatingActionButton.Droid.Resource.String.abc_action_bar_up_description = global::NureTimetable.Droid.Resource.String.abc_action_bar_up_description;
 			global::SuaveControls.FloatingActionButton.Droid.Resource.String.abc_action_menu_overflow_description = global::NureTimetable.Droid.Resource.String.abc_action_menu_overflow_description;
@@ -9228,6 +9230,12 @@ namespace NureTimetable.Droid
 		
 		public partial class String
 		{
+			
+			// aapt resource value: 0x7f0a0041
+			public const int ApplicationName = 2131361857;
+			
+			// aapt resource value: 0x7f0a0040
+			public const int Hello = 2131361856;
 			
 			// aapt resource value: 0x7f0a003f
 			public const int NoSelectedDate = 2131361855;

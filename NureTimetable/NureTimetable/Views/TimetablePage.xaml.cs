@@ -32,6 +32,7 @@ namespace NureTimetable.Views
         public TimetablePage()
         {
             InitializeComponent();
+            AppSettings settings = SettingsDataStore.GetSettings();
 
             lastTimeLeftVisible = TimeLeft.IsVisible;
             Timetable.VerticalOptions = LayoutOptions.FillAndExpand;
@@ -42,6 +43,18 @@ namespace NureTimetable.Views
                 activeCultureCode = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
             }
             Timetable.Locale = activeCultureCode;
+            switch (settings.TimetableViewMode)
+            {
+                case TimetableViewMode.Day:
+                    Timetable.ScheduleView = ScheduleView.DayView;
+                    break;
+                case TimetableViewMode.Week:
+                    Timetable.ScheduleView = ScheduleView.WeekView;
+                    break;
+                case TimetableViewMode.Month:
+                    Timetable.ScheduleView = ScheduleView.MonthView;
+                    break;
+            }
 
             MessagingCenter.Subscribe<Application, Group>(this, MessageTypes.SelectedGroupChanged, (sender, newSelectedGroup) =>
             {
@@ -326,25 +339,31 @@ namespace NureTimetable.Views
 
             string view = await DisplayActionSheet("Выберите вид:", "Отмена", null, "День", "Неделя", "Месяц");
 
+            AppSettings settings = SettingsDataStore.GetSettings();
             DateTime? selected = Timetable.SelectedDate;
             Timetable.SelectedDate = null;
             if (view == "День")
             {
                 Timetable.ScheduleView = ScheduleView.DayView;
+                settings.TimetableViewMode = TimetableViewMode.Day;
             }
             else if (view == "Неделя")
             {
                 Timetable.ScheduleView = ScheduleView.WeekView;
+                settings.TimetableViewMode = TimetableViewMode.Week;
             }
             else if (view == "Месяц")
             {
                 Timetable.ScheduleView = ScheduleView.MonthView;
+                settings.TimetableViewMode = TimetableViewMode.Month;
             }
             if (selected != null)
             {
                 Timetable.NavigateTo(selected.Value);
                 //Timetable.SelectedDate = selected;
             }
+            
+            SettingsDataStore.UpdateSettings(settings);
         }
 
         private void Timetable_CellTapped(object sender, CellTappedEventArgs e)
