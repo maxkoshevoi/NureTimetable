@@ -135,7 +135,7 @@ namespace NureTimetable.Views
                     Event currentEvent = timetableInfo.Events.FirstOrDefault(e => e.Start <= DateTime.Now && e.End >= DateTime.Now);
                     if (currentEvent != null)
                     {
-                        text = $"Время до перерыва: {(currentEvent.End - DateTime.Now).ToString("hh\\:mm\\:ss")}";
+                        text = $"Время до перерыва ({currentEvent.Room}): {(currentEvent.End - DateTime.Now).ToString("hh\\:mm\\:ss")}";
                     }
                     else
                     {
@@ -145,7 +145,7 @@ namespace NureTimetable.Views
                             .FirstOrDefault();
                         if (nextEvent != null && nextEvent.Start.Date == DateTime.Now.Date)
                         {
-                            text = $"Время до {nextEvent.Lesson} - {nextEvent.Type}: {(nextEvent.Start - DateTime.Now).ToString("hh\\:mm\\:ss")}";
+                            text = $"Время до {nextEvent.Lesson} ({nextEvent.Room}): {(nextEvent.Start - DateTime.Now).ToString("hh\\:mm\\:ss")}";
                         }
                     }
                 }
