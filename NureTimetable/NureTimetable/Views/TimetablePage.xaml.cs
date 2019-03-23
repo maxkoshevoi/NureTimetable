@@ -417,7 +417,7 @@ namespace NureTimetable.Views
             string message, icon;
             if (ApplyHiddingSettings)
             {
-                icon = "bookmark-border";
+                icon = "bookmark_border";
                 message = "Показаны выбранные события";
             }
             else

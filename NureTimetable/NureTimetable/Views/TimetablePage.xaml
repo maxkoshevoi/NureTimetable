@@ -11,7 +11,7 @@
              Title="{LN:Translate AppName}">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Icon="bookmark-border" Clicked="HideSelectedEvents_Clicked" x:Name="HideSelectedEvents" />
+        <ToolbarItem Icon="bookmark_border" Clicked="HideSelectedEvents_Clicked" x:Name="HideSelectedEvents" />
         <ToolbarItem Icon="today" Clicked="Today_Clicked" x:Name="Today" />
         <ToolbarItem Icon="group" Clicked="ManageGroups_Clicked" x:Name="ManageGroups" />
     </ContentPage.ToolbarItems>
