@@ -1,6 +1,6 @@
 ﻿using Xamarin.Forms;
-using NureTimetable.Models.InterplatformCommunication;
 using NureTimetable.Droid.Dependences;
+using NureTimetable.Core.Models.InterplatformCommunication;
 
 [assembly: Dependency(typeof(AppVersionProvider))]
 namespace NureTimetable.Droid.Dependences

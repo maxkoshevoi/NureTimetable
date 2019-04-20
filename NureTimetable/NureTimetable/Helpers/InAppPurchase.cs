@@ -1,4 +1,5 @@
-﻿using NureTimetable.Models.Consts;
+﻿using NureTimetable.Core.Models.Consts;
+using NureTimetable.Models.Consts;
 using Plugin.DeviceInfo;
 using Plugin.InAppBilling;
 using Plugin.InAppBilling.Abstractions;

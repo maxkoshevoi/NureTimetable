@@ -1,12 +1,9 @@
-﻿using System;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+﻿using NureTimetable.Core.Models.Consts;
 using NureTimetable.Views;
 using Syncfusion.Licensing;
-using Microsoft.AppCenter;
-using Microsoft.AppCenter.Analytics;
-using Microsoft.AppCenter.Crashes;
-using NureTimetable.Models.Consts;
+using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
+using NureTimetable.DAL;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace NureTimetable
@@ -26,7 +23,7 @@ namespace NureTimetable
             SyncfusionLicenseProvider.RegisterLicense(Keys.SyncfusionLicenseKey);
             
             InitializeComponent();
-            
+            DALBase.Init();
             MainPage = new MainPage();
         }
 

@@ -1,6 +1,6 @@
 ﻿using Android.Widget;
+using NureTimetable.Core.Models.InterplatformCommunication;
 using NureTimetable.Droid.Dependences;
-using NureTimetable.Models.InterplatformCommunication;
 
 [assembly: Xamarin.Forms.Dependency(typeof(MessageAndroid))]
 namespace NureTimetable.Droid.Dependences

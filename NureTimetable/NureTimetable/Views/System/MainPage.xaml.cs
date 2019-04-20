@@ -1,12 +1,11 @@
-﻿using NureTimetable.Models.Consts;
+﻿using NureTimetable.Core.Models.Consts;
 using NureTimetable.Models.System;
+using NureTimetable.UI.Views.Info;
+using NureTimetable.ViewModels.Info;
 using NureTimetable.Views.Info;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using NureTimetable.UI.Views.Info;
-using NureTimetable.ViewModels;
-using NureTimetable.ViewModels.Info;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

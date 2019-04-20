@@ -1,12 +1,9 @@
 ﻿using NureTimetable.DAL;
-using NureTimetable.Models;
-using NureTimetable.ViewModels;
+using NureTimetable.DAL.Models.Local;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -19,13 +16,13 @@ namespace NureTimetable.Views.Lessons
         public ObservableCollection<LessonInfo> lessons { get; set; }
         Group group;
 
-        public ManageLessonsPage(SavedGroup group)
+        public ManageLessonsPage(Group group)
         {
             InitializeComponent();
             Title += $": {group.Name}";
             this.group = group;
 
-            TimetableInfo timetable = EventsDataStore.GetTimetableLocal(group.ID);
+            TimetableInfo timetable = EventsRepository.GetTimetableLocal(new SavedEntity(group));
             if (timetable == null)
             {
                 return;
@@ -36,15 +33,15 @@ namespace NureTimetable.Views.Lessons
                 timetable.Lessons()
                     .Select(lesson =>
                     {
-                        LessonInfo res = lessonInfo.FirstOrDefault(li => li.ShortName == lesson)
-                            ?? new LessonInfo { ShortName = lesson };
-                        res.EventTypesInfo = timetable.EventTypes(lesson)
-                            .Select(et => res.EventTypesInfo.FirstOrDefault(eti => eti.Name == et) ?? new EventTypeInfo { Name = et })
-                            .ToList();
+                        LessonInfo res = lessonInfo.FirstOrDefault(li => li.Lesson == lesson)
+                            ?? new LessonInfo { Lesson = lesson };
+                        //res.EventTypesInfo = timetable.EventTypes(lesson.ID)
+                        //    .Select(et => res.EventTypesInfo.FirstOrDefault(eti => eti.Name == et) ?? new EventTypeInfo { Name = et })
+                        //    .ToList();
                         return res;
                     })
-                    .OrderBy(lesson => !timetable.Events.Where(e => e.Start >= DateTime.Now).Any(e => e.Lesson == lesson.ShortName))
-                    .ThenBy(lesson => lesson.ShortName)
+                    .OrderBy(lesson => !timetable.Events.Where(e => e.Start >= DateTime.Now).Any(e => e.Lesson == lesson.Lesson))
+                    .ThenBy(lesson => lesson.Lesson.ShortName)
             );
             LessonsList.ItemsSource = lessons;
             if (lessons.Count == 0)
@@ -56,7 +53,7 @@ namespace NureTimetable.Views.Lessons
             {
                 for (int i = 0; i < lessons.Count; i++)
                 {
-                    if (lessons[i].ShortName == newLessonSettings.ShortName)
+                    if (lessons[i].Lesson == newLessonSettings.Lesson)
                     {
                         lessons[i] = newLessonSettings;
                         lessons[i].Settings.NotifyChanged();
@@ -90,7 +87,7 @@ namespace NureTimetable.Views.Lessons
 
         private void Save_Clicked(object sender, EventArgs e)
         {
-            EventsDataStore.UpdateLessonsInfo(group.ID, lessons.ToList());
+            EventsRepository.UpdateLessonsInfo(new SavedEntity(group), lessons.ToList());
             DisplayAlert("Сохранение настроек", $"Настройки предметов для группы {group.Name} успешно сохранены.", "Ok");
             Navigation.PopAsync();
         }
