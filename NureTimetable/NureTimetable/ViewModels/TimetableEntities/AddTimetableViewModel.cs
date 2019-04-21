@@ -7,13 +7,15 @@ namespace NureTimetable.ViewModels.TimetableEntities
     {
         #region Properties
         public AddGroupViewModel AddGroupPageViewModel { get; }
-        public AddGroupViewModel AddTeacherPageViewModel { get; }
+        public AddTeacherViewModel AddTeacherPageViewModel { get; }
+        public AddRoomViewModel AddRoomPageViewModel { get; }
         #endregion
 
         public AddTimetableViewModel(INavigation navigation) : base(navigation)
         {
             AddGroupPageViewModel = new AddGroupViewModel(Navigation);
-            AddTeacherPageViewModel = new AddGroupViewModel(Navigation);
+            AddTeacherPageViewModel = new AddTeacherViewModel(Navigation);
+            AddRoomPageViewModel = new AddRoomViewModel(Navigation);
         }
     }
 }

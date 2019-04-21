@@ -2,23 +2,23 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:behaviors="clr-namespace:NureTimetable.UI.Behaviors;assembly=NureTimetable.UI"
-             x:Class="NureTimetable.UI.Views.TimetableEntities.AddGroupPage"
-             Title="Группы">
+             x:Class="NureTimetable.UI.Views.TimetableEntities.AddEntityPage"
+             Title="{Binding Title}">
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Icon="update" Command="{Binding UpdateCommand}" x:Name="UpdateFromCist" />
     </ContentPage.ToolbarItems>
 
     <AbsoluteLayout>
-        <StackLayout x:Name="GroupsLayout" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+        <StackLayout x:Name="EntitiesLayout" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
             <SearchBar x:Name="Searchbar" Text="{Binding SearchBarText}" HeightRequest="42">
                 <SearchBar.Behaviors>
                     <behaviors:EventToCommandBehavior EventName="TextChanged" Command="{Binding SearchBarTextChangedCommand}"/>
                 </SearchBar.Behaviors>
             </SearchBar>
-            <ListView x:Name="AllGroupsList"
-                    ItemsSource="{Binding Groups}"
-                    SelectedItem="{Binding SelectedGroup}"
+            <ListView x:Name="AllEntitiesList"
+                    ItemsSource="{Binding Entities}"
+                    SelectedItem="{Binding SelectedEntity}"
                     ItemTapped="Handle_ItemTapped"
                     CachingStrategy="RecycleElement">
                 <ListView.ItemTemplate>

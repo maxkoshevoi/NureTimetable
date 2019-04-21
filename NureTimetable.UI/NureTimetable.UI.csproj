@@ -17,11 +17,11 @@
     <Compile Update="Views\TimetableEntities\AddTimetablePage.xaml.cs">
       <DependentUpon>AddTimetablePage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\TimetableEntities\AddGroupPage.xaml.cs">
-      <DependentUpon>%(Filename)</DependentUpon>
+    <Compile Update="Views\TimetableEntities\AddEntityPage.xaml.cs">
+      <DependentUpon>AddEntityPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\TimetableEntities\ManageGroupsPage.xaml.cs">
-      <DependentUpon>%(Filename)</DependentUpon>
+    <Compile Update="Views\TimetableEntities\ManageEntitiesPage.xaml.cs">
+      <DependentUpon>ManageEntitiesPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\Info\AboutPage.xaml.cs">
       <DependentUpon>%(Filename)</DependentUpon>

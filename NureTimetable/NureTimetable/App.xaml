@@ -20,7 +20,7 @@
                 <Setter Property="BarTextColor" Value="White" />
             </Style>
             <!--Other colors-->
-            <Color x:Key="SelectedGroupColor">#AED9FA</Color>
+            <Color x:Key="SelectedEntityColor">#AED9FA</Color>
             <!--Fonts-->
             <OnPlatform x:Key="MaterialFontFamily" x:TypeArguments="x:String">
                 <On Platform="iOS" Value="Material Design Icons" />

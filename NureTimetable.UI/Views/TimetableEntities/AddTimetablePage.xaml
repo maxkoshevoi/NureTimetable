@@ -5,7 +5,7 @@
              x:Class="NureTimetable.UI.Views.TimetableEntities.AddTimetablePage"
             Title="Добавление расписания">
 
-    <views:AddGroupPage BindingContext="{Binding AddGroupPageViewModel}" />
-    <!--<views:AddTeacherPage BindingContext="{Binding AddTeacherPageViewModel}" />
-    <views:AddRoomPage BindingContext="{Binding AddRoomPageViewModel}" />-->
+    <views:AddEntityPage BindingContext="{Binding AddGroupPageViewModel}" />
+    <views:AddEntityPage BindingContext="{Binding AddTeacherPageViewModel}" />
+    <views:AddEntityPage BindingContext="{Binding AddRoomPageViewModel}" />
 </TabbedPage>

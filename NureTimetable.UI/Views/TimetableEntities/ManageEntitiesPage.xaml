@@ -1,20 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="NureTimetable.UI.Views.TimetableEntities.ManageGroupsPage"
+             x:Class="NureTimetable.UI.Views.TimetableEntities.ManageEntitiesPage"
              Title="Сохранённые группы">
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Icon="update" Command="{Binding UpdateAllCommand}" x:Name="UpdateAll" />
-        <ToolbarItem Icon="add" Command="{Binding AddGroupCommand}" x:Name="AddGroup" />
+        <ToolbarItem Icon="add" Command="{Binding AddEntityCommand}" x:Name="AddEntity" />
     </ContentPage.ToolbarItems>
 
     <AbsoluteLayout>
-        <StackLayout IsEnabled="{Binding IsGroupsLayoutEnalbe}" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
-            <ListView x:Name="GroupsList"
-                    ItemsSource="{Binding Groups}"
-                    SelectedItem="{Binding SavedGroupSelectedItem}"
-                    ItemTapped="GroupsList_OnItemTapped"
+        <StackLayout IsEnabled="{Binding IsEntitiesLayoutEnabled}" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+            <ListView x:Name="EntitiesList"
+                    ItemsSource="{Binding Entities}"
+                    SelectedItem="{Binding SavedEntitySelectedItem}"
+                    ItemTapped="EntitiesList_OnItemTapped"
                     CachingStrategy="RecycleElement"
                     HasUnevenRows="True">
                 <ListView.ItemTemplate>
@@ -26,10 +26,10 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <Label Grid.Column="0" BackgroundColor="{StaticResource SelectedGroupColor}" HorizontalOptions="FillAndExpand" IsVisible="{Binding IsSelected}" />
+                                <Label Grid.Column="0" BackgroundColor="{StaticResource SelectedEntityColor}" HorizontalOptions="FillAndExpand" IsVisible="{Binding IsSelected}" />
                                 <StackLayout Grid.Column="1" Margin="10,5,0,5">
-                                    <Label Text="{Binding SavedGroup.Name}" Style="{DynamicResource ListItemTextStyle}" />
-                                    <Label Text="{Binding SavedGroup.LastUpdated}" Style="{DynamicResource ListItemDetailTextStyle}"/>
+                                    <Label Text="{Binding SavedEntity.Name}" Style="{DynamicResource ListItemTextStyle}" />
+                                    <Label Text="{Binding SavedEntity.LastUpdated}" Style="{DynamicResource ListItemDetailTextStyle}"/>
                                 </StackLayout>
                                 <Label Grid.Column="2" Margin="0,5,10,5" Text="&#xf493;" FontFamily="{StaticResource MaterialFontFamily}" TextColor="#6b6b6b" FontSize="30" VerticalOptions="CenterAndExpand" >
                                     <Label.GestureRecognizers>

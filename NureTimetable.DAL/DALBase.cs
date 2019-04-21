@@ -23,10 +23,12 @@ namespace NureTimetable.DAL
                     .ForMember("ShortName", opt => opt.MapFrom(src => src.FullName));
                 cfg.CreateMap<Cist.Speciality, Local.BaseEntity<long>>();
 
-                cfg.CreateMap<Cist.Teacher, Local.Teacher>();
+                cfg.CreateMap<Cist.Teacher, Local.Teacher>()
+                    .ForMember("Name", opt => opt.MapFrom(src => src.FullName));
                 cfg.CreateMap<Cist.Department, Local.BaseEntity<long>>();
 
-                cfg.CreateMap<Cist.Room, Local.Room>();
+                cfg.CreateMap<Cist.Room, Local.Room>()
+                    .ForMember("Name", opt => opt.MapFrom(src => src.ShortName));
                 cfg.CreateMap<Cist.RoomType, Local.RoomType>();
                 cfg.CreateMap<Cist.Building, Local.BaseEntity<string>>();
 

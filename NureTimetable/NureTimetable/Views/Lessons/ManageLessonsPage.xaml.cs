@@ -14,16 +14,14 @@ namespace NureTimetable.Views.Lessons
     public partial class ManageLessonsPage : ContentPage
     {
         public ObservableCollection<LessonInfo> lessons { get; set; }
-        readonly Group group;
         readonly TimetableInfo timetable;
 
-        public ManageLessonsPage(Group group)
+        public ManageLessonsPage(SavedEntity savedEntity)
         {
             InitializeComponent();
-            Title += $": {group.Name}";
-            this.group = group;
+            Title += $": {savedEntity.Name}";
 
-            timetable = EventsRepository.GetTimetableLocal(new SavedEntity(group));
+            timetable = EventsRepository.GetTimetableLocal(savedEntity);
             if (timetable == null)
             {
                 return;
@@ -60,7 +58,7 @@ namespace NureTimetable.Views.Lessons
         {
             if (lessons == null)
             {
-                DisplayAlert("Управление предметами", "Для управления предметами необходимо сначала загрузить расписание группы.", "Ok");
+                DisplayAlert("Управление предметами", "Для управления предметами необходимо сначала загрузить расписание.", "Ok");
                 Navigation.PopAsync();
                 return;
             }
@@ -80,8 +78,8 @@ namespace NureTimetable.Views.Lessons
 
         private void Save_Clicked(object sender, EventArgs e)
         {
-            EventsRepository.UpdateLessonsInfo(new SavedEntity(group), lessons.ToList());
-            DisplayAlert("Сохранение настроек", $"Настройки предметов для группы {group.Name} успешно сохранены.", "Ok");
+            EventsRepository.UpdateLessonsInfo(timetable.Entity, lessons.ToList());
+            DisplayAlert("Сохранение настроек", $"Настройки предметов для \"{timetable.Entity.Name}\" успешно сохранены.", "Ok");
             Navigation.PopAsync();
         }
     }

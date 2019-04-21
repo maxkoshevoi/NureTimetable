@@ -6,30 +6,30 @@ using Xamarin.Forms;
 
 namespace NureTimetable.ViewModels.TimetableEntities
 {
-    public class AddGroupViewModel : BaseAddEntityViewModel<Group>
+    public class AddTeacherViewModel : BaseAddEntityViewModel<Teacher>
     {
-        public AddGroupViewModel(INavigation navigation) : base(navigation)
+        public AddTeacherViewModel(INavigation navigation) : base(navigation)
         {
         }
 
-        public override string Title { get; } = "Группы";
+        public override string Title { get; } = "Преподаватели";
 
-        protected override List<Group> GetAllEntitiesFromCist()
+        protected override List<Teacher> GetAllEntitiesFromCist()
         {
-            return UniversityEntitiesRepository.GetAllGroups().ToList();
+            return UniversityEntitiesRepository.GetAllTeachers().ToList();
         }
 
-        protected override SavedEntity GetSavedEntity(Group entity)
+        protected override SavedEntity GetSavedEntity(Teacher entity)
         {
             return new SavedEntity(entity);
         }
 
-        protected override IOrderedEnumerable<Group> OrderEntities()
+        protected override IOrderedEnumerable<Teacher> OrderEntities()
         {
             return _allEntities.OrderBy(g => g.Name);
         }
 
-        protected override IOrderedEnumerable<Group> SearchEntities(string searchQuery)
+        protected override IOrderedEnumerable<Teacher> SearchEntities(string searchQuery)
         {
             return _allEntities
                 .Where(g => g.Name.ToLower().Contains(searchQuery) || g.Name.ToLower().Contains(searchQuery.Replace('и', 'і')) || g.ID.ToString() == searchQuery)

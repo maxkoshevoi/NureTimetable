@@ -4,15 +4,15 @@ using Xamarin.Forms.Xaml;
 namespace NureTimetable.UI.Views.TimetableEntities
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class AddGroupPage : ContentPage
+    public partial class ManageEntitiesPage : ContentPage
     {
 
-        public AddGroupPage()
+        public ManageEntitiesPage()
         {
             InitializeComponent();
         }
-
-        void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
+        
+        private void EntitiesList_OnItemTapped(object sender, ItemTappedEventArgs e)
         {
             ((ListView)sender).SelectedItem = null;
         }

@@ -326,9 +326,9 @@ namespace NureTimetable.Views
 
         private void ManageGroups_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new ManageGroupsPage()
+            Navigation.PushAsync(new ManageEntitiesPage()
             {
-                BindingContext = new ManageGroupsViewModel(Navigation)
+                BindingContext = new ManageEntitiesViewModel(Navigation)
             });
         }
 
@@ -395,7 +395,7 @@ namespace NureTimetable.Views
                     notes = nl + nl + lessonInfo.Notes;
                 }
             }
-            DisplayAlert($"{ev.Lesson.FullName}", $"Тип: {ev.Type.FullName}{nl}Аудитория: {ev.RoomName}{nl}Преподаватель: {string.Join(", ", ev.Teachers.Select(t => t.FullName))}{nl}День: {ev.Start.ToString("ddd, dd.MM.yy")}{nl}Время: {ev.Start.ToString("HH:mm")} - {ev.End.ToString("HH:mm")}{notes}", "Ok");
+            DisplayAlert($"{ev.Lesson.FullName}", $"Тип: {ev.Type.FullName}{nl}Аудитория: {ev.RoomName}{nl}Преподаватель: {string.Join(", ", ev.Teachers.Select(t => t.Name))}{nl}День: {ev.Start.ToString("ddd, dd.MM.yy")}{nl}Время: {ev.Start.ToString("HH:mm")} - {ev.End.ToString("HH:mm")}{notes}", "Ok");
         }
 
         private void HideSelectedEvents_Clicked(object sender, EventArgs e)

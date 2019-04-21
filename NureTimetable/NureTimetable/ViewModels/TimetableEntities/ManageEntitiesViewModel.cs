@@ -16,17 +16,17 @@ using Xamarin.Forms;
 
 namespace NureTimetable.ViewModels.TimetableEntities
 {
-    public class ManageGroupsViewModel : BaseViewModel
+    public class ManageEntitiesViewModel : BaseViewModel
     {
         #region Classes
-        public class SavedGroupItemViewModel
+        public class SavedEntityItemViewModel
         {
             #region variables
-            private ManageGroupsViewModel _manageGroupsViewModel;
+            private ManageEntitiesViewModel _manageEntitiesViewModel;
             #endregion
 
             #region Properties
-            public SavedEntity SavedGroup { get; }
+            public SavedEntity SavedEntity { get; }
 
             // TODO: Move this property inside SavedGroup and replace SelectedGroup functionality with it
             public bool IsSelected { get; set; }
@@ -34,10 +34,10 @@ namespace NureTimetable.ViewModels.TimetableEntities
             public ICommand SettingsClickedCommand { get; }
             #endregion
 
-            public SavedGroupItemViewModel(SavedEntity savedGroup, ManageGroupsViewModel manageGroupsViewModel)
+            public SavedEntityItemViewModel(SavedEntity savedEntity, ManageEntitiesViewModel manageEntitiesViewModel)
             {
-                SavedGroup = savedGroup;
-                _manageGroupsViewModel = manageGroupsViewModel;
+                SavedEntity = savedEntity;
+                _manageEntitiesViewModel = manageEntitiesViewModel;
                 SettingsClickedCommand = CommandHelper.CreateCommand(SettingsClicked);
             }
             
@@ -59,22 +59,18 @@ namespace NureTimetable.ViewModels.TimetableEntities
                 switch (action)
                 {
                     case "Выбрать":
-                        UniversityEntitiesRepository.UpdateSelected(SavedGroup);
-                        await _manageGroupsViewModel.Navigation.PopToRootAsync();
+                        UniversityEntitiesRepository.UpdateSelected(SavedEntity);
+                        await _manageEntitiesViewModel.Navigation.PopToRootAsync();
                         break;
                     case "Обновить расписание":
-                        await _manageGroupsViewModel.UpdateTimetable(SavedGroup);
+                        await _manageEntitiesViewModel.UpdateTimetable(SavedEntity);
                         break;
                     case "Настроить отображение предметов":
-                        await _manageGroupsViewModel.Navigation.PushAsync(new ManageLessonsPage(new Group
-                        {
-                            ID = SavedGroup.ID,
-                            Name = SavedGroup.Name
-                        }));
+                        await _manageEntitiesViewModel.Navigation.PushAsync(new ManageLessonsPage(SavedEntity));
                         break;
                     case "Удалить":
-                        _manageGroupsViewModel.Groups.Remove(this);
-                        UniversityEntitiesRepository.UpdateSaved(_manageGroupsViewModel.Groups.Select(vm => vm.SavedGroup).ToList());
+                        _manageEntitiesViewModel.Entities.Remove(this);
+                        UniversityEntitiesRepository.UpdateSaved(_manageEntitiesViewModel.Entities.Select(vm => vm.SavedEntity).ToList());
                         break;
                 }
             }
@@ -84,11 +80,11 @@ namespace NureTimetable.ViewModels.TimetableEntities
         #region variables
         private bool _isNoSourceLayoutVisable;
 
-        private bool _isGroupsLayoutEnable;
+        private bool _isEntitiesLayoutEnable;
 
         private bool _isProgressVisable;
 
-        private ObservableCollection<SavedGroupItemViewModel> _groups;
+        private ObservableCollection<SavedEntityItemViewModel> _entities;
         #endregion
 
         #region Properties
@@ -104,76 +100,76 @@ namespace NureTimetable.ViewModels.TimetableEntities
             set => SetProperty(ref _isProgressVisable, value);
         }
 
-        public bool IsGroupsLayoutEnalbe
+        public bool IsEntitiesLayoutEnabled
         {
-            get => _isGroupsLayoutEnable;
-            set => SetProperty(ref _isGroupsLayoutEnable, value);
+            get => _isEntitiesLayoutEnable;
+            set => SetProperty(ref _isEntitiesLayoutEnable, value);
         }
 
-        private SavedGroupItemViewModel _savedGroupSelectedItem;
+        private SavedEntityItemViewModel _savedEntitySelectedItem;
 
-        public SavedGroupItemViewModel SavedGroupSelectedItem
+        public SavedEntityItemViewModel SavedEntitySelectedItem
         {
-            get => _savedGroupSelectedItem;
+            get => _savedEntitySelectedItem;
             set
             {
                 if (value != null)
                 {
-                    Device.BeginInvokeOnMainThread(async () => { await SavedGroupSelected(value); });
+                    Device.BeginInvokeOnMainThread(async () => { await SavedEntitySelected(value); });
                 }
 
-                _savedGroupSelectedItem = value;
+                _savedEntitySelectedItem = value;
             }
         }
 
-        public ObservableCollection<SavedGroupItemViewModel> Groups { get => _groups; set => SetProperty(ref _groups, value); }
+        public ObservableCollection<SavedEntityItemViewModel> Entities { get => _entities; set => SetProperty(ref _entities, value); }
 
         public ICommand UpdateAllCommand { get; }
 
-        public ICommand AddGroupCommand { get; }
+        public ICommand AddEntityCommand { get; }
 
         #endregion
 
-        public ManageGroupsViewModel(INavigation navigation) : base(navigation)
+        public ManageEntitiesViewModel(INavigation navigation) : base(navigation)
         {
             IsProgressVisable = false;
-            IsGroupsLayoutEnalbe = true;
+            IsEntitiesLayoutEnabled = true;
 
             UpdateItems(UniversityEntitiesRepository.GetSaved());
-            MessagingCenter.Subscribe<Application, List<SavedEntity>>(this, MessageTypes.SavedEntitiesChanged, (sender, newSavedGroups) => 
+            MessagingCenter.Subscribe<Application, List<SavedEntity>>(this, MessageTypes.SavedEntitiesChanged, (sender, newSavedEntities) => 
             {
-                UpdateItems(newSavedGroups);
+                UpdateItems(newSavedEntities);
             });
 
             UpdateAllCommand = CommandHelper.CreateCommand(UpdateAll);
-            AddGroupCommand = CommandHelper.CreateCommand(AddGroup);
+            AddEntityCommand = CommandHelper.CreateCommand(AddEntity);
         }
 
         #region Methods
-        public async Task SavedGroupSelected(SavedGroupItemViewModel selectedGroup)
+        public async Task SavedEntitySelected(SavedEntityItemViewModel selectedEntity)
         {
-            if (!selectedGroup.IsSelected)
+            if (!selectedEntity.IsSelected)
             {
-                UniversityEntitiesRepository.UpdateSelected(selectedGroup.SavedGroup);
+                UniversityEntitiesRepository.UpdateSelected(selectedEntity.SavedEntity);
             }
             await Navigation.PopToRootAsync();
         }
 
         private async Task UpdateAll()
         {
-            if (!IsGroupsLayoutEnalbe)
+            if (!IsEntitiesLayoutEnabled)
             {
                 return;
             }
             if (await App.Current.MainPage.DisplayAlert("Обновление расписания", "Обновить расписания всех сохранённых групп?", "Да", "Отмена"))
             {
-                await UpdateTimetable(Groups?.Select(vm => vm.SavedGroup).ToArray());
+                await UpdateTimetable(Entities?.Select(vm => vm.SavedEntity).ToArray());
             }
         }
 
-        private async Task AddGroup()
+        private async Task AddEntity()
         {
-            if (!IsGroupsLayoutEnalbe)
+            if (!IsEntitiesLayoutEnabled)
             {
                 return;
             }
@@ -187,44 +183,44 @@ namespace NureTimetable.ViewModels.TimetableEntities
         {
             IsNoSourceLayoutVisable = (newItems.Count == 0);
 
-            SavedEntity selectedGroup = UniversityEntitiesRepository.GetSelected();
-            Groups = new ObservableCollection<SavedGroupItemViewModel>(
-                newItems.Select(sg => new SavedGroupItemViewModel(sg, this)
+            SavedEntity selectedEntity = UniversityEntitiesRepository.GetSelected();
+            Entities = new ObservableCollection<SavedEntityItemViewModel>(
+                newItems.Select(sg => new SavedEntityItemViewModel(sg, this)
                 {
-                    IsSelected = sg.ID == selectedGroup?.ID
+                    IsSelected = sg.ID == selectedEntity?.ID
                 })
             );
         }
 
-        private async Task UpdateTimetable(params SavedEntity[] groups)
+        private async Task UpdateTimetable(params SavedEntity[] entities)
         {
-            if (groups == null || groups.Length == 0)
+            if (entities == null || entities.Length == 0)
             {
                 return;
             }
 
-            List<SavedEntity> groupsAllowed = SettingsRepository.CheckCistTimetableUpdateRights(groups);
-            if (groupsAllowed.Count == 0)
+            List<SavedEntity> entitiesAllowed = SettingsRepository.CheckCistTimetableUpdateRights(entities);
+            if (entitiesAllowed.Count == 0)
             {
                 await App.Current.MainPage.DisplayAlert("Обновление расписания", "У вас уже загружена последняя версия расписания", "Ок");
                 return;
             }
 
-            IsGroupsLayoutEnalbe = false;
+            IsEntitiesLayoutEnabled = false;
             IsProgressVisable = true;
 
             await Task.Factory.StartNew(() =>
             {
                 List<string> success = new List<string>(), fail = new List<string>();
-                foreach (SavedEntity group in groupsAllowed)
+                foreach (SavedEntity entity in entitiesAllowed)
                 {
-                    if (EventsRepository.GetTimetableFromCist(group, Config.TimetableFromDate, Config.TimetableToDate) != null)
+                    if (EventsRepository.GetTimetableFromCist(entity, Config.TimetableFromDate, Config.TimetableToDate) != null)
                     {
-                        success.Add(group.Name);
+                        success.Add(entity.Name);
                     }
                     else
                     {
-                        fail.Add(group.Name);
+                        fail.Add(entity.Name);
                     }
                 }
                 string result = "";
@@ -240,7 +236,7 @@ namespace NureTimetable.ViewModels.TimetableEntities
                 Device.BeginInvokeOnMainThread(async () =>
                 {
                     IsProgressVisable = false;
-                    IsGroupsLayoutEnalbe = true;
+                    IsEntitiesLayoutEnabled = true;
                     if (await App.Current.MainPage.DisplayAlert("Обновление расписания", result, "К расписанию", "Ok"))
                     {
                         await Navigation.PopToRootAsync();

@@ -15,6 +15,20 @@ namespace NureTimetable.DAL.Models.Local
             Type = TimetableEntityType.Group;
         }
 
+        public SavedEntity(Teacher teacher)
+        {
+            ID = teacher.ID;
+            Name = teacher.ShortName;
+            Type = TimetableEntityType.Teacher;
+        }
+
+        public SavedEntity(Room room)
+        {
+            ID = room.ID;
+            Name = room.Name;
+            Type = TimetableEntityType.Room;
+        }
+
         public long ID { get; set; }
         public string Name { get; set; }
         public TimetableEntityType Type { get; set; }
