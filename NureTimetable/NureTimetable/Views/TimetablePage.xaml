@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="NureTimetable.Views.TimetablePage"
-             xmlns:syncfusion="clr-namespace:Syncfusion.SfSchedule.XForms;assembly=Syncfusion.SfSchedule.XForms"
-             xmlns:controls="clr-namespace:SuaveControls.Views;assembly=SuaveControls.FloatingActionButton"
              xmlns:LN="clr-namespace:NureTimetable.Core.Localization;assembly=NureTimetable.Core"
+             xmlns:syncfusion="clr-namespace:Syncfusion.SfSchedule.XForms;assembly=Syncfusion.SfSchedule.XForms"
+             xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             x:Class="NureTimetable.Views.TimetablePage"
              Appearing="ContentPage_Appearing"
              Disappearing="ContentPage_Disappearing"
              SizeChanged="ContentPage_SizeChanged"
@@ -63,24 +63,27 @@
 			                SubjectMapping="DisplayInfo"
 			                StartTimeMapping="Start"
 			                EndTimeMapping="End"
-                            NotesMapping="Type"
-                            LocationMapping="Room"
                             ColorMapping="Color"
                             >
                         </syncfusion:ScheduleAppointmentMapping>
                     </syncfusion:SfSchedule.AppointmentMapping>
                 </syncfusion:SfSchedule>
             </StackLayout>
-            <controls:FloatingActionButton 
+            <buttons:SfButton 
                 x:Name="BToday" 
                 HorizontalOptions="Center"
                 AbsoluteLayout.LayoutFlags="PositionProportional"
                 AbsoluteLayout.LayoutBounds="1,1,AutoSize,AutoSize"
-                Padding="8"
-                WidthRequest="70" 
-                HeightRequest="82" 
-                Image="arrow_left" 
-                ButtonColor="#03A9F4" 
+                FontFamily="{StaticResource MaterialFontFamily}" 
+                CornerRadius="25"
+                FontSize="20"
+                Margin="20"
+                WidthRequest="42" 
+                HeightRequest="42" 
+                BackgroundColor="#03A9F4" 
+                TextColor="White"
+                HasShadow="True"
+                ShadowColor="#cccccc"
                 Clicked="BToday_Clicked"
                 Scale="0"/>
             <StackLayout x:Name="NoSourceLayout" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="False">

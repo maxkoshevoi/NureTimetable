@@ -1,19 +1,21 @@
-﻿using NureTimetable.DAL;
+﻿using NureTimetable.Core.Localization;
+using NureTimetable.Core.Models;
+using NureTimetable.Core.Models.Consts;
+using NureTimetable.Core.Models.InterplatformCommunication;
+using NureTimetable.DAL;
+using NureTimetable.DAL.Models.Local;
 using NureTimetable.Models;
-using NureTimetable.Models.Consts;
-using NureTimetable.UI.Views.Groups;
-using NureTimetable.ViewModels;
-using NureTimetable.ViewModels.Groups;
+using NureTimetable.Models.Consts.Fonts;
+using NureTimetable.UI.Views.TimetableEntities;
+using NureTimetable.ViewModels.TimetableEntities;
 using Syncfusion.SfSchedule.XForms;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
-using NureTimetable.Core.Localization;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using NureTimetable.Models.InterplatformCommunication;
 
 namespace NureTimetable.Views
 {
@@ -32,7 +34,7 @@ namespace NureTimetable.Views
         public TimetablePage()
         {
             InitializeComponent();
-            AppSettings settings = SettingsDataStore.GetSettings();
+            AppSettings settings = SettingsRepository.GetSettings();
 
             lastTimeLeftVisible = TimeLeft.IsVisible;
             Timetable.VerticalOptions = LayoutOptions.FillAndExpand;
@@ -56,27 +58,27 @@ namespace NureTimetable.Views
                     break;
             }
 
-            MessagingCenter.Subscribe<Application, Group>(this, MessageTypes.SelectedGroupChanged, (sender, newSelectedGroup) =>
+            MessagingCenter.Subscribe<Application, SavedEntity>(this, MessageTypes.SelectedEntityChanged, (sender, newSelectedEntity) =>
             {
-                UpdateEvents(newSelectedGroup);
+                UpdateEvents(newSelectedEntity);
             });
-            MessagingCenter.Subscribe<Application, int>(this, MessageTypes.TimetableUpdated, (sender, groupID) =>
+            MessagingCenter.Subscribe<Application, SavedEntity>(this, MessageTypes.TimetableUpdated, (sender, entity) =>
             {
-                Group selectedGroup = GroupsDataStore.GetSelected();
-                if (selectedGroup == null || selectedGroup.ID != groupID)
+                SavedEntity selectedEntity = UniversityEntitiesRepository.GetSelected();
+                if (selectedEntity == null || selectedEntity != entity)
                 {
                     return;
                 }
-                UpdateEvents(selectedGroup);
+                UpdateEvents(selectedEntity);
             });
-            MessagingCenter.Subscribe<Application, int>(this, MessageTypes.LessonSettingsChanged, (sender, groupID) =>
+            MessagingCenter.Subscribe<Application, SavedEntity>(this, MessageTypes.LessonSettingsChanged, (sender, entity) =>
             {
-                Group selectedGroup = GroupsDataStore.GetSelected();
-                if (selectedGroup == null || selectedGroup.ID != groupID)
+                SavedEntity selectedEntity = UniversityEntitiesRepository.GetSelected();
+                if (selectedEntity == null || selectedEntity != entity)
                 {
                     return;
                 }
-                UpdateEvents(selectedGroup);
+                UpdateEvents(selectedEntity);
             });
         }
 
@@ -96,11 +98,11 @@ namespace NureTimetable.Views
             {
                 if (visibleDates[0].Date > DateTime.Now)
                 {
-                    BToday.Image = "arrow_left";
+                    BToday.Text = MaterialFont.ChevronLeft;
                 }
                 else
                 {
-                    BToday.Image = "arrow_right";
+                    BToday.Text = MaterialFont.ChevronRight;
                 }
                 await BToday.ScaleTo(1, 250);
             }
@@ -135,7 +137,7 @@ namespace NureTimetable.Views
                     Event currentEvent = timetableInfo.Events.FirstOrDefault(e => e.Start <= DateTime.Now && e.End >= DateTime.Now);
                     if (currentEvent != null)
                     {
-                        text = $"Время до перерыва ({currentEvent.Room}): {(currentEvent.End - DateTime.Now).ToString("hh\\:mm\\:ss")}";
+                        text = $"До перерыва ({currentEvent.RoomName}): {(currentEvent.End - DateTime.Now).ToString("hh\\:mm\\:ss")}";
                     }
                     else
                     {
@@ -145,7 +147,7 @@ namespace NureTimetable.Views
                             .FirstOrDefault();
                         if (nextEvent != null && nextEvent.Start.Date == DateTime.Now.Date)
                         {
-                            text = $"Время до {nextEvent.Lesson} ({nextEvent.Room}): {(nextEvent.Start - DateTime.Now).ToString("hh\\:mm\\:ss")}";
+                            text = $"До {nextEvent.Lesson.ShortName} ({nextEvent.RoomName}): {(nextEvent.Start - DateTime.Now).ToString("hh\\:mm\\:ss")}";
                         }
                     }
                 }
@@ -180,7 +182,7 @@ namespace NureTimetable.Views
 
             Task.Factory.StartNew(() =>
             {
-                UpdateEvents(GroupsDataStore.GetSelected());
+                UpdateEvents(UniversityEntitiesRepository.GetSelected());
 
                 Device.BeginInvokeOnMainThread(() =>
                 {
@@ -190,9 +192,9 @@ namespace NureTimetable.Views
             });
         }
 
-        private void UpdateEvents(Group selectedGroup)
+        private void UpdateEvents(SavedEntity selectedEntity)
         {
-            if (selectedGroup == null)
+            if (selectedEntity == null)
             {
                 Device.BeginInvokeOnMainThread(() =>
                 {
@@ -206,7 +208,7 @@ namespace NureTimetable.Views
             {
                 Device.BeginInvokeOnMainThread(() =>
                 {
-                    Title = selectedGroup.Name;
+                    Title = selectedEntity.Name;
                 });
                 NoSourceLayout.IsVisible = false;
                 TimetableLayout.IsVisible = true;
@@ -214,7 +216,7 @@ namespace NureTimetable.Views
 
             lock (enumeratingEvents)
             {
-                timetableInfo = EventsDataStore.GetEvents(selectedGroup.ID) ?? new TimetableInfo();
+                timetableInfo = EventsRepository.GetEvents(selectedEntity) ?? new TimetableInfo();
                 if (ApplyHiddingSettings)
                 {
                     timetableInfo.ApplyLessonSettings();
@@ -268,7 +270,7 @@ namespace NureTimetable.Views
                                 Timetable.VisibleDatesChangedEvent += Timetable_VisibleDatesChangedEvent;
                             }
 
-                            Timetable.DataSource = timetableInfo.Events;
+                            Timetable.DataSource = timetableInfo.Events.Select(ev => new EventViewModel(ev)).ToList();
 
                             UpdateTimeLeft();
                             break;
@@ -339,7 +341,7 @@ namespace NureTimetable.Views
 
             string view = await DisplayActionSheet("Выберите вид:", "Отмена", null, "День", "Неделя", "Месяц");
 
-            AppSettings settings = SettingsDataStore.GetSettings();
+            AppSettings settings = SettingsRepository.GetSettings();
             DateTime? selected = Timetable.SelectedDate;
             Timetable.SelectedDate = null;
             if (view == "День")
@@ -362,8 +364,8 @@ namespace NureTimetable.Views
                 Timetable.NavigateTo(selected.Value);
                 //Timetable.SelectedDate = selected;
             }
-            
-            SettingsDataStore.UpdateSettings(settings);
+
+            SettingsRepository.UpdateSettings(settings);
         }
 
         private void Timetable_CellTapped(object sender, CellTappedEventArgs e)
@@ -384,25 +386,16 @@ namespace NureTimetable.Views
             }
             string nl = Environment.NewLine;
 
-            LessonInfo lessonInfo = timetableInfo.LessonsInfo.FirstOrDefault(li => li.ShortName == ev.Lesson);
-            if (lessonInfo == null)
+            LessonInfo lessonInfo = timetableInfo.LessonsInfo.FirstOrDefault(li => li.Lesson == ev.Lesson);
+            string notes = null;
+            if (lessonInfo != null)
             {
-                DisplayAlert($"{ev.Lesson} - {ev.Type}", $"Аудитория: {ev.Room}{nl}Преподаватель: Не найден{nl}День: {ev.Start.ToString("ddd, dd.MM.yy")}{nl}Время: {ev.Start.ToString("HH:mm")} - {ev.End.ToString("HH:mm")}", "Ok");
-            }
-            else
-            {
-                string notes = null;
                 if (!string.IsNullOrEmpty(lessonInfo.Notes))
                 {
                     notes = nl + nl + lessonInfo.Notes;
                 }
-                string teacher = string.Join(", ", lessonInfo.EventTypesInfo.FirstOrDefault(et => et.Name == ev.Type)?.Teachers ?? new List<string>());
-                if (string.IsNullOrEmpty(teacher))
-                {
-                    teacher = "Не найден";
-                }
-                DisplayAlert($"{lessonInfo.LongName}", $"Тип: {ev.Type}{nl}Аудитория: {ev.Room}{nl}Преподаватель: {teacher}{nl}День: {ev.Start.ToString("ddd, dd.MM.yy")}{nl}Время: {ev.Start.ToString("HH:mm")} - {ev.End.ToString("HH:mm")}{notes}", "Ok");
             }
+            DisplayAlert($"{ev.Lesson.FullName}", $"Тип: {ev.Type.FullName}{nl}Аудитория: {ev.RoomName}{nl}Преподаватель: {string.Join(", ", ev.Teachers.Select(t => t.FullName))}{nl}День: {ev.Start.ToString("ddd, dd.MM.yy")}{nl}Время: {ev.Start.ToString("HH:mm")} - {ev.End.ToString("HH:mm")}{notes}", "Ok");
         }
 
         private void HideSelectedEvents_Clicked(object sender, EventArgs e)

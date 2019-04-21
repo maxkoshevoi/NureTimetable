@@ -1,8 +1,8 @@
-﻿using System;
+﻿using NureTimetable.Core.Models.InterplatformCommunication;
+using NureTimetable.Services.Helpers;
+using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using NureTimetable.Models.InterplatformCommunication;
-using NureTimetable.Services.Helpers;
 using Xamarin.Forms;
 
 namespace NureTimetable.ViewModels.Info

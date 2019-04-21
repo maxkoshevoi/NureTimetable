@@ -8,12 +8,12 @@
             <Color x:Key="NavigationPrimary">#2196F3</Color>
             <!--Events colors-->
             <Color x:Key="defaultColor">#ffb0c4de</Color>
-            <Color x:Key="лкColor">#ffcc80</Color>
-            <Color x:Key="пзColor">#8dd967</Color>
-            <Color x:Key="лбColor">#d9a7f1</Color>
-            <Color x:Key="консColor">#98dce6</Color>
-            <Color x:Key="залColor">#f1f688</Color>
-            <Color x:Key="іспкомбColor">#f17674</Color>
+            <Color x:Key="lectureColor">#ffcc80</Color>
+            <Color x:Key="practiceColor">#8dd967</Color>
+            <Color x:Key="laboratoryColor">#d9a7f1</Color>
+            <Color x:Key="consultationColor">#98dce6</Color>
+            <Color x:Key="testColor">#f1f688</Color>
+            <Color x:Key="examColor">#f17674</Color>
             <!--Page colors-->
             <Style TargetType="NavigationPage">
                 <Setter Property="BarBackgroundColor" Value="{StaticResource NavigationPrimary}" />
@@ -21,6 +21,12 @@
             </Style>
             <!--Other colors-->
             <Color x:Key="SelectedGroupColor">#AED9FA</Color>
+            <!--Fonts-->
+            <OnPlatform x:Key="MaterialFontFamily" x:TypeArguments="x:String">
+                <On Platform="iOS" Value="Material Design Icons" />
+                <On Platform="Android" Value="materialdesignicons-webfont.ttf#Material Design Icons" />
+                <On Platform="UWP" Value="Assets/Fonts/materialdesignicons-webfont.ttf#Material Design Icons" />
+            </OnPlatform>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

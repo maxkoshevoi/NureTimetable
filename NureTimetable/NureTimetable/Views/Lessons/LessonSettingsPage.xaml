@@ -18,7 +18,7 @@
         <ListView.ItemTemplate>
             <DataTemplate>
                 <ViewCell>
-                    <syncfusion:SfCheckBox CheckedColor="DeepSkyBlue" Margin="10,5,10,5" StateChanged="EventType_StateChanged" Text="{Binding EventType}" IsChecked="{Binding IsChecked}"/>
+                    <syncfusion:SfCheckBox CheckedColor="DeepSkyBlue" Margin="10,5,10,5" StateChanged="EventType_StateChanged" Text="{Binding EventType.ShortName}" IsChecked="{Binding IsChecked}"/>
                 </ViewCell>
             </DataTemplate>
         </ListView.ItemTemplate>
