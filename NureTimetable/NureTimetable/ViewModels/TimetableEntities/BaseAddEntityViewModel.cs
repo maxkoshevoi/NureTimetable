@@ -17,8 +17,6 @@ namespace NureTimetable.ViewModels.TimetableEntities
 
         protected List<T> _allEntities;
 
-        protected List<SavedEntity> _savedEntities;
-
         protected ObservableCollection<T> _entities;
 
         protected bool _progressLayoutIsVisable;
@@ -101,17 +99,19 @@ namespace NureTimetable.ViewModels.TimetableEntities
 
         protected async Task EntitySelected(T entity)
         {
-            SavedEntity savedEntity = GetSavedEntity(entity);
-            if (_savedEntities.Exists(e => e == savedEntity))
+            SavedEntity newEntity = GetSavedEntity(entity);
+
+            List<SavedEntity> savedEntities = UniversityEntitiesRepository.GetSaved();
+            if (savedEntities.Exists(e => e == newEntity))
             {
-                await App.Current.MainPage.DisplayAlert("Добавление расписания", $"Расписание \"{savedEntity.Name}\" уже находится в сохранённых", "OK");
+                await App.Current.MainPage.DisplayAlert("Добавление расписания", $"Расписание \"{newEntity.Name}\" уже находится в сохранённых", "OK");
                 return;
             }
 
-            _savedEntities.Add(savedEntity);
-            UniversityEntitiesRepository.UpdateSaved(_savedEntities);
+            savedEntities.Add(newEntity);
+            UniversityEntitiesRepository.UpdateSaved(savedEntities);
 
-            await App.Current.MainPage.DisplayAlert("Добавление расписания", $"Расписание \"{savedEntity.Name}\" добавлено в сохранённые", "OK");
+            await App.Current.MainPage.DisplayAlert("Добавление расписания", $"Расписание \"{newEntity.Name}\" добавлено в сохранённые", "OK");
         }
 
         protected async Task SearchBarTextChanged()
@@ -182,7 +182,6 @@ namespace NureTimetable.ViewModels.TimetableEntities
                     return;
                 }
 
-                _savedEntities = UniversityEntitiesRepository.GetSaved();
                 Entities = new ObservableCollection<T>(OrderEntities());
 
                 if (SearchBarTextChangedCommand.CanExecute(null))
