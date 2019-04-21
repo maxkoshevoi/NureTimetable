@@ -236,7 +236,7 @@ namespace NureTimetable.DAL
                         return localGroup;
                     })))
                 )
-            );
+            ).Distinct();
             return groups;
         }
 
@@ -256,7 +256,7 @@ namespace NureTimetable.DAL
                         return localGroup;
                     })
                 )
-            );
+            ).Distinct();
             return teachers;
         }
 
@@ -274,7 +274,7 @@ namespace NureTimetable.DAL
                     localGroup.Building = Mapper.Map<Cist.Building, Local.BaseEntity<string>>(bd);
                     return localGroup;
                 })
-            );
+            ).Distinct();
             return rooms;
         }
         #endregion
