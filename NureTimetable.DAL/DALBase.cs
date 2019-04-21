@@ -11,7 +11,7 @@ namespace NureTimetable.DAL
         {
             // Yeah static constructor is bad, but I need to initialize AutoMapper somewhere
 
-            var ukraineTimezone = TimeZoneInfo.FindSystemTimeZoneById("Europe/Kiev");
+            var localTimezone = TimeZoneInfo.Local;
             Mapper.Initialize(cfg => {
                 // UniversityEntitiesRepository
                 cfg.CreateMap<Cist.Group, Local.Group>();
@@ -33,8 +33,8 @@ namespace NureTimetable.DAL
                 // EventsRepository
                 cfg.CreateMap<Cist.Event, Local.Event>()
                     .ForMember("RoomName", opt => opt.MapFrom(src => src.Room))
-                    .ForMember("Start", opt => opt.MapFrom(src => src.StartTime.Add(ukraineTimezone.GetUtcOffset(src.StartTime))))
-                    .ForMember("End", opt => opt.MapFrom(src => src.EndTime.Add(ukraineTimezone.GetUtcOffset(src.EndTime))));
+                    .ForMember("Start", opt => opt.MapFrom(src => src.StartTime.Add(localTimezone.GetUtcOffset(src.StartTime))))
+                    .ForMember("End", opt => opt.MapFrom(src => src.EndTime.Add(localTimezone.GetUtcOffset(src.EndTime))));
                 cfg.CreateMap<Cist.EventType, Local.EventType>();
                 cfg.CreateMap<Cist.Lesson, Local.Lesson>();
             });

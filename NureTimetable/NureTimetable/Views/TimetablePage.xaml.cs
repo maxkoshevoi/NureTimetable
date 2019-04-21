@@ -5,6 +5,7 @@ using NureTimetable.Core.Models.InterplatformCommunication;
 using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
 using NureTimetable.Models;
+using NureTimetable.Models.Consts.Fonts;
 using NureTimetable.UI.Views.TimetableEntities;
 using NureTimetable.ViewModels.TimetableEntities;
 using Syncfusion.SfSchedule.XForms;
@@ -97,11 +98,11 @@ namespace NureTimetable.Views
             {
                 if (visibleDates[0].Date > DateTime.Now)
                 {
-                    BToday.Image = "arrow_left";
+                    BToday.Text = MaterialFont.ChevronLeft;
                 }
                 else
                 {
-                    BToday.Image = "arrow_right";
+                    BToday.Text = MaterialFont.ChevronRight;
                 }
                 await BToday.ScaleTo(1, 250);
             }
