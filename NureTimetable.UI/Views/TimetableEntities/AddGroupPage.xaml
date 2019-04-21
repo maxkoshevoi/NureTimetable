@@ -18,7 +18,7 @@
             </SearchBar>
             <ListView x:Name="AllGroupsList"
                     ItemsSource="{Binding Groups}"
-                      SelectedItem="{Binding SelectedGroup}"
+                    SelectedItem="{Binding SelectedGroup}"
                     ItemTapped="Handle_ItemTapped"
                     CachingStrategy="RecycleElement">
                 <ListView.ItemTemplate>

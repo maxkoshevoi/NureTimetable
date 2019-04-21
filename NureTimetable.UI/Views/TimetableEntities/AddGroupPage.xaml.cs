@@ -12,10 +12,9 @@ namespace NureTimetable.UI.Views.TimetableEntities
             InitializeComponent();
         }
 
-        async void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
+        void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
         {
             ((ListView)sender).SelectedItem = null;
         }
-
     }
 }

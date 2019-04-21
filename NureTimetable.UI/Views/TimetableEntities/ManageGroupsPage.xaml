@@ -31,11 +31,11 @@
                                     <Label Text="{Binding SavedGroup.Name}" Style="{DynamicResource ListItemTextStyle}" />
                                     <Label Text="{Binding SavedGroup.LastUpdated}" Style="{DynamicResource ListItemDetailTextStyle}"/>
                                 </StackLayout>
-                                <Image Grid.Column="2" Margin="0,5,10,5" Source="settings" WidthRequest="30" >
-                                    <Image.GestureRecognizers>
+                                <Label Grid.Column="2" Margin="0,5,10,5" Text="&#xf493;" FontFamily="{StaticResource MaterialFontFamily}" TextColor="#6b6b6b" FontSize="30" VerticalOptions="CenterAndExpand" >
+                                    <Label.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding SettingsClickedCommand}" />
-                                    </Image.GestureRecognizers>
-                                </Image>
+                                    </Label.GestureRecognizers>
+                                </Label>
                             </Grid>
                         </ViewCell>
                     </DataTemplate>
