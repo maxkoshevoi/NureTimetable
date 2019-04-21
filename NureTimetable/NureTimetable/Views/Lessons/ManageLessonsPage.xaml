@@ -25,7 +25,7 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <Label Grid.Column="0" Text="{Binding ShortName}" VerticalOptions="Center" Style="{DynamicResource ListItemTextStyle}" />
+                                <Label Grid.Column="0" Text="{Binding Lesson.ShortName}" VerticalOptions="Center" Style="{DynamicResource ListItemTextStyle}" />
                                 <syncfusion:SfCheckBox Grid.Column="1" IsChecked="{Binding Settings.Hiding.ShowLesson}" CheckedColor="DeepSkyBlue"/>
                             </Grid>
                         </ViewCell>

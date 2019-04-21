@@ -6,4 +6,6 @@
             Title="Добавление расписания">
 
     <views:AddGroupPage BindingContext="{Binding AddGroupPageViewModel}" />
+    <!--<views:AddTeacherPage BindingContext="{Binding AddTeacherPageViewModel}" />
+    <views:AddRoomPage BindingContext="{Binding AddRoomPageViewModel}" />-->
 </TabbedPage>

@@ -31,7 +31,8 @@ namespace NureTimetable.DAL.Models.Local
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        
+
+        #region Equals
         public static bool operator ==(SavedEntity obj1, SavedEntity obj2)
         {
             if (ReferenceEquals(obj1, obj2))
@@ -49,5 +50,20 @@ namespace NureTimetable.DAL.Models.Local
         {
             return !(obj1 == obj2);
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is SavedEntity)
+            {
+                return this == (SavedEntity)obj;
+            }
+            return base.Equals(obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return ID.GetHashCode() ^ Type.GetHashCode();
+        }
+        #endregion
     }
 }

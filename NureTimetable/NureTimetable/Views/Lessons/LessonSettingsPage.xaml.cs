@@ -16,8 +16,10 @@ namespace NureTimetable.Views.Lessons
         List<CheckedEventType> eventTypes;
         bool updatingProgrammatically = false;
 
-        private class CheckedEventType : EventType, INotifyPropertyChanged
+        private class CheckedEventType : INotifyPropertyChanged
         {
+            public EventType EventType { get; set; }
+
             public bool IsChecked { get; set; }
 
             #region INotifyPropertyChanged
@@ -29,7 +31,7 @@ namespace NureTimetable.Views.Lessons
             #endregion
         }
 
-        public LessonSettingsPage (LessonInfo lessonInfo)
+        public LessonSettingsPage (LessonInfo lessonInfo, List<EventType> eventTypes)
 		{
 			InitializeComponent ();
             Title = lessonInfo.Lesson.FullName;
@@ -40,14 +42,14 @@ namespace NureTimetable.Views.Lessons
             LessonNotes.Text = lessonInfo.Notes;
             updatingProgrammatically = false;
 
-            //eventTypes = lessonInfo.EventTypesInfo.Select(et => et.Name)
-            //    .Select(et => new CheckedEventType
-            //    {
-            //        EventType = et
-            //    })
-            //    .OrderBy(et => et.EventType)
-            //    .ToList();
-            LessonsEventTypes.ItemsSource = eventTypes;
+            this.eventTypes = eventTypes
+                .Select(et => new CheckedEventType
+                {
+                    EventType = et
+                })
+                .OrderBy(et => et.EventType.ShortName)
+                .ToList();
+            LessonsEventTypes.ItemsSource = this.eventTypes;
             UpdateEventTypesCheck();
         }
         
@@ -79,7 +81,7 @@ namespace NureTimetable.Views.Lessons
             {
                 foreach (CheckedEventType eventType in eventTypes)
                 {
-                    eventType.IsChecked = !lessonInfo.Settings.Hiding.HideOnlyThisEventTypes.Contains(eventType.ID);
+                    eventType.IsChecked = !lessonInfo.Settings.Hiding.HideOnlyThisEventTypes.Contains(eventType.EventType.ID);
                     eventType.NotifyChanged();
                 }
             }
@@ -88,13 +90,13 @@ namespace NureTimetable.Views.Lessons
 
         private void EventType_StateChanged(object sender, StateChangedEventArgs e)
         {
-            //string name = ((SfCheckBox)sender).Text;
-            //lessonInfo.Settings.Hiding.HideOnlyThisEventTypes.RemoveAll(item => item == name);
-            //if (e.IsChecked == false)
-            //{
-            //    lessonInfo.Settings.Hiding.HideOnlyThisEventTypes.Add(name);
-            //}
-            //UpdateShowLessonCheck();
+            CheckedEventType eventType = (CheckedEventType)((SfCheckBox)sender).BindingContext;
+            lessonInfo.Settings.Hiding.HideOnlyThisEventTypes.RemoveAll(id => id == eventType.EventType.ID);
+            if (e.IsChecked == false)
+            {
+                lessonInfo.Settings.Hiding.HideOnlyThisEventTypes.Add(eventType.EventType.ID);
+            }
+            UpdateShowLessonCheck();
         }
 
         private void UpdateShowLessonCheck()
@@ -106,10 +108,10 @@ namespace NureTimetable.Views.Lessons
             {
                 ShowLesson.IsChecked = true;
             }
-            //else if (lessonInfo.Settings.Hiding.HideOnlyThisEventTypes.Count == lessonInfo.EventTypesInfo.Count)
-            //{
-            //    ShowLesson.IsChecked = false;
-            //}
+            else if (lessonInfo.Settings.Hiding.HideOnlyThisEventTypes.Count == eventTypes.Count)
+            {
+                ShowLesson.IsChecked = false;
+            }
             else
             {
                 ShowLesson.IsChecked = null;

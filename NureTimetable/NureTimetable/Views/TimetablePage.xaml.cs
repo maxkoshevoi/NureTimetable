@@ -146,7 +146,7 @@ namespace NureTimetable.Views
                             .FirstOrDefault();
                         if (nextEvent != null && nextEvent.Start.Date == DateTime.Now.Date)
                         {
-                            text = $"До {nextEvent.Lesson} ({nextEvent.RoomName}): {(nextEvent.Start - DateTime.Now).ToString("hh\\:mm\\:ss")}";
+                            text = $"До {nextEvent.Lesson.ShortName} ({nextEvent.RoomName}): {(nextEvent.Start - DateTime.Now).ToString("hh\\:mm\\:ss")}";
                         }
                     }
                 }
@@ -269,9 +269,7 @@ namespace NureTimetable.Views
                                 Timetable.VisibleDatesChangedEvent += Timetable_VisibleDatesChangedEvent;
                             }
 
-                            List<EventViewModel> newEvents = timetableInfo.Events.Select(ev => new EventViewModel(ev)).ToList();
-
-                            Timetable.DataSource = newEvents;
+                            Timetable.DataSource = timetableInfo.Events.Select(ev => new EventViewModel(ev)).ToList();
 
                             UpdateTimeLeft();
                             break;
@@ -396,7 +394,7 @@ namespace NureTimetable.Views
                     notes = nl + nl + lessonInfo.Notes;
                 }
             }
-            DisplayAlert($"{ev.Lesson.FullName}", $"Тип: {ev.Type}{nl}Аудитория: {ev.RoomName}{nl}Преподаватель: {string.Join(", ", ev.Teachers.Select(t => t.FullName))}{nl}День: {ev.Start.ToString("ddd, dd.MM.yy")}{nl}Время: {ev.Start.ToString("HH:mm")} - {ev.End.ToString("HH:mm")}{notes}", "Ok");
+            DisplayAlert($"{ev.Lesson.FullName}", $"Тип: {ev.Type.FullName}{nl}Аудитория: {ev.RoomName}{nl}Преподаватель: {string.Join(", ", ev.Teachers.Select(t => t.FullName))}{nl}День: {ev.Start.ToString("ddd, dd.MM.yy")}{nl}Время: {ev.Start.ToString("HH:mm")} - {ev.End.ToString("HH:mm")}{notes}", "Ok");
         }
 
         private void HideSelectedEvents_Clicked(object sender, EventArgs e)

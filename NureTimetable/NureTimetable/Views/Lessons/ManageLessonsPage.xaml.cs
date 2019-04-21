@@ -14,7 +14,8 @@ namespace NureTimetable.Views.Lessons
     public partial class ManageLessonsPage : ContentPage
     {
         public ObservableCollection<LessonInfo> lessons { get; set; }
-        Group group;
+        readonly Group group;
+        readonly TimetableInfo timetable;
 
         public ManageLessonsPage(Group group)
         {
@@ -22,7 +23,7 @@ namespace NureTimetable.Views.Lessons
             Title += $": {group.Name}";
             this.group = group;
 
-            TimetableInfo timetable = EventsRepository.GetTimetableLocal(new SavedEntity(group));
+            timetable = EventsRepository.GetTimetableLocal(new SavedEntity(group));
             if (timetable == null)
             {
                 return;
@@ -31,15 +32,7 @@ namespace NureTimetable.Views.Lessons
             lessons = new ObservableCollection<LessonInfo>
             (
                 timetable.Lessons()
-                    .Select(lesson =>
-                    {
-                        LessonInfo res = lessonInfo.FirstOrDefault(li => li.Lesson == lesson)
-                            ?? new LessonInfo { Lesson = lesson };
-                        //res.EventTypesInfo = timetable.EventTypes(lesson.ID)
-                        //    .Select(et => res.EventTypesInfo.FirstOrDefault(eti => eti.Name == et) ?? new EventTypeInfo { Name = et })
-                        //    .ToList();
-                        return res;
-                    })
+                    .Select(lesson => lessonInfo.FirstOrDefault(li => li.Lesson == lesson) ?? new LessonInfo { Lesson = lesson })
                     .OrderBy(lesson => !timetable.Events.Where(e => e.Start >= DateTime.Now).Any(e => e.Lesson == lesson.Lesson))
                     .ThenBy(lesson => lesson.Lesson.ShortName)
             );
@@ -82,7 +75,7 @@ namespace NureTimetable.Views.Lessons
             //Deselect Item
             ((ListView)sender).SelectedItem = null;
             
-            await Navigation.PushAsync(new LessonSettingsPage(selectedLesson));
+            await Navigation.PushAsync(new LessonSettingsPage(selectedLesson, timetable.EventTypes(selectedLesson.Lesson.ID).ToList()));
         }
 
         private void Save_Clicked(object sender, EventArgs e)
