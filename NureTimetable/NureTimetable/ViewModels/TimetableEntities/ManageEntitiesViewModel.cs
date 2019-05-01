@@ -169,7 +169,7 @@ namespace NureTimetable.ViewModels.TimetableEntities
             {
                 return;
             }
-            if (await App.Current.MainPage.DisplayAlert("Обновление расписания", "Обновить расписания всех сохранённых групп?", "Да", "Отмена"))
+            if (await App.Current.MainPage.DisplayAlert("Обновление расписания", "Обновить все сохранённые расписания?", "Да", "Отмена"))
             {
                 await UpdateTimetable(Entities?.Select(vm => vm.SavedEntity).ToArray());
             }

@@ -87,7 +87,7 @@
                 Clicked="BToday_Clicked"
                 Scale="0"/>
             <StackLayout x:Name="NoSourceLayout" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="False">
-                <Label Text="Добавьте группу для просмотра расписания."
+                <Label Text="Добавьте расписание для просмотра."
                     VerticalOptions="CenterAndExpand" 
                     HorizontalOptions="CenterAndExpand" />
             </StackLayout>

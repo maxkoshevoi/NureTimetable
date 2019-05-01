@@ -43,7 +43,7 @@
                     <Label.FormattedText>
                         <FormattedString>
                             <FormattedString.Spans>
-                                <Span Text="Это приложение для отображения расписания групп " />
+                                <Span Text="Это приложение для отображения расписания групп, преподавателей и аудиторий " />
                                 <Span Text="ХНУРЭ" FontAttributes="Bold" />
                             </FormattedString.Spans>
                         </FormattedString>
