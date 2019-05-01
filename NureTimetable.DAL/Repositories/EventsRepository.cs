@@ -84,10 +84,10 @@ namespace NureTimetable.DAL
         #region Cist
         public static Local.TimetableInfo GetTimetableFromCist(Local.SavedEntity entity, DateTime dateStart, DateTime dateEnd)
         {
-            //if (SettingsRepository.CheckCistTimetableUpdateRights(entity).Count == 0)
-            //{
-            //    return null;
-            //}
+            if (SettingsRepository.CheckCistTimetableUpdateRights(entity).Count == 0)
+            {
+                return null;
+            }
 
             using (var client = new WebClient
             {

@@ -1,7 +1,9 @@
-﻿using NureTimetable.DAL;
+﻿using NureTimetable.Core.Models.Consts;
+using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
 using NureTimetable.Services.Helpers;
 using NureTimetable.ViewModels.Core;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -67,6 +69,11 @@ namespace NureTimetable.ViewModels.TimetableEntities
             ContentPageAppearingCommand = CommandHelper.CreateCommand(UpdateEntities);
             UpdateCommand = CommandHelper.CreateCommand(UpdateFromCist);
             Device.BeginInvokeOnMainThread(async () => await UpdateEntities(false));
+
+            MessagingCenter.Subscribe<Application>(this, MessageTypes.UniversityEntitiesUpdated, async (sender) =>
+            {
+                await UpdateEntities();
+            });
         }
 
         #region Abstract Methods
@@ -159,29 +166,51 @@ namespace NureTimetable.ViewModels.TimetableEntities
 
             await Task.Factory.StartNew(() =>
             {
+                UniversityEntitiesRepository.UniversityEntitiesCistUpdateResult updateFromCistResult = null;
                 if (fromCistOnly)
                 {
-                    UniversityEntitiesRepository.UpdateFromCist();
+                    updateFromCistResult = UniversityEntitiesRepository.UpdateFromCist();
+
+                    if (updateFromCistResult.IsAllFail)
+                    {
+                        Device.BeginInvokeOnMainThread(() =>
+                        {
+                            App.Current.MainPage.DisplayAlert("Обновление информации об университете", "Не удалось обновить информациию об университете. Пожалуйста, попробуйте позже.", "Ok");
+                        });
+
+                        ProgressLayoutIsVisable = false;
+                        ProgressLayoutIsEnable = true;
+
+                        return;
+                    }
+                    else if (!updateFromCistResult.IsAllSuccessful)
+                    {
+                        string failedEntities = Environment.NewLine;
+                        if (!updateFromCistResult.IsGroupsOk)
+                        {
+                            failedEntities += "Группы" + Environment.NewLine;
+                        }
+                        if (!updateFromCistResult.IsTeachersOk)
+                        {
+                            failedEntities += "Преподаватели" + Environment.NewLine;
+                        }
+                        if (!updateFromCistResult.IsRoomsOk)
+                        {
+                            failedEntities += "Аудитории" + Environment.NewLine;
+                        }
+
+                        Device.BeginInvokeOnMainThread(() =>
+                        {
+                            App.Current.MainPage.DisplayAlert("Обновление информации об университете", "Не удалось обновить часть информациии об университете:" + failedEntities, "Ok");
+                        });
+                    }
                 }
                 else
                 {
-                    UniversityEntitiesRepository.Init();
+                    UniversityEntitiesRepository.AssureInitialized();
                 }
                 _allEntities = GetAllEntitiesFromCist();
-
-                if (_allEntities == null)
-                {
-                    Device.BeginInvokeOnMainThread(() =>
-                    {
-                        App.Current.MainPage.DisplayAlert("Обновление информации об университете", "Не удалось обновить информациию об университете. Пожалуйста, попробуйте позже.", "Ok");
-                    });
-
-                    ProgressLayoutIsVisable = false;
-                    ProgressLayoutIsEnable = true;
-
-                    return;
-                }
-
+                
                 Entities = new ObservableCollection<T>(OrderEntities());
 
                 if (SearchBarTextChangedCommand.CanExecute(null))

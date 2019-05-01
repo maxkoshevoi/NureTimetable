@@ -14,8 +14,8 @@
     <PackageReference Include="Microsoft.AppCenter.Analytics" Version="1.14.0" />
     <PackageReference Include="Microsoft.AppCenter.Crashes" Version="1.14.0" />
     <PackageReference Include="Plugin.InAppBilling" Version="2.0.0" />
-    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="17.1.0.41" />
-    <PackageReference Include="Syncfusion.Xamarin.SfSchedule" Version="17.1.0.41" />
+    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="17.1.0.43" />
+    <PackageReference Include="Syncfusion.Xamarin.SfSchedule" Version="17.1.0.43" />
     <PackageReference Include="Xam.Plugin.DeviceInfo" Version="4.1.1" />
     <PackageReference Include="Xamarin.Forms" Version="3.6.0.344457" />  
   </ItemGroup>

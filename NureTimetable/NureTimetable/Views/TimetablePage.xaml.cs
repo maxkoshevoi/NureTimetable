@@ -119,6 +119,7 @@ namespace NureTimetable.Views
                 UpdateEventsWithUI();
             }
 
+            UpdateTimeLeft();
             Device.StartTimer(TimeSpan.FromSeconds(1), UpdateTimeLeft);
         }
 
@@ -395,7 +396,12 @@ namespace NureTimetable.Views
                     notes = nl + nl + lessonInfo.Notes;
                 }
             }
-            DisplayAlert($"{ev.Lesson.FullName}", $"Тип: {ev.Type.FullName}{nl}Аудитория: {ev.RoomName}{nl}Преподаватель: {string.Join(", ", ev.Teachers.Select(t => t.Name))}{nl}День: {ev.Start.ToString("ddd, dd.MM.yy")}{nl}Время: {ev.Start.ToString("HH:mm")} - {ev.End.ToString("HH:mm")}{notes}", "Ok");
+            DisplayAlert($"{ev.Lesson.FullName}", $"Тип: {ev.Type.FullName}{nl}" +
+                $"Аудитория: {ev.RoomName}{nl}" +
+                $"Преподаватель: {string.Join(", ", ev.Teachers.Select(t => t.Name))}{nl}" +
+                $"Группы: {string.Join(", ", ev.Groups.Select(t => t.Name))}{nl}" +
+                $"День: {ev.Start.ToString("ddd, dd.MM.yy")}{nl}" +
+                $"Время: {ev.Start.ToString("HH:mm")} - {ev.End.ToString("HH:mm")}{notes}", "Ok");
         }
 
         private void HideSelectedEvents_Clicked(object sender, EventArgs e)

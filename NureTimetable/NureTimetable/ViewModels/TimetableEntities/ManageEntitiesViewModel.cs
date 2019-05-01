@@ -28,19 +28,27 @@ namespace NureTimetable.ViewModels.TimetableEntities
             #region Properties
             public SavedEntity SavedEntity { get; }
 
-            // TODO: Move this property inside SavedGroup and replace SelectedGroup functionality with it
+            // TODO: Move this property inside SavedEntity and replace SelectedEntity functionality with it
             public bool IsSelected { get; set; }
 
             public ICommand SettingsClickedCommand { get; }
+
+            public ICommand UpdateClickedCommand { get; }
             #endregion
 
             public SavedEntityItemViewModel(SavedEntity savedEntity, ManageEntitiesViewModel manageEntitiesViewModel)
             {
                 SavedEntity = savedEntity;
                 _manageEntitiesViewModel = manageEntitiesViewModel;
+                UpdateClickedCommand = CommandHelper.CreateCommand(UpdateClicked);
                 SettingsClickedCommand = CommandHelper.CreateCommand(SettingsClicked);
             }
-            
+
+            public async Task UpdateClicked()
+            {
+                await _manageEntitiesViewModel.UpdateTimetable(SavedEntity);
+            }
+
             public async Task SettingsClicked()
             {
                 List<string> actionList = new List<string> { "Обновить расписание", "Настроить отображение предметов", "Удалить" };

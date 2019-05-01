@@ -26,13 +26,13 @@ namespace NureTimetable
             SyncfusionLicenseProvider.RegisterLicense(Keys.SyncfusionLicenseKey);
             
             InitializeComponent();
-            DALBase.Init();
             MainPage = new MainPage();
         }
 
         protected override void OnStart()
         {
             // Handle when your app starts
+            DALBase.Init();
 #if !DEBUG
             //Register Microsoft App Center metrics
             AppCenter.Start(Keys.MicrosoftAppCenterKey, typeof(Analytics), typeof(Crashes));

@@ -17,29 +17,79 @@ namespace NureTimetable.DAL
 {
     public static class UniversityEntitiesRepository
     {
-        public static bool IsLoaded => Singleton != null;
+        public static bool IsInitialized { get; private set; } = false;
+
+        private static object lockObject = new object();
         
+        public class UniversityEntitiesCistUpdateResult
+        {
+            public UniversityEntitiesCistUpdateResult()
+            { }
+
+            public UniversityEntitiesCistUpdateResult(bool isGroupsOk, bool isTeachersOk, bool isRoomsOk)
+            {
+                this.IsGroupsOk = isGroupsOk;
+                this.IsTeachersOk = isTeachersOk;
+                this.IsRoomsOk = isRoomsOk;
+            }
+
+            public bool IsGroupsOk;
+            public bool IsTeachersOk;
+            public bool IsRoomsOk;
+
+            public bool IsAllSuccessful =>
+                IsGroupsOk && IsTeachersOk && IsRoomsOk;
+
+            public bool IsAllFail =>
+                !IsGroupsOk && !IsTeachersOk && !IsRoomsOk;
+        }
+
         #region All Entities Cist
 
         #region Public
-        public static void Init()
+        public static void AssureInitialized()
         {
-           Singleton = Get();
+            lock (lockObject)
+            {
+                if (IsInitialized)
+                {
+                    return;
+                }
+                Singleton = Get();
+            }
         }
 
-        public static void UpdateLocal()
+        public static bool UpdateLocal()
         {
-            Singleton = GetLocal();
+            Cist.University university = GetLocal();
+            if (university == null)
+            {
+                return false;
+            }
+            Singleton = university;
+            return true;
         }
 
-        public static void UpdateFromCist()
+        public static UniversityEntitiesCistUpdateResult UpdateFromCist()
         {
-            Singleton = GetFromCist();
+            Cist.University university = GetLocal();
+            UniversityEntitiesCistUpdateResult result = UpdateFromCist(ref university);
+            Singleton = university;
+            return result;
         }
         #endregion
 
         #region Private
-        private static Cist.University Singleton;
+        private static Cist.University _singleton;
+        private static Cist.University Singleton
+        {
+            get => _singleton;
+            set
+            {
+                IsInitialized = true;
+                _singleton = value;
+            }
+        }
 
         private static Cist.University Get()
         {
@@ -69,20 +119,38 @@ namespace NureTimetable.DAL
 
         private static Cist.University GetFromCist()
         {
+            Cist.University university = null;
+            UpdateFromCist(ref university);
+            return university;
+        }
+
+        private static UniversityEntitiesCistUpdateResult UpdateFromCist(ref Cist.University university)
+        {
             if (SettingsRepository.CheckCistAllEntitiesUpdateRights() == false)
             {
-                return null;
+                return new UniversityEntitiesCistUpdateResult(true, true, true);
             }
 
-            var university = new Cist.University();
-            bool isGroupsOk = GetAllGroupsFromCist(ref university);
-            bool isTeachersOk = GetAllTeachersFromCist(ref university);
-            bool isRoomsOk = GetAllRoomsFromCist(ref university);
+            var result = new UniversityEntitiesCistUpdateResult();
+            if (university == null)
+            {
+                university = new Cist.University();
+            }
+            result.IsGroupsOk = GetAllGroupsFromCist(ref university);
+            result.IsTeachersOk = GetAllTeachersFromCist(ref university);
+            result.IsRoomsOk = GetAllRoomsFromCist(ref university);
 
-            Serialisation.ToJsonFile(university, FilePath.UniversityEntities);
-            SettingsRepository.UpdateCistAllEntitiesUpdateTime();
-            
-            return university;
+            if (!result.IsAllFail)
+            {
+                Serialisation.ToJsonFile(university, FilePath.UniversityEntities);
+            }
+            if (result.IsAllSuccessful)
+            {
+                SettingsRepository.UpdateCistAllEntitiesUpdateTime();
+            }
+            MessagingCenter.Send(Application.Current, MessageTypes.UniversityEntitiesUpdated);
+
+            return result;
         }
 
         private static bool GetAllGroupsFromCist(ref Cist.University university)
@@ -213,12 +281,16 @@ namespace NureTimetable.DAL
         #region All Entities Local
         public static IEnumerable<Local.Group> GetAllGroups()
         {
-            if (!IsLoaded)
+            if (!IsInitialized)
             {
-                throw new InvalidOperationException($"You MUST call {nameof(UniversityEntitiesRepository)}.Init(); prior to using it.");
+                throw new InvalidOperationException($"You MUST call {nameof(UniversityEntitiesRepository)}.AssureInitialized(); prior to using it.");
+            }
+            if (Singleton == null)
+            {
+                return null;
             }
 
-            var groups = Singleton.Faculties.SelectMany(fac => fac
+            IEnumerable<Local.Group> groups = Singleton.Faculties.SelectMany(fac => fac
                 .Directions.SelectMany(dir =>
                     dir.Groups.Select(gr =>
                     {
@@ -242,12 +314,16 @@ namespace NureTimetable.DAL
 
         public static IEnumerable<Local.Teacher> GetAllTeachers()
         {
-            if (!IsLoaded)
+            if (!IsInitialized)
             {
-                throw new InvalidOperationException($"You MUST call {nameof(UniversityEntitiesRepository)}.Init(); prior to using it.");
+                throw new InvalidOperationException($"You MUST call {nameof(UniversityEntitiesRepository)}.AssureInitialized(); prior to using it.");
+            }
+            if (Singleton == null)
+            {
+                return null;
             }
 
-            var teachers = Singleton.Faculties.SelectMany(fac => fac
+            IEnumerable<Local.Teacher> teachers = Singleton.Faculties.SelectMany(fac => fac
                 .Departments.SelectMany(dep =>
                     dep.Teachers.Select(tr =>
                     {
@@ -262,12 +338,16 @@ namespace NureTimetable.DAL
 
         public static IEnumerable<Local.Room> GetAllRooms()
         {
-            if (!IsLoaded)
+            if (!IsInitialized)
             {
-                throw new InvalidOperationException($"You MUST call {nameof(UniversityEntitiesRepository)}.Init(); prior to using it.");
+                throw new InvalidOperationException($"You MUST call {nameof(UniversityEntitiesRepository)}.AssureInitialized(); prior to using it.");
+            }
+            if (Singleton == null)
+            {
+                return null;
             }
 
-            var rooms = Singleton.Buildings.SelectMany(bd => bd
+            IEnumerable<Local.Room> rooms = Singleton.Buildings.SelectMany(bd => bd
                 .Rooms.Select(rm =>
                 {
                     Local.Room localGroup = Mapper.Map<Cist.Room, Local.Room>(rm);
