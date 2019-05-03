@@ -101,6 +101,7 @@ namespace NureTimetable.DAL
                     // Getting events
                     Uri uri = new Uri(Urls.CistEntityTimetableUrl(entity.Type, entity.ID, dateStart, dateEnd));
                     string responseStr = client.DownloadString(uri);
+                    responseStr = responseStr.Replace("&amp;", "&");
                     responseStr = responseStr.Replace("\"events\":[\n]}]", "\"events\": []");
                     Cist.Timetable cistTimetable = JsonConvert.DeserializeObject<Cist.Timetable>(responseStr);
 
