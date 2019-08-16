@@ -1,4 +1,5 @@
-﻿using NureTimetable.Core.Models.Consts;
+﻿using Microsoft.AppCenter.Analytics;
+using NureTimetable.Core.Models.Consts;
 using NureTimetable.Models.System;
 using NureTimetable.UI.Views.Info;
 using NureTimetable.ViewModels.Info;
@@ -28,6 +29,15 @@ namespace NureTimetable.Views
                 {
                     DisplayAlert("Детали ошибки:", ex.ToString(), "Ok");
                 }
+#if !DEBUG
+                Analytics.TrackEvent(ex.ToString(), new Dictionary<string, string>()
+                {
+                    { "Message", ex.Message },
+                    { "Stack", ex.StackTrace },
+                    { "TargetSite", ex.TargetSite.ToString() },
+                    { "Source", ex.Source }
+                });
+#endif
             });
         }
 

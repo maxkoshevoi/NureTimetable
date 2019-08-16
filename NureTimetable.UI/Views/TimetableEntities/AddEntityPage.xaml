@@ -30,6 +30,12 @@
                 </ListView.ItemTemplate>
             </ListView>
         </StackLayout>
+        <StackLayout x:Name="NoSourceLayout" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="{Binding NoSourceLayoutIsVisible}">
+            <Label Text="Данные отсутствуют.&#10;Для обновления нажмите на кнопку в правом верхнем углу."
+                    VerticalOptions="CenterAndExpand" 
+                    HorizontalOptions="CenterAndExpand"
+                    HorizontalTextAlignment="Center" />
+        </StackLayout>
         <StackLayout x:Name="ProgressLayout" IsVisible="{Binding ProgressLayoutIsVisable}" 
                      IsEnabled="{Binding ProgressLayoutIsEnable}" Padding="12"
                     AbsoluteLayout.LayoutFlags="PositionProportional"

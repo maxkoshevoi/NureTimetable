@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Newtonsoft.Json;
+﻿using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Models.Consts;
 using NureTimetable.DAL.Helpers;
 using NureTimetable.DAL.Models.Consts;
@@ -115,8 +114,15 @@ namespace NureTimetable.DAL
                         Local.Event localEvent = MapConfig.Map<Cist.Event, Local.Event>(ev);
                         localEvent.Lesson = MapConfig.Map<Cist.Lesson, Local.Lesson>(cistTimetable.Lessons.First(l => l.Id == ev.LessonId));
                         localEvent.Type = MapConfig.Map<Cist.EventType, Local.EventType>(cistTimetable.EventTypes.First(et => et.Id == ev.TypeId));
-                        localEvent.Teachers = cistTimetable.Teachers.Where(t => ev.TeacherIds.Contains(t.Id)).Select(t => MapConfig.Map<Cist.Teacher, Local.Teacher>(t)).ToList();
-                        localEvent.Groups = cistTimetable.Groups.Where(g => ev.GroupIds.Contains(g.Id)).Select(g => MapConfig.Map<Cist.Group, Local.Group>(g)).ToList();
+                        localEvent.Teachers = cistTimetable.Teachers
+                            .Where(t => ev.TeacherIds.Contains(t.Id))
+                            .DistinctBy(t => t.ShortName.Replace('ї', 'i'))
+                            .Select(t => MapConfig.Map<Cist.Teacher, Local.Teacher>(t))
+                            .ToList();
+                        localEvent.Groups = cistTimetable.Groups
+                            .Where(g => ev.GroupIds.Contains(g.Id))
+                            .Select(g => MapConfig.Map<Cist.Group, Local.Group>(g))
+                            .ToList();
                         return localEvent;
                     }).ToList();
 

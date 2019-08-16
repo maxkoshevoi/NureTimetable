@@ -25,6 +25,8 @@ namespace NureTimetable.ViewModels.TimetableEntities
 
         protected bool _progressLayoutIsEnable;
 
+        protected bool _noSourceLayoutIsVisible;
+
         protected string _searchBarText;
 
         protected T _selectedEntity;
@@ -51,6 +53,12 @@ namespace NureTimetable.ViewModels.TimetableEntities
         {
             get => _progressLayoutIsEnable;
             set => SetProperty(ref _progressLayoutIsEnable, value);
+        }
+
+        public bool NoSourceLayoutIsVisible
+        {
+            get => _noSourceLayoutIsVisible;
+            set => SetProperty(ref _noSourceLayoutIsVisible, value);
         }
 
         public string SearchBarText { get => _searchBarText; set => SetProperty(ref _searchBarText, value); }
@@ -210,11 +218,14 @@ namespace NureTimetable.ViewModels.TimetableEntities
                     UniversityEntitiesRepository.AssureInitialized();
                 }
                 _allEntities = GetAllEntitiesFromCist();
-                
                 Entities = new ObservableCollection<T>(OrderEntities());
+                
+                NoSourceLayoutIsVisible = Entities.Count == 0;
 
                 if (SearchBarTextChangedCommand.CanExecute(null))
+                {
                     SearchBarTextChangedCommand.Execute(null);
+                }
 
                 ProgressLayoutIsVisable = false;
                 ProgressLayoutIsEnable = true;

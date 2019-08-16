@@ -89,7 +89,8 @@
             <StackLayout x:Name="NoSourceLayout" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="False">
                 <Label Text="Добавьте расписание для просмотра."
                     VerticalOptions="CenterAndExpand" 
-                    HorizontalOptions="CenterAndExpand" />
+                    HorizontalOptions="CenterAndExpand"
+                    HorizontalTextAlignment="Center" />
             </StackLayout>
             <StackLayout x:Name="ProgressLayout" IsVisible="False" Padding="12"
                     AbsoluteLayout.LayoutFlags="PositionProportional"
