@@ -112,11 +112,11 @@ namespace NureTimetable.DAL
                     }
                     timetable.Events = cistTimetable.Events.Select(ev =>
                     {
-                        Local.Event localEvent = Mapper.Map<Cist.Event, Local.Event>(ev);
-                        localEvent.Lesson = Mapper.Map<Cist.Lesson, Local.Lesson>(cistTimetable.Lessons.First(l => l.Id == ev.LessonId));
-                        localEvent.Type = Mapper.Map<Cist.EventType, Local.EventType>(cistTimetable.EventTypes.First(et => et.Id == ev.TypeId));
-                        localEvent.Teachers = cistTimetable.Teachers.Where(t => ev.TeacherIds.Contains(t.Id)).Select(t => Mapper.Map<Cist.Teacher, Local.Teacher>(t)).ToList();
-                        localEvent.Groups = cistTimetable.Groups.Where(g => ev.GroupIds.Contains(g.Id)).Select(g => Mapper.Map<Cist.Group, Local.Group>(g)).ToList();
+                        Local.Event localEvent = MapConfig.Map<Cist.Event, Local.Event>(ev);
+                        localEvent.Lesson = MapConfig.Map<Cist.Lesson, Local.Lesson>(cistTimetable.Lessons.First(l => l.Id == ev.LessonId));
+                        localEvent.Type = MapConfig.Map<Cist.EventType, Local.EventType>(cistTimetable.EventTypes.First(et => et.Id == ev.TypeId));
+                        localEvent.Teachers = cistTimetable.Teachers.Where(t => ev.TeacherIds.Contains(t.Id)).Select(t => MapConfig.Map<Cist.Teacher, Local.Teacher>(t)).ToList();
+                        localEvent.Groups = cistTimetable.Groups.Where(g => ev.GroupIds.Contains(g.Id)).Select(g => MapConfig.Map<Cist.Group, Local.Group>(g)).ToList();
                         return localEvent;
                     }).ToList();
 

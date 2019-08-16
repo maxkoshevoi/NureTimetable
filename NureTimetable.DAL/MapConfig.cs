@@ -5,25 +5,31 @@ using Local = NureTimetable.DAL.Models.Local;
 
 namespace NureTimetable.DAL
 {
-    public static class DALBase
+    public static class MapConfig
     {
-        public static void Init()
+        private static IMapper _config;
+
+        private static IMapper config
         {
-            // Yeah static constructor is bad, but I need to initialize AutoMapper somewhere
-            
-            bool isMapperInitialized = true;
-            try
+            get
             {
-                var mapper = Mapper.Instance;
+                if (_config == null)
+                {
+                    Init();
+                }
+                return _config;
             }
-            catch (Exception)
-            {
-                isMapperInitialized = false;
-            }
-            if (!isMapperInitialized)
+        }
+
+        public static TDestination Map<TSource, TDestination>(TSource source)
+            => config.Map<TSource, TDestination>(source);
+
+        private static void Init()
+        {
+            if (_config == null)
             {
                 var localTimezone = TimeZoneInfo.Local;
-                Mapper.Initialize(cfg => {
+                _config = new MapperConfiguration(cfg => {
                     // UniversityEntitiesRepository
                     cfg.CreateMap<Cist.Group, Local.Group>();
                     cfg.CreateMap<Cist.Faculty, Local.BaseEntity<long>>()
@@ -50,7 +56,7 @@ namespace NureTimetable.DAL
                         .ForMember("End", opt => opt.MapFrom(src => src.EndTime.Add(localTimezone.GetUtcOffset(src.EndTime))));
                     cfg.CreateMap<Cist.EventType, Local.EventType>();
                     cfg.CreateMap<Cist.Lesson, Local.Lesson>();
-                });
+                }).CreateMapper();
             }
         }
     }

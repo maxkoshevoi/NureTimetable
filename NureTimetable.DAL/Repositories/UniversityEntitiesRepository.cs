@@ -294,17 +294,17 @@ namespace NureTimetable.DAL
                 .Directions.SelectMany(dir =>
                     dir.Groups.Select(gr =>
                     {
-                        Local.Group localGroup = Mapper.Map<Cist.Group, Local.Group>(gr);
-                        localGroup.Faculty = Mapper.Map<Cist.Faculty, Local.BaseEntity<long>>(fac);
-                        localGroup.Direction = Mapper.Map<Cist.Direction, Local.BaseEntity<long>>(dir);
+                        Local.Group localGroup = MapConfig.Map<Cist.Group, Local.Group>(gr);
+                        localGroup.Faculty = MapConfig.Map<Cist.Faculty, Local.BaseEntity<long>>(fac);
+                        localGroup.Direction = MapConfig.Map<Cist.Direction, Local.BaseEntity<long>>(dir);
                         return localGroup;
                     })
                     .Concat(dir.Specialities.SelectMany(sp => sp.Groups.Select(gr =>
                     {
-                        Local.Group localGroup = Mapper.Map<Cist.Group, Local.Group>(gr);
-                        localGroup.Faculty = Mapper.Map<Cist.Faculty, Local.BaseEntity<long>>(fac);
-                        localGroup.Direction = Mapper.Map<Cist.Direction, Local.BaseEntity<long>>(dir);
-                        localGroup.Speciality = Mapper.Map<Cist.Speciality, Local.BaseEntity<long>>(sp);
+                        Local.Group localGroup = MapConfig.Map<Cist.Group, Local.Group>(gr);
+                        localGroup.Faculty = MapConfig.Map<Cist.Faculty, Local.BaseEntity<long>>(fac);
+                        localGroup.Direction = MapConfig.Map<Cist.Direction, Local.BaseEntity<long>>(dir);
+                        localGroup.Speciality = MapConfig.Map<Cist.Speciality, Local.BaseEntity<long>>(sp);
                         return localGroup;
                     })))
                 )
@@ -327,8 +327,8 @@ namespace NureTimetable.DAL
                 .Departments.SelectMany(dep =>
                     dep.Teachers.Select(tr =>
                     {
-                        Local.Teacher localGroup = Mapper.Map<Cist.Teacher, Local.Teacher>(tr);
-                        localGroup.Department = Mapper.Map<Cist.Department, Local.BaseEntity<long>>(dep);
+                        Local.Teacher localGroup = MapConfig.Map<Cist.Teacher, Local.Teacher>(tr);
+                        localGroup.Department = MapConfig.Map<Cist.Department, Local.BaseEntity<long>>(dep);
                         return localGroup;
                     })
                 )
@@ -350,8 +350,8 @@ namespace NureTimetable.DAL
             IEnumerable<Local.Room> rooms = Singleton.Buildings.SelectMany(bd => bd
                 .Rooms.Select(rm =>
                 {
-                    Local.Room localGroup = Mapper.Map<Cist.Room, Local.Room>(rm);
-                    localGroup.Building = Mapper.Map<Cist.Building, Local.BaseEntity<string>>(bd);
+                    Local.Room localGroup = MapConfig.Map<Cist.Room, Local.Room>(rm);
+                    localGroup.Building = MapConfig.Map<Cist.Building, Local.BaseEntity<string>>(bd);
                     return localGroup;
                 })
             ).Distinct();

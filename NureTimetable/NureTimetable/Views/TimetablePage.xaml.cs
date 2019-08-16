@@ -84,7 +84,19 @@ namespace NureTimetable.Views
 
         async void Timetable_VisibleDatesChangedEvent(object sender, VisibleDatesChangedEventArgs e)
         {
-            visibleDates = e.visibleDates;
+            await UpdateTodayButton(false, e);
+        }
+
+        private async Task UpdateTodayButton(bool isForceUpdate, VisibleDatesChangedEventArgs visibleDatesChangedArgs = null)
+        {
+            if (visibleDatesChangedArgs != null)
+            {
+                visibleDates = visibleDatesChangedArgs.visibleDates;
+            }
+            if (visibleDates.Count == 0)
+            {
+                return;
+            }
 
             // Updating Today button
             if (visibleDates.Any(d => d.Date == DateTime.Now.Date))
@@ -94,7 +106,7 @@ namespace NureTimetable.Views
                     await BToday.ScaleTo(0, 250);
                 }
             }
-            else if (BToday.Scale == 0)
+            else if (isForceUpdate || BToday.Scale == 0)
             {
                 if (visibleDates[0].Date > DateTime.Now)
                 {
@@ -108,7 +120,7 @@ namespace NureTimetable.Views
             }
         }
 
-        private void ContentPage_Appearing(object sender, EventArgs e)
+        private async void ContentPage_Appearing(object sender, EventArgs e)
         {
             isPageVisible = true;
 
@@ -120,6 +132,7 @@ namespace NureTimetable.Views
             }
 
             UpdateTimeLeft();
+            await UpdateTodayButton(true);
             Device.StartTimer(TimeSpan.FromSeconds(1), UpdateTimeLeft);
         }
 
@@ -424,7 +437,7 @@ namespace NureTimetable.Views
                 icon = "bookmark";
                 message = "Показаны все события";
             }
-            HideSelectedEvents.Icon = icon;
+            HideSelectedEvents.IconImageSource = icon;
             DependencyService.Get<IMessage>().LongAlert(message);
 
             UpdateEventsWithUI();
@@ -432,7 +445,14 @@ namespace NureTimetable.Views
 
         void BToday_Clicked(object sender, EventArgs e)
         {
-            Timetable.MoveToDate = DateTime.Now;
+            DateTime today = DateTime.Now.Date;
+            if (Timetable.MaxDisplayDate < today || Timetable.MinDisplayDate > today)
+            {
+                DisplayAlert("Показать текущий день", "Расписание на текущий день не найдено", "Ok");
+                return;
+            }
+
+            Timetable.MoveToDate = today;
         }
     }
 }
