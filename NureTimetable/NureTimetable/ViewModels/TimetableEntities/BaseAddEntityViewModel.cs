@@ -201,7 +201,7 @@ namespace NureTimetable.ViewModels.TimetableEntities
 
                         Device.BeginInvokeOnMainThread(() =>
                         {
-                            App.Current.MainPage.DisplayAlert("Обновление информации об университете", "Не удалось обновить часть информациии об университете:" + failedEntities, "Ok");
+                            App.Current.MainPage.DisplayAlert("Обновление информации об университете", "Не удалось обновить часть информациии об университете:" + Environment.NewLine + failedEntities, "Ok");
                         });
                     }
                 }

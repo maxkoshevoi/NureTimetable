@@ -169,7 +169,7 @@ namespace NureTimetable.DAL
                 {
                     Uri uri = new Uri(Urls.CistAllGroupsUrl);
                     string responseStr = client.DownloadString(uri);
-                    Cist.University newUniversity = JsonConvert.DeserializeObject<Cist.UniversityRootObject>(responseStr).University;
+                    Cist.University newUniversity = Serialisation.FromJson<Cist.UniversityRootObject>(responseStr).University;
 
                     foreach (Cist.Faculty faculty in newUniversity.Faculties)
                     {
@@ -213,7 +213,7 @@ namespace NureTimetable.DAL
                 {
                     Uri uri = new Uri(Urls.CistAllTeachersUrl);
                     string responseStr = client.DownloadString(uri);
-                    Cist.University newUniversity = JsonConvert.DeserializeObject<Cist.UniversityRootObject>(responseStr).University;
+                    Cist.University newUniversity = Serialisation.FromJson<Cist.UniversityRootObject>(responseStr).University;
 
                     foreach (Cist.Faculty faculty in newUniversity.Faculties)
                     {
@@ -258,7 +258,7 @@ namespace NureTimetable.DAL
                     Uri uri = new Uri(Urls.CistAllRoomsUrl);
                     string responseStr = client.DownloadString(uri);
                     responseStr = responseStr.Replace("\n", "").Replace("[}]", "[]");
-                    Cist.University newUniversity = JsonConvert.DeserializeObject<Cist.UniversityRootObject>(responseStr).University;
+                    Cist.University newUniversity = Serialisation.FromJson<Cist.UniversityRootObject>(responseStr).University;
 
                     university.Buildings = newUniversity.Buildings;
 

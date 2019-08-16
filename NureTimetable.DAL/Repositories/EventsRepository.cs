@@ -103,7 +103,7 @@ namespace NureTimetable.DAL
                     string responseStr = client.DownloadString(uri);
                     responseStr = responseStr.Replace("&amp;", "&");
                     responseStr = responseStr.Replace("\"events\":[\n]}]", "\"events\": []");
-                    Cist.Timetable cistTimetable = JsonConvert.DeserializeObject<Cist.Timetable>(responseStr);
+                    Cist.Timetable cistTimetable = Serialisation.FromJson<Cist.Timetable>(responseStr);
 
                     // Updating timetable information
                     if (timetable == null)

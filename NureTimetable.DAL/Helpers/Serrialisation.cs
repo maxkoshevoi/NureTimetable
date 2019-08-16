@@ -1,10 +1,12 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Models.Consts;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using Xamarin.Forms;
 
 namespace NureTimetable.DAL.Helpers
@@ -61,7 +63,16 @@ namespace NureTimetable.DAL.Helpers
                 return (T)Convert.ChangeType(json, typeof(T));
             }
 
-            T instance = JsonConvert.DeserializeObject<T>(json);
+            T instance;
+            try
+            {
+                instance = JsonConvert.DeserializeObject<T>(json);
+            }
+            catch (JsonReaderException)
+            {
+                json = EscapeDoubleQuotesInJsonPropertyValues(json);
+                instance = JsonConvert.DeserializeObject<T>(json);
+            }
             return instance;
         }
 
@@ -106,6 +117,59 @@ namespace NureTimetable.DAL.Helpers
                 string newValue = replacementValues.FirstOrDefault(x => x.Value.Equals(value)).Key;
                 serializer.Serialize(writer, newValue);
             }
+        }
+        #endregion
+
+        #region JsonFixers
+        public static string EscapeDoubleQuotesInJsonPropertyValues(string invalidJsonStr)
+        {
+            var invalidJson = new StringBuilder(invalidJsonStr);
+
+            string[] stringStart =
+            {
+                "\":\"",
+                "\": \""
+            };
+            string[] stringEnd =
+            {
+                "\",",
+                "\"}",
+                "\"]",
+                "\",\""
+            };
+
+            foreach (string start in stringStart)
+            {
+                int lastStartIndex = -1,
+                    startIndex = invalidJson.IndexOf(start);
+
+                while (startIndex != -1)
+                {
+                    int endIndex = stringEnd
+                        .Select(end => invalidJson.IndexOf(end, startIndex + start.Length + 1))
+                        .Where(index => index != -1)
+                        .DefaultIfEmpty(-1)
+                        .Min();
+                    if (endIndex == -1)
+                    {
+                        break;
+                    }
+
+                    int innerStringStart = startIndex + start.Length, innerStringLength = endIndex - innerStringStart;
+                    string newString = invalidJson.ToString(innerStringStart, innerStringLength);
+                    if (newString.IndexOf('\"') != -1)
+                    {
+                        invalidJson.Remove(innerStringStart, innerStringLength);
+                        newString = newString.Replace("\"", "\\\"");
+                        invalidJson.Insert(innerStringStart, newString);
+                    }
+
+                    lastStartIndex = startIndex;
+                    startIndex = invalidJson.IndexOf(start, lastStartIndex + 1);
+                }
+            }
+
+            return invalidJson.ToString();
         }
         #endregion
     }
