@@ -1,4 +1,5 @@
-﻿using NureTimetable.Models.System;
+﻿using NureTimetable.Core.Localization;
+using NureTimetable.Models.System;
 using System.Collections.Generic;
 
 using Xamarin.Forms;
@@ -11,20 +12,21 @@ namespace NureTimetable.Views
     {
         MainPage RootPage { get => Application.Current.MainPage as MainPage; }
         List<HomeMenuItem> menuItems;
+
         public MenuPage()
         {
             InitializeComponent();
 
             menuItems = new List<HomeMenuItem>
             {
-                new HomeMenuItem {Id = MenuItemType.Timetable, Title="Расписание" },
-                new HomeMenuItem {Id = MenuItemType.About, Title="О программе" },
-                new HomeMenuItem {Id = MenuItemType.Donate, Title="Пожертвовать" }
+                new HomeMenuItem { Id = MenuItemType.Timetable, Title = LN.Timetable },
+                new HomeMenuItem { Id = MenuItemType.About, Title = LN.About },
+                new HomeMenuItem { Id = MenuItemType.Donate, Title = LN.Donate }
             };
 
             ListViewMenu.ItemsSource = menuItems;
-
             ListViewMenu.SelectedItem = menuItems[0];
+
             ListViewMenu.ItemSelected += async (sender, e) =>
             {
                 if (e.SelectedItem == null)

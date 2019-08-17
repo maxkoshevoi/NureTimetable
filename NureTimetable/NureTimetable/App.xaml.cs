@@ -1,12 +1,13 @@
-﻿using NureTimetable.Core.Models.Consts;
-using NureTimetable.Views;
-using Syncfusion.Licensing;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-using NureTimetable.DAL;
-using Microsoft.AppCenter;
+﻿using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
+using NureTimetable.Core.Localization;
+using NureTimetable.Core.Models.Consts;
+using NureTimetable.Views;
+using Syncfusion.Licensing;
+using System.Globalization;
+using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace NureTimetable
@@ -25,6 +26,13 @@ namespace NureTimetable
             //Register Syncfusion license
             SyncfusionLicenseProvider.RegisterLicense(Keys.SyncfusionLicenseKey);
             
+            // Force Russian language for Ukraine
+            // TODO: Translate application to ukrainian
+            if (CultureInfo.CurrentCulture.TwoLetterISOLanguageName == "uk")
+            {
+                LN.Culture = CultureInfo.CurrentCulture = new CultureInfo("ru");
+            }
+
             InitializeComponent();
             MainPage = new MainPage();
         }

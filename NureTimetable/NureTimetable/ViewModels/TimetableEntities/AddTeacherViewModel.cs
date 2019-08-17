@@ -1,6 +1,7 @@
 ﻿using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
 using System.Collections.Generic;
+using NureTimetable.Core.Localization;
 using System.Linq;
 using Xamarin.Forms;
 
@@ -12,7 +13,7 @@ namespace NureTimetable.ViewModels.TimetableEntities
         {
         }
 
-        public override string Title { get; } = "Преподаватели";
+        public override string Title { get; } = LN.Teachers;
 
         protected override List<Teacher> GetAllEntitiesFromCist()
         {

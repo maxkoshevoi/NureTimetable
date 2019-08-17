@@ -13,7 +13,8 @@ namespace NureTimetable.ViewModels.Info
 
         public bool IsDebugModeActive
         {
-            get => App.IsDebugMode; set
+            get => App.IsDebugMode;
+            set
             {
                 App.IsDebugMode = value;
             }

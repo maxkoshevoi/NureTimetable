@@ -10,6 +10,7 @@ namespace NureTimetable.Models.System
         About,
         Donate
     }
+
     public class HomeMenuItem
     {
         public MenuItemType Id { get; set; }

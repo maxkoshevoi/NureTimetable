@@ -1,4 +1,5 @@
-﻿using NureTimetable.Core.Models.Consts;
+﻿using NureTimetable.Core.Localization;
+using NureTimetable.Core.Models.Consts;
 using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
 using NureTimetable.Services.Helpers;
@@ -51,35 +52,37 @@ namespace NureTimetable.ViewModels.TimetableEntities
 
             public async Task SettingsClicked()
             {
-                List<string> actionList = new List<string> { "Обновить расписание", "Настроить отображение предметов", "Удалить" };
+                List<string> actionList = new List<string> { LN.UpdateTimetable, LN.SetUpLessonDisplay, LN.Delete };
                 if (!IsSelected)
                 {
-                    actionList.Insert(0, "Выбрать");
+                    actionList.Insert(0, LN.Select);
                 }
                 if (Device.RuntimePlatform == Device.Android 
                     && CrossDeviceInfo.Current.VersionNumber.Major > 0 
                     && CrossDeviceInfo.Current.VersionNumber.Major < 5)
                 {
                     // SfCheckBox doesn`t support Android 4
-                    actionList.Remove("Настроить отображение предметов");
+                    actionList.Remove(LN.SetUpLessonDisplay);
                 }
-                string action = await App.Current.MainPage.DisplayActionSheet("Выберите действие:", "Отмена", null, actionList.ToArray());
-                switch (action)
+
+                string action = await App.Current.MainPage.DisplayActionSheet(LN.ChooseAction, LN.Cancel, null, actionList.ToArray());
+                if (action == LN.Select)
                 {
-                    case "Выбрать":
-                        UniversityEntitiesRepository.UpdateSelected(SavedEntity);
-                        await _manageEntitiesViewModel.Navigation.PopToRootAsync();
-                        break;
-                    case "Обновить расписание":
-                        await _manageEntitiesViewModel.UpdateTimetable(SavedEntity);
-                        break;
-                    case "Настроить отображение предметов":
-                        await _manageEntitiesViewModel.Navigation.PushAsync(new ManageLessonsPage(SavedEntity));
-                        break;
-                    case "Удалить":
-                        _manageEntitiesViewModel.Entities.Remove(this);
-                        UniversityEntitiesRepository.UpdateSaved(_manageEntitiesViewModel.Entities.Select(vm => vm.SavedEntity).ToList());
-                        break;
+                    UniversityEntitiesRepository.UpdateSelected(SavedEntity);
+                    await _manageEntitiesViewModel.Navigation.PopToRootAsync();
+                }
+                else if (action == LN.UpdateTimetable)
+                {
+                    await _manageEntitiesViewModel.UpdateTimetable(SavedEntity);
+                }
+                else if (action == LN.SetUpLessonDisplay)
+                {
+                    await _manageEntitiesViewModel.Navigation.PushAsync(new ManageLessonsPage(SavedEntity));
+                }
+                else if (action == LN.Delete)
+                {
+                    _manageEntitiesViewModel.Entities.Remove(this);
+                    UniversityEntitiesRepository.UpdateSaved(_manageEntitiesViewModel.Entities.Select(vm => vm.SavedEntity).ToList());
                 }
             }
         }
@@ -169,7 +172,7 @@ namespace NureTimetable.ViewModels.TimetableEntities
             {
                 return;
             }
-            if (await App.Current.MainPage.DisplayAlert("Обновление расписания", "Обновить все сохранённые расписания?", "Да", "Отмена"))
+            if (await App.Current.MainPage.DisplayAlert(LN.TimetableUpdate, LN.UpdateAllTimetables, LN.Yes, LN.Cancel))
             {
                 await UpdateTimetable(Entities?.Select(vm => vm.SavedEntity).ToArray());
             }
@@ -210,7 +213,7 @@ namespace NureTimetable.ViewModels.TimetableEntities
             List<SavedEntity> entitiesAllowed = SettingsRepository.CheckCistTimetableUpdateRights(entities);
             if (entitiesAllowed.Count == 0)
             {
-                await App.Current.MainPage.DisplayAlert("Обновление расписания", "У вас уже загружена последняя версия расписания", "Ок");
+                await App.Current.MainPage.DisplayAlert(LN.TimetableUpdate, LN.TimetableLatest, LN.Ok);
                 return;
             }
 
@@ -234,18 +237,18 @@ namespace NureTimetable.ViewModels.TimetableEntities
                 string result = "";
                 if (success.Count > 0)
                 {
-                    result += $"Расписание успешно обновлено: {string.Join(", ", success)}{Environment.NewLine}";
+                    result += string.Format(LN.TimetableUpdated, string.Join(", ", success) + Environment.NewLine);
                 }
                 if (fail.Count > 0)
                 {
-                    result += $"Произошла ошибка: {string.Join(", ", fail)}";
+                    result += string.Format(LN.ErrorOccurred, string.Join(", ", fail));
                 }
 
                 Device.BeginInvokeOnMainThread(async () =>
                 {
                     IsProgressVisable = false;
                     IsEntitiesLayoutEnabled = true;
-                    if (await App.Current.MainPage.DisplayAlert("Обновление расписания", result, "К расписанию", "Ok"))
+                    if (await App.Current.MainPage.DisplayAlert(LN.TimetableUpdate, result, LN.ToTimetable, LN.Ok))
                     {
                         await Navigation.PopToRootAsync();
                     }
