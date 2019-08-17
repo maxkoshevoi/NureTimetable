@@ -13,12 +13,11 @@
 
     <AbsoluteLayout>
         <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
-            <ListView
-                x:Name="LessonsList"
-                ItemsSource="{Binding lessons}"
-                HasUnevenRows="True"
-                ItemTapped="Handle_ItemTapped"
-                CachingStrategy="RecycleElement">
+            <ListView x:Name="LessonsList"
+                    ItemsSource="{Binding lessons}"
+                    HasUnevenRows="True"
+                    ItemTapped="Handle_ItemTapped"
+                    CachingStrategy="RecycleElement">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -27,7 +26,7 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <Label Grid.Column="0" Text="{Binding ShortName}" VerticalOptions="Center" Style="{DynamicResource ListItemTextStyle}" />
+                                <Label Grid.Column="0" Text="{Binding Lesson.ShortName}" VerticalOptions="Center" Style="{DynamicResource ListItemTextStyle}" />
                                 <syncfusion:SfCheckBox Grid.Column="1" IsChecked="{Binding Settings.Hiding.ShowLesson}" CheckedColor="DeepSkyBlue"/>
                             </Grid>
                         </ViewCell>
@@ -36,10 +35,10 @@
             </ListView>
         </StackLayout>
         <StackLayout x:Name="NoSourceLayout" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="False">
-            <Label 
-                Text="{LN:Translate EmptyLessonsList}"
-                VerticalOptions="CenterAndExpand"
-                HorizontalOptions="CenterAndExpand" />
+            <Label Text="{LN:Translate EmptyLessonsList}"
+                    VerticalOptions="CenterAndExpand" 
+                    HorizontalOptions="CenterAndExpand" 
+                    HorizontalTextAlignment="Center" />
         </StackLayout>
     </AbsoluteLayout>
 </ContentPage>

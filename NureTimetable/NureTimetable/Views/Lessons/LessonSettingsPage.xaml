@@ -5,12 +5,11 @@
              xmlns:syncfusion="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
              x:Class="NureTimetable.Views.Lessons.LessonSettingsPage">
 
-    <ListView 
-        x:Name="LessonsEventTypes"
-        Margin="10,10,10,10"
-        HasUnevenRows="True"
-        CachingStrategy="RecycleElement"
-        ItemTapped="LessonsEventTypes_ItemTapped">
+    <ListView x:Name="LessonsEventTypes"
+            Margin="10,10,10,10"
+            HasUnevenRows="True"
+            CachingStrategy="RecycleElement"
+            ItemTapped="LessonsEventTypes_ItemTapped">
         <ListView.Header>
             <StackLayout>
                 <syncfusion:SfCheckBox 

@@ -1,20 +1,15 @@
-﻿using NureTimetable.DAL;
-using NureTimetable.Helpers;
-using NureTimetable.Models;
+﻿using NureTimetable.DAL.Models.Local;
 using Syncfusion.XForms.Buttons;
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace NureTimetable.Views.Lessons
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
+    [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class LessonSettingsPage : ContentPage
     {
         LessonInfo lessonInfo;
@@ -23,7 +18,8 @@ namespace NureTimetable.Views.Lessons
 
         private class CheckedEventType : INotifyPropertyChanged
         {
-            public string EventType { get; set; }
+            public EventType EventType { get; set; }
+
             public bool IsChecked { get; set; }
 
             #region INotifyPropertyChanged
@@ -35,10 +31,10 @@ namespace NureTimetable.Views.Lessons
             #endregion
         }
 
-        public LessonSettingsPage (LessonInfo lessonInfo)
+        public LessonSettingsPage (LessonInfo lessonInfo, List<EventType> eventTypes)
 		{
 			InitializeComponent ();
-            Title = lessonInfo.LongName;
+            Title = lessonInfo.Lesson.FullName;
 
             this.lessonInfo = lessonInfo;
             updatingProgrammatically = true;
@@ -46,14 +42,14 @@ namespace NureTimetable.Views.Lessons
             LessonNotes.Text = lessonInfo.Notes;
             updatingProgrammatically = false;
 
-            eventTypes = lessonInfo.EventTypesInfo.Select(et => et.Name)
+            this.eventTypes = eventTypes
                 .Select(et => new CheckedEventType
                 {
                     EventType = et
                 })
-                .OrderBy(et => et.EventType)
+                .OrderBy(et => et.EventType.ShortName)
                 .ToList();
-            LessonsEventTypes.ItemsSource = eventTypes;
+            LessonsEventTypes.ItemsSource = this.eventTypes;
             UpdateEventTypesCheck();
         }
         
@@ -61,6 +57,7 @@ namespace NureTimetable.Views.Lessons
         {
             lessonInfo.Settings.Hiding.ShowLesson = ShowLesson.IsChecked;
             UpdateEventTypesCheck();
+
             Device.BeginInvokeOnMainThread(() =>
             {
                 MessagingCenter.Send(this, "OneLessonSettingsChanged", lessonInfo);
@@ -84,7 +81,7 @@ namespace NureTimetable.Views.Lessons
             {
                 foreach (CheckedEventType eventType in eventTypes)
                 {
-                    eventType.IsChecked = !lessonInfo.Settings.Hiding.HideOnlyThisEventTypes.Contains(eventType.EventType);
+                    eventType.IsChecked = !lessonInfo.Settings.Hiding.HideOnlyThisEventTypes.Contains(eventType.EventType.ID);
                     eventType.NotifyChanged();
                 }
             }
@@ -93,11 +90,11 @@ namespace NureTimetable.Views.Lessons
 
         private void EventType_StateChanged(object sender, StateChangedEventArgs e)
         {
-            string name = ((SfCheckBox)sender).Text;
-            lessonInfo.Settings.Hiding.HideOnlyThisEventTypes.RemoveAll(item => item == name);
+            CheckedEventType eventType = (CheckedEventType)((SfCheckBox)sender).BindingContext;
+            lessonInfo.Settings.Hiding.HideOnlyThisEventTypes.RemoveAll(id => id == eventType.EventType.ID);
             if (e.IsChecked == false)
             {
-                lessonInfo.Settings.Hiding.HideOnlyThisEventTypes.Add(name);
+                lessonInfo.Settings.Hiding.HideOnlyThisEventTypes.Add(eventType.EventType.ID);
             }
             UpdateShowLessonCheck();
         }
@@ -111,7 +108,7 @@ namespace NureTimetable.Views.Lessons
             {
                 ShowLesson.IsChecked = true;
             }
-            else if (lessonInfo.Settings.Hiding.HideOnlyThisEventTypes.Count == lessonInfo.EventTypesInfo.Count)
+            else if (lessonInfo.Settings.Hiding.HideOnlyThisEventTypes.Count == eventTypes.Count)
             {
                 ShowLesson.IsChecked = false;
             }

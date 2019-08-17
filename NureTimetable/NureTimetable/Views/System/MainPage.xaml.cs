@@ -1,13 +1,13 @@
-﻿using NureTimetable.Models.Consts;
+﻿using Microsoft.AppCenter.Analytics;
+using NureTimetable.Core.Models.Consts;
 using NureTimetable.Models.System;
+using NureTimetable.UI.Views.Info;
+using NureTimetable.ViewModels.Info;
 using NureTimetable.Views.Info;
 using NureTimetable.Core.Localization;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using NureTimetable.UI.Views.Info;
-using NureTimetable.ViewModels;
-using NureTimetable.ViewModels.Info;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -30,6 +30,15 @@ namespace NureTimetable.Views
                 {
                     DisplayAlert(LN.ErrorDetails, ex.ToString(), LN.Ok);
                 }
+#if !DEBUG
+                Analytics.TrackEvent(ex.ToString(), new Dictionary<string, string>()
+                {
+                    { "Message", ex.Message },
+                    { "Stack", ex.StackTrace },
+                    { "TargetSite", ex.TargetSite.ToString() },
+                    { "Source", ex.Source }
+                });
+#endif
             });
         }
 
@@ -43,7 +52,10 @@ namespace NureTimetable.Views
                         MenuPages.Add(id, new NavigationPage(new TimetablePage()));
                         break;
                     case (int)MenuItemType.About:
-                        MenuPages.Add(id, new NavigationPage(new AboutPage() {BindingContext = new InfoViewModel()}));
+                        MenuPages.Add(id, new NavigationPage(new AboutPage()
+                        {
+                            BindingContext = new AboutViewModel()
+                        }));
                         break;
                     case (int)MenuItemType.Donate:
                         MenuPages.Add(id, new NavigationPage(new DonatePage()));

@@ -69,7 +69,37 @@
                     <Label.FormattedText>
                         <FormattedString>
                             <FormattedString.Spans>
-                                <Span Text="{LN:Translate HelpfulLinks}" FontAttributes="Bold" FontSize="16" />
+                                <Span Text="Обратная связь: " FontAttributes="Bold" FontSize="16" />
+                            </FormattedString.Spans>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label>
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <FormattedString.Spans>
+                                <Span Text="Новости приложения" ForegroundColor="{StaticResource LightTextColor}" TextDecorations="Underline">
+                                    <Span.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding NavigateUriCommand}"
+                                          CommandParameter="https://t.me/nuretimetable_channel" />
+                                    </Span.GestureRecognizers>
+                                </Span>
+                                <Span Text=", " />
+                                <Span Text="Группа приложения" ForegroundColor="{StaticResource LightTextColor}" TextDecorations="Underline">
+                                    <Span.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding NavigateUriCommand}"
+                                          CommandParameter="https://t.me/nuretimetable_group" />
+                                    </Span.GestureRecognizers>
+                                </Span>
+                            </FormattedString.Spans>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label Margin="0,15,0,0">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <FormattedString.Spans>
+                                <Span Text="Полезные ссылки: " FontAttributes="Bold" FontSize="16" />
                             </FormattedString.Spans>
                         </FormattedString>
                     </Label.FormattedText>

@@ -1,15 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="NureTimetable.Views.TimetablePage"
-             xmlns:syncfusion="clr-namespace:Syncfusion.SfSchedule.XForms;assembly=Syncfusion.SfSchedule.XForms"
              xmlns:LN="clr-namespace:NureTimetable.Core.Localization;assembly=NureTimetable.Core"
+             xmlns:syncfusion="clr-namespace:Syncfusion.SfSchedule.XForms;assembly=Syncfusion.SfSchedule.XForms"
+             xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             x:Class="NureTimetable.Views.TimetablePage"
              Appearing="ContentPage_Appearing"
              Disappearing="ContentPage_Disappearing"
              SizeChanged="ContentPage_SizeChanged"
              Title="{LN:Translate AppName}">
-    
+
     <ContentPage.ToolbarItems>
+        <ToolbarItem Icon="bookmark_border" Clicked="HideSelectedEvents_Clicked" x:Name="HideSelectedEvents" />
         <ToolbarItem Icon="today" Clicked="Today_Clicked" x:Name="Today" />
         <ToolbarItem Icon="group" Clicked="ManageGroups_Clicked" x:Name="ManageGroups" />
     </ContentPage.ToolbarItems>
@@ -31,7 +33,8 @@
                         ScheduleView="WeekView"
                         ShowAppointmentsInline="True"
                         CellTapped="Timetable_CellTapped"
-                        MonthInlineAppointmentTapped="Timetable_MonthInlineAppointmentTapped">
+                        MonthInlineAppointmentTapped="Timetable_MonthInlineAppointmentTapped"
+                        VisibleDatesChangedEvent="Timetable_VisibleDatesChangedEvent">
                     <syncfusion:SfSchedule.HeaderStyle>
                         <syncfusion:HeaderStyle FontSize="10" FontAttributes="Bold"/>
                     </syncfusion:SfSchedule.HeaderStyle>
@@ -45,6 +48,13 @@
                             </syncfusion:WeekViewSettings.WeekLabelSettings>
                         </syncfusion:WeekViewSettings>
                     </syncfusion:SfSchedule.WeekViewSettings>
+                    <syncfusion:SfSchedule.DayViewSettings>
+                        <syncfusion:DayViewSettings WorkStartHour="0" WorkEndHour="24">
+                            <syncfusion:DayViewSettings.DayLabelSettings>
+                                <syncfusion:DayLabelSettings TimeFormat="HH:mm"/>
+                            </syncfusion:DayViewSettings.DayLabelSettings>
+                        </syncfusion:DayViewSettings>
+                    </syncfusion:SfSchedule.DayViewSettings>
                     <syncfusion:SfSchedule.MonthViewSettings>
                         <syncfusion:MonthViewSettings AppointmentIndicatorCount = "6" />
                     </syncfusion:SfSchedule.MonthViewSettings>
@@ -53,17 +63,34 @@
 			                SubjectMapping="DisplayInfo"
 			                StartTimeMapping="Start"
 			                EndTimeMapping="End"
-                            NotesMapping="Type"
-                            LocationMapping="Room"
-                            ColorMapping="Color">
+                            ColorMapping="Color"
+                            >
                         </syncfusion:ScheduleAppointmentMapping>
                     </syncfusion:SfSchedule.AppointmentMapping>
                 </syncfusion:SfSchedule>
             </StackLayout>
+            <buttons:SfButton 
+                x:Name="BToday" 
+                HorizontalOptions="Center"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                AbsoluteLayout.LayoutBounds="1,1,AutoSize,AutoSize"
+                FontFamily="{StaticResource MaterialFontFamily}" 
+                CornerRadius="100"
+                FontSize="20"
+                Margin="20"
+                WidthRequest="47" 
+                HeightRequest="47" 
+                BackgroundColor="#03A9F4" 
+                TextColor="White"
+                HasShadow="True"
+                ShadowColor="#cccccc"
+                Clicked="BToday_Clicked"
+                Scale="0"/>
             <StackLayout x:Name="NoSourceLayout" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="False">
                 <Label Text="{LN:Translate AddGroup}"
                     VerticalOptions="CenterAndExpand" 
-                    HorizontalOptions="CenterAndExpand" />
+                    HorizontalOptions="CenterAndExpand"
+                    HorizontalTextAlignment="Center" />
             </StackLayout>
             <StackLayout x:Name="ProgressLayout" IsVisible="False" Padding="12"
                     AbsoluteLayout.LayoutFlags="PositionProportional"

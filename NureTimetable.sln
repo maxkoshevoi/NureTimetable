@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NureTimetable.Services", "N
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NureTimetable.UI", "NureTimetable.UI\NureTimetable.UI.csproj", "{D06BF130-7991-445B-9B32-0BE8299EEE12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NureTimetable.Core", "NureTimetable.Core\NureTimetable.Core.csproj", "{7212568B-A874-4DDF-AA58-67A8D57D0F81}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NureTimetable.Core", "NureTimetable.Core\NureTimetable.Core.csproj", "{7212568B-A874-4DDF-AA58-67A8D57D0F81}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NureTimetable.DAL", "NureTimetable.DAL\NureTimetable.DAL.csproj", "{F54449F5-4F83-432F-AAB5-B7F624EA1F67}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +45,10 @@ Global
 		{7212568B-A874-4DDF-AA58-67A8D57D0F81}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7212568B-A874-4DDF-AA58-67A8D57D0F81}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7212568B-A874-4DDF-AA58-67A8D57D0F81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F54449F5-4F83-432F-AAB5-B7F624EA1F67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F54449F5-4F83-432F-AAB5-B7F624EA1F67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F54449F5-4F83-432F-AAB5-B7F624EA1F67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F54449F5-4F83-432F-AAB5-B7F624EA1F67}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

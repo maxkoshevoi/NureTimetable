@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="3.5.0.169047" />
+    <PackageReference Include="Xamarin.Forms" Version="4.1.0.673156" />
   </ItemGroup>
 
   <ItemGroup>
@@ -13,15 +13,24 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Views\Groups\AddGroupPage.xaml.cs">
-      <DependentUpon>%(Filename)</DependentUpon>
+    <Compile Update="Views\TimetableEntities\AddTimetablePage.xaml.cs">
+      <DependentUpon>AddTimetablePage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\Groups\ManageGroupsPage.xaml.cs">
-      <DependentUpon>%(Filename)</DependentUpon>
+    <Compile Update="Views\TimetableEntities\AddEntityPage.xaml.cs">
+      <DependentUpon>AddEntityPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\TimetableEntities\ManageEntitiesPage.xaml.cs">
+      <DependentUpon>ManageEntitiesPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\Info\AboutPage.xaml.cs">
       <DependentUpon>%(Filename)</DependentUpon>
     </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Views\TimetableEntities\AddTimetablePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>
