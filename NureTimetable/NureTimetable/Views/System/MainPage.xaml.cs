@@ -4,6 +4,7 @@ using NureTimetable.Models.System;
 using NureTimetable.UI.Views.Info;
 using NureTimetable.ViewModels.Info;
 using NureTimetable.Views.Info;
+using NureTimetable.Core.Localization;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -27,7 +28,7 @@ namespace NureTimetable.Views
             {
                 if (App.IsDebugMode)
                 {
-                    DisplayAlert("Детали ошибки:", ex.ToString(), "Ok");
+                    DisplayAlert(LN.ErrorDetails, ex.ToString(), LN.Ok);
                 }
 #if !DEBUG
                 Analytics.TrackEvent(ex.ToString(), new Dictionary<string, string>()

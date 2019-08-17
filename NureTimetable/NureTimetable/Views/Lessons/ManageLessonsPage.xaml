@@ -1,10 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:LN="clr-namespace:NureTimetable.Core.Localization;assembly=NureTimetable.Core"
              x:Class="NureTimetable.Views.Lessons.ManageLessonsPage"
              xmlns:syncfusion="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
              Appearing="ContentPage_Appearing"
-             Title="Предметы">
+             Title="{LN:Translate Lessons}">
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Icon="save" Clicked="Save_Clicked" x:Name="Save" />
@@ -34,7 +35,7 @@
             </ListView>
         </StackLayout>
         <StackLayout x:Name="NoSourceLayout" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="False">
-            <Label Text="В текущем расписании отсутствуют предметы (возможно оно пустое)."
+            <Label Text="{LN:Translate EmptyLessonsList}"
                     VerticalOptions="CenterAndExpand" 
                     HorizontalOptions="CenterAndExpand" 
                     HorizontalTextAlignment="Center" />

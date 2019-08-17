@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:LN="clr-namespace:NureTimetable.Core.Localization;assembly=NureTimetable.Core"
              xmlns:syncfusion="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
              x:Class="NureTimetable.Views.Lessons.LessonSettingsPage">
 
@@ -11,21 +12,33 @@
             ItemTapped="LessonsEventTypes_ItemTapped">
         <ListView.Header>
             <StackLayout>
-                <syncfusion:SfCheckBox x:Name="ShowLesson" CheckedColor="DeepSkyBlue" StateChanged="ShowLesson_StateChanged" Text="Отображать предмет" />
-                <Label Text="Отображать типы занятий для этого предмета: " />
+                <syncfusion:SfCheckBox 
+                    x:Name="ShowLesson"
+                    CheckedColor="DeepSkyBlue"
+                    StateChanged="ShowLesson_StateChanged"
+                    Text="{LN:Translate DisplayLesson}" />
+                <Label Text="{LN:Translate DisplayLessonsForTypes}" />
             </StackLayout>
         </ListView.Header>
         <ListView.ItemTemplate>
             <DataTemplate>
                 <ViewCell>
-                    <syncfusion:SfCheckBox CheckedColor="DeepSkyBlue" Margin="10,5,10,5" StateChanged="EventType_StateChanged" Text="{Binding EventType.ShortName}" IsChecked="{Binding IsChecked}"/>
+                    <syncfusion:SfCheckBox 
+                        CheckedColor="DeepSkyBlue"
+                        Margin="10,5,10,5"
+                        StateChanged="EventType_StateChanged"
+                        Text="{Binding EventType.ShortName}"
+                        IsChecked="{Binding IsChecked}" />
                 </ViewCell>
             </DataTemplate>
         </ListView.ItemTemplate>
         <ListView.Footer>
             <StackLayout Margin="0,20,0,0">
-                <Label Text="Заметки: " />
-                <Editor HeightRequest="84" x:Name="LessonNotes" TextChanged="LessonNotes_TextChanged" />
+                <Label Text="{LN:Translate Notes}" />
+                <Editor 
+                    HeightRequest="84" 
+                    x:Name="LessonNotes" 
+                    TextChanged="LessonNotes_TextChanged" />
             </StackLayout>
         </ListView.Footer>
     </ListView>

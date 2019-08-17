@@ -4,8 +4,7 @@
              x:Class="NureTimetable.Views.MenuPage"
              Title="Menu">
     <StackLayout VerticalOptions="FillAndExpand">
-        <ListView x:Name="ListViewMenu"
-                    HasUnevenRows="True">
+        <ListView x:Name="ListViewMenu" HasUnevenRows="True">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>

@@ -1,4 +1,5 @@
-﻿using NureTimetable.DAL;
+﻿using NureTimetable.Core.Localization;
+using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
 using System;
 using System.Collections.Generic;
@@ -58,7 +59,7 @@ namespace NureTimetable.Views.Lessons
         {
             if (lessons == null)
             {
-                DisplayAlert("Управление предметами", "Для управления предметами необходимо сначала загрузить расписание.", "Ok");
+                DisplayAlert(LN.LessonsManagement, LN.AtFirstLoadTimetable, LN.Ok);
                 Navigation.PopAsync();
                 return;
             }
@@ -79,7 +80,7 @@ namespace NureTimetable.Views.Lessons
         private void Save_Clicked(object sender, EventArgs e)
         {
             EventsRepository.UpdateLessonsInfo(timetable.Entity, lessons.ToList());
-            DisplayAlert("Сохранение настроек", $"Настройки предметов для \"{timetable.Entity.Name}\" успешно сохранены.", "Ok");
+            DisplayAlert(LN.SavingSettings, string.Format(LN.EntityLessonSettingsSaved, timetable.Entity.Name), LN.Ok);
             Navigation.PopAsync();
         }
     }
