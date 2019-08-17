@@ -183,8 +183,8 @@
   <data name="EventType" xml:space="preserve">
     <value>Тип: {0}</value>
   </data>
-  <data name="GroupSettingsSaved" xml:space="preserve">
-    <value>Настройки предметов для группы {0} сохранены.</value>
+  <data name="EntityLessonSettingsSaved" xml:space="preserve">
+    <value>Настройки предметов для "{0}" успешно сохранены.</value>
   </data>
   <data name="IsFree" xml:space="preserve">
     <value>бесплатное </value>
@@ -226,10 +226,10 @@
     <value>Произошла ошибка при попытке отобразить расписание</value>
   </data>
   <data name="TimeUntilBreak" xml:space="preserve">
-    <value>Время до перерыва: {0}</value>
+    <value>До перерыва: {0}</value>
   </data>
   <data name="TimeUntilLesson" xml:space="preserve">
-    <value>Время до {0} - {1}: {2}</value>
+    <value>До {0} ({1}): {2}</value>
   </data>
   <data name="Wait" xml:space="preserve">
     <value>Подождите...</value>
@@ -289,7 +289,7 @@
     <value>Выбрать</value>
   </data>
   <data name="SetUpLessonDisplay" xml:space="preserve">
-    <value>Настроить отображение предметов</value>
+    <value>Настройки предметов</value>
   </data>
   <data name="TimetableLatest" xml:space="preserve">
     <value>У вас уже загружена последняя версия расписания</value>
@@ -310,21 +310,115 @@
     <value>Да</value>
   </data>
   <data name="AtFirstLoadTimetable" xml:space="preserve">
-    <value>At first, you need to load group timetable.</value>
+    <value>Для управления предметами необходимо сначала загрузить расписание.</value>
   </data>
   <data name="ErrorDetails" xml:space="preserve">
     <value>Детали ошибки</value>
   </data>
   <data name="LessonsManagement" xml:space="preserve">
-    <value>Lessons management</value>
+    <value>Управление предметами</value>
   </data>
   <data name="Purchase" xml:space="preserve">
-    <value>Purchase</value>
+    <value>Покупка</value>
   </data>
   <data name="PurchaseFailed" xml:space="preserve">
-    <value>Something went wrong, purchase failed.</value>
+    <value>Что-то пошло не так, покупка не удалась.</value>
   </data>
   <data name="ThanksForYourSupport" xml:space="preserve">
-    <value>Thanks for your support!</value>
+    <value>Спасибо за вашу поддержку!</value>
+  </data>
+  <data name="EventGroups" xml:space="preserve">
+    <value>Группы: {0}</value>
+  </data>
+  <data name="AddingTimetable" xml:space="preserve">
+    <value>Добавление расписания</value>
+  </data>
+  <data name="AllEventsShown" xml:space="preserve">
+    <value>Показаны все события</value>
+  </data>
+  <data name="AppGroup" xml:space="preserve">
+    <value>Группа приложения</value>
+  </data>
+  <data name="AppNews" xml:space="preserve">
+    <value>Новости приложения</value>
+  </data>
+  <data name="ChooseDisplayMode" xml:space="preserve">
+    <value>Выберите вид:</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>День</value>
+  </data>
+  <data name="DebugModeHeader" xml:space="preserve">
+    <value>И, на всякий случай, оставлю здесь вот это.</value>
+  </data>
+  <data name="ErrorOccurred" xml:space="preserve">
+    <value>Произошла ошибка: {0}</value>
+  </data>
+  <data name="Feedback" xml:space="preserve">
+    <value>Обратная связь: </value>
+  </data>
+  <data name="Groups" xml:space="preserve">
+    <value>Группы</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Месяц</value>
+  </data>
+  <data name="NoSavedTimetables" xml:space="preserve">
+    <value>У вас нет ни одного сохранённого расписания.</value>
+  </data>
+  <data name="NoTodayTimetable" xml:space="preserve">
+    <value>Расписание на текущий день не найдено</value>
+  </data>
+  <data name="NoUniversityInfo" xml:space="preserve">
+    <value>Данные отсутствуют.
+Для обновления нажмите на кнопку в правом верхнем углу.</value>
+  </data>
+  <data name="Rooms" xml:space="preserve">
+    <value>Аудитории</value>
+  </data>
+  <data name="SavedTimetables" xml:space="preserve">
+    <value>Сохранённые расписания</value>
+  </data>
+  <data name="SelectedEventsShown" xml:space="preserve">
+    <value>Показаны выбранные события</value>
+  </data>
+  <data name="ShowToday" xml:space="preserve">
+    <value>Показать текущий день</value>
+  </data>
+  <data name="Teachers" xml:space="preserve">
+    <value>Преподаватели</value>
+  </data>
+  <data name="TimetableAlreadySaved" xml:space="preserve">
+    <value>Расписание "{0}" уже находится в сохранённых</value>
+  </data>
+  <data name="TimetableSaved" xml:space="preserve">
+    <value>Расписание "{0}" добавлено в сохранённые</value>
+  </data>
+  <data name="TimetableUpdated" xml:space="preserve">
+    <value>Расписание успешно обновлено: {0}</value>
+  </data>
+  <data name="UniversityInfoUpdate" xml:space="preserve">
+    <value>Обновление информации об университете</value>
+  </data>
+  <data name="UniversityInfoUpdateConfirm" xml:space="preserve">
+    <value>Вы уверены, что хотите обновить информацию об университете из Cist?</value>
+  </data>
+  <data name="UniversityInfoUpdateFail" xml:space="preserve">
+    <value>Не удалось обновить информацию об университете. Пожалуйста, попробуйте позже.</value>
+  </data>
+  <data name="UniversityInfoUpdatePartiallyFail" xml:space="preserve">
+    <value>Не удалось обновить часть информации об университете: {0}</value>
+  </data>
+  <data name="UniversityInfoUpToDate" xml:space="preserve">
+    <value>У вас уже загружена последняя версия информации об университете</value>
+  </data>
+  <data name="UpdateAllTimetables" xml:space="preserve">
+    <value>Обновить все сохранённые расписания?</value>
+  </data>
+  <data name="UsefulLinks" xml:space="preserve">
+    <value>Полезные ссылки: </value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>Неделя</value>
   </data>
 </root>

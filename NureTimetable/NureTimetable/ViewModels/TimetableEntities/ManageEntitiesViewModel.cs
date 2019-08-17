@@ -1,5 +1,19 @@
-﻿using NureTimetable.ViewModels.Core;
+﻿using NureTimetable.Core.Localization;
+using NureTimetable.Core.Models.Consts;
+using NureTimetable.DAL;
+using NureTimetable.DAL.Models.Local;
+using NureTimetable.Services.Helpers;
+using NureTimetable.UI.Views.TimetableEntities;
+using NureTimetable.ViewModels.Core;
 using NureTimetable.Views.Lessons;
+using Plugin.DeviceInfo;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace NureTimetable.ViewModels.TimetableEntities
 {
@@ -50,23 +64,25 @@ namespace NureTimetable.ViewModels.TimetableEntities
                     // SfCheckBox doesn`t support Android 4
                     actionList.Remove(LN.SetUpLessonDisplay);
                 }
+
                 string action = await App.Current.MainPage.DisplayActionSheet(LN.ChooseAction, LN.Cancel, null, actionList.ToArray());
-                switch (action)
+                if (action == LN.Select)
                 {
-                    case LN.Select:
-                        UniversityEntitiesRepository.UpdateSelected(SavedEntity);
-                        await _manageEntitiesViewModel.Navigation.PopToRootAsync();
-                        break;
-                    case LN.UpdateTimetable:
-                        await _manageEntitiesViewModel.UpdateTimetable(SavedEntity);
-                        break;
-                    case LN.SetUpLessonDisplay:
-                        await _manageEntitiesViewModel.Navigation.PushAsync(new ManageLessonsPage(SavedEntity));
-                        break;
-                    case LN.Delete:
-                        _manageEntitiesViewModel.Entities.Remove(this);
-                        UniversityEntitiesRepository.UpdateSaved(_manageEntitiesViewModel.Entities.Select(vm => vm.SavedEntity).ToList());
-                        break;
+                    UniversityEntitiesRepository.UpdateSelected(SavedEntity);
+                    await _manageEntitiesViewModel.Navigation.PopToRootAsync();
+                }
+                else if (action == LN.UpdateTimetable)
+                {
+                    await _manageEntitiesViewModel.UpdateTimetable(SavedEntity);
+                }
+                else if (action == LN.SetUpLessonDisplay)
+                {
+                    await _manageEntitiesViewModel.Navigation.PushAsync(new ManageLessonsPage(SavedEntity));
+                }
+                else if (action == LN.Delete)
+                {
+                    _manageEntitiesViewModel.Entities.Remove(this);
+                    UniversityEntitiesRepository.UpdateSaved(_manageEntitiesViewModel.Entities.Select(vm => vm.SavedEntity).ToList());
                 }
             }
         }
@@ -156,7 +172,7 @@ namespace NureTimetable.ViewModels.TimetableEntities
             {
                 return;
             }
-            if (await App.Current.MainPage.DisplayAlert(LN.TimetableUpdate, "Обновить все сохранённые расписания?", LN.Yes, LN.Cancel))
+            if (await App.Current.MainPage.DisplayAlert(LN.TimetableUpdate, LN.UpdateAllTimetables, LN.Yes, LN.Cancel))
             {
                 await UpdateTimetable(Entities?.Select(vm => vm.SavedEntity).ToArray());
             }
@@ -221,11 +237,11 @@ namespace NureTimetable.ViewModels.TimetableEntities
                 string result = "";
                 if (success.Count > 0)
                 {
-                    result += $"Расписание успешно обновлено: {string.Join(", ", success)}{Environment.NewLine}";
+                    result += string.Format(LN.TimetableUpdated, string.Join(", ", success) + Environment.NewLine);
                 }
                 if (fail.Count > 0)
                 {
-                    result += $"Произошла ошибка: {string.Join(", ", fail)}";
+                    result += string.Format(LN.ErrorOccurred, string.Join(", ", fail));
                 }
 
                 Device.BeginInvokeOnMainThread(async () =>

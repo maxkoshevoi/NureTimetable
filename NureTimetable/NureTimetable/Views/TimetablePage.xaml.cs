@@ -14,7 +14,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
-using NureTimetable.Core.Localization;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -359,22 +358,22 @@ namespace NureTimetable.Views
                 return;
             }
 
-            string view = await DisplayActionSheet("Выберите вид:", "Отмена", null, "День", "Неделя", "Месяц");
+            string displayMode = await DisplayActionSheet(LN.ChooseDisplayMode, LN.Cancel, null, LN.Day, LN.Week, LN.Month);
 
             AppSettings settings = SettingsRepository.GetSettings();
             DateTime? selected = Timetable.SelectedDate;
             Timetable.SelectedDate = null;
-            if (view == "День")
+            if (displayMode == LN.Day)
             {
                 Timetable.ScheduleView = ScheduleView.DayView;
                 settings.TimetableViewMode = TimetableViewMode.Day;
             }
-            else if (view == "Неделя")
+            else if (displayMode == LN.Week)
             {
                 Timetable.ScheduleView = ScheduleView.WeekView;
                 settings.TimetableViewMode = TimetableViewMode.Week;
             }
-            else if (view == "Месяц")
+            else if (displayMode == LN.Month)
             {
                 Timetable.ScheduleView = ScheduleView.MonthView;
                 settings.TimetableViewMode = TimetableViewMode.Month;
@@ -415,12 +414,13 @@ namespace NureTimetable.Views
                     notes = nl + nl + lessonInfo.Notes;
                 }
             }
-            DisplayAlert($"{ev.Lesson.FullName}", $"Тип: {ev.Type.FullName}{nl}" +
-                $"{LN.EventClassroom}: {ev.RoomName}{nl}" +
-                $"{LN.EventTeachers}: {string.Join(", ", ev.Teachers.Select(t => t.Name))}{nl}" +
-                $"{LN.EventGroups}: {string.Join(", ", ev.Groups.Select(t => t.Name))}{nl}" +
-                $"{LN.EventDay}: {ev.Start.ToString("ddd, dd.MM.yy")}{nl}" +
-                $"{LN.EventTime}: {ev.Start.ToString("HH:mm")} - {ev.End.ToString("HH:mm")}{notes}", "Ok");
+            DisplayAlert($"{ev.Lesson.FullName}", string.Format(LN.EventType, ev.Type.FullName) + nl +
+                string.Format(LN.EventClassroom, ev.RoomName) + nl +
+                string.Format(LN.EventTeachers, string.Join(", ", ev.Teachers.Select(t => t.Name))) + nl +
+                string.Format(LN.EventGroups, string.Join(", ", ev.Groups.Select(t => t.Name))) + nl +
+                string.Format(LN.EventDay, ev.Start.ToString("ddd, dd.MM.yy")) + nl +
+                string.Format(LN.EventTime, ev.Start.ToString("HH:mm"), ev.End.ToString("HH:mm")) + 
+                notes, LN.Ok);
         }
 
         private void HideSelectedEvents_Clicked(object sender, EventArgs e)
@@ -436,12 +436,12 @@ namespace NureTimetable.Views
             if (ApplyHiddingSettings)
             {
                 icon = "bookmark_border";
-                message = "Показаны выбранные события";
+                message = LN.SelectedEventsShown;
             }
             else
             {
                 icon = "bookmark";
-                message = "Показаны все события";
+                message = LN.AllEventsShown;
             }
             HideSelectedEvents.IconImageSource = icon;
             DependencyService.Get<IMessage>().LongAlert(message);
@@ -454,7 +454,7 @@ namespace NureTimetable.Views
             DateTime today = DateTime.Now.Date;
             if (Timetable.MaxDisplayDate < today || Timetable.MinDisplayDate > today)
             {
-                DisplayAlert("Показать текущий день", "Расписание на текущий день не найдено", "Ok");
+                DisplayAlert(LN.ShowToday, LN.NoTodayTimetable, LN.Ok);
                 return;
             }
 

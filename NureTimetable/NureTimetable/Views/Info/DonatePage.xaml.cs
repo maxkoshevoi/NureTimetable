@@ -1,7 +1,7 @@
-﻿using System;
-using NureTimetable.Core.Localization;
+﻿using NureTimetable.Core.Localization;
+using NureTimetable.Core.Models.Consts;
 using NureTimetable.Helpers;
-using NureTimetable.Models.Consts;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

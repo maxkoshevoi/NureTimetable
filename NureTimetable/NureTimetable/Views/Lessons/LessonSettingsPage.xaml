@@ -27,7 +27,7 @@
                         CheckedColor="DeepSkyBlue"
                         Margin="10,5,10,5"
                         StateChanged="EventType_StateChanged"
-                        Text="{Binding EventType}"
+                        Text="{Binding EventType.ShortName}"
                         IsChecked="{Binding IsChecked}" />
                 </ViewCell>
             </DataTemplate>

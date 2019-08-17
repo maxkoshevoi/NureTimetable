@@ -120,14 +120,14 @@ namespace NureTimetable.ViewModels.TimetableEntities
             List<SavedEntity> savedEntities = UniversityEntitiesRepository.GetSaved();
             if (savedEntities.Exists(e => e == newEntity))
             {
-                await App.Current.MainPage.DisplayAlert("Добавление расписания", $"Расписание \"{newEntity.Name}\" уже находится в сохранённых", LN.Ok);
+                await App.Current.MainPage.DisplayAlert(LN.AddingTimetable, string.Format(LN.TimetableAlreadySaved, newEntity.Name), LN.Ok);
                 return;
             }
 
             savedEntities.Add(newEntity);
             UniversityEntitiesRepository.UpdateSaved(savedEntities);
 
-            await App.Current.MainPage.DisplayAlert("Добавление расписания", $"Расписание \"{newEntity.Name}\" добавлено в сохранённые", LN.Ok);
+            await App.Current.MainPage.DisplayAlert(LN.AddingTimetable, string.Format(LN.TimetableSaved, newEntity.Name), LN.Ok);
         }
 
         protected async Task SearchBarTextChanged()
@@ -152,12 +152,11 @@ namespace NureTimetable.ViewModels.TimetableEntities
         {
             if (SettingsRepository.CheckCistAllEntitiesUpdateRights() == false)
             {
-                await App.Current.MainPage.DisplayAlert("Обновление информации об университете", "У вас уже загружена последняя версия информации об университете", LN.Ok);
+                await App.Current.MainPage.DisplayAlert(LN.UniversityInfoUpdate, LN.UniversityInfoUpToDate, LN.Ok);
                 return;
             }
 
-            if (!ProgressLayoutIsVisable && await App.Current.MainPage.DisplayAlert("Обновление информации об университете",
-                    "Вы уверенны, что хотите обновить информациию об университете из Cist?", LN.Yes, LN.Cancel))
+            if (!ProgressLayoutIsVisable && await App.Current.MainPage.DisplayAlert(LN.UniversityInfoUpdate, LN.UniversityInfoUpdateConfirm, LN.Yes, LN.Cancel))
             {
                 await UpdateEntities(true);
             }
@@ -184,7 +183,7 @@ namespace NureTimetable.ViewModels.TimetableEntities
                     {
                         Device.BeginInvokeOnMainThread(() =>
                         {
-                            App.Current.MainPage.DisplayAlert("Обновление информации об университете", "Не удалось обновить информациию об университете. Пожалуйста, попробуйте позже.", LN.Ok);
+                            App.Current.MainPage.DisplayAlert(LN.UniversityInfoUpdate, LN.UniversityInfoUpdateFail, LN.Ok);
                         });
 
                         ProgressLayoutIsVisable = false;
@@ -197,20 +196,20 @@ namespace NureTimetable.ViewModels.TimetableEntities
                         string failedEntities = Environment.NewLine;
                         if (!updateFromCistResult.IsGroupsOk)
                         {
-                            failedEntities += "Группы" + Environment.NewLine;
+                            failedEntities += LN.Groups + Environment.NewLine;
                         }
                         if (!updateFromCistResult.IsTeachersOk)
                         {
-                            failedEntities += "Преподаватели" + Environment.NewLine;
+                            failedEntities += LN.Teachers + Environment.NewLine;
                         }
                         if (!updateFromCistResult.IsRoomsOk)
                         {
-                            failedEntities += "Аудитории" + Environment.NewLine;
+                            failedEntities += LN.Rooms + Environment.NewLine;
                         }
 
                         Device.BeginInvokeOnMainThread(() =>
                         {
-                            App.Current.MainPage.DisplayAlert("Обновление информации об университете", "Не удалось обновить часть информациии об университете:" + Environment.NewLine + failedEntities, LN.Ok);
+                            App.Current.MainPage.DisplayAlert(LN.UniversityInfoUpdate, string.Format(LN.UniversityInfoUpdatePartiallyFail, Environment.NewLine + failedEntities), LN.Ok);
                         });
                     }
                 }

@@ -69,7 +69,7 @@
                     <Label.FormattedText>
                         <FormattedString>
                             <FormattedString.Spans>
-                                <Span Text="Обратная связь: " FontAttributes="Bold" FontSize="16" />
+                                <Span Text="{LN:Translate Feedback}" FontAttributes="Bold" FontSize="16" />
                             </FormattedString.Spans>
                         </FormattedString>
                     </Label.FormattedText>
@@ -78,14 +78,14 @@
                     <Label.FormattedText>
                         <FormattedString>
                             <FormattedString.Spans>
-                                <Span Text="Новости приложения" ForegroundColor="{StaticResource LightTextColor}" TextDecorations="Underline">
+                                <Span Text="{LN:Translate AppNews}" ForegroundColor="{StaticResource LightTextColor}" TextDecorations="Underline">
                                     <Span.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding NavigateUriCommand}"
                                           CommandParameter="https://t.me/nuretimetable_channel" />
                                     </Span.GestureRecognizers>
                                 </Span>
                                 <Span Text=", " />
-                                <Span Text="Группа приложения" ForegroundColor="{StaticResource LightTextColor}" TextDecorations="Underline">
+                                <Span Text="{LN:Translate AppGroup}" ForegroundColor="{StaticResource LightTextColor}" TextDecorations="Underline">
                                     <Span.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding NavigateUriCommand}"
                                           CommandParameter="https://t.me/nuretimetable_group" />
@@ -99,7 +99,7 @@
                     <Label.FormattedText>
                         <FormattedString>
                             <FormattedString.Spans>
-                                <Span Text="Полезные ссылки: " FontAttributes="Bold" FontSize="16" />
+                                <Span Text="{LN:Translate UsefulLinks}" FontAttributes="Bold" FontSize="16" />
                             </FormattedString.Spans>
                         </FormattedString>
                     </Label.FormattedText>
@@ -149,7 +149,7 @@
                     </Label.FormattedText>
                 </Label>
                 
-                <Label Margin="0,300,0,0" Text="И, на всякий случай, оставлю здесь вот это." />
+                <Label Margin="0,300,0,0" Text="{LN:Translate DebugModeHeader}" />
                 <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                     <Label Text="{LN:Translate ShowErrors}" />
                     <Switch x:Name="SwDebugMode" IsToggled="{Binding IsDebugModeActive}"/>

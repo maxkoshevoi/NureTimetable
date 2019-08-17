@@ -163,16 +163,16 @@
     <value>Donate</value>
   </data>
   <data name="EmptyLessonsList" xml:space="preserve">
-    <value>Timetable has no classes to display (maybe it's empty).</value>
+    <value>Timetable has no lessons to display (maybe it's empty).</value>
   </data>
   <data name="EventClassroom" xml:space="preserve">
-    <value>Classroom: {0}</value>
+    <value>Room: {0}</value>
   </data>
   <data name="EventDay" xml:space="preserve">
-    <value>Day: {0}</value>
+    <value>Date: {0}</value>
   </data>
-  <data name="EventTeacher" xml:space="preserve">
-    <value>Teacher: {0}</value>
+  <data name="EventTeachers" xml:space="preserve">
+    <value>Teachers: {0}</value>
   </data>
   <data name="EventTeacherNotFound" xml:space="preserve">
     <value>Teacher: not found</value>
@@ -183,8 +183,8 @@
   <data name="EventType" xml:space="preserve">
     <value>Type: {0}</value>
   </data>
-  <data name="GroupSettingsSaved" xml:space="preserve">
-    <value>Settings for group {0} saved.</value>
+  <data name="EntityLessonSettingsSaved" xml:space="preserve">
+    <value>Lesson settings for "{0}" saved successfully.</value>
   </data>
   <data name="IsFree" xml:space="preserve">
     <value>is free </value>
@@ -205,13 +205,13 @@
     <value>Saving settings</value>
   </data>
   <data name="Thank" xml:space="preserve">
-    <value>Thank</value>
+    <value>Say thank you</value>
   </data>
   <data name="Thank2" xml:space="preserve">
-    <value>Big thank</value>
+    <value>Say big thank you</value>
   </data>
   <data name="Thank3" xml:space="preserve">
-    <value>Huge thank</value>
+    <value>Say huge thank you</value>
   </data>
   <data name="ThisApp" xml:space="preserve">
     <value>This app </value>
@@ -226,13 +226,13 @@
     <value>An error occured while trying to display timetable</value>
   </data>
   <data name="TimeUntilBreak" xml:space="preserve">
-    <value>Time until break: {0}</value>
+    <value>Until break: {0}</value>
   </data>
   <data name="TimeUntilLesson" xml:space="preserve">
-    <value>Time until {0} - {1}: {2}</value>
+    <value>Until {0} ({1}): {2}</value>
   </data>
   <data name="Wait" xml:space="preserve">
-    <value>Wait...</value>
+    <value>Please wait...</value>
   </data>
   <data name="YourContribution" xml:space="preserve">
     <value>Your contribution supports development and doesn't let me fall into oblivion.</value>
@@ -289,7 +289,7 @@
     <value>Select</value>
   </data>
   <data name="SetUpLessonDisplay" xml:space="preserve">
-    <value>Set up lesson display</value>
+    <value>Lesson settings</value>
   </data>
   <data name="TimetableLatest" xml:space="preserve">
     <value>Timetable is already up-to-date</value>
@@ -310,21 +310,115 @@
     <value>Yes</value>
   </data>
   <data name="AtFirstLoadTimetable" xml:space="preserve">
-    <value>Необходимо сначала загрузить расписание группы.</value>
+    <value>For lessons management, you need to download timetable first.</value>
   </data>
   <data name="ErrorDetails" xml:space="preserve">
     <value>Error details</value>
   </data>
   <data name="LessonsManagement" xml:space="preserve">
-    <value>Управление предметами</value>
+    <value>Lessons management</value>
   </data>
   <data name="Purchase" xml:space="preserve">
-    <value>Покупка</value>
+    <value>Purchase</value>
   </data>
   <data name="PurchaseFailed" xml:space="preserve">
-    <value>Что-то пошло не так, покупка не удалась.</value>
+    <value>Something went wrong, purchase failed.</value>
   </data>
   <data name="ThanksForYourSupport" xml:space="preserve">
-    <value>Спасибо за вашу поддержку!</value>
+    <value>Thanks for your support!</value>
+  </data>
+  <data name="EventGroups" xml:space="preserve">
+    <value>Groups: {0}</value>
+  </data>
+  <data name="AddingTimetable" xml:space="preserve">
+    <value>Adding timetable</value>
+  </data>
+  <data name="AllEventsShown" xml:space="preserve">
+    <value>All events are shown</value>
+  </data>
+  <data name="AppGroup" xml:space="preserve">
+    <value>App discussion</value>
+  </data>
+  <data name="AppNews" xml:space="preserve">
+    <value>App news</value>
+  </data>
+  <data name="ChooseDisplayMode" xml:space="preserve">
+    <value>Choose display mode:</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>Day</value>
+  </data>
+  <data name="DebugModeHeader" xml:space="preserve">
+    <value>And just in case, I’ll leave this here.</value>
+  </data>
+  <data name="ErrorOccurred" xml:space="preserve">
+    <value>An error occurred: {0}</value>
+  </data>
+  <data name="Feedback" xml:space="preserve">
+    <value>Feedback: </value>
+  </data>
+  <data name="Groups" xml:space="preserve">
+    <value>Groups</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Month</value>
+  </data>
+  <data name="NoSavedTimetables" xml:space="preserve">
+    <value>You have no saved timetable.</value>
+  </data>
+  <data name="NoTodayTimetable" xml:space="preserve">
+    <value>Timetable for today not found</value>
+  </data>
+  <data name="NoUniversityInfo" xml:space="preserve">
+    <value>No data.
+To update, click on the button in the upper right corner.</value>
+  </data>
+  <data name="Rooms" xml:space="preserve">
+    <value>Rooms</value>
+  </data>
+  <data name="SavedTimetables" xml:space="preserve">
+    <value>Saved timetables</value>
+  </data>
+  <data name="SelectedEventsShown" xml:space="preserve">
+    <value>Selected events are shown</value>
+  </data>
+  <data name="ShowToday" xml:space="preserve">
+    <value>Show today</value>
+  </data>
+  <data name="Teachers" xml:space="preserve">
+    <value>Teachers</value>
+  </data>
+  <data name="TimetableAlreadySaved" xml:space="preserve">
+    <value>Timetable "{0}" is already in saved</value>
+  </data>
+  <data name="TimetableSaved" xml:space="preserve">
+    <value>Timetable "{0}" has been saved</value>
+  </data>
+  <data name="TimetableUpdated" xml:space="preserve">
+    <value>Timetable has been successfully updated: {0}</value>
+  </data>
+  <data name="UniversityInfoUpdate" xml:space="preserve">
+    <value>University information update</value>
+  </data>
+  <data name="UniversityInfoUpdateConfirm" xml:space="preserve">
+    <value>Are you sure you want to update university information from Cist?</value>
+  </data>
+  <data name="UniversityInfoUpdateFail" xml:space="preserve">
+    <value>Failed to update university information. Please try again later.</value>
+  </data>
+  <data name="UniversityInfoUpdatePartiallyFail" xml:space="preserve">
+    <value>Some information wasn't updated: {0}</value>
+  </data>
+  <data name="UniversityInfoUpToDate" xml:space="preserve">
+    <value>You have already downloaded the latest version of university information</value>
+  </data>
+  <data name="UpdateAllTimetables" xml:space="preserve">
+    <value>Update all saved timetables?</value>
+  </data>
+  <data name="UsefulLinks" xml:space="preserve">
+    <value>Useful links: </value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>Week</value>
   </data>
 </root>

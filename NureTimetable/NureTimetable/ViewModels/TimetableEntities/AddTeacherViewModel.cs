@@ -13,7 +13,7 @@ namespace NureTimetable.ViewModels.TimetableEntities
         {
         }
 
-        public override string Title { get; } = "Преподаватели";
+        public override string Title { get; } = LN.Teachers;
 
         protected override List<Teacher> GetAllEntitiesFromCist()
         {

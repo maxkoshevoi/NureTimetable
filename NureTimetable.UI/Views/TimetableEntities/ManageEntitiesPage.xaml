@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="NureTimetable.UI.Views.TimetableEntities.ManageEntitiesPage"
              xmlns:LN="clr-namespace:NureTimetable.Core.Localization;assembly=NureTimetable.Core"
-             Title="Сохранённые расписания">
+             Title="{LN:Translate SavedTimetables}">
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Icon="update" Command="{Binding UpdateAllCommand}" x:Name="UpdateAll" />
@@ -57,7 +57,7 @@
             <Label Text="{LN:Translate Wait}" HorizontalOptions="Center" TextColor="LightSkyBlue"/>
         </StackLayout>
         <StackLayout IsVisible="{Binding IsNoSourceLayoutVisable}"  AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
-            <Label Text="У вас нет ни одного сохранённого расписания."
+            <Label Text="{LN:Translate NoSavedTimetables}"
                     VerticalOptions="CenterAndExpand" 
                     HorizontalOptions="CenterAndExpand"
                     HorizontalTextAlignment="Center" />

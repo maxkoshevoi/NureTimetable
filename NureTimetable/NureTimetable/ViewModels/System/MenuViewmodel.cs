@@ -28,7 +28,7 @@ namespace NureTimetable.ViewModels.System
                     {
                         Id = MenuItemType.Donate,
                         Title = LN.Donate
-}
+                    }
             };
 
             return menuItemModels;

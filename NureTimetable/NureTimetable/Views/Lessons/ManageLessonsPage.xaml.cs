@@ -79,8 +79,8 @@ namespace NureTimetable.Views.Lessons
 
         private void Save_Clicked(object sender, EventArgs e)
         {
-            EventsDataStore.UpdateLessonsInfo(group.ID, lessons.ToList());
-            DisplayAlert(LN.SavingSettings, string.Format(LN.GroupSettingsSaved, group.Name), LN.Ok);
+            EventsRepository.UpdateLessonsInfo(timetable.Entity, lessons.ToList());
+            DisplayAlert(LN.SavingSettings, string.Format(LN.EntityLessonSettingsSaved, timetable.Entity.Name), LN.Ok);
             Navigation.PopAsync();
         }
     }
