@@ -7,7 +7,6 @@ namespace NureTimetable.Core.Localization
         public static readonly CultureInfo[] SupportedCultures =
         {
             new CultureInfo("en"),
-            new CultureInfo("uk"),
             new CultureInfo("ru"),
         };
     }
