@@ -147,8 +147,8 @@
   <data name="About" xml:space="preserve">
     <value>О программе</value>
   </data>
-  <data name="AddGroup" xml:space="preserve">
-    <value>Добавьте группу для просмотра расписания.</value>
+  <data name="NoTimetable" xml:space="preserve">
+    <value>Добавьте расписание для просмотра.</value>
   </data>
   <data name="AndWillAlwaysBe" xml:space="preserve">
     <value>и всегда будет таковым.</value>
@@ -192,14 +192,8 @@
   <data name="Lessons" xml:space="preserve">
     <value>Предметы</value>
   </data>
-  <data name="NoSavedGroups" xml:space="preserve">
-    <value>У вас нет ни одной сохранённой группы.</value>
-  </data>
   <data name="Notes" xml:space="preserve">
     <value>Заметки: </value>
-  </data>
-  <data name="SavedGroups" xml:space="preserve">
-    <value>Сохранённые группы</value>
   </data>
   <data name="SavingSettings" xml:space="preserve">
     <value>Сохранение настроек</value>
@@ -237,18 +231,6 @@
   <data name="YourContribution" xml:space="preserve">
     <value>Ваш вклад поддерживает его развитие и помогает не уходить в небытие.</value>
   </data>
-  <data name="AddingGroup" xml:space="preserve">
-    <value>Добавление группы</value>
-  </data>
-  <data name="GroupAlreadySaved" xml:space="preserve">
-    <value>Группа уже находится в сохранённых</value>
-  </data>
-  <data name="GroupSaved" xml:space="preserve">
-    <value>Группа сохранена</value>
-  </data>
-  <data name="GroupsListLoading" xml:space="preserve">
-    <value>Загрузка списка групп</value>
-  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Отмена</value>
   </data>
@@ -260,27 +242,6 @@
   </data>
   <data name="ErrorTryAgainLater" xml:space="preserve">
     <value>Произошла ошибка. Пожалуйста, попробуйте позже.</value>
-  </data>
-  <data name="GroupSelect" xml:space="preserve">
-    <value>Выбор группы</value>
-  </data>
-  <data name="GroupSelected" xml:space="preserve">
-    <value>Группа успешно выбрана</value>
-  </data>
-  <data name="GroupsListLatest" xml:space="preserve">
-    <value>У вас уже загружена последняя версия списка групп</value>
-  </data>
-  <data name="GroupsListLoadingConfirmation" xml:space="preserve">
-    <value>Вы уверенны, что хотите загрузить список групп из Cist?</value>
-  </data>
-  <data name="GroupsListLoadingFail" xml:space="preserve">
-    <value>Не удалось загрузить список групп. Пожалуйста, попробуйте позже.</value>
-  </data>
-  <data name="GroupsTimetableUpdated" xml:space="preserve">
-    <value>Расписание успешно обновлено для групп: {0}</value>
-  </data>
-  <data name="GroupTimetableUpdated" xml:space="preserve">
-    <value>Расписание группы {0} обновлено</value>
   </data>
   <data name="Ok" xml:space="preserve">
     <value>Ок</value>

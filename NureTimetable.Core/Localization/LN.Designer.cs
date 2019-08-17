@@ -70,24 +70,6 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add group to view timetable..
-        /// </summary>
-        public static string AddGroup {
-            get {
-                return ResourceManager.GetString("AddGroup", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Adding group.
-        /// </summary>
-        public static string AddingGroup {
-            get {
-                return ResourceManager.GetString("AddingGroup", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Adding timetable.
         /// </summary>
         public static string AddingTimetable {
@@ -358,101 +340,11 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Group already saved.
-        /// </summary>
-        public static string GroupAlreadySaved {
-            get {
-                return ResourceManager.GetString("GroupAlreadySaved", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Groups.
         /// </summary>
         public static string Groups {
             get {
                 return ResourceManager.GetString("Groups", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Group saved.
-        /// </summary>
-        public static string GroupSaved {
-            get {
-                return ResourceManager.GetString("GroupSaved", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Group select.
-        /// </summary>
-        public static string GroupSelect {
-            get {
-                return ResourceManager.GetString("GroupSelect", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Group selected successfully.
-        /// </summary>
-        public static string GroupSelected {
-            get {
-                return ResourceManager.GetString("GroupSelected", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Groups list is already up-to-date.
-        /// </summary>
-        public static string GroupsListLatest {
-            get {
-                return ResourceManager.GetString("GroupsListLatest", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Groups list loading.
-        /// </summary>
-        public static string GroupsListLoading {
-            get {
-                return ResourceManager.GetString("GroupsListLoading", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to load groups list from Cist?.
-        /// </summary>
-        public static string GroupsListLoadingConfirmation {
-            get {
-                return ResourceManager.GetString("GroupsListLoadingConfirmation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Failed to load groups list. Try again later..
-        /// </summary>
-        public static string GroupsListLoadingFail {
-            get {
-                return ResourceManager.GetString("GroupsListLoadingFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Timetable updated for groups: {0}.
-        /// </summary>
-        public static string GroupsTimetableUpdated {
-            get {
-                return ResourceManager.GetString("GroupsTimetableUpdated", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Timetable updated for group {0}.
-        /// </summary>
-        public static string GroupTimetableUpdated {
-            get {
-                return ResourceManager.GetString("GroupTimetableUpdated", resourceCulture);
             }
         }
         
@@ -520,15 +412,6 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You don&apos;t have any groups saved..
-        /// </summary>
-        public static string NoSavedGroups {
-            get {
-                return ResourceManager.GetString("NoSavedGroups", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to You have no saved timetable..
         /// </summary>
         public static string NoSavedTimetables {
@@ -543,6 +426,15 @@ namespace NureTimetable.Core.Localization {
         public static string Notes {
             get {
                 return ResourceManager.GetString("Notes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select timetable to display..
+        /// </summary>
+        public static string NoTimetable {
+            get {
+                return ResourceManager.GetString("NoTimetable", resourceCulture);
             }
         }
         
@@ -616,15 +508,6 @@ namespace NureTimetable.Core.Localization {
         public static string Rooms {
             get {
                 return ResourceManager.GetString("Rooms", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Saved groups.
-        /// </summary>
-        public static string SavedGroups {
-            get {
-                return ResourceManager.GetString("SavedGroups", resourceCulture);
             }
         }
         

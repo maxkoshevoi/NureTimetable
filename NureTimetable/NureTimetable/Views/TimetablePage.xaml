@@ -87,7 +87,7 @@
                 Clicked="BToday_Clicked"
                 Scale="0"/>
             <StackLayout x:Name="NoSourceLayout" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="False">
-                <Label Text="{LN:Translate AddGroup}"
+                <Label Text="{LN:Translate NoTimetable}"
                     VerticalOptions="CenterAndExpand" 
                     HorizontalOptions="CenterAndExpand"
                     HorizontalTextAlignment="Center" />
