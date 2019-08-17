@@ -31,9 +31,10 @@ namespace NureTimetable.Views
                     DisplayAlert(LN.ErrorDetails, ex.ToString(), LN.Ok);
                 }
 #if !DEBUG
-                Analytics.TrackEvent(ex.ToString(), new Dictionary<string, string>()
+                Analytics.TrackEvent(ex.Message, new Dictionary<string, string>()
                 {
-                    { "Message", ex.Message },
+                    { "Type", ex.GetType().ToString() },
+                    { "Summary", ex.ToString() },
                     { "Stack", ex.StackTrace },
                     { "TargetSite", ex.TargetSite.ToString() },
                     { "Source", ex.Source }
