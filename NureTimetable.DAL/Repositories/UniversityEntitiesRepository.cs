@@ -213,7 +213,18 @@ namespace NureTimetable.DAL
                 {
                     Uri uri = new Uri(Urls.CistAllTeachersUrl);
                     string responseStr = client.DownloadString(uri);
-                    Cist.University newUniversity = Serialisation.FromJson<Cist.UniversityRootObject>(responseStr).University;
+                    Cist.University newUniversity;
+                    try
+                    {
+                        newUniversity = Serialisation.FromJson<Cist.UniversityRootObject>(responseStr).University;
+                    }
+                    catch (JsonReaderException ex) when (ex.Message == "JsonToken EndObject is not valid for closing JsonType Array. Path 'university.faculties', line 2204, position 1.")
+                    {
+                        // Temporary workaround. Needs to be removed when fixed on Cist!
+                        responseStr = responseStr.TrimEnd('\n');
+                        responseStr = responseStr.Remove(responseStr.Length - 1) + "]}}";
+                        newUniversity = Serialisation.FromJson<Cist.UniversityRootObject>(responseStr).University;
+                    }
 
                     foreach (Cist.Faculty faculty in newUniversity.Faculties)
                     {
