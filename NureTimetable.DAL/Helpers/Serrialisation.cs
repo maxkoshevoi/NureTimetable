@@ -72,6 +72,13 @@ namespace NureTimetable.DAL.Helpers
             {
                 json = EscapeDoubleQuotesInJsonPropertyValues(json);
                 instance = JsonConvert.DeserializeObject<T>(json);
+
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    var ex = new InvalidDataException("Double quotes in json property value detected");
+                    ex.Data.Add("Json", json);
+                    MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
+                });
             }
             return instance;
         }

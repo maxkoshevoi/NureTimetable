@@ -10,8 +10,8 @@ namespace NureTimetable.DAL.Models.Consts
             => $"http://cist.nure.ua/ias/app/tt/P_API_EVEN_JSON" +
                 $"?type_id={(int)entity}" +
                 $"&timetable_id={entityId}" +
-                $"&time_from={new DateTimeOffset(dateStart).ToUnixTimeSeconds()}" +
-                $"&time_to={new DateTimeOffset(dateEnd).ToUnixTimeSeconds()}" +
+                $"&time_from={new DateTimeOffset(dateStart.Date).ToUnixTimeSeconds()}" +
+                $"&time_to={new DateTimeOffset(dateEnd.Date.AddDays(1)).ToUnixTimeSeconds()}" +
                 $"&idClient={Keys.CistApiKey}";
 
         public static string CistAllGroupsUrl

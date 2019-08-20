@@ -1,11 +1,12 @@
-﻿using Microsoft.AppCenter.Analytics;
+﻿using Microsoft.AppCenter.Crashes;
+using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Consts;
 using NureTimetable.Models.System;
 using NureTimetable.UI.Views.Info;
 using NureTimetable.ViewModels.Info;
 using NureTimetable.Views.Info;
-using NureTimetable.Core.Localization;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -30,15 +31,14 @@ namespace NureTimetable.Views
                 {
                     DisplayAlert(LN.ErrorDetails, ex.ToString(), LN.Ok);
                 }
+
 #if !DEBUG
-                Analytics.TrackEvent(ex.Message, new Dictionary<string, string>()
+                var properties = new Dictionary<string, string>();
+                foreach (DictionaryEntry de in ex.Data)
                 {
-                    { "Type", ex.GetType().ToString() },
-                    { "Summary", ex.ToString() },
-                    { "Stack", ex.StackTrace },
-                    { "TargetSite", ex.TargetSite.ToString() },
-                    { "Source", ex.Source }
-                });
+                    properties.Add(de.Key.ToString(), de.Value.ToString());
+                }
+                Crashes.TrackError(ex, properties);
 #endif
             });
         }

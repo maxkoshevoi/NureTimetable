@@ -147,6 +147,9 @@ namespace NureTimetable.DAL
                 {
                     Device.BeginInvokeOnMainThread(() =>
                     {
+                        ex.Data.Add("Entity", $"{entity.Type} {entity.Name} ({entity.ID})");
+                        ex.Data.Add("From", dateStart.ToString("dd.MM.yyyy"));
+                        ex.Data.Add("To", dateEnd.ToString("dd.MM.yyyy"));
                         MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
                     });
                 }
