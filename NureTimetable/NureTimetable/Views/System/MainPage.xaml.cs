@@ -8,6 +8,8 @@ using NureTimetable.Views.Info;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -33,11 +35,26 @@ namespace NureTimetable.Views
                 }
 
 #if !DEBUG
+                // Getting exception Data
                 var properties = new Dictionary<string, string>();
                 foreach (DictionaryEntry de in ex.Data)
                 {
                     properties.Add(de.Key.ToString(), de.Value.ToString());
                 }
+
+                // Special cases for certain exception types
+                if (ex is WebException webException)
+                {
+                    properties.Add("WebExceptionStatus", webException.Status.ToString());
+
+                    if (new[] { WebExceptionStatus.NameResolutionFailure, WebExceptionStatus.ConnectFailure }.Contains(webException.Status))
+                    {
+                        // Most likely device doesn't have internet connection
+                        return;
+                    }
+                }
+
+                // Logging exception
                 Crashes.TrackError(ex, properties);
 #endif
             });

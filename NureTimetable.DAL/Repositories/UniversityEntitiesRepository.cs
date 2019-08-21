@@ -218,7 +218,7 @@ namespace NureTimetable.DAL
                     {
                         newUniversity = Serialisation.FromJson<Cist.UniversityRootObject>(responseStr).University;
                     }
-                    catch (JsonReaderException ex) when (ex.Message == "JsonToken EndObject is not valid for closing JsonType Array. Path 'university.faculties', line 2204, position 1.")
+                    catch (JsonReaderException ex) when (ex.Message.StartsWith("JsonToken EndObject is not valid for closing JsonType Array. Path 'university.faculties'"))
                     {
                         // Temporary workaround. Needs to be removed when fixed on Cist!
                         responseStr = responseStr.TrimEnd('\n');
