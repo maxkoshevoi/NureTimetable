@@ -205,6 +205,15 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Display teachers for this lesson:.
+        /// </summary>
+        public static string DisplayLessonsForTeachers {
+            get {
+                return ResourceManager.GetString("DisplayLessonsForTeachers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Display lesson types for this lesson:.
         /// </summary>
         public static string DisplayLessonsForTypes {

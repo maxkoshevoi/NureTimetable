@@ -74,7 +74,11 @@ namespace NureTimetable.Views.Lessons
             //Deselect Item
             ((ListView)sender).SelectedItem = null;
             
-            await Navigation.PushAsync(new LessonSettingsPage(selectedLesson, timetable.EventTypes(selectedLesson.Lesson.ID).ToList()));
+            await Navigation.PushAsync(new LessonSettingsPage(
+                selectedLesson, 
+                timetable.EventTypes(selectedLesson.Lesson.ID).ToList(), 
+                timetable.Teachers(selectedLesson.Lesson.ID).ToList()
+            ));
         }
 
         private void Save_Clicked(object sender, EventArgs e)

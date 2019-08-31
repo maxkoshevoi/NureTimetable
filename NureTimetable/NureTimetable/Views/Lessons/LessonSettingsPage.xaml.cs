@@ -14,6 +14,7 @@ namespace NureTimetable.Views.Lessons
     {
         LessonInfo lessonInfo;
         List<CheckedEventType> eventTypes;
+        List<CheckedTeacher> teachers;
         bool updatingProgrammatically = false;
 
         private class CheckedEventType : INotifyPropertyChanged
@@ -31,9 +32,24 @@ namespace NureTimetable.Views.Lessons
             #endregion
         }
 
-        public LessonSettingsPage (LessonInfo lessonInfo, List<EventType> eventTypes)
-		{
-			InitializeComponent ();
+        private class CheckedTeacher : INotifyPropertyChanged
+        {
+            public Teacher Teacher { get; set; }
+
+            public bool IsChecked { get; set; }
+
+            #region INotifyPropertyChanged
+            public event PropertyChangedEventHandler PropertyChanged;
+            public void NotifyChanged()
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsChecked)));
+            }
+            #endregion
+        }
+
+        public LessonSettingsPage (LessonInfo lessonInfo, List<EventType> eventTypes, List<Teacher> teachers)
+        {
+            InitializeComponent();
             Title = lessonInfo.Lesson.FullName;
 
             this.lessonInfo = lessonInfo;
@@ -49,10 +65,28 @@ namespace NureTimetable.Views.Lessons
                 })
                 .OrderBy(et => et.EventType.ShortName)
                 .ToList();
-            LessonsEventTypes.ItemsSource = this.eventTypes;
+            ChangeListViewItemSource(LessonEventTypes, this.eventTypes);
+            this.teachers = teachers
+                .Select(t => new CheckedTeacher
+                {
+                    Teacher = t
+                })
+                .OrderBy(et => et.Teacher.ShortName)
+                .ToList();
+            ChangeListViewItemSource(LessonTeachers, this.teachers);
             UpdateEventTypesCheck();
         }
-        
+
+        private void ChangeListViewItemSource<T>(ListView listView, List<T> newItemsSource)
+        {
+            const int rowHeight = 43,
+                headerHeight = 19;
+
+            listView.ItemsSource = newItemsSource;
+            // ListView doesn't support AutoSize, so we have to do it manually
+            listView.HeightRequest = rowHeight * newItemsSource.Count + headerHeight;
+        }
+
         private void ShowLesson_StateChanged(object sender, StateChangedEventArgs e)
         {
             lessonInfo.Settings.Hiding.ShowLesson = ShowLesson.IsChecked;
@@ -76,13 +110,23 @@ namespace NureTimetable.Views.Lessons
                     eventType.IsChecked = (bool)lessonInfo.Settings.Hiding.ShowLesson;
                     eventType.NotifyChanged();
                 }
+                foreach (CheckedTeacher teacher in teachers)
+                {
+                    teacher.IsChecked = (bool)lessonInfo.Settings.Hiding.ShowLesson;
+                    teacher.NotifyChanged();
+                }
             }
             else
             {
                 foreach (CheckedEventType eventType in eventTypes)
                 {
-                    eventType.IsChecked = !lessonInfo.Settings.Hiding.HideOnlyThisEventTypes.Contains(eventType.EventType.ID);
+                    eventType.IsChecked = !lessonInfo.Settings.Hiding.EventTypesToHide.Contains(eventType.EventType.ID);
                     eventType.NotifyChanged();
+                }
+                foreach (CheckedTeacher teacher in teachers)
+                {
+                    teacher.IsChecked = !lessonInfo.Settings.Hiding.TeachersToHide.Contains(teacher.Teacher.ID);
+                    teacher.NotifyChanged();
                 }
             }
             updatingProgrammatically = false;
@@ -91,10 +135,21 @@ namespace NureTimetable.Views.Lessons
         private void EventType_StateChanged(object sender, StateChangedEventArgs e)
         {
             CheckedEventType eventType = (CheckedEventType)((SfCheckBox)sender).BindingContext;
-            lessonInfo.Settings.Hiding.HideOnlyThisEventTypes.RemoveAll(id => id == eventType.EventType.ID);
+            lessonInfo.Settings.Hiding.EventTypesToHide.RemoveAll(id => id == eventType.EventType.ID);
             if (e.IsChecked == false)
             {
-                lessonInfo.Settings.Hiding.HideOnlyThisEventTypes.Add(eventType.EventType.ID);
+                lessonInfo.Settings.Hiding.EventTypesToHide.Add(eventType.EventType.ID);
+            }
+            UpdateShowLessonCheck();
+        }
+        
+        private void Teacher_StateChanged(object sender, StateChangedEventArgs e)
+        {
+            CheckedTeacher eventType = (CheckedTeacher)((SfCheckBox)sender).BindingContext;
+            lessonInfo.Settings.Hiding.TeachersToHide.RemoveAll(id => id == eventType.Teacher.ID);
+            if (e.IsChecked == false)
+            {
+                lessonInfo.Settings.Hiding.TeachersToHide.Add(eventType.Teacher.ID);
             }
             UpdateShowLessonCheck();
         }
@@ -104,11 +159,11 @@ namespace NureTimetable.Views.Lessons
             if (updatingProgrammatically) return;
 
             updatingProgrammatically = true;
-            if (lessonInfo.Settings.Hiding.HideOnlyThisEventTypes.Count == 0)
+            if (lessonInfo.Settings.Hiding.EventTypesToHide.Count == 0 && lessonInfo.Settings.Hiding.TeachersToHide.Count == 0)
             {
                 ShowLesson.IsChecked = true;
             }
-            else if (lessonInfo.Settings.Hiding.HideOnlyThisEventTypes.Count == eventTypes.Count)
+            else if (lessonInfo.Settings.Hiding.EventTypesToHide.Count == eventTypes.Count && lessonInfo.Settings.Hiding.TeachersToHide.Count == teachers.Count)
             {
                 ShowLesson.IsChecked = false;
             }
@@ -119,7 +174,12 @@ namespace NureTimetable.Views.Lessons
             updatingProgrammatically = false;
         }
 
-        private void LessonsEventTypes_ItemTapped(object sender, ItemTappedEventArgs e)
+        private void LessonEventTypes_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            ((ListView)sender).SelectedItem = null;
+        }
+
+        private void LessonTeachers_ItemTapped(object sender, ItemTappedEventArgs e)
         {
             ((ListView)sender).SelectedItem = null;
         }

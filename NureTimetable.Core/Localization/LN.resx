@@ -382,4 +382,7 @@ To update, click on the button in the upper right corner.</value>
   <data name="Week" xml:space="preserve">
     <value>Week</value>
   </data>
+  <data name="DisplayLessonsForTeachers" xml:space="preserve">
+    <value>Display teachers for this lesson:</value>
+  </data>
 </root>

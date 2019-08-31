@@ -382,4 +382,7 @@
   <data name="Week" xml:space="preserve">
     <value>Неделя</value>
   </data>
+  <data name="DisplayLessonsForTeachers" xml:space="preserve">
+    <value>Отображать преподавателей для этого предмета:</value>
+  </data>
 </root>

@@ -53,6 +53,15 @@ namespace NureTimetable.DAL.Models.Local
                 .Select(e => e.Type)
                 .Distinct();
 
+        public IEnumerable<Teacher> Teachers()
+            => Events.SelectMany(e => e.Teachers).Distinct();
+
+        public IEnumerable<Teacher> Teachers(long lessonId)
+            => Events
+                .Where(e => e.Lesson.ID == lessonId)
+                .SelectMany(e => e.Teachers)
+                .Distinct();
+
         public DateTime StartDate()
             => Events.Min(e => e.Start.Date);
 
@@ -77,7 +86,10 @@ namespace NureTimetable.DAL.Models.Local
                 }
                 else if (lInfo.Settings.Hiding.ShowLesson == null)
                 {
-                    Events.RemoveAll(ev => ev.Lesson == lInfo.Lesson && lInfo.Settings.Hiding.HideOnlyThisEventTypes.Contains(ev.Type.ID));
+                    Events.RemoveAll(ev => ev.Lesson == lInfo.Lesson && 
+                        (lInfo.Settings.Hiding.EventTypesToHide.Contains(ev.Type.ID) || 
+                        lInfo.Settings.Hiding.TeachersToHide.Intersect(ev.Teachers.Select(t => t.ID)).Any())
+                    );
                 }
             }
         }

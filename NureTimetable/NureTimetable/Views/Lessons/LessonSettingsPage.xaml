@@ -5,41 +5,65 @@
              xmlns:syncfusion="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
              x:Class="NureTimetable.Views.Lessons.LessonSettingsPage">
 
-    <ListView x:Name="LessonsEventTypes"
-            Margin="10,10,10,10"
-            HasUnevenRows="True"
-            CachingStrategy="RecycleElement"
-            ItemTapped="LessonsEventTypes_ItemTapped">
-        <ListView.Header>
-            <StackLayout>
-                <syncfusion:SfCheckBox 
+    <ScrollView>
+        <StackLayout>
+            <syncfusion:SfCheckBox 
                     x:Name="ShowLesson"
+                    VerticalOptions="Fill"
                     CheckedColor="DeepSkyBlue"
                     StateChanged="ShowLesson_StateChanged"
                     Text="{LN:Translate DisplayLesson}" />
-                <Label Text="{LN:Translate DisplayLessonsForTypes}" />
-            </StackLayout>
-        </ListView.Header>
-        <ListView.ItemTemplate>
-            <DataTemplate>
-                <ViewCell>
-                    <syncfusion:SfCheckBox 
-                        CheckedColor="DeepSkyBlue"
-                        Margin="10,5,10,5"
-                        StateChanged="EventType_StateChanged"
-                        Text="{Binding EventType.ShortName}"
-                        IsChecked="{Binding IsChecked}" />
-                </ViewCell>
-            </DataTemplate>
-        </ListView.ItemTemplate>
-        <ListView.Footer>
-            <StackLayout Margin="0,20,0,0">
+            <ListView x:Name="LessonEventTypes"
+                    VerticalOptions="Fill"
+                    Margin="10,10,10,10"
+                    HasUnevenRows="True"
+                    CachingStrategy="RecycleElement"
+                    ItemTapped="LessonEventTypes_ItemTapped">
+                <ListView.Header>
+                    <Label Text="{LN:Translate DisplayLessonsForTypes}" />
+                </ListView.Header>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <syncfusion:SfCheckBox 
+                                CheckedColor="DeepSkyBlue"
+                                Margin="10,5,10,5"
+                                StateChanged="EventType_StateChanged"
+                                Text="{Binding EventType.ShortName}"
+                                IsChecked="{Binding IsChecked}" />
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <ListView x:Name="LessonTeachers"
+                    VerticalOptions="Fill"
+                    Margin="10,10,10,10"
+                    HasUnevenRows="True"
+                    CachingStrategy="RecycleElement"
+                    ItemTapped="LessonTeachers_ItemTapped">
+                <ListView.Header>
+                    <Label Text="{LN:Translate DisplayLessonsForTeachers}" />
+                </ListView.Header>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <syncfusion:SfCheckBox 
+                                CheckedColor="DeepSkyBlue"
+                                Margin="10,5,10,5"
+                                StateChanged="Teacher_StateChanged"
+                                Text="{Binding Teacher.ShortName}"
+                                IsChecked="{Binding IsChecked}" />
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <StackLayout VerticalOptions="Fill" Margin="10,0,10,0">
                 <Label Text="{LN:Translate Notes}" />
                 <Editor 
                     HeightRequest="84" 
                     x:Name="LessonNotes" 
                     TextChanged="LessonNotes_TextChanged" />
             </StackLayout>
-        </ListView.Footer>
-    </ListView>
+        </StackLayout>
+    </ScrollView>
 </ContentPage>

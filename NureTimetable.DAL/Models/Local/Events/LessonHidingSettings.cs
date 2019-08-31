@@ -7,13 +7,12 @@ namespace NureTimetable.DAL.Models.Local
     public class LessonHidingSettings : BindableObject
     {
         /// <summary>
-        /// if null, take settings from HideOnlyThisEventTypes list
+        /// if not null, other hidding settings are ignorred
         /// </summary>
         public bool? ShowLesson { get; set; } = true;
-
-        /// <summary>
-        /// If null or empty, only HideLesson setting is taken into account
-        /// </summary>
-        public List<long> HideOnlyThisEventTypes { get; } = new List<long>();
+        
+        public List<long> EventTypesToHide { get; } = new List<long>();
+        
+        public List<long> TeachersToHide { get; } = new List<long>();
     }
 }
