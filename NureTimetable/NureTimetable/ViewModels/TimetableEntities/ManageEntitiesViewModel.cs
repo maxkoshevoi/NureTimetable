@@ -1,4 +1,5 @@
-﻿using NureTimetable.Core.Localization;
+﻿using Microsoft.AppCenter.Analytics;
+using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Consts;
 using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
@@ -222,6 +223,14 @@ namespace NureTimetable.ViewModels.TimetableEntities
 
             await Task.Factory.StartNew(() =>
             {
+#if !DEBUG
+                Analytics.TrackEvent("Updating timetable", new Dictionary<string, string>
+                {
+                    { "Count", entitiesAllowed.Count.ToString() },
+                    { "Hour of the day", DateTime.Now.Hour.ToString() }
+                });
+#endif
+
                 List<string> success = new List<string>(), fail = new List<string>();
                 foreach (SavedEntity entity in entitiesAllowed)
                 {

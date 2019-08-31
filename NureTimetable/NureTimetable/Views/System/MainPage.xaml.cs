@@ -1,4 +1,5 @@
-﻿using Microsoft.AppCenter.Crashes;
+﻿using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Consts;
 using NureTimetable.Models.System;
@@ -34,30 +35,42 @@ namespace NureTimetable.Views
                     DisplayAlert(LN.ErrorDetails, ex.ToString(), LN.Ok);
                 }
 
-#if !DEBUG
-                // Getting exception Data
-                var properties = new Dictionary<string, string>();
-                foreach (DictionaryEntry de in ex.Data)
-                {
-                    properties.Add(de.Key.ToString(), de.Value.ToString());
-                }
-
-                // Special cases for certain exception types
-                if (ex is WebException webException)
-                {
-                    properties.Add("WebExceptionStatus", webException.Status.ToString());
-
-                    if (new[] { WebExceptionStatus.NameResolutionFailure, WebExceptionStatus.ConnectFailure }.Contains(webException.Status))
-                    {
-                        // Most likely device doesn't have internet connection
-                        return;
-                    }
-                }
-
-                // Logging exception
-                Crashes.TrackError(ex, properties);
-#endif
+                LogException(ex);
             });
+        }
+        
+        private static void LogException(Exception ex)
+        {
+#if !DEBUG
+            // Getting exception Data
+            var properties = new Dictionary<string, string>();
+            foreach (DictionaryEntry de in ex.Data)
+            {
+                properties.Add(de.Key.ToString(), de.Value.ToString());
+            }
+
+            // Special cases for certain exception types
+            if (ex is WebException webException)
+            {
+                // WebException happens for external reasons, and should't be treated as an exception.
+                // But just in case it is logged as Event
+
+                properties.Add("Status", webException.Status.ToString());
+                properties.Add("Message", webException.Message);
+
+                if (new[] { WebExceptionStatus.NameResolutionFailure, WebExceptionStatus.ConnectFailure }.Contains(webException.Status))
+                {
+                    // Most likely device doesn't have internet connection
+                    return;
+                }
+
+                Analytics.TrackEvent("WebException", properties);
+                return;
+            }
+
+            // Logging exception
+            Crashes.TrackError(ex, properties);
+#endif
         }
 
         public async Task NavigateFromMenu(int id)
