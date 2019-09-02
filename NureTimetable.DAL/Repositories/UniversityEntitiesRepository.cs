@@ -440,12 +440,12 @@ namespace NureTimetable.DAL
 
         public static void UpdateSelected(Local.SavedEntity selectedEntity = null)
         {
-            List<Local.SavedEntity> selectedEntities = null;
+            List<Local.SavedEntity> entities = new List<Local.SavedEntity>();
             if (selectedEntity != null)
             {
-                selectedEntities.Add(selectedEntity);
+                entities.Add(selectedEntity);
             }
-            UpdateSelected(selectedEntities);
+            UpdateSelected(entities);
         }
 
         public static void UpdateSelected(List<Local.SavedEntity> selectedEntities)

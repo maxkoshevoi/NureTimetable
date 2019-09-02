@@ -40,9 +40,9 @@ namespace NureTimetable.DAL
 
         #region Local
         public static Local.TimetableInfo GetTimetableLocal(Local.SavedEntity entity)
-            => GetTimetableLocal(new[] { entity }).FirstOrDefault();
+            => GetTimetableLocal(new List<Local.SavedEntity>() { entity }).FirstOrDefault();
 
-        public static List<Local.TimetableInfo> GetTimetableLocal(params Local.SavedEntity[] entities)
+        public static List<Local.TimetableInfo> GetTimetableLocal(List<Local.SavedEntity> entities)
         {
             var timetables = new List<Local.TimetableInfo>();
             if (entities == null)
@@ -83,7 +83,7 @@ namespace NureTimetable.DAL
         #region Cist
         public static Local.TimetableInfo GetTimetableFromCist(Local.SavedEntity entity, DateTime dateStart, DateTime dateEnd)
         {
-            if (SettingsRepository.CheckCistTimetableUpdateRights(entity).Count == 0)
+            if (SettingsRepository.CheckCistTimetableUpdateRights(new List<Local.SavedEntity>() { entity }).Count == 0)
             {
                 return null;
             }

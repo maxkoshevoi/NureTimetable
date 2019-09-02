@@ -253,7 +253,7 @@ namespace NureTimetable.ViewModels.TimetableEntities
             }
             if (await App.Current.MainPage.DisplayAlert(LN.TimetableUpdate, LN.UpdateAllTimetables, LN.Yes, LN.Cancel))
             {
-                await UpdateTimetable(Entities?.Select(vm => vm.SavedEntity).ToArray());
+                await UpdateTimetable(Entities?.Select(vm => vm.SavedEntity).ToList());
             }
         }
 
@@ -282,9 +282,12 @@ namespace NureTimetable.ViewModels.TimetableEntities
             );
         }
 
-        private async Task UpdateTimetable(params SavedEntity[] entities)
+        private Task UpdateTimetable(SavedEntity entity)
+            => UpdateTimetable(new List<SavedEntity>() { entity });
+
+        private async Task UpdateTimetable(List<SavedEntity> entities)
         {
-            if (entities == null || entities.Length == 0)
+            if (entities == null || entities.Count == 0)
             {
                 return;
             }
