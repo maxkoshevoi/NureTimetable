@@ -12,7 +12,7 @@ namespace NureTimetable.MIgrations
         {
             return HandleException(() =>
             {
-                return !File.Exists(FilePath.SelectedEntities);
+                return !File.Exists(FilePath.SelectedEntities) && File.Exists(Path.Combine(FilePath.LocalStorage, "entity_selected.json"));
             });
 
         }
@@ -22,6 +22,10 @@ namespace NureTimetable.MIgrations
             return HandleException(() =>
             {
                 SavedEntity savedEntity = Serialisation.FromJsonFile<SavedEntity>(Path.Combine(FilePath.LocalStorage, "entity_selected.json"));
+                if (savedEntity == null)
+                {
+                    return true;
+                }
                 UniversityEntitiesRepository.UpdateSelected(savedEntity);
                 return true;
             });

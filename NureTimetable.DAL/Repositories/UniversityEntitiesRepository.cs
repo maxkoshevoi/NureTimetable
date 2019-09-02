@@ -387,6 +387,8 @@ namespace NureTimetable.DAL
 
         public static void UpdateSaved(List<Local.SavedEntity> savedEntities)
         {
+            savedEntities = savedEntities ?? new List<Local.SavedEntity>();
+
             // Removing cache from deleted saved entities if needed
             List<Local.SavedEntity> deletedEntities = GetSaved()
                 .Where(oldEntity => !savedEntities.Exists(entity => entity.ID == oldEntity.ID))
@@ -435,13 +437,25 @@ namespace NureTimetable.DAL
             selectedEntities = Serialisation.FromJsonFile<List<Local.SavedEntity>>(filePath) ?? selectedEntities;
             return selectedEntities;
         }
-        
-        public static void UpdateSelected(params Local.SavedEntity[] selectedEntities)
+
+        public static void UpdateSelected(Local.SavedEntity selectedEntity = null)
         {
+            List<Local.SavedEntity> selectedEntities = null;
+            if (selectedEntity != null)
+            {
+                selectedEntities.Add(selectedEntity);
+            }
+            UpdateSelected(selectedEntities);
+        }
+
+        public static void UpdateSelected(List<Local.SavedEntity> selectedEntities)
+        {
+            selectedEntities = selectedEntities ?? new List<Local.SavedEntity>();
+
             Serialisation.ToJsonFile(selectedEntities, FilePath.SelectedEntities);
             Device.BeginInvokeOnMainThread(() =>
             {
-                MessagingCenter.Send(Application.Current, MessageTypes.SelectedEntitiesChanged, selectedEntities.ToList());
+                MessagingCenter.Send(Application.Current, MessageTypes.SelectedEntitiesChanged, selectedEntities);
             });
         }
         #endregion

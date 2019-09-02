@@ -70,7 +70,7 @@ namespace NureTimetable.ViewModels.TimetableEntities
                         }
                         currentSelected.Remove(SavedEntity);
                     }
-                    UniversityEntitiesRepository.UpdateSelected(currentSelected.ToArray());
+                    UniversityEntitiesRepository.UpdateSelected(currentSelected);
                 }
             }
 
