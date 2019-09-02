@@ -409,37 +409,39 @@ namespace NureTimetable.DAL
                 MessagingCenter.Send(Application.Current, MessageTypes.SavedEntitiesChanged, savedEntities);
             });
             // Updating selected entity if needed
-            Local.SavedEntity selectedEntity = GetSelected();
-            if ((selectedEntity == null || !savedEntities.Exists(g => g.ID == selectedEntity.ID)) && savedEntities.Count > 0)
+            List<Local.SavedEntity> selectedEntities = savedEntities.Intersect(GetSelected()).ToList();
+            if (selectedEntities.Count == 0 && savedEntities.Count > 0)
             {
                 UpdateSelected(savedEntities[0]);
             }
             else if(savedEntities.Count == 0)
             {
-                UpdateSelected(null);
+                UpdateSelected();
             }
         }
         #endregion
 
         #region Selected Entity
-        public static Local.SavedEntity GetSelected()
+        public static List<Local.SavedEntity> GetSelected()
         {
-            string filePath = FilePath.SelectedEntity;
+            var selectedEntities = new List<Local.SavedEntity>();
+
+            string filePath = FilePath.SelectedEntities;
             if (!File.Exists(filePath))
             {
-                return null;
+                return selectedEntities;
             }
 
-            Local.SavedEntity selectedEntity = Serialisation.FromJsonFile<Local.SavedEntity>(filePath);
-            return selectedEntity;
+            selectedEntities = Serialisation.FromJsonFile<List<Local.SavedEntity>>(filePath) ?? selectedEntities;
+            return selectedEntities;
         }
-
-        public static void UpdateSelected(Local.SavedEntity selectedEntity)
+        
+        public static void UpdateSelected(params Local.SavedEntity[] selectedEntities)
         {
-            Serialisation.ToJsonFile(selectedEntity, FilePath.SelectedEntity);
+            Serialisation.ToJsonFile(selectedEntities, FilePath.SelectedEntities);
             Device.BeginInvokeOnMainThread(() =>
             {
-                MessagingCenter.Send(Application.Current, MessageTypes.SelectedEntityChanged, selectedEntity);
+                MessagingCenter.Send(Application.Current, MessageTypes.SelectedEntitiesChanged, selectedEntities.ToList());
             });
         }
         #endregion

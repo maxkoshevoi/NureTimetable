@@ -79,6 +79,15 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add to selected.
+        /// </summary>
+        public static string AddToSelectedEntities {
+            get {
+                return ResourceManager.GetString("AddToSelectedEntities", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All events are shown.
         /// </summary>
         public static string AllEventsShown {
@@ -349,6 +358,33 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to In the new version, the data storage structure has changed. An application needs to convert data from the old format to the new one. Click OK to complete the upgrade..
+        /// </summary>
+        public static string FinishingUpdateDescription {
+            get {
+                return ResourceManager.GetString("FinishingUpdateDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Something went wrong..
+        /// </summary>
+        public static string FinishingUpdateFail {
+            get {
+                return ResourceManager.GetString("FinishingUpdateFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Finishing update.
+        /// </summary>
+        public static string FinishingUpdateTitle {
+            get {
+                return ResourceManager.GetString("FinishingUpdateTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Groups.
         /// </summary>
         public static string Groups {
@@ -512,6 +548,15 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remove from selected.
+        /// </summary>
+        public static string RemoveFromSelectedEntities {
+            get {
+                return ResourceManager.GetString("RemoveFromSelectedEntities", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Rooms.
         /// </summary>
         public static string Rooms {
@@ -553,6 +598,15 @@ namespace NureTimetable.Core.Localization {
         public static string SelectedEventsShown {
             get {
                 return ResourceManager.GetString("SelectedEventsShown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select only this one.
+        /// </summary>
+        public static string SelectOneEntity {
+            get {
+                return ResourceManager.GetString("SelectOneEntity", resourceCulture);
             }
         }
         

@@ -6,7 +6,6 @@ namespace NureTimetable.UI.Views.TimetableEntities
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ManageEntitiesPage : ContentPage
     {
-
         public ManageEntitiesPage()
         {
             InitializeComponent();

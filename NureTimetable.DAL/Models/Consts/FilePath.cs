@@ -16,8 +16,8 @@ namespace NureTimetable.DAL.Models.Consts
         public static string SavedEntitiesList =>
             Path.Combine(LocalStorage, "entities_saved.json");
 
-        public static string SelectedEntity =>
-            Path.Combine(LocalStorage, "entity_selected.json");
+        public static string SelectedEntities =>
+            Path.Combine(LocalStorage, "entities_selected.json");
 
         public static string UniversityEntities =>
             Path.Combine(LocalStorage, "university_entities.json");

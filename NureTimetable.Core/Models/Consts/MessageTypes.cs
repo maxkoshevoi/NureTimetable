@@ -2,11 +2,11 @@
 {
     public static class MessageTypes
     {
-        public const string TimetableUpdated = "TimetableUpdated";
-        public const string UniversityEntitiesUpdated = "UniversityEntitiesUpdated";
-        public const string SavedEntitiesChanged = "SavedEntitiesChanged";
-        public const string SelectedEntityChanged = "SelectedEntityChanged";
-        public const string ExceptionOccurred = "ExceptionOccurred";
-        public const string LessonSettingsChanged = "LessonSettingsChanged";
+        public const string TimetableUpdated = nameof(TimetableUpdated);
+        public const string UniversityEntitiesUpdated = nameof(UniversityEntitiesUpdated);
+        public const string SavedEntitiesChanged = nameof(SavedEntitiesChanged);
+        public const string SelectedEntitiesChanged = nameof(SelectedEntitiesChanged);
+        public const string ExceptionOccurred = nameof(ExceptionOccurred);
+        public const string LessonSettingsChanged = nameof(LessonSettingsChanged);
     }
 }

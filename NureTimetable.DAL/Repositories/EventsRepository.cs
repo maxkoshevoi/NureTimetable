@@ -109,7 +109,22 @@ namespace NureTimetable.DAL
                     {
                         timetable = new Local.TimetableInfo(entity);
                     }
-                    timetable.Events = cistTimetable.Events.Select(ev =>
+                    IEnumerable<Cist.Event> ownEvents;
+                    switch (entity.Type)
+                    {
+                        case Local.TimetableEntityType.Group:
+                            ownEvents = cistTimetable.Events.Where(e => e.GroupIds.Contains(entity.ID));
+                            break;
+                        case Local.TimetableEntityType.Teacher:
+                            ownEvents = cistTimetable.Events.Where(e => e.TeacherIds.Contains(entity.ID));
+                            break;
+                        case Local.TimetableEntityType.Room:
+                            ownEvents = cistTimetable.Events.Where(e => e.Room == entity.Name);
+                            break;
+                        default:
+                            throw new ArgumentException("Unknown entity type");
+                    }
+                    timetable.Events = ownEvents.Select(ev =>
                     {
                         Local.Event localEvent = MapConfig.Map<Cist.Event, Local.Event>(ev);
                         localEvent.Lesson = MapConfig.Map<Cist.Lesson, Local.Lesson>(cistTimetable.Lessons.First(l => l.Id == ev.LessonId));
@@ -124,7 +139,12 @@ namespace NureTimetable.DAL
                             .Select(g => MapConfig.Map<Cist.Group, Local.Group>(g))
                             .ToList();
                         return localEvent;
-                    }).ToList();
+                    })
+                    .Distinct()
+                    .ToList();
+                    
+                    // Saving timetables
+                    UpdateTimetableLocal(timetable);
 
                     // Updating LastUpdated for saved groups 
                     List<Local.SavedEntity> AllSavedEntities = UniversityEntitiesRepository.GetSaved();
@@ -134,8 +154,6 @@ namespace NureTimetable.DAL
                     }
                     UniversityEntitiesRepository.UpdateSaved(AllSavedEntities);
 
-                    // Saving timetables
-                    UpdateTimetableLocal(timetable);
                     Device.BeginInvokeOnMainThread(() =>
                     {
                         MessagingCenter.Send(Application.Current, MessageTypes.TimetableUpdated, entity);

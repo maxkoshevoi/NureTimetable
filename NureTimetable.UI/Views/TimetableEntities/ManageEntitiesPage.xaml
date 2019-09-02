@@ -23,12 +23,12 @@
                         <ViewCell>
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="10" />
+                                    <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <Label Grid.Column="0" BackgroundColor="{StaticResource SelectedEntityColor}" HorizontalOptions="FillAndExpand" IsVisible="{Binding IsSelected}" />
-                                <StackLayout Grid.Column="1" Margin="10,5,0,5">
+                                <CheckBox Grid.Column="0" Margin="5,5,5,5" IsChecked="{Binding IsSelected}" Color="DeepSkyBlue" />
+                                <StackLayout Grid.Column="1" Margin="0,5,0,5">
                                     <Label Text="{Binding SavedEntity.Name}" Style="{DynamicResource ListItemTextStyle}" />
                                     <Label Text="{Binding SavedEntity.LastUpdated}" Style="{DynamicResource ListItemDetailTextStyle}"/>
                                 </StackLayout>

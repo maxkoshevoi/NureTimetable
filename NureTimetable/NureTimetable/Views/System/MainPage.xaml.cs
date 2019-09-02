@@ -2,6 +2,7 @@
 using Microsoft.AppCenter.Crashes;
 using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Consts;
+using NureTimetable.MIgrations;
 using NureTimetable.Models.System;
 using NureTimetable.UI.Views.Info;
 using NureTimetable.ViewModels.Info;
@@ -38,7 +39,39 @@ namespace NureTimetable.Views
                 LogException(ex);
             });
         }
-        
+
+        protected override async void OnAppearing()
+        {
+            var migrationsToApply = new List<BaseMigration>();
+            foreach (var migration in BaseMigration.Migrations)
+            {
+                if (migration.IsNeedsToBeApplied())
+                {
+                    migrationsToApply.Add(migration);
+                }
+            }
+
+            if (migrationsToApply.Count > 0)
+            {
+                await App.Current.MainPage.DisplayAlert(LN.FinishingUpdateTitle, LN.FinishingUpdateDescription, LN.Ok);
+                bool isSuccess = true;
+                foreach (var migration in migrationsToApply)
+                {
+                    if (!migration.Apply())
+                    {
+                        isSuccess = false;
+                    }
+                }
+                if (!isSuccess)
+                {
+                    await App.Current.MainPage.DisplayAlert(LN.FinishingUpdateTitle, LN.FinishingUpdateFail, LN.Ok);
+                }
+                Detail = new NavigationPage(new TimetablePage());
+            }
+
+            base.OnAppearing();
+        }
+
         private static void LogException(Exception ex)
         {
 #if !DEBUG
@@ -97,14 +130,14 @@ namespace NureTimetable.Views
             }
 
             var newPage = MenuPages[id];
-
             if (newPage != null && Detail != newPage)
             {
                 Detail = newPage;
 
                 if (Device.RuntimePlatform == Device.Android)
+                {
                     await Task.Delay(100);
-
+                }
                 IsPresented = false;
             }
         }

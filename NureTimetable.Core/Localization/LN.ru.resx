@@ -136,7 +136,7 @@
     <value>Сайт</value>
   </data>
   <data name="NureWebpages" xml:space="preserve">
-    <value>Официальные страницы ХНУРЭ:</value>
+    <value>Официальные страницы ХНУРЭ: </value>
   </data>
   <data name="ShowErrors" xml:space="preserve">
     <value>Показывать ошибки</value>
@@ -384,5 +384,23 @@
   </data>
   <data name="DisplayLessonsForTeachers" xml:space="preserve">
     <value>Отображать преподавателей для этого предмета:</value>
+  </data>
+  <data name="FinishingUpdateDescription" xml:space="preserve">
+    <value>В новой версии поменялась структура хранения данных. Приложению нужно сконвертировать данные из старого формата, в новый. Нажмите ОК, чтобы завершить обновление.</value>
+  </data>
+  <data name="FinishingUpdateFail" xml:space="preserve">
+    <value>Что-то пошло не так</value>
+  </data>
+  <data name="FinishingUpdateTitle" xml:space="preserve">
+    <value>Завершение обновления</value>
+  </data>
+  <data name="AddToSelectedEntities" xml:space="preserve">
+    <value>Добавить к выбранным</value>
+  </data>
+  <data name="RemoveFromSelectedEntities" xml:space="preserve">
+    <value>Удалить из выбранных</value>
+  </data>
+  <data name="SelectOneEntity" xml:space="preserve">
+    <value>Выбрать только это</value>
   </data>
 </root>

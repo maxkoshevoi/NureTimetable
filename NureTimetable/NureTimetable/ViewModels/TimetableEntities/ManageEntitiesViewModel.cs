@@ -11,6 +11,7 @@ using Plugin.DeviceInfo;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -21,7 +22,7 @@ namespace NureTimetable.ViewModels.TimetableEntities
     public class ManageEntitiesViewModel : BaseViewModel
     {
         #region Classes
-        public class SavedEntityItemViewModel
+        public class SavedEntityItemViewModel : INotifyPropertyChanged
         {
             #region variables
             private ManageEntitiesViewModel _manageEntitiesViewModel;
@@ -31,7 +32,47 @@ namespace NureTimetable.ViewModels.TimetableEntities
             public SavedEntity SavedEntity { get; }
 
             // TODO: Move this property inside SavedEntity and replace SelectedEntity functionality with it
-            public bool IsSelected { get; set; }
+            private bool isSelected;
+            public bool IsSelected
+            {
+                get => isSelected;
+                set
+                {
+                    if (isSelected == value)
+                    {
+                        return;
+                    }
+
+                    isSelected = value;
+                    NotifyChanged();
+
+                    List<SavedEntity> currentSelected = UniversityEntitiesRepository.GetSelected();
+                    if (value)
+                    {
+                        if (currentSelected.Contains(SavedEntity))
+                        {
+                            return;
+                        }
+                        currentSelected.Add(SavedEntity);
+                    }
+                    else
+                    {
+                        if (!currentSelected.Contains(SavedEntity))
+                        {
+                            return;
+                        }
+                        if (currentSelected.Count == 1)
+                        {
+                            // User cannot deselect last selected entity
+                            isSelected = true;
+                            NotifyChanged();
+                            return;
+                        }
+                        currentSelected.Remove(SavedEntity);
+                    }
+                    UniversityEntitiesRepository.UpdateSelected(currentSelected.ToArray());
+                }
+            }
 
             public ICommand SettingsClickedCommand { get; }
 
@@ -54,10 +95,6 @@ namespace NureTimetable.ViewModels.TimetableEntities
             public async Task SettingsClicked()
             {
                 List<string> actionList = new List<string> { LN.UpdateTimetable, LN.SetUpLessonDisplay, LN.Delete };
-                if (!IsSelected)
-                {
-                    actionList.Insert(0, LN.Select);
-                }
                 if (Device.RuntimePlatform == Device.Android 
                     && CrossDeviceInfo.Current.VersionNumber.Major > 0 
                     && CrossDeviceInfo.Current.VersionNumber.Major < 5)
@@ -67,12 +104,7 @@ namespace NureTimetable.ViewModels.TimetableEntities
                 }
 
                 string action = await App.Current.MainPage.DisplayActionSheet(LN.ChooseAction, LN.Cancel, null, actionList.ToArray());
-                if (action == LN.Select)
-                {
-                    UniversityEntitiesRepository.UpdateSelected(SavedEntity);
-                    await _manageEntitiesViewModel.Navigation.PopToRootAsync();
-                }
-                else if (action == LN.UpdateTimetable)
+                if (action == LN.UpdateTimetable)
                 {
                     await _manageEntitiesViewModel.UpdateTimetable(SavedEntity);
                 }
@@ -86,6 +118,14 @@ namespace NureTimetable.ViewModels.TimetableEntities
                     UniversityEntitiesRepository.UpdateSaved(_manageEntitiesViewModel.Entities.Select(vm => vm.SavedEntity).ToList());
                 }
             }
+            
+            #region INotifyPropertyChanged
+            public event PropertyChangedEventHandler PropertyChanged;
+            public void NotifyChanged()
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsSelected)));
+            }
+            #endregion
         }
         #endregion
 
@@ -160,11 +200,49 @@ namespace NureTimetable.ViewModels.TimetableEntities
         #region Methods
         public async Task SavedEntitySelected(SavedEntityItemViewModel selectedEntity)
         {
-            if (!selectedEntity.IsSelected)
+            if (UniversityEntitiesRepository.GetSelected().Count > 1)
             {
-                UniversityEntitiesRepository.UpdateSelected(selectedEntity.SavedEntity);
+                List<string> actionList = new List<string> { LN.SelectOneEntity };
+                if (selectedEntity.IsSelected)
+                {
+                    actionList.Add(LN.RemoveFromSelectedEntities);
+                }
+                else
+                {
+                    actionList.Add(LN.AddToSelectedEntities);
+                }
+                string action = await App.Current.MainPage.DisplayActionSheet(LN.ChooseAction, LN.Cancel, null, actionList.ToArray());
+                if (action == LN.SelectOneEntity)
+                {
+                    SelectOneEntity(selectedEntity, false);
+                    await Navigation.PopToRootAsync();
+                }
+                else if (action == LN.AddToSelectedEntities)
+                {
+                    selectedEntity.IsSelected = true;
+                }
+                else if (action == LN.RemoveFromSelectedEntities)
+                {
+                    selectedEntity.IsSelected = false;
+                }
             }
-            await Navigation.PopToRootAsync();
+            else
+            {
+                SelectOneEntity(selectedEntity, false);
+                await Navigation.PopToRootAsync();
+            }
+        }
+
+        public void SelectOneEntity(SavedEntityItemViewModel entity, bool updateState)
+        {
+            UniversityEntitiesRepository.UpdateSelected(entity.SavedEntity);
+            if (updateState)
+            {
+                foreach (var e in Entities)
+                {
+                    e.IsSelected = (e.SavedEntity == entity.SavedEntity);
+                }
+            }
         }
 
         private async Task UpdateAll()
@@ -195,11 +273,11 @@ namespace NureTimetable.ViewModels.TimetableEntities
         {
             IsNoSourceLayoutVisable = (newItems.Count == 0);
 
-            SavedEntity selectedEntity = UniversityEntitiesRepository.GetSelected();
+            List<SavedEntity> selectedEntities = UniversityEntitiesRepository.GetSelected();
             Entities = new ObservableCollection<SavedEntityItemViewModel>(
                 newItems.Select(sg => new SavedEntityItemViewModel(sg, this)
                 {
-                    IsSelected = sg.ID == selectedEntity?.ID
+                    IsSelected = selectedEntities.Any(se => se.ID == sg.ID)
                 })
             );
         }

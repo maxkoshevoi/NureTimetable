@@ -22,7 +22,7 @@ namespace NureTimetable.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class TimetablePage : ContentPage
     {
-        public TimetableInfo timetableInfo { get; set; } = null;
+        public TimetableInfoList timetableInfoList { get; set; } = null;
         public bool ApplyHiddingSettings = true;
 
         private bool isFirstLoad = true;
@@ -58,27 +58,27 @@ namespace NureTimetable.Views
                     break;
             }
 
-            MessagingCenter.Subscribe<Application, SavedEntity>(this, MessageTypes.SelectedEntityChanged, (sender, newSelectedEntity) =>
+            MessagingCenter.Subscribe<Application, List<SavedEntity>>(this, MessageTypes.SelectedEntitiesChanged, (sender, newSelectedEntities) =>
             {
-                UpdateEvents(newSelectedEntity);
+                UpdateEvents(newSelectedEntities);
             });
             MessagingCenter.Subscribe<Application, SavedEntity>(this, MessageTypes.TimetableUpdated, (sender, entity) =>
             {
-                SavedEntity selectedEntity = UniversityEntitiesRepository.GetSelected();
-                if (selectedEntity == null || selectedEntity != entity)
+                List<SavedEntity> selectedEntities = UniversityEntitiesRepository.GetSelected();
+                if (selectedEntities == null || !selectedEntities.Contains(entity))
                 {
                     return;
                 }
-                UpdateEvents(selectedEntity);
+                UpdateEvents(selectedEntities);
             });
             MessagingCenter.Subscribe<Application, SavedEntity>(this, MessageTypes.LessonSettingsChanged, (sender, entity) =>
             {
-                SavedEntity selectedEntity = UniversityEntitiesRepository.GetSelected();
-                if (selectedEntity == null || selectedEntity != entity)
+                List<SavedEntity> selectedEntities = UniversityEntitiesRepository.GetSelected();
+                if (selectedEntities.Count == 0 || !selectedEntities.Contains(entity))
                 {
                     return;
                 }
-                UpdateEvents(selectedEntity);
+                UpdateEvents(selectedEntities);
             });
         }
 
@@ -143,19 +143,19 @@ namespace NureTimetable.Views
 
         private bool UpdateTimeLeft()
         {
-            if (timetableInfo != null && timetableInfo.Count > 0)
+            if (timetableInfoList != null && timetableInfoList.Count > 0)
             {
                 string text = null;
                 lock (enumeratingEvents)
                 {
-                    Event currentEvent = timetableInfo.Events.FirstOrDefault(e => e.Start <= DateTime.Now && e.End >= DateTime.Now);
+                    Event currentEvent = timetableInfoList.Events.FirstOrDefault(e => e.Start <= DateTime.Now && e.End >= DateTime.Now);
                     if (currentEvent != null)
                     {
                         text = string.Format(LN.TimeUntilBreak, (currentEvent.End - DateTime.Now).ToString("hh\\:mm\\:ss"));
                     }
                     else
                     {
-                        Event nextEvent = timetableInfo.Events
+                        Event nextEvent = timetableInfoList.Events
                             .Where(e => e.Start > DateTime.Now)
                             .OrderBy(e => e.Start)
                             .FirstOrDefault();
@@ -211,9 +211,9 @@ namespace NureTimetable.Views
             });
         }
 
-        private void UpdateEvents(SavedEntity selectedEntity)
+        private void UpdateEvents(List<SavedEntity> selectedEntities)
         {
-            if (selectedEntity == null)
+            if (selectedEntities == null || selectedEntities.Count == 0)
             {
                 Device.BeginInvokeOnMainThread(() =>
                 {
@@ -227,7 +227,7 @@ namespace NureTimetable.Views
             {
                 Device.BeginInvokeOnMainThread(() =>
                 {
-                    Title = selectedEntity.Name;
+                    Title = string.Join(", ", selectedEntities.Select(se => se.Name));
                 });
                 NoSourceLayout.IsVisible = false;
                 TimetableLayout.IsVisible = true;
@@ -235,16 +235,21 @@ namespace NureTimetable.Views
 
             lock (enumeratingEvents)
             {
-                timetableInfo = EventsRepository.GetEvents(selectedEntity) ?? new TimetableInfo();
-                if (ApplyHiddingSettings)
+                var timetableInfos = new List<TimetableInfo>();
+                foreach (SavedEntity entity in selectedEntities)
                 {
-                    timetableInfo.ApplyLessonSettings();
+                    TimetableInfo timetableInfo = EventsRepository.GetEvents(entity);
+                    if (timetableInfo != null)
+                    {
+                        timetableInfos.Add(timetableInfo);
+                    }
                 }
+                timetableInfoList = TimetableInfoList.Build(timetableInfos, ApplyHiddingSettings);
             }
 
             Device.BeginInvokeOnMainThread(() =>
             {
-                if (timetableInfo.Count == 0)
+                if (timetableInfoList.Count == 0)
                 {
                     Timetable.DataSource = null;
                 }
@@ -258,18 +263,18 @@ namespace NureTimetable.Views
                         {
                             lock (enumeratingEvents)
                             {
-                                Timetable.MinDisplayDate = timetableInfo.StartDate();
-                                Timetable.MaxDisplayDate = timetableInfo.EndDate();
+                                Timetable.MinDisplayDate = timetableInfoList.StartDate();
+                                Timetable.MaxDisplayDate = timetableInfoList.EndDate();
 
                                 Timetable.WeekViewSettings.StartHour = 0;
                                 Timetable.WeekViewSettings.EndHour = 24;
-                                Timetable.WeekViewSettings.StartHour = timetableInfo.StartTime().TotalHours;
-                                Timetable.WeekViewSettings.EndHour = timetableInfo.EndTime().TotalHours + (Timetable.TimeInterval / 60 / 2);
+                                Timetable.WeekViewSettings.StartHour = timetableInfoList.StartTime().TotalHours;
+                                Timetable.WeekViewSettings.EndHour = timetableInfoList.EndTime().TotalHours + (Timetable.TimeInterval / 60 / 2);
 
                                 Timetable.DayViewSettings.StartHour = 0;
                                 Timetable.DayViewSettings.EndHour = 24;
-                                Timetable.DayViewSettings.StartHour = timetableInfo.StartTime().TotalHours;
-                                Timetable.DayViewSettings.EndHour = timetableInfo.EndTime().TotalHours + (Timetable.TimeInterval / 60 / 2);
+                                Timetable.DayViewSettings.StartHour = timetableInfoList.StartTime().TotalHours;
+                                Timetable.DayViewSettings.EndHour = timetableInfoList.EndTime().TotalHours + (Timetable.TimeInterval / 60 / 2);
                             }
 
                             UpdateTimetableHeight();
@@ -289,7 +294,7 @@ namespace NureTimetable.Views
                                 Timetable.VisibleDatesChangedEvent += Timetable_VisibleDatesChangedEvent;
                             }
 
-                            Timetable.DataSource = timetableInfo.Events.Select(ev => new EventViewModel(ev)).ToList();
+                            Timetable.DataSource = timetableInfoList.Events.Select(ev => new EventViewModel(ev)).ToList();
 
                             UpdateTimeLeft();
                             break;
@@ -320,7 +325,7 @@ namespace NureTimetable.Views
 
         private void UpdateTimetableHeight()
         {
-            if (Timetable.Height <= 0 || timetableInfo == null || timetableInfo.Count == 0) return;
+            if (Timetable.Height <= 0 || timetableInfoList == null || timetableInfoList.Count == 0) return;
 
             Timetable.VerticalOptions = LayoutOptions.Fill;
             Timetable.HeightRequest = TimetableLayout.Height - (TimeLeft.IsVisible ? TimeLeft.Height + TimeLeft.Margin.VerticalThickness : 0);
@@ -405,7 +410,7 @@ namespace NureTimetable.Views
             }
             string nl = Environment.NewLine;
 
-            LessonInfo lessonInfo = timetableInfo.LessonsInfo.FirstOrDefault(li => li.Lesson == ev.Lesson);
+            LessonInfo lessonInfo = timetableInfoList.LessonsInfo?.FirstOrDefault(li => li.Lesson == ev.Lesson);
             string notes = null;
             if (lessonInfo != null)
             {
@@ -452,13 +457,23 @@ namespace NureTimetable.Views
         void BToday_Clicked(object sender, EventArgs e)
         {
             DateTime today = DateTime.Now.Date;
-            if (Timetable.MaxDisplayDate < today || Timetable.MinDisplayDate > today)
+
+            DateTime moveTo = today;
+            if (Timetable.MinDisplayDate > moveTo)
+            {
+                moveTo = Timetable.MinDisplayDate;
+            }
+            else if (Timetable.MaxDisplayDate < moveTo)
+            {
+                moveTo = Timetable.MaxDisplayDate;
+            }
+            if (moveTo != today && visibleDates.Contains(moveTo))
             {
                 DisplayAlert(LN.ShowToday, LN.NoTodayTimetable, LN.Ok);
                 return;
             }
 
-            Timetable.MoveToDate = today;
+            Timetable.NavigateTo(moveTo);
         }
     }
 }
