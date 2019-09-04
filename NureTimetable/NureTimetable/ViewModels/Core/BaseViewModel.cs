@@ -8,14 +8,15 @@ namespace NureTimetable.ViewModels.Core
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
+        public INavigation Navigation;
+        public event PropertyChangedEventHandler PropertyChanged;
+
         protected BaseViewModel(INavigation navigation)
         {
             Navigation = navigation;
         }
-
-        public INavigation Navigation;
-
-        public event PropertyChangedEventHandler PropertyChanged;
+        
+        private object lockObject = new object();
 
         protected bool SetProperty<T>(ref T backingStore,
             T value,
@@ -27,15 +28,15 @@ namespace NureTimetable.ViewModels.Core
                 return false;
             }
 
-            backingStore = value;
-
-            onChanged?.Invoke();
-
-            OnPropertyChanged(propertyName);
+            lock (lockObject)
+            {
+                backingStore = value;
+                onChanged?.Invoke();
+                OnPropertyChanged(propertyName);
+            }
 
             return true;
         }
-
         protected void OnPropertyChanged(string propName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
     }
 }

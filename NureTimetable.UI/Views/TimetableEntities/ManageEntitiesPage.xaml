@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="NureTimetable.UI.Views.TimetableEntities.ManageEntitiesPage"
+             xmlns:converters="clr-namespace:NureTimetable.UI.Behaviors"
              xmlns:LN="clr-namespace:NureTimetable.Core.Localization;assembly=NureTimetable.Core"
              Title="{LN:Translate SavedTimetables}">
 
@@ -27,7 +28,12 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <CheckBox Grid.Column="0" Margin="5,5,5,5" IsChecked="{Binding IsSelected}" Color="DeepSkyBlue" />
+                                <StackLayout Grid.Column="0" WidthRequest="10" IsVisible="{Binding IsMultiselectMode, Converter={converters:NegateBooleanConverter}}">
+                                    <Label BackgroundColor="{StaticResource SelectedEntityColor}" VerticalOptions="FillAndExpand" IsVisible="{Binding IsSelected}" />
+                                </StackLayout>
+                                <StackLayout Grid.Column="0" IsVisible="{Binding IsMultiselectMode}">
+                                    <CheckBox Margin="5,5,5,5" IsChecked="{Binding IsSelected}" Color="DeepSkyBlue" VerticalOptions="FillAndExpand" />
+                                </StackLayout>
                                 <StackLayout Grid.Column="1" Margin="0,5,0,5">
                                     <Label Text="{Binding SavedEntity.Name}" Style="{DynamicResource ListItemTextStyle}" />
                                     <Label Text="{Binding SavedEntity.LastUpdated}" Style="{DynamicResource ListItemDetailTextStyle}"/>

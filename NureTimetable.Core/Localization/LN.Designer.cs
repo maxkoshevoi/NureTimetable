@@ -81,6 +81,15 @@ namespace NureTimetable.Core.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Add to selected.
         /// </summary>
+        public static string AddToSelected {
+            get {
+                return ResourceManager.GetString("AddToSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add to selected.
+        /// </summary>
         public static string AddToSelectedEntities {
             get {
                 return ResourceManager.GetString("AddToSelectedEntities", resourceCulture);

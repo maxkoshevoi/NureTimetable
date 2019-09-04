@@ -29,7 +29,9 @@ namespace NureTimetable.Views
         private bool isPageVisible = false;
         private List<DateTime> visibleDates = new List<DateTime>();
         private object enumeratingEvents = new object();
-        bool lastTimeLeftVisible;
+        private object updatingEventsUI = new object();
+        private bool needToUpdateEventsUI = false;
+        private bool lastTimeLeftVisible;
 
         public TimetablePage()
         {
@@ -127,13 +129,20 @@ namespace NureTimetable.Views
             if (isFirstLoad)
             {
                 isFirstLoad = false;
-
                 UpdateEventsWithUI();
             }
+            else
+            {
+                UpdateTimeLeft();
+                await UpdateTodayButton(true);
+            }
 
-            UpdateTimeLeft();
-            await UpdateTodayButton(true);
             Device.StartTimer(TimeSpan.FromSeconds(1), UpdateTimeLeft);
+
+            if (needToUpdateEventsUI)
+            {
+                UpdateEventsWithUI();
+            }
         }
 
         private void ContentPage_Disappearing(object sender, EventArgs e)
@@ -199,10 +208,17 @@ namespace NureTimetable.Views
             Timetable.IsEnabled = false;
             ProgressLayout.IsVisible = true;
 
-            Task.Factory.StartNew(() =>
+            Task.Run(async () =>
             {
-                UpdateEvents(UniversityEntitiesRepository.GetSelected());
-
+                if (needToUpdateEventsUI)
+                {
+                    await Task.Delay(250);
+                    UpdateEventsUI();
+                }
+                else
+                {
+                    UpdateEvents(UniversityEntitiesRepository.GetSelected());
+                }
                 Device.BeginInvokeOnMainThread(() =>
                 {
                     ProgressLayout.IsVisible = false;
@@ -245,16 +261,32 @@ namespace NureTimetable.Views
                     }
                 }
                 timetableInfoList = TimetableInfoList.Build(timetableInfos, ApplyHiddingSettings);
+                needToUpdateEventsUI = true;
             }
+            UpdateEventsUI();
+        }
 
-            Device.BeginInvokeOnMainThread(() =>
+        private void UpdateEventsUI()
+        {
+            if (!needToUpdateEventsUI || !isPageVisible)
             {
-                if (timetableInfoList.Count == 0)
+                return;
+            }
+            lock (updatingEventsUI)
+            {
+                if (!needToUpdateEventsUI || !isPageVisible)
                 {
-                    Timetable.DataSource = null;
+                    return;
                 }
-                else
+                needToUpdateEventsUI = false;
+                Device.BeginInvokeOnMainThread(() =>
                 {
+                    if (timetableInfoList.Count == 0)
+                    {
+                        Timetable.DataSource = null;
+                        return;
+                    }
+
                     int retriesLeft = 25;
                     Exception exception = null;
                     do
@@ -314,8 +346,8 @@ namespace NureTimetable.Views
                         DisplayAlert(LN.TimetableDisplay, LN.TimetableDisplayError, LN.Ok);
                         return;
                     }
-                }
-            });
+                });
+            }
         }
 
         private void ContentPage_SizeChanged(object sender, EventArgs e)

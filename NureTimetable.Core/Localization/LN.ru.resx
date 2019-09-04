@@ -403,4 +403,7 @@
   <data name="SelectOneEntity" xml:space="preserve">
     <value>Выбрать только это</value>
   </data>
+  <data name="AddToSelected" xml:space="preserve">
+    <value>Добавить к выбранным</value>
+  </data>
 </root>

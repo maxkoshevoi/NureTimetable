@@ -403,4 +403,7 @@ To update, click on the button in the upper right corner.</value>
   <data name="SelectOneEntity" xml:space="preserve">
     <value>Select only this one</value>
   </data>
+  <data name="AddToSelected" xml:space="preserve">
+    <value>Add to selected</value>
+  </data>
 </root>
