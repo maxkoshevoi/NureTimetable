@@ -440,12 +440,12 @@ namespace NureTimetable.Views
             string message, icon;
             if (ApplyHiddingSettings)
             {
-                icon = "bookmark_border";
+                icon = "filter";
                 message = LN.SelectedEventsShown;
             }
             else
             {
-                icon = "bookmark";
+                icon = "filter_outline";
                 message = LN.AllEventsShown;
             }
             HideSelectedEvents.IconImageSource = icon;

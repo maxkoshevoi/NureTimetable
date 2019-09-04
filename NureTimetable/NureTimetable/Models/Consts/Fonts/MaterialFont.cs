@@ -1,5 +1,9 @@
 ﻿namespace NureTimetable.Models.Consts.Fonts
 {
+    /// <summary>
+    /// Full icon list: https://cdn.materialdesignicons.com/4.2.95/
+    /// Font download link: https://codeload.github.com/Templarian/MaterialDesign-Webfont/zip/master
+    /// </summary>
     public static class MaterialFont
     {
         public const string ChevronLeft = "\uf141";

@@ -5859,61 +5859,61 @@ namespace NureTimetable.Droid
 			public const int avd_show_password_3 = 2130837845;
 			
 			// aapt resource value: 0x7f020059
-			public const int bookmark = 2130837593;
+			public const int btn_checkbox = 2130837593;
 			
 			// aapt resource value: 0x7f02005a
-			public const int bookmark_border = 2130837594;
+			public const int btn_checkbox_checked = 2130837594;
 			
 			// aapt resource value: 0x7f02005b
-			public const int btn_checkbox = 2130837595;
+			public const int btn_checkbox_checked_to_indeterminate_animation = 2130837595;
 			
 			// aapt resource value: 0x7f02005c
-			public const int btn_checkbox_checked = 2130837596;
+			public const int btn_checkbox_checked_to_unchecked_animation = 2130837596;
 			
 			// aapt resource value: 0x7f02005d
-			public const int btn_checkbox_checked_to_indeterminate_animation = 2130837597;
+			public const int btn_checkbox_indeterminate = 2130837597;
 			
 			// aapt resource value: 0x7f02005e
-			public const int btn_checkbox_checked_to_unchecked_animation = 2130837598;
+			public const int btn_checkbox_indeterminate_to_checked_animation = 2130837598;
 			
 			// aapt resource value: 0x7f02005f
-			public const int btn_checkbox_indeterminate = 2130837599;
+			public const int btn_checkbox_indeterminate_to_unchecked_animation = 2130837599;
 			
 			// aapt resource value: 0x7f020060
-			public const int btn_checkbox_indeterminate_to_checked_animation = 2130837600;
+			public const int btn_checkbox_unchecked = 2130837600;
 			
 			// aapt resource value: 0x7f020061
-			public const int btn_checkbox_indeterminate_to_unchecked_animation = 2130837601;
+			public const int btn_checkbox_unchecked_to_checked_animation = 2130837601;
 			
 			// aapt resource value: 0x7f020062
-			public const int btn_checkbox_unchecked = 2130837602;
+			public const int btn_checkbox_unchecked_to_indeterminate_animation = 2130837602;
 			
 			// aapt resource value: 0x7f020063
-			public const int btn_checkbox_unchecked_to_checked_animation = 2130837603;
+			public const int coin = 2130837603;
 			
 			// aapt resource value: 0x7f020064
-			public const int btn_checkbox_unchecked_to_indeterminate_animation = 2130837604;
+			public const int design_bottom_navigation_item_background = 2130837604;
 			
 			// aapt resource value: 0x7f020065
-			public const int coin = 2130837605;
+			public const int design_fab_background = 2130837605;
 			
 			// aapt resource value: 0x7f020066
-			public const int design_bottom_navigation_item_background = 2130837606;
+			public const int design_ic_visibility = 2130837606;
 			
 			// aapt resource value: 0x7f020067
-			public const int design_fab_background = 2130837607;
+			public const int design_ic_visibility_off = 2130837607;
 			
 			// aapt resource value: 0x7f020068
-			public const int design_ic_visibility = 2130837608;
+			public const int design_password_eye = 2130837608;
 			
 			// aapt resource value: 0x7f020069
-			public const int design_ic_visibility_off = 2130837609;
+			public const int design_snackbar_background = 2130837609;
 			
 			// aapt resource value: 0x7f02006a
-			public const int design_password_eye = 2130837610;
+			public const int filter = 2130837610;
 			
 			// aapt resource value: 0x7f02006b
-			public const int design_snackbar_background = 2130837611;
+			public const int filter_outline = 2130837611;
 			
 			// aapt resource value: 0x7f02006c
 			public const int group = 2130837612;
