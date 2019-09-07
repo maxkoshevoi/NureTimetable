@@ -26,8 +26,11 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <Label Grid.Column="0" Text="{Binding Lesson.ShortName}" VerticalOptions="Center" Style="{DynamicResource ListItemTextStyle}" />
-                                <syncfusion:SfCheckBox Grid.Column="1" IsChecked="{Binding Settings.Hiding.ShowLesson}" CheckedColor="DeepSkyBlue"/>
+                                <Label Grid.Column="0" Text="{Binding Lesson.ShortName}" Style="{DynamicResource ListItemTextStyle}" VerticalTextAlignment="Center" />
+                                <StackLayout Grid.Column="1" Orientation="Horizontal">
+                                    <Label Text="&#xf493;" FontFamily="{StaticResource MaterialFontFamily}" TextColor="#6b6b6b" FontSize="26" VerticalOptions="CenterAndExpand" />
+                                    <syncfusion:SfCheckBox IsChecked="{Binding Settings.Hiding.ShowLesson}" CheckedColor="DeepSkyBlue"/>
+                                </StackLayout>
                             </Grid>
                         </ViewCell>
                     </DataTemplate>

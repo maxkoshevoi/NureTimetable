@@ -79,8 +79,7 @@ namespace NureTimetable.ViewModels.TimetableEntities
                 string action = await App.Current.MainPage.DisplayActionSheet(LN.ChooseAction, LN.Cancel, null, actionList.ToArray());
                 if (action == LN.SelectOneEntity)
                 {
-                    UniversityEntitiesRepository.UpdateSelected(SavedEntity);
-                    await Navigation.PopToRootAsync();
+                    await _manageEntitiesViewModel.SelectOneAndExit(SavedEntity);
                 }
                 else if (action == LN.AddToSelected)
                 {
@@ -96,8 +95,8 @@ namespace NureTimetable.ViewModels.TimetableEntities
                 }
                 else if (action == LN.Delete)
                 {
+                    IsSelected = false;
                     _manageEntitiesViewModel.Entities.Remove(this);
-                    UniversityEntitiesRepository.UpdateSaved(_manageEntitiesViewModel.Entities.Select(vm => vm.SavedEntity).ToList());
                 }
             }
 
@@ -195,9 +194,14 @@ namespace NureTimetable.ViewModels.TimetableEntities
             }
             else
             {
-                UniversityEntitiesRepository.UpdateSelected(selectedEntity.SavedEntity);
-                await Navigation.PopToRootAsync();
+                await SelectOneAndExit(selectedEntity.SavedEntity);
             }
+        }
+
+        public async Task SelectOneAndExit(SavedEntity savedEntity)
+        {
+            UniversityEntitiesRepository.UpdateSelected(savedEntity);
+            await Navigation.PopToRootAsync();
         }
 
         public Task OnEntitySelectChange(SavedEntityItemViewModel entity)
@@ -330,7 +334,15 @@ namespace NureTimetable.ViewModels.TimetableEntities
                     IsEntitiesLayoutEnabled = true;
                     if (await App.Current.MainPage.DisplayAlert(LN.TimetableUpdate, result, LN.ToTimetable, LN.Ok))
                     {
-                        await Navigation.PopToRootAsync();
+                        List<SavedEntity> selected = UniversityEntitiesRepository.GetSelected();
+                        if (entitiesAllowed.Count == 1 && !selected.Contains(entitiesAllowed[0]))
+                        {
+                            await SelectOneAndExit(entitiesAllowed[0]);
+                        }
+                        else
+                        {
+                            await Navigation.PopToRootAsync();
+                        }
                     }
                 });
             });

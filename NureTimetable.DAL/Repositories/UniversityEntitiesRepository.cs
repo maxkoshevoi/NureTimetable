@@ -452,6 +452,12 @@ namespace NureTimetable.DAL
         {
             selectedEntities = selectedEntities ?? new List<Local.SavedEntity>();
 
+            List<Local.SavedEntity> currentEntities = GetSelected();
+            if (currentEntities.Count == selectedEntities.Count && !currentEntities.Except(selectedEntities).Any())
+            {
+                return;
+            }
+
             Serialisation.ToJsonFile(selectedEntities, FilePath.SelectedEntities);
             Device.BeginInvokeOnMainThread(() =>
             {

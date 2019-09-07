@@ -9,13 +9,14 @@
         <StackLayout>
             <syncfusion:SfCheckBox 
                     x:Name="ShowLesson"
+                    Margin="5,10,5,0"
                     VerticalOptions="Fill"
                     CheckedColor="DeepSkyBlue"
                     StateChanged="ShowLesson_StateChanged"
                     Text="{LN:Translate DisplayLesson}" />
             <ListView x:Name="LessonEventTypes"
                     VerticalOptions="Fill"
-                    Margin="10,10,10,10"
+                    Margin="10,0,10,0"
                     HasUnevenRows="True"
                     CachingStrategy="RecycleElement"
                     ItemTapped="LessonEventTypes_ItemTapped">
