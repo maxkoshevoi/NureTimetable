@@ -200,6 +200,11 @@ namespace NureTimetable.Views
                     lastTimeLeftVisible = TimeLeft.IsVisible;
                 }
             }
+            else
+            {
+                TimeLeft.IsVisible = false;
+                UpdateTimetableHeight();
+            }
             return isPageVisible;
         }
         
