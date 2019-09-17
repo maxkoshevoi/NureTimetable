@@ -5,7 +5,7 @@ using Xamarin.Forms;
 
 namespace NureTimetable.Models
 {
-    class EventViewModel : Event
+    public class EventViewModel : Event
     {
         public EventViewModel(Event ev)
         {

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:LN="clr-namespace:NureTimetable.Core.Localization;assembly=NureTimetable.Core"
+             x:Class="NureTimetable.Views.Lessons.LessonInfoPage"
+             Title="{Binding Title}">
+
+    <ScrollView>
+        <StackLayout Margin="10,0,10,0">
+            <StackLayout>
+                <Label Text="{Binding LessonInfo.Lesson.FullName}" />
+            </StackLayout>
+            <StackLayout VerticalOptions="Fill">
+                <Label Text="{LN:Translate Statistics}" />
+                <Label Text="{Binding Statistics}" />
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

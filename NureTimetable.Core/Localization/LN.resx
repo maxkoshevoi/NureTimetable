@@ -406,4 +406,7 @@ To update, click on the button in the upper right corner.</value>
   <data name="AddToSelected" xml:space="preserve">
     <value>Add to selected</value>
   </data>
+  <data name="Statistics" xml:space="preserve">
+    <value>Statistics:</value>
+  </data>
 </root>

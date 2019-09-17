@@ -4,11 +4,11 @@ using Xamarin.Forms.Xaml;
 namespace NureTimetable.UI.Views.Info
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class AboutPage : ContentPage
-    {
-        public AboutPage()
-        {
-            InitializeComponent();
-        }
+	public partial class DonatePage : ContentPage
+	{
+		public DonatePage ()
+		{
+			InitializeComponent ();
+		}
     }
 }

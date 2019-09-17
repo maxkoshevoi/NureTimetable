@@ -13,10 +13,8 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AppCenter.Analytics" Version="2.1.1" />
     <PackageReference Include="Microsoft.AppCenter.Crashes" Version="2.1.1" />
-    <PackageReference Include="Plugin.InAppBilling" Version="2.0.0" />
     <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="17.1.0.43" />
     <PackageReference Include="Syncfusion.Xamarin.SfSchedule" Version="17.1.0.43" />
-    <PackageReference Include="Xam.Plugin.DeviceInfo" Version="4.1.1" />
     <PackageReference Include="Xamarin.Forms" Version="4.2.0.709249" />  
   </ItemGroup>
 
@@ -24,26 +22,5 @@
     <ProjectReference Include="..\..\NureTimetable.DAL\NureTimetable.DAL.csproj" />
     <ProjectReference Include="..\..\NureTimetable.Services\NureTimetable.Services.csproj" />
     <ProjectReference Include="..\..\NureTimetable.UI\NureTimetable.UI.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Views\Lessons\ManageLessonsPage.xaml.cs">
-      <DependentUpon>ManageLessonsPage.xaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="Views\Info\DonatePage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\Lessons\LessonSettingsPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\Lessons\ManageLessonsPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\TimetablePage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
   </ItemGroup>
 </Project>

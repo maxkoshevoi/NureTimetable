@@ -15,7 +15,6 @@
         <StackLayout IsEnabled="{Binding IsEntitiesLayoutEnabled}" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
             <ListView x:Name="EntitiesList"
                     ItemsSource="{Binding Entities}"
-                    SelectedItem="{Binding SavedEntitySelectedItem}"
                     ItemTapped="EntitiesList_OnItemTapped"
                     CachingStrategy="RecycleElement"
                     HasUnevenRows="True">

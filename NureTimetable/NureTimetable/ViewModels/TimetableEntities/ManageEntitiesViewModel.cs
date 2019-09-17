@@ -4,6 +4,7 @@ using NureTimetable.Core.Models.Consts;
 using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
 using NureTimetable.Services.Helpers;
+using NureTimetable.UI.Views.Lessons;
 using NureTimetable.UI.Views.TimetableEntities;
 using NureTimetable.ViewModels.Core;
 using NureTimetable.Views.Lessons;
@@ -91,7 +92,10 @@ namespace NureTimetable.ViewModels.TimetableEntities
                 }
                 else if (action == LN.SetUpLessonDisplay)
                 {
-                    await _manageEntitiesViewModel.Navigation.PushAsync(new ManageLessonsPage(SavedEntity));
+                    await _manageEntitiesViewModel.Navigation.PushAsync(new ManageLessonsPage()
+                    {
+                        BindingContext = new ManageLessonsViewModel(Navigation, SavedEntity)
+                    });
                 }
                 else if (action == LN.Delete)
                 {
@@ -144,22 +148,6 @@ namespace NureTimetable.ViewModels.TimetableEntities
         {
             get => _isMultiselectMode;
             set => SetProperty(ref _isMultiselectMode, value, onChanged: () => Entities.ForEach(e => e.NotifyChanged(nameof(IsMultiselectMode))));
-        }
-
-        private SavedEntityItemViewModel _savedEntitySelectedItem;
-
-        public SavedEntityItemViewModel SavedEntitySelectedItem
-        {
-            get => _savedEntitySelectedItem;
-            set
-            {
-                if (value != null)
-                {
-                    Device.BeginInvokeOnMainThread(async () => { await SavedEntitySelected(value); });
-                }
-
-                _savedEntitySelectedItem = value;
-            }
         }
 
         public ObservableCollection<SavedEntityItemViewModel> Entities { get => _entities; set => SetProperty(ref _entities, value); }

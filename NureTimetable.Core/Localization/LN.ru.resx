@@ -406,4 +406,7 @@
   <data name="AddToSelected" xml:space="preserve">
     <value>Добавить к выбранным</value>
   </data>
+  <data name="Statistics" xml:space="preserve">
+    <value>Статистика:</value>
+  </data>
 </root>

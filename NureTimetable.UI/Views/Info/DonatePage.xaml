@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:LN="clr-namespace:NureTimetable.Core.Localization;assembly=NureTimetable.Core"
-             x:Class="NureTimetable.Views.Info.DonatePage"
+             xmlns:products="clr-namespace:NureTimetable.Core.Models.Consts;assembly=NureTimetable.Core"
+             x:Class="NureTimetable.UI.Views.Info.DonatePage"
              Title="{LN:Translate Donate}">
 
     <ContentPage.Resources>
@@ -50,15 +51,18 @@
                 <Button Margin="0,10,0,0" Text="{LN:Translate Thank}"
                         BackgroundColor="{StaticResource Primary}"
                         TextColor="White" 
-                        Clicked="DonateLow_Clicked" />
+                        Command="{Binding BuyProductCommand}"
+                        CommandParameter="{x:Static products:InAppProducts.DonateLow}"/>
                 <Button Margin="0,10,0,0" Text="{LN:Translate Thank2}"
                         BackgroundColor="{StaticResource Primary}"
                         TextColor="White"
-                        Clicked="DonateMedium_Clicked" />
+                        Command="{Binding BuyProductCommand}"
+                        CommandParameter="{x:Static products:InAppProducts.DonateMedium}"/>
                 <Button Margin="0,10,0,0" Text="{LN:Translate Thank3}"
                         BackgroundColor="{StaticResource Primary}"
                         TextColor="White"
-                        Clicked="DonateHigh_Clicked" />
+                        Command="{Binding BuyProductCommand}"
+                        CommandParameter="{x:Static products:InAppProducts.DonateHigh}"/>
             </StackLayout>
         </ScrollView>
     </Grid>

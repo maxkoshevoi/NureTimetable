@@ -1,22 +1,19 @@
 ﻿using NureTimetable.DAL.Models.Local;
+using NureTimetable.Services.Helpers;
+using NureTimetable.ViewModels.Core;
 using Syncfusion.XForms.Buttons;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-
+using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
-namespace NureTimetable.Views.Lessons
+namespace NureTimetable.ViewModels.Lessons
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class LessonSettingsPage : ContentPage
+    public class LessonSettingsViewModel : BaseViewModel
     {
-        LessonInfo lessonInfo;
-        List<CheckedEventType> eventTypes;
-        List<CheckedTeacher> teachers;
-        bool updatingProgrammatically = false;
-
+        #region Classes
         private class CheckedEventType : INotifyPropertyChanged
         {
             public EventType EventType { get; set; }
@@ -46,19 +43,41 @@ namespace NureTimetable.Views.Lessons
             }
             #endregion
         }
+        #endregion
 
-        public LessonSettingsPage (LessonInfo lessonInfo, List<EventType> eventTypes, List<Teacher> teachers)
+        #region Variables
+        LessonInfo lessonInfo;
+        List<CheckedEventType> eventTypes;
+        List<CheckedTeacher> teachers;
+        bool updatingProgrammatically = false;
+
+        private bool? _showLessonIsChecked = false;
+        private string _lessonNotesText;
+        private string _title;
+        #endregion
+
+        #region Properties
+        public bool? ShowLessonIsChecked { get => _showLessonIsChecked; set => SetProperty(ref _showLessonIsChecked, value); }
+        public string LessonNotesText { get => _lessonNotesText; set => SetProperty(ref _lessonNotesText, value); }
+        public string Title { get => _title; set => SetProperty(ref _title, value); }
+
+        public ICommand ShowLessonStateChangedCommand;
+        public ICommand LessonNotesTextChangedCommand;
+        public ICommand EventTypeStateChangedCommand;
+        public ICommand TeacherStateChangedCommand;
+        #endregion
+
+        public LessonSettingsViewModel(INavigation navigation, LessonInfo lessonInfo, TimetableInfo timetableInfo) : base(navigation)
         {
-            InitializeComponent();
             Title = lessonInfo.Lesson.FullName;
 
             this.lessonInfo = lessonInfo;
             updatingProgrammatically = true;
-            ShowLesson.IsChecked = lessonInfo.Settings.Hiding.ShowLesson;
-            LessonNotes.Text = lessonInfo.Notes;
+            ShowLessonIsChecked = lessonInfo.Settings.Hiding.ShowLesson;
+            LessonNotesText = lessonInfo.Notes;
             updatingProgrammatically = false;
 
-            this.eventTypes = eventTypes
+            this.eventTypes = timetableInfo.EventTypes(lessonInfo.Lesson.ID)
                 .Select(et => new CheckedEventType
                 {
                     EventType = et
@@ -66,7 +85,7 @@ namespace NureTimetable.Views.Lessons
                 .OrderBy(et => et.EventType.ShortName)
                 .ToList();
             ChangeListViewItemSource(LessonEventTypes, this.eventTypes);
-            this.teachers = teachers
+            this.teachers = timetableInfo.Teachers(lessonInfo.Lesson.ID)
                 .Select(t => new CheckedTeacher
                 {
                     Teacher = t
@@ -74,7 +93,14 @@ namespace NureTimetable.Views.Lessons
                 .OrderBy(et => et.Teacher.ShortName)
                 .ToList();
             ChangeListViewItemSource(LessonTeachers, this.teachers);
+
             UpdateEventTypesCheck();
+
+            ShowLessonStateChangedCommand = CommandHelper.CreateCommand<StateChangedEventArgs>(ShowLessonStateChanged);
+            LessonNotesTextChangedCommand = CommandHelper.CreateCommand<TextChangedEventArgs>(LessonNotesTextChanged);
+            EventTypeStateChangedCommand = CommandHelper.CreateCommand<object, StateChangedEventArgs>(EventTypeStateChanged);
+            TeacherStateChangedCommand = CommandHelper.CreateCommand<object, StateChangedEventArgs>(TeacherStateChanged);
+
         }
 
         private void ChangeListViewItemSource<T>(ListView listView, List<T> newItemsSource)
@@ -82,14 +108,22 @@ namespace NureTimetable.Views.Lessons
             const int rowHeight = 43,
                 headerHeight = 19;
 
-            listView.ItemsSource = newItemsSource;
-            // ListView doesn't support AutoSize, so we have to do it manually
-            listView.HeightRequest = rowHeight * newItemsSource.Count + headerHeight;
+            if (newItemsSource == null || newItemsSource.Count == 0)
+            {
+                listView.IsVisible = false;
+            }
+            else
+            {
+                listView.ItemsSource = newItemsSource;
+                // ListView doesn't support AutoSize, so we have to do it manually
+                listView.HeightRequest = rowHeight * newItemsSource.Count + headerHeight;
+                listView.IsVisible = true;
+            }
         }
 
-        private void ShowLesson_StateChanged(object sender, StateChangedEventArgs e)
+        private async Task ShowLessonStateChanged(StateChangedEventArgs e)
         {
-            lessonInfo.Settings.Hiding.ShowLesson = ShowLesson.IsChecked;
+            lessonInfo.Settings.Hiding.ShowLesson = ShowLessonIsChecked;
             UpdateEventTypesCheck();
 
             Device.BeginInvokeOnMainThread(() =>
@@ -132,7 +166,7 @@ namespace NureTimetable.Views.Lessons
             updatingProgrammatically = false;
         }
 
-        private void EventType_StateChanged(object sender, StateChangedEventArgs e)
+        private async Task EventTypeStateChanged(object sender, StateChangedEventArgs e)
         {
             CheckedEventType eventType = (CheckedEventType)((SfCheckBox)sender).BindingContext;
             lessonInfo.Settings.Hiding.EventTypesToHide.RemoveAll(id => id == eventType.EventType.ID);
@@ -142,8 +176,8 @@ namespace NureTimetable.Views.Lessons
             }
             UpdateShowLessonCheck();
         }
-        
-        private void Teacher_StateChanged(object sender, StateChangedEventArgs e)
+
+        private async Task TeacherStateChanged(object sender, StateChangedEventArgs e)
         {
             CheckedTeacher eventType = (CheckedTeacher)((SfCheckBox)sender).BindingContext;
             lessonInfo.Settings.Hiding.TeachersToHide.RemoveAll(id => id == eventType.Teacher.ID);
@@ -161,32 +195,22 @@ namespace NureTimetable.Views.Lessons
             updatingProgrammatically = true;
             if (lessonInfo.Settings.Hiding.EventTypesToHide.Count == 0 && lessonInfo.Settings.Hiding.TeachersToHide.Count == 0)
             {
-                ShowLesson.IsChecked = true;
+                ShowLessonIsChecked = true;
             }
             else if (lessonInfo.Settings.Hiding.EventTypesToHide.Count == eventTypes.Count && lessonInfo.Settings.Hiding.TeachersToHide.Count == teachers.Count)
             {
-                ShowLesson.IsChecked = false;
+                ShowLessonIsChecked = false;
             }
             else
             {
-                ShowLesson.IsChecked = null;
+                ShowLessonIsChecked = null;
             }
             updatingProgrammatically = false;
         }
 
-        private void LessonEventTypes_ItemTapped(object sender, ItemTappedEventArgs e)
+        private async Task LessonNotesTextChanged(TextChangedEventArgs e)
         {
-            ((ListView)sender).SelectedItem = null;
-        }
-
-        private void LessonTeachers_ItemTapped(object sender, ItemTappedEventArgs e)
-        {
-            ((ListView)sender).SelectedItem = null;
-        }
-
-        private void LessonNotes_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            lessonInfo.Notes = LessonNotes.Text;
+            lessonInfo.Notes = LessonNotesText;
         }
     }
 }

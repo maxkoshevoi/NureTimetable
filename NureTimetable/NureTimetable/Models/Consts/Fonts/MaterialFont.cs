@@ -11,6 +11,7 @@
         public const string Bookmark = "\uf0c0";
         public const string BookmarkOutline = "\uf0c3";
         public const string Settings = "\uf493";
+        public const string SettingsOutline = "\uf8ba";
         public const string ContentSave = "\uf193";
         public const string Refresh = "\uf450";
         public const string Update = "\uf06a";
@@ -19,5 +20,7 @@
         public const string AccountMultiple = "\uf00e";
         public const string AccountMultiplePlus = "\uf010";
         public const string Plus = "\uf415";
+        public const string Information = "\uf2fc";
+        public const string InformationOutline = "\uf2fd";
     }
 }

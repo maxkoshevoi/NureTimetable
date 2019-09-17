@@ -5,14 +5,32 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="17.1.0.43" />
+    <PackageReference Include="Syncfusion.Xamarin.SfSchedule" Version="17.1.0.43" />
     <PackageReference Include="Xamarin.Forms" Version="4.2.0.709249" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\NureTimetable.Core\NureTimetable.Core.csproj" />
+    <ProjectReference Include="..\NureTimetable.DAL\NureTimetable.DAL.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Views\Info\DonatePage.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Lessons\LessonInfoPage.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Lessons\LessonSettingsPage.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Lessons\ManageLessonsPage.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Update="Views\System\MenuPage.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
     <Compile Update="Views\TimetableEntities\AddTimetablePage.xaml.cs">
       <DependentUpon>AddTimetablePage.xaml</DependentUpon>
     </Compile>
@@ -23,6 +41,9 @@
       <DependentUpon>ManageEntitiesPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\Info\AboutPage.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Update="Views\TimetablePage.xaml.cs">
       <DependentUpon>%(Filename)</DependentUpon>
     </Compile>
   </ItemGroup>
