@@ -103,6 +103,7 @@ namespace NureTimetable.ViewModels
 
             AppSettings settings = SettingsRepository.GetSettings();
 
+            Title = LN.AppName;
             lastTimeLeftVisible = TimeLeftIsVisible;
             string activeCultureCode = Cultures.SupportedCultures[0].TwoLetterISOLanguageName;
             if (Cultures.SupportedCultures.Any(c => c.TwoLetterISOLanguageName == CultureInfo.CurrentCulture.TwoLetterISOLanguageName))
