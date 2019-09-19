@@ -32,7 +32,7 @@ namespace NureTimetable.Views
                 BindingContext = new MenuViewModel(Navigation)
             };
             var timetablePage = new TimetablePage();
-            timetablePage.BindingContext = new TimetableViewModel(Navigation, timetablePage);
+            timetablePage.BindingContext = new TimetableViewModel(timetablePage.Navigation, timetablePage);
             Detail = new NavigationPage(timetablePage);
 
             MasterBehavior = MasterBehavior.Popover;
@@ -75,7 +75,9 @@ namespace NureTimetable.Views
                 {
                     await App.Current.MainPage.DisplayAlert(LN.FinishingUpdateTitle, LN.FinishingUpdateFail, LN.Ok);
                 }
-                Detail = new NavigationPage(new TimetablePage());
+                var timetablePage = new TimetablePage();
+                timetablePage.BindingContext = new TimetableViewModel(timetablePage.Navigation, timetablePage);
+                Detail = new NavigationPage(timetablePage);
             }
 
             base.OnAppearing();
@@ -122,16 +124,21 @@ namespace NureTimetable.Views
                 switch (id)
                 {
                     case (int)MenuItemType.Timetable:
-                        MenuPages.Add(id, new NavigationPage(new TimetablePage()));
+                        var timetablePage = new TimetablePage();
+                        timetablePage.BindingContext = new TimetableViewModel(timetablePage.Navigation, timetablePage);
+                        MenuPages.Add(id, new NavigationPage(timetablePage));
                         break;
                     case (int)MenuItemType.About:
-                        MenuPages.Add(id, new NavigationPage(new AboutPage()
+                        MenuPages.Add(id, new NavigationPage(new AboutPage
                         {
                             BindingContext = new AboutViewModel(Navigation)
                         }));
                         break;
                     case (int)MenuItemType.Donate:
-                        MenuPages.Add(id, new NavigationPage(new DonatePage()));
+                        MenuPages.Add(id, new NavigationPage(new DonatePage
+                        {
+                            BindingContext = new DonateViewModel(Navigation)
+                        }));
                         break;
                     default:
                         throw new ArgumentException("Unknown menu page");

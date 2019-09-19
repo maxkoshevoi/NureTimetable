@@ -85,16 +85,16 @@ namespace NureTimetable.ViewModels
         public string BTodayText { get => _bTodayText; set => SetProperty(ref _bTodayText, value); }
         public double BTodayScale { get => _bTodayScale; set => SetProperty(ref _bTodayScale, value); }
 
-        public ICommand PageAppearingCommand;
-        public ICommand PageDisappearingCommand;
-        public ICommand PageSizeChangedCommand;
-        public ICommand HideSelectedEventsClickedCommand;
-        public ICommand ScheduleModeClickedCommand;
-        public ICommand ManageGroupsClickedCommand;
-        public ICommand TimetableCellTappedCommand;
-        public ICommand TimetableMonthInlineAppointmentTappedCommand;
-        public ICommand TimetableVisibleDatesChangedCommand;
-        public ICommand BTodayClickedCommand;
+        public ICommand PageAppearingCommand { get; }
+        public ICommand PageDisappearingCommand { get; }
+        public ICommand PageSizeChangedCommand { get; }
+        public ICommand HideSelectedEventsClickedCommand { get; }
+        public ICommand ScheduleModeClickedCommand { get; }
+        public ICommand ManageGroupsClickedCommand { get; }
+        public ICommand TimetableCellTappedCommand { get; }
+        public ICommand TimetableMonthInlineAppointmentTappedCommand { get; }
+        public ICommand TimetableVisibleDatesChangedCommand { get; private set; }
+        public ICommand BTodayClickedCommand { get; }
         #endregion
 
         public TimetableViewModel(INavigation navigation, ITimetablePageCommands timetablePage) : base(navigation)

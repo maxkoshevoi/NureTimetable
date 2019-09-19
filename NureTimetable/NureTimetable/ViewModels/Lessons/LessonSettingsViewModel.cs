@@ -84,8 +84,8 @@ namespace NureTimetable.ViewModels.Lessons
         public ListViewViewModel<EventType> LvEventTypes { get; set; }
         public ListViewViewModel<Teacher> LvTeachers { get; set; }
 
-        public ICommand ShowLessonStateChangedCommand;
-        public ICommand LessonNotesTextChangedCommand;
+        public ICommand ShowLessonStateChangedCommand { get; }
+        public ICommand LessonNotesTextChangedCommand { get; }
         #endregion
 
         public LessonSettingsViewModel(INavigation navigation, LessonInfo lessonInfo, TimetableInfo timetableInfo) : base(navigation)
