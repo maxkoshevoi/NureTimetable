@@ -1,5 +1,7 @@
 ﻿using System.Globalization;
+using System.Resources;
 
+[assembly:NeutralResourcesLanguage("en")]
 namespace NureTimetable.Core.Localization
 {
     public static class Cultures

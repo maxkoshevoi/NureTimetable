@@ -9,11 +9,11 @@
     <DebugType>pdbonly</DebugType>
     <DebugSymbols>true</DebugSymbols>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <CodeAnalysisRuleSet>..\..\NureTimetable.UI.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>..\..\NureTimetable.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <CodeAnalysisRuleSet>..\..\NureTimetable.UI.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>..\..\NureTimetable.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <ItemGroup>
