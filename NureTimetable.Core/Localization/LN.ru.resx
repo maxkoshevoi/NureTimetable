@@ -409,4 +409,19 @@
   <data name="Statistics" xml:space="preserve">
     <value>Статистика:</value>
   </data>
+  <data name="LessonName" xml:space="preserve">
+    <value>Название</value>
+  </data>
+  <data name="LessonInfo" xml:space="preserve">
+    <value>Информация о предмете</value>
+  </data>
+  <data name="EventsLeft" xml:space="preserve">
+    <value>осталось</value>
+  </data>
+  <data name="EventsTotal" xml:space="preserve">
+    <value>Всего пар</value>
+  </data>
+  <data name="NextEvent" xml:space="preserve">
+    <value>Следующая</value>
+  </data>
 </root>

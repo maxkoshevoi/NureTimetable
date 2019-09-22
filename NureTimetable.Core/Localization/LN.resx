@@ -409,4 +409,19 @@ To update, click on the button in the upper right corner.</value>
   <data name="Statistics" xml:space="preserve">
     <value>Statistics:</value>
   </data>
+  <data name="LessonName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="LessonInfo" xml:space="preserve">
+    <value>Lesson info</value>
+  </data>
+  <data name="EventsLeft" xml:space="preserve">
+    <value>left</value>
+  </data>
+  <data name="EventsTotal" xml:space="preserve">
+    <value>Classes total</value>
+  </data>
+  <data name="NextEvent" xml:space="preserve">
+    <value>Next</value>
+  </data>
 </root>

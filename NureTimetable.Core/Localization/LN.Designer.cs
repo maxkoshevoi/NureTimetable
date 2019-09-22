@@ -322,6 +322,24 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to left.
+        /// </summary>
+        public static string EventsLeft {
+            get {
+                return ResourceManager.GetString("EventsLeft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Classes total.
+        /// </summary>
+        public static string EventsTotal {
+            get {
+                return ResourceManager.GetString("EventsTotal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Teacher: not found.
         /// </summary>
         public static string EventTeacherNotFound {
@@ -439,6 +457,24 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lesson info.
+        /// </summary>
+        public static string LessonInfo {
+            get {
+                return ResourceManager.GetString("LessonInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string LessonName {
+            get {
+                return ResourceManager.GetString("LessonName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lessons.
         /// </summary>
         public static string Lessons {
@@ -462,6 +498,15 @@ namespace NureTimetable.Core.Localization {
         public static string Month {
             get {
                 return ResourceManager.GetString("Month", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Next.
+        /// </summary>
+        public static string NextEvent {
+            get {
+                return ResourceManager.GetString("NextEvent", resourceCulture);
             }
         }
         

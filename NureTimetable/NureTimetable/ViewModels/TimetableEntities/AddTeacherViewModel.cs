@@ -27,7 +27,7 @@ namespace NureTimetable.ViewModels.TimetableEntities
 
         protected override IOrderedEnumerable<Teacher> OrderEntities()
         {
-            return _allEntities.OrderBy(g => g.Name);
+            return _allEntities.OrderBy(t => t.Name);
         }
 
         protected override IOrderedEnumerable<Teacher> SearchEntities(string searchQuery)
