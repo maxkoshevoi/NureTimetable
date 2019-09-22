@@ -12,7 +12,9 @@ You can download the latest stable version here: https://play.google.com/store/a
 
 - Day, week and month view
 - Offline viewing and adding timetables
-- Filtering lessons and event types
+- Filtering by lessons, event types and teachers
+- Displaying multiple timetables at once
 - Timer before lesson and lesson break
-- Notes for lessons 
+- Lesson statistics (event count, date of the next event and teachers grouped by event type)
+- Notes for lessons
 - Support for Russian and English localization

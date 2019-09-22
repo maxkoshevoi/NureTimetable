@@ -16,15 +16,15 @@ namespace NureTimetable.Services.Helpers
             {
                 if (!await CrossInAppBilling.Current.ConnectAsync())
                 {
-                    //Couldn't connect to billing, could be offline
+                    // Couldn't connect to billing, could be offline
                     return null;
                 }
 
-                //try to purchase item
+                // Try to purchase item
                 InAppBillingPurchase purchase = await CrossInAppBilling.Current.PurchaseAsync(productId, ItemType.InAppPurchase, "apppayload");
                 if (purchase != null && purchase.State == PurchaseState.Purchased)
                 {
-                    //Purchased
+                    // Purchased
                     if (consume)
                     {
                         await Consume(purchase);
@@ -48,7 +48,7 @@ namespace NureTimetable.Services.Helpers
             }
             finally
             {
-                //Disconnect, it is okay if we never connected, this will never throw an exception
+                // Disconnect, it is okay if we never connected, this will never throw an exception
                 await CrossInAppBilling.Current.DisconnectAsync();
             }
             return null;
@@ -56,7 +56,7 @@ namespace NureTimetable.Services.Helpers
 
         private static async Task<bool> Consume(InAppBillingPurchase purchase)
         {
-            //Called after we have a successful purchase or later on
+            // Called after we have a successful purchase or later on
             if (CrossDeviceInfo.Current.Platform != Plugin.DeviceInfo.Abstractions.Platform.Android)
             {
                 return true;
@@ -84,7 +84,7 @@ namespace NureTimetable.Services.Helpers
             }
             finally
             {
-                //Disconnect, it is okay if we never connected, this will never throw an exception
+                // Disconnect, it is okay if we never connected, this will never throw an exception
                 await CrossInAppBilling.Current.DisconnectAsync();
             }
             return false;
