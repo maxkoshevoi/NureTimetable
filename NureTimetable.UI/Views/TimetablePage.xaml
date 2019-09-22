@@ -1,19 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:behaviors="clr-namespace:NureTimetable.UI.Behaviors;assembly=NureTimetable.UI"
              xmlns:LN="clr-namespace:NureTimetable.Core.Localization;assembly=NureTimetable.Core"
              xmlns:syncfusion="clr-namespace:Syncfusion.SfSchedule.XForms;assembly=Syncfusion.SfSchedule.XForms"
              xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
              x:Class="NureTimetable.Views.TimetablePage"
-             Appearing="ContentPage_Appearing"
-             Disappearing="ContentPage_Disappearing"
-             SizeChanged="ContentPage_SizeChanged"
-             Title="{LN:Translate AppName}">
+             Title="{Binding Title}">
+    <ContentPage.Behaviors>
+        <behaviors:EventToCommandBehavior EventName="Appearing" Command="{Binding PageAppearingCommand}"/>
+        <behaviors:EventToCommandBehavior EventName="Disappearing" Command="{Binding PageDisappearingCommand}"/>
+        <behaviors:EventToCommandBehavior EventName="SizeChanged" Command="{Binding PageSizeChangedCommand}"/>
+    </ContentPage.Behaviors>
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Icon="filter" Clicked="HideSelectedEvents_Clicked" x:Name="HideSelectedEvents" />
-        <ToolbarItem Icon="today" Clicked="Today_Clicked" x:Name="Today" />
-        <ToolbarItem Icon="group" Clicked="ManageGroups_Clicked" x:Name="ManageGroups" />
+        <ToolbarItem Icon="{Binding HideSelectedEventsIcon}" Command="{Binding HideSelectedEventsClickedCommand}" />
+        <ToolbarItem Icon="today" Command="{Binding ScheduleModeClickedCommand}" x:Name="Today" />
+        <ToolbarItem Icon="group" Command="{Binding ManageGroupsClickedCommand}" x:Name="ManageGroups" />
     </ContentPage.ToolbarItems>
     
     <ContentPage.Content>
@@ -22,19 +25,28 @@
                     x:Name="TimetableLayout" 
                     AbsoluteLayout.LayoutBounds="0,0,1,1" 
                     AbsoluteLayout.LayoutFlags="All" 
-                    BackgroundColor="White" >
-                <Label x:Name="TimeLeft" HorizontalOptions="Center" FontSize="20" Margin="0,15,0,0" IsVisible="False" />
+                    BackgroundColor="White" 
+                    IsVisible="{Binding TimetableLayoutIsVisible}">
+                <Label x:Name="TimeLeft" HorizontalOptions="Center" FontSize="20" Margin="0,15,0,0" IsVisible="{Binding TimeLeftIsVisible}" Text="{Binding TimeLeftText}" />
                 <syncfusion:SfSchedule 
                         x:Name="Timetable"
-                        TimeInterval="60"
+                        TimeInterval="{Binding TimetableTimeInterval}"
                         HeaderHeight="50"
                         ViewHeaderHeight="50"
                         FirstDayOfWeek="2"
-                        ScheduleView="WeekView"
                         ShowAppointmentsInline="True"
-                        CellTapped="Timetable_CellTapped"
-                        MonthInlineAppointmentTapped="Timetable_MonthInlineAppointmentTapped"
-                        VisibleDatesChangedEvent="Timetable_VisibleDatesChangedEvent">
+                        MinDisplayDate="{Binding TimetableMinDisplayDate}"
+                        MaxDisplayDate="{Binding TimetableMaxDisplayDate}"
+                        DataSource="{Binding TimetableDataSource}"
+                        IsEnabled="{Binding TimetableIsEnabled}"
+                        ScheduleView="{Binding TimetableScheduleView}"
+                        Locale="{Binding TimetableLocale}"
+                        SelectedDate="{Binding TimetableSelectedDate}"
+                        CellTappedCommand="{Binding TimetableCellTappedCommand}"
+                        VisibleDatesChangedCommand="{Binding TimetableVisibleDatesChangedCommand}">
+                    <syncfusion:SfSchedule.Behaviors>
+                        <behaviors:EventToCommandBehavior EventName="MonthInlineAppointmentTapped" Command="{Binding TimetableMonthInlineAppointmentTappedCommand}"/>
+                    </syncfusion:SfSchedule.Behaviors>
                     <syncfusion:SfSchedule.HeaderStyle>
                         <syncfusion:HeaderStyle FontSize="10" FontAttributes="Bold"/>
                     </syncfusion:SfSchedule.HeaderStyle>
@@ -42,14 +54,14 @@
                         <syncfusion:ViewHeaderStyle DateFontSize="13" DayFontSize="8" />
                     </syncfusion:SfSchedule.ViewHeaderStyle>
                     <syncfusion:SfSchedule.WeekViewSettings>
-                        <syncfusion:WeekViewSettings WorkStartHour="0" WorkEndHour="24">
+                        <syncfusion:WeekViewSettings StartHour="{Binding TimetableStartHour}" EndHour="{Binding TimetableEndHour}" WorkStartHour="{Binding TimetableStartHour}" WorkEndHour="{Binding TimetableEndHour}">
                             <syncfusion:WeekViewSettings.WeekLabelSettings>
                                 <syncfusion:WeekLabelSettings TimeFormat="HH:mm"/>
                             </syncfusion:WeekViewSettings.WeekLabelSettings>
                         </syncfusion:WeekViewSettings>
                     </syncfusion:SfSchedule.WeekViewSettings>
                     <syncfusion:SfSchedule.DayViewSettings>
-                        <syncfusion:DayViewSettings WorkStartHour="0" WorkEndHour="24">
+                        <syncfusion:DayViewSettings StartHour="{Binding TimetableStartHour}" EndHour="{Binding TimetableEndHour}" WorkStartHour="{Binding TimetableStartHour}" WorkEndHour="{Binding TimetableEndHour}">
                             <syncfusion:DayViewSettings.DayLabelSettings>
                                 <syncfusion:DayLabelSettings TimeFormat="HH:mm"/>
                             </syncfusion:DayViewSettings.DayLabelSettings>
@@ -84,15 +96,16 @@
                 TextColor="White"
                 HasShadow="True"
                 ShadowColor="#cccccc"
-                Clicked="BToday_Clicked"
-                Scale="0"/>
-            <StackLayout x:Name="NoSourceLayout" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="False">
+                Scale="{Binding BTodayScale, Mode=TwoWay}"
+                Command="{Binding BTodayClickedCommand}"
+                Text="{Binding BTodayText}"/>
+            <StackLayout x:Name="NoSourceLayout" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="{Binding NoSourceLayoutIsVisible}">
                 <Label Text="{LN:Translate NoTimetable}"
                     VerticalOptions="CenterAndExpand" 
                     HorizontalOptions="CenterAndExpand"
                     HorizontalTextAlignment="Center" />
             </StackLayout>
-            <StackLayout x:Name="ProgressLayout" IsVisible="False" Padding="12"
+            <StackLayout x:Name="ProgressLayout" IsVisible="{Binding ProgressLayoutIsVisible}" Padding="12"
                     AbsoluteLayout.LayoutFlags="PositionProportional"
                     AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
                 <ActivityIndicator IsRunning="True" Color="#80000000"/>

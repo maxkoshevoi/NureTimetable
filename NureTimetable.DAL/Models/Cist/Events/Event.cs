@@ -5,7 +5,7 @@ using static NureTimetable.DAL.Helpers.Serialisation;
 
 namespace NureTimetable.DAL.Models.Cist
 {
-    class Event
+    public class Event
     {
         [JsonProperty("subject_id")]
         public long LessonId { get; set; }

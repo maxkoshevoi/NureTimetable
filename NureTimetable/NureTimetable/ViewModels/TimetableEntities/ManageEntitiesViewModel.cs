@@ -4,6 +4,7 @@ using NureTimetable.Core.Models.Consts;
 using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
 using NureTimetable.Services.Helpers;
+using NureTimetable.UI.Views.Lessons;
 using NureTimetable.UI.Views.TimetableEntities;
 using NureTimetable.ViewModels.Core;
 using NureTimetable.Views.Lessons;
@@ -91,7 +92,10 @@ namespace NureTimetable.ViewModels.TimetableEntities
                 }
                 else if (action == LN.SetUpLessonDisplay)
                 {
-                    await _manageEntitiesViewModel.Navigation.PushAsync(new ManageLessonsPage(SavedEntity));
+                    await _manageEntitiesViewModel.Navigation.PushAsync(new ManageLessonsPage()
+                    {
+                        BindingContext = new ManageLessonsViewModel(Navigation, SavedEntity)
+                    });
                 }
                 else if (action == LN.Delete)
                 {
@@ -109,7 +113,7 @@ namespace NureTimetable.ViewModels.TimetableEntities
         }
         #endregion
 
-        #region variables
+        #region Variables
         private bool _isNoSourceLayoutVisable;
 
         private bool _isEntitiesLayoutEnable;
@@ -117,6 +121,8 @@ namespace NureTimetable.ViewModels.TimetableEntities
         private bool _isProgressVisable;
 
         private bool _isMultiselectMode;
+
+        private SavedEntityItemViewModel _selectedEntity;
 
         private ObservableCollection<SavedEntityItemViewModel> _entities;
         #endregion
@@ -146,23 +152,9 @@ namespace NureTimetable.ViewModels.TimetableEntities
             set => SetProperty(ref _isMultiselectMode, value, onChanged: () => Entities.ForEach(e => e.NotifyChanged(nameof(IsMultiselectMode))));
         }
 
-        private SavedEntityItemViewModel _savedEntitySelectedItem;
+        public SavedEntityItemViewModel SelectedEntity { get => _selectedEntity; set => SetProperty(ref _selectedEntity, value, onChanged: SavedEntitySelected); }
 
-        public SavedEntityItemViewModel SavedEntitySelectedItem
-        {
-            get => _savedEntitySelectedItem;
-            set
-            {
-                if (value != null)
-                {
-                    Device.BeginInvokeOnMainThread(async () => { await SavedEntitySelected(value); });
-                }
-
-                _savedEntitySelectedItem = value;
-            }
-        }
-
-        public ObservableCollection<SavedEntityItemViewModel> Entities { get => _entities; set => SetProperty(ref _entities, value); }
+        public ObservableCollection<SavedEntityItemViewModel> Entities { get => _entities; private set => SetProperty(ref _entities, value); }
 
         public ICommand UpdateAllCommand { get; }
 
@@ -176,7 +168,7 @@ namespace NureTimetable.ViewModels.TimetableEntities
             IsEntitiesLayoutEnabled = true;
 
             UpdateItems(UniversityEntitiesRepository.GetSaved());
-            MessagingCenter.Subscribe<Application, List<SavedEntity>>(this, MessageTypes.SavedEntitiesChanged, (sender, newSavedEntities) => 
+            MessagingCenter.Subscribe<Application, List<SavedEntity>>(this, MessageTypes.SavedEntitiesChanged, (sender, newSavedEntities) =>
             {
                 UpdateItems(newSavedEntities);
             });
@@ -186,15 +178,20 @@ namespace NureTimetable.ViewModels.TimetableEntities
         }
 
         #region Methods
-        public async Task SavedEntitySelected(SavedEntityItemViewModel selectedEntity)
+        public async void SavedEntitySelected()
         {
+            if (SelectedEntity == null)
+            {
+                return;
+            }
+
             if (UniversityEntitiesRepository.GetSelected().Count > 1)
             {
-                selectedEntity.IsSelected = !selectedEntity.IsSelected;
+                SelectedEntity.IsSelected = !SelectedEntity.IsSelected;
             }
             else
             {
-                await SelectOneAndExit(selectedEntity.SavedEntity);
+                await SelectOneAndExit(SelectedEntity.SavedEntity);
             }
         }
 

@@ -2,7 +2,7 @@
 
 namespace NureTimetable.DAL.Models.Local
 {
-    public struct BaseEntity<T> where T: IComparable<T>
+    public struct BaseEntity<T> : IEquatable<BaseEntity<T>> where T: IComparable<T>
     {
         public T ID { get; set; }
         public string ShortName { get; set; }
@@ -29,9 +29,9 @@ namespace NureTimetable.DAL.Models.Local
 
         public override bool Equals(object obj)
         {
-            if (obj is BaseEntity<T>)
+            if (obj is BaseEntity<T> castObj)
             {
-                return this == (BaseEntity<T>)obj;
+                return Equals(castObj);
             }
             return base.Equals(obj);
         }
@@ -39,6 +39,11 @@ namespace NureTimetable.DAL.Models.Local
         public override int GetHashCode()
         {
             return ID.GetHashCode();
+        }
+
+        public bool Equals(BaseEntity<T> other)
+        {
+            return this == other;
         }
         #endregion
     }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace NureTimetable.DAL.Models.Cist
 {
-    class HoursPlanned
+    public class HoursPlanned
     {
         [JsonProperty("type")]
         public long EventTypeId { get; set; }

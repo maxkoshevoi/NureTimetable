@@ -36,6 +36,10 @@
     <MandroidI18n>Other</MandroidI18n>
     <AndroidEnableMultiDex>true</AndroidEnableMultiDex>
     <AndroidSupportedAbis />
+    <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
+    <BundleAssemblies>false</BundleAssemblies>
+    <LangVersion>latest</LangVersion>
+    <CodeAnalysisRuleSet />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -59,6 +63,7 @@
     <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
     <AndroidCreatePackagePerAbi>true</AndroidCreatePackagePerAbi>
     <AndroidAotAdditionalArguments>no-write-symbols,nodebug</AndroidAotAdditionalArguments>
+    <CodeAnalysisRuleSet />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />
@@ -111,6 +116,10 @@
     <ProjectReference Include="..\..\NureTimetable.Core\NureTimetable.Core.csproj">
       <Project>{7212568B-A874-4DDF-AA58-67A8D57D0F81}</Project>
       <Name>NureTimetable.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NureTimetable.UI\NureTimetable.UI.csproj">
+      <Project>{d06bf130-7991-445b-9b32-0be8299eee12}</Project>
+      <Name>NureTimetable.UI</Name>
     </ProjectReference>
     <ProjectReference Include="..\NureTimetable\NureTimetable.csproj">
       <Project>{57541829-2393-4531-84C0-69621D810152}</Project>

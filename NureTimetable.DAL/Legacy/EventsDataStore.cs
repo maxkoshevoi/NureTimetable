@@ -110,7 +110,7 @@ namespace NureTimetable.DAL.Legacy
 
                     return timetables;
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     //Device.BeginInvokeOnMainThread(() =>
                     //{
@@ -216,7 +216,7 @@ namespace NureTimetable.DAL.Legacy
                         timetables[groupName].Add(ev);
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     //Device.BeginInvokeOnMainThread(() =>
                     //{
@@ -243,7 +243,7 @@ namespace NureTimetable.DAL.Legacy
                 {
                     if (string.IsNullOrEmpty(searchGroup))
                     {
-                        throw new ArgumentNullException("Group name must be specified");
+                        throw new ArgumentNullException(nameof(searchGroups));
                     }
                     groupsLessons.Add(searchGroup, new List<LessonInfo>());
                 }
@@ -317,7 +317,7 @@ namespace NureTimetable.DAL.Legacy
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //Device.BeginInvokeOnMainThread(() =>
                 //{

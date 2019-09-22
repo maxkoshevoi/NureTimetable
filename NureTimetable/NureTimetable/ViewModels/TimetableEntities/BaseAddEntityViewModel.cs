@@ -18,19 +18,19 @@ namespace NureTimetable.ViewModels.TimetableEntities
     {
         #region variables
 
-        protected List<T> _allEntities;
+        private protected List<T> _allEntities;
 
-        protected ObservableCollection<T> _entities;
+        private protected ObservableCollection<T> _entities;
 
-        protected bool _progressLayoutIsVisable;
+        private protected bool _progressLayoutIsVisable;
 
-        protected bool _progressLayoutIsEnable;
+        private protected bool _progressLayoutIsEnable;
 
-        protected bool _noSourceLayoutIsVisible;
+        private protected bool _noSourceLayoutIsVisible;
 
-        protected string _searchBarText;
+        private protected string _searchBarText;
 
-        protected T _selectedEntity;
+        private protected T _selectedEntity;
 
         #endregion
 
@@ -42,7 +42,7 @@ namespace NureTimetable.ViewModels.TimetableEntities
 
         #region Properties
 
-        public ObservableCollection<T> Entities { get => _entities; set => SetProperty(ref _entities, value); }
+        public ObservableCollection<T> Entities { get => _entities; private protected set => SetProperty(ref _entities, value); }
 
         public bool ProgressLayoutIsVisable
         {
@@ -130,7 +130,7 @@ namespace NureTimetable.ViewModels.TimetableEntities
             await App.Current.MainPage.DisplayAlert(LN.AddingTimetable, string.Format(LN.TimetableSaved, newEntity.Name), LN.Ok);
         }
 
-        protected async Task SearchBarTextChanged()
+        protected void SearchBarTextChanged()
         {
             if (_allEntities == null) return;
 

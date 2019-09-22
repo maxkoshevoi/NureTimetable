@@ -1,12 +1,13 @@
 ﻿using NureTimetable.Core.Models.Consts;
 using System;
+using System.Collections.Generic;
 using Xamarin.Forms;
 
 namespace NureTimetable.MIgrations
 {
     public abstract class BaseMigration
     {
-        public static BaseMigration[] Migrations =
+        public static IReadOnlyCollection<BaseMigration> Migrations => new[] 
         {
             new CanSelectMultipleEntitiesMigration()
         };
@@ -19,7 +20,7 @@ namespace NureTimetable.MIgrations
         {
             try
             {
-                return func();
+                return func?.Invoke() ?? false;
             }
             catch (Exception ex)
             {

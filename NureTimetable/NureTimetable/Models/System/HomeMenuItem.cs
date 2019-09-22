@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace NureTimetable.Models.System
+﻿namespace NureTimetable.Models.System
 {
     public enum MenuItemType
     {

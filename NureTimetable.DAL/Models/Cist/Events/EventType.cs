@@ -2,7 +2,7 @@
 
 namespace NureTimetable.DAL.Models.Cist
 {
-    class EventType
+    public class EventType
     {
         [JsonProperty("id")]
         public long Id { get; set; }

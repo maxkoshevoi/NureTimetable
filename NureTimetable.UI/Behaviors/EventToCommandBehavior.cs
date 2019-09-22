@@ -6,7 +6,7 @@ using Xamarin.Forms;
 
 namespace NureTimetable.UI.Behaviors
 {
-    public class EventToCommandBehavior : BehaviorBase<View>
+    public class EventToCommandBehavior : BehaviorBase<VisualElement>
     {
         private Delegate _eventHandler;
 
@@ -46,13 +46,13 @@ namespace NureTimetable.UI.Behaviors
             set => SetValue(InputConverterProperty, value);
         }
 
-        protected override void OnAttachedTo(View bindable)
+        protected override void OnAttachedTo(VisualElement bindable)
         {
             base.OnAttachedTo(bindable);
             RegisterEvent(EventName);
         }
 
-        protected override void OnDetachingFrom(View bindable)
+        protected override void OnDetachingFrom(VisualElement bindable)
         {
             DeregisterEvent(EventName);
             base.OnDetachingFrom(bindable);

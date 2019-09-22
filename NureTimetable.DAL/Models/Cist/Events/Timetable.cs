@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace NureTimetable.DAL.Models.Cist
 {
-    class Timetable
+    public class Timetable
     {
         [JsonProperty("time-zone")]
         public string TimeZone { get; set; }

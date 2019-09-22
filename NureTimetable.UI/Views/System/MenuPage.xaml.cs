@@ -1,12 +1,12 @@
 ﻿using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace NureTimetable.UI.Views.Info
+namespace NureTimetable.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class AboutPage : ContentPage
+    public partial class MenuPage : ContentPage
     {
-        public AboutPage()
+        public MenuPage()
         {
             InitializeComponent();
         }

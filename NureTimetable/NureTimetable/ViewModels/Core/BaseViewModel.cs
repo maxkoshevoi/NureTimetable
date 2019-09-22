@@ -8,7 +8,7 @@ namespace NureTimetable.ViewModels.Core
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public INavigation Navigation;
+        private protected INavigation Navigation;
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected BaseViewModel(INavigation navigation)
@@ -37,6 +37,8 @@ namespace NureTimetable.ViewModels.Core
 
             return true;
         }
-        protected void OnPropertyChanged(string propName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
+
+        protected void OnPropertyChanged(string propName) 
+            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
     }
 }

@@ -2,8 +2,10 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:LN="clr-namespace:NureTimetable.Core.Localization;assembly=NureTimetable.Core"
+             xmlns:behaviors="clr-namespace:NureTimetable.UI.Behaviors;assembly=NureTimetable.UI"
              xmlns:syncfusion="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
-             x:Class="NureTimetable.Views.Lessons.LessonSettingsPage">
+             x:Class="NureTimetable.Views.Lessons.LessonSettingsPage"
+             Title="{Binding Title}">
 
     <ScrollView>
         <StackLayout>
@@ -12,14 +14,22 @@
                     Margin="5,10,5,0"
                     VerticalOptions="Fill"
                     CheckedColor="DeepSkyBlue"
-                    StateChanged="ShowLesson_StateChanged"
-                    Text="{LN:Translate DisplayLesson}" />
+                    IsChecked="{Binding ShowLessonIsChecked}"
+                    Text="{LN:Translate DisplayLesson}" >
+                <syncfusion:SfCheckBox.Behaviors>
+                    <behaviors:EventToCommandBehavior EventName="StateChanged" Command="{Binding ShowLessonStateChangedCommand}"/>
+                </syncfusion:SfCheckBox.Behaviors>
+            </syncfusion:SfCheckBox>
             <ListView x:Name="LessonEventTypes"
                     VerticalOptions="Fill"
                     Margin="10,0,10,0"
                     HasUnevenRows="True"
                     CachingStrategy="RecycleElement"
-                    ItemTapped="LessonEventTypes_ItemTapped">
+                    ItemTapped="LessonEventTypes_ItemTapped"
+                    BindingContext="{Binding LvEventTypes}"
+                    ItemsSource="{Binding ItemsSource}"
+                    IsVisible="{Binding IsVisible}"
+                    HeightRequest="{Binding HeightRequest}">
                 <ListView.Header>
                     <Label Text="{LN:Translate DisplayLessonsForTypes}" />
                 </ListView.Header>
@@ -29,8 +39,7 @@
                             <syncfusion:SfCheckBox 
                                 CheckedColor="DeepSkyBlue"
                                 Margin="10,5,10,5"
-                                StateChanged="EventType_StateChanged"
-                                Text="{Binding EventType.ShortName}"
+                                Text="{Binding Entity.ShortName}"
                                 IsChecked="{Binding IsChecked}" />
                         </ViewCell>
                     </DataTemplate>
@@ -41,7 +50,11 @@
                     Margin="10,10,10,10"
                     HasUnevenRows="True"
                     CachingStrategy="RecycleElement"
-                    ItemTapped="LessonTeachers_ItemTapped">
+                    ItemTapped="LessonTeachers_ItemTapped"
+                    BindingContext="{Binding LvTeachers}"
+                    ItemsSource="{Binding ItemsSource}"
+                    IsVisible="{Binding IsVisible}"
+                    HeightRequest="{Binding HeightRequest}">
                 <ListView.Header>
                     <Label Text="{LN:Translate DisplayLessonsForTeachers}" />
                 </ListView.Header>
@@ -51,8 +64,7 @@
                             <syncfusion:SfCheckBox 
                                 CheckedColor="DeepSkyBlue"
                                 Margin="10,5,10,5"
-                                StateChanged="Teacher_StateChanged"
-                                Text="{Binding Teacher.ShortName}"
+                                Text="{Binding Entity.ShortName}"
                                 IsChecked="{Binding IsChecked}" />
                         </ViewCell>
                     </DataTemplate>
@@ -60,10 +72,13 @@
             </ListView>
             <StackLayout VerticalOptions="Fill" Margin="10,0,10,0">
                 <Label Text="{LN:Translate Notes}" />
-                <Editor 
-                    HeightRequest="84" 
-                    x:Name="LessonNotes" 
-                    TextChanged="LessonNotes_TextChanged" />
+                <Editor x:Name="LessonNotes" 
+                    AutoSize="TextChanges"
+                    Text="{Binding LessonNotesText}">
+                    <Editor.Behaviors>
+                        <behaviors:EventToCommandBehavior EventName="TextChanged" Command="{Binding LessonNotesTextChangedCommand}"/>
+                    </Editor.Behaviors>
+                </Editor>
             </StackLayout>
         </StackLayout>
     </ScrollView>

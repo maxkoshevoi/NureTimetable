@@ -6,7 +6,6 @@ using NureTimetable.MIgrations;
 using NureTimetable.Models.System;
 using NureTimetable.UI.Views.Info;
 using NureTimetable.ViewModels.Info;
-using NureTimetable.Views.Info;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,6 +14,8 @@ using System.Net;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using NureTimetable.ViewModels;
+using NureTimetable.ViewModels.System;
 
 namespace NureTimetable.Views
 {
@@ -25,6 +26,14 @@ namespace NureTimetable.Views
         public MainPage()
         {
             InitializeComponent();
+
+            Master = new MenuPage
+            {
+                BindingContext = new MenuViewModel(Navigation)
+            };
+            var timetablePage = new TimetablePage();
+            timetablePage.BindingContext = new TimetableViewModel(timetablePage.Navigation, timetablePage);
+            Detail = new NavigationPage(timetablePage);
 
             MasterBehavior = MasterBehavior.Popover;
             MenuPages.Add((int)MenuItemType.Timetable, (NavigationPage)Detail);
@@ -66,12 +75,14 @@ namespace NureTimetable.Views
                 {
                     await App.Current.MainPage.DisplayAlert(LN.FinishingUpdateTitle, LN.FinishingUpdateFail, LN.Ok);
                 }
-                Detail = new NavigationPage(new TimetablePage());
+                var timetablePage = new TimetablePage();
+                timetablePage.BindingContext = new TimetableViewModel(timetablePage.Navigation, timetablePage);
+                Detail = new NavigationPage(timetablePage);
             }
 
             base.OnAppearing();
         }
-
+        
         private static void LogException(Exception ex)
         {
 #if !DEBUG
@@ -113,16 +124,21 @@ namespace NureTimetable.Views
                 switch (id)
                 {
                     case (int)MenuItemType.Timetable:
-                        MenuPages.Add(id, new NavigationPage(new TimetablePage()));
+                        var timetablePage = new TimetablePage();
+                        timetablePage.BindingContext = new TimetableViewModel(timetablePage.Navigation, timetablePage);
+                        MenuPages.Add(id, new NavigationPage(timetablePage));
                         break;
                     case (int)MenuItemType.About:
-                        MenuPages.Add(id, new NavigationPage(new AboutPage()
+                        MenuPages.Add(id, new NavigationPage(new AboutPage
                         {
-                            BindingContext = new AboutViewModel()
+                            BindingContext = new AboutViewModel(Navigation)
                         }));
                         break;
                     case (int)MenuItemType.Donate:
-                        MenuPages.Add(id, new NavigationPage(new DonatePage()));
+                        MenuPages.Add(id, new NavigationPage(new DonatePage
+                        {
+                            BindingContext = new DonateViewModel(Navigation)
+                        }));
                         break;
                     default:
                         throw new ArgumentException("Unknown menu page");

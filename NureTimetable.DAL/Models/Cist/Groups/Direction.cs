@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace NureTimetable.DAL.Models.Cist
 {
-    class Direction
+    public class Direction
     {
         [JsonProperty("id")]
         public long Id { get; set; }
@@ -15,9 +15,9 @@ namespace NureTimetable.DAL.Models.Cist
         public string FullName { get; set; }
 
         [JsonProperty("groups", NullValueHandling = NullValueHandling.Ignore)]
-        public List<Group> Groups { get; set; } = new List<Group>();
+        public List<Group> Groups { get; private set; } = new List<Group>();
 
         [JsonProperty("specialities")]
-        public List<Speciality> Specialities { get; set; } = new List<Speciality>();
+        public List<Speciality> Specialities { get; private set; } = new List<Speciality>();
     }
 }

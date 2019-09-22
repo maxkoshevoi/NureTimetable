@@ -6,21 +6,21 @@ namespace NureTimetable.DAL.Models.Consts
 {
     public static class Urls
     {
-        public static string CistEntityTimetableUrl(TimetableEntityType entity, long entityId, DateTime dateStart, DateTime dateEnd)
-            => $"http://cist.nure.ua/ias/app/tt/P_API_EVEN_JSON" +
+        public static Uri CistEntityTimetableUrl(TimetableEntityType entity, long entityId, DateTime dateStart, DateTime dateEnd)
+            => new Uri($"http://cist.nure.ua/ias/app/tt/P_API_EVEN_JSON" +
                 $"?type_id={(int)entity}" +
                 $"&timetable_id={entityId}" +
                 $"&time_from={new DateTimeOffset(dateStart.Date).ToUnixTimeSeconds()}" +
                 $"&time_to={new DateTimeOffset(dateEnd.Date.AddDays(1)).ToUnixTimeSeconds()}" +
-                $"&idClient={Keys.CistApiKey}";
+                $"&idClient={Keys.CistApiKey}");
 
-        public static string CistAllGroupsUrl
-            => $"http://cist.nure.ua/ias/app/tt/P_API_GROUP_JSON";
+        public static Uri CistAllGroupsUrl
+            => new Uri($"http://cist.nure.ua/ias/app/tt/P_API_GROUP_JSON");
 
-        public static string CistAllTeachersUrl
-            => $"http://cist.nure.ua/ias/app/tt/P_API_PODR_JSON";
+        public static Uri CistAllTeachersUrl
+            => new Uri($"http://cist.nure.ua/ias/app/tt/P_API_PODR_JSON");
 
-        public static string CistAllRoomsUrl
-            => $"http://cist.nure.ua/ias/app/tt/P_API_AUDITORIES_JSON";
+        public static Uri CistAllRoomsUrl
+            => new Uri($"http://cist.nure.ua/ias/app/tt/P_API_AUDITORIES_JSON");
     }
 }

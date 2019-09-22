@@ -1,15 +1,12 @@
 ﻿using NureTimetable.Core.Models.Consts;
-using NureTimetable.Models.Consts;
 using Plugin.DeviceInfo;
 using Plugin.InAppBilling;
 using Plugin.InAppBilling.Abstractions;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace NureTimetable.Helpers
+namespace NureTimetable.Services.Helpers
 {
     public static class InAppPurchase
     {
