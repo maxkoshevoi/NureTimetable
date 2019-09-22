@@ -58,5 +58,26 @@ namespace NureTimetable.Services.Helpers
                 }
             });
         }
+
+        /// <summary>
+        /// Creates the command.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="action">The action.</param>
+        /// <returns>ICommand.</returns>
+        public static ICommand CreateCommand<T>(Action<T> action)
+        {
+            return new Command<T>(action);
+        }
+
+        /// <summary>
+        /// Creates the command.
+        /// </summary>
+        /// <param name="action">The action.</param>
+        /// <returns>ICommand.</returns>
+        public static ICommand CreateCommand(Action action)
+        {
+            return new Command(action);
+        }
     }
 }

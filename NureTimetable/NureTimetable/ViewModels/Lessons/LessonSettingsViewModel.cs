@@ -20,9 +20,9 @@ namespace NureTimetable.ViewModels.Lessons
         {
             private ObservableCollection<CheckedEntity<T>> _itemSource;
             private bool _isVisible;
-            public double _heightRequest;
+            private double _heightRequest;
 
-            public ObservableCollection<CheckedEntity<T>> ItemsSource { get => _itemSource; set => SetProperty(ref _itemSource, value, onChanged: ItemsSourceChanged); }
+            public ObservableCollection<CheckedEntity<T>> ItemsSource { get => _itemSource; internal set => SetProperty(ref _itemSource, value, onChanged: ItemsSourceChanged); }
             public bool IsVisible { get => _isVisible; set => SetProperty(ref _isVisible, value); }
             public double HeightRequest { get => _heightRequest; set => SetProperty(ref _heightRequest, value); }
 
@@ -119,8 +119,8 @@ namespace NureTimetable.ViewModels.Lessons
 
             UpdateEventTypesCheck();
 
-            ShowLessonStateChangedCommand = CommandHelper.CreateCommand<StateChangedEventArgs>(ShowLessonStateChanged);
-            LessonNotesTextChangedCommand = CommandHelper.CreateCommand<TextChangedEventArgs>(LessonNotesTextChanged);
+            ShowLessonStateChangedCommand = CommandHelper.CreateCommand(ShowLessonStateChanged);
+            LessonNotesTextChangedCommand = CommandHelper.CreateCommand(LessonNotesTextChanged);
 
         }
         
@@ -144,7 +144,7 @@ namespace NureTimetable.ViewModels.Lessons
             UpdateShowLessonCheck();
         }
 
-        private async Task ShowLessonStateChanged(StateChangedEventArgs e)
+        private void ShowLessonStateChanged()
         {
             lessonInfo.Settings.Hiding.ShowLesson = ShowLessonIsChecked;
             UpdateEventTypesCheck();
@@ -206,7 +206,7 @@ namespace NureTimetable.ViewModels.Lessons
             updatingProgrammatically = false;
         }
 
-        private async Task LessonNotesTextChanged(TextChangedEventArgs e)
+        private void LessonNotesTextChanged()
         {
             lessonInfo.Notes = LessonNotesText;
         }

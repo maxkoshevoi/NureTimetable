@@ -82,7 +82,7 @@ namespace NureTimetable.Views
 
             base.OnAppearing();
         }
-
+        
         private static void LogException(Exception ex)
         {
 #if !DEBUG

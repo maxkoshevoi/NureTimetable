@@ -8,7 +8,7 @@
         <ListView x:Name="ListViewMenu" 
                   HasUnevenRows="True"
                   ItemsSource="{Binding MenuItems}"
-                  SelectedItem="{Binding SelectedItem}">
+                  SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>

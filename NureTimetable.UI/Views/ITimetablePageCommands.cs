@@ -7,7 +7,7 @@ namespace NureTimetable.Views
     {
         void UpdateTimetableHeight();
 
-        void TimetableNavigateTo(DateTime date);
+        void TimetableNavigateTo(DateTime targetDate);
 
         Task ScaleTodayButtonTo(double scale);
     }

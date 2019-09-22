@@ -54,14 +54,14 @@
                         <syncfusion:ViewHeaderStyle DateFontSize="13" DayFontSize="8" />
                     </syncfusion:SfSchedule.ViewHeaderStyle>
                     <syncfusion:SfSchedule.WeekViewSettings>
-                        <syncfusion:WeekViewSettings WorkStartHour="{Binding TimetableStartHour}" WorkEndHour="{Binding TimetableEndHour}">
+                        <syncfusion:WeekViewSettings StartHour="{Binding TimetableStartHour}" EndHour="{Binding TimetableEndHour}" WorkStartHour="{Binding TimetableStartHour}" WorkEndHour="{Binding TimetableEndHour}">
                             <syncfusion:WeekViewSettings.WeekLabelSettings>
                                 <syncfusion:WeekLabelSettings TimeFormat="HH:mm"/>
                             </syncfusion:WeekViewSettings.WeekLabelSettings>
                         </syncfusion:WeekViewSettings>
                     </syncfusion:SfSchedule.WeekViewSettings>
                     <syncfusion:SfSchedule.DayViewSettings>
-                        <syncfusion:DayViewSettings WorkStartHour="{Binding TimetableStartHour}" WorkEndHour="{Binding TimetableEndHour}">
+                        <syncfusion:DayViewSettings StartHour="{Binding TimetableStartHour}" EndHour="{Binding TimetableEndHour}" WorkStartHour="{Binding TimetableStartHour}" WorkEndHour="{Binding TimetableEndHour}">
                             <syncfusion:DayViewSettings.DayLabelSettings>
                                 <syncfusion:DayLabelSettings TimeFormat="HH:mm"/>
                             </syncfusion:DayViewSettings.DayLabelSettings>
@@ -96,7 +96,7 @@
                 TextColor="White"
                 HasShadow="True"
                 ShadowColor="#cccccc"
-                Scale="{Binding BTodayScale}"
+                Scale="{Binding BTodayScale, Mode=TwoWay}"
                 Command="{Binding BTodayClickedCommand}"
                 Text="{Binding BTodayText}"/>
             <StackLayout x:Name="NoSourceLayout" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="{Binding NoSourceLayoutIsVisible}">

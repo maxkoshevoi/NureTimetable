@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace NureTimetable.DAL.Models.Cist
 {
-    class Department
+    public class Department
     {
         [JsonProperty("id")]
         public long Id { get; set; }

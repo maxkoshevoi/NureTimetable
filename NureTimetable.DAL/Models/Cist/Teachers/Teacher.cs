@@ -2,7 +2,7 @@
 
 namespace NureTimetable.DAL.Models.Cist
 {
-    class Teacher
+    public class Teacher
     {
         [JsonProperty("id")]
         public long Id { get; set; }

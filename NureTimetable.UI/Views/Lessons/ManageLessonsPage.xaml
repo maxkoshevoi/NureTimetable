@@ -39,12 +39,12 @@
                                             <TapGestureRecognizer Command="{Binding InfoClickedCommand}" />
                                         </Label.GestureRecognizers>
                                     </Label>
-                                    <Label Text="&#xf493;" FontFamily="{StaticResource MaterialFontFamily}" TextColor="#6b6b6b" FontSize="26" VerticalOptions="CenterAndExpand">
+                                    <Label Text="&#xf493;" Margin="4,0,0,0" FontFamily="{StaticResource MaterialFontFamily}" TextColor="#6b6b6b" FontSize="26" VerticalOptions="CenterAndExpand">
                                         <Label.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding SettingsClickedCommand}" />
                                         </Label.GestureRecognizers>
                                     </Label>
-                                    <syncfusion:SfCheckBox IsChecked="{Binding LessonInfo.Settings.Hiding.ShowLesson}" CheckedColor="DeepSkyBlue"/>
+                                    <syncfusion:SfCheckBox Margin="4,0,0,0" IsChecked="{Binding LessonInfo.Settings.Hiding.ShowLesson}" CheckedColor="DeepSkyBlue"/>
                                 </StackLayout>
                             </Grid>
                         </ViewCell>

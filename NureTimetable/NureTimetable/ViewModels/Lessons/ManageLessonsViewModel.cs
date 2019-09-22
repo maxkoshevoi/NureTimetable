@@ -82,7 +82,7 @@ namespace NureTimetable.ViewModels.TimetableEntities
             set => SetProperty(ref _isNoSourceLayoutVisable, value);
         }
         
-        public ObservableCollection<LessonViewModel> Lessons { get => _lessons; set => SetProperty(ref _lessons, value); }
+        public ObservableCollection<LessonViewModel> Lessons { get => _lessons; private set => SetProperty(ref _lessons, value); }
 
         public ICommand PageAppearingCommand { get; }
 

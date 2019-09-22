@@ -6,7 +6,7 @@ namespace NureTimetable.DAL.Models.Local
 {
     public class TimetableStatistics
     {
-        protected List<Event> events = new List<Event>();
+        private protected List<Event> events = new List<Event>();
 
         #region Statistics
         public int Count => events.Count;

@@ -98,7 +98,7 @@ namespace NureTimetable.DAL
                     Local.TimetableInfo timetable = GetTimetableLocal(entity);
 
                     // Getting events
-                    Uri uri = new Uri(Urls.CistEntityTimetableUrl(entity.Type, entity.ID, dateStart, dateEnd));
+                    Uri uri = Urls.CistEntityTimetableUrl(entity.Type, entity.ID, dateStart, dateEnd);
                     string responseStr = client.DownloadString(uri);
                     responseStr = responseStr.Replace("&amp;", "&");
                     responseStr = responseStr.Replace("\"events\":[\n]}]", "\"events\": []");

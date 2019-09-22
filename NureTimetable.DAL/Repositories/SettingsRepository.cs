@@ -68,7 +68,9 @@ namespace NureTimetable.DAL
             return true;
 #endif
 
+#pragma warning disable CS0162 // Unreachable code detected
             TimeSpan? timePass = DateTime.Now - GetLastCistAllEntitiesUpdateTime();
+#pragma warning restore CS0162 // Unreachable code detected
             if (timePass != null && timePass <= Config.CistAllEntitiesUpdateMinInterval)
             {
                 return false;

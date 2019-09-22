@@ -70,7 +70,7 @@ namespace NureTimetable.DAL.Legacy
                     //Serialisation.ToJsonFile(groups, FilePath.AllGroupsList);
                     //SettingsRepository.UpdateCistAllGroupsUpdateTime();
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     //Device.BeginInvokeOnMainThread(() =>
                     //{

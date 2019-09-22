@@ -113,7 +113,7 @@ namespace NureTimetable.ViewModels.TimetableEntities
         }
         #endregion
 
-        #region variables
+        #region Variables
         private bool _isNoSourceLayoutVisable;
 
         private bool _isEntitiesLayoutEnable;
@@ -121,6 +121,8 @@ namespace NureTimetable.ViewModels.TimetableEntities
         private bool _isProgressVisable;
 
         private bool _isMultiselectMode;
+
+        private SavedEntityItemViewModel _selectedEntity;
 
         private ObservableCollection<SavedEntityItemViewModel> _entities;
         #endregion
@@ -150,7 +152,9 @@ namespace NureTimetable.ViewModels.TimetableEntities
             set => SetProperty(ref _isMultiselectMode, value, onChanged: () => Entities.ForEach(e => e.NotifyChanged(nameof(IsMultiselectMode))));
         }
 
-        public ObservableCollection<SavedEntityItemViewModel> Entities { get => _entities; set => SetProperty(ref _entities, value); }
+        public SavedEntityItemViewModel SelectedEntity { get => _selectedEntity; set => SetProperty(ref _selectedEntity, value, onChanged: SavedEntitySelected); }
+
+        public ObservableCollection<SavedEntityItemViewModel> Entities { get => _entities; private set => SetProperty(ref _entities, value); }
 
         public ICommand UpdateAllCommand { get; }
 
@@ -164,7 +168,7 @@ namespace NureTimetable.ViewModels.TimetableEntities
             IsEntitiesLayoutEnabled = true;
 
             UpdateItems(UniversityEntitiesRepository.GetSaved());
-            MessagingCenter.Subscribe<Application, List<SavedEntity>>(this, MessageTypes.SavedEntitiesChanged, (sender, newSavedEntities) => 
+            MessagingCenter.Subscribe<Application, List<SavedEntity>>(this, MessageTypes.SavedEntitiesChanged, (sender, newSavedEntities) =>
             {
                 UpdateItems(newSavedEntities);
             });
@@ -174,15 +178,20 @@ namespace NureTimetable.ViewModels.TimetableEntities
         }
 
         #region Methods
-        public async Task SavedEntitySelected(SavedEntityItemViewModel selectedEntity)
+        public async void SavedEntitySelected()
         {
+            if (SelectedEntity == null)
+            {
+                return;
+            }
+
             if (UniversityEntitiesRepository.GetSelected().Count > 1)
             {
-                selectedEntity.IsSelected = !selectedEntity.IsSelected;
+                SelectedEntity.IsSelected = !SelectedEntity.IsSelected;
             }
             else
             {
-                await SelectOneAndExit(selectedEntity.SavedEntity);
+                await SelectOneAndExit(SelectedEntity.SavedEntity);
             }
         }
 

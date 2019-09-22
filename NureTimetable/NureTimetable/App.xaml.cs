@@ -14,7 +14,7 @@ namespace NureTimetable
 {
     public partial class App : Application
     {
-        public static bool IsDebugMode
+        public static bool IsDebugMode { get; set; }
 #if DEBUG
             = true;
 #else

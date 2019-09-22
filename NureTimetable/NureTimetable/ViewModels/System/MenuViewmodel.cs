@@ -12,7 +12,7 @@ namespace NureTimetable.ViewModels.System
 {
     public class MenuViewModel : BaseViewModel
     {
-        private MainPage RootPage { get => Application.Current.MainPage as MainPage; }
+        private static MainPage RootPage { get => Application.Current.MainPage as MainPage; }
         private ObservableCollection<HomeMenuItem> _menuItems;
         private HomeMenuItem _selectedItem;
 
@@ -47,7 +47,7 @@ namespace NureTimetable.ViewModels.System
             SelectedItem = MenuItems[0];
         }
 
-        private async Task ItemSelected(HomeMenuItem selectedItem)
+        private static async Task ItemSelected(HomeMenuItem selectedItem)
         {
             if (selectedItem == null)
             {
@@ -57,7 +57,7 @@ namespace NureTimetable.ViewModels.System
             await RootPage.NavigateFromMenu((int)selectedItem.Id);
         }
 
-        private IEnumerable<HomeMenuItem> GetMenuItems()
+        private static IEnumerable<HomeMenuItem> GetMenuItems()
         {
             yield return new HomeMenuItem
             {

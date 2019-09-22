@@ -31,8 +31,8 @@ namespace NureTimetable.DAL.Models.Local
                 obj1.Start == obj2.Start && 
                 obj1.RoomName == obj2.RoomName && 
                 obj1.Lesson == obj2.Lesson &&
-                obj1.Teachers.Count == obj2.Teachers.Count && obj1.Teachers.Except(obj2.Teachers).Count() == 0 &&
-                obj1.Groups.Count == obj2.Groups.Count && obj1.Groups.Except(obj2.Groups).Count() == 0;
+                obj1.Teachers.Count == obj2.Teachers.Count && !obj1.Teachers.Except(obj2.Teachers).Any() &&
+                obj1.Groups.Count == obj2.Groups.Count && !obj1.Groups.Except(obj2.Groups).Any();
         }
 
         public static bool operator !=(Event obj1, Event obj2)

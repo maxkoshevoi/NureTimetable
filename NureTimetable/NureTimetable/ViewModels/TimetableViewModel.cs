@@ -25,8 +25,8 @@ namespace NureTimetable.ViewModels
     public class TimetableViewModel : BaseViewModel
     {
         #region Variables
-        public TimetableInfoList timetableInfoList { get; set; } = null;
-        public bool ApplyHiddingSettings = true;
+        private TimetableInfoList timetableInfoList = null;
+        private bool applyHiddingSettings = true;
 
         private bool isFirstLoad = true;
         private bool isPageVisible = false;
@@ -51,11 +51,11 @@ namespace NureTimetable.ViewModels
         private bool _timeLeftIsVisible;
         private string _timeLeftText;
 
-        private bool _timetableLayoutIsVisible = true;
+        private bool _timetableLayoutIsVisible = false;
         private bool _noSourceLayoutIsVisible;
         private bool _progressLayoutIsVisible;
         private string _bTodayText;
-        private double _bTodayScale;
+        private double _bTodayScale = 0;
 
         private ITimetablePageCommands _timetablePage;
         #endregion
@@ -69,12 +69,12 @@ namespace NureTimetable.ViewModels
         public ScheduleView TimetableScheduleView { get => _timetableScheduleView; set => SetProperty(ref _timetableScheduleView, value); }
         public bool TimetableIsEnabled { get => _timetableIsEnabled; set => SetProperty(ref _timetableIsEnabled, value); }
         public string TimetableLocale { get => _timetableLocale; set => SetProperty(ref _timetableLocale, value); }
-        public List<EventViewModel> TimetableDataSource { get => _timetableDataSource; set => SetProperty(ref _timetableDataSource, value); }
+        public List<EventViewModel> TimetableDataSource { get => _timetableDataSource; private set => SetProperty(ref _timetableDataSource, value); }
         public DateTime TimetableMaxDisplayDate { get => _timetableMaxDisplayDate; set => SetProperty(ref _timetableMaxDisplayDate, value); }
         public DateTime TimetableMinDisplayDate { get => _timetableMinDisplayDate; set => SetProperty(ref _timetableMinDisplayDate, value); }
         public double TimetableStartHour { get => _timetableStartHour; set => SetProperty(ref _timetableStartHour, value); }
         public double TimetableEndHour { get => _timetableEndHour; set => SetProperty(ref _timetableEndHour, value); }
-        public int TimetableTimeInterval => 60;
+        public static int TimetableTimeInterval => 60;
 
         public bool TimeLeftIsVisible { get => _timeLeftIsVisible; set => SetProperty(ref _timeLeftIsVisible, value); }
         public string TimeLeftText { get => _timeLeftText; set => SetProperty(ref _timeLeftText, value); }
@@ -151,7 +151,7 @@ namespace NureTimetable.ViewModels
             PageDisappearingCommand = CommandHelper.CreateCommand(PageDisappearing);
             PageSizeChangedCommand = CommandHelper.CreateCommand(PageSizeChanged);
             HideSelectedEventsClickedCommand = CommandHelper.CreateCommand(HideSelectedEventsClicked);
-            ScheduleModeClickedCommand = CommandHelper.CreateCommand(TodayClicked);
+            ScheduleModeClickedCommand = CommandHelper.CreateCommand(ScheduleModeClicked);
             ManageGroupsClickedCommand = CommandHelper.CreateCommand(ManageGroupsClicked);
             TimetableCellTappedCommand = CommandHelper.CreateCommand<CellTappedEventArgs>(TimetableCellTapped);
             TimetableMonthInlineAppointmentTappedCommand = CommandHelper.CreateCommand<MonthInlineAppointmentTappedEventArgs>(TimetableMonthInlineAppointmentTapped);
@@ -220,7 +220,7 @@ namespace NureTimetable.ViewModels
             }
         }
 
-        private async Task PageDisappearing()
+        private void PageDisappearing()
         {
             isPageVisible = false;
         }
@@ -340,7 +340,7 @@ namespace NureTimetable.ViewModels
                         timetableInfos.Add(timetableInfo);
                     }
                 }
-                timetableInfoList = TimetableInfoList.Build(timetableInfos, ApplyHiddingSettings);
+                timetableInfoList = TimetableInfoList.Build(timetableInfos, applyHiddingSettings);
                 needToUpdateEventsUI = true;
             }
             UpdateEventsUI();
@@ -359,7 +359,7 @@ namespace NureTimetable.ViewModels
                     return;
                 }
                 needToUpdateEventsUI = false;
-                Device.BeginInvokeOnMainThread(() =>
+                Device.BeginInvokeOnMainThread(async () =>
                 {
                     if (timetableInfoList.Count == 0)
                     {
@@ -401,7 +401,9 @@ namespace NureTimetable.ViewModels
                                 TimetableVisibleDatesChangedCommand = CommandHelper.CreateCommand<VisibleDatesChangedEventArgs>(TimetableVisibleDatesChanged);
                             }
 
-                            TimetableDataSource = timetableInfoList.Events.Select(ev => new EventViewModel(ev)).ToList();
+                            TimetableDataSource = timetableInfoList.Events
+                                .Select(ev => new EventViewModel(ev))
+                                .ToList();
 
                             UpdateTimeLeft();
                             break;
@@ -418,14 +420,14 @@ namespace NureTimetable.ViewModels
                     {
                         MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, exception);
 
-                        App.Current.MainPage.DisplayAlert(LN.TimetableDisplay, LN.TimetableDisplayError, LN.Ok);
+                        await App.Current.MainPage.DisplayAlert(LN.TimetableDisplay, LN.TimetableDisplayError, LN.Ok);
                         return;
                     }
                 });
             }
         }
 
-        private async Task PageSizeChanged()
+        private void PageSizeChanged()
         {
             _timetablePage.UpdateTimetableHeight();
         }
@@ -438,7 +440,7 @@ namespace NureTimetable.ViewModels
             });
         }
 
-        private async Task TodayClicked()
+        private async Task ScheduleModeClicked()
         {
             if (!TimetableLayoutIsVisible)
             {
@@ -467,7 +469,7 @@ namespace NureTimetable.ViewModels
             }
             if (selected != null)
             {
-                //Timetable.NavigateTo(selected.Value);
+                //_timetablePage.TimetableNavigateTo(selected.Value);
                 TimetableSelectedDate = selected;
                 TimetableSelectedDate = null;
             }
@@ -511,17 +513,17 @@ namespace NureTimetable.ViewModels
                 notes, LN.Ok);
         }
 
-        private async Task HideSelectedEventsClicked()
+        private void HideSelectedEventsClicked()
         {
             if (!TimetableLayoutIsVisible)
             {
                 return;
             }
 
-            ApplyHiddingSettings = !ApplyHiddingSettings;
+            applyHiddingSettings = !applyHiddingSettings;
 
             string message, icon;
-            if (ApplyHiddingSettings)
+            if (applyHiddingSettings)
             {
                 icon = "filter";
                 message = LN.SelectedEventsShown;

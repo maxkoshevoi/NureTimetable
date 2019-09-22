@@ -33,9 +33,9 @@ namespace NureTimetable.DAL
                 this.IsRoomsOk = isRoomsOk;
             }
 
-            public bool IsGroupsOk;
-            public bool IsTeachersOk;
-            public bool IsRoomsOk;
+            public bool IsGroupsOk { get; set; }
+            public bool IsTeachersOk { get; set; }
+            public bool IsRoomsOk { get; set; }
 
             public bool IsAllSuccessful =>
                 IsGroupsOk && IsTeachersOk && IsRoomsOk;
@@ -167,7 +167,7 @@ namespace NureTimetable.DAL
             {
                 try
                 {
-                    Uri uri = new Uri(Urls.CistAllGroupsUrl);
+                    Uri uri = Urls.CistAllGroupsUrl;
                     string responseStr = client.DownloadString(uri);
                     Cist.University newUniversity = Serialisation.FromJson<Cist.UniversityRootObject>(responseStr).University;
 
@@ -211,7 +211,7 @@ namespace NureTimetable.DAL
             {
                 try
                 {
-                    Uri uri = new Uri(Urls.CistAllTeachersUrl);
+                    Uri uri = Urls.CistAllTeachersUrl;
                     string responseStr = client.DownloadString(uri);
                     Cist.University newUniversity;
                     try
@@ -266,7 +266,7 @@ namespace NureTimetable.DAL
             {
                 try
                 {
-                    Uri uri = new Uri(Urls.CistAllRoomsUrl);
+                    Uri uri = Urls.CistAllRoomsUrl;
                     string responseStr = client.DownloadString(uri);
                     responseStr = responseStr.Replace("\n", "").Replace("[}]", "[]");
                     Cist.University newUniversity = Serialisation.FromJson<Cist.UniversityRootObject>(responseStr).University;

@@ -4,7 +4,7 @@ using static NureTimetable.DAL.Helpers.Serialisation;
 
 namespace NureTimetable.DAL.Models.Cist
 {
-    class Room
+    public class Room
     {
         [JsonProperty("id")]
         public long Id { get; set; }

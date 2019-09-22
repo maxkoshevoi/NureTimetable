@@ -18,7 +18,7 @@ namespace NureTimetable.ViewModels.Info
             BuyProductCommand = CommandHelper.CreateCommand<string>(BuyProduct);
         }
         
-        public async Task BuyProduct(string productId)
+        public static async Task BuyProduct(string productId)
         {
             if (await InAppPurchase.Buy(productId, true) != null)
             {
