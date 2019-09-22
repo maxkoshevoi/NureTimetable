@@ -380,7 +380,7 @@ namespace NureTimetable.ViewModels
 
                                 TimetableStartHour = 0;
                                 TimetableEndHour = 24;
-                                TimetableStartHour = timetableInfoList.StartTime().TotalHours;
+                                TimetableStartHour = timetableInfoList.StartTime().Hours;
                                 TimetableEndHour = timetableInfoList.EndTime().TotalHours + (TimetableTimeInterval / 60 / 2);
                             }
 
