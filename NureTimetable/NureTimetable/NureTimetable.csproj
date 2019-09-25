@@ -23,9 +23,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="17.1.0.43" />
-    <PackageReference Include="Syncfusion.Xamarin.SfSchedule" Version="17.1.0.43" />
-    <PackageReference Include="Xamarin.Forms" Version="4.2.0.709249" />  
+    <PackageReference Include="Xamarin.Forms" Version="4.2.0.815419" />  
   </ItemGroup>
 
   <ItemGroup>

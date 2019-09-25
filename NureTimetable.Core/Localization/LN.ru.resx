@@ -424,4 +424,7 @@
   <data name="NextEvent" xml:space="preserve">
     <value>Следующая</value>
   </data>
+  <data name="Timeline" xml:space="preserve">
+    <value>Временная линия</value>
+  </data>
 </root>

@@ -4,7 +4,7 @@ using NureTimetable.DAL.Models.Consts;
 using NureTimetable.DAL.Models.Local;
 using System.IO;
 
-namespace NureTimetable.MIgrations
+namespace NureTimetable.Migrations
 {
     class CanSelectMultipleEntitiesMigration : BaseMigration
     {

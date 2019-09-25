@@ -74,7 +74,7 @@ namespace NureTimetable.ViewModels
         public DateTime TimetableMinDisplayDate { get => _timetableMinDisplayDate; set => SetProperty(ref _timetableMinDisplayDate, value); }
         public double TimetableStartHour { get => _timetableStartHour; set => SetProperty(ref _timetableStartHour, value); }
         public double TimetableEndHour { get => _timetableEndHour; set => SetProperty(ref _timetableEndHour, value); }
-        public static int TimetableTimeInterval => 60;
+        public int TimetableTimeInterval => 60;
 
         public bool TimeLeftIsVisible { get => _timeLeftIsVisible; set => SetProperty(ref _timeLeftIsVisible, value); }
         public string TimeLeftText { get => _timeLeftText; set => SetProperty(ref _timeLeftText, value); }
@@ -87,7 +87,6 @@ namespace NureTimetable.ViewModels
 
         public ICommand PageAppearingCommand { get; }
         public ICommand PageDisappearingCommand { get; }
-        public ICommand PageSizeChangedCommand { get; }
         public ICommand HideSelectedEventsClickedCommand { get; }
         public ICommand ScheduleModeClickedCommand { get; }
         public ICommand ManageGroupsClickedCommand { get; }
@@ -149,7 +148,6 @@ namespace NureTimetable.ViewModels
 
             PageAppearingCommand = CommandHelper.CreateCommand(PageAppearing);
             PageDisappearingCommand = CommandHelper.CreateCommand(PageDisappearing);
-            PageSizeChangedCommand = CommandHelper.CreateCommand(PageSizeChanged);
             HideSelectedEventsClickedCommand = CommandHelper.CreateCommand(HideSelectedEventsClicked);
             ScheduleModeClickedCommand = CommandHelper.CreateCommand(ScheduleModeClicked);
             ManageGroupsClickedCommand = CommandHelper.CreateCommand(ManageGroupsClicked);
@@ -161,15 +159,15 @@ namespace NureTimetable.ViewModels
 
         private async Task TimetableVisibleDatesChanged(VisibleDatesChangedEventArgs e)
         {
-            await UpdateTodayButton(false, e);
+            if (e != null)
+            {
+                visibleDates = e.visibleDates;
+            }
+            await UpdateTodayButton(false);
         }
 
-        private async Task UpdateTodayButton(bool isForceUpdate, VisibleDatesChangedEventArgs visibleDatesChangedArgs = null)
+        private async Task UpdateTodayButton(bool isForceUpdate)
         {
-            if (visibleDatesChangedArgs != null)
-            {
-                visibleDates = visibleDatesChangedArgs.visibleDates;
-            }
             if (visibleDates.Count == 0)
             {
                 return;
@@ -183,7 +181,7 @@ namespace NureTimetable.ViewModels
                     await _timetablePage.ScaleTodayButtonTo(0);
                 }
             }
-            else if (isForceUpdate || BTodayScale == 0)
+            else if (isForceUpdate || (BTodayScale == 0 && visibleDates.Any(d => d.Year > 1)))
             {
                 if (visibleDates[0].Date > DateTime.Now)
                 {
@@ -260,7 +258,6 @@ namespace NureTimetable.ViewModels
                     if (string.IsNullOrEmpty(text) && TimeLeftIsVisible)
                     {
                         TimeLeftIsVisible = false;
-                        _timetablePage.UpdateTimetableHeight();
                     }
                 }
                 else
@@ -272,13 +269,11 @@ namespace NureTimetable.ViewModels
                 if (TimeLeftIsVisible != lastTimeLeftVisible)
                 {
                     lastTimeLeftVisible = TimeLeftIsVisible;
-                    _timetablePage.UpdateTimetableHeight();
                 }
             }
             else
             {
                 TimeLeftIsVisible = false;
-                _timetablePage.UpdateTimetableHeight();
             }
             return isPageVisible;
         }
@@ -378,27 +373,10 @@ namespace NureTimetable.ViewModels
                                 TimetableMinDisplayDate = timetableInfoList.StartDate();
                                 TimetableMaxDisplayDate = timetableInfoList.EndDate();
 
-                                TimetableStartHour = 0;
                                 TimetableEndHour = 24;
                                 TimetableStartHour = timetableInfoList.StartTime().Hours;
-                                TimetableEndHour = timetableInfoList.EndTime().TotalHours + (TimetableTimeInterval / 60 / 2);
-                            }
-
-                            _timetablePage.UpdateTimetableHeight();
-
-                            // Fix for bug when view header isn`t updating on first swipe
-                            try
-                            {
-                                TimetableVisibleDatesChangedCommand = null;
-
-                                DateTime currebtDate = visibleDates.Count > 0 ? visibleDates[0] : DateTime.Now;
-                                _timetablePage.TimetableNavigateTo(currebtDate.AddDays(7));
-                                _timetablePage.TimetableNavigateTo(currebtDate);
-                            }
-                            catch { }
-                            finally
-                            {
-                                TimetableVisibleDatesChangedCommand = CommandHelper.CreateCommand<VisibleDatesChangedEventArgs>(TimetableVisibleDatesChanged);
+                                double timeIntervalHours = TimetableTimeInterval / 60d;
+                                TimetableEndHour = TimetableStartHour + timeIntervalHours * Math.Ceiling((timetableInfoList.EndTime().TotalHours - TimetableStartHour) / timeIntervalHours);
                             }
 
                             TimetableDataSource = timetableInfoList.Events
@@ -412,6 +390,9 @@ namespace NureTimetable.ViewModels
                         {
                             // Potential error with the SfSchedule control. Needs investigation!
                             exception = ex;
+
+                            // This is temporary to check if this error is still occuring. TODO: Remove while loop if it doesn't
+                            MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, exception);
                         }
 
                         retriesLeft--;
@@ -425,11 +406,6 @@ namespace NureTimetable.ViewModels
                     }
                 });
             }
-        }
-
-        private void PageSizeChanged()
-        {
-            _timetablePage.UpdateTimetableHeight();
         }
         
         private async Task ManageGroupsClicked()
@@ -447,7 +423,7 @@ namespace NureTimetable.ViewModels
                 return;
             }
 
-            string displayMode = await App.Current.MainPage.DisplayActionSheet(LN.ChooseDisplayMode, LN.Cancel, null, LN.Day, LN.Week, LN.Month);
+            string displayMode = await App.Current.MainPage.DisplayActionSheet(LN.ChooseDisplayMode, LN.Cancel, null, LN.Day, LN.Week, LN.Timeline, LN.Month);
 
             AppSettings settings = SettingsRepository.GetSettings();
             DateTime? selected = TimetableSelectedDate;
@@ -461,6 +437,11 @@ namespace NureTimetable.ViewModels
             {
                 TimetableScheduleView = ScheduleView.WeekView;
                 settings.TimetableViewMode = TimetableViewMode.Week;
+            }
+            else if (displayMode == LN.Timeline)
+            {
+                TimetableScheduleView = ScheduleView.TimelineView;
+                settings.TimetableViewMode = TimetableViewMode.Timeline;
             }
             else if (displayMode == LN.Month)
             {

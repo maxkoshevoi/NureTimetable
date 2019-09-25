@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using Xamarin.Forms;
 
-namespace NureTimetable.MIgrations
+namespace NureTimetable.Migrations
 {
     public abstract class BaseMigration
     {

@@ -424,4 +424,7 @@ To update, click on the button in the upper right corner.</value>
   <data name="NextEvent" xml:space="preserve">
     <value>Next</value>
   </data>
+  <data name="Timeline" xml:space="preserve">
+    <value>Timeline</value>
+  </data>
 </root>

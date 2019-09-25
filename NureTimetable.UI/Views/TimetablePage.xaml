@@ -10,7 +10,6 @@
     <ContentPage.Behaviors>
         <behaviors:EventToCommandBehavior EventName="Appearing" Command="{Binding PageAppearingCommand}"/>
         <behaviors:EventToCommandBehavior EventName="Disappearing" Command="{Binding PageDisappearingCommand}"/>
-        <behaviors:EventToCommandBehavior EventName="SizeChanged" Command="{Binding PageSizeChangedCommand}"/>
     </ContentPage.Behaviors>
 
     <ContentPage.ToolbarItems>
@@ -30,11 +29,13 @@
                 <Label x:Name="TimeLeft" HorizontalOptions="Center" FontSize="20" Margin="0,15,0,0" IsVisible="{Binding TimeLeftIsVisible}" Text="{Binding TimeLeftText}" />
                 <syncfusion:SfSchedule 
                         x:Name="Timetable"
-                        TimeInterval="{Binding TimetableTimeInterval}"
                         HeaderHeight="50"
                         ViewHeaderHeight="50"
                         FirstDayOfWeek="2"
                         ShowAppointmentsInline="True"
+                        TimeIntervalHeight="-1"
+                        VerticalOptions="FillAndExpand"
+                        TimeInterval="{Binding TimetableTimeInterval}"
                         MinDisplayDate="{Binding TimetableMinDisplayDate}"
                         MaxDisplayDate="{Binding TimetableMaxDisplayDate}"
                         DataSource="{Binding TimetableDataSource}"
@@ -54,29 +55,35 @@
                         <syncfusion:ViewHeaderStyle DateFontSize="13" DayFontSize="8" />
                     </syncfusion:SfSchedule.ViewHeaderStyle>
                     <syncfusion:SfSchedule.WeekViewSettings>
-                        <syncfusion:WeekViewSettings StartHour="{Binding TimetableStartHour}" EndHour="{Binding TimetableEndHour}" WorkStartHour="{Binding TimetableStartHour}" WorkEndHour="{Binding TimetableEndHour}">
+                        <syncfusion:WeekViewSettings StartHour="{Binding TimetableStartHour}" EndHour="{Binding TimetableEndHour}" WorkStartHour="0" WorkEndHour="24">
                             <syncfusion:WeekViewSettings.WeekLabelSettings>
                                 <syncfusion:WeekLabelSettings TimeFormat="HH:mm"/>
                             </syncfusion:WeekViewSettings.WeekLabelSettings>
                         </syncfusion:WeekViewSettings>
                     </syncfusion:SfSchedule.WeekViewSettings>
                     <syncfusion:SfSchedule.DayViewSettings>
-                        <syncfusion:DayViewSettings StartHour="{Binding TimetableStartHour}" EndHour="{Binding TimetableEndHour}" WorkStartHour="{Binding TimetableStartHour}" WorkEndHour="{Binding TimetableEndHour}">
+                        <syncfusion:DayViewSettings StartHour="{Binding TimetableStartHour}" EndHour="{Binding TimetableEndHour}" WorkStartHour="0" WorkEndHour="24">
                             <syncfusion:DayViewSettings.DayLabelSettings>
                                 <syncfusion:DayLabelSettings TimeFormat="HH:mm"/>
                             </syncfusion:DayViewSettings.DayLabelSettings>
                         </syncfusion:DayViewSettings>
                     </syncfusion:SfSchedule.DayViewSettings>
+                    <syncfusion:SfSchedule.TimelineViewSettings>
+                        <syncfusion:TimelineViewSettings StartHour="{Binding TimetableStartHour}" EndHour="{Binding TimetableEndHour}">
+                            <syncfusion:TimelineViewSettings.LabelSettings>
+                                <syncfusion:TimelineLabelSettings TimeFormat="HH:mm"/>
+                            </syncfusion:TimelineViewSettings.LabelSettings>
+                        </syncfusion:TimelineViewSettings>
+                    </syncfusion:SfSchedule.TimelineViewSettings>
                     <syncfusion:SfSchedule.MonthViewSettings>
-                        <syncfusion:MonthViewSettings AppointmentIndicatorCount = "6" />
+                        <syncfusion:MonthViewSettings AppointmentIndicatorCount="6" />
                     </syncfusion:SfSchedule.MonthViewSettings>
                     <syncfusion:SfSchedule.AppointmentMapping>
                         <syncfusion:ScheduleAppointmentMapping
 			                SubjectMapping="DisplayInfo"
 			                StartTimeMapping="Start"
 			                EndTimeMapping="End"
-                            ColorMapping="Color"
-                            >
+                            ColorMapping="Color">
                         </syncfusion:ScheduleAppointmentMapping>
                     </syncfusion:SfSchedule.AppointmentMapping>
                 </syncfusion:SfSchedule>

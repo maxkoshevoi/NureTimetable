@@ -2,7 +2,7 @@
 using Microsoft.AppCenter.Crashes;
 using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Consts;
-using NureTimetable.MIgrations;
+using NureTimetable.Migrations;
 using NureTimetable.Models.System;
 using NureTimetable.UI.Views.Info;
 using NureTimetable.ViewModels.Info;
