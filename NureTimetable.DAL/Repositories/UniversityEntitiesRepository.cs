@@ -19,7 +19,7 @@ namespace NureTimetable.DAL
     {
         public static bool IsInitialized { get; private set; } = false;
 
-        private static object lockObject = new object();
+        private static readonly object lockObject = new object();
         
         public class UniversityEntitiesCistUpdateResult
         {
@@ -387,7 +387,7 @@ namespace NureTimetable.DAL
 
         public static void UpdateSaved(List<Local.SavedEntity> savedEntities)
         {
-            savedEntities = savedEntities ?? new List<Local.SavedEntity>();
+            savedEntities ??= new List<Local.SavedEntity>();
 
             // Removing cache from deleted saved entities if needed
             List<Local.SavedEntity> deletedEntities = GetSaved()
@@ -450,7 +450,7 @@ namespace NureTimetable.DAL
 
         public static void UpdateSelected(List<Local.SavedEntity> selectedEntities)
         {
-            selectedEntities = selectedEntities ?? new List<Local.SavedEntity>();
+            selectedEntities ??= new List<Local.SavedEntity>();
 
             List<Local.SavedEntity> currentEntities = GetSelected();
             if (currentEntities.Count == selectedEntities.Count && !currentEntities.Except(selectedEntities).Any())

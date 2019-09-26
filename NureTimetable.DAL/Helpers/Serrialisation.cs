@@ -47,7 +47,7 @@ namespace NureTimetable.DAL.Helpers
                     MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
                 });
             }
-            return default(T);
+            return default;
         }
 
         public static string ToJson<T>(T instance)

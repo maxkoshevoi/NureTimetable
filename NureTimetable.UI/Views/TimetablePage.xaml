@@ -76,7 +76,11 @@
                         </syncfusion:TimelineViewSettings>
                     </syncfusion:SfSchedule.TimelineViewSettings>
                     <syncfusion:SfSchedule.MonthViewSettings>
-                        <syncfusion:MonthViewSettings AppointmentIndicatorCount="6" />
+                        <syncfusion:MonthViewSettings AppointmentIndicatorCount="6" ShowWeekNumber="True">
+                            <syncfusion:MonthViewSettings.MonthLabelSettings>
+                                <syncfusion:MonthLabelSettings DayFormat="dd"/>
+                            </syncfusion:MonthViewSettings.MonthLabelSettings>
+                        </syncfusion:MonthViewSettings>
                     </syncfusion:SfSchedule.MonthViewSettings>
                     <syncfusion:SfSchedule.AppointmentMapping>
                         <syncfusion:ScheduleAppointmentMapping

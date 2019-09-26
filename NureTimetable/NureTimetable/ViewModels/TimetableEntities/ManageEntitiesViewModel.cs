@@ -101,6 +101,7 @@ namespace NureTimetable.ViewModels.TimetableEntities
                 {
                     IsSelected = false;
                     _manageEntitiesViewModel.Entities.Remove(this);
+                    UniversityEntitiesRepository.UpdateSaved(_manageEntitiesViewModel.Entities.Select(vm => vm.SavedEntity).ToList());
                 }
             }
 
@@ -201,38 +202,35 @@ namespace NureTimetable.ViewModels.TimetableEntities
             await Navigation.PopToRootAsync();
         }
 
-        public Task OnEntitySelectChange(SavedEntityItemViewModel entity)
+        public void OnEntitySelectChange(SavedEntityItemViewModel entity)
         {
-            return Task.Run(() =>
+            List<SavedEntity> currentSelected = UniversityEntitiesRepository.GetSelected();
+            if (entity.IsSelected)
             {
-                List<SavedEntity> currentSelected = UniversityEntitiesRepository.GetSelected();
-                if (entity.IsSelected)
+                if (currentSelected.Contains(entity.SavedEntity))
                 {
-                    if (currentSelected.Contains(entity.SavedEntity))
-                    {
-                        return;
-                    }
-                    currentSelected.Add(entity.SavedEntity);
+                    return;
                 }
-                else
+                currentSelected.Add(entity.SavedEntity);
+            }
+            else
+            {
+                if (!currentSelected.Contains(entity.SavedEntity))
                 {
-                    if (!currentSelected.Contains(entity.SavedEntity))
-                    {
-                        return;
-                    }
-                    if (currentSelected.Count == 1)
-                    {
-                        // User cannot deselect last selected entity
-                        entity.IsSelected = true;
-                        return;
-                    }
-                    currentSelected.Remove(entity.SavedEntity);
+                    return;
                 }
-                UniversityEntitiesRepository.UpdateSelected(currentSelected);
+                if (currentSelected.Count == 1)
+                {
+                    // User cannot deselect last selected entity
+                    entity.IsSelected = true;
+                    return;
+                }
+                currentSelected.Remove(entity.SavedEntity);
+            }
+            UniversityEntitiesRepository.UpdateSelected(currentSelected);
 
-                // changing multiselect state
-                IsMultiselectMode = currentSelected.Count > 1;
-            });
+            // Changing multiselect state
+            IsMultiselectMode = currentSelected.Count > 1;
         }
 
         private async Task UpdateAll()

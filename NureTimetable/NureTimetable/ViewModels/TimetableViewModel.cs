@@ -375,8 +375,7 @@ namespace NureTimetable.ViewModels
 
                                 TimetableEndHour = 24;
                                 TimetableStartHour = timetableInfoList.StartTime().Hours;
-                                double timeIntervalHours = TimetableTimeInterval / 60d;
-                                TimetableEndHour = TimetableStartHour + timeIntervalHours * Math.Ceiling((timetableInfoList.EndTime().TotalHours - TimetableStartHour) / timeIntervalHours);
+                                TimetableEndHour = ((TimetableStartHour * 60d) + TimetableTimeInterval * Math.Ceiling((timetableInfoList.EndTime().TotalMinutes - (TimetableStartHour * 60d)) / TimetableTimeInterval)) / 60d;
                             }
 
                             TimetableDataSource = timetableInfoList.Events

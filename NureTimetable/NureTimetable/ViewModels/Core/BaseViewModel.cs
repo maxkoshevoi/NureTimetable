@@ -16,7 +16,7 @@ namespace NureTimetable.ViewModels.Core
             Navigation = navigation;
         }
         
-        private object lockObject = new object();
+        private readonly object lockObject = new object();
 
         protected bool SetProperty<T>(ref T backingStore,
             T value,
