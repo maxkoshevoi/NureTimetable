@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:behaviors="clr-namespace:NureTimetable.UI.Behaviors;assembly=NureTimetable"
+             xmlns:LN="clr-namespace:NureTimetable.Core.Localization;assembly=NureTimetable.Core"
+             xmlns:syncfusion="clr-namespace:Syncfusion.SfSchedule.XForms;assembly=Syncfusion.SfSchedule.XForms"
+             xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             x:Class="NureTimetable.UI.Views.TimetablePage"
+             Title="{Binding Title}">
+    <ContentPage.Behaviors>
+        <behaviors:EventToCommandBehavior EventName="Appearing" Command="{Binding PageAppearingCommand}"/>
+        <behaviors:EventToCommandBehavior EventName="Disappearing" Command="{Binding PageDisappearingCommand}"/>
+    </ContentPage.Behaviors>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Icon="{Binding HideSelectedEventsIcon}" Command="{Binding HideSelectedEventsClickedCommand}" />
+        <ToolbarItem Icon="today" Command="{Binding ScheduleModeClickedCommand}" x:Name="Today" />
+        <ToolbarItem Icon="group" Command="{Binding ManageGroupsClickedCommand}" x:Name="ManageGroups" />
+    </ContentPage.ToolbarItems>
+    
+    <ContentPage.Content>
+        <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <StackLayout 
+                    x:Name="TimetableLayout" 
+                    AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                    AbsoluteLayout.LayoutFlags="All" 
+                    BackgroundColor="White" 
+                    IsVisible="{Binding TimetableLayoutIsVisible}">
+                <Label x:Name="TimeLeft" HorizontalOptions="Center" FontSize="20" Margin="0,15,0,0" IsVisible="{Binding TimeLeftIsVisible}" Text="{Binding TimeLeftText}" />
+                <syncfusion:SfSchedule 
+                        x:Name="Timetable"
+                        HeaderHeight="50"
+                        ViewHeaderHeight="50"
+                        FirstDayOfWeek="2"
+                        ShowAppointmentsInline="True"
+                        TimeIntervalHeight="-1"
+                        VerticalOptions="FillAndExpand"
+                        TimeInterval="{Binding TimetableTimeInterval}"
+                        MinDisplayDate="{Binding TimetableMinDisplayDate}"
+                        MaxDisplayDate="{Binding TimetableMaxDisplayDate}"
+                        DataSource="{Binding TimetableDataSource}"
+                        IsEnabled="{Binding TimetableIsEnabled}"
+                        ScheduleView="{Binding TimetableScheduleView}"
+                        Locale="{Binding TimetableLocale}"
+                        SelectedDate="{Binding TimetableSelectedDate}"
+                        CellTappedCommand="{Binding TimetableCellTappedCommand}"
+                        VisibleDatesChangedCommand="{Binding TimetableVisibleDatesChangedCommand}">
+                    <syncfusion:SfSchedule.Behaviors>
+                        <behaviors:EventToCommandBehavior EventName="MonthInlineAppointmentTapped" Command="{Binding TimetableMonthInlineAppointmentTappedCommand}"/>
+                    </syncfusion:SfSchedule.Behaviors>
+                    <syncfusion:SfSchedule.HeaderStyle>
+                        <syncfusion:HeaderStyle FontSize="10" FontAttributes="Bold"/>
+                    </syncfusion:SfSchedule.HeaderStyle>
+                    <syncfusion:SfSchedule.ViewHeaderStyle>
+                        <syncfusion:ViewHeaderStyle DateFontSize="13" DayFontSize="8" />
+                    </syncfusion:SfSchedule.ViewHeaderStyle>
+                    <syncfusion:SfSchedule.WeekViewSettings>
+                        <syncfusion:WeekViewSettings StartHour="{Binding TimetableStartHour}" EndHour="{Binding TimetableEndHour}" WorkStartHour="0" WorkEndHour="24">
+                            <syncfusion:WeekViewSettings.WeekLabelSettings>
+                                <syncfusion:WeekLabelSettings TimeFormat="HH:mm"/>
+                            </syncfusion:WeekViewSettings.WeekLabelSettings>
+                        </syncfusion:WeekViewSettings>
+                    </syncfusion:SfSchedule.WeekViewSettings>
+                    <syncfusion:SfSchedule.DayViewSettings>
+                        <syncfusion:DayViewSettings StartHour="{Binding TimetableStartHour}" EndHour="{Binding TimetableEndHour}" WorkStartHour="0" WorkEndHour="24">
+                            <syncfusion:DayViewSettings.DayLabelSettings>
+                                <syncfusion:DayLabelSettings TimeFormat="HH:mm"/>
+                            </syncfusion:DayViewSettings.DayLabelSettings>
+                        </syncfusion:DayViewSettings>
+                    </syncfusion:SfSchedule.DayViewSettings>
+                    <syncfusion:SfSchedule.TimelineViewSettings>
+                        <syncfusion:TimelineViewSettings StartHour="{Binding TimetableStartHour}" EndHour="{Binding TimetableEndHour}">
+                            <syncfusion:TimelineViewSettings.LabelSettings>
+                                <syncfusion:TimelineLabelSettings TimeFormat="HH:mm"/>
+                            </syncfusion:TimelineViewSettings.LabelSettings>
+                        </syncfusion:TimelineViewSettings>
+                    </syncfusion:SfSchedule.TimelineViewSettings>
+                    <syncfusion:SfSchedule.MonthViewSettings>
+                        <syncfusion:MonthViewSettings AppointmentIndicatorCount="6" ShowWeekNumber="True">
+                            <syncfusion:MonthViewSettings.MonthLabelSettings>
+                                <syncfusion:MonthLabelSettings DayFormat="dd"/>
+                            </syncfusion:MonthViewSettings.MonthLabelSettings>
+                        </syncfusion:MonthViewSettings>
+                    </syncfusion:SfSchedule.MonthViewSettings>
+                    <syncfusion:SfSchedule.AppointmentMapping>
+                        <syncfusion:ScheduleAppointmentMapping
+			                SubjectMapping="DisplayInfo"
+			                StartTimeMapping="Start"
+			                EndTimeMapping="End"
+                            ColorMapping="Color">
+                        </syncfusion:ScheduleAppointmentMapping>
+                    </syncfusion:SfSchedule.AppointmentMapping>
+                </syncfusion:SfSchedule>
+            </StackLayout>
+            <buttons:SfButton 
+                x:Name="BToday" 
+                HorizontalOptions="Center"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                AbsoluteLayout.LayoutBounds="1,1,AutoSize,AutoSize"
+                FontFamily="{StaticResource MaterialFontFamily}" 
+                CornerRadius="100"
+                FontSize="20"
+                Margin="20"
+                WidthRequest="47" 
+                HeightRequest="47" 
+                BackgroundColor="#03A9F4" 
+                TextColor="White"
+                HasShadow="True"
+                ShadowColor="#cccccc"
+                Scale="{Binding BTodayScale, Mode=TwoWay}"
+                Command="{Binding BTodayClickedCommand}"
+                Text="{Binding BTodayText}"/>
+            <StackLayout x:Name="NoSourceLayout" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="{Binding NoSourceLayoutIsVisible}">
+                <Label Text="{LN:Translate NoTimetable}"
+                    VerticalOptions="CenterAndExpand" 
+                    HorizontalOptions="CenterAndExpand"
+                    HorizontalTextAlignment="Center" />
+            </StackLayout>
+            <StackLayout x:Name="ProgressLayout" IsVisible="{Binding ProgressLayoutIsVisible}" Padding="12"
+                    AbsoluteLayout.LayoutFlags="PositionProportional"
+                    AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
+                <ActivityIndicator IsRunning="True" Color="#80000000"/>
+                <Label Text="{LN:Translate Wait}" HorizontalOptions="Center" TextColor="LightSkyBlue"/>
+            </StackLayout>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

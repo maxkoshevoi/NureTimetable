@@ -19,16 +19,50 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AppCenter.Analytics" Version="2.1.1" />
     <PackageReference Include="Microsoft.AppCenter.Crashes" Version="2.1.1" />
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.4">
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.6">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Xamarin.Forms" Version="4.2.0.815419" />  
+    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="17.3.0.14" />
+    <PackageReference Include="Syncfusion.Xamarin.SfSchedule" Version="17.3.0.14" />
+    <PackageReference Include="Xamarin.Forms" Version="4.2.0.848062" />  
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\NureTimetable.DAL\NureTimetable.DAL.csproj" />
     <ProjectReference Include="..\..\NureTimetable.Services\NureTimetable.Services.csproj" />
-    <ProjectReference Include="..\..\NureTimetable.UI\NureTimetable.UI.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="UI\Views\Info\AboutPage.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Update="UI\Views\Info\DonatePage.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Update="UI\Views\Lessons\LessonInfoPage.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Update="UI\Views\Lessons\LessonSettingsPage.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Update="UI\Views\Lessons\ManageLessonsPage.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Update="UI\Views\System\MenuPage.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Update="UI\Views\TimetableEntities\AddEntityPage.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Update="UI\Views\TimetableEntities\AddTimetablePage.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Update="UI\Views\TimetableEntities\ManageEntitiesPage.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Update="UI\Views\TimetablePage.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>

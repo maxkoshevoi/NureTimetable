@@ -387,7 +387,7 @@ namespace NureTimetable.DAL
 
         public static void UpdateSaved(List<Local.SavedEntity> savedEntities)
         {
-            savedEntities ??= new List<Local.SavedEntity>();
+            savedEntities = savedEntities ?? new List<Local.SavedEntity>();
 
             // Removing cache from deleted saved entities if needed
             List<Local.SavedEntity> deletedEntities = GetSaved()
@@ -450,7 +450,7 @@ namespace NureTimetable.DAL
 
         public static void UpdateSelected(List<Local.SavedEntity> selectedEntities)
         {
-            selectedEntities ??= new List<Local.SavedEntity>();
+            selectedEntities = selectedEntities ?? new List<Local.SavedEntity>();
 
             List<Local.SavedEntity> currentEntities = GetSelected();
             if (currentEntities.Count == selectedEntities.Count && !currentEntities.Except(selectedEntities).Any())

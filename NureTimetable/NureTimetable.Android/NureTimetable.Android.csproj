@@ -74,7 +74,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="4.2.0.815419" />
+    <PackageReference Include="Xamarin.Forms" Version="4.2.0.848062" />
     <PackageReference Include="Xamarin.Android.Support.Design" Version="28.0.0.3" />
     <PackageReference Include="Xamarin.Android.Support.v7.AppCompat" Version="28.0.0.3" />
     <PackageReference Include="Xamarin.Android.Support.v4" Version="28.0.0.3" />
@@ -117,10 +117,6 @@
     <ProjectReference Include="..\..\NureTimetable.Core\NureTimetable.Core.csproj">
       <Project>{7212568B-A874-4DDF-AA58-67A8D57D0F81}</Project>
       <Name>NureTimetable.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\NureTimetable.UI\NureTimetable.UI.csproj">
-      <Project>{d06bf130-7991-445b-9b32-0be8299eee12}</Project>
-      <Name>NureTimetable.UI</Name>
     </ProjectReference>
     <ProjectReference Include="..\NureTimetable\NureTimetable.csproj">
       <Project>{57541829-2393-4531-84C0-69621D810152}</Project>

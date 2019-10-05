@@ -3,7 +3,7 @@ using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Consts;
-using NureTimetable.Views;
+using NureTimetable.UI.Views;
 using Syncfusion.Licensing;
 using System.Globalization;
 using Xamarin.Forms;

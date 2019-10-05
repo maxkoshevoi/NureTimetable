@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NureTimetable.UI.Views.TimetableEntities.ManageEntitiesPage"
+             xmlns:converters="clr-namespace:NureTimetable.UI.Behaviors"
+             xmlns:LN="clr-namespace:NureTimetable.Core.Localization;assembly=NureTimetable.Core"
+             Title="{LN:Translate SavedTimetables}">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Icon="update" Command="{Binding UpdateAllCommand}" x:Name="UpdateAll" />
+        <ToolbarItem Icon="add" Command="{Binding AddEntityCommand}" x:Name="AddEntity" />
+    </ContentPage.ToolbarItems>
+
+    <AbsoluteLayout>
+        <StackLayout IsEnabled="{Binding IsEntitiesLayoutEnabled}" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+            <ListView x:Name="EntitiesList"
+                    ItemTapped="EntitiesList_OnItemTapped"
+                    CachingStrategy="RecycleElement"
+                    HasUnevenRows="True"
+                    ItemsSource="{Binding Entities}"
+                    SelectedItem="{Binding SelectedEntity}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <StackLayout Grid.Column="0" WidthRequest="10" IsVisible="{Binding IsMultiselectMode, Converter={converters:NegateBooleanConverter}}">
+                                    <Label BackgroundColor="{StaticResource SelectedEntityColor}" VerticalOptions="FillAndExpand" IsVisible="{Binding IsSelected}" />
+                                </StackLayout>
+                                <StackLayout Grid.Column="0" IsVisible="{Binding IsMultiselectMode}">
+                                    <CheckBox Margin="5,5,5,5" IsChecked="{Binding IsSelected}" Color="DeepSkyBlue" VerticalOptions="FillAndExpand" />
+                                </StackLayout>
+                                <StackLayout Grid.Column="1" Margin="0,5,0,5">
+                                    <Label Text="{Binding SavedEntity.Name}" Style="{DynamicResource ListItemTextStyle}" />
+                                    <Label Text="{Binding SavedEntity.LastUpdated}" Style="{DynamicResource ListItemDetailTextStyle}"/>
+                                </StackLayout>
+                                <StackLayout Grid.Column="2" Margin="0,5,10,5" Orientation="Horizontal">
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer />
+                                    </StackLayout.GestureRecognizers>
+                                    <Label Text="&#xf450;" FontFamily="{StaticResource MaterialFontFamily}" TextColor="#6b6b6b" FontSize="30" VerticalOptions="CenterAndExpand">
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding UpdateClickedCommand}" />
+                                        </Label.GestureRecognizers>
+                                    </Label>
+                                    <Label Text="&#xf493;" Margin="11,0,0,0" FontFamily="{StaticResource MaterialFontFamily}" TextColor="#6b6b6b" FontSize="30" VerticalOptions="CenterAndExpand">
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding SettingsClickedCommand}" />
+                                        </Label.GestureRecognizers>
+                                    </Label>
+                                </StackLayout>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+        <StackLayout IsVisible="{Binding IsProgressVisable}" Padding="12"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
+            <ActivityIndicator IsRunning="True" Color="#80000000"/>
+            <Label Text="{LN:Translate Wait}" HorizontalOptions="Center" TextColor="LightSkyBlue"/>
+        </StackLayout>
+        <StackLayout IsVisible="{Binding IsNoSourceLayoutVisable}"  AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+            <Label Text="{LN:Translate NoSavedTimetables}"
+                    VerticalOptions="CenterAndExpand" 
+                    HorizontalOptions="CenterAndExpand"
+                    HorizontalTextAlignment="Center" />
+        </StackLayout>
+    </AbsoluteLayout>
+</ContentPage>
