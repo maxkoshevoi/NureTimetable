@@ -7,9 +7,10 @@ using NureTimetable.DAL.Models.Local;
 using NureTimetable.Models;
 using NureTimetable.Models.Consts.Fonts;
 using NureTimetable.Services.Helpers;
-using NureTimetable.UI.Views.TimetableEntities;
 using NureTimetable.UI.ViewModels.Core;
-using NureTimetable.UI.ViewModels.TimetableEntities;
+using NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities;
+using NureTimetable.UI.Views;
+using NureTimetable.UI.Views.TimetableEntities;
 using Syncfusion.SfSchedule.XForms;
 using System;
 using System.Collections.Generic;
@@ -18,9 +19,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
-using NureTimetable.UI.Views;
 
-namespace NureTimetable.UI.ViewModels
+namespace NureTimetable.UI.ViewModels.Timetable
 {
     public class TimetableViewModel : BaseViewModel
     {

@@ -3,62 +3,18 @@ using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
 using NureTimetable.Services.Helpers;
 using NureTimetable.UI.ViewModels.Core;
-using NureTimetable.UI.ViewModels.Lessons;
 using NureTimetable.UI.Views.Lessons;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace NureTimetable.UI.ViewModels.TimetableEntities
+namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
 {
     public class ManageLessonsViewModel : BaseViewModel
     {
-        #region Classes
-        public class LessonViewModel : BaseViewModel
-        {
-            #region Variables
-            private readonly TimetableInfo timetableInfo;
-            #endregion
-
-            #region Properties
-            public LessonInfo LessonInfo { get; set; }
-
-            public ICommand SettingsClickedCommand { get; }
-
-            public ICommand InfoClickedCommand { get; }
-            #endregion
-
-            public LessonViewModel(INavigation navigation, LessonInfo lessonInfo, TimetableInfo timetableInfo) : base(navigation)
-            {
-                LessonInfo = lessonInfo;
-                this.timetableInfo = timetableInfo;
-
-                SettingsClickedCommand = CommandHelper.CreateCommand(SettingsClicked);
-                InfoClickedCommand = CommandHelper.CreateCommand(InfoClicked);
-            }
-            
-            private async Task SettingsClicked()
-            {
-                await Navigation.PushAsync(new LessonSettingsPage
-                {
-                    BindingContext = new LessonSettingsViewModel(Navigation, LessonInfo, timetableInfo)
-                });
-            }
-
-            private async Task InfoClicked()
-            {
-                await Navigation.PushAsync(new LessonInfoPage
-                {
-                    BindingContext = new LessonInfoViewModel(Navigation, LessonInfo, timetableInfo)
-                });
-            }
-        }
-        #endregion
-
         #region Variables
         private bool _isNoSourceLayoutVisable;
 
@@ -94,20 +50,22 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
             Title = $"{LN.Lessons}: {savedEntity.Name}";
 
             timetable = EventsRepository.GetTimetableLocal(savedEntity);
-            if (timetable == null)
+            if (timetable != null)
             {
-                return;
+                Lessons = new ObservableCollection<LessonViewModel>
+                (
+                    timetable.Lessons()
+                        .Select(lesson => timetable.LessonsInfo.FirstOrDefault(li => li.Lesson == lesson) ?? new LessonInfo { Lesson = lesson })
+                        .OrderBy(lesson => !timetable.Events.Where(e => e.Start >= DateTime.Now).Any(e => e.Lesson == lesson.Lesson))
+                        .ThenBy(lesson => lesson.Lesson.ShortName)
+                        .Select(lesson => new LessonViewModel(Navigation, lesson, timetable))
+                );
+                IsNoSourceLayoutVisable = Lessons.Count == 0;
             }
-            List<LessonInfo> lessonInfo = timetable.LessonsInfo;
-            Lessons = new ObservableCollection<LessonViewModel>
-            (
-                timetable.Lessons()
-                    .Select(lesson => lessonInfo.FirstOrDefault(li => li.Lesson == lesson) ?? new LessonInfo { Lesson = lesson })
-                    .OrderBy(lesson => !timetable.Events.Where(e => e.Start >= DateTime.Now).Any(e => e.Lesson == lesson.Lesson))
-                    .ThenBy(lesson => lesson.Lesson.ShortName)
-                    .Select(lesson => new LessonViewModel(Navigation, lesson, timetable))
-            );
-            IsNoSourceLayoutVisable = Lessons.Count == 0;
+            else
+            {
+                IsNoSourceLayoutVisable = true;
+            }
 
             MessagingCenter.Subscribe<LessonSettingsPage, LessonInfo>(this, "OneLessonSettingsChanged", (sender, newLessonSettings) =>
             {
@@ -132,7 +90,6 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
             {
                 await App.Current.MainPage.DisplayAlert(LN.LessonsManagement, LN.AtFirstLoadTimetable, LN.Ok);
                 await Navigation.PopAsync();
-                return;
             }
         }
         

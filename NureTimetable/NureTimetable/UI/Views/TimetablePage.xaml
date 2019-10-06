@@ -5,17 +5,19 @@
              xmlns:LN="clr-namespace:NureTimetable.Core.Localization;assembly=NureTimetable.Core"
              xmlns:syncfusion="clr-namespace:Syncfusion.SfSchedule.XForms;assembly=Syncfusion.SfSchedule.XForms"
              xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels.Timetable"
+             x:DataType="vm:TimetableViewModel"
              x:Class="NureTimetable.UI.Views.TimetablePage"
              Title="{Binding Title}">
     <ContentPage.Behaviors>
-        <behaviors:EventToCommandBehavior EventName="Appearing" Command="{Binding PageAppearingCommand}"/>
-        <behaviors:EventToCommandBehavior EventName="Disappearing" Command="{Binding PageDisappearingCommand}"/>
+        <behaviors:EventToCommandBehavior x:DataType="vm:TimetableViewModel" EventName="Appearing" Command="{Binding PageAppearingCommand}"/>
+        <behaviors:EventToCommandBehavior x:DataType="vm:TimetableViewModel" EventName="Disappearing" Command="{Binding PageDisappearingCommand}"/>
     </ContentPage.Behaviors>
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Icon="{Binding HideSelectedEventsIcon}" Command="{Binding HideSelectedEventsClickedCommand}" />
-        <ToolbarItem Icon="today" Command="{Binding ScheduleModeClickedCommand}" x:Name="Today" />
-        <ToolbarItem Icon="group" Command="{Binding ManageGroupsClickedCommand}" x:Name="ManageGroups" />
+        <ToolbarItem x:DataType="vm:TimetableViewModel" Icon="{Binding HideSelectedEventsIcon}" Command="{Binding HideSelectedEventsClickedCommand}" />
+        <ToolbarItem x:DataType="vm:TimetableViewModel" Icon="today" Command="{Binding ScheduleModeClickedCommand}" x:Name="Today" />
+        <ToolbarItem x:DataType="vm:TimetableViewModel" Icon="group" Command="{Binding ManageGroupsClickedCommand}" x:Name="ManageGroups" />
     </ContentPage.ToolbarItems>
     
     <ContentPage.Content>

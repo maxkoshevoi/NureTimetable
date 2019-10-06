@@ -1,14 +1,12 @@
-﻿using System;
+﻿using NureTimetable.Core.Localization;
+using NureTimetable.UI.ViewModels.Core;
+using NureTimetable.UI.Views;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using NureTimetable.Core.Localization;
-using NureTimetable.Models.System;
-using NureTimetable.UI.ViewModels.Core;
-using NureTimetable.UI.Views;
 using Xamarin.Forms;
 
-namespace NureTimetable.UI.ViewModels.System
+namespace NureTimetable.UI.ViewModels.System.Menu
 {
     public class MenuViewModel : BaseViewModel
     {

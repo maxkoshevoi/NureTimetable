@@ -1,14 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="NureTimetable.UI.Views.TimetableEntities.ManageEntitiesPage"
              xmlns:converters="clr-namespace:NureTimetable.UI.Behaviors"
              xmlns:LN="clr-namespace:NureTimetable.Core.Localization;assembly=NureTimetable.Core"
+             xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities"
+             x:DataType="vm:ManageEntitiesViewModel"
+             x:Class="NureTimetable.UI.Views.TimetableEntities.ManageEntitiesPage"
              Title="{LN:Translate SavedTimetables}">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Icon="update" Command="{Binding UpdateAllCommand}" x:Name="UpdateAll" />
-        <ToolbarItem Icon="add" Command="{Binding AddEntityCommand}" x:Name="AddEntity" />
+        <ToolbarItem x:DataType="vm:ManageEntitiesViewModel" Icon="update" Command="{Binding UpdateAllCommand}" x:Name="UpdateAll" />
+        <ToolbarItem x:DataType="vm:ManageEntitiesViewModel" Icon="add" Command="{Binding AddEntityCommand}" x:Name="AddEntity" />
     </ContentPage.ToolbarItems>
 
     <AbsoluteLayout>
@@ -20,7 +22,7 @@
                     ItemsSource="{Binding Entities}"
                     SelectedItem="{Binding SelectedEntity}">
                 <ListView.ItemTemplate>
-                    <DataTemplate>
+                    <DataTemplate x:DataType="vm:SavedEntityItemViewModel">
                         <ViewCell>
                             <Grid>
                                 <Grid.ColumnDefinitions>

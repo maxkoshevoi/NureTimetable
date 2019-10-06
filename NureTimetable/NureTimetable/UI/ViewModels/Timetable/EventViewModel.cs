@@ -3,7 +3,7 @@ using NureTimetable.Models.Consts;
 using System;
 using Xamarin.Forms;
 
-namespace NureTimetable.Models
+namespace NureTimetable.UI.ViewModels.Timetable
 {
     public class EventViewModel : Event
     {

@@ -3,6 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:LN="clr-namespace:NureTimetable.Core.Localization;assembly=NureTimetable.Core"
              xmlns:products="clr-namespace:NureTimetable.Core.Models.Consts;assembly=NureTimetable.Core"
+             xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels.Info"
+             x:DataType="vm:DonateViewModel"
              x:Class="NureTimetable.UI.Views.Info.DonatePage"
              Title="{LN:Translate Donate}">
 

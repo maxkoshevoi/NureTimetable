@@ -2,6 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:LN="clr-namespace:NureTimetable.Core.Localization;assembly=NureTimetable.Core"
+             xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels.Info"
+             x:DataType="vm:AboutViewModel"
              x:Class="NureTimetable.UI.Views.Info.AboutPage"
              Title="{LN:Translate About}">
     
@@ -34,7 +36,7 @@
                             <FormattedString.Spans>
                                 <Span Text="{LN:Translate AppName}" FontAttributes="Bold" FontSize="22" />
                                 <Span Text=" " />
-                                <Span x:Name="SVersion" Text="{Binding VersionText}" ForegroundColor="{StaticResource LightTextColor}" />
+                                <Span x:DataType="vm:AboutViewModel" x:Name="SVersion" Text="{Binding VersionText}" ForegroundColor="{StaticResource LightTextColor}" />
                             </FormattedString.Spans>
                         </FormattedString>
                     </Label.FormattedText>
@@ -55,7 +57,7 @@
                         <FormattedString>
                             <FormattedString.Spans>
                                 <Span Text="{LN:Translate HelpWanted}" />
-                                <Span Text="github.com/maxkoshevoi/NureTimetable" ForegroundColor="{StaticResource LightTextColor}" TextDecorations="Underline">
+                                <Span x:DataType="vm:AboutViewModel" Text="github.com/maxkoshevoi/NureTimetable" ForegroundColor="{StaticResource LightTextColor}" TextDecorations="Underline">
                                     <Span.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding NavigateUriCommand}"
                                             CommandParameter="https://github.com/maxkoshevoi/NureTimetable" />
@@ -78,14 +80,14 @@
                     <Label.FormattedText>
                         <FormattedString>
                             <FormattedString.Spans>
-                                <Span Text="{LN:Translate AppNews}" ForegroundColor="{StaticResource LightTextColor}" TextDecorations="Underline">
+                                <Span x:DataType="vm:AboutViewModel" Text="{LN:Translate AppNews}" ForegroundColor="{StaticResource LightTextColor}" TextDecorations="Underline">
                                     <Span.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding NavigateUriCommand}"
                                           CommandParameter="https://t.me/nuretimetable_channel" />
                                     </Span.GestureRecognizers>
                                 </Span>
                                 <Span Text=", " />
-                                <Span Text="{LN:Translate AppGroup}" ForegroundColor="{StaticResource LightTextColor}" TextDecorations="Underline">
+                                <Span x:DataType="vm:AboutViewModel" Text="{LN:Translate AppGroup}" ForegroundColor="{StaticResource LightTextColor}" TextDecorations="Underline">
                                     <Span.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding NavigateUriCommand}"
                                           CommandParameter="https://t.me/nuretimetable_group" />
@@ -109,14 +111,14 @@
                         <FormattedString>
                             <FormattedString.Spans>
                                 <Span Text="{LN:Translate NureWebpages}" />
-                                <Span Text="{LN:Translate NureHomepage}" ForegroundColor="{StaticResource LightTextColor}" TextDecorations="Underline">
+                                <Span x:DataType="vm:AboutViewModel" Text="{LN:Translate NureHomepage}" ForegroundColor="{StaticResource LightTextColor}" TextDecorations="Underline">
                                     <Span.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding NavigateUriCommand}"
                                             CommandParameter="http://nure.ua/" />
                                     </Span.GestureRecognizers>
                                 </Span>
                                 <Span Text=", " />
-                                <Span Text="Facebook" ForegroundColor="{StaticResource LightTextColor}" TextDecorations="Underline">
+                                <Span x:DataType="vm:AboutViewModel" Text="Facebook" ForegroundColor="{StaticResource LightTextColor}" TextDecorations="Underline">
                                     <Span.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding NavigateUriCommand}"
                                             CommandParameter="https://www.facebook.com/nureKharkiv/" />
@@ -131,14 +133,14 @@
                         <FormattedString>
                             <FormattedString.Spans>
                                 <Span Text="{LN:Translate StudentNure}" />
-                                <Span Text="Telegram" ForegroundColor="{StaticResource LightTextColor}" TextDecorations="Underline">
+                                <Span x:DataType="vm:AboutViewModel" Text="Telegram" ForegroundColor="{StaticResource LightTextColor}" TextDecorations="Underline">
                                     <Span.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding NavigateUriCommand}"
                                             CommandParameter="https://t.me/studentnure" />
                                     </Span.GestureRecognizers>
                                 </Span>
                                 <Span Text=", " />
-                                <Span Text="Instagram" ForegroundColor="{StaticResource LightTextColor}" TextDecorations="Underline">
+                                <Span x:DataType="vm:AboutViewModel" Text="Instagram" ForegroundColor="{StaticResource LightTextColor}" TextDecorations="Underline">
                                     <Span.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding NavigateUriCommand}"
                                             CommandParameter="https://www.instagram.com/student.nure/" />

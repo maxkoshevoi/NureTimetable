@@ -1,73 +1,15 @@
 ﻿using NureTimetable.DAL.Models.Local;
 using NureTimetable.Services.Helpers;
 using NureTimetable.UI.ViewModels.Core;
-using Syncfusion.XForms.Buttons;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace NureTimetable.UI.ViewModels.Lessons
+namespace NureTimetable.UI.ViewModels.Lessons.LessonSettings
 {
     public class LessonSettingsViewModel : BaseViewModel
     {
-        #region Classes
-        public class ListViewViewModel<T> : BaseViewModel
-        {
-            private ObservableCollection<CheckedEntity<T>> _itemSource;
-            private bool _isVisible;
-            private double _heightRequest;
-
-            public ObservableCollection<CheckedEntity<T>> ItemsSource { get => _itemSource; internal set => SetProperty(ref _itemSource, value, onChanged: ItemsSourceChanged); }
-            public bool IsVisible { get => _isVisible; set => SetProperty(ref _isVisible, value); }
-            public double HeightRequest { get => _heightRequest; set => SetProperty(ref _heightRequest, value); }
-
-            public ListViewViewModel(INavigation navigation) : base(navigation)
-            {}
-            
-            private void ItemsSourceChanged()
-            {
-                if (ItemsSource == null || ItemsSource.Count == 0)
-                {
-                    IsVisible = false;
-                }
-                else
-                {
-                    Resize();
-                    IsVisible = true;
-                }
-            }
-
-            private void Resize()
-            {
-                const int rowHeight = 43,
-                    headerHeight = 19;
-
-                // ListView doesn't support AutoSize, so we have to do it manually
-                HeightRequest = rowHeight * ItemsSource.Count + headerHeight;
-            }
-        }
-
-        public class CheckedEntity<T> : BaseViewModel
-        {
-            private T _entity;
-            private bool? _isChecked;
-            private readonly Action _stateChanged;
-            
-            public T Entity { get => _entity; set => SetProperty(ref _entity, value); }
-            public bool? IsChecked { get => _isChecked; set => SetProperty(ref _isChecked, value, onChanged: _stateChanged); }
-
-            public CheckedEntity(INavigation navigation, Action<CheckedEntity<T>> stateChanged = null) : base(navigation)
-            {
-                _stateChanged = () => stateChanged?.Invoke(this);
-            }
-        }
-        #endregion
-
         #region Variables
         LessonInfo lessonInfo;
         bool updatingProgrammatically = false;

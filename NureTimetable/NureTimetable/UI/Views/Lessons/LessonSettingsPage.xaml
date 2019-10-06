@@ -4,6 +4,8 @@
              xmlns:LN="clr-namespace:NureTimetable.Core.Localization;assembly=NureTimetable.Core"
              xmlns:behaviors="clr-namespace:NureTimetable.UI.Behaviors;assembly=NureTimetable"
              xmlns:syncfusion="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels.Lessons.LessonSettings"
+             x:DataType="vm:LessonSettingsViewModel"
              x:Class="NureTimetable.UI.Views.Lessons.LessonSettingsPage"
              Title="{Binding Title}">
 
@@ -11,7 +13,7 @@
         <StackLayout>
             <syncfusion:SfCheckBox 
                     x:Name="ShowLesson"
-                    Margin="5,10,5,0"
+                    Margin="5,15,5,0"
                     VerticalOptions="Fill"
                     CheckedColor="DeepSkyBlue"
                     IsChecked="{Binding ShowLessonIsChecked}"
@@ -20,56 +22,58 @@
                     <behaviors:EventToCommandBehavior EventName="StateChanged" Command="{Binding ShowLessonStateChangedCommand}"/>
                 </syncfusion:SfCheckBox.Behaviors>
             </syncfusion:SfCheckBox>
-            <ListView x:Name="LessonEventTypes"
-                    VerticalOptions="Fill"
-                    Margin="10,0,10,0"
-                    HasUnevenRows="True"
-                    CachingStrategy="RecycleElement"
-                    ItemTapped="LessonEventTypes_ItemTapped"
-                    BindingContext="{Binding LvEventTypes}"
-                    ItemsSource="{Binding ItemsSource}"
-                    IsVisible="{Binding IsVisible}"
-                    HeightRequest="{Binding HeightRequest}">
-                <ListView.Header>
-                    <Label Text="{LN:Translate DisplayLessonsForTypes}" />
-                </ListView.Header>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <syncfusion:SfCheckBox 
-                                CheckedColor="DeepSkyBlue"
-                                Margin="10,5,10,5"
-                                Text="{Binding Entity.ShortName}"
-                                IsChecked="{Binding IsChecked}" />
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            <ListView x:Name="LessonTeachers"
-                    VerticalOptions="Fill"
-                    Margin="10,10,10,10"
-                    HasUnevenRows="True"
-                    CachingStrategy="RecycleElement"
-                    ItemTapped="LessonTeachers_ItemTapped"
-                    BindingContext="{Binding LvTeachers}"
-                    ItemsSource="{Binding ItemsSource}"
-                    IsVisible="{Binding IsVisible}"
-                    HeightRequest="{Binding HeightRequest}">
-                <ListView.Header>
-                    <Label Text="{LN:Translate DisplayLessonsForTeachers}" />
-                </ListView.Header>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <syncfusion:SfCheckBox 
-                                CheckedColor="DeepSkyBlue"
-                                Margin="10,5,10,5"
-                                Text="{Binding Entity.ShortName}"
-                                IsChecked="{Binding IsChecked}" />
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+            <StackLayout BindingContext="{Binding LvEventTypes}" Margin="0">
+                <ListView x:Name="LessonEventTypes"
+                        x:DataType="{x:Null}"
+                        VerticalOptions="Fill"
+                        Margin="10,10,10,0"
+                        CachingStrategy="RecycleElement"
+                        ItemTapped="LessonEventTypes_ItemTapped"
+                        ItemsSource="{Binding ItemsSource}"
+                        IsVisible="{Binding IsVisible}"
+                        HeightRequest="{Binding HeightRequest}">
+                    <ListView.Header>
+                        <Label Text="{LN:Translate DisplayLessonsForTypes}" />
+                    </ListView.Header>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <syncfusion:SfCheckBox 
+                                    CheckedColor="DeepSkyBlue"
+                                    Margin="10,5,10,5"
+                                    Text="{Binding Entity.ShortName}"
+                                    IsChecked="{Binding IsChecked}" />
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+            <StackLayout BindingContext="{Binding LvTeachers}" Margin="0">
+                <ListView x:Name="LessonTeachers"
+                        x:DataType="{x:Null}"
+                        VerticalOptions="Fill"
+                        Margin="10,0,10,10"
+                        CachingStrategy="RecycleElement"
+                        ItemTapped="LessonTeachers_ItemTapped"
+                        ItemsSource="{Binding ItemsSource}"
+                        IsVisible="{Binding IsVisible}"
+                        HeightRequest="{Binding HeightRequest}">
+                    <ListView.Header>
+                        <Label Text="{LN:Translate DisplayLessonsForTeachers}" />
+                    </ListView.Header>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <syncfusion:SfCheckBox 
+                                    CheckedColor="DeepSkyBlue"
+                                    Margin="10,5,10,5"
+                                    Text="{Binding Entity.ShortName}"
+                                    IsChecked="{Binding IsChecked}" />
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
             <StackLayout VerticalOptions="Fill" Margin="10,0,10,0">
                 <Label Text="{LN:Translate Notes}" />
                 <Editor x:Name="LessonNotes" 

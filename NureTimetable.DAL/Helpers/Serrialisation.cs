@@ -84,7 +84,8 @@ namespace NureTimetable.DAL.Helpers
         }
 
         #region Converters
-        public class SecondEpochConverter : DateTimeConverterBase
+#pragma warning disable CA1812
+        internal class SecondEpochConverter : DateTimeConverterBase
         {
             private static readonly DateTime _epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
@@ -103,7 +104,7 @@ namespace NureTimetable.DAL.Helpers
             }
         }
 
-        public class StringBoolConverter: JsonConverter
+        internal class StringBoolConverter: JsonConverter
         {
             private readonly Dictionary<string, bool> replacementValues = new Dictionary<string, bool> { { "1", true }, { "0", false } };
 
@@ -125,6 +126,7 @@ namespace NureTimetable.DAL.Helpers
                 serializer.Serialize(writer, newValue);
             }
         }
+#pragma warning restore CA1812
         #endregion
 
         #region JsonFixers
