@@ -484,7 +484,8 @@ namespace NureTimetable.UI.ViewModels.Timetable
                     notes = nl + nl + lessonInfo.Notes;
                 }
             }
-            await App.Current.MainPage.DisplayAlert($"{ev.Lesson.FullName}", string.Format(LN.EventType, ev.Type.FullName) + nl +
+            int eventNumber = timetableInfoList.Events.Where(e => e.Type == ev.Type && e.Start < ev.Start).Count() + 1;
+            await App.Current.MainPage.DisplayAlert($"{ev.Lesson.FullName}", string.Format(LN.EventType, ev.Type.FullName + $" ({eventNumber})") + nl +
                 string.Format(LN.EventClassroom, ev.RoomName) + nl +
                 string.Format(LN.EventTeachers, string.Join(", ", ev.Teachers.Select(t => t.Name))) + nl +
                 string.Format(LN.EventGroups, string.Join(", ", ev.Groups.Select(t => t.Name))) + nl +
