@@ -168,10 +168,11 @@
     <PropertyGroup>
       <OldBuildNumber>@(PeekedVersionCode)</OldBuildNumber>
       <NewBuildNumber>$([MSBuild]::Add($(OldBuildNumber), 1))</NewBuildNumber>
+      <LargeBuildNumber>$([MSBuild]::Add($(NewBuildNumber), 100000))</LargeBuildNumber>
       <OldVersion>@(PeekedVersionName)</OldVersion>
       <NewVersion>$(OldVersion.Remove($(OldVersion.LastIndexOf('.')))).$(NewBuildNumber)</NewVersion>
     </PropertyGroup>
-    <XmlPoke XmlInputPath="Properties\AndroidManifest.xml" Namespaces="&lt;Namespace Prefix='android' Uri='http://schemas.android.com/apk/res/android' /&gt;" Query="manifest/@android:versionCode" Value="$(NewBuildNumber)" />
+    <XmlPoke XmlInputPath="Properties\AndroidManifest.xml" Namespaces="&lt;Namespace Prefix='android' Uri='http://schemas.android.com/apk/res/android' /&gt;" Query="manifest/@android:versionCode" Value="$(LargeBuildNumber)" />
     <XmlPoke XmlInputPath="Properties\AndroidManifest.xml" Namespaces="&lt;Namespace Prefix='android' Uri='http://schemas.android.com/apk/res/android' /&gt;" Query="manifest/@android:versionName" Value="$(NewVersion)" />
     <Message Importance="High" Text="Build number: $(NewBuildNumber)" />
     <Message Importance="High" Text="Version: $(NewVersion)" />
