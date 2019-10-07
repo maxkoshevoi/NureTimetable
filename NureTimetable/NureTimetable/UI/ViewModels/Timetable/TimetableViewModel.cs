@@ -1,10 +1,10 @@
-﻿using NureTimetable.Core.Localization;
+﻿using NureTimetable.Core.Extensions;
+using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models;
 using NureTimetable.Core.Models.Consts;
 using NureTimetable.Core.Models.InterplatformCommunication;
 using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
-using NureTimetable.Models;
 using NureTimetable.Models.Consts.Fonts;
 using NureTimetable.Services.Helpers;
 using NureTimetable.UI.ViewModels.Core;
@@ -484,7 +484,10 @@ namespace NureTimetable.UI.ViewModels.Timetable
                     notes = nl + nl + lessonInfo.Notes;
                 }
             }
-            int eventNumber = timetableInfoList.Events.Where(e => e.Type == ev.Type && e.Start < ev.Start).Count() + 1;
+            int eventNumber = timetableInfoList.Events
+                .Where(e => e.Type == ev.Type && e.Start < ev.Start)
+                .DistinctBy(e => e.Start)
+                .Count() + 1;
             await App.Current.MainPage.DisplayAlert($"{ev.Lesson.FullName}", string.Format(LN.EventType, ev.Type.FullName + $" ({eventNumber})") + nl +
                 string.Format(LN.EventClassroom, ev.RoomName) + nl +
                 string.Format(LN.EventTeachers, string.Join(", ", ev.Teachers.Select(t => t.Name))) + nl +
