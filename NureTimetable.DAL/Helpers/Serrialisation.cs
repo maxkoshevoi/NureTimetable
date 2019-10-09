@@ -58,6 +58,11 @@ namespace NureTimetable.DAL.Helpers
         
         public static T FromJson<T>(string json)
         {
+            if (IsJson(json))
+            {
+                throw new ArgumentException($"Argument is not recognized as a valid json string: {(json.Length > 100 ? json.Remove(100) : json)}");
+            }
+
             if (typeof(T).IsPrimitive || typeof(T) == typeof(string))
             {
                 return (T)Convert.ChangeType(json, typeof(T));
@@ -81,6 +86,12 @@ namespace NureTimetable.DAL.Helpers
                 });
             }
             return instance;
+        }
+
+        private static bool IsJson(string json)
+        {
+            json = json.TrimStart();
+            return !json.StartsWith("{") && !json.StartsWith("[");
         }
 
         #region Converters

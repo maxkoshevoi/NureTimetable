@@ -485,10 +485,14 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 }
             }
             int eventNumber = timetableInfoList.Events
-                .Where(e => e.Type == ev.Type && e.Start < ev.Start)
+                .Where(e => e.Lesson == ev.Lesson && e.Type == ev.Type && e.Start < ev.Start)
                 .DistinctBy(e => e.Start)
                 .Count() + 1;
-            await App.Current.MainPage.DisplayAlert($"{ev.Lesson.FullName}", string.Format(LN.EventType, ev.Type.FullName + $" ({eventNumber})") + nl +
+            int eventsCount = timetableInfoList.Events
+                .Where(e => e.Lesson == ev.Lesson && e.Type == ev.Type)
+                .DistinctBy(e => e.Start)
+                .Count();
+            await App.Current.MainPage.DisplayAlert($"{ev.Lesson.FullName}", string.Format(LN.EventType, ev.Type.FullName + $" ({eventNumber}/{eventsCount})") + nl +
                 string.Format(LN.EventClassroom, ev.RoomName) + nl +
                 string.Format(LN.EventTeachers, string.Join(", ", ev.Teachers.Select(t => t.Name))) + nl +
                 string.Format(LN.EventGroups, string.Join(", ", ev.Groups.Select(t => t.Name))) + nl +

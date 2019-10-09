@@ -171,7 +171,7 @@
     <PropertyGroup>
       <OldBuildNumber>@(PeekedVersionCode)</OldBuildNumber>
       <NewBuildNumber>$([MSBuild]::Add($(OldBuildNumber), 1))</NewBuildNumber>
-      <LargeBuildNumber>$([MSBuild]::Add($(NewBuildNumber), 1000000))</LargeBuildNumber>
+      <LargeBuildNumber>$([MSBuild]::Add($(NewBuildNumber), 0))</LargeBuildNumber>
       <OldVersion>@(PeekedVersionName)</OldVersion>
       <NewVersion>$(OldVersion.Remove($(OldVersion.LastIndexOf('.')))).$(NewBuildNumber)</NewVersion>
     </PropertyGroup>
