@@ -58,14 +58,15 @@ namespace NureTimetable.DAL.Helpers
         
         public static T FromJson<T>(string json)
         {
+            if (typeof(T).IsPrimitive || typeof(T) == typeof(string) || typeof(T) == typeof(DateTime))
+            {
+                json = json?.Trim('\"');
+                return (T)Convert.ChangeType(json, typeof(T));
+            }
+
             if (IsJson(json))
             {
                 throw new ArgumentException($"Argument is not recognized as a valid json string: {(json.Length > 100 ? json.Remove(100) : json)}");
-            }
-
-            if (typeof(T).IsPrimitive || typeof(T) == typeof(string))
-            {
-                return (T)Convert.ChangeType(json, typeof(T));
             }
 
             T instance;
