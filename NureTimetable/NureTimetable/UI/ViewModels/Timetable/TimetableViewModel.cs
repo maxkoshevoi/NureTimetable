@@ -306,20 +306,14 @@ namespace NureTimetable.UI.ViewModels.Timetable
         {
             if (selectedEntities == null || selectedEntities.Count == 0)
             {
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    Title = LN.AppName;
-                });
+                Title = LN.AppName;
                 TimetableLayoutIsVisible = false;
                 NoSourceLayoutIsVisible = true;
                 return;
             }
             else
             {
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    Title = string.Join(", ", selectedEntities.Select(se => se.Name));
-                });
+                Title = string.Join(", ", selectedEntities.Select(se => se.Name));
                 NoSourceLayoutIsVisible = false;
                 TimetableLayoutIsVisible = true;
             }
