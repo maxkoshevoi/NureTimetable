@@ -233,7 +233,11 @@ namespace NureTimetable.UI.ViewModels.Timetable
                     Event currentEvent = timetableInfoList.Events.FirstOrDefault(e => e.Start <= DateTime.Now && e.End >= DateTime.Now);
                     if (currentEvent != null)
                     {
-                        text = string.Format(LN.TimeUntilBreak, (currentEvent.End - DateTime.Now).ToString("hh\\:mm\\:ss"));
+                        text = string.Format(
+                            LN.TimeUntilBreak, 
+                            currentEvent.RoomName, 
+                            (currentEvent.End - DateTime.Now).ToString("hh\\:mm\\:ss")
+                        );
                     }
                     else
                     {

@@ -220,7 +220,7 @@
     <value>An error occured while trying to display timetable</value>
   </data>
   <data name="TimeUntilBreak" xml:space="preserve">
-    <value>Until break: {0}</value>
+    <value>Until break ({0}): {1}</value>
   </data>
   <data name="TimeUntilLesson" xml:space="preserve">
     <value>Until {0} ({1}): {2}</value>

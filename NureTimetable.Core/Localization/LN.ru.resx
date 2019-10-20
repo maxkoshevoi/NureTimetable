@@ -220,7 +220,7 @@
     <value>Произошла ошибка при попытке отобразить расписание</value>
   </data>
   <data name="TimeUntilBreak" xml:space="preserve">
-    <value>До перерыва: {0}</value>
+    <value>До перерыва ({0}): {1}</value>
   </data>
   <data name="TimeUntilLesson" xml:space="preserve">
     <value>До {0} ({1}): {2}</value>
