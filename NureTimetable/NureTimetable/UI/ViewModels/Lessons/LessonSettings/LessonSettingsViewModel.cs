@@ -59,7 +59,7 @@ namespace NureTimetable.UI.ViewModels.Lessons.LessonSettings
                     .OrderBy(et => et.Entity.ShortName))
             };
 
-            UpdateEventTypesCheck();
+            UpdateEventTypesCheck(true);
 
             ShowLessonStateChangedCommand = CommandHelper.CreateCommand(ShowLessonStateChanged);
             LessonNotesTextChangedCommand = CommandHelper.CreateCommand(LessonNotesTextChanged);
@@ -97,9 +97,9 @@ namespace NureTimetable.UI.ViewModels.Lessons.LessonSettings
             });
         }
 
-        private void UpdateEventTypesCheck()
+        private void UpdateEventTypesCheck(bool force = false)
         {
-            if (updatingProgrammatically) return;
+            if (updatingProgrammatically || (!force && ShowLessonIsChecked == IsShowEvents())) return;
 
             updatingProgrammatically = true;
             if (lessonInfo.Settings.Hiding.ShowLesson != null)
@@ -132,20 +132,24 @@ namespace NureTimetable.UI.ViewModels.Lessons.LessonSettings
             if (updatingProgrammatically) return;
 
             updatingProgrammatically = true;
-            if (lessonInfo.Settings.Hiding.EventTypesToHide.Count == 0 && lessonInfo.Settings.Hiding.TeachersToHide.Count == 0)
-            {
-                ShowLessonIsChecked = true;
-            }
-            else if (lessonInfo.Settings.Hiding.EventTypesToHide.Count == LvEventTypes.ItemsSource.Count 
-                && lessonInfo.Settings.Hiding.TeachersToHide.Count == LvTeachers.ItemsSource.Count)
-            {
-                ShowLessonIsChecked = false;
-            }
-            else
-            {
-                ShowLessonIsChecked = null;
-            }
+            ShowLessonIsChecked = IsShowEvents();
             updatingProgrammatically = false;
+        }
+
+        /// <returns>true = all, false = none, null = some</returns>
+        private bool? IsShowEvents()
+        {
+            if (lessonInfo.Settings.Hiding.EventTypesToHide.Count == 0 && 
+                lessonInfo.Settings.Hiding.TeachersToHide.Count == 0)
+            {
+                return true;
+            }
+            else if (lessonInfo.Settings.Hiding.EventTypesToHide.Count == LvEventTypes.ItemsSource.Count || 
+                lessonInfo.Settings.Hiding.TeachersToHide.Count == LvTeachers.ItemsSource.Count)
+            {
+                return false;
+            }
+            return null;
         }
 
         private void LessonNotesTextChanged()
