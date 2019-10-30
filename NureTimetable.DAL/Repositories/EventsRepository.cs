@@ -109,21 +109,13 @@ namespace NureTimetable.DAL
                     {
                         timetable = new Local.TimetableInfo(entity);
                     }
-                    IEnumerable<Cist.Event> ownEvents;
-                    switch (entity.Type)
+                    IEnumerable<Cist.Event> ownEvents = entity.Type switch
                     {
-                        case Local.TimetableEntityType.Group:
-                            ownEvents = cistTimetable.Events.Where(e => e.GroupIds.Contains(entity.ID));
-                            break;
-                        case Local.TimetableEntityType.Teacher:
-                            ownEvents = cistTimetable.Events.Where(e => e.TeacherIds.Contains(entity.ID));
-                            break;
-                        case Local.TimetableEntityType.Room:
-                            ownEvents = cistTimetable.Events.Where(e => e.Room == entity.Name);
-                            break;
-                        default:
-                            throw new ArgumentException("Unknown entity type");
-                    }
+                        Local.TimetableEntityType.Group => cistTimetable.Events.Where(e => e.GroupIds.Contains(entity.ID)),
+                        Local.TimetableEntityType.Teacher => cistTimetable.Events.Where(e => e.TeacherIds.Contains(entity.ID)),
+                        Local.TimetableEntityType.Room => cistTimetable.Events.Where(e => e.Room == entity.Name),
+                        _ => throw new ArgumentException("Unknown entity type"),
+                    };
                     timetable.Events = ownEvents.Select(ev =>
                     {
                         Local.Event localEvent = MapConfig.Map<Cist.Event, Local.Event>(ev);

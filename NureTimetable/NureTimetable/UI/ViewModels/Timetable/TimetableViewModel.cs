@@ -57,7 +57,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
         private string _bTodayText;
         private double _bTodayScale = 0;
 
-        private ITimetablePageCommands _timetablePage;
+        private readonly ITimetablePageCommands _timetablePage;
         #endregion
 
         #region Properties

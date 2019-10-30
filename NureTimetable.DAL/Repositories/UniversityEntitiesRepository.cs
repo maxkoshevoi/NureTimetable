@@ -160,40 +160,38 @@ namespace NureTimetable.DAL
                 university = new Cist.University();
             }
 
-            using (var client = new WebClient
+            using var client = new WebClient
             {
                 Encoding = Encoding.GetEncoding("Windows-1251")
-            })
+            };
+            try
             {
-                try
-                {
-                    Uri uri = Urls.CistAllGroupsUrl;
-                    string responseStr = client.DownloadString(uri);
-                    Cist.University newUniversity = Serialisation.FromJson<Cist.UniversityRootObject>(responseStr).University;
+                Uri uri = Urls.CistAllGroupsUrl;
+                string responseStr = client.DownloadString(uri);
+                Cist.University newUniversity = Serialisation.FromJson<Cist.UniversityRootObject>(responseStr).University;
 
-                    foreach (Cist.Faculty faculty in newUniversity.Faculties)
+                foreach (Cist.Faculty faculty in newUniversity.Faculties)
+                {
+                    Cist.Faculty oldFaculty = university.Faculties.FirstOrDefault(f => f.Id == faculty.Id);
+                    if (oldFaculty == null)
                     {
-                        Cist.Faculty oldFaculty = university.Faculties.FirstOrDefault(f => f.Id == faculty.Id);
-                        if (oldFaculty == null)
-                        {
-                            university.Faculties.Add(faculty);
-                            continue;
-                        }
-                        faculty.Departments = oldFaculty.Departments;
-                        university.Faculties.Remove(oldFaculty);
                         university.Faculties.Add(faculty);
+                        continue;
                     }
+                    faculty.Departments = oldFaculty.Departments;
+                    university.Faculties.Remove(oldFaculty);
+                    university.Faculties.Add(faculty);
+                }
 
-                    return true;
-                }
-                catch (Exception ex)
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Device.BeginInvokeOnMainThread(() =>
                 {
-                    Device.BeginInvokeOnMainThread(() =>
-                    {
-                        MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
-                    });
-                    return false;
-                }
+                    MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
+                });
+                return false;
             }
         }
 
@@ -203,52 +201,50 @@ namespace NureTimetable.DAL
             {
                 university = new Cist.University();
             }
-            
-            using (var client = new WebClient
+
+            using var client = new WebClient
             {
                 Encoding = Encoding.GetEncoding("Windows-1251")
-            })
+            };
+            try
             {
+                Uri uri = Urls.CistAllTeachersUrl;
+                string responseStr = client.DownloadString(uri);
+                Cist.University newUniversity;
                 try
                 {
-                    Uri uri = Urls.CistAllTeachersUrl;
-                    string responseStr = client.DownloadString(uri);
-                    Cist.University newUniversity;
-                    try
-                    {
-                        newUniversity = Serialisation.FromJson<Cist.UniversityRootObject>(responseStr).University;
-                    }
-                    catch (JsonReaderException ex) when (ex.Message.StartsWith("JsonToken EndObject is not valid for closing JsonType Array. Path 'university.faculties'"))
-                    {
-                        // Temporary workaround. Needs to be removed when fixed on Cist!
-                        responseStr = responseStr.TrimEnd('\n');
-                        responseStr = responseStr.Remove(responseStr.Length - 1) + "]}}";
-                        newUniversity = Serialisation.FromJson<Cist.UniversityRootObject>(responseStr).University;
-                    }
-
-                    foreach (Cist.Faculty faculty in newUniversity.Faculties)
-                    {
-                        Cist.Faculty oldFaculty = university.Faculties.FirstOrDefault(f => f.Id == faculty.Id);
-                        if (oldFaculty == null)
-                        {
-                            university.Faculties.Add(faculty);
-                            continue;
-                        }
-                        faculty.Directions = oldFaculty.Directions;
-                        university.Faculties.Remove(oldFaculty);
-                        university.Faculties.Add(faculty);
-                    }
-
-                    return true;
+                    newUniversity = Serialisation.FromJson<Cist.UniversityRootObject>(responseStr).University;
                 }
-                catch (Exception ex)
+                catch (JsonReaderException ex) when (ex.Message.StartsWith("JsonToken EndObject is not valid for closing JsonType Array. Path 'university.faculties'"))
                 {
-                    Device.BeginInvokeOnMainThread(() =>
-                    {
-                        MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
-                    });
-                    return false;
+                    // Temporary workaround. Needs to be removed when fixed on Cist!
+                    responseStr = responseStr.TrimEnd('\n');
+                    responseStr = responseStr.Remove(responseStr.Length - 1) + "]}}";
+                    newUniversity = Serialisation.FromJson<Cist.UniversityRootObject>(responseStr).University;
                 }
+
+                foreach (Cist.Faculty faculty in newUniversity.Faculties)
+                {
+                    Cist.Faculty oldFaculty = university.Faculties.FirstOrDefault(f => f.Id == faculty.Id);
+                    if (oldFaculty == null)
+                    {
+                        university.Faculties.Add(faculty);
+                        continue;
+                    }
+                    faculty.Directions = oldFaculty.Directions;
+                    university.Faculties.Remove(oldFaculty);
+                    university.Faculties.Add(faculty);
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
+                });
+                return false;
             }
         }
 
@@ -259,30 +255,28 @@ namespace NureTimetable.DAL
                 university = new Cist.University();
             }
 
-            using (var client = new WebClient
+            using var client = new WebClient
             {
                 Encoding = Encoding.GetEncoding("Windows-1251")
-            })
+            };
+            try
             {
-                try
-                {
-                    Uri uri = Urls.CistAllRoomsUrl;
-                    string responseStr = client.DownloadString(uri);
-                    responseStr = responseStr.Replace("\n", "").Replace("[}]", "[]");
-                    Cist.University newUniversity = Serialisation.FromJson<Cist.UniversityRootObject>(responseStr).University;
+                Uri uri = Urls.CistAllRoomsUrl;
+                string responseStr = client.DownloadString(uri);
+                responseStr = responseStr.Replace("\n", "").Replace("[}]", "[]");
+                Cist.University newUniversity = Serialisation.FromJson<Cist.UniversityRootObject>(responseStr).University;
 
-                    university.Buildings = newUniversity.Buildings;
+                university.Buildings = newUniversity.Buildings;
 
-                    return true;
-                }
-                catch (Exception ex)
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Device.BeginInvokeOnMainThread(() =>
                 {
-                    Device.BeginInvokeOnMainThread(() =>
-                    {
-                        MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
-                    });
-                    return false;
-                }
+                    MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
+                });
+                return false;
             }
         }
         #endregion
@@ -387,7 +381,7 @@ namespace NureTimetable.DAL
 
         public static void UpdateSaved(List<Local.SavedEntity> savedEntities)
         {
-            savedEntities = savedEntities ?? new List<Local.SavedEntity>();
+            savedEntities ??= new List<Local.SavedEntity>();
 
             // Removing cache from deleted saved entities if needed
             List<Local.SavedEntity> deletedEntities = GetSaved()
@@ -450,7 +444,7 @@ namespace NureTimetable.DAL
 
         public static void UpdateSelected(List<Local.SavedEntity> selectedEntities)
         {
-            selectedEntities = selectedEntities ?? new List<Local.SavedEntity>();
+            selectedEntities ??= new List<Local.SavedEntity>();
 
             List<Local.SavedEntity> currentEntities = GetSelected();
             if (currentEntities.Count == selectedEntities.Count && !currentEntities.Except(selectedEntities).Any())

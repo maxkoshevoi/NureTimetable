@@ -51,10 +51,10 @@
                         <behaviors:EventToCommandBehavior EventName="MonthInlineAppointmentTapped" Command="{Binding TimetableMonthInlineAppointmentTappedCommand}"/>
                     </syncfusion:SfSchedule.Behaviors>
                     <syncfusion:SfSchedule.HeaderStyle>
-                        <syncfusion:HeaderStyle FontSize="10" FontAttributes="Bold"/>
+                        <syncfusion:HeaderStyle FontSize="10" FontAttributes="Bold" />
                     </syncfusion:SfSchedule.HeaderStyle>
                     <syncfusion:SfSchedule.ViewHeaderStyle>
-                        <syncfusion:ViewHeaderStyle DateFontSize="13" DayFontSize="8" />
+                        <syncfusion:ViewHeaderStyle DateFontSize="13" DayFontSize="8" CurrentDateTextColor="DodgerBlue" CurrentDayTextColor="DodgerBlue" />
                     </syncfusion:SfSchedule.ViewHeaderStyle>
                     <syncfusion:SfSchedule.WeekViewSettings>
                         <syncfusion:WeekViewSettings StartHour="{Binding TimetableStartHour}" EndHour="{Binding TimetableEndHour}" WorkStartHour="0" WorkEndHour="24">
