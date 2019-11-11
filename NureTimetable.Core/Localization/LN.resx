@@ -136,7 +136,7 @@
     <value>Homepage</value>
   </data>
   <data name="NureWebpages" xml:space="preserve">
-    <value>NURE official webpages: </value>
+    <value>NURE official web-pages: </value>
   </data>
   <data name="ShowErrors" xml:space="preserve">
     <value>Show errors</value>
@@ -217,7 +217,7 @@
     <value>Timetable display</value>
   </data>
   <data name="TimetableDisplayError" xml:space="preserve">
-    <value>An error occured while trying to display timetable</value>
+    <value>An error occurred while trying to display timetable</value>
   </data>
   <data name="TimeUntilBreak" xml:space="preserve">
     <value>Until break ({0}): {1}</value>
@@ -241,7 +241,7 @@
     <value>Delete</value>
   </data>
   <data name="ErrorTryAgainLater" xml:space="preserve">
-    <value>Error occured. Please, try again later.</value>
+    <value>Error occurred. Please, try again later.</value>
   </data>
   <data name="Ok" xml:space="preserve">
     <value>Ok</value>
