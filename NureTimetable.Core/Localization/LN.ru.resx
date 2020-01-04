@@ -171,8 +171,8 @@
   <data name="EventDay" xml:space="preserve">
     <value>День: {0}</value>
   </data>
-  <data name="EventTeacher" xml:space="preserve">
-    <value>Преподаватель: {0}</value>
+  <data name="EventTeachers" xml:space="preserve">
+    <value>Преподаватели: {0}</value>
   </data>
   <data name="EventTeacherNotFound" xml:space="preserve">
     <value>Преподаватель: не найден</value>
