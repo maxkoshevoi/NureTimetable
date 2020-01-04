@@ -11,6 +11,9 @@ using NureTimetable.UI.ViewModels.Core;
 using NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities;
 using NureTimetable.UI.Views;
 using NureTimetable.UI.Views.TimetableEntities;
+using Plugin.Calendars;
+using Plugin.Permissions;
+using Plugin.Permissions.Abstractions;
 using Syncfusion.SfSchedule.XForms;
 using System;
 using System.Collections.Generic;
@@ -19,6 +22,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using Calendars = Plugin.Calendars.Abstractions;
 
 namespace NureTimetable.UI.ViewModels.Timetable
 {
@@ -490,13 +494,72 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 .Where(e => e.Lesson == ev.Lesson && e.Type == ev.Type)
                 .DistinctBy(e => e.Start)
                 .Count();
-            await App.Current.MainPage.DisplayAlert($"{ev.Lesson.FullName}", string.Format(LN.EventType, ev.Type.FullName + $" ({eventNumber}/{eventsCount})") + nl +
+            bool isNotAddToCalendar = await App.Current.MainPage.DisplayAlert($"{ev.Lesson.FullName}", string.Format(LN.EventType, ev.Type.FullName + $" ({eventNumber}/{eventsCount})") + nl +
                 string.Format(LN.EventClassroom, ev.RoomName) + nl +
                 string.Format(LN.EventTeachers, string.Join(", ", ev.Teachers.Select(t => t.Name))) + nl +
                 string.Format(LN.EventGroups, string.Join(", ", ev.Groups.Select(t => t.Name))) + nl +
                 string.Format(LN.EventDay, ev.Start.ToString("ddd, dd.MM.yy")) + nl +
                 string.Format(LN.EventTime, ev.Start.ToString("HH:mm"), ev.End.ToString("HH:mm")) +
-                notes, LN.Ok);
+                notes, LN.Ok, LN.AddToCalendar);
+
+            if (!isNotAddToCalendar)
+            {
+                PermissionStatus? status = null;
+                try
+                {
+                    status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Calendar);
+                    if (status != PermissionStatus.Granted)
+                    {
+                        status = (await CrossPermissions.Current.RequestPermissionsAsync(Permission.Calendar)).Single().Value;
+                    }
+
+                    var calendar = (await CrossCalendars.Current.GetCalendarsAsync())
+                        .Where(c => c.Name == LN.AppName)
+                        .FirstOrDefault();
+
+                    if (calendar == null)
+                    {
+                        calendar = new Calendars.Calendar
+                        {
+                            Name = LN.AppName
+                        };
+                        await CrossCalendars.Current.AddOrUpdateCalendarAsync(calendar);
+                    }
+
+                    var calendarEvent = new Calendars.CalendarEvent
+                    {
+                        AllDay = false,
+                        Start = ev.StartUtc,
+                        End = ev.EndUtc,
+                        Name = $"{ev.Lesson.ShortName} ({ev.Type.ShortName} {eventNumber}/{eventsCount})",
+                        Description = string.Format(LN.EventClassroom, ev.RoomName) + nl +
+                            string.Format(LN.EventTeachers, string.Join(", ", ev.Teachers.Select(t => t.Name))) + nl +
+                            string.Format(LN.EventGroups, string.Join(", ", ev.Groups.Select(t => t.Name))),
+                        Location = "9G2R267H+W9",
+                        Reminders = new[] { 
+                            new Calendars.CalendarEventReminder 
+                            { 
+                                Method = Calendars.CalendarReminderMethod.Alert, 
+                                TimeBefore = TimeSpan.FromMinutes(30) 
+                            } 
+                        }
+                    };
+                    await CrossCalendars.Current.AddOrUpdateEventAsync(calendar, calendarEvent);
+                    
+                    await App.Current.MainPage.DisplayAlert(LN.AddingToCalendarTitle, LN.AddingEventToCalendarSuccess, LN.Ok);
+                }
+                catch (Exception ex)
+                {
+                    if (status == null && status == PermissionStatus.Granted)
+                    {
+                        Device.BeginInvokeOnMainThread(() =>
+                        {
+                            MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
+                        });
+                    }
+                    await App.Current.MainPage.DisplayAlert(LN.AddingToCalendarTitle, LN.AddingEventToCalendarFail, LN.Ok);
+                }
+            }
         }
 
         private void HideSelectedEventsClicked()

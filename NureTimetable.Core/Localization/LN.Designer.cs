@@ -70,11 +70,47 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to add event to calendar.
+        /// </summary>
+        public static string AddingEventToCalendarFail {
+            get {
+                return ResourceManager.GetString("AddingEventToCalendarFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Event has been added to calendar.
+        /// </summary>
+        public static string AddingEventToCalendarSuccess {
+            get {
+                return ResourceManager.GetString("AddingEventToCalendarSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Adding timetable.
         /// </summary>
         public static string AddingTimetable {
             get {
                 return ResourceManager.GetString("AddingTimetable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adding to calendar.
+        /// </summary>
+        public static string AddingToCalendarTitle {
+            get {
+                return ResourceManager.GetString("AddingToCalendarTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add to calendar.
+        /// </summary>
+        public static string AddToCalendar {
+            get {
+                return ResourceManager.GetString("AddToCalendar", resourceCulture);
             }
         }
         
@@ -286,7 +322,7 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error occured. Please, try again later..
+        ///   Looks up a localized string similar to Error occurred. Please, try again later..
         /// </summary>
         public static string ErrorTryAgainLater {
             get {
@@ -566,7 +602,7 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to NURE official webpages: .
+        ///   Looks up a localized string similar to NURE official web-pages: .
         /// </summary>
         public static string NureWebpages {
             get {
@@ -800,7 +836,7 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An error occured while trying to display timetable.
+        ///   Looks up a localized string similar to An error occurred while trying to display timetable.
         /// </summary>
         public static string TimetableDisplayError {
             get {

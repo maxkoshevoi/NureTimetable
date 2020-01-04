@@ -96,6 +96,10 @@ namespace NureTimetable.DAL
                 try
                 {
                     Local.TimetableInfo timetable = GetTimetableLocal(entity);
+                    if (timetable == null)
+                    {
+                        timetable = new Local.TimetableInfo(entity);
+                    }
 
                     // Getting events
                     Uri uri = Urls.CistEntityTimetableUrl(entity.Type, entity.ID, dateStart, dateEnd);
@@ -104,11 +108,13 @@ namespace NureTimetable.DAL
                     responseStr = responseStr.Replace("\"events\":[\n]}]", "\"events\": []");
                     Cist.Timetable cistTimetable = Serialisation.FromJson<Cist.Timetable>(responseStr);
 
-                    // Updating timetable information
-                    if (timetable == null)
+                    // Check for valid results
+                    if (timetable.Events.Count != 0 && cistTimetable.Events.Count == 0)
                     {
-                        timetable = new Local.TimetableInfo(entity);
+                        throw new InvalidOperationException("Received timetable is empty");
                     }
+
+                    // Updating timetable information
                     IEnumerable<Cist.Event> ownEvents = entity.Type switch
                     {
                         Local.TimetableEntityType.Group => cistTimetable.Events.Where(e => e.GroupIds.Contains(entity.ID)),
@@ -134,7 +140,7 @@ namespace NureTimetable.DAL
                     })
                     .Distinct()
                     .ToList();
-                    
+
                     // Saving timetables
                     UpdateTimetableLocal(timetable);
 

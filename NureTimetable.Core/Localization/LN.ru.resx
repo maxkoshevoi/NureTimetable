@@ -427,4 +427,16 @@
   <data name="Timeline" xml:space="preserve">
     <value>Временная линия</value>
   </data>
+  <data name="AddingEventToCalendarFail" xml:space="preserve">
+    <value>Не удалось добавить пару в календарь</value>
+  </data>
+  <data name="AddingEventToCalendarSuccess" xml:space="preserve">
+    <value>Пара было упешно добавлена в календарь</value>
+  </data>
+  <data name="AddingToCalendarTitle" xml:space="preserve">
+    <value>Добавление в календарь</value>
+  </data>
+  <data name="AddToCalendar" xml:space="preserve">
+    <value>Добавить в календарь</value>
+  </data>
 </root>

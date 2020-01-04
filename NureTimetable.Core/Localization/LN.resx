@@ -427,4 +427,16 @@ To update, click on the button in the upper right corner.</value>
   <data name="Timeline" xml:space="preserve">
     <value>Timeline</value>
   </data>
+  <data name="AddingEventToCalendarFail" xml:space="preserve">
+    <value>Unable to add event to calendar</value>
+  </data>
+  <data name="AddingEventToCalendarSuccess" xml:space="preserve">
+    <value>Event has been added to calendar</value>
+  </data>
+  <data name="AddingToCalendarTitle" xml:space="preserve">
+    <value>Adding to calendar</value>
+  </data>
+  <data name="AddToCalendar" xml:space="preserve">
+    <value>Add to calendar</value>
+  </data>
 </root>

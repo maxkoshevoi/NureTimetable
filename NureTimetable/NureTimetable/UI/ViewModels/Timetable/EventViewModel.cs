@@ -9,8 +9,8 @@ namespace NureTimetable.UI.ViewModels.Timetable
     {
         public EventViewModel(Event ev)
         {
-            Start = ev.Start;
-            End = ev.End;
+            StartUtc = ev.StartUtc;
+            EndUtc = ev.EndUtc;
             Groups = ev.Groups;
             Teachers = ev.Teachers;
             RoomName = ev.RoomName;
