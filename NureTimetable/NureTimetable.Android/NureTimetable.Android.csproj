@@ -65,9 +65,11 @@
     <AndroidAotAdditionalArguments>no-write-symbols,nodebug</AndroidAotAdditionalArguments>
     <CodeAnalysisRuleSet />
     <LangVersion>latest</LangVersion>
-    <AndroidLinkTool>r8</AndroidLinkTool>
     <AndroidEnableProfiledAot>true</AndroidEnableProfiledAot>
     <AndroidUseAapt2>true</AndroidUseAapt2>
+    <AndroidPackageFormat>apk</AndroidPackageFormat>
+    <AndroidDexTool>d8</AndroidDexTool>
+    <AndroidLinkTool>proguard</AndroidLinkTool>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />

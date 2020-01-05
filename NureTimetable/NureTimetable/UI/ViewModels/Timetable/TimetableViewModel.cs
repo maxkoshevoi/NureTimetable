@@ -356,7 +356,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
                     return;
                 }
                 needToUpdateEventsUI = false;
-                Device.BeginInvokeOnMainThread(async () =>
+                Device.BeginInvokeOnMainThread(() =>
                 {
                     if (timetableInfoList.Count == 0)
                     {
@@ -364,47 +364,21 @@ namespace NureTimetable.UI.ViewModels.Timetable
                         return;
                     }
 
-                    int retriesLeft = 25;
-                    Exception exception = null;
-                    do
+                    lock (enumeratingEvents)
                     {
-                        try
-                        {
-                            lock (enumeratingEvents)
-                            {
-                                TimetableMinDisplayDate = timetableInfoList.StartDate();
-                                TimetableMaxDisplayDate = timetableInfoList.EndDate();
+                        TimetableMinDisplayDate = timetableInfoList.StartDate();
+                        TimetableMaxDisplayDate = timetableInfoList.EndDate();
 
-                                TimetableEndHour = 24;
-                                TimetableStartHour = timetableInfoList.StartTime().Hours;
-                                TimetableEndHour = ((TimetableStartHour * 60d) + TimetableTimeInterval * Math.Ceiling((timetableInfoList.EndTime().TotalMinutes - (TimetableStartHour * 60d)) / TimetableTimeInterval)) / 60d;
-                            }
-
-                            TimetableDataSource = timetableInfoList.Events
-                                .Select(ev => new EventViewModel(ev))
-                                .ToList();
-
-                            UpdateTimeLeft();
-                            break;
-                        }
-                        catch (Exception ex)
-                        {
-                            // Potential error with the SfSchedule control. Needs investigation!
-                            exception = ex;
-
-                            // This is temporary to check if this error is still occuring. TODO: Remove while loop if it doesn't
-                            MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, exception);
-                        }
-
-                        retriesLeft--;
-                    } while (retriesLeft > 0);
-                    if (retriesLeft == 0 && exception != null)
-                    {
-                        MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, exception);
-
-                        await App.Current.MainPage.DisplayAlert(LN.TimetableDisplay, LN.TimetableDisplayError, LN.Ok);
-                        return;
+                        TimetableEndHour = 24;
+                        TimetableStartHour = timetableInfoList.StartTime().Hours;
+                        TimetableEndHour = ((TimetableStartHour * 60d) + TimetableTimeInterval * Math.Ceiling((timetableInfoList.EndTime().TotalMinutes - (TimetableStartHour * 60d)) / TimetableTimeInterval)) / 60d;
                     }
+
+                    TimetableDataSource = timetableInfoList.Events
+                        .Select(ev => new EventViewModel(ev))
+                        .ToList();
+
+                    UpdateTimeLeft();
                 });
             }
         }
