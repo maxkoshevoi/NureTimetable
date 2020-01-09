@@ -439,4 +439,7 @@ To update, click on the button in the upper right corner.</value>
   <data name="AddToCalendar" xml:space="preserve">
     <value>Add to calendar</value>
   </data>
+  <data name="ChooseCalendar" xml:space="preserve">
+    <value>Choose calendar:</value>
+  </data>
 </root>

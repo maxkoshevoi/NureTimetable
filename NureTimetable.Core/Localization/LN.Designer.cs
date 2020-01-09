@@ -214,6 +214,15 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Choose calendar:.
+        /// </summary>
+        public static string ChooseCalendar {
+            get {
+                return ResourceManager.GetString("ChooseCalendar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Choose display mode:.
         /// </summary>
         public static string ChooseDisplayMode {

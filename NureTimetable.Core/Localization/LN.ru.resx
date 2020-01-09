@@ -439,4 +439,7 @@
   <data name="AddToCalendar" xml:space="preserve">
     <value>Добавить в календарь</value>
   </data>
+  <data name="ChooseCalendar" xml:space="preserve">
+    <value>Выберите календарь:</value>
+  </data>
 </root>
