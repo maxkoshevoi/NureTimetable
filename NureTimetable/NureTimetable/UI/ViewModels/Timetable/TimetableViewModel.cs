@@ -485,7 +485,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 string customCalendarName = "NURE Timetable";
                 try
                 {
-                    await Task.Run(async () =>
+                    bool isAdded = await Task.Run(async () =>
                     {
                         status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Calendar);
                         if (status != PermissionStatus.Granted)
@@ -494,9 +494,11 @@ namespace NureTimetable.UI.ViewModels.Timetable
                         }
 
                         IList<Calendars.Calendar> calendars = await Device.InvokeOnMainThreadAsync(async () => await CrossCalendars.Current.GetCalendarsAsync());
-                        calendars = calendars.Where(c => c.CanEditCalendar).ToList();
+                        calendars = calendars.Where(c => 
+                            c.Name.ToLower() == c.AccountName.ToLower() 
+                            || c.AccountName.ToLower() == customCalendarName.ToLower()).ToList();
                         Calendars.Calendar customCalendar = calendars
-                            .Where(c => c.Name == customCalendarName)
+                            .Where(c => c.AccountName.ToLower() == customCalendarName.ToLower())
                             .FirstOrDefault();
                         if (customCalendar == null)
                         {
@@ -507,6 +509,13 @@ namespace NureTimetable.UI.ViewModels.Timetable
                             await CrossCalendars.Current.AddOrUpdateCalendarAsync(customCalendar);
                             calendars.Add(customCalendar);
                         }
+                        else if (calendars.Where(c => c.AccountName == customCalendar.AccountName).Count() > 1)
+                        {
+                            Device.BeginInvokeOnMainThread(() =>
+                            {
+                                MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, new IndexOutOfRangeException($"There are {calendars.Where(c => c.AccountName == customCalendar.AccountName).Count()} calendars with AccountName {customCalendar.AccountName}"));
+                            });
+                        }
                         
                         Calendars.Calendar targetCalendar;
                         if (calendars.Count == 1)
@@ -516,14 +525,14 @@ namespace NureTimetable.UI.ViewModels.Timetable
                         else
                         {
                             string targetCalendarName = await Device.InvokeOnMainThreadAsync(async () => await App.Current.MainPage.DisplayActionSheet(
-                                LN.AddingToCalendarTitle,
-                                LN.Cancel,
                                 LN.ChooseCalendar,
+                                LN.Cancel,
+                                null,
                                 calendars.Select(c => c.Name).ToArray()));
 
                             if (targetCalendarName == LN.Cancel)
                             {
-                                return;
+                                return false;
                             }
                             targetCalendar = calendars.First(c => c.Name == targetCalendarName);
                         }
@@ -548,8 +557,13 @@ namespace NureTimetable.UI.ViewModels.Timetable
                         };
                         await CrossCalendars.Current.AddOrUpdateEventAsync(targetCalendar, calendarEvent);
 
+                        return true;
+
                     });
-                    await App.Current.MainPage.DisplayAlert(LN.AddingToCalendarTitle, LN.AddingEventToCalendarSuccess, LN.Ok);
+                    if (isAdded)
+                    {
+                        await App.Current.MainPage.DisplayAlert(LN.AddingToCalendarTitle, LN.AddingEventToCalendarSuccess, LN.Ok);
+                    }
                 }
                 catch (Exception ex)
                 {
