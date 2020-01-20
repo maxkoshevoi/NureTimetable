@@ -487,6 +487,8 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 {
                     bool isAdded = await Task.Run(async () =>
                     {
+                        bool isCustomCalendarExists = true;
+
                         status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Calendar);
                         if (status != PermissionStatus.Granted)
                         {
@@ -502,11 +504,11 @@ namespace NureTimetable.UI.ViewModels.Timetable
                             .FirstOrDefault();
                         if (customCalendar == null)
                         {
+                            isCustomCalendarExists = false;
                             customCalendar = new Calendars.Calendar
                             {
                                 Name = customCalendarName
                             };
-                            await CrossCalendars.Current.AddOrUpdateCalendarAsync(customCalendar);
                             calendars.Add(customCalendar);
                         }
                         else if (calendars.Where(c => c.AccountName == customCalendar.AccountName).Count() > 1)
@@ -530,7 +532,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
                                 null,
                                 calendars.Select(c => c.Name).ToArray()));
 
-                            if (targetCalendarName == LN.Cancel)
+                            if (string.IsNullOrEmpty(targetCalendarName) || targetCalendarName == LN.Cancel)
                             {
                                 return false;
                             }
@@ -546,7 +548,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
                             Description = string.Format(LN.EventClassroom, ev.RoomName) + nl +
                                 string.Format(LN.EventTeachers, string.Join(", ", ev.Teachers.Select(t => t.Name))) + nl +
                                 string.Format(LN.EventGroups, string.Join(", ", ev.Groups.Select(t => t.Name))),
-                            Location = $"Kharkivsʹkyy Natsionalʹnyy Universytet Radioelektroniky -\"{string.Format(LN.EventClassroom, ev.RoomName)}\"",
+                            Location = $"KHNURE -\"{ev.RoomName}\"",
                             Reminders = new[] {
                                 new Calendars.CalendarEventReminder
                                 {
@@ -555,10 +557,14 @@ namespace NureTimetable.UI.ViewModels.Timetable
                                 }
                             }
                         };
+
+                        if (!isCustomCalendarExists && targetCalendar == customCalendar)
+                        {
+                            await CrossCalendars.Current.AddOrUpdateCalendarAsync(customCalendar);
+                        }
                         await CrossCalendars.Current.AddOrUpdateEventAsync(targetCalendar, calendarEvent);
 
                         return true;
-
                     });
                     if (isAdded)
                     {
