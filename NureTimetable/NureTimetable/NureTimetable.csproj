@@ -18,16 +18,16 @@
 
   <ItemGroup>
     <PackageReference Include="CClarke.Plugin.Calendars" Version="1.0.14" />
-    <PackageReference Include="Microsoft.AppCenter.Analytics" Version="2.6.4" />
-    <PackageReference Include="Microsoft.AppCenter.Crashes" Version="2.6.4" />
+    <PackageReference Include="Microsoft.AppCenter.Analytics" Version="3.0.0" />
+    <PackageReference Include="Microsoft.AppCenter.Crashes" Version="3.0.0" />
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Plugin.Permissions" Version="3.0.0.12" />
-    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="17.4.0.43" />
-    <PackageReference Include="Syncfusion.Xamarin.SfSchedule" Version="17.4.0.43" />
-    <PackageReference Include="Xamarin.Forms" Version="4.4.0.991477" />  
+    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="17.4.0.51" />
+    <PackageReference Include="Syncfusion.Xamarin.SfSchedule" Version="17.4.0.51" />
+    <PackageReference Include="Xamarin.Forms" Version="4.5.0.356" />  
   </ItemGroup>
 
   <ItemGroup>

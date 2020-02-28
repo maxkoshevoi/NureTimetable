@@ -19,7 +19,7 @@ namespace NureTimetable.DAL.Models.Cist
         public DateTime EndTime { get; set; }
 
         [JsonProperty("type")]
-        public long TypeId { get; set; }
+        public long? TypeId { get; set; }
 
         [JsonProperty("number_pair")]
         public int PairNumber { get; set; }

@@ -70,14 +70,18 @@ namespace NureTimetable.DAL.Helpers
             }
 
             T instance;
+            var settings = new JsonSerializerSettings()
+            {
+                NullValueHandling = NullValueHandling.Ignore
+            };
             try
             {
-                instance = JsonConvert.DeserializeObject<T>(json);
+                instance = JsonConvert.DeserializeObject<T>(json, settings);
             }
             catch (JsonReaderException)
             {
-                json = EscapeDoubleQuotesInJsonPropertyValues(json);
-                instance = JsonConvert.DeserializeObject<T>(json);
+                json = TryToFixJson(json);
+                instance = JsonConvert.DeserializeObject<T>(json, settings);
 
                 Device.BeginInvokeOnMainThread(() =>
                 {
@@ -142,7 +146,11 @@ namespace NureTimetable.DAL.Helpers
         #endregion
 
         #region JsonFixers
-        public static string EscapeDoubleQuotesInJsonPropertyValues(string invalidJsonStr)
+        /// <summary>
+        /// 1. Escapes double quotes in json property values
+        /// 2. Replaces ":," with ":null,"
+        /// </summary>
+        public static string TryToFixJson(string invalidJsonStr)
         {
             var invalidJson = new StringBuilder(invalidJsonStr);
 
@@ -164,6 +172,14 @@ namespace NureTimetable.DAL.Helpers
                 int lastStartIndex = -1,
                     startIndex = invalidJson.IndexOf(start);
 
+                // Fix non-string Json
+                if (startIndex > -1)
+                {
+                    string newJson = invalidJson.ToString(0, startIndex);
+                    newJson = FixNonStringJson(newJson);
+                    ReplaceStringPart(invalidJson, 0, startIndex, newJson);
+                }
+
                 while (startIndex != -1)
                 {
                     int endIndex = stringEnd
@@ -176,21 +192,68 @@ namespace NureTimetable.DAL.Helpers
                         break;
                     }
 
+                    // Fix string
                     int innerStringStart = startIndex + start.Length, innerStringLength = endIndex - innerStringStart;
                     string newString = invalidJson.ToString(innerStringStart, innerStringLength);
                     if (newString.IndexOf('\"') != -1)
                     {
-                        invalidJson.Remove(innerStringStart, innerStringLength);
-                        newString = newString.Replace("\"", "\\\"");
-                        invalidJson.Insert(innerStringStart, newString);
+                        newString = FixJsonString(newString);
+                        ReplaceStringPart(invalidJson, innerStringStart, innerStringLength, newString);
                     }
 
                     lastStartIndex = startIndex;
                     startIndex = invalidJson.IndexOf(start, lastStartIndex + 1);
+
+                    // Fix non-string Json
+                    if (startIndex > -1)
+                    {
+                        int nonStringLength = startIndex - endIndex;
+                        string newJson = invalidJson.ToString(endIndex, nonStringLength);
+                        newJson = FixNonStringJson(newJson);
+                        ReplaceStringPart(invalidJson, endIndex, nonStringLength, newJson);
+
+                        startIndex = invalidJson.IndexOf(start, lastStartIndex + 1);
+                    }
                 }
             }
 
             return invalidJson.ToString();
+        }
+
+        private static void ReplaceStringPart(StringBuilder stringToModify, int partStart, int partLength, string newString)
+        {
+            stringToModify.Remove(partStart, partLength);
+            stringToModify.Insert(partStart, newString);
+        }
+
+        private static string FixNonStringJson(string newJson)
+        {
+            // Remove non-essential data
+            string[] nonEssentialCharacters =
+            {
+                "\r",
+                "\n",
+                " ",
+                "\t"
+            };
+            newJson = nonEssentialCharacters.Aggregate(newJson, (res, ch) => res.Replace(ch, ""));
+
+            // Add null values instead of empty ones
+            string[] noValue = 
+            {
+                ":,",
+                ":]",
+                ":}"
+            };
+            newJson = noValue.Aggregate(newJson, (res, nv) => res.Replace(nv, nv.Insert(1, "null")));
+
+            return newJson;
+        }
+
+        private static string FixJsonString(string newString)
+        {
+            newString = newString.Replace("\"", "\\\"");
+            return newString;
         }
         #endregion
     }

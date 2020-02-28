@@ -126,7 +126,9 @@ namespace NureTimetable.DAL
                     {
                         Local.Event localEvent = MapConfig.Map<Cist.Event, Local.Event>(ev);
                         localEvent.Lesson = MapConfig.Map<Cist.Lesson, Local.Lesson>(cistTimetable.Lessons.First(l => l.Id == ev.LessonId));
-                        localEvent.Type = MapConfig.Map<Cist.EventType, Local.EventType>(cistTimetable.EventTypes.First(et => et.Id == ev.TypeId));
+                        localEvent.Type = MapConfig.Map<Cist.EventType, Local.EventType>(
+                            cistTimetable.EventTypes.FirstOrDefault(et => et.Id == ev.TypeId) ?? Cist.EventType.UnknownType
+                        );
                         localEvent.Teachers = cistTimetable.Teachers
                             .Where(t => ev.TeacherIds.Contains(t.Id))
                             .DistinctBy(t => t.ShortName.Replace('ї', 'i'))
