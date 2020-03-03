@@ -70,18 +70,14 @@ namespace NureTimetable.DAL.Helpers
             }
 
             T instance;
-            var settings = new JsonSerializerSettings()
-            {
-                NullValueHandling = NullValueHandling.Ignore
-            };
             try
             {
-                instance = JsonConvert.DeserializeObject<T>(json, settings);
+                instance = JsonConvert.DeserializeObject<T>(json);
             }
             catch (JsonReaderException)
             {
                 json = TryToFixJson(json);
-                instance = JsonConvert.DeserializeObject<T>(json, settings);
+                instance = JsonConvert.DeserializeObject<T>(json);
 
                 Device.BeginInvokeOnMainThread(() =>
                 {
