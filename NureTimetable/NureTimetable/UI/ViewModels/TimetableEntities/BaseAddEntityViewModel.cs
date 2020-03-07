@@ -174,8 +174,10 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
 
             await Task.Factory.StartNew(() =>
             {
+                TimeSpan? timePass = DateTime.Now - SettingsRepository.GetLastCistAllEntitiesUpdateTime();
+
                 UniversityEntitiesRepository.UniversityEntitiesCistUpdateResult updateFromCistResult = null;
-                if (fromCistOnly)
+                if (fromCistOnly || timePass > TimeSpan.FromDays(25))
                 {
                     updateFromCistResult = UniversityEntitiesRepository.UpdateFromCist();
 

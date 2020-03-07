@@ -81,7 +81,7 @@ namespace NureTimetable.DAL.Helpers
 
                 Device.BeginInvokeOnMainThread(() =>
                 {
-                    var ex = new InvalidDataException("Double quotes in json property value detected");
+                    var ex = new InvalidDataException("Faulty json was discovered and fixed");
                     ex.Data.Add("Json", json);
                     MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
                 });

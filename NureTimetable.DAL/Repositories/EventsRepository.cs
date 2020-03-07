@@ -4,6 +4,7 @@ using NureTimetable.DAL.Helpers;
 using NureTimetable.DAL.Models.Consts;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -115,13 +116,33 @@ namespace NureTimetable.DAL
                     }
 
                     // Updating timetable information
-                    IEnumerable<Cist.Event> ownEvents = entity.Type switch
+                    List<Cist.Event> ownEvents = entity.Type switch
                     {
-                        Local.TimetableEntityType.Group => cistTimetable.Events.Where(e => e.GroupIds.Contains(entity.ID)),
-                        Local.TimetableEntityType.Teacher => cistTimetable.Events.Where(e => e.TeacherIds.Contains(entity.ID)),
-                        Local.TimetableEntityType.Room => cistTimetable.Events.Where(e => e.Room == entity.Name),
+                        Local.TimetableEntityType.Group => cistTimetable.Events.Where(e => e.GroupIds.Contains(entity.ID)).ToList(),
+                        Local.TimetableEntityType.Teacher => cistTimetable.Events.Where(e => e.TeacherIds.Contains(entity.ID)).ToList(),
+                        Local.TimetableEntityType.Room => ((Func<List<Cist.Event>>)(() => {
+                            var events = cistTimetable.Events.Where(e => e.Room == entity.Name).ToList();
+                            if (!events.Any())
+                            {
+                                // Room name can change and this causes error
+                                events = cistTimetable.Events;
+                            }
+                            return events;
+                        }))(),
                         _ => throw new ArgumentException("Unknown entity type"),
                     };
+                    if (ownEvents.Count != cistTimetable.Events.Count)
+                    {
+                        // TODO: I don't know why ownEvents switch is needed, so this if tries to find this out
+                        Device.BeginInvokeOnMainThread(() =>
+                        {
+                            var ex = new InvalidDataException("ownEvents.Count != cistTimetable.Events.Count");
+                            ex.Data.Add("Entity", $"{entity.Type} {entity.Name} ({entity.ID})");
+                            ex.Data.Add("ownEvents.Count", ownEvents.Count);
+                            ex.Data.Add("cistTimetable.Events.Count", cistTimetable.Events.Count);
+                            MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
+                        });
+                    }
                     timetable.Events = ownEvents.Select(ev =>
                     {
                         Local.Event localEvent = MapConfig.Map<Cist.Event, Local.Event>(ev);
