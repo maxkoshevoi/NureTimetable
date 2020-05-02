@@ -6,8 +6,8 @@
              xmlns:syncfusion="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
              xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels.Lessons.LessonSettings"
              x:Class="NureTimetable.UI.Views.Lessons.LessonSettingsPage"
+             x:DataType="vm:LessonSettingsViewModel"
              Title="{Binding Title}">
-             <!--x:DataType="vm:LessonSettingsViewModel"-->
 
     <ScrollView>
         <StackLayout>

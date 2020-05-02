@@ -5,8 +5,8 @@
              xmlns:LN="clr-namespace:NureTimetable.Core.Localization;assembly=NureTimetable.Core"
              xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities"
              x:Class="NureTimetable.UI.Views.TimetableEntities.ManageEntitiesPage"
+             x:DataType="vm:ManageEntitiesViewModel"
              Title="{LN:Translate SavedTimetables}">
-             <!--x:DataType="vm:ManageEntitiesViewModel"-->
 
     <ContentPage.ToolbarItems>
         <ToolbarItem x:DataType="vm:ManageEntitiesViewModel" Icon="update" Command="{Binding UpdateAllCommand}" x:Name="UpdateAll" />
@@ -22,8 +22,7 @@
                     ItemsSource="{Binding Entities}"
                     SelectedItem="{Binding SelectedEntity}">
                 <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <!--x:DataType="vm:SavedEntityItemViewModel"-->
+                    <DataTemplate x:DataType="vm:SavedEntityItemViewModel">
                         <ViewCell>
                             <Grid>
                                 <Grid.ColumnDefinitions>

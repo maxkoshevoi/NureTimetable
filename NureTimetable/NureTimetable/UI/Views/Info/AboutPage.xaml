@@ -4,8 +4,8 @@
              xmlns:LN="clr-namespace:NureTimetable.Core.Localization;assembly=NureTimetable.Core"
              xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels.Info"
              x:Class="NureTimetable.UI.Views.Info.AboutPage"
+             x:DataType="vm:AboutViewModel"
              Title="{LN:Translate About}">
-             <!--x:DataType="vm:AboutViewModel"-->
     
     <ContentPage.Resources>
         <ResourceDictionary>

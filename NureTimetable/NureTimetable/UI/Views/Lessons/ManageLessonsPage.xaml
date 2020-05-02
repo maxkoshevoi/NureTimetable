@@ -6,8 +6,8 @@
              xmlns:syncfusion="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
              xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels.Lessons.ManageLessons"
              x:Class="NureTimetable.UI.Views.Lessons.ManageLessonsPage"
+             x:DataType="vm:ManageLessonsViewModel"
              Title="{Binding Title}">
-             <!--x:DataType="vm:ManageLessonsViewModel"-->
     <ContentPage.Behaviors>
         <behaviors:EventToCommandBehavior x:DataType="vm:ManageLessonsViewModel" EventName="Appearing" Command="{Binding PageAppearingCommand}"/>
     </ContentPage.Behaviors>
@@ -23,8 +23,7 @@
                     ItemTapped="Handle_ItemTapped"
                     CachingStrategy="RecycleElement">
                 <ListView.ItemTemplate>
-                    <!--<DataTemplate x:DataType="vm:LessonViewModel">-->
-                    <DataTemplate>
+                    <DataTemplate x:DataType="vm:LessonViewModel">
                         <ViewCell>
                             <Grid Margin="10,5,10,5">
                                 <Grid.ColumnDefinitions>

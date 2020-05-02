@@ -4,8 +4,8 @@
              xmlns:LN="clr-namespace:NureTimetable.Core.Localization;assembly=NureTimetable.Core"
              xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels.Lessons"
              x:Class="NureTimetable.UI.Views.Lessons.LessonInfoPage"
+             x:DataType="vm:LessonInfoViewModel"
              Title="{Binding Title}">
-             <!--x:DataType="vm:LessonInfoViewModel"-->
 
     <ScrollView>
         <StackLayout Padding="16,20,16,20" Spacing="10">

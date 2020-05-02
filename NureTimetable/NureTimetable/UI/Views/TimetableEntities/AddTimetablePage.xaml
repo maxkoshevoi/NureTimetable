@@ -5,8 +5,8 @@
             xmlns:LN="clr-namespace:NureTimetable.Core.Localization;assembly=NureTimetable.Core"
             x:Class="NureTimetable.UI.Views.TimetableEntities.AddTimetablePage"
             xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels.TimetableEntities"
+            x:DataType="vm:AddTimetableViewModel"
             Title="{LN:Translate AddingTimetable}">
-            <!--x:DataType="vm:AddTimetableViewModel"-->
 
     <views:AddEntityPage BindingContext="{Binding AddGroupPageViewModel}" />
     <views:AddEntityPage BindingContext="{Binding AddTeacherPageViewModel}" />

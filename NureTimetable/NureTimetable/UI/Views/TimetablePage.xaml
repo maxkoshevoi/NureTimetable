@@ -7,8 +7,8 @@
              xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
              xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels.Timetable"
              x:Class="NureTimetable.UI.Views.TimetablePage"
+             x:DataType="vm:TimetableViewModel"
              Title="{Binding Title}">
-             <!--x:DataType="vm:TimetableViewModel"-->
     <ContentPage.Behaviors>
         <behaviors:EventToCommandBehavior x:DataType="vm:TimetableViewModel" EventName="Appearing" Command="{Binding PageAppearingCommand}"/>
         <behaviors:EventToCommandBehavior x:DataType="vm:TimetableViewModel" EventName="Disappearing" Command="{Binding PageDisappearingCommand}"/>

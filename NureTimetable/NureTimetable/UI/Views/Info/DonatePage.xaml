@@ -5,8 +5,8 @@
              xmlns:products="clr-namespace:NureTimetable.Core.Models.Consts;assembly=NureTimetable.Core"
              xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels.Info"
              x:Class="NureTimetable.UI.Views.Info.DonatePage"
+             x:DataType="vm:DonateViewModel"
              Title="{LN:Translate Donate}">
-             <!--x:DataType="vm:DonateViewModel"-->
 
     <ContentPage.Resources>
         <ResourceDictionary>
