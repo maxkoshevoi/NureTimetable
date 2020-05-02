@@ -11,14 +11,6 @@ namespace NureTimetable.DAL.Models.Local
         #region Equals
         public static bool operator ==(BaseEntity<T> obj1, BaseEntity<T> obj2)
         {
-            if (ReferenceEquals(obj1, obj2))
-            {
-                return true;
-            }
-            if (ReferenceEquals(obj1, null) || ReferenceEquals(obj2, null))
-            {
-                return false;
-            }
             return obj1.ID.CompareTo(obj2.ID) == 0;
         }
 

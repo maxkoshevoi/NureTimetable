@@ -11,7 +11,7 @@ namespace NureTimetable.UI.ViewModels.Lessons.LessonSettings
     public class LessonSettingsViewModel : BaseViewModel
     {
         #region Variables
-        LessonInfo lessonInfo;
+        readonly LessonInfo lessonInfo;
         bool updatingProgrammatically = false;
 
         private bool? _showLessonIsChecked = false;

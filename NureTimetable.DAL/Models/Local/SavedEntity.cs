@@ -53,7 +53,7 @@ namespace NureTimetable.DAL.Models.Local
             {
                 return true;
             }
-            if (ReferenceEquals(obj1, null) || ReferenceEquals(obj2, null))
+            if (obj1 is null || obj2 is null)
             {
                 return false;
             }
@@ -67,9 +67,9 @@ namespace NureTimetable.DAL.Models.Local
 
         public override bool Equals(object obj)
         {
-            if (obj is SavedEntity)
+            if (obj is SavedEntity savedEntity)
             {
-                return this == (SavedEntity)obj;
+                return this == savedEntity;
             }
             return base.Equals(obj);
         }

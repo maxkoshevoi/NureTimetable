@@ -17,7 +17,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
     public class SavedEntityItemViewModel : BaseViewModel
     {
         #region variables
-        private ManageEntitiesViewModel _manageEntitiesViewModel;
+        private readonly ManageEntitiesViewModel _manageEntitiesViewModel;
         #endregion
 
         #region Properties

@@ -20,7 +20,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
         }
 
         public string DisplayInfo
-               => $"{Lesson.ShortName}{Environment.NewLine}{RoomName} {Type.ShortName}{Environment.NewLine}{Start.ToString("HH:mm")} - {End.ToString("HH:mm")}";
+               => $"{Lesson.ShortName}{Environment.NewLine}{RoomName} {Type.ShortName}{Environment.NewLine}{Start:HH:mm} - {End:HH:mm}";
 
         public Color Color
         {

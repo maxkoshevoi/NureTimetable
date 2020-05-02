@@ -30,7 +30,7 @@ namespace NureTimetable.DAL.Models.Local
 
         public static TimetableInfoList Build(List<TimetableInfo> timetableInfos, bool applyHiddingSettings)
         {
-            timetableInfos = timetableInfos ?? new List<TimetableInfo>();
+            timetableInfos ??= new List<TimetableInfo>();
 
             if (applyHiddingSettings)
             {

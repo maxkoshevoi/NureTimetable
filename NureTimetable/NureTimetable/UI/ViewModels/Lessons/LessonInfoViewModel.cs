@@ -12,7 +12,7 @@ namespace NureTimetable.UI.ViewModels.Lessons
     {
         #region Variables
         private string _title;
-        private TimetableInfo timetableInfo;
+        private readonly TimetableInfo timetableInfo;
         #endregion
 
         #region Properties
