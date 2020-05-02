@@ -37,6 +37,8 @@
                         ShowAppointmentsInline="True"
                         TimeIntervalHeight="-1"
                         VerticalOptions="FillAndExpand"
+                        ShowCurrentTimeIndicator="True"
+                        CurrentTimeIndicatorColor="CornflowerBlue"
                         TimeInterval="{Binding TimetableTimeInterval}"
                         MinDisplayDate="{Binding TimetableMinDisplayDate}"
                         MaxDisplayDate="{Binding TimetableMaxDisplayDate}"
