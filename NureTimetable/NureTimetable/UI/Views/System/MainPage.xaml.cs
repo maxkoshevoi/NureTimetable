@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using NureTimetable.Core.Extensions;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -96,13 +97,13 @@ namespace NureTimetable.UI.Views
             // Special cases for certain exception types
             if (ex is WebException webException)
             {
-                // WebException happens for external reasons, and should't be treated as an exception.
+                // WebException happens for external reasons, and shouldn't be treated as an exception.
                 // But just in case it is logged as Event
 
                 properties.Add("Status", webException.Status.ToString());
                 properties.Add("Message", webException.Message);
 
-                if (new[] { WebExceptionStatus.NameResolutionFailure, WebExceptionStatus.ConnectFailure }.Contains(webException.Status))
+                if (webException.IsNoInternet())
                 {
                     // Most likely device doesn't have internet connection
                     return;

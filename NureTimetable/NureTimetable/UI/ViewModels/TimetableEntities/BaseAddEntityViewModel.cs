@@ -75,7 +75,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
         public BaseAddEntityViewModel(INavigation navigation) : base(navigation)
         {
             SearchBarTextChangedCommand = CommandHelper.CreateCommand(SearchBarTextChanged);
-            ContentPageAppearingCommand = CommandHelper.CreateCommand(UpdateEntities);
+            ContentPageAppearingCommand = CommandHelper.CreateCommand(async () => await UpdateEntities());
             UpdateCommand = CommandHelper.CreateCommand(UpdateFromCist);
             Device.BeginInvokeOnMainThread(async () => await UpdateEntities(false));
 
@@ -91,7 +91,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
 
         protected abstract IOrderedEnumerable<T> SearchEntities(string searchQuery);
 
-        protected abstract List<T> GetAllEntitiesFromCist();
+        protected abstract List<T> GetAllEntities();
 
         #endregion
 
@@ -162,49 +162,40 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
             }
         }
 
-        protected async Task UpdateEntities()
-        {
-            await UpdateEntities(false);
-        }
-
-        protected async Task UpdateEntities(bool fromCistOnly = false)
+        public async Task UpdateEntities(bool fromCistOnly = false)
         {
             ProgressLayoutIsVisable = true;
             ProgressLayoutIsEnable = false;
 
-            await Task.Factory.StartNew(() =>
+            await Task.Run(() =>
             {
-                TimeSpan? timePass = DateTime.Now - SettingsRepository.GetLastCistAllEntitiesUpdateTime();
-
-                UniversityEntitiesRepository.UniversityEntitiesCistUpdateResult updateFromCistResult = null;
-                if (fromCistOnly || timePass > TimeSpan.FromDays(25))
+                if (fromCistOnly)
                 {
-                    updateFromCistResult = UniversityEntitiesRepository.UpdateFromCist();
+                    var updateFromCistResult = UniversityEntitiesRepository.UpdateFromCist();
 
                     if (updateFromCistResult.IsAllFail)
                     {
                         Device.BeginInvokeOnMainThread(() =>
                         {
-                            App.Current.MainPage.DisplayAlert(LN.UniversityInfoUpdate, LN.UniversityInfoUpdateFail, LN.Ok);
+                            App.Current.MainPage.DisplayAlert(LN.UniversityInfoUpdate,
+                                updateFromCistResult.IsConnectionIssues
+                                    ? LN.CannotConnectToCist
+                                    : LN.UniversityInfoUpdateFail, 
+                                LN.Ok);
                         });
-
-                        ProgressLayoutIsVisable = false;
-                        ProgressLayoutIsEnable = true;
-
-                        return;
                     }
                     else if (!updateFromCistResult.IsAllSuccessful)
                     {
                         string failedEntities = Environment.NewLine;
-                        if (!updateFromCistResult.IsGroupsOk)
+                        if (updateFromCistResult.GroupsException != null)
                         {
                             failedEntities += LN.Groups + Environment.NewLine;
                         }
-                        if (!updateFromCistResult.IsTeachersOk)
+                        if (updateFromCistResult.TeachersException != null)
                         {
                             failedEntities += LN.Teachers + Environment.NewLine;
                         }
-                        if (!updateFromCistResult.IsRoomsOk)
+                        if (updateFromCistResult.RoomsException != null)
                         {
                             failedEntities += LN.Rooms + Environment.NewLine;
                         }
@@ -219,7 +210,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
                 {
                     UniversityEntitiesRepository.AssureInitialized();
                 }
-                _allEntities = GetAllEntitiesFromCist();
+                _allEntities = GetAllEntities();
                 Entities = new ObservableCollection<T>(OrderEntities());
                 
                 NoSourceLayoutIsVisible = Entities.Count == 0;

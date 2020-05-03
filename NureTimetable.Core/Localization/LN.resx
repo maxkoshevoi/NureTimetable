@@ -442,4 +442,8 @@ To update, click on the button in the upper right corner.</value>
   <data name="ChooseCalendar" xml:space="preserve">
     <value>Choose calendar:</value>
   </data>
+  <data name="CannotConnectToCist" xml:space="preserve">
+    <value>Cannot connect to cist.nure.ua.
+Try using different WIFI network or mobile internet connection.</value>
+  </data>
 </root>

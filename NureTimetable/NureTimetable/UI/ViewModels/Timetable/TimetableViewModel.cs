@@ -115,18 +115,14 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 activeCultureCode = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
             }
             TimetableLocale = activeCultureCode;
-            switch (settings.TimetableViewMode)
+            TimetableScheduleView = settings.TimetableViewMode switch
             {
-                case TimetableViewMode.Day:
-                    TimetableScheduleView = ScheduleView.DayView;
-                    break;
-                case TimetableViewMode.Week:
-                    TimetableScheduleView = ScheduleView.WeekView;
-                    break;
-                case TimetableViewMode.Month:
-                    TimetableScheduleView = ScheduleView.MonthView;
-                    break;
-            }
+                TimetableViewMode.Day => ScheduleView.DayView,
+                TimetableViewMode.Week => ScheduleView.WeekView,
+                TimetableViewMode.Month => ScheduleView.MonthView,
+                TimetableViewMode.Timeline => ScheduleView.TimelineView,
+                _ => TimetableScheduleView
+            };
 
             MessagingCenter.Subscribe<Application, List<SavedEntity>>(this, MessageTypes.SelectedEntitiesChanged, (sender, newSelectedEntities) =>
             {
@@ -482,7 +478,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 ProgressLayoutIsVisible = true;
                 
                 PermissionStatus? status = null;
-                string customCalendarName = "NURE Timetable";
+                const string customCalendarName = "NURE Timetable";
                 try
                 {
                     bool isAdded = await Task.Run(async () =>
@@ -573,7 +569,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 }
                 catch (Exception ex)
                 {
-                    if (status == null && status == PermissionStatus.Granted)
+                    if (status == null || status == PermissionStatus.Granted)
                     {
                         Device.BeginInvokeOnMainThread(() =>
                         {

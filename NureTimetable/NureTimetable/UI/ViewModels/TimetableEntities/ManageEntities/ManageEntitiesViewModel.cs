@@ -12,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using NureTimetable.Core.Extensions;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 
@@ -207,11 +208,18 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
 #endif
 
                 List<string> success = new List<string>(), fail = new List<string>();
+                bool isNoConnection = false;
                 foreach (SavedEntity entity in entitiesAllowed)
                 {
-                    if (EventsRepository.GetTimetableFromCist(entity, Config.TimetableFromDate, Config.TimetableToDate) != null)
+                    Exception ex = EventsRepository.GetTimetableFromCist(entity, Config.TimetableFromDate, Config.TimetableToDate, out _);
+                    if (ex is null)
                     {
                         success.Add(entity.Name);
+                    }
+                    else if (ex.IsNoInternet())
+                    {
+                        isNoConnection = true;
+                        break;
                     }
                     else
                     {
@@ -219,13 +227,20 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
                     }
                 }
                 string result = "";
-                if (success.Count > 0)
+                if (isNoConnection)
                 {
-                    result += string.Format(LN.TimetableUpdated, string.Join(", ", success) + Environment.NewLine);
+                    result = LN.CannotConnectToCist;
                 }
-                if (fail.Count > 0)
+                else
                 {
-                    result += string.Format(LN.ErrorOccurred, string.Join(", ", fail));
+                    if (success.Count > 0)
+                    {
+                        result += string.Format(LN.TimetableUpdated, string.Join(", ", success) + Environment.NewLine);
+                    }
+                    if (fail.Count > 0)
+                    {
+                        result += string.Format(LN.ErrorOccurred, string.Join(", ", fail));
+                    }
                 }
 
                 Device.BeginInvokeOnMainThread(async () =>

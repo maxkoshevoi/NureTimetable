@@ -29,7 +29,7 @@ namespace NureTimetable.DAL
                     throw new ArgumentNullException($"{nameof(dateStart)} and {nameof(dateEnd)} must be set");
                 }
 
-                timetable = GetTimetableFromCist(entity, dateStart.Value, dateEnd.Value);
+                GetTimetableFromCist(entity, dateStart.Value, dateEnd.Value, out timetable);
                 if (timetable != null)
                 {
                     return timetable;
@@ -82,68 +82,38 @@ namespace NureTimetable.DAL
         #endregion
 
         #region Cist
-        public static Local.TimetableInfo GetTimetableFromCist(Local.SavedEntity entity, DateTime dateStart, DateTime dateEnd)
+        public static Exception GetTimetableFromCist(Local.SavedEntity entity, DateTime dateStart, DateTime dateEnd, out Local.TimetableInfo timetable)
         {
-            if (SettingsRepository.CheckCistTimetableUpdateRights(new List<Local.SavedEntity>() { entity }).Count == 0)
+            timetable = null;
+
+            if (SettingsRepository.CheckCistTimetableUpdateRights(new List<Local.SavedEntity> { entity }).Count == 0)
             {
                 return null;
             }
 
-            using (var client = new WebClient
+            using var client = new WebClient
             {
                 Encoding = Encoding.GetEncoding("Windows-1251")
-            })
+            };
+            try
             {
-                try
+                timetable = GetTimetableLocal(entity) ?? new Local.TimetableInfo(entity);
+
+                // Getting events
+                Uri uri = Urls.CistEntityTimetableUrl(entity.Type, entity.ID, dateStart, dateEnd);
+                string responseStr = client.DownloadString(uri);
+                responseStr = responseStr.Replace("&amp;", "&");
+                responseStr = responseStr.Replace("\"events\":[\n]}]", "\"events\": []");
+                Cist.Timetable cistTimetable = Serialisation.FromJson<Cist.Timetable>(responseStr);
+
+                // Check for valid results
+                if (timetable.Events.Count != 0 && cistTimetable.Events.Count == 0)
                 {
-                    Local.TimetableInfo timetable = GetTimetableLocal(entity);
-                    if (timetable == null)
-                    {
-                        timetable = new Local.TimetableInfo(entity);
-                    }
+                    throw new InvalidOperationException("Received timetable is empty");
+                }
 
-                    // Getting events
-                    Uri uri = Urls.CistEntityTimetableUrl(entity.Type, entity.ID, dateStart, dateEnd);
-                    string responseStr = client.DownloadString(uri);
-                    responseStr = responseStr.Replace("&amp;", "&");
-                    responseStr = responseStr.Replace("\"events\":[\n]}]", "\"events\": []");
-                    Cist.Timetable cistTimetable = Serialisation.FromJson<Cist.Timetable>(responseStr);
-
-                    // Check for valid results
-                    if (timetable.Events.Count != 0 && cistTimetable.Events.Count == 0)
-                    {
-                        throw new InvalidOperationException("Received timetable is empty");
-                    }
-
-                    // Updating timetable information
-                    List<Cist.Event> ownEvents = entity.Type switch
-                    {
-                        Local.TimetableEntityType.Group => cistTimetable.Events.Where(e => e.GroupIds.Contains(entity.ID)).ToList(),
-                        Local.TimetableEntityType.Teacher => cistTimetable.Events.Where(e => e.TeacherIds.Contains(entity.ID)).ToList(),
-                        Local.TimetableEntityType.Room => ((Func<List<Cist.Event>>)(() => {
-                            var events = cistTimetable.Events.Where(e => e.Room == entity.Name).ToList();
-                            if (!events.Any())
-                            {
-                                // Room name can change and this causes error
-                                events = cistTimetable.Events;
-                            }
-                            return events;
-                        }))(),
-                        _ => throw new ArgumentException("Unknown entity type"),
-                    };
-                    if (ownEvents.Count != cistTimetable.Events.Count)
-                    {
-                        // TODO: I don't know why ownEvents switch is needed, so this if tries to find this out
-                        Device.BeginInvokeOnMainThread(() =>
-                        {
-                            var ex = new InvalidDataException("ownEvents.Count != cistTimetable.Events.Count");
-                            ex.Data.Add("Entity", $"{entity.Type} {entity.Name} ({entity.ID})");
-                            ex.Data.Add("ownEvents.Count", ownEvents.Count);
-                            ex.Data.Add("cistTimetable.Events.Count", cistTimetable.Events.Count);
-                            MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
-                        });
-                    }
-                    timetable.Events = ownEvents.Select(ev =>
+                // Updating timetable information
+                timetable.Events = cistTimetable.Events.Select(ev =>
                     {
                         Local.Event localEvent = MapConfig.Map<Cist.Event, Local.Event>(ev);
                         localEvent.Lesson = MapConfig.Map<Cist.Lesson, Local.Lesson>(cistTimetable.Lessons.First(l => l.Id == ev.LessonId));
@@ -164,36 +134,36 @@ namespace NureTimetable.DAL
                     .Distinct()
                     .ToList();
 
-                    // Saving timetables
-                    UpdateTimetableLocal(timetable);
+                // Saving timetables
+                UpdateTimetableLocal(timetable);
 
-                    // Updating LastUpdated for saved groups 
-                    List<Local.SavedEntity> AllSavedEntities = UniversityEntitiesRepository.GetSaved();
-                    foreach (Local.SavedEntity savedEntity in AllSavedEntities.Where(e => e == entity))
-                    {
-                        savedEntity.LastUpdated = DateTime.Now;
-                    }
-                    UniversityEntitiesRepository.UpdateSaved(AllSavedEntities);
-
-                    Device.BeginInvokeOnMainThread(() =>
-                    {
-                        MessagingCenter.Send(Application.Current, MessageTypes.TimetableUpdated, entity);
-                    });
-
-                    return timetable;
-                }
-                catch (Exception ex)
+                // Updating LastUpdated for saved groups 
+                List<Local.SavedEntity> AllSavedEntities = UniversityEntitiesRepository.GetSaved();
+                foreach (Local.SavedEntity savedEntity in AllSavedEntities.Where(e => e == entity))
                 {
-                    Device.BeginInvokeOnMainThread(() =>
-                    {
-                        ex.Data.Add("Entity", $"{entity.Type} {entity.Name} ({entity.ID})");
-                        ex.Data.Add("From", dateStart.ToString("dd.MM.yyyy"));
-                        ex.Data.Add("To", dateEnd.ToString("dd.MM.yyyy"));
-                        MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
-                    });
+                    savedEntity.LastUpdated = DateTime.Now;
                 }
+                UniversityEntitiesRepository.UpdateSaved(AllSavedEntities);
+
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    MessagingCenter.Send(Application.Current, MessageTypes.TimetableUpdated, entity);
+                });
+
+                return null;
             }
-            return null;
+            catch (Exception ex)
+            {
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    ex.Data.Add("Entity", $"{entity.Type} {entity.Name} ({entity.ID})");
+                    ex.Data.Add("From", dateStart.ToString("dd.MM.yyyy"));
+                    ex.Data.Add("To", dateEnd.ToString("dd.MM.yyyy"));
+                    MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
+                });
+
+                return ex;
+            }
         }
         #endregion
     }

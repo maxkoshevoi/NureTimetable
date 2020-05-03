@@ -205,6 +205,16 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot connect to cist.nure.ua.
+        ///Try using different WIFI network or mobile internet connection..
+        /// </summary>
+        public static string CannotConnectToCist {
+            get {
+                return ResourceManager.GetString("CannotConnectToCist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Choose action.
         /// </summary>
         public static string ChooseAction {
