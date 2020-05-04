@@ -15,12 +15,14 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
 
         public AddTimetableViewModel(INavigation navigation) : base(navigation)
         {
+            TimeSpan? timePass = DateTime.Now - SettingsRepository.GetLastCistAllEntitiesUpdateTime();
+            bool isNeedReloadFromCist = !UniversityEntitiesRepository.IsInitialized && timePass > TimeSpan.FromDays(25);
+
             AddGroupPageViewModel = new AddGroupViewModel(Navigation);
             AddTeacherPageViewModel = new AddTeacherViewModel(Navigation);
             AddRoomPageViewModel = new AddRoomViewModel(Navigation);
 
-            TimeSpan? timePass = DateTime.Now - SettingsRepository.GetLastCistAllEntitiesUpdateTime();
-            if (!UniversityEntitiesRepository.IsInitialized && timePass > TimeSpan.FromDays(25))
+            if (isNeedReloadFromCist)
             {
                 Device.BeginInvokeOnMainThread(async () => await AddGroupPageViewModel.UpdateEntities(true));
             }
