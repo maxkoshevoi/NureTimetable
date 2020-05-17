@@ -25,9 +25,9 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Plugin.Permissions" Version="3.0.0.12" />
-    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="18.1.0.46" />
-    <PackageReference Include="Syncfusion.Xamarin.SfSchedule" Version="18.1.0.46" />
-    <PackageReference Include="Xamarin.Forms" Version="4.6.0.726" />  
+    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="18.1.0.52" />
+    <PackageReference Include="Syncfusion.Xamarin.SfSchedule" Version="18.1.0.52" />
+    <PackageReference Include="Xamarin.Forms" Version="4.6.0.772" />  
   </ItemGroup>
 
   <ItemGroup>

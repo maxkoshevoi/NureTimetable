@@ -10,20 +10,20 @@ namespace NureTimetable.DAL.Models.Local
         public SavedEntity Entity
         {
             get => entity;
-            set => entity = value ?? throw new NullReferenceException($"Attemt to set {Entity} to null");
+            set => entity = value ?? throw new NullReferenceException($"Attempt to set {nameof(Entity)} to null");
         }
         
         public List<Event> Events
         {
             get => events;
-            set => events = value ?? throw new NullReferenceException($"Attemt to set {Events} to null");
+            set => events = value ?? throw new NullReferenceException($"Attempt to set {nameof(Events)} to null");
         }
 
         private List<LessonInfo> lessonsInfo = new List<LessonInfo>();
         public List<LessonInfo> LessonsInfo
         {
             get => lessonsInfo;
-            set => lessonsInfo = value ?? throw new NullReferenceException($"Attemt to set {LessonsInfo} to null");
+            set => lessonsInfo = value ?? throw new NullReferenceException($"Attempt to set {nameof(LessonsInfo)} to null");
         } 
 
         public TimetableInfo()

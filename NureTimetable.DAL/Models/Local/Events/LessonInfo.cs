@@ -12,7 +12,7 @@ namespace NureTimetable.DAL.Models.Local
         public LessonSettings Settings
         {
             get => settings;
-            set => settings = value ?? throw new NullReferenceException($"Attemt to set {Settings} to null");
+            set => settings = value ?? throw new NullReferenceException($"Attempt to set {nameof(Settings)} to null");
         }
     }
 }

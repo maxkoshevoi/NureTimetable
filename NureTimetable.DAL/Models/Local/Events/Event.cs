@@ -13,12 +13,12 @@ namespace NureTimetable.DAL.Models.Local
         public DateTime Start
         {
             get => StartUtc.Add(TimeZoneInfo.Local.GetUtcOffset(StartUtc));
-            set => StartUtc = value.Add(-TimeZoneInfo.Local.GetUtcOffset(value)); // TODO: Remove setter when all users move to Utc version
+            set => StartUtc = value.Add(-TimeZoneInfo.Local.GetUtcOffset(value)); // TODO: Remove setter when all users move to Utc version (1821+)
         }
         public DateTime End 
         {
             get => EndUtc.Add(TimeZoneInfo.Local.GetUtcOffset(EndUtc));
-            set => EndUtc = value.Add(-TimeZoneInfo.Local.GetUtcOffset(value)); // TODO: Remove setter when all users move to Utc version
+            set => EndUtc = value.Add(-TimeZoneInfo.Local.GetUtcOffset(value)); // TODO: Remove setter when all users move to Utc version (1821+)
         }
         public bool ShouldSerializeStart() => false;
         public bool ShouldSerializeEnd() => false;

@@ -49,12 +49,11 @@ namespace NureTimetable.DAL.Models.Local
                             if (combinedEvent == null)
                             {
                                 combinedEvent = e;
+                                continue;
                             }
-                            else
-                            {
-                                combinedEvent.Groups.AddRange(e.Groups.Except(combinedEvent.Groups));
-                                combinedEvent.Teachers.AddRange(e.Teachers.Except(combinedEvent.Teachers));
-                            }
+
+                            combinedEvent.Groups.AddRange(e.Groups.Except(combinedEvent.Groups));
+                            combinedEvent.Teachers.AddRange(e.Teachers.Except(combinedEvent.Teachers));
                         }
                         return combinedEvent;
                     })
