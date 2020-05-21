@@ -2,7 +2,7 @@
 using NureTimetable.Core.Models.Consts;
 using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
-using NureTimetable.Services.Helpers;
+using NureTimetable.UI.Helpers;
 using NureTimetable.UI.ViewModels.Core;
 using System;
 using System.Collections.Generic;

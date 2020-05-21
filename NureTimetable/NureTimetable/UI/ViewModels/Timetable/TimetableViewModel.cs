@@ -6,7 +6,7 @@ using NureTimetable.Core.Models.InterplatformCommunication;
 using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
 using NureTimetable.Models.Consts.Fonts;
-using NureTimetable.Services.Helpers;
+using NureTimetable.UI.Helpers;
 using NureTimetable.UI.ViewModels.Core;
 using NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities;
 using NureTimetable.UI.Views;

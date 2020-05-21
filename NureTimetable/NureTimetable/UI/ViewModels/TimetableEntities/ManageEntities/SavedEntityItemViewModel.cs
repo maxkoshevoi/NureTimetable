@@ -1,7 +1,7 @@
 ﻿using NureTimetable.Core.Localization;
 using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
-using NureTimetable.Services.Helpers;
+using NureTimetable.UI.Helpers;
 using NureTimetable.UI.ViewModels.Core;
 using NureTimetable.UI.ViewModels.Lessons.ManageLessons;
 using NureTimetable.UI.Views.Lessons;

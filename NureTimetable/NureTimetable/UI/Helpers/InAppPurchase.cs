@@ -6,7 +6,7 @@ using System;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace NureTimetable.Services.Helpers
+namespace NureTimetable.UI.Helpers
 {
     public static class InAppPurchase
     {

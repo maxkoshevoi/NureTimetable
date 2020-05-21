@@ -1,5 +1,5 @@
 ﻿using NureTimetable.DAL.Models.Local;
-using NureTimetable.Services.Helpers;
+using NureTimetable.UI.Helpers;
 using NureTimetable.UI.ViewModels.Core;
 using NureTimetable.UI.ViewModels.Lessons.LessonSettings;
 using NureTimetable.UI.Views.Lessons;

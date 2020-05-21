@@ -1,5 +1,5 @@
 ﻿using NureTimetable.Core.Models.InterplatformCommunication;
-using NureTimetable.Services.Helpers;
+using NureTimetable.UI.Helpers;
 using NureTimetable.UI.ViewModels.Core;
 using System;
 using System.Windows.Input;
