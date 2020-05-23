@@ -91,7 +91,7 @@ namespace NureTimetable.DAL.Helpers
 
         private static bool IsJson(string json)
         {
-            json = json.TrimStart();
+            json = json.TrimStart(' ', '\t', '\r', '\n');
             return !json.StartsWith("{") && !json.StartsWith("[");
         }
 

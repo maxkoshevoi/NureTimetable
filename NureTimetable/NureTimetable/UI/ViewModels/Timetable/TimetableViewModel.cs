@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -323,17 +324,17 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 TimetableLayoutIsVisible = true;
             }
 
+            var timetableInfos = new List<TimetableInfo>();
+            foreach (SavedEntity entity in selectedEntities)
+            {
+                TimetableInfo timetableInfo = EventsRepository.GetTimetableLocal(entity);
+                if (timetableInfo != null)
+                {
+                    timetableInfos.Add(timetableInfo);
+                }
+            }
             lock (enumeratingEvents)
             {
-                var timetableInfos = new List<TimetableInfo>();
-                foreach (SavedEntity entity in selectedEntities)
-                {
-                    TimetableInfo timetableInfo = EventsRepository.GetEvents(entity);
-                    if (timetableInfo != null)
-                    {
-                        timetableInfos.Add(timetableInfo);
-                    }
-                }
                 timetableInfoList = TimetableInfoList.Build(timetableInfos, applyHiddingSettings);
                 needToUpdateEventsUI = true;
             }

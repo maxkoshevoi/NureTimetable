@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1001969" android:versionName="1.6.1969" package="com.whitebox.nuretimetable" android:installLocation="auto">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1002001" android:versionName="1.6.2001" package="com.whitebox.nuretimetable" android:installLocation="auto">
   <uses-sdk android:minSdkVersion="19" android:targetSdkVersion="29" />
   <uses-permission android:name="android.permission.INTERNET" />
   <uses-permission android:name="com.android.vending.BILLING" />
   <uses-permission android:name="android.permission.WRITE_CALENDAR" />
   <uses-permission android:name="android.permission.READ_CALENDAR" />
-  <application android:label="Nure Timetable" android:icon="@mipmap/icon">
+  <application android:label="Nure Timetable" android:icon="@mipmap/icon" android:networkSecurityConfig="@xml/network_security_config">
   </application>
 </manifest>

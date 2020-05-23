@@ -13,6 +13,8 @@ using NureTimetable.Core.Extensions;
 using Xamarin.Forms;
 using Cist = NureTimetable.DAL.Models.Cist;
 using Local = NureTimetable.DAL.Models.Local;
+using System.Threading.Tasks;
+using System.Net.Http;
 
 namespace NureTimetable.DAL
 {
@@ -137,11 +139,27 @@ namespace NureTimetable.DAL
                 return new UniversityEntitiesCistUpdateResult(null, null, null);
             }
 
-            var result = new UniversityEntitiesCistUpdateResult();
             university ??= new Cist.University();
-            result.GroupsException = GetAllGroupsFromCist(ref university);
-            result.TeachersException = GetAllTeachersFromCist(ref university);
-            result.RoomsException = GetAllRoomsFromCist(ref university);
+
+            var groupsTask = GetAllGroupsFromCist();
+            var teachersTask = GetAllTeachersFromCist();
+            var roomsTask = GetAllRoomsFromCist();
+
+            var result = new UniversityEntitiesCistUpdateResult();
+            try
+            {
+                Task.WaitAll(groupsTask, teachersTask, roomsTask);
+            }
+            catch
+            { 
+                result = new UniversityEntitiesCistUpdateResult
+                {
+                    GroupsException = groupsTask.Exception?.InnerException,
+                    TeachersException = teachersTask.Exception?.InnerException,
+                    RoomsException = roomsTask.Exception?.InnerException
+                };
+            }
+
 
             if (!result.IsAllFail)
             {
@@ -153,24 +171,18 @@ namespace NureTimetable.DAL
                 MessagingCenter.Send(Application.Current, MessageTypes.UniversityEntitiesUpdated);
             }
 
-            return result;
-        }
-
-        private static Exception GetAllGroupsFromCist(ref Cist.University university)
-        {
             university ??= new Cist.University();
-
-            using var client = new WebClient
+            if (!roomsTask.IsFaulted)
             {
-                Encoding = Encoding.GetEncoding("Windows-1251")
-            };
-            try
+                university.Buildings = roomsTask.Result;
+            }
+            if (!groupsTask.IsFaulted)
             {
-                Uri uri = Urls.CistAllGroupsUrl;
-                string responseStr = client.DownloadString(uri);
-                Cist.University newUniversity = Serialisation.FromJson<Cist.UniversityRootObject>(responseStr).University;
-
-                foreach (Cist.Faculty faculty in newUniversity.Faculties)
+                university.Faculties = groupsTask.Result;
+            }
+            if (!teachersTask.IsFaulted)
+            {
+                foreach (Cist.Faculty faculty in teachersTask.Result)
                 {
                     Cist.Faculty oldFaculty = university.Faculties.FirstOrDefault(f => f.Id == faculty.Id);
                     if (oldFaculty == null)
@@ -178,12 +190,27 @@ namespace NureTimetable.DAL
                         university.Faculties.Add(faculty);
                         continue;
                     }
-                    faculty.Departments = oldFaculty.Departments;
+                    faculty.Directions = oldFaculty.Directions;
                     university.Faculties.Remove(oldFaculty);
                     university.Faculties.Add(faculty);
                 }
+            }
 
-                return null;
+            return result;
+        }
+
+        private static async Task<List<Cist.Faculty>> GetAllGroupsFromCist()
+        {
+            using var client = new HttpClient();
+            try
+            {
+                Uri uri = Urls.CistAllGroupsUrl;
+                string responseStr = await client.GetStringAsync(uri);
+                Cist.University newUniversity = Serialisation.FromJson<Cist.UniversityRootObject>(responseStr).University;
+
+                var id = System.Threading.Thread.CurrentThread.ManagedThreadId;
+
+                return newUniversity.Faculties;
             }
             catch (Exception ex)
             {
@@ -191,22 +218,17 @@ namespace NureTimetable.DAL
                 {
                     MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
                 });
-                return ex;
+                throw;
             }
         }
 
-        private static Exception GetAllTeachersFromCist(ref Cist.University university)
+        private static async Task<List<Cist.Faculty>> GetAllTeachersFromCist()
         {
-            university ??= new Cist.University();
-
-            using var client = new WebClient
-            {
-                Encoding = Encoding.GetEncoding("Windows-1251")
-            };
+            using var client = new HttpClient();
             try
             {
                 Uri uri = Urls.CistAllTeachersUrl;
-                string responseStr = client.DownloadString(uri);
+                string responseStr = await client.GetStringAsync(uri);
                 Cist.University newUniversity;
                 try
                 {
@@ -220,20 +242,9 @@ namespace NureTimetable.DAL
                     newUniversity = Serialisation.FromJson<Cist.UniversityRootObject>(responseStr).University;
                 }
 
-                foreach (Cist.Faculty faculty in newUniversity.Faculties)
-                {
-                    Cist.Faculty oldFaculty = university.Faculties.FirstOrDefault(f => f.Id == faculty.Id);
-                    if (oldFaculty == null)
-                    {
-                        university.Faculties.Add(faculty);
-                        continue;
-                    }
-                    faculty.Directions = oldFaculty.Directions;
-                    university.Faculties.Remove(oldFaculty);
-                    university.Faculties.Add(faculty);
-                }
+                var id = System.Threading.Thread.CurrentThread.ManagedThreadId;
 
-                return null;
+                return newUniversity.Faculties;
             }
             catch (Exception ex)
             {
@@ -241,28 +252,23 @@ namespace NureTimetable.DAL
                 {
                     MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
                 });
-                return ex;
+                throw;
             }
         }
 
-        private static Exception GetAllRoomsFromCist(ref Cist.University university)
+        private static async Task<List<Cist.Building>> GetAllRoomsFromCist()
         {
-            university ??= new Cist.University();
-
-            using var client = new WebClient
-            {
-                Encoding = Encoding.GetEncoding("Windows-1251")
-            };
+            using var client = new HttpClient();
             try
             {
                 Uri uri = Urls.CistAllRoomsUrl;
-                string responseStr = client.DownloadString(uri);
+                string responseStr = await client.GetStringAsync(uri);
                 responseStr = responseStr.Replace("\n", "").Replace("[}]", "[]");
                 Cist.University newUniversity = Serialisation.FromJson<Cist.UniversityRootObject>(responseStr).University;
 
-                university.Buildings = newUniversity.Buildings;
+                var id = System.Threading.Thread.CurrentThread.ManagedThreadId;
 
-                return null;
+                return newUniversity.Buildings;
             }
             catch (Exception ex)
             {
@@ -270,7 +276,7 @@ namespace NureTimetable.DAL
                 {
                     MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
                 });
-                return ex;
+                throw;
             }
         }
         #endregion

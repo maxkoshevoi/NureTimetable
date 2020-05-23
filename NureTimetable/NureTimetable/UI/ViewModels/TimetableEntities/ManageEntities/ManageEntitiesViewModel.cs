@@ -197,70 +197,76 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
             IsEntitiesLayoutEnabled = false;
             IsProgressVisable = true;
 
-            await Task.Factory.StartNew(() =>
-            {
 #if !DEBUG
-                Analytics.TrackEvent("Updating timetable", new Dictionary<string, string>
-                {
-                    { "Count", entitiesAllowed.Count.ToString() },
-                    { "Hour of the day", DateTime.Now.Hour.ToString() }
-                });
+            Analytics.TrackEvent("Updating timetable", new Dictionary<string, string>
+            {
+                { "Count", entitiesAllowed.Count.ToString() },
+                { "Hour of the day", DateTime.Now.Hour.ToString() }
+            });
 #endif
-
-                List<string> success = new List<string>(), fail = new List<string>();
-                bool isNoConnection = false;
-                foreach (SavedEntity entity in entitiesAllowed)
+            const int batchSize = 10;
+            var updateTasks = new List<Task<(TimetableInfo _, Exception Exception)>>();
+            for (int i = 0; i < entitiesAllowed.Count; i += batchSize)
+            {
+                foreach (SavedEntity entity in entitiesAllowed.Skip(i).Take(batchSize))
                 {
-                    Exception ex = EventsRepository.GetTimetableFromCist(entity, Config.TimetableFromDate, Config.TimetableToDate, out _);
-                    if (ex is null)
-                    {
-                        success.Add(entity.Name);
-                    }
-                    else if (ex.IsNoInternet())
-                    {
-                        isNoConnection = true;
-                        break;
-                    }
-                    else
-                    {
-                        fail.Add(entity.Name);
-                    }
+                    updateTasks.Add(EventsRepository.GetTimetableFromCist(entity, Config.TimetableFromDate, Config.TimetableToDate));
                 }
-                string result = "";
-                if (isNoConnection)
+                await Task.WhenAll(updateTasks);
+            }
+            
+            List<string> success = new List<string>(), fail = new List<string>();
+            bool isNoConnection = false;
+            for (int i = 0; i < updateTasks.Count; i++)
+            {
+                Exception ex = updateTasks[i].Result.Exception;
+                SavedEntity entity = entitiesAllowed[i];
+                if (ex is null)
                 {
-                    result = LN.CannotConnectToCist;
+                    success.Add(entity.Name);
+                }
+                else if (ex.IsNoInternet())
+                {
+                    isNoConnection = true;
+                    break;
                 }
                 else
                 {
-                    if (success.Count > 0)
-                    {
-                        result += string.Format(LN.TimetableUpdated, string.Join(", ", success) + Environment.NewLine);
-                    }
-                    if (fail.Count > 0)
-                    {
-                        result += string.Format(LN.ErrorOccurred, string.Join(", ", fail));
-                    }
+                    fail.Add(entity.Name);
                 }
+            }
 
-                Device.BeginInvokeOnMainThread(async () =>
+            string result = "";
+            if (isNoConnection)
+            {
+                result = LN.CannotConnectToCist;
+            }
+            else
+            {
+                if (success.Count > 0)
                 {
-                    IsProgressVisable = false;
-                    IsEntitiesLayoutEnabled = true;
-                    if (await App.Current.MainPage.DisplayAlert(LN.TimetableUpdate, result, LN.ToTimetable, LN.Ok))
-                    {
-                        List<SavedEntity> selected = UniversityEntitiesRepository.GetSelected();
-                        if (entitiesAllowed.Count == 1 && !selected.Contains(entitiesAllowed[0]))
-                        {
-                            await SelectOneAndExit(entitiesAllowed[0]);
-                        }
-                        else
-                        {
-                            await Navigation.PopToRootAsync();
-                        }
-                    }
-                });
-            });
+                    result += string.Format(LN.TimetableUpdated, string.Join(", ", success) + Environment.NewLine);
+                }
+                if (fail.Count > 0)
+                {
+                    result += string.Format(LN.ErrorOccurred, string.Join(", ", fail));
+                }
+            }
+
+            IsProgressVisable = false;
+            IsEntitiesLayoutEnabled = true;
+            if (await App.Current.MainPage.DisplayAlert(LN.TimetableUpdate, result, LN.ToTimetable, LN.Ok))
+            {
+                List<SavedEntity> selected = UniversityEntitiesRepository.GetSelected();
+                if (entitiesAllowed.Count == 1 && !selected.Contains(entitiesAllowed[0]))
+                {
+                    await SelectOneAndExit(entitiesAllowed[0]);
+                }
+                else
+                {
+                    await Navigation.PopToRootAsync();
+                }
+            }
         }
         #endregion
     }

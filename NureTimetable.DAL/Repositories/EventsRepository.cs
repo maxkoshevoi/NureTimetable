@@ -4,10 +4,9 @@ using NureTimetable.DAL.Helpers;
 using NureTimetable.DAL.Models.Consts;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Net;
-using System.Text;
+using System.Net.Http;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Cist = NureTimetable.DAL.Models.Cist;
 using Local = NureTimetable.DAL.Models.Local;
@@ -19,7 +18,7 @@ namespace NureTimetable.DAL
         /// <summary>
         /// Returns events for one entity. Null if error occurs 
         /// </summary>
-        public static Local.TimetableInfo GetEvents(Local.SavedEntity entity, bool tryUpdate = false, DateTime? dateStart = null, DateTime? dateEnd = null)
+        public static async Task<Local.TimetableInfo> GetEvents(Local.SavedEntity entity, bool tryUpdate = false, DateTime? dateStart = null, DateTime? dateEnd = null)
         {
             Local.TimetableInfo timetable;
             if (tryUpdate)
@@ -29,7 +28,7 @@ namespace NureTimetable.DAL
                     throw new ArgumentNullException($"{nameof(dateStart)} and {nameof(dateEnd)} must be set");
                 }
 
-                GetTimetableFromCist(entity, dateStart.Value, dateEnd.Value, out timetable);
+                timetable = (await GetTimetableFromCist(entity, dateStart.Value, dateEnd.Value)).Timetable;
                 if (timetable != null)
                 {
                     return timetable;
@@ -82,26 +81,21 @@ namespace NureTimetable.DAL
         #endregion
 
         #region Cist
-        public static Exception GetTimetableFromCist(Local.SavedEntity entity, DateTime dateStart, DateTime dateEnd, out Local.TimetableInfo timetable)
+        public static async Task<(Local.TimetableInfo Timetable, Exception Exception)> GetTimetableFromCist(Local.SavedEntity entity, DateTime dateStart, DateTime dateEnd)
         {
-            timetable = null;
-
             if (SettingsRepository.CheckCistTimetableUpdateRights(new List<Local.SavedEntity> { entity }).Count == 0)
             {
-                return null;
+                return (null, null);
             }
 
-            using var client = new WebClient
-            {
-                Encoding = Encoding.GetEncoding("Windows-1251")
-            };
+            using var client = new HttpClient();
             try
             {
-                timetable = GetTimetableLocal(entity) ?? new Local.TimetableInfo(entity);
+                Local.TimetableInfo timetable = GetTimetableLocal(entity) ?? new Local.TimetableInfo(entity);
 
                 // Getting events
                 Uri uri = Urls.CistEntityTimetableUrl(entity.Type, entity.ID, dateStart, dateEnd);
-                string responseStr = client.DownloadString(uri);
+                string responseStr = await client.GetStringAsync(uri);
                 responseStr = responseStr.Replace("&amp;", "&");
                 responseStr = responseStr.Replace("\"events\":[\n]}]", "\"events\": []");
                 Cist.Timetable cistTimetable = Serialisation.FromJson<Cist.Timetable>(responseStr);
@@ -150,7 +144,7 @@ namespace NureTimetable.DAL
                     MessagingCenter.Send(Application.Current, MessageTypes.TimetableUpdated, entity);
                 });
 
-                return null;
+                return (timetable, null);
             }
             catch (Exception ex)
             {
@@ -161,8 +155,7 @@ namespace NureTimetable.DAL
                     ex.Data.Add("To", dateEnd.ToString("dd.MM.yyyy"));
                     MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
                 });
-
-                return ex;
+                return (null, ex);
             }
         }
         #endregion
