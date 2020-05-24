@@ -139,8 +139,6 @@ namespace NureTimetable.DAL
                 return new UniversityEntitiesCistUpdateResult(null, null, null);
             }
 
-            university ??= new Cist.University();
-
             var groupsTask = GetAllGroupsFromCist();
             var teachersTask = GetAllTeachersFromCist();
             var roomsTask = GetAllRoomsFromCist();
@@ -158,17 +156,6 @@ namespace NureTimetable.DAL
                     TeachersException = teachersTask.Exception?.InnerException,
                     RoomsException = roomsTask.Exception?.InnerException
                 };
-            }
-
-
-            if (!result.IsAllFail)
-            {
-                Serialisation.ToJsonFile(university, FilePath.UniversityEntities);
-                if (result.IsAllSuccessful)
-                {
-                    SettingsRepository.UpdateCistAllEntitiesUpdateTime();
-                }
-                MessagingCenter.Send(Application.Current, MessageTypes.UniversityEntitiesUpdated);
             }
 
             university ??= new Cist.University();
@@ -196,6 +183,16 @@ namespace NureTimetable.DAL
                 }
             }
 
+            if (!result.IsAllFail)
+            {
+                Serialisation.ToJsonFile(university, FilePath.UniversityEntities);
+                if (result.IsAllSuccessful)
+                {
+                    SettingsRepository.UpdateCistAllEntitiesUpdateTime();
+                }
+                MessagingCenter.Send(Application.Current, MessageTypes.UniversityEntitiesUpdated);
+            }
+
             return result;
         }
 
@@ -207,8 +204,6 @@ namespace NureTimetable.DAL
                 Uri uri = Urls.CistAllGroupsUrl;
                 string responseStr = await client.GetStringAsync(uri);
                 Cist.University newUniversity = Serialisation.FromJson<Cist.UniversityRootObject>(responseStr).University;
-
-                var id = System.Threading.Thread.CurrentThread.ManagedThreadId;
 
                 return newUniversity.Faculties;
             }
@@ -242,8 +237,6 @@ namespace NureTimetable.DAL
                     newUniversity = Serialisation.FromJson<Cist.UniversityRootObject>(responseStr).University;
                 }
 
-                var id = System.Threading.Thread.CurrentThread.ManagedThreadId;
-
                 return newUniversity.Faculties;
             }
             catch (Exception ex)
@@ -265,8 +258,6 @@ namespace NureTimetable.DAL
                 string responseStr = await client.GetStringAsync(uri);
                 responseStr = responseStr.Replace("\n", "").Replace("[}]", "[]");
                 Cist.University newUniversity = Serialisation.FromJson<Cist.UniversityRootObject>(responseStr).University;
-
-                var id = System.Threading.Thread.CurrentThread.ManagedThreadId;
 
                 return newUniversity.Buildings;
             }
