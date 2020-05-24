@@ -59,6 +59,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
 
         private bool _timetableLayoutIsVisible = false;
         private bool _noSourceLayoutIsVisible;
+        private string _noSourceLayoutText;
         private bool _progressLayoutIsVisible;
         private string _bTodayText;
         private double _bTodayScale = 0;
@@ -87,6 +88,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
 
         public bool TimetableLayoutIsVisible { get => _timetableLayoutIsVisible; set => SetProperty(ref _timetableLayoutIsVisible, value); }
         public bool NoSourceLayoutIsVisible { get => _noSourceLayoutIsVisible; set => SetProperty(ref _noSourceLayoutIsVisible, value); }
+        public string NoSourceLayoutText { get => _noSourceLayoutText; set => SetProperty(ref _noSourceLayoutText, value); }
         public bool ProgressLayoutIsVisible { get => _progressLayoutIsVisible; set => SetProperty(ref _progressLayoutIsVisible, value); }
         public string BTodayText { get => _bTodayText; set => SetProperty(ref _bTodayText, value); }
         public double BTodayScale { get => _bTodayScale; set => SetProperty(ref _bTodayScale, value); }
@@ -314,15 +316,11 @@ namespace NureTimetable.UI.ViewModels.Timetable
             {
                 Title = LN.AppName;
                 TimetableLayoutIsVisible = false;
+                NoSourceLayoutText = LN.NoTimetable;
                 NoSourceLayoutIsVisible = true;
                 return;
             }
-            else
-            {
-                Title = string.Join(", ", selectedEntities.Select(se => se.Name));
-                NoSourceLayoutIsVisible = false;
-                TimetableLayoutIsVisible = true;
-            }
+            Title = string.Join(", ", selectedEntities.Select(se => se.Name));
 
             var timetableInfos = new List<TimetableInfo>();
             foreach (SavedEntity entity in selectedEntities)
@@ -336,8 +334,21 @@ namespace NureTimetable.UI.ViewModels.Timetable
             lock (enumeratingEvents)
             {
                 timetableInfoList = TimetableInfoList.Build(timetableInfos, applyHiddingSettings);
-                needToUpdateEventsUI = true;
+                if (timetableInfoList.Events.Any())
+                {
+                    NoSourceLayoutIsVisible = false;
+                    TimetableLayoutIsVisible = true;
+                    needToUpdateEventsUI = true;
+                }
+                else
+                {
+                    TimetableLayoutIsVisible = false;
+                    NoSourceLayoutText = LN.TimetableIsEmpty;
+                    NoSourceLayoutIsVisible = true;
+                }
             }
+
+
             UpdateEventsUI();
         }
 

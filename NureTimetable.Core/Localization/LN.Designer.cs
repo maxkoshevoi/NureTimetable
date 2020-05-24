@@ -864,6 +864,15 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Timetable doesn&apos;t contain any events.
+        /// </summary>
+        public static string TimetableIsEmpty {
+            get {
+                return ResourceManager.GetString("TimetableIsEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Timetable is already up-to-date.
         /// </summary>
         public static string TimetableLatest {

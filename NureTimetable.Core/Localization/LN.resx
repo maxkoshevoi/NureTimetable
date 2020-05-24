@@ -446,4 +446,7 @@ To update, click on the button in the upper right corner.</value>
     <value>Cannot connect to cist.nure.ua.
 Try using different WIFI network or mobile internet connection.</value>
   </data>
+  <data name="TimetableIsEmpty" xml:space="preserve">
+    <value>Timetable doesn't contain any events</value>
+  </data>
 </root>

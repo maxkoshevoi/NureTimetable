@@ -446,4 +446,7 @@
     <value>Отсутствует подключение к cist.nure.ua.
 Попробуйте использовать другую WIFI сеть или мобильный интернет.</value>
   </data>
+  <data name="TimetableIsEmpty" xml:space="preserve">
+    <value>Расписание не содержит ни одного события</value>
+  </data>
 </root>
