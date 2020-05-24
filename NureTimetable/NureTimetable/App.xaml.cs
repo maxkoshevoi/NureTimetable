@@ -32,6 +32,7 @@ namespace NureTimetable
             {
                 LN.Culture = CultureInfo.CurrentCulture = new CultureInfo("ru");
             }
+            Bugfix.InitCalendarCrashFix();
 
             InitializeComponent();
             MainPage = new MainPage();
