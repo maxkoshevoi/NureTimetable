@@ -383,7 +383,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
         
         private async Task ManageGroupsClicked()
         {
-            await Navigation.PushAsync(new ManageEntitiesPage
+            Navigation.PushAsync(new ManageEntitiesPage
             {
                 BindingContext = new ManageEntitiesViewModel(Navigation)
             });

@@ -105,7 +105,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
         public async Task SelectOneAndExit(SavedEntity savedEntity)
         {
             UniversityEntitiesRepository.UpdateSelected(savedEntity);
-            await Navigation.PopToRootAsync();
+            Navigation.PopToRootAsync();
         }
 
         public void OnEntitySelectChange(SavedEntityItemViewModel entity)
@@ -157,7 +157,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
             {
                 return;
             }
-            await Navigation.PushAsync(new AddTimetablePage()
+            Navigation.PushAsync(new AddTimetablePage()
             {
                 BindingContext = new AddTimetableViewModel(Navigation)
             });
@@ -264,7 +264,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
                 }
                 else
                 {
-                    await Navigation.PopToRootAsync();
+                    Navigation.PopToRootAsync();
                 }
             }
         }

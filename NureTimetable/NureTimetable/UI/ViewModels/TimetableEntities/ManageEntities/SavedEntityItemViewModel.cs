@@ -82,7 +82,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
             }
             else if (action == LN.SetUpLessonDisplay)
             {
-                await Navigation.PushAsync(new ManageLessonsPage()
+                Navigation.PushAsync(new ManageLessonsPage()
                 {
                     BindingContext = new ManageLessonsViewModel(Navigation, SavedEntity)
                 });
