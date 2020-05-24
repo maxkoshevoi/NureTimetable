@@ -46,9 +46,9 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
             SettingsClickedCommand = CommandHelper.CreateCommand(SettingsClicked);
         }
 
-        public async Task UpdateClicked()
+        public Task UpdateClicked()
         {
-            await _manageEntitiesViewModel.UpdateTimetable(SavedEntity);
+            return _manageEntitiesViewModel.UpdateTimetable(SavedEntity);
         }
 
         public async Task SettingsClicked()

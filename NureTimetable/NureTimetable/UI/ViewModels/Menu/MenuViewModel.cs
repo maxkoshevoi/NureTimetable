@@ -6,7 +6,7 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace NureTimetable.UI.ViewModels.System.Menu
+namespace NureTimetable.UI.ViewModels.Menu
 {
     public class MenuViewModel : BaseViewModel
     {

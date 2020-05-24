@@ -4,7 +4,7 @@ using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Consts;
 using NureTimetable.Migrations;
 using NureTimetable.UI.ViewModels.Info;
-using NureTimetable.UI.ViewModels.System.Menu;
+using NureTimetable.UI.ViewModels.Menu;
 using NureTimetable.UI.ViewModels.Timetable;
 using NureTimetable.UI.Views.Info;
 using System;
