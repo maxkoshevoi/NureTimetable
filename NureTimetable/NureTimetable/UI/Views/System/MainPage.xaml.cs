@@ -89,32 +89,38 @@ namespace NureTimetable.UI.Views
 #if !DEBUG
             // Getting exception Data
             var properties = new Dictionary<string, string>();
+            var attachments = new List<ErrorAttachmentLog>();
             foreach (DictionaryEntry de in ex.Data)
             {
+                if (de.Value is ErrorAttachmentLog attachment)
+                {
+                    attachments.Add(attachment);
+                    continue;
+                }
                 properties.Add(de.Key.ToString(), de.Value.ToString());
             }
 
             // Special cases for certain exception types
             if (ex is WebException webException)
             {
+                if (webException.IsNoInternet())
+                {
+                    // Most likely device doesn't have internet connection. Nothing to log here
+                    return;
+                }
+
                 // WebException happens for external reasons, and shouldn't be treated as an exception.
                 // But just in case it is logged as Event
 
                 properties.Add("Status", webException.Status.ToString());
                 properties.Add("Message", webException.Message);
 
-                if (webException.IsNoInternet())
-                {
-                    // Most likely device doesn't have internet connection
-                    return;
-                }
-
                 Analytics.TrackEvent("WebException", properties);
                 return;
             }
 
             // Logging exception
-            Crashes.TrackError(ex, properties);
+            Crashes.TrackError(ex, properties, attachments.ToArray());
 #endif
         }
 

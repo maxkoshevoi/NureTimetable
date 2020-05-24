@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.AppCenter.Crashes;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Models.Consts;
@@ -66,7 +67,9 @@ namespace NureTimetable.DAL.Helpers
 
             if (IsJson(json))
             {
-                throw new ArgumentException($"Argument is not recognized as a valid json string: {(json.Length > 100 ? json.Remove(100) : json)}");
+                var ex = new ArgumentException($"Argument is not recognized as a valid json string");
+                ex.Data.Add("Json", ErrorAttachmentLog.AttachmentWithText(json, "Json.txt"));
+                throw ex;
             }
 
             T instance;
@@ -74,17 +77,16 @@ namespace NureTimetable.DAL.Helpers
             {
                 instance = JsonConvert.DeserializeObject<T>(json);
             }
-            catch (JsonReaderException)
+            catch (JsonReaderException ex)
             {
-                json = TryToFixJson(json);
-                instance = JsonConvert.DeserializeObject<T>(json);
-
                 Device.BeginInvokeOnMainThread(() =>
                 {
-                    var ex = new InvalidDataException("Faulty json was discovered and fixed");
-                    ex.Data.Add("Json", json);
+                    ex.Data.Add("Json", ErrorAttachmentLog.AttachmentWithText(json, "Json.json"));
                     MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
                 });
+
+                json = TryToFixJson(json);
+                instance = JsonConvert.DeserializeObject<T>(json);
             }
             return instance;
         }

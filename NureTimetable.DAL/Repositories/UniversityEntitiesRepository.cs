@@ -15,6 +15,7 @@ using Cist = NureTimetable.DAL.Models.Cist;
 using Local = NureTimetable.DAL.Models.Local;
 using System.Threading.Tasks;
 using System.Net.Http;
+using Microsoft.AppCenter.Analytics;
 
 namespace NureTimetable.DAL
 {
@@ -201,6 +202,13 @@ namespace NureTimetable.DAL
             using var client = new HttpClient();
             try
             {
+#if !DEBUG
+                Analytics.TrackEvent("Cist request", new Dictionary<string, string>
+                {
+                    { "Type", "GetAllGroups" },
+                    { "Hour of the day", DateTime.Now.Hour.ToString() }
+                });
+#endif
                 Uri uri = Urls.CistAllGroupsUrl;
                 string responseStr = await client.GetStringAsync(uri);
                 Cist.University newUniversity = Serialisation.FromJson<Cist.UniversityRootObject>(responseStr).University;
@@ -222,6 +230,13 @@ namespace NureTimetable.DAL
             using var client = new HttpClient();
             try
             {
+#if !DEBUG
+                Analytics.TrackEvent("Cist request", new Dictionary<string, string>
+                {
+                    { "Type", "GetAllTeachers" },
+                    { "Hour of the day", DateTime.Now.Hour.ToString() }
+                });
+#endif
                 Uri uri = Urls.CistAllTeachersUrl;
                 string responseStr = await client.GetStringAsync(uri);
                 Cist.University newUniversity;
@@ -254,6 +269,13 @@ namespace NureTimetable.DAL
             using var client = new HttpClient();
             try
             {
+#if !DEBUG
+                Analytics.TrackEvent("Cist request", new Dictionary<string, string>
+                {
+                    { "Type", "GetAllRooms" },
+                    { "Hour of the day", DateTime.Now.Hour.ToString() }
+                });
+#endif
                 Uri uri = Urls.CistAllRoomsUrl;
                 string responseStr = await client.GetStringAsync(uri);
                 responseStr = responseStr.Replace("\n", "").Replace("[}]", "[]");

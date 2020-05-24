@@ -1,4 +1,5 @@
-﻿using NureTimetable.Core.Extensions;
+﻿using Microsoft.AppCenter.Analytics;
+using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Models.Consts;
 using NureTimetable.DAL.Helpers;
 using NureTimetable.DAL.Models.Consts;
@@ -94,6 +95,14 @@ namespace NureTimetable.DAL
                 Local.TimetableInfo timetable = GetTimetableLocal(entity) ?? new Local.TimetableInfo(entity);
 
                 // Getting events
+#if !DEBUG
+                Analytics.TrackEvent("Cist request", new Dictionary<string, string>
+                {
+                    { "Type", "GetTimetable" },
+                    { "Subtype", entity.Type.ToString() },
+                    { "Hour of the day", DateTime.Now.Hour.ToString() }
+                });
+#endif
                 Uri uri = Urls.CistEntityTimetableUrl(entity.Type, entity.ID, dateStart, dateEnd);
                 string responseStr = await client.GetStringAsync(uri);
                 responseStr = responseStr.Replace("&amp;", "&");
