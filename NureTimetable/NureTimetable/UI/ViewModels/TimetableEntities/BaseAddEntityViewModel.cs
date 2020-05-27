@@ -179,7 +179,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
                         {
                             App.Current.MainPage.DisplayAlert(LN.UniversityInfoUpdate,
                                 updateFromCistResult.IsConnectionIssues
-                                    ? LN.CannotConnectToCist
+                                    ? LN.CannotGetDataFromCist
                                     : LN.UniversityInfoUpdateFail, 
                                 LN.Ok);
                         });

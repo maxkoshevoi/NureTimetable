@@ -16,6 +16,7 @@ namespace NureTimetable.Core.Localization
             // https://github.com/xamarin/Xamarin.Forms/issues/4037
             if (Environment.CurrentDirectory == "_never_POSSIBLE_")
             {
+#pragma warning disable CA1806 // Do not ignore method results
                 new System.Globalization.ChineseLunisolarCalendar();
                 new System.Globalization.HebrewCalendar();
                 new System.Globalization.HijriCalendar();
@@ -28,6 +29,7 @@ namespace NureTimetable.Core.Localization
                 new System.Globalization.TaiwanLunisolarCalendar();
                 new System.Globalization.ThaiBuddhistCalendar();
                 new System.Globalization.UmAlQuraCalendar();
+#pragma warning restore CA1806 // Do not ignore method results
             }
         }
     }

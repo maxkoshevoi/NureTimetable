@@ -442,9 +442,9 @@
   <data name="ChooseCalendar" xml:space="preserve">
     <value>Выберите календарь:</value>
   </data>
-  <data name="CannotConnectToCist" xml:space="preserve">
-    <value>Отсутствует подключение к cist.nure.ua.
-Попробуйте использовать другую WIFI сеть или мобильный интернет.</value>
+  <data name="CannotGetDataFromCist" xml:space="preserve">
+    <value>Ошибка при получении данных с cist.nure.ua.
+Повторите попытку позже, или попробуйте использовать другую сеть WIFI или мобильный интернет.</value>
   </data>
   <data name="TimetableIsEmpty" xml:space="preserve">
     <value>Расписание не содержит ни одного события</value>

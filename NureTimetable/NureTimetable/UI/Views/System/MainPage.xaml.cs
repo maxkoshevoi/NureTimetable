@@ -10,10 +10,8 @@ using NureTimetable.UI.Views.Info;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using NureTimetable.Core.Extensions;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -99,21 +97,26 @@ namespace NureTimetable.UI.Views
                 }
                 properties.Add(de.Key.ToString(), de.Value.ToString());
             }
+            if (ex.InnerException != null)
+            {
+                attachments.Add(ErrorAttachmentLog.AttachmentWithText(ex.InnerException.ToString(), "InnerException.txt"));
+            }
 
             // Special cases for certain exception types
-            if (ex is WebException webException)
+            if (ex is WebException webEx)
             {
-                if (webException.IsNoInternet())
-                {
-                    // Most likely device doesn't have internet connection. Nothing to log here
-                    return;
-                }
-
                 // WebException happens for external reasons, and shouldn't be treated as an exception.
                 // But just in case it is logged as Event
 
-                properties.Add("Status", webException.Status.ToString());
-                properties.Add("Message", webException.Message);
+                if (webEx.Status != 0)
+                {
+                    properties.Add("Status", webEx.Status.ToString());
+                }
+                if (webEx.InnerException != null)
+                {
+                    properties.Add("InnerException", webEx.InnerException.GetType().FullName);
+                }
+                properties.Add("Message", ex.Message);
 
                 Analytics.TrackEvent("WebException", properties);
                 return;

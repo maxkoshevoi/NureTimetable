@@ -48,10 +48,9 @@ namespace NureTimetable.DAL
                 GroupsException != null && TeachersException != null && RoomsException != null;
 
             public bool IsConnectionIssues =>
-                GroupsException?.IsNoInternet() == true 
-                || TeachersException?.IsNoInternet() == true 
-                || RoomsException?.IsNoInternet() == true;
-
+                GroupsException is WebException 
+                || TeachersException is WebException 
+                || RoomsException is WebException;
         }
 
         #region All Entities Cist
@@ -210,7 +209,7 @@ namespace NureTimetable.DAL
                 });
 #endif
                 Uri uri = Urls.CistAllGroupsUrl;
-                string responseStr = await client.GetStringAsync(uri);
+                string responseStr = await client.GetStringOrWebExceptionAsync(uri);
                 Cist.University newUniversity = Serialisation.FromJson<Cist.UniversityRootObject>(responseStr).University;
 
                 return newUniversity.Faculties;
@@ -238,7 +237,7 @@ namespace NureTimetable.DAL
                 });
 #endif
                 Uri uri = Urls.CistAllTeachersUrl;
-                string responseStr = await client.GetStringAsync(uri);
+                string responseStr = await client.GetStringOrWebExceptionAsync(uri);
                 Cist.University newUniversity;
                 try
                 {
@@ -277,7 +276,7 @@ namespace NureTimetable.DAL
                 });
 #endif
                 Uri uri = Urls.CistAllRoomsUrl;
-                string responseStr = await client.GetStringAsync(uri);
+                string responseStr = await client.GetStringOrWebExceptionAsync(uri);
                 responseStr = responseStr.Replace("\n", "").Replace("[}]", "[]");
                 Cist.University newUniversity = Serialisation.FromJson<Cist.UniversityRootObject>(responseStr).University;
 

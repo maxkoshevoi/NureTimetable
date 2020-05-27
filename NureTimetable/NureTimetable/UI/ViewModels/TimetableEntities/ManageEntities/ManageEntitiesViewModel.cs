@@ -15,6 +15,7 @@ using System.Windows.Input;
 using NureTimetable.Core.Extensions;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
+using System.Net;
 
 namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
 {
@@ -216,7 +217,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
             }
             
             List<string> success = new List<string>(), fail = new List<string>();
-            bool isNoConnection = false;
+            bool isNetworkError = false;
             for (int i = 0; i < updateTasks.Count; i++)
             {
                 Exception ex = updateTasks[i].Result.Exception;
@@ -224,22 +225,20 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
                 if (ex is null)
                 {
                     success.Add(entity.Name);
+                    continue;
                 }
-                else if (ex.IsNoInternet())
+
+                if (ex is WebException)
                 {
-                    isNoConnection = true;
-                    break;
+                    isNetworkError = true;
                 }
-                else
-                {
-                    fail.Add(entity.Name);
-                }
+                fail.Add(entity.Name);
             }
 
             string result = "";
-            if (isNoConnection)
+            if (isNetworkError && fail.Count == entitiesAllowed.Count)
             {
-                result = LN.CannotConnectToCist;
+                result = LN.CannotGetDataFromCist;
             }
             else
             {

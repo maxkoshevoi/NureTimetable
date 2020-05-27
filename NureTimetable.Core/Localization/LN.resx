@@ -442,9 +442,9 @@ To update, click on the button in the upper right corner.</value>
   <data name="ChooseCalendar" xml:space="preserve">
     <value>Choose calendar:</value>
   </data>
-  <data name="CannotConnectToCist" xml:space="preserve">
-    <value>Cannot connect to cist.nure.ua.
-Try using different WIFI network or mobile internet connection.</value>
+  <data name="CannotGetDataFromCist" xml:space="preserve">
+    <value>Error getting data from cist.nure.ua.
+Try again later, or try using different WIFI network or mobile internet connection.</value>
   </data>
   <data name="TimetableIsEmpty" xml:space="preserve">
     <value>Timetable doesn't contain any events</value>

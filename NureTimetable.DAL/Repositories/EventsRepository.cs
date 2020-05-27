@@ -104,7 +104,7 @@ namespace NureTimetable.DAL
                 });
 #endif
                 Uri uri = Urls.CistEntityTimetableUrl(entity.Type, entity.ID, dateStart, dateEnd);
-                string responseStr = await client.GetStringAsync(uri);
+                string responseStr = await client.GetStringOrWebExceptionAsync(uri);
                 responseStr = responseStr.Replace("&amp;", "&");
                 responseStr = responseStr.Replace("\"events\":[\n]}]", "\"events\": []");
                 Cist.Timetable cistTimetable = Serialisation.FromJson<Cist.Timetable>(responseStr);

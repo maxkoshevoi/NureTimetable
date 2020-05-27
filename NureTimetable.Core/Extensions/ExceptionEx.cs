@@ -6,17 +6,17 @@ namespace NureTimetable.Core.Extensions
 {
     public static class ExceptionEx
     {
-        private static WebExceptionStatus[] noInternetStatuses =
+        private static readonly WebExceptionStatus[] noInternetStatuses =
         {
             WebExceptionStatus.NameResolutionFailure, 
             WebExceptionStatus.ConnectFailure
         };
 
-        public static bool IsNoInternet(this Exception ex)
+        public static bool IsNoInternet(this WebException ex)
         {
             _ = ex ?? throw new ArgumentNullException(nameof(ex));
 
-            return ex is WebException webEx && noInternetStatuses.Contains(webEx.Status);
+            return noInternetStatuses.Contains(ex.Status);
         }
     }
 }
