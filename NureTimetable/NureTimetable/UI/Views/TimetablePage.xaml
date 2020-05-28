@@ -80,7 +80,7 @@
                         </syncfusion:TimelineViewSettings>
                     </syncfusion:SfSchedule.TimelineViewSettings>
                     <syncfusion:SfSchedule.MonthViewSettings>
-                        <syncfusion:MonthViewSettings AppointmentIndicatorCount="6" ShowWeekNumber="True">
+                        <syncfusion:MonthViewSettings AppointmentIndicatorCount="6" ShowWeekNumber="True" AppointmentDisplayMode="Appointment">
                             <syncfusion:MonthViewSettings.MonthLabelSettings>
                                 <syncfusion:MonthLabelSettings DayFormat="dd"/>
                             </syncfusion:MonthViewSettings.MonthLabelSettings>
