@@ -56,39 +56,43 @@ namespace NureTimetable.DAL.Helpers
             string json = JsonConvert.SerializeObject(instance);
             return json;
         }
-        
+
         public static T FromJson<T>(string json)
         {
-            if (typeof(T).IsPrimitive || typeof(T) == typeof(string) || typeof(T) == typeof(DateTime))
-            {
-                json = json?.Trim('\"');
-                return (T)Convert.ChangeType(json, typeof(T));
-            }
-
-            if (IsJson(json))
-            {
-                var ex = new ArgumentException($"Argument is not recognized as a valid json string");
-                ex.Data.Add("Json", ErrorAttachmentLog.AttachmentWithText(json, "Json.txt"));
-                throw ex;
-            }
-
-            T instance;
             try
             {
-                instance = JsonConvert.DeserializeObject<T>(json);
-            }
-            catch (JsonReaderException ex)
-            {
-                Device.BeginInvokeOnMainThread(() =>
+                if (typeof(T).IsPrimitive || typeof(T) == typeof(string) || typeof(T) == typeof(DateTime))
                 {
-                    ex.Data.Add("Json", ErrorAttachmentLog.AttachmentWithText(json, "Json.json"));
-                    MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
-                });
+                    json = json?.Trim('\"');
+                    return (T)Convert.ChangeType(json, typeof(T));
+                }
 
-                json = TryToFixJson(json);
-                instance = JsonConvert.DeserializeObject<T>(json);
+                if (IsJson(json))
+                {
+                    var ex = new ArgumentException($"Argument is not recognized as a valid json string");
+                    ex.Data.Add("Type", typeof(T).FullName);
+                    ex.Data.Add("Json", ErrorAttachmentLog.AttachmentWithText(json, "Json.txt"));
+                    throw ex;
+                }
+
+                T instance;
+                try
+                {
+                    instance = JsonConvert.DeserializeObject<T>(json);
+                }
+                catch (JsonReaderException)
+                {
+                    json = TryToFixJson(json);
+                    instance = JsonConvert.DeserializeObject<T>(json);
+                }
+                return instance;
             }
-            return instance;
+            catch (Exception ex)
+            {
+                ex.Data.Add("Type", typeof(T).FullName);
+                ex.Data.Add("Json", ErrorAttachmentLog.AttachmentWithText(json, "Json.json"));
+                throw;
+            }
         }
 
         private static bool IsJson(string json)
