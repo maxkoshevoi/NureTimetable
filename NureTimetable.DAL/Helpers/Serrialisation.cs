@@ -69,10 +69,7 @@ namespace NureTimetable.DAL.Helpers
 
                 if (IsJson(json))
                 {
-                    var ex = new ArgumentException($"Argument is not recognized as a valid json string");
-                    ex.Data.Add("Type", typeof(T).FullName);
-                    ex.Data.Add("Json", ErrorAttachmentLog.AttachmentWithText(json, "Json.txt"));
-                    throw ex;
+                    throw new ArgumentException($"Argument is not recognized as a valid json string");
                 }
 
                 T instance;
