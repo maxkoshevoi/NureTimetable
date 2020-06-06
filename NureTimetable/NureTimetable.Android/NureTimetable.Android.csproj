@@ -93,7 +93,6 @@
     <PackageReference Include="Xamarin.Forms" Version="4.6.0.847" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dependences\AppVersionProvider.cs" />
     <Compile Include="Dependences\MessageAndroid.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />

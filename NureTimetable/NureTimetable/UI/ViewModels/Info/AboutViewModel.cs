@@ -1,5 +1,4 @@
-﻿using NureTimetable.Core.Models.InterplatformCommunication;
-using NureTimetable.UI.Helpers;
+﻿using NureTimetable.UI.Helpers;
 using NureTimetable.UI.ViewModels.Core;
 using System;
 using System.Threading.Tasks;
@@ -28,8 +27,7 @@ namespace NureTimetable.UI.ViewModels.Info
 
         public AboutViewModel(INavigation navigation) : base(navigation)
         {
-            var version = DependencyService.Get<IAppVersionProvider>();
-            VersionText = version?.AppVersion ?? "-";
+            VersionText = AppInfo.VersionString;
 
             NavigateUriCommand = CommandHelper.CreateCommand<string>(NavigateUri);
         }
