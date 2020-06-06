@@ -21,6 +21,7 @@ namespace NureTimetable.Droid
             ToolbarResource = Resource.Layout.Toolbar;
 
             base.OnCreate(savedInstanceState);
+            Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             Forms.Init(this, savedInstanceState);
             CrossCurrentActivity.Current.Activity = this;
             LoadApplication(new App());

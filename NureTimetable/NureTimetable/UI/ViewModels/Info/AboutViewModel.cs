@@ -2,7 +2,9 @@
 using NureTimetable.UI.Helpers;
 using NureTimetable.UI.ViewModels.Core;
 using System;
+using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace NureTimetable.UI.ViewModels.Info
@@ -32,9 +34,9 @@ namespace NureTimetable.UI.ViewModels.Info
             NavigateUriCommand = CommandHelper.CreateCommand<string>(NavigateUri);
         }
 
-        private void NavigateUri(string url)
+        private async Task NavigateUri(string url)
         {
-            Device.OpenUri(new Uri(url));
+            await Launcher.OpenAsync(new Uri(url));
         }
     }
 }
