@@ -6,6 +6,7 @@ using NureTimetable.Core.Models.Consts;
 using NureTimetable.UI.Views;
 using Syncfusion.Licensing;
 using System.Globalization;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -33,6 +34,7 @@ namespace NureTimetable
                 LN.Culture = CultureInfo.CurrentCulture = new CultureInfo("ru");
             }
             Bugfix.InitCalendarCrashFix();
+            VersionTracking.Track();
 
             InitializeComponent();
             MainPage = new MainPage();

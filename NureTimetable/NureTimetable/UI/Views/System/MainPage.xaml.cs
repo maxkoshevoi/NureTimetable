@@ -12,6 +12,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -50,33 +51,36 @@ namespace NureTimetable.UI.Views
 
         protected override async void OnAppearing()
         {
-            var migrationsToApply = new List<BaseMigration>();
-            foreach (var migration in BaseMigration.Migrations)
+            if (VersionTracking.IsFirstLaunchForCurrentBuild)
             {
-                if (migration.IsNeedsToBeApplied())
+                var migrationsToApply = new List<BaseMigration>();
+                foreach (var migration in BaseMigration.Migrations)
                 {
-                    migrationsToApply.Add(migration);
-                }
-            }
-
-            if (migrationsToApply.Count > 0)
-            {
-                await App.Current.MainPage.DisplayAlert(LN.FinishingUpdateTitle, LN.FinishingUpdateDescription, LN.Ok);
-                bool isSuccess = true;
-                foreach (var migration in migrationsToApply)
-                {
-                    if (!migration.Apply())
+                    if (migration.IsNeedsToBeApplied())
                     {
-                        isSuccess = false;
+                        migrationsToApply.Add(migration);
                     }
                 }
-                if (!isSuccess)
+
+                if (migrationsToApply.Count > 0)
                 {
-                    await App.Current.MainPage.DisplayAlert(LN.FinishingUpdateTitle, LN.FinishingUpdateFail, LN.Ok);
+                    await App.Current.MainPage.DisplayAlert(LN.FinishingUpdateTitle, LN.FinishingUpdateDescription, LN.Ok);
+                    bool isSuccess = true;
+                    foreach (var migration in migrationsToApply)
+                    {
+                        if (!migration.Apply())
+                        {
+                            isSuccess = false;
+                        }
+                    }
+                    if (!isSuccess)
+                    {
+                        await App.Current.MainPage.DisplayAlert(LN.FinishingUpdateTitle, LN.FinishingUpdateFail, LN.Ok);
+                    }
+                    var timetablePage = new TimetablePage();
+                    timetablePage.BindingContext = new TimetableViewModel(timetablePage.Navigation, timetablePage);
+                    Detail = new NavigationPage(timetablePage);
                 }
-                var timetablePage = new TimetablePage();
-                timetablePage.BindingContext = new TimetableViewModel(timetablePage.Navigation, timetablePage);
-                Detail = new NavigationPage(timetablePage);
             }
 
             base.OnAppearing();
@@ -160,7 +164,7 @@ namespace NureTimetable.UI.Views
             {
                 Detail = newPage;
 
-                if (Device.RuntimePlatform == Device.Android)
+                if (DeviceInfo.Platform == DevicePlatform.Android)
                 {
                     await Task.Delay(100);
                 }
