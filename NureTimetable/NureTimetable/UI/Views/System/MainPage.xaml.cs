@@ -109,6 +109,12 @@ namespace NureTimetable.UI.Views
             // Special cases for certain exception types
             if (ex is WebException webEx)
             {
+                if (Connectivity.NetworkAccess == NetworkAccess.None)
+                {
+                    // No internet caused WebException, nothing to log here
+                    return;
+                }
+
                 // WebException happens for external reasons, and shouldn't be treated as an exception.
                 // But just in case it is logged as Event
 
