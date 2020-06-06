@@ -25,7 +25,6 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Plugin.InAppBilling" Version="2.0.0" />
-    <PackageReference Include="Plugin.Permissions" Version="3.0.0.12" />
     <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="18.1.0.55" />
     <PackageReference Include="Syncfusion.Xamarin.SfSchedule" Version="18.1.0.55" />
     <PackageReference Include="Xam.Plugin.DeviceInfo" Version="4.1.1" />
