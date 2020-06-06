@@ -10,6 +10,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace NureTimetable.UI.ViewModels.TimetableEntities
@@ -77,7 +78,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
             SearchBarTextChangedCommand = CommandHelper.CreateCommand(SearchBarTextChanged);
             ContentPageAppearingCommand = CommandHelper.CreateCommand(async () => await UpdateEntities());
             UpdateCommand = CommandHelper.CreateCommand(UpdateFromCist);
-            Device.BeginInvokeOnMainThread(async () => await UpdateEntities(false));
+            MainThread.BeginInvokeOnMainThread(async () => await UpdateEntities(false));
 
             MessagingCenter.Subscribe<Application>(this, MessageTypes.UniversityEntitiesUpdated, async (sender) =>
             {
@@ -104,7 +105,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
             {
                 if (value != null)
                 {
-                    Device.BeginInvokeOnMainThread(async () => { await EntitySelected(value); });
+                    MainThread.BeginInvokeOnMainThread(async () => { await EntitySelected(value); });
                 }
 
                 _selectedEntity = value;
@@ -175,7 +176,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
 
                     if (updateFromCistResult.IsAllFail)
                     {
-                        Device.BeginInvokeOnMainThread(() =>
+                        MainThread.BeginInvokeOnMainThread(() =>
                         {
                             App.Current.MainPage.DisplayAlert(LN.UniversityInfoUpdate,
                                 updateFromCistResult.IsConnectionIssues
@@ -200,7 +201,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
                             failedEntities += LN.Rooms + Environment.NewLine;
                         }
 
-                        Device.BeginInvokeOnMainThread(() =>
+                        MainThread.BeginInvokeOnMainThread(() =>
                         {
                             App.Current.MainPage.DisplayAlert(LN.UniversityInfoUpdate, string.Format(LN.UniversityInfoUpdatePartiallyFail, Environment.NewLine + failedEntities), LN.Ok);
                         });

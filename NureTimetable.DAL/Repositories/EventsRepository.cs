@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Cist = NureTimetable.DAL.Models.Cist;
 using Local = NureTimetable.DAL.Models.Local;
@@ -73,7 +74,7 @@ namespace NureTimetable.DAL
             Local.TimetableInfo timetable = GetTimetableLocal(entity);
             timetable.LessonsInfo = lessonsInfo;
             UpdateTimetableLocal(timetable);
-            Device.BeginInvokeOnMainThread(() =>
+            MainThread.BeginInvokeOnMainThread(() =>
             {
                 MessagingCenter.Send(Application.Current, MessageTypes.LessonSettingsChanged, entity);
             });
@@ -148,7 +149,7 @@ namespace NureTimetable.DAL
                 }
                 UniversityEntitiesRepository.UpdateSaved(AllSavedEntities);
 
-                Device.BeginInvokeOnMainThread(() =>
+                MainThread.BeginInvokeOnMainThread(() =>
                 {
                     MessagingCenter.Send(Application.Current, MessageTypes.TimetableUpdated, entity);
                 });
@@ -157,7 +158,7 @@ namespace NureTimetable.DAL
             }
             catch (Exception ex)
             {
-                Device.BeginInvokeOnMainThread(() =>
+                MainThread.BeginInvokeOnMainThread(() =>
                 {
                     ex.Data.Add("Entity", $"{entity.Type} {entity.Name} ({entity.ID})");
                     ex.Data.Add("From", dateStart.ToString("dd.MM.yyyy"));

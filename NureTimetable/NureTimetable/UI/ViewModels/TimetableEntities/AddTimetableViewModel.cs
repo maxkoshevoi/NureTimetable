@@ -1,6 +1,7 @@
 ﻿using System;
 using NureTimetable.DAL;
 using NureTimetable.UI.ViewModels.Core;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace NureTimetable.UI.ViewModels.TimetableEntities
@@ -24,7 +25,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
 
             if (isNeedReloadFromCist)
             {
-                Device.BeginInvokeOnMainThread(async () => await AddGroupPageViewModel.UpdateEntities(true));
+                MainThread.BeginInvokeOnMainThread(async () => await AddGroupPageViewModel.UpdateEntities(true));
             }
         }
     }

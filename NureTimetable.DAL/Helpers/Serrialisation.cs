@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace NureTimetable.DAL.Helpers
@@ -23,7 +24,7 @@ namespace NureTimetable.DAL.Helpers
             }
             catch (Exception ex)
             {
-                Device.BeginInvokeOnMainThread(() =>
+                MainThread.BeginInvokeOnMainThread(() =>
                 {
                     MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
                 });
@@ -43,7 +44,7 @@ namespace NureTimetable.DAL.Helpers
             }
             catch (Exception ex)
             {
-                Device.BeginInvokeOnMainThread(() =>
+                MainThread.BeginInvokeOnMainThread(() =>
                 {
                     MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
                 });

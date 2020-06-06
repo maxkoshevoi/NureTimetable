@@ -16,6 +16,7 @@ using Local = NureTimetable.DAL.Models.Local;
 using System.Threading.Tasks;
 using System.Net.Http;
 using Microsoft.AppCenter.Analytics;
+using Xamarin.Essentials;
 
 namespace NureTimetable.DAL
 {
@@ -216,7 +217,7 @@ namespace NureTimetable.DAL
             }
             catch (Exception ex)
             {
-                Device.BeginInvokeOnMainThread(() =>
+                MainThread.BeginInvokeOnMainThread(() =>
                 {
                     MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
                 });
@@ -255,7 +256,7 @@ namespace NureTimetable.DAL
             }
             catch (Exception ex)
             {
-                Device.BeginInvokeOnMainThread(() =>
+                MainThread.BeginInvokeOnMainThread(() =>
                 {
                     MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
                 });
@@ -284,7 +285,7 @@ namespace NureTimetable.DAL
             }
             catch (Exception ex)
             {
-                Device.BeginInvokeOnMainThread(() =>
+                MainThread.BeginInvokeOnMainThread(() =>
                 {
                     MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
                 });
@@ -400,7 +401,7 @@ namespace NureTimetable.DAL
             }
             // Saving saved entities list
             Serialisation.ToJsonFile(savedEntities, FilePath.SavedEntitiesList);
-            Device.BeginInvokeOnMainThread(() =>
+            MainThread.BeginInvokeOnMainThread(() =>
             {
                 MessagingCenter.Send(Application.Current, MessageTypes.SavedEntitiesChanged, savedEntities);
             });
@@ -453,7 +454,7 @@ namespace NureTimetable.DAL
             }
 
             Serialisation.ToJsonFile(selectedEntities, FilePath.SelectedEntities);
-            Device.BeginInvokeOnMainThread(() =>
+            MainThread.BeginInvokeOnMainThread(() =>
             {
                 MessagingCenter.Send(Application.Current, MessageTypes.SelectedEntitiesChanged, selectedEntities);
             });

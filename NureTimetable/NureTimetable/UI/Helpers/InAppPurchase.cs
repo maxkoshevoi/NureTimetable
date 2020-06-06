@@ -34,14 +34,14 @@ namespace NureTimetable.UI.Helpers
             }
             catch (InAppBillingPurchaseException billingEx)
             {
-                Device.BeginInvokeOnMainThread(() =>
+                MainThread.BeginInvokeOnMainThread(() =>
                 {
                     MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, billingEx);
                 });
             }
             catch (Exception ex)
             {
-                Device.BeginInvokeOnMainThread(() =>
+                MainThread.BeginInvokeOnMainThread(() =>
                 {
                     MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
                 });
@@ -77,7 +77,7 @@ namespace NureTimetable.UI.Helpers
             }
             catch (Exception ex)
             {
-                Device.BeginInvokeOnMainThread(() =>
+                MainThread.BeginInvokeOnMainThread(() =>
                 {
                     MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
                 });

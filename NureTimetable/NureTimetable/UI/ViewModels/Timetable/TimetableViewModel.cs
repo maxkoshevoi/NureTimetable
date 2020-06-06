@@ -301,7 +301,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 {
                     UpdateEvents(UniversityEntitiesRepository.GetSelected());
                 }
-                Device.BeginInvokeOnMainThread(() =>
+                MainThread.BeginInvokeOnMainThread(() =>
                 {
                     ProgressLayoutIsVisible = false;
                     TimetableIsEnabled = true;
@@ -364,7 +364,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
                     return;
                 }
                 needToUpdateEventsUI = false;
-                Device.BeginInvokeOnMainThread(() =>
+                MainThread.BeginInvokeOnMainThread(() =>
                 {
                     if (timetableInfoList.Count == 0)
                     {
@@ -500,15 +500,15 @@ namespace NureTimetable.UI.ViewModels.Timetable
                         readStatus = await Permissions.CheckStatusAsync<Permissions.CalendarRead>();
                         if (readStatus != PermissionStatus.Granted)
                         {
-                            readStatus = await Device.InvokeOnMainThreadAsync(Permissions.RequestAsync<Permissions.CalendarRead>);
+                            readStatus = await MainThread.InvokeOnMainThreadAsync(Permissions.RequestAsync<Permissions.CalendarRead>);
                         }
                         writeStatus = await Permissions.CheckStatusAsync<Permissions.CalendarWrite>();
                         if (writeStatus != PermissionStatus.Granted)
                         {
-                            writeStatus = await Device.InvokeOnMainThreadAsync(Permissions.RequestAsync<Permissions.CalendarWrite>);
+                            writeStatus = await MainThread.InvokeOnMainThreadAsync(Permissions.RequestAsync<Permissions.CalendarWrite>);
                         }
 
-                        IList<Calendars.Calendar> calendars = await Device.InvokeOnMainThreadAsync(async () => await CrossCalendars.Current.GetCalendarsAsync());
+                        IList<Calendars.Calendar> calendars = await MainThread.InvokeOnMainThreadAsync(CrossCalendars.Current.GetCalendarsAsync);
                         calendars = calendars.Where(c => 
                             c.Name.ToLower() == c.AccountName.ToLower() 
                             || c.AccountName.ToLower() == customCalendarName.ToLower()).ToList();
@@ -539,7 +539,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
                         }
                         else
                         {
-                            string targetCalendarName = await Device.InvokeOnMainThreadAsync(async () => await App.Current.MainPage.DisplayActionSheet(
+                            string targetCalendarName = await MainThread.InvokeOnMainThreadAsync(() => App.Current.MainPage.DisplayActionSheet(
                                 LN.ChooseCalendar,
                                 LN.Cancel,
                                 null,
@@ -588,7 +588,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 {
                     if (readStatus == PermissionStatus.Granted || writeStatus == PermissionStatus.Granted)
                     {
-                        Device.BeginInvokeOnMainThread(() =>
+                        MainThread.BeginInvokeOnMainThread(() =>
                         {
                             ex.Data.Add("Read Status", readStatus.ToString());
                             ex.Data.Add("Write Status", writeStatus.ToString());

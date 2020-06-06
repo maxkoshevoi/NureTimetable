@@ -4,6 +4,7 @@ using NureTimetable.UI.Views;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace NureTimetable.UI.ViewModels.Menu
@@ -33,7 +34,7 @@ namespace NureTimetable.UI.ViewModels.Menu
             {
                 if (value != null)
                 {
-                    Device.BeginInvokeOnMainThread(async () => { await ItemSelected(value); });
+                    MainThread.BeginInvokeOnMainThread(async () => { await ItemSelected(value); });
                 }
 
                 _selectedItem = value;

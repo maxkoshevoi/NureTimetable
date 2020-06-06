@@ -72,7 +72,7 @@ namespace NureTimetable.DAL.Legacy
                 }
                 catch (Exception)
                 {
-                    //Device.BeginInvokeOnMainThread(() =>
+                    //MainThread.BeginInvokeOnMainThread(() =>
                     //{
                     //    MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
                     //});

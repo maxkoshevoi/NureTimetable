@@ -4,6 +4,7 @@ using NureTimetable.UI.ViewModels.Core;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace NureTimetable.UI.ViewModels.Lessons.LessonSettings
@@ -90,7 +91,7 @@ namespace NureTimetable.UI.ViewModels.Lessons.LessonSettings
             lessonInfo.Settings.Hiding.ShowLesson = ShowLessonIsChecked;
             UpdateEventTypesCheck();
 
-            Device.BeginInvokeOnMainThread(() =>
+            MainThread.BeginInvokeOnMainThread(() =>
             {
                 MessagingCenter.Send(this, "OneLessonSettingsChanged", lessonInfo);
             });

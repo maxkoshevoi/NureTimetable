@@ -102,7 +102,7 @@ namespace NureTimetable.DAL.Legacy
                     //foreach (TimetableInfo newTimetable in timetables)
                     //{
                     //    UpdateTimetableLocal(newTimetable);
-                    //    Device.BeginInvokeOnMainThread(() =>
+                    //    MainThread.BeginInvokeOnMainThread(() =>
                     //    {
                     //        MessagingCenter.Send(Application.Current, MessageTypes.TimetableUpdated, newTimetable.Group.ID);
                     //    });
@@ -112,7 +112,7 @@ namespace NureTimetable.DAL.Legacy
                 }
                 catch (Exception)
                 {
-                    //Device.BeginInvokeOnMainThread(() =>
+                    //MainThread.BeginInvokeOnMainThread(() =>
                     //{
                     //    MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
                     //});
@@ -218,7 +218,7 @@ namespace NureTimetable.DAL.Legacy
                 }
                 catch (Exception)
                 {
-                    //Device.BeginInvokeOnMainThread(() =>
+                    //MainThread.BeginInvokeOnMainThread(() =>
                     //{
                     //    MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
                     //});
@@ -319,7 +319,7 @@ namespace NureTimetable.DAL.Legacy
             }
             catch (Exception)
             {
-                //Device.BeginInvokeOnMainThread(() =>
+                //MainThread.BeginInvokeOnMainThread(() =>
                 //{
                 //    MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
                 //});
