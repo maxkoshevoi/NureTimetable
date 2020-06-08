@@ -9,9 +9,14 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using NureTimetable.Core.Extensions;
 using Xamarin.Forms;
 using Cist = NureTimetable.DAL.Models.Cist;
 using Local = NureTimetable.DAL.Models.Local;
+using System.Threading.Tasks;
+using System.Net.Http;
+using Microsoft.AppCenter.Analytics;
+using Xamarin.Essentials;
 
 namespace NureTimetable.DAL
 {
@@ -26,22 +31,27 @@ namespace NureTimetable.DAL
             public UniversityEntitiesCistUpdateResult()
             { }
 
-            public UniversityEntitiesCistUpdateResult(bool isGroupsOk, bool isTeachersOk, bool isRoomsOk)
+            public UniversityEntitiesCistUpdateResult(Exception groupsException, Exception teachersException, Exception roomsException)
             {
-                this.IsGroupsOk = isGroupsOk;
-                this.IsTeachersOk = isTeachersOk;
-                this.IsRoomsOk = isRoomsOk;
+                this.GroupsException = groupsException;
+                this.TeachersException = teachersException;
+                this.RoomsException = roomsException;
             }
 
-            public bool IsGroupsOk { get; set; }
-            public bool IsTeachersOk { get; set; }
-            public bool IsRoomsOk { get; set; }
+            public Exception GroupsException { get; set; }
+            public Exception TeachersException { get; set; }
+            public Exception RoomsException { get; set; }
 
             public bool IsAllSuccessful =>
-                IsGroupsOk && IsTeachersOk && IsRoomsOk;
+                GroupsException is null && TeachersException is null && RoomsException is null;
 
             public bool IsAllFail =>
-                !IsGroupsOk && !IsTeachersOk && !IsRoomsOk;
+                GroupsException != null && TeachersException != null && RoomsException != null;
+
+            public bool IsConnectionIssues =>
+                GroupsException is WebException 
+                || TeachersException is WebException 
+                || RoomsException is WebException;
         }
 
         #region All Entities Cist
@@ -93,8 +103,7 @@ namespace NureTimetable.DAL
 
         private static Cist.University Get()
         {
-            Cist.University university;
-            university = GetLocal();
+            Cist.University university = GetLocal();
             if (university != null)
             {
                 return university;
@@ -128,161 +137,160 @@ namespace NureTimetable.DAL
         {
             if (SettingsRepository.CheckCistAllEntitiesUpdateRights() == false)
             {
-                return new UniversityEntitiesCistUpdateResult(true, true, true);
+                return new UniversityEntitiesCistUpdateResult(null, null, null);
             }
 
+            var groupsTask = GetAllGroupsFromCist();
+            var teachersTask = GetAllTeachersFromCist();
+            var roomsTask = GetAllRoomsFromCist();
+
             var result = new UniversityEntitiesCistUpdateResult();
-            if (university == null)
+            try
             {
-                university = new Cist.University();
+                Task.WaitAll(groupsTask, teachersTask, roomsTask);
             }
-            result.IsGroupsOk = GetAllGroupsFromCist(ref university);
-            result.IsTeachersOk = GetAllTeachersFromCist(ref university);
-            result.IsRoomsOk = GetAllRoomsFromCist(ref university);
+            catch
+            { 
+                result = new UniversityEntitiesCistUpdateResult
+                {
+                    GroupsException = groupsTask.Exception?.InnerException,
+                    TeachersException = teachersTask.Exception?.InnerException,
+                    RoomsException = roomsTask.Exception?.InnerException
+                };
+            }
+
+            university ??= new Cist.University();
+            if (!roomsTask.IsFaulted)
+            {
+                university.Buildings = roomsTask.Result;
+            }
+            if (!groupsTask.IsFaulted)
+            {
+                university.Faculties = groupsTask.Result;
+            }
+            if (!teachersTask.IsFaulted)
+            {
+                foreach (Cist.Faculty faculty in teachersTask.Result)
+                {
+                    string responseStr = GetHardcodedGroupsFromCist();
+                    Cist.Faculty oldFaculty = university.Faculties.FirstOrDefault(f => f.Id == faculty.Id);
+                    if (oldFaculty == null)
+                    {
+                        university.Faculties.Add(faculty);
+                        continue;
+                    }
+                    faculty.Directions = oldFaculty.Directions;
+                    university.Faculties.Remove(oldFaculty);
+                    university.Faculties.Add(faculty);
+                }
+            }
 
             if (!result.IsAllFail)
             {
                 Serialisation.ToJsonFile(university, FilePath.UniversityEntities);
+                if (result.IsAllSuccessful)
+                {
+                    SettingsRepository.UpdateCistAllEntitiesUpdateTime();
+                }
+                MessagingCenter.Send(Application.Current, MessageTypes.UniversityEntitiesUpdated);
             }
-            if (result.IsAllSuccessful)
-            {
-                SettingsRepository.UpdateCistAllEntitiesUpdateTime();
-            }
-            MessagingCenter.Send(Application.Current, MessageTypes.UniversityEntitiesUpdated);
 
             return result;
         }
 
-        private static bool GetAllGroupsFromCist(ref Cist.University university)
+        private static async Task<List<Cist.Faculty>> GetAllGroupsFromCist()
         {
-            if (university == null)
+            using var client = new HttpClient();
+            try
             {
-                university = new Cist.University();
+#if !DEBUG
+                Analytics.TrackEvent("Cist request", new Dictionary<string, string>
+                {
+                    { "Type", "GetAllGroups" },
+                    { "Hour of the day", DateTime.Now.Hour.ToString() }
+                });
+#endif
+                Uri uri = Urls.CistAllGroupsUrl;
+                string responseStr = await client.GetStringOrWebExceptionAsync(uri);
+                Cist.University newUniversity = Serialisation.FromJson<Cist.UniversityRootObject>(responseStr).University;
+
+                return newUniversity.Faculties;
             }
-
-            using (var client = new WebClient
+            catch (Exception ex)
             {
-                Encoding = Encoding.GetEncoding("Windows-1251")
-            })
-            {
-                try
+                MainThread.BeginInvokeOnMainThread(() =>
                 {
-                    Uri uri = Urls.CistAllGroupsUrl;
-                    string responseStr = GetHardcodedGroupsFromCist();
-                    Cist.University newUniversity = Serialisation.FromJson<Cist.UniversityRootObject>(responseStr).University;
-
-                    foreach (Cist.Faculty faculty in newUniversity.Faculties)
-                    {
-                        Cist.Faculty oldFaculty = university.Faculties.FirstOrDefault(f => f.Id == faculty.Id);
-                        if (oldFaculty == null)
-                        {
-                            university.Faculties.Add(faculty);
-                            continue;
-                        }
-                        faculty.Departments = oldFaculty.Departments;
-                        university.Faculties.Remove(oldFaculty);
-                        university.Faculties.Add(faculty);
-                    }
-
-                    return true;
-                }
-                catch (Exception ex)
-                {
-                    Device.BeginInvokeOnMainThread(() =>
-                    {
-                        MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
-                    });
-                    return false;
-                }
+                    MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
+                });
+                throw;
             }
         }
 
-        private static bool GetAllTeachersFromCist(ref Cist.University university)
+        private static async Task<List<Cist.Faculty>> GetAllTeachersFromCist()
         {
-            if (university == null)
+            using var client = new HttpClient();
+            try
             {
-                university = new Cist.University();
-            }
-            
-            using (var client = new WebClient
-            {
-                Encoding = Encoding.GetEncoding("Windows-1251")
-            })
-            {
+#if !DEBUG
+                Analytics.TrackEvent("Cist request", new Dictionary<string, string>
+                {
+                    { "Type", "GetAllTeachers" },
+                    { "Hour of the day", DateTime.Now.Hour.ToString() }
+                });
+#endif
+                Uri uri = Urls.CistAllTeachersUrl;
+                string responseStr = await client.GetStringOrWebExceptionAsync(uri);
+                Cist.University newUniversity;
                 try
                 {
-                    Uri uri = Urls.CistAllTeachersUrl;
-                    string responseStr = "client.DownloadString(uri)";
-                    Cist.University newUniversity;
-                    try
-                    {
-                        newUniversity = Serialisation.FromJson<Cist.UniversityRootObject>(responseStr).University;
-                    }
-                    catch (JsonReaderException ex) when (ex.Message.StartsWith("JsonToken EndObject is not valid for closing JsonType Array. Path 'university.faculties'"))
-                    {
-                        // Temporary workaround. Needs to be removed when fixed on Cist!
-                        responseStr = responseStr.TrimEnd('\n');
-                        responseStr = responseStr.Remove(responseStr.Length - 1) + "]}}";
-                        newUniversity = Serialisation.FromJson<Cist.UniversityRootObject>(responseStr).University;
-                    }
-
-                    foreach (Cist.Faculty faculty in newUniversity.Faculties)
-                    {
-                        Cist.Faculty oldFaculty = university.Faculties.FirstOrDefault(f => f.Id == faculty.Id);
-                        if (oldFaculty == null)
-                        {
-                            university.Faculties.Add(faculty);
-                            continue;
-                        }
-                        faculty.Directions = oldFaculty.Directions;
-                        university.Faculties.Remove(oldFaculty);
-                        university.Faculties.Add(faculty);
-                    }
-
-                    return true;
+                    newUniversity = Serialisation.FromJson<Cist.UniversityRootObject>(responseStr).University;
                 }
-                catch (Exception ex)
+                catch (JsonReaderException ex) when (ex.Message.StartsWith("JsonToken EndObject is not valid for closing JsonType Array. Path 'university.faculties'"))
                 {
-                    Device.BeginInvokeOnMainThread(() =>
-                    {
-                        MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
-                    });
-                    return false;
+                    // Temporary workaround. Needs to be removed when fixed on Cist!
+                    responseStr = responseStr.TrimEnd('\n');
+                    responseStr = responseStr.Remove(responseStr.Length - 1) + "]}}";
+                    newUniversity = Serialisation.FromJson<Cist.UniversityRootObject>(responseStr).University;
                 }
+
+                return newUniversity.Faculties;
+            }
+            catch (Exception ex)
+            {
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
+                });
+                throw;
             }
         }
 
-        private static bool GetAllRoomsFromCist(ref Cist.University university)
+        private static async Task<List<Cist.Building>> GetAllRoomsFromCist()
         {
-            if (university == null)
+            using var client = new HttpClient();
+            try
             {
-                university = new Cist.University();
+#if !DEBUG
+                Analytics.TrackEvent("Cist request", new Dictionary<string, string>
+                {
+                    { "Type", "GetAllRooms" },
+                    { "Hour of the day", DateTime.Now.Hour.ToString() }
+                });
+#endif
+                Uri uri = Urls.CistAllRoomsUrl;
+                string responseStr = await client.GetStringOrWebExceptionAsync(uri);
+                responseStr = responseStr.Replace("\n", "").Replace("[}]", "[]");
+                Cist.University newUniversity = Serialisation.FromJson<Cist.UniversityRootObject>(responseStr).University;
+
+                return newUniversity.Buildings;
             }
-
-            using (var client = new WebClient
+            catch (Exception ex)
             {
-                Encoding = Encoding.GetEncoding("Windows-1251")
-            })
-            {
-                try
+                MainThread.BeginInvokeOnMainThread(() =>
                 {
-                    Uri uri = Urls.CistAllRoomsUrl;
-                    string responseStr = "client.DownloadString(uri)";
-                    responseStr = responseStr.Replace("\n", "").Replace("[}]", "[]");
-                    Cist.University newUniversity = Serialisation.FromJson<Cist.UniversityRootObject>(responseStr).University;
-
-                    university.Buildings = newUniversity.Buildings;
-
-                    return true;
-                }
-                catch (Exception ex)
-                {
-                    Device.BeginInvokeOnMainThread(() =>
-                    {
-                        MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
-                    });
-                    return false;
-                }
+                    MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
+                });
+                throw;
             }
         }
         #endregion
@@ -296,28 +304,24 @@ namespace NureTimetable.DAL
             {
                 throw new InvalidOperationException($"You MUST call {nameof(UniversityEntitiesRepository)}.AssureInitialized(); prior to using it.");
             }
-            if (Singleton == null)
-            {
-                return null;
-            }
 
-            IEnumerable<Local.Group> groups = Singleton.Faculties.SelectMany(fac => fac
+            var groups = Singleton?.Faculties.SelectMany(fac => fac
                 .Directions.SelectMany(dir =>
                     dir.Groups.Select(gr =>
-                    {
-                        Local.Group localGroup = MapConfig.Map<Cist.Group, Local.Group>(gr);
-                        localGroup.Faculty = MapConfig.Map<Cist.Faculty, Local.BaseEntity<long>>(fac);
-                        localGroup.Direction = MapConfig.Map<Cist.Direction, Local.BaseEntity<long>>(dir);
-                        return localGroup;
-                    })
-                    .Concat(dir.Specialities.SelectMany(sp => sp.Groups.Select(gr =>
-                    {
-                        Local.Group localGroup = MapConfig.Map<Cist.Group, Local.Group>(gr);
-                        localGroup.Faculty = MapConfig.Map<Cist.Faculty, Local.BaseEntity<long>>(fac);
-                        localGroup.Direction = MapConfig.Map<Cist.Direction, Local.BaseEntity<long>>(dir);
-                        localGroup.Speciality = MapConfig.Map<Cist.Speciality, Local.BaseEntity<long>>(sp);
-                        return localGroup;
-                    })))
+                        {
+                            Local.Group localGroup = MapConfig.Map<Cist.Group, Local.Group>(gr);
+                            localGroup.Faculty = MapConfig.Map<Cist.Faculty, Local.BaseEntity<long>>(fac);
+                            localGroup.Direction = MapConfig.Map<Cist.Direction, Local.BaseEntity<long>>(dir);
+                            return localGroup;
+                        })
+                        .Concat(dir.Specialities.SelectMany(sp => sp.Groups.Select(gr =>
+                        {
+                            Local.Group localGroup = MapConfig.Map<Cist.Group, Local.Group>(gr);
+                            localGroup.Faculty = MapConfig.Map<Cist.Faculty, Local.BaseEntity<long>>(fac);
+                            localGroup.Direction = MapConfig.Map<Cist.Direction, Local.BaseEntity<long>>(dir);
+                            localGroup.Speciality = MapConfig.Map<Cist.Speciality, Local.BaseEntity<long>>(sp);
+                            return localGroup;
+                        })))
                 )
             ).Distinct();
             return groups;
@@ -329,12 +333,8 @@ namespace NureTimetable.DAL
             {
                 throw new InvalidOperationException($"You MUST call {nameof(UniversityEntitiesRepository)}.AssureInitialized(); prior to using it.");
             }
-            if (Singleton == null)
-            {
-                return null;
-            }
 
-            IEnumerable<Local.Teacher> teachers = Singleton.Faculties.SelectMany(fac => fac
+            var teachers = Singleton?.Faculties.SelectMany(fac => fac
                 .Departments.SelectMany(dep =>
                     dep.Teachers.Select(tr =>
                     {
@@ -353,12 +353,8 @@ namespace NureTimetable.DAL
             {
                 throw new InvalidOperationException($"You MUST call {nameof(UniversityEntitiesRepository)}.AssureInitialized(); prior to using it.");
             }
-            if (Singleton == null)
-            {
-                return null;
-            }
 
-            IEnumerable<Local.Room> rooms = Singleton.Buildings.SelectMany(bd => bd
+            var rooms = Singleton?.Buildings.SelectMany(bd => bd
                 .Rooms.Select(rm =>
                 {
                     Local.Room localGroup = MapConfig.Map<Cist.Room, Local.Room>(rm);
@@ -387,7 +383,7 @@ namespace NureTimetable.DAL
 
         public static void UpdateSaved(List<Local.SavedEntity> savedEntities)
         {
-            savedEntities = savedEntities ?? new List<Local.SavedEntity>();
+            savedEntities ??= new List<Local.SavedEntity>();
 
             // Removing cache from deleted saved entities if needed
             List<Local.SavedEntity> deletedEntities = GetSaved()
@@ -406,7 +402,7 @@ namespace NureTimetable.DAL
             }
             // Saving saved entities list
             Serialisation.ToJsonFile(savedEntities, FilePath.SavedEntitiesList);
-            Device.BeginInvokeOnMainThread(() =>
+            MainThread.BeginInvokeOnMainThread(() =>
             {
                 MessagingCenter.Send(Application.Current, MessageTypes.SavedEntitiesChanged, savedEntities);
             });
@@ -450,7 +446,7 @@ namespace NureTimetable.DAL
 
         public static void UpdateSelected(List<Local.SavedEntity> selectedEntities)
         {
-            selectedEntities = selectedEntities ?? new List<Local.SavedEntity>();
+            selectedEntities ??= new List<Local.SavedEntity>();
 
             List<Local.SavedEntity> currentEntities = GetSelected();
             if (currentEntities.Count == selectedEntities.Count && !currentEntities.Except(selectedEntities).Any())
@@ -459,13 +455,12 @@ namespace NureTimetable.DAL
             }
 
             Serialisation.ToJsonFile(selectedEntities, FilePath.SelectedEntities);
-            Device.BeginInvokeOnMainThread(() =>
+            MainThread.BeginInvokeOnMainThread(() =>
             {
                 MessagingCenter.Send(Application.Current, MessageTypes.SelectedEntitiesChanged, selectedEntities);
             });
         }
         #endregion
-
 
         private static string GetHardcodedGroupsFromCist()
         {

@@ -8,8 +8,20 @@ namespace NureTimetable.DAL.Models.Local
     public class Event
     {
         public EventType Type { get; set; }
-        public DateTime Start { get; set; }
-        public DateTime End { get; set; }
+        public DateTime StartUtc { get; set; }
+        public DateTime EndUtc { get; set; }
+        public DateTime Start
+        {
+            get => StartUtc.Add(TimeZoneInfo.Local.GetUtcOffset(StartUtc));
+            set => StartUtc = value.Add(-TimeZoneInfo.Local.GetUtcOffset(value)); // TODO: Remove setter when all users move to Utc version (1821+)
+        }
+        public DateTime End 
+        {
+            get => EndUtc.Add(TimeZoneInfo.Local.GetUtcOffset(EndUtc));
+            set => EndUtc = value.Add(-TimeZoneInfo.Local.GetUtcOffset(value)); // TODO: Remove setter when all users move to Utc version (1821+)
+        }
+        public bool ShouldSerializeStart() => false;
+        public bool ShouldSerializeEnd() => false;
         public string RoomName { get; set; }
         public Lesson Lesson { get; set; }
         public int PairNumber { get; set; }
@@ -23,7 +35,7 @@ namespace NureTimetable.DAL.Models.Local
             {
                 return true;
             }
-            if (ReferenceEquals(obj1, null) || ReferenceEquals(obj2, null))
+            if (obj1 is null || obj2 is null)
             {
                 return false;
             }
@@ -42,9 +54,9 @@ namespace NureTimetable.DAL.Models.Local
 
         public override bool Equals(object obj)
         {
-            if (obj is Event)
+            if (obj is Event e)
             {
-                return this == (Event)obj;
+                return this == e;
             }
             return base.Equals(obj);
         }

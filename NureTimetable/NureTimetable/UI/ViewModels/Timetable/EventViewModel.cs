@@ -9,8 +9,8 @@ namespace NureTimetable.UI.ViewModels.Timetable
     {
         public EventViewModel(Event ev)
         {
-            Start = ev.Start;
-            End = ev.End;
+            StartUtc = ev.StartUtc;
+            EndUtc = ev.EndUtc;
             Groups = ev.Groups;
             Teachers = ev.Teachers;
             RoomName = ev.RoomName;
@@ -20,7 +20,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
         }
 
         public string DisplayInfo
-               => $"{Lesson.ShortName}{Environment.NewLine}{RoomName} {Type.ShortName}{Environment.NewLine}{Start.ToString("HH:mm")} - {End.ToString("HH:mm")}";
+               => $"{Lesson.ShortName}{Environment.NewLine}{RoomName} {Type.ShortName}{Environment.NewLine}{Start:HH:mm} - {End:HH:mm}";
 
         public Color Color
         {

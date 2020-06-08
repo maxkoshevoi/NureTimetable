@@ -5,8 +5,8 @@
              xmlns:LN="clr-namespace:NureTimetable.Core.Localization;assembly=NureTimetable.Core"
              xmlns:syncfusion="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
              xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels.Lessons.ManageLessons"
-             x:DataType="vm:ManageLessonsViewModel"
              x:Class="NureTimetable.UI.Views.Lessons.ManageLessonsPage"
+             x:DataType="vm:ManageLessonsViewModel"
              Title="{Binding Title}">
     <ContentPage.Behaviors>
         <behaviors:EventToCommandBehavior x:DataType="vm:ManageLessonsViewModel" EventName="Appearing" Command="{Binding PageAppearingCommand}"/>

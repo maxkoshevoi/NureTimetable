@@ -1,5 +1,5 @@
 ﻿using NureTimetable.Core.Localization;
-using NureTimetable.Services.Helpers;
+using NureTimetable.UI.Helpers;
 using NureTimetable.UI.ViewModels.Core;
 using System.Threading.Tasks;
 using System.Windows.Input;

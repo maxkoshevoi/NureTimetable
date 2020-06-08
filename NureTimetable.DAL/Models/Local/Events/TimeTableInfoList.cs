@@ -30,7 +30,7 @@ namespace NureTimetable.DAL.Models.Local
 
         public static TimetableInfoList Build(List<TimetableInfo> timetableInfos, bool applyHiddingSettings)
         {
-            timetableInfos = timetableInfos ?? new List<TimetableInfo>();
+            timetableInfos ??= new List<TimetableInfo>();
 
             if (applyHiddingSettings)
             {
@@ -49,12 +49,11 @@ namespace NureTimetable.DAL.Models.Local
                             if (combinedEvent == null)
                             {
                                 combinedEvent = e;
+                                continue;
                             }
-                            else
-                            {
-                                combinedEvent.Groups.AddRange(e.Groups.Except(combinedEvent.Groups));
-                                combinedEvent.Teachers.AddRange(e.Teachers.Except(combinedEvent.Teachers));
-                            }
+
+                            combinedEvent.Groups.AddRange(e.Groups.Except(combinedEvent.Groups));
+                            combinedEvent.Teachers.AddRange(e.Teachers.Except(combinedEvent.Teachers));
                         }
                         return combinedEvent;
                     })

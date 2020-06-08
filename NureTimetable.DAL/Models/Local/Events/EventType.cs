@@ -15,7 +15,7 @@
             {
                 return true;
             }
-            if (ReferenceEquals(obj1, null) || ReferenceEquals(obj2, null))
+            if (obj1 is null || obj2 is null)
             {
                 return false;
             }
@@ -29,9 +29,9 @@
 
         public override bool Equals(object obj)
         {
-            if (obj is EventType)
+            if (obj is EventType eventType)
             {
-                return this == (EventType)obj;
+                return this == eventType;
             }
             return base.Equals(obj);
         }

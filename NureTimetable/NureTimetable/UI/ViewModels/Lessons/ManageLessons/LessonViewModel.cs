@@ -1,5 +1,5 @@
 ﻿using NureTimetable.DAL.Models.Local;
-using NureTimetable.Services.Helpers;
+using NureTimetable.UI.Helpers;
 using NureTimetable.UI.ViewModels.Core;
 using NureTimetable.UI.ViewModels.Lessons.LessonSettings;
 using NureTimetable.UI.Views.Lessons;
@@ -34,7 +34,7 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
 
         private async Task SettingsClicked()
         {
-            await Navigation.PushAsync(new LessonSettingsPage
+            Navigation.PushAsync(new LessonSettingsPage
             {
                 BindingContext = new LessonSettingsViewModel(Navigation, LessonInfo, timetableInfo)
             });
@@ -42,7 +42,7 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
 
         private async Task InfoClicked()
         {
-            await Navigation.PushAsync(new LessonInfoPage
+            Navigation.PushAsync(new LessonInfoPage
             {
                 BindingContext = new LessonInfoViewModel(Navigation, LessonInfo, timetableInfo)
             });

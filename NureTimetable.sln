@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NureTimetable.Android", "Nu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NureTimetable", "NureTimetable\NureTimetable\NureTimetable.csproj", "{BC352889-A149-44E4-854B-2D7FBCAE3AA3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NureTimetable.Services", "NureTimetable.Services\NureTimetable.Services.csproj", "{7C19C2E3-144F-4909-A3BA-282FED3EF282}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NureTimetable.Core", "NureTimetable.Core\NureTimetable.Core.csproj", "{7212568B-A874-4DDF-AA58-67A8D57D0F81}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NureTimetable.DAL", "NureTimetable.DAL\NureTimetable.DAL.csproj", "{F54449F5-4F83-432F-AAB5-B7F624EA1F67}"
@@ -31,10 +29,6 @@ Global
 		{BC352889-A149-44E4-854B-2D7FBCAE3AA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BC352889-A149-44E4-854B-2D7FBCAE3AA3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BC352889-A149-44E4-854B-2D7FBCAE3AA3}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{7C19C2E3-144F-4909-A3BA-282FED3EF282}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7C19C2E3-144F-4909-A3BA-282FED3EF282}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7C19C2E3-144F-4909-A3BA-282FED3EF282}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7C19C2E3-144F-4909-A3BA-282FED3EF282}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7212568B-A874-4DDF-AA58-67A8D57D0F81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7212568B-A874-4DDF-AA58-67A8D57D0F81}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7212568B-A874-4DDF-AA58-67A8D57D0F81}.Release|Any CPU.ActiveCfg = Release|Any CPU

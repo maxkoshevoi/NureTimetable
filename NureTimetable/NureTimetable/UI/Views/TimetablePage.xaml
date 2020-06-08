@@ -6,8 +6,8 @@
              xmlns:syncfusion="clr-namespace:Syncfusion.SfSchedule.XForms;assembly=Syncfusion.SfSchedule.XForms"
              xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
              xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels.Timetable"
-             x:DataType="vm:TimetableViewModel"
              x:Class="NureTimetable.UI.Views.TimetablePage"
+             x:DataType="vm:TimetableViewModel"
              Title="{Binding Title}">
     <ContentPage.Behaviors>
         <behaviors:EventToCommandBehavior x:DataType="vm:TimetableViewModel" EventName="Appearing" Command="{Binding PageAppearingCommand}"/>
@@ -53,10 +53,10 @@
                         <behaviors:EventToCommandBehavior EventName="MonthInlineAppointmentTapped" Command="{Binding TimetableMonthInlineAppointmentTappedCommand}"/>
                     </syncfusion:SfSchedule.Behaviors>
                     <syncfusion:SfSchedule.HeaderStyle>
-                        <syncfusion:HeaderStyle FontSize="10" FontAttributes="Bold"/>
+                        <syncfusion:HeaderStyle FontSize="10" FontAttributes="Bold" />
                     </syncfusion:SfSchedule.HeaderStyle>
                     <syncfusion:SfSchedule.ViewHeaderStyle>
-                        <syncfusion:ViewHeaderStyle DateFontSize="13" DayFontSize="8" />
+                        <syncfusion:ViewHeaderStyle DateFontSize="13" DayFontSize="8" CurrentDateTextColor="DodgerBlue" CurrentDayTextColor="DodgerBlue" />
                     </syncfusion:SfSchedule.ViewHeaderStyle>
                     <syncfusion:SfSchedule.WeekViewSettings>
                         <syncfusion:WeekViewSettings StartHour="{Binding TimetableStartHour}" EndHour="{Binding TimetableEndHour}" WorkStartHour="0" WorkEndHour="24">
@@ -80,7 +80,7 @@
                         </syncfusion:TimelineViewSettings>
                     </syncfusion:SfSchedule.TimelineViewSettings>
                     <syncfusion:SfSchedule.MonthViewSettings>
-                        <syncfusion:MonthViewSettings AppointmentIndicatorCount="6" ShowWeekNumber="True">
+                        <syncfusion:MonthViewSettings AppointmentIndicatorCount="6" ShowWeekNumber="True" AppointmentDisplayMode="Appointment">
                             <syncfusion:MonthViewSettings.MonthLabelSettings>
                                 <syncfusion:MonthLabelSettings DayFormat="dd"/>
                             </syncfusion:MonthViewSettings.MonthLabelSettings>
@@ -115,7 +115,7 @@
                 Command="{Binding BTodayClickedCommand}"
                 Text="{Binding BTodayText}"/>
             <StackLayout x:Name="NoSourceLayout" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="{Binding NoSourceLayoutIsVisible}">
-                <Label Text="{LN:Translate NoTimetable}"
+                <Label Text="{Binding NoSourceLayoutText}"
                     VerticalOptions="CenterAndExpand" 
                     HorizontalOptions="CenterAndExpand"
                     HorizontalTextAlignment="Center" />

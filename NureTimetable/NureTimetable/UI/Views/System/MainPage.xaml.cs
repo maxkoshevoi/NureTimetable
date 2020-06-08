@@ -4,15 +4,15 @@ using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Consts;
 using NureTimetable.Migrations;
 using NureTimetable.UI.ViewModels.Info;
-using NureTimetable.UI.ViewModels.System.Menu;
+using NureTimetable.UI.ViewModels.Menu;
 using NureTimetable.UI.ViewModels.Timetable;
 using NureTimetable.UI.Views.Info;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -21,7 +21,8 @@ namespace NureTimetable.UI.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MainPage : MasterDetailPage
     {
-        Dictionary<int, NavigationPage> MenuPages = new Dictionary<int, NavigationPage>();
+        readonly Dictionary<int, NavigationPage> MenuPages = new Dictionary<int, NavigationPage>();
+
         public MainPage()
         {
             InitializeComponent();
@@ -50,33 +51,36 @@ namespace NureTimetable.UI.Views
 
         protected override async void OnAppearing()
         {
-            var migrationsToApply = new List<BaseMigration>();
-            foreach (var migration in BaseMigration.Migrations)
+            if (VersionTracking.IsFirstLaunchForCurrentBuild)
             {
-                if (migration.IsNeedsToBeApplied())
+                var migrationsToApply = new List<BaseMigration>();
+                foreach (var migration in BaseMigration.Migrations)
                 {
-                    migrationsToApply.Add(migration);
-                }
-            }
-
-            if (migrationsToApply.Count > 0)
-            {
-                await App.Current.MainPage.DisplayAlert(LN.FinishingUpdateTitle, LN.FinishingUpdateDescription, LN.Ok);
-                bool isSuccess = true;
-                foreach (var migration in migrationsToApply)
-                {
-                    if (!migration.Apply())
+                    if (migration.IsNeedsToBeApplied())
                     {
-                        isSuccess = false;
+                        migrationsToApply.Add(migration);
                     }
                 }
-                if (!isSuccess)
+
+                if (migrationsToApply.Count > 0)
                 {
-                    await App.Current.MainPage.DisplayAlert(LN.FinishingUpdateTitle, LN.FinishingUpdateFail, LN.Ok);
+                    await App.Current.MainPage.DisplayAlert(LN.FinishingUpdateTitle, LN.FinishingUpdateDescription, LN.Ok);
+                    bool isSuccess = true;
+                    foreach (var migration in migrationsToApply)
+                    {
+                        if (!migration.Apply())
+                        {
+                            isSuccess = false;
+                        }
+                    }
+                    if (!isSuccess)
+                    {
+                        await App.Current.MainPage.DisplayAlert(LN.FinishingUpdateTitle, LN.FinishingUpdateFail, LN.Ok);
+                    }
+                    var timetablePage = new TimetablePage();
+                    timetablePage.BindingContext = new TimetableViewModel(timetablePage.Navigation, timetablePage);
+                    Detail = new NavigationPage(timetablePage);
                 }
-                var timetablePage = new TimetablePage();
-                timetablePage.BindingContext = new TimetableViewModel(timetablePage.Navigation, timetablePage);
-                Detail = new NavigationPage(timetablePage);
             }
 
             base.OnAppearing();
@@ -87,32 +91,49 @@ namespace NureTimetable.UI.Views
 #if !DEBUG
             // Getting exception Data
             var properties = new Dictionary<string, string>();
+            var attachments = new List<ErrorAttachmentLog>();
             foreach (DictionaryEntry de in ex.Data)
             {
+                if (de.Value is ErrorAttachmentLog attachment)
+                {
+                    attachments.Add(attachment);
+                    continue;
+                }
                 properties.Add(de.Key.ToString(), de.Value.ToString());
+            }
+            if (ex.InnerException != null)
+            {
+                attachments.Add(ErrorAttachmentLog.AttachmentWithText(ex.InnerException.ToString(), "InnerException.txt"));
             }
 
             // Special cases for certain exception types
-            if (ex is WebException webException)
+            if (ex is WebException webEx)
             {
-                // WebException happens for external reasons, and should't be treated as an exception.
-                // But just in case it is logged as Event
-
-                properties.Add("Status", webException.Status.ToString());
-                properties.Add("Message", webException.Message);
-
-                if (new[] { WebExceptionStatus.NameResolutionFailure, WebExceptionStatus.ConnectFailure }.Contains(webException.Status))
+                if (Connectivity.NetworkAccess == NetworkAccess.None)
                 {
-                    // Most likely device doesn't have internet connection
+                    // No internet caused WebException, nothing to log here
                     return;
                 }
+
+                // WebException happens for external reasons, and shouldn't be treated as an exception.
+                // But just in case it is logged as Event
+
+                if (webEx.Status != 0)
+                {
+                    properties.Add("Status", webEx.Status.ToString());
+                }
+                if (webEx.InnerException != null)
+                {
+                    properties.Add("InnerException", webEx.InnerException.GetType().FullName);
+                }
+                properties.Add("Message", ex.Message);
 
                 Analytics.TrackEvent("WebException", properties);
                 return;
             }
 
             // Logging exception
-            Crashes.TrackError(ex, properties);
+            Crashes.TrackError(ex, properties, attachments.ToArray());
 #endif
         }
 
@@ -149,7 +170,7 @@ namespace NureTimetable.UI.Views
             {
                 Detail = newPage;
 
-                if (Device.RuntimePlatform == Device.Android)
+                if (DeviceInfo.Platform == DevicePlatform.Android)
                 {
                     await Task.Delay(100);
                 }

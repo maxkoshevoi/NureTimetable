@@ -4,9 +4,10 @@ using NureTimetable.UI.Views;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
-namespace NureTimetable.UI.ViewModels.System.Menu
+namespace NureTimetable.UI.ViewModels.Menu
 {
     public class MenuViewModel : BaseViewModel
     {
@@ -31,9 +32,9 @@ namespace NureTimetable.UI.ViewModels.System.Menu
             get => _selectedItem;
             set
             {
-                if (value != null)
+                if (value != null && RootPage != null)
                 {
-                    Device.BeginInvokeOnMainThread(async () => { await ItemSelected(value); });
+                    MainThread.BeginInvokeOnMainThread(async () => await RootPage.NavigateFromMenu((int)value.Id));
                 }
 
                 _selectedItem = value;
@@ -42,17 +43,7 @@ namespace NureTimetable.UI.ViewModels.System.Menu
 
         public MenuViewModel(INavigation navigation) : base(navigation)
         {
-            SelectedItem = MenuItems[0];
-        }
-
-        private static async Task ItemSelected(HomeMenuItem selectedItem)
-        {
-            if (selectedItem == null)
-            {
-                return;
-            }
-
-            await RootPage.NavigateFromMenu((int)selectedItem.Id);
+            _selectedItem = MenuItems[0];
         }
 
         private static IEnumerable<HomeMenuItem> GetMenuItems()

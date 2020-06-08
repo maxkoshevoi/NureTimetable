@@ -6,19 +6,24 @@ using NureTimetable.Core.Models.InterplatformCommunication;
 using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
 using NureTimetable.Models.Consts.Fonts;
-using NureTimetable.Services.Helpers;
+using NureTimetable.UI.Helpers;
 using NureTimetable.UI.ViewModels.Core;
 using NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities;
 using NureTimetable.UI.Views;
 using NureTimetable.UI.Views.TimetableEntities;
+using Plugin.Calendars;
 using Syncfusion.SfSchedule.XForms;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Essentials;
 using Xamarin.Forms;
+using Calendars = Plugin.Calendars.Abstractions;
 
 namespace NureTimetable.UI.ViewModels.Timetable
 {
@@ -53,11 +58,12 @@ namespace NureTimetable.UI.ViewModels.Timetable
 
         private bool _timetableLayoutIsVisible = false;
         private bool _noSourceLayoutIsVisible;
+        private string _noSourceLayoutText;
         private bool _progressLayoutIsVisible;
         private string _bTodayText;
         private double _bTodayScale = 0;
 
-        private ITimetablePageCommands _timetablePage;
+        private readonly ITimetablePageCommands _timetablePage;
         #endregion
 
         #region Properties
@@ -81,6 +87,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
 
         public bool TimetableLayoutIsVisible { get => _timetableLayoutIsVisible; set => SetProperty(ref _timetableLayoutIsVisible, value); }
         public bool NoSourceLayoutIsVisible { get => _noSourceLayoutIsVisible; set => SetProperty(ref _noSourceLayoutIsVisible, value); }
+        public string NoSourceLayoutText { get => _noSourceLayoutText; set => SetProperty(ref _noSourceLayoutText, value); }
         public bool ProgressLayoutIsVisible { get => _progressLayoutIsVisible; set => SetProperty(ref _progressLayoutIsVisible, value); }
         public string BTodayText { get => _bTodayText; set => SetProperty(ref _bTodayText, value); }
         public double BTodayScale { get => _bTodayScale; set => SetProperty(ref _bTodayScale, value); }
@@ -110,18 +117,14 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 activeCultureCode = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
             }
             TimetableLocale = activeCultureCode;
-            switch (settings.TimetableViewMode)
+            TimetableScheduleView = settings.TimetableViewMode switch
             {
-                case TimetableViewMode.Day:
-                    TimetableScheduleView = ScheduleView.DayView;
-                    break;
-                case TimetableViewMode.Week:
-                    TimetableScheduleView = ScheduleView.WeekView;
-                    break;
-                case TimetableViewMode.Month:
-                    TimetableScheduleView = ScheduleView.MonthView;
-                    break;
-            }
+                TimetableViewMode.Day => ScheduleView.DayView,
+                TimetableViewMode.Week => ScheduleView.WeekView,
+                TimetableViewMode.Month => ScheduleView.MonthView,
+                TimetableViewMode.Timeline => ScheduleView.TimelineView,
+                _ => TimetableScheduleView
+            };
 
             MessagingCenter.Subscribe<Application, List<SavedEntity>>(this, MessageTypes.SelectedEntitiesChanged, (sender, newSelectedEntities) =>
             {
@@ -233,7 +236,11 @@ namespace NureTimetable.UI.ViewModels.Timetable
                     Event currentEvent = timetableInfoList.Events.FirstOrDefault(e => e.Start <= DateTime.Now && e.End >= DateTime.Now);
                     if (currentEvent != null)
                     {
-                        text = string.Format(LN.TimeUntilBreak, (currentEvent.End - DateTime.Now).ToString("hh\\:mm\\:ss"));
+                        text = string.Format(
+                            LN.TimeUntilBreak, 
+                            currentEvent.RoomName, 
+                            (currentEvent.End - DateTime.Now).ToString("hh\\:mm\\:ss")
+                        );
                     }
                     else
                     {
@@ -294,7 +301,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 {
                     UpdateEvents(UniversityEntitiesRepository.GetSelected());
                 }
-                Device.BeginInvokeOnMainThread(() =>
+                MainThread.BeginInvokeOnMainThread(() =>
                 {
                     ProgressLayoutIsVisible = false;
                     TimetableIsEnabled = true;
@@ -306,38 +313,40 @@ namespace NureTimetable.UI.ViewModels.Timetable
         {
             if (selectedEntities == null || selectedEntities.Count == 0)
             {
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    Title = LN.AppName;
-                });
+                Title = LN.AppName;
                 TimetableLayoutIsVisible = false;
+                NoSourceLayoutText = LN.NoTimetable;
                 NoSourceLayoutIsVisible = true;
                 return;
             }
-            else
-            {
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    Title = string.Join(", ", selectedEntities.Select(se => se.Name));
-                });
-                NoSourceLayoutIsVisible = false;
-                TimetableLayoutIsVisible = true;
-            }
+            Title = string.Join(", ", selectedEntities.Select(se => se.Name));
 
+            var timetableInfos = new List<TimetableInfo>();
+            foreach (SavedEntity entity in selectedEntities)
+            {
+                TimetableInfo timetableInfo = EventsRepository.GetTimetableLocal(entity);
+                if (timetableInfo != null)
+                {
+                    timetableInfos.Add(timetableInfo);
+                }
+            }
             lock (enumeratingEvents)
             {
-                var timetableInfos = new List<TimetableInfo>();
-                foreach (SavedEntity entity in selectedEntities)
-                {
-                    TimetableInfo timetableInfo = EventsRepository.GetEvents(entity);
-                    if (timetableInfo != null)
-                    {
-                        timetableInfos.Add(timetableInfo);
-                    }
-                }
                 timetableInfoList = TimetableInfoList.Build(timetableInfos, applyHiddingSettings);
-                needToUpdateEventsUI = true;
+                if (timetableInfoList.Events.Any())
+                {
+                    NoSourceLayoutIsVisible = false;
+                    TimetableLayoutIsVisible = true;
+                    needToUpdateEventsUI = true;
+                }
+                else
+                {
+                    TimetableLayoutIsVisible = false;
+                    NoSourceLayoutText = LN.TimetableIsEmpty;
+                    NoSourceLayoutIsVisible = true;
+                }
             }
+
             UpdateEventsUI();
         }
 
@@ -347,6 +356,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
             {
                 return;
             }
+
             lock (updatingEventsUI)
             {
                 if (!needToUpdateEventsUI || !isPageVisible)
@@ -354,7 +364,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
                     return;
                 }
                 needToUpdateEventsUI = false;
-                Device.BeginInvokeOnMainThread(async () =>
+                MainThread.BeginInvokeOnMainThread(() =>
                 {
                     if (timetableInfoList.Count == 0)
                     {
@@ -362,54 +372,28 @@ namespace NureTimetable.UI.ViewModels.Timetable
                         return;
                     }
 
-                    int retriesLeft = 25;
-                    Exception exception = null;
-                    do
+                    lock (enumeratingEvents)
                     {
-                        try
-                        {
-                            lock (enumeratingEvents)
-                            {
-                                TimetableMinDisplayDate = timetableInfoList.StartDate();
-                                TimetableMaxDisplayDate = timetableInfoList.EndDate();
+                        TimetableMinDisplayDate = timetableInfoList.StartDate();
+                        TimetableMaxDisplayDate = timetableInfoList.EndDate();
 
-                                TimetableEndHour = 24;
-                                TimetableStartHour = timetableInfoList.StartTime().Hours;
-                                TimetableEndHour = ((TimetableStartHour * 60d) + TimetableTimeInterval * Math.Ceiling((timetableInfoList.EndTime().TotalMinutes - (TimetableStartHour * 60d)) / TimetableTimeInterval)) / 60d;
-                            }
-
-                            TimetableDataSource = timetableInfoList.Events
-                                .Select(ev => new EventViewModel(ev))
-                                .ToList();
-
-                            UpdateTimeLeft();
-                            break;
-                        }
-                        catch (Exception ex)
-                        {
-                            // Potential error with the SfSchedule control. Needs investigation!
-                            exception = ex;
-
-                            // This is temporary to check if this error is still occuring. TODO: Remove while loop if it doesn't
-                            MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, exception);
-                        }
-
-                        retriesLeft--;
-                    } while (retriesLeft > 0);
-                    if (retriesLeft == 0 && exception != null)
-                    {
-                        MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, exception);
-
-                        await App.Current.MainPage.DisplayAlert(LN.TimetableDisplay, LN.TimetableDisplayError, LN.Ok);
-                        return;
+                        TimetableEndHour = 24;
+                        TimetableStartHour = timetableInfoList.StartTime().Hours;
+                        TimetableEndHour = ((TimetableStartHour * 60d) + TimetableTimeInterval * Math.Ceiling((timetableInfoList.EndTime().TotalMinutes - (TimetableStartHour * 60d)) / TimetableTimeInterval)) / 60d;
                     }
+
+                    TimetableDataSource = timetableInfoList.Events
+                        .Select(ev => new EventViewModel(ev))
+                        .ToList();
+
+                    UpdateTimeLeft();
                 });
             }
         }
         
         private async Task ManageGroupsClicked()
         {
-            await Navigation.PushAsync(new ManageEntitiesPage
+            Navigation.PushAsync(new ManageEntitiesPage
             {
                 BindingContext = new ManageEntitiesViewModel(Navigation)
             });
@@ -492,13 +476,130 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 .Where(e => e.Lesson == ev.Lesson && e.Type == ev.Type)
                 .DistinctBy(e => e.Start)
                 .Count();
-            await App.Current.MainPage.DisplayAlert($"{ev.Lesson.FullName}", string.Format(LN.EventType, ev.Type.FullName + $" ({eventNumber}/{eventsCount})") + nl +
+            bool isAddToCalendar = await App.Current.MainPage.DisplayAlert($"{ev.Lesson.FullName}", string.Format(LN.EventType, ev.Type.FullName + $" ({eventNumber}/{eventsCount})") + nl +
                 string.Format(LN.EventClassroom, ev.RoomName) + nl +
                 string.Format(LN.EventTeachers, string.Join(", ", ev.Teachers.Select(t => t.Name))) + nl +
                 string.Format(LN.EventGroups, string.Join(", ", ev.Groups.Select(t => t.Name))) + nl +
                 string.Format(LN.EventDay, ev.Start.ToString("ddd, dd.MM.yy")) + nl +
                 string.Format(LN.EventTime, ev.Start.ToString("HH:mm"), ev.End.ToString("HH:mm")) +
-                notes, LN.Ok);
+                notes, LN.AddToCalendar, LN.Ok);
+
+            if (isAddToCalendar)
+            {
+                ProgressLayoutIsVisible = true;
+                
+                PermissionStatus? readStatus = null;
+                PermissionStatus? writeStatus = null;
+                const string customCalendarName = "NURE Timetable";
+                try
+                {
+                    bool isAdded = await Task.Run(async () =>
+                    {
+                        bool isCustomCalendarExists = true;
+
+                        readStatus = await Permissions.CheckStatusAsync<Permissions.CalendarRead>();
+                        if (readStatus != PermissionStatus.Granted)
+                        {
+                            readStatus = await MainThread.InvokeOnMainThreadAsync(Permissions.RequestAsync<Permissions.CalendarRead>);
+                        }
+                        writeStatus = await Permissions.CheckStatusAsync<Permissions.CalendarWrite>();
+                        if (writeStatus != PermissionStatus.Granted)
+                        {
+                            writeStatus = await MainThread.InvokeOnMainThreadAsync(Permissions.RequestAsync<Permissions.CalendarWrite>);
+                        }
+
+                        IList<Calendars.Calendar> calendars = await MainThread.InvokeOnMainThreadAsync(CrossCalendars.Current.GetCalendarsAsync);
+                        calendars = calendars.Where(c => 
+                            c.Name.ToLower() == c.AccountName.ToLower() 
+                            || c.AccountName.ToLower() == customCalendarName.ToLower()).ToList();
+                        Calendars.Calendar customCalendar = calendars
+                            .Where(c => c.AccountName.ToLower() == customCalendarName.ToLower())
+                            .FirstOrDefault();
+                        if (customCalendar == null)
+                        {
+                            isCustomCalendarExists = false;
+                            customCalendar = new Calendars.Calendar
+                            {
+                                Name = customCalendarName
+                            };
+                            calendars.Add(customCalendar);
+                        }
+                        else if (calendars.Where(c => c.AccountName == customCalendar.AccountName).Count() > 1)
+                        {
+                            Device.BeginInvokeOnMainThread(() =>
+                            {
+                                MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, new IndexOutOfRangeException($"There are {calendars.Where(c => c.AccountName == customCalendar.AccountName).Count()} calendars with AccountName {customCalendar.AccountName}"));
+                            });
+                        }
+                        
+                        Calendars.Calendar targetCalendar;
+                        if (calendars.Count == 1)
+                        {
+                            targetCalendar = customCalendar;
+                        }
+                        else
+                        {
+                            string targetCalendarName = await MainThread.InvokeOnMainThreadAsync(() => App.Current.MainPage.DisplayActionSheet(
+                                LN.ChooseCalendar,
+                                LN.Cancel,
+                                null,
+                                calendars.Select(c => c.Name).ToArray()));
+
+                            if (string.IsNullOrEmpty(targetCalendarName) || targetCalendarName == LN.Cancel)
+                            {
+                                return false;
+                            }
+                            targetCalendar = calendars.First(c => c.Name == targetCalendarName);
+                        }
+
+                        var calendarEvent = new Calendars.CalendarEvent
+                        {
+                            AllDay = false,
+                            Start = ev.StartUtc,
+                            End = ev.EndUtc,
+                            Name = $"{ev.Lesson.ShortName} ({ev.Type.ShortName} {eventNumber}/{eventsCount})",
+                            Description = string.Format(LN.EventClassroom, ev.RoomName) + nl +
+                                string.Format(LN.EventTeachers, string.Join(", ", ev.Teachers.Select(t => t.Name))) + nl +
+                                string.Format(LN.EventGroups, string.Join(", ", ev.Groups.Select(t => t.Name))),
+                            Location = $"KHNURE -\"{ev.RoomName}\"",
+                            Reminders = new[] {
+                                new Calendars.CalendarEventReminder
+                                {
+                                    Method = Calendars.CalendarReminderMethod.Alert,
+                                    TimeBefore = TimeSpan.FromMinutes(30)
+                                }
+                            }
+                        };
+
+                        if (!isCustomCalendarExists && targetCalendar == customCalendar)
+                        {
+                            await CrossCalendars.Current.AddOrUpdateCalendarAsync(customCalendar);
+                        }
+                        await CrossCalendars.Current.AddOrUpdateEventAsync(targetCalendar, calendarEvent);
+
+                        return true;
+                    });
+                    if (isAdded)
+                    {
+                        await App.Current.MainPage.DisplayAlert(LN.AddingToCalendarTitle, LN.AddingEventToCalendarSuccess, LN.Ok);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    if (readStatus == PermissionStatus.Granted || writeStatus == PermissionStatus.Granted)
+                    {
+                        MainThread.BeginInvokeOnMainThread(() =>
+                        {
+                            ex.Data.Add("Read Status", readStatus.ToString());
+                            ex.Data.Add("Write Status", writeStatus.ToString());
+                            MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
+                        });
+                    }
+                    await App.Current.MainPage.DisplayAlert(LN.AddingToCalendarTitle, LN.AddingEventToCalendarFail, LN.Ok);
+                }
+                
+                ProgressLayoutIsVisible = false;
+            }
         }
 
         private void HideSelectedEventsClicked()

@@ -6,6 +6,7 @@ using NureTimetable.Core.Models.Consts;
 using NureTimetable.UI.Views;
 using Syncfusion.Licensing;
 using System.Globalization;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -32,6 +33,8 @@ namespace NureTimetable
             {
                 LN.Culture = CultureInfo.CurrentCulture = new CultureInfo("ru");
             }
+            Bugfix.InitCalendarCrashFix();
+            VersionTracking.Track();
 
             InitializeComponent();
             MainPage = new MainPage();
@@ -42,7 +45,10 @@ namespace NureTimetable
             // Handle when your app starts
 #if !DEBUG
             //Register Microsoft App Center metrics
-            AppCenter.Start(Keys.MicrosoftAppCenterKey, typeof(Analytics), typeof(Crashes));
+            if (DeviceInfo.DeviceType != DeviceType.Virtual)
+            {
+                AppCenter.Start(Keys.MicrosoftAppCenterKey, typeof(Analytics), typeof(Crashes));
+            }
 #endif
         }
 

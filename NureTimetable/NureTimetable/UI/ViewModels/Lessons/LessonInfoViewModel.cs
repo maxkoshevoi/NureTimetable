@@ -12,7 +12,7 @@ namespace NureTimetable.UI.ViewModels.Lessons
     {
         #region Variables
         private string _title;
-        private TimetableInfo timetableInfo;
+        private readonly TimetableInfo timetableInfo;
         #endregion
 
         #region Properties
@@ -38,7 +38,7 @@ namespace NureTimetable.UI.ViewModels.Lessons
             {
                 var eventsWithType = events.Where(e => e.Type == et).ToList();
                 return $"{et.ShortName}:\n" +
-                    $"- {LN.EventsTotal} {eventsWithType.Count}, {eventsWithType.Where(e => e.Start > DateTime.Now).DefaultIfEmpty().Count()} {LN.EventsLeft}\n" +
+                    $"- {LN.EventsTotal} {eventsWithType.Count}, {eventsWithType.Where(e => e.Start > DateTime.Now).Count()} {LN.EventsLeft}\n" +
                     $"- {LN.NextEvent}: {eventsWithType.Where(e => e.Start > DateTime.Now).FirstOrDefault()?.Start.Date.ToShortDateString() ?? "-" }\n" +
                     $"- {LN.Teachers}: {string.Join(", ", eventsWithType.SelectMany(e => e.Teachers).Distinct().Select(t => t.ShortName).OrderBy(tn => tn).DefaultIfEmpty("-"))}";
             });

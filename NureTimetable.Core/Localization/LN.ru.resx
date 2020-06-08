@@ -127,7 +127,7 @@
     <value>Полезные ссылки</value>
   </data>
   <data name="HelpWanted" xml:space="preserve">
-    <value>Если у кого-нибудь с опытом разработки на Xamarin будет желение помочь, вот ссылка на гитхаб: </value>
+    <value>Если у кого-нибудь с опытом разработки на Xamarin будет желание помочь, вот ссылка на гитхаб: </value>
   </data>
   <data name="Institution" xml:space="preserve">
     <value>ХНУРЭ</value>
@@ -171,8 +171,8 @@
   <data name="EventDay" xml:space="preserve">
     <value>День: {0}</value>
   </data>
-  <data name="EventTeacher" xml:space="preserve">
-    <value>Преподаватель: {0}</value>
+  <data name="EventTeachers" xml:space="preserve">
+    <value>Преподаватели: {0}</value>
   </data>
   <data name="EventTeacherNotFound" xml:space="preserve">
     <value>Преподаватель: не найден</value>
@@ -220,7 +220,7 @@
     <value>Произошла ошибка при попытке отобразить расписание</value>
   </data>
   <data name="TimeUntilBreak" xml:space="preserve">
-    <value>До перерыва: {0}</value>
+    <value>До перерыва ({0}): {1}</value>
   </data>
   <data name="TimeUntilLesson" xml:space="preserve">
     <value>До {0} ({1}): {2}</value>
@@ -426,5 +426,27 @@
   </data>
   <data name="Timeline" xml:space="preserve">
     <value>Временная линия</value>
+  </data>
+  <data name="AddingEventToCalendarFail" xml:space="preserve">
+    <value>Не удалось добавить пару в календарь</value>
+  </data>
+  <data name="AddingEventToCalendarSuccess" xml:space="preserve">
+    <value>Пара было упешно добавлена в календарь</value>
+  </data>
+  <data name="AddingToCalendarTitle" xml:space="preserve">
+    <value>Добавление в календарь</value>
+  </data>
+  <data name="AddToCalendar" xml:space="preserve">
+    <value>Добавить в календарь</value>
+  </data>
+  <data name="ChooseCalendar" xml:space="preserve">
+    <value>Выберите календарь:</value>
+  </data>
+  <data name="CannotGetDataFromCist" xml:space="preserve">
+    <value>Ошибка при получении данных с cist.nure.ua.
+Повторите попытку позже, или попробуйте использовать другую сеть WIFI или мобильный интернет.</value>
+  </data>
+  <data name="TimetableIsEmpty" xml:space="preserve">
+    <value>Расписание не содержит ни одного события</value>
   </data>
 </root>

@@ -3,7 +3,7 @@ using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Consts;
 using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
-using NureTimetable.Services.Helpers;
+using NureTimetable.UI.Helpers;
 using NureTimetable.UI.ViewModels.Core;
 using NureTimetable.UI.Views.TimetableEntities;
 using System;
@@ -12,8 +12,10 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using NureTimetable.Core.Extensions;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
+using System.Net;
 
 namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
 {
@@ -55,7 +57,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
         public bool IsMultiselectMode
         {
             get => _isMultiselectMode;
-            set => SetProperty(ref _isMultiselectMode, value, onChanged: () => Entities.ForEach(e => e.NotifyChanged(nameof(IsMultiselectMode))));
+            set => SetProperty(ref _isMultiselectMode, value, onChanged: () => Entities?.ForEach(e => e.NotifyChanged(nameof(IsMultiselectMode))));
         }
 
         public SavedEntityItemViewModel SelectedEntity { get => _selectedEntity; set => SetProperty(ref _selectedEntity, value, onChanged: SavedEntitySelected); }
@@ -104,7 +106,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
         public async Task SelectOneAndExit(SavedEntity savedEntity)
         {
             UniversityEntitiesRepository.UpdateSelected(savedEntity);
-            await Navigation.PopToRootAsync();
+            Navigation.PopToRootAsync();
         }
 
         public void OnEntitySelectChange(SavedEntityItemViewModel entity)
@@ -156,7 +158,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
             {
                 return;
             }
-            await Navigation.PushAsync(new AddTimetablePage()
+            Navigation.PushAsync(new AddTimetablePage()
             {
                 BindingContext = new AddTimetableViewModel(Navigation)
             });
@@ -196,29 +198,50 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
             IsEntitiesLayoutEnabled = false;
             IsProgressVisable = true;
 
-            await Task.Factory.StartNew(() =>
-            {
 #if !DEBUG
-                Analytics.TrackEvent("Updating timetable", new Dictionary<string, string>
-                {
-                    { "Count", entitiesAllowed.Count.ToString() },
-                    { "Hour of the day", DateTime.Now.Hour.ToString() }
-                });
+            Analytics.TrackEvent("Updating timetable", new Dictionary<string, string>
+            {
+                { "Count", entitiesAllowed.Count.ToString() },
+                { "Hour of the day", DateTime.Now.Hour.ToString() }
+            });
 #endif
-
-                List<string> success = new List<string>(), fail = new List<string>();
-                foreach (SavedEntity entity in entitiesAllowed)
+            const int batchSize = 10;
+            var updateTasks = new List<Task<(TimetableInfo _, Exception Exception)>>();
+            for (int i = 0; i < entitiesAllowed.Count; i += batchSize)
+            {
+                foreach (SavedEntity entity in entitiesAllowed.Skip(i).Take(batchSize))
                 {
-                    if (EventsRepository.GetTimetableFromCist(entity, Config.TimetableFromDate, Config.TimetableToDate) != null)
-                    {
-                        success.Add(entity.Name);
-                    }
-                    else
-                    {
-                        fail.Add(entity.Name);
-                    }
+                    updateTasks.Add(EventsRepository.GetTimetableFromCist(entity, Config.TimetableFromDate, Config.TimetableToDate));
                 }
-                string result = "";
+                await Task.WhenAll(updateTasks);
+            }
+            
+            List<string> success = new List<string>(), fail = new List<string>();
+            bool isNetworkError = false;
+            for (int i = 0; i < updateTasks.Count; i++)
+            {
+                Exception ex = updateTasks[i].Result.Exception;
+                SavedEntity entity = entitiesAllowed[i];
+                if (ex is null)
+                {
+                    success.Add(entity.Name);
+                    continue;
+                }
+
+                if (ex is WebException)
+                {
+                    isNetworkError = true;
+                }
+                fail.Add(entity.Name);
+            }
+
+            string result = "";
+            if (isNetworkError && fail.Count == entitiesAllowed.Count)
+            {
+                result = LN.CannotGetDataFromCist;
+            }
+            else
+            {
                 if (success.Count > 0)
                 {
                     result += string.Format(LN.TimetableUpdated, string.Join(", ", success) + Environment.NewLine);
@@ -227,25 +250,22 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
                 {
                     result += string.Format(LN.ErrorOccurred, string.Join(", ", fail));
                 }
+            }
 
-                Device.BeginInvokeOnMainThread(async () =>
+            IsProgressVisable = false;
+            IsEntitiesLayoutEnabled = true;
+            if (await App.Current.MainPage.DisplayAlert(LN.TimetableUpdate, result, LN.ToTimetable, LN.Ok))
+            {
+                List<SavedEntity> selected = UniversityEntitiesRepository.GetSelected();
+                if (entitiesAllowed.Count == 1 && !selected.Contains(entitiesAllowed[0]))
                 {
-                    IsProgressVisable = false;
-                    IsEntitiesLayoutEnabled = true;
-                    if (await App.Current.MainPage.DisplayAlert(LN.TimetableUpdate, result, LN.ToTimetable, LN.Ok))
-                    {
-                        List<SavedEntity> selected = UniversityEntitiesRepository.GetSelected();
-                        if (entitiesAllowed.Count == 1 && !selected.Contains(entitiesAllowed[0]))
-                        {
-                            await SelectOneAndExit(entitiesAllowed[0]);
-                        }
-                        else
-                        {
-                            await Navigation.PopToRootAsync();
-                        }
-                    }
-                });
-            });
+                    await SelectOneAndExit(entitiesAllowed[0]);
+                }
+                else
+                {
+                    Navigation.PopToRootAsync();
+                }
+            }
         }
         #endregion
     }

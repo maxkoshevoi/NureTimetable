@@ -70,11 +70,47 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to add event to calendar.
+        /// </summary>
+        public static string AddingEventToCalendarFail {
+            get {
+                return ResourceManager.GetString("AddingEventToCalendarFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Event has been added to calendar.
+        /// </summary>
+        public static string AddingEventToCalendarSuccess {
+            get {
+                return ResourceManager.GetString("AddingEventToCalendarSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Adding timetable.
         /// </summary>
         public static string AddingTimetable {
             get {
                 return ResourceManager.GetString("AddingTimetable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adding to calendar.
+        /// </summary>
+        public static string AddingToCalendarTitle {
+            get {
+                return ResourceManager.GetString("AddingToCalendarTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add to calendar.
+        /// </summary>
+        public static string AddToCalendar {
+            get {
+                return ResourceManager.GetString("AddToCalendar", resourceCulture);
             }
         }
         
@@ -169,11 +205,30 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error getting data from cist.nure.ua.
+        ///Try again later, or try using different WIFI network or mobile internet connection..
+        /// </summary>
+        public static string CannotGetDataFromCist {
+            get {
+                return ResourceManager.GetString("CannotGetDataFromCist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Choose action.
         /// </summary>
         public static string ChooseAction {
             get {
                 return ResourceManager.GetString("ChooseAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose calendar:.
+        /// </summary>
+        public static string ChooseCalendar {
+            get {
+                return ResourceManager.GetString("ChooseCalendar", resourceCulture);
             }
         }
         
@@ -286,7 +341,7 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error occured. Please, try again later..
+        ///   Looks up a localized string similar to Error occurred. Please, try again later..
         /// </summary>
         public static string ErrorTryAgainLater {
             get {
@@ -566,7 +621,7 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to NURE official webpages: .
+        ///   Looks up a localized string similar to NURE official web-pages: .
         /// </summary>
         public static string NureWebpages {
             get {
@@ -800,11 +855,20 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An error occured while trying to display timetable.
+        ///   Looks up a localized string similar to An error occurred while trying to display timetable.
         /// </summary>
         public static string TimetableDisplayError {
             get {
                 return ResourceManager.GetString("TimetableDisplayError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Timetable doesn&apos;t contain any events.
+        /// </summary>
+        public static string TimetableIsEmpty {
+            get {
+                return ResourceManager.GetString("TimetableIsEmpty", resourceCulture);
             }
         }
         
@@ -845,7 +909,7 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Until break: {0}.
+        ///   Looks up a localized string similar to Until break ({0}): {1}.
         /// </summary>
         public static string TimeUntilBreak {
             get {

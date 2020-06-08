@@ -1,6 +1,7 @@
 ﻿using NureTimetable.Core.Models.Consts;
 using System;
 using System.Collections.Generic;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace NureTimetable.Migrations
@@ -24,7 +25,7 @@ namespace NureTimetable.Migrations
             }
             catch (Exception ex)
             {
-                Device.BeginInvokeOnMainThread(() =>
+                MainThread.BeginInvokeOnMainThread(() =>
                 {
                     MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
                 });

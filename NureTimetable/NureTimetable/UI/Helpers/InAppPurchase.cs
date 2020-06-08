@@ -1,12 +1,12 @@
 ﻿using NureTimetable.Core.Models.Consts;
-using Plugin.DeviceInfo;
 using Plugin.InAppBilling;
 using Plugin.InAppBilling.Abstractions;
 using System;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
-namespace NureTimetable.Services.Helpers
+namespace NureTimetable.UI.Helpers
 {
     public static class InAppPurchase
     {
@@ -34,14 +34,14 @@ namespace NureTimetable.Services.Helpers
             }
             catch (InAppBillingPurchaseException billingEx)
             {
-                Device.BeginInvokeOnMainThread(() =>
+                MainThread.BeginInvokeOnMainThread(() =>
                 {
                     MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, billingEx);
                 });
             }
             catch (Exception ex)
             {
-                Device.BeginInvokeOnMainThread(() =>
+                MainThread.BeginInvokeOnMainThread(() =>
                 {
                     MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
                 });
@@ -57,10 +57,10 @@ namespace NureTimetable.Services.Helpers
         private static async Task<bool> Consume(InAppBillingPurchase purchase)
         {
             // Called after we have a successful purchase or later on
-            if (CrossDeviceInfo.Current.Platform != Plugin.DeviceInfo.Abstractions.Platform.Android)
-            {
-                return true;
-            }
+            // if (DeviceInfo.Platform != DevicePlatform.Android)
+            // {
+            //     return true;
+            // }
 
             try
             {
@@ -77,7 +77,7 @@ namespace NureTimetable.Services.Helpers
             }
             catch (Exception ex)
             {
-                Device.BeginInvokeOnMainThread(() =>
+                MainThread.BeginInvokeOnMainThread(() =>
                 {
                     MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
                 });

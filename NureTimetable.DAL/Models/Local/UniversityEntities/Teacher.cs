@@ -14,7 +14,7 @@
             {
                 return true;
             }
-            if (ReferenceEquals(obj1, null) || ReferenceEquals(obj2, null))
+            if (obj1 is null || obj2 is null)
             {
                 return false;
             }
@@ -28,9 +28,9 @@
 
         public override bool Equals(object obj)
         {
-            if (obj is Teacher)
+            if (obj is Teacher teacher)
             {
-                return this == (Teacher)obj;
+                return this == teacher;
             }
             return base.Equals(obj);
         }

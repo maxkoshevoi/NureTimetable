@@ -1,15 +1,15 @@
 ﻿using NureTimetable.Core.Localization;
 using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
-using NureTimetable.Services.Helpers;
+using NureTimetable.UI.Helpers;
 using NureTimetable.UI.ViewModels.Core;
 using NureTimetable.UI.ViewModels.Lessons.ManageLessons;
 using NureTimetable.UI.Views.Lessons;
-using Plugin.DeviceInfo;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
@@ -17,7 +17,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
     public class SavedEntityItemViewModel : BaseViewModel
     {
         #region variables
-        private ManageEntitiesViewModel _manageEntitiesViewModel;
+        private readonly ManageEntitiesViewModel _manageEntitiesViewModel;
         #endregion
 
         #region Properties
@@ -46,17 +46,17 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
             SettingsClickedCommand = CommandHelper.CreateCommand(SettingsClicked);
         }
 
-        public async Task UpdateClicked()
+        public Task UpdateClicked()
         {
-            await _manageEntitiesViewModel.UpdateTimetable(SavedEntity);
+            return _manageEntitiesViewModel.UpdateTimetable(SavedEntity);
         }
 
         public async Task SettingsClicked()
         {
             List<string> actionList = new List<string> { LN.UpdateTimetable, LN.SetUpLessonDisplay, LN.Delete };
-            if (Device.RuntimePlatform == Device.Android
-                && CrossDeviceInfo.Current.VersionNumber.Major > 0
-                && CrossDeviceInfo.Current.VersionNumber.Major < 5)
+            if (DeviceInfo.Platform == DevicePlatform.Android
+                && DeviceInfo.Version.Major > 0
+                && DeviceInfo.Version.Major < 5)
             {
                 // SfCheckBox doesn`t support Android 4
                 actionList.Remove(LN.SetUpLessonDisplay);
@@ -82,7 +82,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
             }
             else if (action == LN.SetUpLessonDisplay)
             {
-                await Navigation.PushAsync(new ManageLessonsPage()
+                Navigation.PushAsync(new ManageLessonsPage()
                 {
                     BindingContext = new ManageLessonsViewModel(Navigation, SavedEntity)
                 });

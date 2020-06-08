@@ -2,7 +2,7 @@
 using NureTimetable.Core.Models.Consts;
 using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
-using NureTimetable.Services.Helpers;
+using NureTimetable.UI.Helpers;
 using NureTimetable.UI.ViewModels.Core;
 using System;
 using System.Collections.Generic;
@@ -10,6 +10,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace NureTimetable.UI.ViewModels.TimetableEntities
@@ -75,9 +76,9 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
         public BaseAddEntityViewModel(INavigation navigation) : base(navigation)
         {
             SearchBarTextChangedCommand = CommandHelper.CreateCommand(SearchBarTextChanged);
-            ContentPageAppearingCommand = CommandHelper.CreateCommand(UpdateEntities);
+            ContentPageAppearingCommand = CommandHelper.CreateCommand(async () => await UpdateEntities());
             UpdateCommand = CommandHelper.CreateCommand(UpdateFromCist);
-            Device.BeginInvokeOnMainThread(async () => await UpdateEntities(false));
+            MainThread.BeginInvokeOnMainThread(async () => await UpdateEntities(false));
 
             MessagingCenter.Subscribe<Application>(this, MessageTypes.UniversityEntitiesUpdated, async (sender) =>
             {
@@ -91,7 +92,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
 
         protected abstract IOrderedEnumerable<T> SearchEntities(string searchQuery);
 
-        protected abstract List<T> GetAllEntitiesFromCist();
+        protected abstract List<T> GetAllEntities();
 
         #endregion
 
@@ -104,7 +105,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
             {
                 if (value != null)
                 {
-                    Device.BeginInvokeOnMainThread(async () => { await EntitySelected(value); });
+                    MainThread.BeginInvokeOnMainThread(async () => { await EntitySelected(value); });
                 }
 
                 _selectedEntity = value;
@@ -162,52 +163,45 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
             }
         }
 
-        protected async Task UpdateEntities()
-        {
-            await UpdateEntities(false);
-        }
-
-        protected async Task UpdateEntities(bool fromCistOnly = false)
+        public async Task UpdateEntities(bool fromCistOnly = false)
         {
             ProgressLayoutIsVisable = true;
             ProgressLayoutIsEnable = false;
 
-            await Task.Factory.StartNew(() =>
+            await Task.Run(() =>
             {
-                UniversityEntitiesRepository.UniversityEntitiesCistUpdateResult updateFromCistResult = null;
                 if (fromCistOnly)
                 {
-                    updateFromCistResult = UniversityEntitiesRepository.UpdateFromCist();
+                    var updateFromCistResult = UniversityEntitiesRepository.UpdateFromCist();
 
                     if (updateFromCistResult.IsAllFail)
                     {
-                        Device.BeginInvokeOnMainThread(() =>
+                        MainThread.BeginInvokeOnMainThread(() =>
                         {
-                            App.Current.MainPage.DisplayAlert(LN.UniversityInfoUpdate, LN.UniversityInfoUpdateFail, LN.Ok);
+                            App.Current.MainPage.DisplayAlert(LN.UniversityInfoUpdate,
+                                updateFromCistResult.IsConnectionIssues
+                                    ? LN.CannotGetDataFromCist
+                                    : LN.UniversityInfoUpdateFail, 
+                                LN.Ok);
                         });
-
-                        ProgressLayoutIsVisable = false;
-                        ProgressLayoutIsEnable = true;
-
-                        return;
                     }
                     else if (!updateFromCistResult.IsAllSuccessful)
                     {
                         string failedEntities = Environment.NewLine;
-                        if (!updateFromCistResult.IsGroupsOk)
+                        if (updateFromCistResult.GroupsException != null)
                         {
                             failedEntities += LN.Groups + Environment.NewLine;
                         }
-                        if (!updateFromCistResult.IsTeachersOk)
+                        if (updateFromCistResult.TeachersException != null)
                         {
                             failedEntities += LN.Teachers + Environment.NewLine;
                         }
-                        if (!updateFromCistResult.IsRoomsOk)
+                        if (updateFromCistResult.RoomsException != null)
                         {
                             failedEntities += LN.Rooms + Environment.NewLine;
                         }
 
-                        Device.BeginInvokeOnMainThread(() =>
+                        MainThread.BeginInvokeOnMainThread(() =>
                         {
                             App.Current.MainPage.DisplayAlert(LN.UniversityInfoUpdate, string.Format(LN.UniversityInfoUpdatePartiallyFail, Environment.NewLine + failedEntities), LN.Ok);
                         });
@@ -217,7 +211,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
                 {
                     UniversityEntitiesRepository.AssureInitialized();
                 }
-                _allEntities = GetAllEntitiesFromCist();
+                _allEntities = GetAllEntities();
                 Entities = new ObservableCollection<T>(OrderEntities());
                 
                 NoSourceLayoutIsVisible = Entities.Count == 0;

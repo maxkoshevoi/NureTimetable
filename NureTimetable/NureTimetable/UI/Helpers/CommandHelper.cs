@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace NureTimetable.Services.Helpers
+namespace NureTimetable.UI.Helpers
 {
     public static class CommandHelper
     {

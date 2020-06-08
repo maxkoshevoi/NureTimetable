@@ -5,8 +5,8 @@
              xmlns:behaviors="clr-namespace:NureTimetable.UI.Behaviors;assembly=NureTimetable"
              xmlns:syncfusion="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
              xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels.Lessons.LessonSettings"
-             x:DataType="vm:LessonSettingsViewModel"
              x:Class="NureTimetable.UI.Views.Lessons.LessonSettingsPage"
+             x:DataType="vm:LessonSettingsViewModel"
              Title="{Binding Title}">
 
     <ScrollView>

@@ -1,8 +1,9 @@
-﻿using NureTimetable.Core.Models.InterplatformCommunication;
-using NureTimetable.Services.Helpers;
+﻿using NureTimetable.UI.Helpers;
 using NureTimetable.UI.ViewModels.Core;
 using System;
+using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace NureTimetable.UI.ViewModels.Info
@@ -26,15 +27,14 @@ namespace NureTimetable.UI.ViewModels.Info
 
         public AboutViewModel(INavigation navigation) : base(navigation)
         {
-            var version = DependencyService.Get<IAppVersionProvider>();
-            VersionText = version?.AppVersion ?? "-";
+            VersionText = AppInfo.VersionString;
 
             NavigateUriCommand = CommandHelper.CreateCommand<string>(NavigateUri);
         }
 
-        private void NavigateUri(string url)
+        private async Task NavigateUri(string url)
         {
-            Device.OpenUri(new Uri(url));
+            await Launcher.OpenAsync(new Uri(url));
         }
     }
 }

@@ -1,9 +1,10 @@
 ﻿using NureTimetable.DAL.Models.Local;
-using NureTimetable.Services.Helpers;
+using NureTimetable.UI.Helpers;
 using NureTimetable.UI.ViewModels.Core;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace NureTimetable.UI.ViewModels.Lessons.LessonSettings
@@ -11,7 +12,7 @@ namespace NureTimetable.UI.ViewModels.Lessons.LessonSettings
     public class LessonSettingsViewModel : BaseViewModel
     {
         #region Variables
-        LessonInfo lessonInfo;
+        readonly LessonInfo lessonInfo;
         bool updatingProgrammatically = false;
 
         private bool? _showLessonIsChecked = false;
@@ -59,11 +60,10 @@ namespace NureTimetable.UI.ViewModels.Lessons.LessonSettings
                     .OrderBy(et => et.Entity.ShortName))
             };
 
-            UpdateEventTypesCheck();
+            UpdateEventTypesCheck(true);
 
             ShowLessonStateChangedCommand = CommandHelper.CreateCommand(ShowLessonStateChanged);
             LessonNotesTextChangedCommand = CommandHelper.CreateCommand(LessonNotesTextChanged);
-
         }
         
         private void EventTypeStateChanged(CheckedEntity<EventType> e)
@@ -91,15 +91,15 @@ namespace NureTimetable.UI.ViewModels.Lessons.LessonSettings
             lessonInfo.Settings.Hiding.ShowLesson = ShowLessonIsChecked;
             UpdateEventTypesCheck();
 
-            Device.BeginInvokeOnMainThread(() =>
+            MainThread.BeginInvokeOnMainThread(() =>
             {
                 MessagingCenter.Send(this, "OneLessonSettingsChanged", lessonInfo);
             });
         }
 
-        private void UpdateEventTypesCheck()
+        private void UpdateEventTypesCheck(bool force = false)
         {
-            if (updatingProgrammatically) return;
+            if (updatingProgrammatically || (!force && ShowLessonIsChecked == IsShowEvents())) return;
 
             updatingProgrammatically = true;
             if (lessonInfo.Settings.Hiding.ShowLesson != null)
@@ -132,20 +132,24 @@ namespace NureTimetable.UI.ViewModels.Lessons.LessonSettings
             if (updatingProgrammatically) return;
 
             updatingProgrammatically = true;
-            if (lessonInfo.Settings.Hiding.EventTypesToHide.Count == 0 && lessonInfo.Settings.Hiding.TeachersToHide.Count == 0)
-            {
-                ShowLessonIsChecked = true;
-            }
-            else if (lessonInfo.Settings.Hiding.EventTypesToHide.Count == LvEventTypes.ItemsSource.Count 
-                && lessonInfo.Settings.Hiding.TeachersToHide.Count == LvTeachers.ItemsSource.Count)
-            {
-                ShowLessonIsChecked = false;
-            }
-            else
-            {
-                ShowLessonIsChecked = null;
-            }
+            ShowLessonIsChecked = IsShowEvents();
             updatingProgrammatically = false;
+        }
+
+        /// <returns>true = all, false = none, null = some</returns>
+        private bool? IsShowEvents()
+        {
+            if (lessonInfo.Settings.Hiding.EventTypesToHide.Count == 0 && 
+                lessonInfo.Settings.Hiding.TeachersToHide.Count == 0)
+            {
+                return true;
+            }
+            else if ((LvEventTypes.ItemsSource.Count > 0 && lessonInfo.Settings.Hiding.EventTypesToHide.Count == LvEventTypes.ItemsSource.Count) ||
+                (LvTeachers.ItemsSource.Count > 0 && lessonInfo.Settings.Hiding.TeachersToHide.Count == LvTeachers.ItemsSource.Count))
+            {
+                return false;
+            }
+            return null;
         }
 
         private void LessonNotesTextChanged()

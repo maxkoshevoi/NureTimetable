@@ -1,4 +1,4 @@
-﻿namespace NureTimetable.UI.ViewModels.System.Menu
+﻿namespace NureTimetable.UI.ViewModels.Menu
 {
     public enum MenuItemType
     {

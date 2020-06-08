@@ -15,7 +15,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
 
         public override string Title { get; } = LN.Teachers;
 
-        protected override List<Teacher> GetAllEntitiesFromCist()
+        protected override List<Teacher> GetAllEntities()
         {
             return UniversityEntitiesRepository.GetAllTeachers().ToList();
         }

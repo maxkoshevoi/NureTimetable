@@ -78,7 +78,7 @@ namespace NureTimetable.DAL
             return true;
         }
 
-        private static DateTime? GetLastCistAllEntitiesUpdateTime()
+        public static DateTime? GetLastCistAllEntitiesUpdateTime()
         {
             string filePath = FilePath.LastCistAllEntitiesUpdate;
             if (!File.Exists(filePath))
