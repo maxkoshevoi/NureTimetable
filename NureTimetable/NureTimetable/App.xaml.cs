@@ -45,7 +45,10 @@ namespace NureTimetable
             // Handle when your app starts
 #if !DEBUG
             //Register Microsoft App Center metrics
-            AppCenter.Start(Keys.MicrosoftAppCenterKey, typeof(Analytics), typeof(Crashes));
+            if (DeviceInfo.DeviceType != DeviceType.Virtual)
+            {
+                AppCenter.Start(Keys.MicrosoftAppCenterKey, typeof(Analytics), typeof(Crashes));
+            }
 #endif
         }
 
