@@ -347,7 +347,6 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 }
             }
 
-
             UpdateEventsUI();
         }
 
@@ -357,6 +356,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
             {
                 return;
             }
+
             lock (updatingEventsUI)
             {
                 if (!needToUpdateEventsUI || !isPageVisible)
