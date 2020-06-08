@@ -172,7 +172,6 @@ namespace NureTimetable.DAL
             {
                 foreach (Cist.Faculty faculty in teachersTask.Result)
                 {
-                    string responseStr = GetHardcodedGroupsFromCist();
                     Cist.Faculty oldFaculty = university.Faculties.FirstOrDefault(f => f.Id == faculty.Id);
                     if (oldFaculty == null)
                     {
@@ -211,7 +210,7 @@ namespace NureTimetable.DAL
                 });
 #endif
                 Uri uri = Urls.CistAllGroupsUrl;
-                string responseStr = await client.GetStringOrWebExceptionAsync(uri);
+                string responseStr = GetHardcodedGroupsFromCist();
                 Cist.University newUniversity = Serialisation.FromJson<Cist.UniversityRootObject>(responseStr).University;
 
                 return newUniversity.Faculties;
