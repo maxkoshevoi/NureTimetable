@@ -144,8 +144,8 @@ namespace NureTimetable.UI.ViewModels.Lessons.LessonSettings
             {
                 return true;
             }
-            else if (lessonInfo.Settings.Hiding.EventTypesToHide.Count == LvEventTypes.ItemsSource.Count || 
-                lessonInfo.Settings.Hiding.TeachersToHide.Count == LvTeachers.ItemsSource.Count)
+            else if ((LvEventTypes.ItemsSource.Count > 0 && lessonInfo.Settings.Hiding.EventTypesToHide.Count == LvEventTypes.ItemsSource.Count) ||
+                (LvTeachers.ItemsSource.Count > 0 && lessonInfo.Settings.Hiding.TeachersToHide.Count == LvTeachers.ItemsSource.Count))
             {
                 return false;
             }
