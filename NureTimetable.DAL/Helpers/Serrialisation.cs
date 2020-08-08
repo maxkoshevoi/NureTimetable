@@ -153,13 +153,10 @@ namespace NureTimetable.DAL.Helpers
         /// </summary>
         public static string TryToFixJson(string invalidJsonStr)
         {
+            const int notFound = -1;
             var invalidJson = new StringBuilder(invalidJsonStr);
 
-            string[] stringStart =
-            {
-                "\":\"",
-                "\": \""
-            };
+            const string stringStart = "\":\"";
             string[] stringEnd =
             {
                 "\",",
@@ -168,53 +165,53 @@ namespace NureTimetable.DAL.Helpers
                 "\",\""
             };
 
-            foreach (string start in stringStart)
-            {
-                int lastStartIndex = -1,
-                    startIndex = invalidJson.IndexOf(start);
+            // Unify string start
+            invalidJson = invalidJson.Replace("\": \"", stringStart);
 
-                // Fix non-string Json
-                if (startIndex > -1)
+            int lastStartIndex = notFound,
+                startIndex = invalidJson.IndexOf(stringStart);
+
+            // Fix non-string Json
+            if (startIndex != notFound)
+            {
+                string newJson = invalidJson.ToString(0, startIndex);
+                newJson = FixNonStringJson(newJson);
+                ReplaceStringPart(invalidJson, 0, startIndex, newJson);
+            }
+
+            while (startIndex != notFound)
+            {
+                int endIndex = stringEnd
+                    .Select(end => invalidJson.IndexOf(end, startIndex + stringStart.Length + 1))
+                    .Where(index => index != notFound)
+                    .DefaultIfEmpty(notFound)
+                    .Min();
+                if (endIndex == notFound)
                 {
-                    string newJson = invalidJson.ToString(0, startIndex);
-                    newJson = FixNonStringJson(newJson);
-                    ReplaceStringPart(invalidJson, 0, startIndex, newJson);
+                    break;
                 }
 
-                while (startIndex != -1)
+                // Fix string
+                int innerStringStart = startIndex + stringStart.Length, innerStringLength = endIndex - innerStringStart;
+                string newString = invalidJson.ToString(innerStringStart, innerStringLength);
+                if (newString.IndexOf('\"') != notFound)
                 {
-                    int endIndex = stringEnd
-                        .Select(end => invalidJson.IndexOf(end, startIndex + start.Length + 1))
-                        .Where(index => index != -1)
-                        .DefaultIfEmpty(-1)
-                        .Min();
-                    if (endIndex == -1)
-                    {
-                        break;
-                    }
+                    newString = FixJsonString(newString);
+                    ReplaceStringPart(invalidJson, innerStringStart, innerStringLength, newString);
+                }
 
-                    // Fix string
-                    int innerStringStart = startIndex + start.Length, innerStringLength = endIndex - innerStringStart;
-                    string newString = invalidJson.ToString(innerStringStart, innerStringLength);
-                    if (newString.IndexOf('\"') != -1)
-                    {
-                        newString = FixJsonString(newString);
-                        ReplaceStringPart(invalidJson, innerStringStart, innerStringLength, newString);
-                    }
+                lastStartIndex = startIndex;
+                startIndex = invalidJson.IndexOf(stringStart, lastStartIndex + 1);
 
-                    lastStartIndex = startIndex;
-                    startIndex = invalidJson.IndexOf(start, lastStartIndex + 1);
+                // Fix non-string Json
+                if (startIndex != notFound)
+                {
+                    int nonStringLength = startIndex - endIndex;
+                    string newJson = invalidJson.ToString(endIndex, nonStringLength);
+                    newJson = FixNonStringJson(newJson);
+                    ReplaceStringPart(invalidJson, endIndex, nonStringLength, newJson);
 
-                    // Fix non-string Json
-                    if (startIndex > -1)
-                    {
-                        int nonStringLength = startIndex - endIndex;
-                        string newJson = invalidJson.ToString(endIndex, nonStringLength);
-                        newJson = FixNonStringJson(newJson);
-                        ReplaceStringPart(invalidJson, endIndex, nonStringLength, newJson);
-
-                        startIndex = invalidJson.IndexOf(start, lastStartIndex + 1);
-                    }
+                    startIndex = invalidJson.IndexOf(stringStart, lastStartIndex + 1);
                 }
             }
 
