@@ -46,6 +46,7 @@ namespace NureTimetable.DAL.Helpers
             {
                 MainThread.BeginInvokeOnMainThread(() =>
                 {
+                    ex.Data.Add("FilePath", filePath);
                     MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
                 });
             }

@@ -118,7 +118,7 @@ namespace NureTimetable.UI.Views
                 // WebException happens for external reasons, and shouldn't be treated as an exception.
                 // But just in case it is logged as Event
 
-                if (webEx.Status != 0)
+                if (webEx.Status != 0 && webEx.Status != WebExceptionStatus.UnknownError)
                 {
                     properties.Add("Status", webEx.Status.ToString());
                 }

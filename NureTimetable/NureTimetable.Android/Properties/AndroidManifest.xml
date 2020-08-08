@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1002110" android:versionName="1.6.2110" package="com.whitebox.nuretimetable" android:installLocation="auto">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1002118" android:versionName="1.6.2118" package="com.whitebox.nuretimetable" android:installLocation="auto">
   <uses-sdk android:minSdkVersion="19" android:targetSdkVersion="28" />
   <uses-permission android:name="android.permission.INTERNET" />
   <uses-permission android:name="com.android.vending.BILLING" />
