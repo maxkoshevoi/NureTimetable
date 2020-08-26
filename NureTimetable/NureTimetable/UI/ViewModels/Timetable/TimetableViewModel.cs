@@ -1,4 +1,5 @@
-﻿using NureTimetable.Core.Extensions;
+﻿using Microsoft.AppCenter.Analytics;
+using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models;
 using NureTimetable.Core.Models.Consts;
@@ -453,7 +454,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
 
         private async Task DisplayEventDetails(Event ev)
         {
-            if (ev == null)
+            if (ev is null)
             {
                 return;
             }
@@ -487,7 +488,15 @@ namespace NureTimetable.UI.ViewModels.Timetable
             if (isAddToCalendar)
             {
                 ProgressLayoutIsVisible = true;
-                
+#if !DEBUG
+                Analytics.TrackEvent("Add To Calendar", new Dictionary<string, string>
+                {
+                    { "Type", ev.Type.ShortName },
+                    { "Room", ev.RoomName },
+                    { "Groups", string.Join(", ", ev.Groups.Select(t => t.Name)) },
+                    { "Teachers", string.Join(", ", ev.Teachers.Select(t => t.Name)) },
+                });
+#endif
                 PermissionStatus? readStatus = null;
                 PermissionStatus? writeStatus = null;
                 const string customCalendarName = "NURE Timetable";
