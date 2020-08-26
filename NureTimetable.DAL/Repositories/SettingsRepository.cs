@@ -69,13 +69,19 @@ namespace NureTimetable.DAL
 #endif
 
 #pragma warning disable CS0162 // Unreachable code detected
+            if (DateTime.Now.Month == 8 || DateTime.Now.Month == 9)
+            {
+                // Unlimited update in August and September
+                return true;
+            }
+
             TimeSpan? timePass = DateTime.Now - GetLastCistAllEntitiesUpdateTime();
-#pragma warning restore CS0162 // Unreachable code detected
             if (timePass != null && timePass <= Config.CistAllEntitiesUpdateMinInterval)
             {
                 return false;
             }
             return true;
+#pragma warning restore CS0162 // Unreachable code detected
         }
 
         public static DateTime? GetLastCistAllEntitiesUpdateTime()
