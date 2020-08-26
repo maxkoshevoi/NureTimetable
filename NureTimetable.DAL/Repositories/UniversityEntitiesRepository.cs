@@ -166,20 +166,27 @@ namespace NureTimetable.DAL
             }
             if (!groupsTask.IsFaulted)
             {
-                university.Faculties = groupsTask.Result;
+                foreach (Cist.Faculty faculty in groupsTask.Result)
+                {
+                    Cist.Faculty oldFaculty = university.Faculties.FirstOrDefault(f => f.Id == faculty.Id);
+                    if (oldFaculty != null)
+                    {
+                        faculty.Departments = oldFaculty.Departments;
+                        university.Faculties.Remove(oldFaculty);
+                    }
+                    university.Faculties.Add(faculty);
+                }
             }
             if (!teachersTask.IsFaulted)
             {
                 foreach (Cist.Faculty faculty in teachersTask.Result)
                 {
                     Cist.Faculty oldFaculty = university.Faculties.FirstOrDefault(f => f.Id == faculty.Id);
-                    if (oldFaculty == null)
+                    if (oldFaculty != null)
                     {
-                        university.Faculties.Add(faculty);
-                        continue;
+                        faculty.Directions = oldFaculty.Directions;
+                        university.Faculties.Remove(oldFaculty);
                     }
-                    faculty.Directions = oldFaculty.Directions;
-                    university.Faculties.Remove(oldFaculty);
                     university.Faculties.Add(faculty);
                 }
             }
@@ -482,7 +489,8 @@ namespace NureTimetable.DAL
                 teachers.Add(new Cist.Teacher
                 {
                     Id = teacherID,
-                    ShortName = teacherName
+                    ShortName = teacherName,
+                    FullName = teacherName
                 });
             }
 
