@@ -6,7 +6,7 @@ namespace NureTimetable.DAL.Models.Consts
 {
     public static class Urls
     {
-        public static Uri CistEntityTimetableUrl(TimetableEntityType entity, long entityId, DateTime dateStart, DateTime dateEnd)
+        public static Uri CistApiEntityTimetable(TimetableEntityType entity, long entityId, DateTime dateStart, DateTime dateEnd)
             => new Uri($"http://cist.nure.ua/ias/app/tt/P_API_EVEN_JSON" +
                 $"?type_id={(int)entity}" +
                 $"&timetable_id={entityId}" +
@@ -14,13 +14,19 @@ namespace NureTimetable.DAL.Models.Consts
                 $"&time_to={new DateTimeOffset(dateEnd.Date.AddDays(1)).ToUnixTimeSeconds()}" +
                 $"&idClient={Keys.CistApiKey}");
 
-        public static Uri CistAllGroupsUrl
+        public static Uri CistApiAllGroups
             => new Uri($"http://cist.nure.ua/ias/app/tt/P_API_GROUP_JSON");
 
-        public static Uri CistAllTeachersUrl
+        public static Uri CistApiAllTeachers
             => new Uri($"http://cist.nure.ua/ias/app/tt/P_API_PODR_JSON");
 
-        public static Uri CistAllRoomsUrl
+        public static Uri CistApiAllRooms
             => new Uri($"http://cist.nure.ua/ias/app/tt/P_API_AUDITORIES_JSON");
+
+        public static Uri CistSiteAllGroups(long? facultyId)
+            => new Uri($"http://cist.nure.ua/ias/app/tt/WEB_IAS_TT_AJX_GROUPS?p_id_fac={facultyId}");
+
+        public static Uri CistSiteAllTeachers(long facultyId = -1, long kafId = -1)
+            => new Uri($"https://cist.nure.ua/ias/app/tt/WEB_IAS_TT_AJX_TEACHS?p_id_fac={facultyId}&p_id_kaf={kafId}");
     }
 }
