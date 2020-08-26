@@ -71,7 +71,7 @@ namespace NureTimetable.DAL.Helpers
 
                 if (IsJson(json))
                 {
-                    throw new ArgumentException($"Argument is not recognized as a valid json string");
+                    throw new ArgumentException($"Argument is not a valid json string");
                 }
 
                 T instance;

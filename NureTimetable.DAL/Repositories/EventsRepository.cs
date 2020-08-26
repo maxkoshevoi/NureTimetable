@@ -111,9 +111,17 @@ namespace NureTimetable.DAL
                 Cist.Timetable cistTimetable = Serialisation.FromJson<Cist.Timetable>(responseStr);
 
                 // Check for valid results
-                if (timetable.Events.Count != 0 && cistTimetable.Events.Count == 0)
+                if (cistTimetable.Events.Count == 0)
                 {
-                    throw new InvalidOperationException("Received timetable is empty");
+#if !DEBUG
+                    Analytics.TrackEvent("Received timetable is empty", new Dictionary<string, string>
+                    {
+                        { "Entity", $"{entity.Type} {entity.Name} ({entity.ID})" },
+                        { "From", dateStart.ToString("dd.MM.yyyy") },
+                        { "To", dateEnd.ToString("dd.MM.yyyy") }
+                    });
+#endif
+                    return (null, null);
                 }
 
                 // Updating timetable information
