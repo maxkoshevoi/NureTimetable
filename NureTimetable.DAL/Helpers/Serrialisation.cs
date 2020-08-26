@@ -250,7 +250,9 @@ namespace NureTimetable.DAL.Helpers
 
         private static string FixJsonString(string newString)
         {
-            newString = newString.Replace("\"", "\\\"");
+            newString = newString
+                .Replace("\\\"", "\"")
+                .Replace("\"", "\\\"");
             return newString;
         }
         #endregion
