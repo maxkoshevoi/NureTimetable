@@ -140,8 +140,8 @@ namespace NureTimetable.DAL
                 return new UniversityEntitiesCistUpdateResult(null, null, null);
             }
 
-            var groupsTask = TaskWithFallbacks(GetAllGroupsFromCist(), GetAllGroupsFromCistHtml());
-            var teachersTask = TaskWithFallbacks(GetAllTeachersFromCist(), GetAllTeachersFromCistHtml());
+            var groupsTask = TaskWithFallbacks(GetAllGroupsFromCist, GetAllGroupsFromCistHtml);
+            var teachersTask = TaskWithFallbacks(GetAllTeachersFromCist, GetAllTeachersFromCistHtml);
             var roomsTask = GetAllRoomsFromCist();
 
             var result = new UniversityEntitiesCistUpdateResult();
@@ -204,7 +204,7 @@ namespace NureTimetable.DAL
             return result;
         }
 
-        private static async Task<T> TaskWithFallbacks<T>(params Task<T>[] tasks)
+        private static async Task<T> TaskWithFallbacks<T>(params Func<Task<T>>[] tasks)
         {
             if (tasks.Any() != true)
             {
@@ -215,11 +215,11 @@ namespace NureTimetable.DAL
             {
                 try
                 {
-                    return await tasks[i];
+                    return await tasks[i]();
                 }
-                catch (Exception ex) when (!(ex is WebException))
+                catch (Exception ex)
                 {
-                    if (i == tasks.Length - 1)
+                    if (ex is WebException || i == tasks.Length - 1)
                     {
                         throw;
                     }
