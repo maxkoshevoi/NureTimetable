@@ -325,7 +325,7 @@ namespace NureTimetable.DAL
 #if !DEBUG
                 Analytics.TrackEvent("Cist request", new Dictionary<string, string>
                 {
-                    { "Type", "GetAllGroups" },
+                    { "Type", "GetAllGroupsHtml" },
                     { "Hour of the day", DateTime.Now.Hour.ToString() }
                 });
 #endif
@@ -398,7 +398,7 @@ namespace NureTimetable.DAL
 #if !DEBUG
                 Analytics.TrackEvent("Cist request", new Dictionary<string, string>
                 {
-                    { "Type", "GetAllTeachers" },
+                    { "Type", "GetAllTeachersHtml" },
                     { "Hour of the day", DateTime.Now.Hour.ToString() }
                 });
 #endif
