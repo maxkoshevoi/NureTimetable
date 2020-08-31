@@ -232,7 +232,13 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
                 {
                     isNetworkError = true;
                 }
-                fail.Add($"{entity.Name} ({ex.Message.Remove(30).Trim()})");
+
+                string errorMessage = ex.Message;
+                if (errorMessage.Length > 30)
+                {
+                    errorMessage = errorMessage.Remove(30);
+                }
+                fail.Add($"{entity.Name} ({errorMessage.Trim()})");
             }
 
             string result = "";
