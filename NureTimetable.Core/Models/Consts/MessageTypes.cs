@@ -8,5 +8,6 @@
         public const string SelectedEntitiesChanged = nameof(SelectedEntitiesChanged);
         public const string ExceptionOccurred = nameof(ExceptionOccurred);
         public const string LessonSettingsChanged = nameof(LessonSettingsChanged);
+        public const string OneLessonSettingsChanged = nameof(OneLessonSettingsChanged);
     }
 }

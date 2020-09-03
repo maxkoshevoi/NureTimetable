@@ -1,4 +1,5 @@
-﻿using NureTimetable.DAL.Models.Local;
+﻿using NureTimetable.Core.Models.Consts;
+using NureTimetable.DAL.Models.Local;
 using NureTimetable.UI.Helpers;
 using NureTimetable.UI.ViewModels.Core;
 using System.Collections.ObjectModel;
@@ -93,7 +94,7 @@ namespace NureTimetable.UI.ViewModels.Lessons.LessonSettings
 
             MainThread.BeginInvokeOnMainThread(() =>
             {
-                MessagingCenter.Send(this, "OneLessonSettingsChanged", lessonInfo);
+                MessagingCenter.Send(this, MessageTypes.OneLessonSettingsChanged, lessonInfo);
             });
         }
 
