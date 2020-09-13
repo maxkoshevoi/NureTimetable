@@ -69,7 +69,7 @@ namespace NureTimetable.DAL.Helpers
                     return (T)Convert.ChangeType(json, typeof(T));
                 }
 
-                if (IsJson(json))
+                if (!IsJson(json))
                 {
                     throw new ArgumentException($"Argument is not a valid json string");
                 }
@@ -96,8 +96,9 @@ namespace NureTimetable.DAL.Helpers
 
         private static bool IsJson(string json)
         {
-            json = json.TrimStart(' ', '\t', '\r', '\n');
-            return !json.StartsWith("{") && !json.StartsWith("[");
+            json = json.Trim(' ', '\t', '\r', '\n');
+            return (json.StartsWith("{") || json.StartsWith("["))
+                && (json.EndsWith("}") || json.EndsWith("]"));
         }
 
         #region Converters
