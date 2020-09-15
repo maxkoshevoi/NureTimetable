@@ -88,7 +88,6 @@ namespace NureTimetable.UI.Views
         
         private static void LogException(Exception ex)
         {
-#if !DEBUG
             // Getting exception Data
             var properties = new Dictionary<string, string>();
             var attachments = new List<ErrorAttachmentLog>();
@@ -134,7 +133,6 @@ namespace NureTimetable.UI.Views
 
             // Logging exception
             Crashes.TrackError(ex, properties, attachments.ToArray());
-#endif
         }
 
         public async Task NavigateFromMenu(int id)

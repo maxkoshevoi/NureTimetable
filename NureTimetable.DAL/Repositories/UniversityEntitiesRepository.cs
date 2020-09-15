@@ -235,13 +235,12 @@ namespace NureTimetable.DAL
             using var client = new HttpClient();
             try
             {
-#if !DEBUG
                 Analytics.TrackEvent("Cist request", new Dictionary<string, string>
                 {
                     { "Type", "GetAllGroups" },
                     { "Hour of the day", DateTime.Now.Hour.ToString() }
                 });
-#endif
+
                 Uri uri = Urls.CistApiAllGroups;
                 string responseStr = await client.GetStringOrWebExceptionAsync(uri);
                 Cist.University newUniversity = Serialisation.FromJson<Cist.UniversityRootObject>(responseStr).University;
@@ -263,13 +262,12 @@ namespace NureTimetable.DAL
             using var client = new HttpClient();
             try
             {
-#if !DEBUG
                 Analytics.TrackEvent("Cist request", new Dictionary<string, string>
                 {
                     { "Type", "GetAllTeachers" },
                     { "Hour of the day", DateTime.Now.Hour.ToString() }
                 });
-#endif
+
                 Uri uri = Urls.CistApiAllTeachers;
                 string responseStr = await client.GetStringOrWebExceptionAsync(uri);
                 Cist.University newUniversity = Serialisation.FromJson<Cist.UniversityRootObject>(responseStr).University;
@@ -291,13 +289,12 @@ namespace NureTimetable.DAL
             using var client = new HttpClient();
             try
             {
-#if !DEBUG
                 Analytics.TrackEvent("Cist request", new Dictionary<string, string>
                 {
                     { "Type", "GetAllRooms" },
                     { "Hour of the day", DateTime.Now.Hour.ToString() }
                 });
-#endif
+
                 Uri uri = Urls.CistApiAllRooms;
                 string responseStr = await client.GetStringOrWebExceptionAsync(uri);
                 responseStr = responseStr.Replace("\n", "").Replace("[}]", "[]");
@@ -322,13 +319,11 @@ namespace NureTimetable.DAL
             using var client = new HttpClient();
             try
             {
-#if !DEBUG
                 Analytics.TrackEvent("Cist request", new Dictionary<string, string>
                 {
                     { "Type", "GetAllGroupsHtml" },
                     { "Hour of the day", DateTime.Now.Hour.ToString() }
                 });
-#endif
 
                 var faculties = new List<Cist.Faculty>();
 
@@ -395,13 +390,11 @@ namespace NureTimetable.DAL
             using var client = new HttpClient();
             try
             {
-#if !DEBUG
                 Analytics.TrackEvent("Cist request", new Dictionary<string, string>
                 {
                     { "Type", "GetAllTeachersHtml" },
                     { "Hour of the day", DateTime.Now.Hour.ToString() }
                 });
-#endif
 
                 var faculties = new List<Cist.Faculty>();
 

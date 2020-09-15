@@ -569,7 +569,6 @@ namespace NureTimetable.UI.ViewModels.Timetable
                     targetCalendar = calendars.First(c => c.Name == targetCalendarName);
                 }
 
-#if !DEBUG
                 Analytics.TrackEvent("Add To Calendar", new Dictionary<string, string>
                 {
                     { "Type", ev.Type.ShortName },
@@ -577,7 +576,6 @@ namespace NureTimetable.UI.ViewModels.Timetable
                     { "Groups", string.Join(", ", ev.Groups.Select(t => t.Name)) },
                     { "Teachers", string.Join(", ", ev.Teachers.Select(t => t.Name)) },
                 });
-#endif
 
                 // Adding event to calendar
                 string nl = Environment.NewLine;

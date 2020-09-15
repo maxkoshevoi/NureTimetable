@@ -198,13 +198,12 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
             IsEntitiesLayoutEnabled = false;
             IsProgressVisable = true;
 
-#if !DEBUG
             Analytics.TrackEvent("Updating timetable", new Dictionary<string, string>
             {
                 { "Count", entitiesAllowed.Count.ToString() },
                 { "Hour of the day", DateTime.Now.Hour.ToString() }
             });
-#endif
+
             const int batchSize = 10;
             var updateTasks = new List<Task<(TimetableInfo _, Exception Exception)>>();
             for (int i = 0; i < entitiesAllowed.Count; i += batchSize)

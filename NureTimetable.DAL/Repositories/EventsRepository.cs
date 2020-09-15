@@ -97,31 +97,29 @@ namespace NureTimetable.DAL
                 Local.TimetableInfo timetable = GetTimetableLocal(entity) ?? new Local.TimetableInfo(entity);
 
                 // Getting events
-#if !DEBUG
                 Analytics.TrackEvent("Cist request", new Dictionary<string, string>
                 {
                     { "Type", "GetTimetable" },
                     { "Subtype", entity.Type.ToString() },
                     { "Hour of the day", DateTime.Now.Hour.ToString() }
                 });
-#endif
+
                 Uri uri = Urls.CistApiEntityTimetable(entity.Type, entity.ID, dateStart, dateEnd);
                 string responseStr = await client.GetStringOrWebExceptionAsync(uri);
                 responseStr = responseStr.Replace("&amp;", "&");
                 responseStr = responseStr.Replace("\"events\":[\n]}]", "\"events\": []");
-                Cist.Timetable cistTimetable = Serialisation.FromJson<Cist.Timetable>(responseStr);
+                Cist.Timetable cistTimetable = CistHelper.FromJson<Cist.Timetable>(responseStr);
 
                 // Check for valid results
                 if (timetable.Events.Count != 0 && cistTimetable.Events.Count == 0)
                 {
-#if !DEBUG
                     Analytics.TrackEvent("Received timetable is empty", new Dictionary<string, string>
                     {
                         { "Entity", $"{entity.Type} {entity.Name} ({entity.ID})" },
                         { "From", dateStart.ToString("dd.MM.yyyy") },
                         { "To", dateEnd.ToString("dd.MM.yyyy") }
                     });
-#endif
+
                     return (null, null);
                 }
 
