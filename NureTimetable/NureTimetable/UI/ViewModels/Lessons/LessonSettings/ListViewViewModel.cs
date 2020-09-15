@@ -1,5 +1,6 @@
 ﻿using NureTimetable.UI.ViewModels.Core;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Xamarin.Forms;
 
 namespace NureTimetable.UI.ViewModels.Lessons.LessonSettings
@@ -19,7 +20,7 @@ namespace NureTimetable.UI.ViewModels.Lessons.LessonSettings
 
         private void ItemsSourceChanged()
         {
-            if (ItemsSource == null || ItemsSource.Count == 0)
+            if (ItemsSource is null || !ItemsSource.Any())
             {
                 IsVisible = false;
             }

@@ -72,7 +72,7 @@ namespace NureTimetable.DAL
         public static bool UpdateLocal()
         {
             Cist.University university = GetLocal();
-            if (university == null)
+            if (university is null)
             {
                 return false;
             }

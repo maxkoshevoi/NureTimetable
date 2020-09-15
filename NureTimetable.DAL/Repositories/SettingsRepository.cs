@@ -16,7 +16,7 @@ namespace NureTimetable.DAL
         public static List<SavedEntity> CheckCistTimetableUpdateRights(List<SavedEntity> entitiesToUpdate)
         {
             var allowedEntities = new List<SavedEntity>();
-            if (entitiesToUpdate == null || entitiesToUpdate.Count == 0)
+            if (entitiesToUpdate is null || entitiesToUpdate.Count == 0)
             {
                 return allowedEntities;
             }
@@ -25,13 +25,13 @@ namespace NureTimetable.DAL
             foreach (SavedEntity entity in entitiesToUpdate)
             {
                 SavedEntity savedEntity = savedEntities.FirstOrDefault(g => g.ID == entity.ID);
-                if (savedEntity == null)
+                if (savedEntity is null)
                 {
                     // Cannot update timetable for entity that is not saved
                     continue;
                 }
 
-                if (savedEntity.LastUpdated == null || (DateTime.Now.TimeOfDay.Hours >= 5 && DateTime.Now.TimeOfDay.Hours < 7))
+                if (savedEntity.LastUpdated is null || (DateTime.Now.TimeOfDay.Hours >= 5 && DateTime.Now.TimeOfDay.Hours < 7))
                 {
                     // Update allowed if never updated before
                     // Unlimited updates between 5 and 7 AM

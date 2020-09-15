@@ -22,7 +22,7 @@ namespace NureTimetable.Migrations
             return HandleException(() =>
             {
                 SavedEntity savedEntity = Serialisation.FromJsonFile<SavedEntity>(Path.Combine(FilePath.LocalStorage, "entity_selected.json"));
-                if (savedEntity == null)
+                if (savedEntity is null)
                 {
                     return true;
                 }

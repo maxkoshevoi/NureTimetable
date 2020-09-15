@@ -88,7 +88,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
         #region Methods
         public async void SavedEntitySelected()
         {
-            if (SelectedEntity == null)
+            if (SelectedEntity is null)
             {
                 return;
             }
@@ -183,7 +183,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
 
         private async Task UpdateTimetable(List<SavedEntity> entities)
         {
-            if (entities == null || entities.Count == 0)
+            if (entities is null || !entities.Any())
             {
                 return;
             }

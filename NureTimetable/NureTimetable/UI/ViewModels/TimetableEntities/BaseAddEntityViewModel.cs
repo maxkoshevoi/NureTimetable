@@ -133,7 +133,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
 
         protected void SearchBarTextChanged()
         {
-            if (_allEntities == null) return;
+            if (_allEntities is null) return;
 
             if (string.IsNullOrEmpty(SearchBarText))
             {

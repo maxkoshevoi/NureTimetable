@@ -1,6 +1,7 @@
 ﻿using Microsoft.AppCenter.Analytics;
 using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Models.Consts;
+using NureTimetable.Core.Models.Exceptions;
 using NureTimetable.DAL.Helpers;
 using NureTimetable.DAL.Models.Consts;
 using System;
@@ -25,7 +26,7 @@ namespace NureTimetable.DAL
             Local.TimetableInfo timetable;
             if (tryUpdate)
             {
-                if (dateStart == null || dateEnd == null)
+                if (dateStart is null || dateEnd is null)
                 {
                     throw new ArgumentNullException($"{nameof(dateStart)} and {nameof(dateEnd)} must be set");
                 }
@@ -47,14 +48,14 @@ namespace NureTimetable.DAL
         public static List<Local.TimetableInfo> GetTimetableLocal(List<Local.SavedEntity> entities)
         {
             var timetables = new List<Local.TimetableInfo>();
-            if (entities == null)
+            if (entities is null)
             {
                 return timetables;
             }
             foreach (Local.SavedEntity entity in entities)
             {
                 Local.TimetableInfo timetableInfo = Serialisation.FromJsonFile<Local.TimetableInfo>(FilePath.SavedTimetable(entity.Type, entity.ID));
-                if (timetableInfo == null)
+                if (timetableInfo is null)
                 {
                     continue;
                 }
@@ -85,7 +86,7 @@ namespace NureTimetable.DAL
         #region Cist
         public static async Task<(Local.TimetableInfo Timetable, Exception Exception)> GetTimetableFromCist(Local.SavedEntity entity, DateTime dateStart, DateTime dateEnd)
         {
-            if (SettingsRepository.CheckCistTimetableUpdateRights(new List<Local.SavedEntity> { entity }).Count == 0)
+            if (!SettingsRepository.CheckCistTimetableUpdateRights(new List<Local.SavedEntity> { entity }).Any())
             {
                 return (null, null);
             }

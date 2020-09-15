@@ -134,7 +134,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
             MessagingCenter.Subscribe<Application, SavedEntity>(this, MessageTypes.TimetableUpdated, (sender, entity) =>
             {
                 List<SavedEntity> selectedEntities = UniversityEntitiesRepository.GetSelected();
-                if (selectedEntities == null || !selectedEntities.Contains(entity))
+                if (selectedEntities is null || !selectedEntities.Contains(entity))
                 {
                     return;
                 }
@@ -143,7 +143,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
             MessagingCenter.Subscribe<Application, SavedEntity>(this, MessageTypes.LessonSettingsChanged, (sender, entity) =>
             {
                 List<SavedEntity> selectedEntities = UniversityEntitiesRepository.GetSelected();
-                if (selectedEntities.Count == 0 || !selectedEntities.Contains(entity))
+                if (!selectedEntities.Any() || !selectedEntities.Contains(entity))
                 {
                     return;
                 }
@@ -312,7 +312,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
 
         private void UpdateEvents(List<SavedEntity> selectedEntities)
         {
-            if (selectedEntities == null || selectedEntities.Count == 0)
+            if (selectedEntities is null || !selectedEntities.Any())
             {
                 Title = LN.AppName;
                 TimetableLayoutIsVisible = false;
@@ -535,7 +535,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 Calendars.Calendar customCalendar = calendars
                     .Where(c => c.AccountName.ToLower() == customCalendarName.ToLower())
                     .FirstOrDefault();
-                if (customCalendar == null)
+                if (customCalendar is null)
                 {
                     isCustomCalendarExists = false;
                     customCalendar = new Calendars.Calendar

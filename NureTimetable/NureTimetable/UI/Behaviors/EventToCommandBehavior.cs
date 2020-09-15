@@ -65,7 +65,7 @@ namespace NureTimetable.UI.Behaviors
 
             var eventInfo = AssociatedObject.GetType().GetRuntimeEvent(name);
 
-            if (eventInfo == null)
+            if (eventInfo is null)
                 throw new ArgumentException($"EventToCommandBehavior: Can't register the '{EventName}' event.");
 
             var methodInfo = typeof(EventToCommandBehavior).GetTypeInfo().GetDeclaredMethod(nameof(OnEvent));
@@ -80,12 +80,12 @@ namespace NureTimetable.UI.Behaviors
             if (string.IsNullOrWhiteSpace(name))
                 return;
 
-            if (_eventHandler == null)
+            if (_eventHandler is null)
                 return;
 
             var eventInfo = AssociatedObject.GetType().GetRuntimeEvent(name);
 
-            if (eventInfo == null)
+            if (eventInfo is null)
                 throw new ArgumentException($"EventToCommandBehavior: Can't de-register the '{EventName}' event.");
 
             eventInfo.RemoveEventHandler(AssociatedObject, _eventHandler);
@@ -95,7 +95,7 @@ namespace NureTimetable.UI.Behaviors
 
         public void OnEvent(object sender, object eventArgs)
         {
-            if (Command == null)
+            if (Command is null)
             {
                 return;
             }
@@ -124,7 +124,7 @@ namespace NureTimetable.UI.Behaviors
         {
             var behavior = (EventToCommandBehavior)bindable;
 
-            if (behavior.AssociatedObject == null)
+            if (behavior.AssociatedObject is null)
                 return;
 
             var oldEventName = (string)oldValue;
