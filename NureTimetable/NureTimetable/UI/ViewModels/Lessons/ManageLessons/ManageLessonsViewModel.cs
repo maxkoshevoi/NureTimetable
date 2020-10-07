@@ -21,18 +21,10 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
 
         private readonly TimetableInfo timetable;
 
-        private string _title;
-
         private ObservableCollection<LessonViewModel> _lessons;
         #endregion
 
         #region Properties
-        public string Title
-        {
-            get => _title;
-            private set => SetProperty(ref _title, value);
-        }
-
         public bool IsNoSourceLayoutVisable
         {
             get => _isNoSourceLayoutVisable;

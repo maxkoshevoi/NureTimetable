@@ -11,9 +11,8 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
     {
         public AddTeacherViewModel(INavigation navigation) : base(navigation)
         {
+            Title = LN.Teachers;
         }
-
-        public override string Title { get; } = LN.Teachers;
 
         protected override List<Teacher> GetAllEntities()
         {

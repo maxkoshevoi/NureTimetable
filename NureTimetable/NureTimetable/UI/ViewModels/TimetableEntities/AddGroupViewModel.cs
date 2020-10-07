@@ -11,9 +11,8 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
     {
         public AddGroupViewModel(INavigation navigation) : base(navigation)
         {
+            Title = LN.Groups;
         }
-
-        public override string Title { get; } = LN.Groups;
 
         protected override List<Group> GetAllEntities()
         {

@@ -11,13 +11,10 @@ namespace NureTimetable.UI.ViewModels.Lessons
     public class LessonInfoViewModel : BaseViewModel
     {
         #region Variables
-        private string _title;
         private readonly TimetableInfo timetableInfo;
         #endregion
 
         #region Properties
-        public string Title { get => _title; set => SetProperty(ref _title, value); }
-
         public LessonInfo LessonInfo { get; }
 
         public string Statistics { get; }

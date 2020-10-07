@@ -11,9 +11,8 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
     {
         public AddRoomViewModel(INavigation navigation) : base(navigation)
         {
+            Title = LN.Rooms;
         }
-
-        public override string Title { get; } = LN.Rooms;
 
         protected override List<Room> GetAllEntities()
         {

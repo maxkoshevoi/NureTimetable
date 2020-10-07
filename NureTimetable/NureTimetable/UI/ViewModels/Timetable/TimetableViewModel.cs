@@ -18,8 +18,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Essentials;
@@ -44,7 +42,6 @@ namespace NureTimetable.UI.ViewModels.Timetable
 
         private string _hideSelectedEventsIcon = "filter";
         private DateTime? _timetableSelectedDate;
-        private string _title = LN.AppName;
         private ScheduleView _timetableScheduleView = ScheduleView.WeekView;
         private string _timetableLocale;
         private bool _timetableIsEnabled = true;
@@ -68,8 +65,6 @@ namespace NureTimetable.UI.ViewModels.Timetable
         #endregion
 
         #region Properties
-        public string Title { get => _title; set => SetProperty(ref _title, value); }
-
         public string HideSelectedEventsIcon { get => _hideSelectedEventsIcon; set => SetProperty(ref _hideSelectedEventsIcon, value); }
 
         public DateTime? TimetableSelectedDate { get => _timetableSelectedDate; set => SetProperty(ref _timetableSelectedDate, value); }

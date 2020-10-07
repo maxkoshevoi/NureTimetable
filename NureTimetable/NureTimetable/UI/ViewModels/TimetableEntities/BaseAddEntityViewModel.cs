@@ -35,12 +35,6 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
 
         #endregion
 
-        #region Abstract Properties
-
-        public abstract string Title { get; }
-
-        #endregion
-
         #region Properties
 
         public ObservableCollection<T> Entities { get => _entities; private protected set => SetProperty(ref _entities, value); }
