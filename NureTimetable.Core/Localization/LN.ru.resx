@@ -449,4 +449,7 @@
   <data name="TimetableIsEmpty" xml:space="preserve">
     <value>Расписание не содержит ни одного события</value>
   </data>
+  <data name="CistOutOfMemory" xml:space="preserve">
+    <value>Слишком большая нагрузка на cist.nure.ua. Повторите попытку позже.</value>
+  </data>
 </root>

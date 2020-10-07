@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
-using Newtonsoft.Json;
+using Microsoft.AppCenter.Analytics;
+using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Models.Consts;
+using NureTimetable.Core.Models.Exceptions;
 using NureTimetable.DAL.Helpers;
 using NureTimetable.DAL.Models.Consts;
 using System;
@@ -8,15 +10,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Text;
-using NureTimetable.Core.Extensions;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Cist = NureTimetable.DAL.Models.Cist;
 using Local = NureTimetable.DAL.Models.Local;
-using System.Threading.Tasks;
-using System.Net.Http;
-using Microsoft.AppCenter.Analytics;
-using Xamarin.Essentials;
 
 namespace NureTimetable.DAL
 {
@@ -52,6 +51,11 @@ namespace NureTimetable.DAL
                 GroupsException is WebException 
                 || TeachersException is WebException 
                 || RoomsException is WebException;
+
+            public bool IsCistOutOfMemory =>
+                GroupsException is CistOutOfMemoryException
+                || TeachersException is CistOutOfMemoryException
+                || RoomsException is CistOutOfMemoryException;
         }
 
         #region All Entities Cist
@@ -243,7 +247,7 @@ namespace NureTimetable.DAL
 
                 Uri uri = Urls.CistApiAllGroups;
                 string responseStr = await client.GetStringOrWebExceptionAsync(uri);
-                Cist.University newUniversity = Serialisation.FromJson<Cist.UniversityRootObject>(responseStr).University;
+                Cist.University newUniversity = CistHelper.FromJson<Cist.UniversityRootObject>(responseStr).University;
 
                 return newUniversity.Faculties;
             }
@@ -270,7 +274,7 @@ namespace NureTimetable.DAL
 
                 Uri uri = Urls.CistApiAllTeachers;
                 string responseStr = await client.GetStringOrWebExceptionAsync(uri);
-                Cist.University newUniversity = Serialisation.FromJson<Cist.UniversityRootObject>(responseStr).University;
+                Cist.University newUniversity = CistHelper.FromJson<Cist.UniversityRootObject>(responseStr).University;
 
                 return newUniversity.Faculties;
             }
@@ -298,7 +302,7 @@ namespace NureTimetable.DAL
                 Uri uri = Urls.CistApiAllRooms;
                 string responseStr = await client.GetStringOrWebExceptionAsync(uri);
                 responseStr = responseStr.Replace("\n", "").Replace("[}]", "[]");
-                Cist.University newUniversity = Serialisation.FromJson<Cist.UniversityRootObject>(responseStr).University;
+                Cist.University newUniversity = CistHelper.FromJson<Cist.UniversityRootObject>(responseStr).University;
 
                 return newUniversity.Buildings;
             }

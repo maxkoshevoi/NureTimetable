@@ -2,6 +2,7 @@
 using Microsoft.AppCenter.Crashes;
 using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Consts;
+using NureTimetable.Core.Models.Exceptions;
 using NureTimetable.Migrations;
 using NureTimetable.UI.ViewModels.Info;
 using NureTimetable.UI.ViewModels.Menu;
@@ -128,6 +129,14 @@ namespace NureTimetable.UI.Views
                 properties.Add("Message", ex.Message);
 
                 Analytics.TrackEvent("WebException", properties);
+                return;
+            }
+            else if (ex is CistOutOfMemoryException)
+            {
+                // CistOutOfMemoryException happens for external reasons, and shouldn't be treated as an exception.
+                // But just in case it is logged as Event
+
+                Analytics.TrackEvent("CistOutOfMemoryException", properties);
                 return;
             }
 

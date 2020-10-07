@@ -178,11 +178,16 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
                     {
                         MainThread.BeginInvokeOnMainThread(() =>
                         {
-                            App.Current.MainPage.DisplayAlert(LN.UniversityInfoUpdate,
-                                updateFromCistResult.IsConnectionIssues
-                                    ? LN.CannotGetDataFromCist
-                                    : LN.UniversityInfoUpdateFail, 
-                                LN.Ok);
+                            string message = LN.UniversityInfoUpdateFail;
+                            if (updateFromCistResult.IsConnectionIssues)
+                            {
+                                message = LN.CannotGetDataFromCist;
+                            }
+                            else if (updateFromCistResult.IsCistOutOfMemory)
+                            {
+                                message = LN.CistOutOfMemory;
+                            }
+                            App.Current.MainPage.DisplayAlert(LN.UniversityInfoUpdate, message, LN.Ok);
                         });
                     }
                     else if (!updateFromCistResult.IsAllSuccessful)
