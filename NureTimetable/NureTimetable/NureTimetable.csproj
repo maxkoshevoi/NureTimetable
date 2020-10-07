@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <LangVersion>latest</LangVersion>
+    <Authors>Maksym Koshovyi</Authors>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -18,17 +19,17 @@
 
   <ItemGroup>
     <PackageReference Include="CClarke.Plugin.Calendars" Version="1.0.14" />
-    <PackageReference Include="Microsoft.AppCenter.Analytics" Version="3.4.1" />
-    <PackageReference Include="Microsoft.AppCenter.Crashes" Version="3.4.1" />
+    <PackageReference Include="Microsoft.AppCenter.Analytics" Version="3.4.3" />
+    <PackageReference Include="Microsoft.AppCenter.Crashes" Version="3.4.3" />
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Plugin.InAppBilling" Version="2.0.0" />
-    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="18.2.0.57" />
-    <PackageReference Include="Syncfusion.Xamarin.SfSchedule" Version="18.2.0.57" />
+    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="18.3.0.38" />
+    <PackageReference Include="Syncfusion.Xamarin.SfSchedule" Version="18.3.0.38" />
     <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
-    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1364" />  
+    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1451" />  
   </ItemGroup>
 
   <ItemGroup>

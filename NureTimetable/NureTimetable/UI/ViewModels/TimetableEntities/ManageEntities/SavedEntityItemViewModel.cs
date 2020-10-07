@@ -9,7 +9,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
@@ -53,14 +52,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
 
         public async Task SettingsClicked()
         {
-            List<string> actionList = new List<string> { LN.UpdateTimetable, LN.SetUpLessonDisplay, LN.Delete };
-            if (DeviceInfo.Platform == DevicePlatform.Android
-                && DeviceInfo.Version.Major > 0
-                && DeviceInfo.Version.Major < 5)
-            {
-                // SfCheckBox doesn`t support Android 4
-                actionList.Remove(LN.SetUpLessonDisplay);
-            }
+            var actionList = new List<string> { LN.UpdateTimetable, LN.SetUpLessonDisplay, LN.Delete };
             if (!IsSelected)
             {
                 actionList.Insert(0, LN.SelectOneEntity);
