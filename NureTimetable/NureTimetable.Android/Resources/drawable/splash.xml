@@ -8,6 +8,6 @@
         android:width="110dp"
         android:gravity="center"
         android:tileMode="disabled">
-    <bitmap android:src="@drawable/logo"/>
+    <bitmap android:src="@drawable/icon"/>
   </item>
 </layer-list>

@@ -9093,6 +9093,9 @@ namespace NureTimetable.Droid
 			// aapt resource value: 0x7F07009B
 			public const int group = 2131165339;
 			
+			// aapt resource value: 0x7F07009F
+			public const int icon = 2131165343;
+			
 			// aapt resource value: 0x7F07009C
 			public const int ic_mtrl_chip_checked_black = 2131165340;
 			
@@ -9102,20 +9105,17 @@ namespace NureTimetable.Droid
 			// aapt resource value: 0x7F07009E
 			public const int ic_mtrl_chip_close_circle = 2131165342;
 			
-			// aapt resource value: 0x7F07009F
-			public const int info = 2131165343;
-			
-			// aapt resource value: 0x7F0700A1
-			public const int inputlayout_togglecollapseicon = 2131165345;
+			// aapt resource value: 0x7F0700A0
+			public const int info = 2131165344;
 			
 			// aapt resource value: 0x7F0700A2
-			public const int inputlayout_togglevisibleicon = 2131165346;
-			
-			// aapt resource value: 0x7F0700A0
-			public const int input_layout_drop_down_icon = 2131165344;
+			public const int inputlayout_togglecollapseicon = 2131165346;
 			
 			// aapt resource value: 0x7F0700A3
-			public const int logo = 2131165347;
+			public const int inputlayout_togglevisibleicon = 2131165347;
+			
+			// aapt resource value: 0x7F0700A1
+			public const int input_layout_drop_down_icon = 2131165345;
 			
 			// aapt resource value: 0x7F0700A4
 			public const int mtrl_snackbar_background = 2131165348;

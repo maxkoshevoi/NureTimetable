@@ -110,11 +110,7 @@
     <AndroidResource Include="Resources\mipmap-xxhdpi\icon.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\icon.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\drawable-xhdpi\" />
-    <Folder Include="Resources\drawable-xxhdpi\" />
-    <Folder Include="Resources\drawable-xxxhdpi\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\..\NureTimetable.Core\NureTimetable.Core.csproj">
       <Project>{7212568B-A874-4DDF-AA58-67A8D57D0F81}</Project>
@@ -126,19 +122,19 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\group.png" />
+    <AndroidResource Include="Resources\drawable\group.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\today.png" />
+    <AndroidResource Include="Resources\drawable\today.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\add.png" />
+    <AndroidResource Include="Resources\drawable\add.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\update.png" />
+    <AndroidResource Include="Resources\drawable\update.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\save.png" />
+    <AndroidResource Include="Resources\drawable\save.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\coin.png" />
@@ -147,16 +143,16 @@
     <AndroidResource Include="Resources\drawable\info.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\logo.png" />
+    <AndroidResource Include="Resources\drawable\icon.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\splash.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\filter.png" />
+    <AndroidResource Include="Resources\drawable\filter.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\filter_outline.png" />
+    <AndroidResource Include="Resources\drawable\filter_outline.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\xml\network_security_config.xml">
