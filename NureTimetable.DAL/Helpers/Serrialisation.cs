@@ -49,6 +49,7 @@ namespace NureTimetable.DAL.Helpers
                     ex.Data.Add("FilePath", filePath);
                     MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
                 });
+                File.Delete(filePath);
             }
             return default;
         }
