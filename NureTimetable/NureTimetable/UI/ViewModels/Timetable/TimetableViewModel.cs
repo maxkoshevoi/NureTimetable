@@ -209,11 +209,17 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 await UpdateTodayButton(true);
             }
 
-            Device.StartTimer(TimeSpan.FromSeconds(1), UpdateTimeLeft);
+            Device.StartTimer(TimeSpan.FromSeconds(1), () => { UpdateTimeLeft(); return isPageVisible; });
 
             if (needToUpdateEventsUI)
             {
                 UpdateEventsWithUI();
+            }
+
+            // Updaing current date if it's changed
+            if (visibleDates.Any())
+            {
+                _timetablePage.TimetableNavigateTo(visibleDates.First());
             }
         }
 
@@ -222,63 +228,61 @@ namespace NureTimetable.UI.ViewModels.Timetable
             isPageVisible = false;
         }
 
-        private bool UpdateTimeLeft()
+        private void UpdateTimeLeft()
         {
-            if (timetableInfoList != null && timetableInfoList.Count > 0)
+            if (timetableInfoList is null || timetableInfoList.Count == 0)
             {
-                string text = null;
-                lock (enumeratingEvents)
+                TimeLeftIsVisible = false;
+                return;
+            }
+
+            string text = null;
+            lock (enumeratingEvents)
+            {
+                Event currentEvent = timetableInfoList.Events.FirstOrDefault(e => e.Start <= DateTime.Now && e.End >= DateTime.Now);
+                if (currentEvent != null)
                 {
-                    Event currentEvent = timetableInfoList.Events.FirstOrDefault(e => e.Start <= DateTime.Now && e.End >= DateTime.Now);
-                    if (currentEvent != null)
-                    {
-                        text = string.Format(
-                            LN.TimeUntilBreak, 
-                            currentEvent.RoomName, 
-                            (currentEvent.End - DateTime.Now).ToString("hh\\:mm\\:ss")
-                        );
-                    }
-                    else
-                    {
-                        Event nextEvent = timetableInfoList.Events
-                            .Where(e => e.Start > DateTime.Now)
-                            .OrderBy(e => e.Start)
-                            .FirstOrDefault();
-                        if (nextEvent != null && nextEvent.Start.Date == DateTime.Now.Date)
-                        {
-                            text = string.Format(
-                                LN.TimeUntilLesson,
-                                nextEvent.Lesson.ShortName,
-                                nextEvent.RoomName,
-                                (nextEvent.Start - DateTime.Now).ToString("hh\\:mm\\:ss")
-                            );
-                        }
-                    }
-                }
-                if (string.IsNullOrEmpty(text) || !isPageVisible)
-                {
-                    TimeLeftText = null;
-                    if (string.IsNullOrEmpty(text) && TimeLeftIsVisible)
-                    {
-                        TimeLeftIsVisible = false;
-                    }
+                    text = string.Format(
+                        LN.TimeUntilBreak,
+                        currentEvent.RoomName,
+                        (currentEvent.End - DateTime.Now).ToString("hh\\:mm\\:ss")
+                    );
                 }
                 else
                 {
-                    TimeLeftText = text;
-                    TimeLeftIsVisible = true;
+                    Event nextEvent = timetableInfoList.Events
+                        .Where(e => e.Start > DateTime.Now)
+                        .OrderBy(e => e.Start)
+                        .FirstOrDefault();
+                    if (nextEvent != null && nextEvent.Start.Date == DateTime.Now.Date)
+                    {
+                        text = string.Format(
+                            LN.TimeUntilLesson,
+                            nextEvent.Lesson.ShortName,
+                            nextEvent.RoomName,
+                            (nextEvent.Start - DateTime.Now).ToString("hh\\:mm\\:ss")
+                        );
+                    }
                 }
-
-                if (TimeLeftIsVisible != lastTimeLeftVisible)
+            }
+            if (string.IsNullOrEmpty(text) || !isPageVisible)
+            {
+                TimeLeftText = null;
+                if (string.IsNullOrEmpty(text) && TimeLeftIsVisible)
                 {
-                    lastTimeLeftVisible = TimeLeftIsVisible;
+                    TimeLeftIsVisible = false;
                 }
             }
             else
             {
-                TimeLeftIsVisible = false;
+                TimeLeftText = text;
+                TimeLeftIsVisible = true;
             }
-            return isPageVisible;
+
+            if (TimeLeftIsVisible != lastTimeLeftVisible)
+            {
+                lastTimeLeftVisible = TimeLeftIsVisible;
+            }
         }
 
         private void UpdateEventsWithUI()
