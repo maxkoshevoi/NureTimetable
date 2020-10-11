@@ -207,20 +207,25 @@ namespace NureTimetable.UI.ViewModels.Timetable
             {
                 UpdateTimeLeft();
                 await UpdateTodayButton(true);
+                
+                if (needToUpdateEventsUI)
+                {
+                    UpdateEventsWithUI();
+                }
+
+                // Updaing current date if it's changed
+                if (visibleDates.Any())
+                {
+                    try
+                    {
+                        _timetablePage.TimetableNavigateTo(visibleDates.First());
+                    }
+                    catch
+                    { }
+                }
             }
 
             Device.StartTimer(TimeSpan.FromSeconds(1), () => { UpdateTimeLeft(); return isPageVisible; });
-
-            if (needToUpdateEventsUI)
-            {
-                UpdateEventsWithUI();
-            }
-
-            // Updaing current date if it's changed
-            if (visibleDates.Any())
-            {
-                _timetablePage.TimetableNavigateTo(visibleDates.First());
-            }
         }
 
         private void PageDisappearing()
