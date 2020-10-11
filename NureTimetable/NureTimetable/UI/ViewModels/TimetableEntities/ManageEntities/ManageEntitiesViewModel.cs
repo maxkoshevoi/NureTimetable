@@ -10,12 +10,11 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using NureTimetable.Core.Extensions;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
-using System.Net;
 
 namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
 {
@@ -112,25 +111,32 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
         public void OnEntitySelectChange(SavedEntityItemViewModel entity)
         {
             List<SavedEntity> currentSelected = UniversityEntitiesRepository.GetSelected();
+            if (currentSelected.Contains(entity.SavedEntity) == entity.IsSelected)
+            {
+                return;
+            }
+
             if (entity.IsSelected)
             {
-                if (currentSelected.Contains(entity.SavedEntity))
-                {
-                    return;
-                }
                 currentSelected.Add(entity.SavedEntity);
             }
             else
             {
-                if (!currentSelected.Contains(entity.SavedEntity))
-                {
-                    return;
-                }
                 if (currentSelected.Count == 1)
                 {
-                    // User cannot deselect last selected entity
-                    entity.IsSelected = true;
-                    return;
+                    if (Entities.Contains(entity))
+                    {
+                        // User cannot deselect last selected entity
+                        entity.IsSelected = true;
+                        return;
+                    }
+
+                    var otherSavedEntity = Entities.FirstOrDefault();
+                    if (otherSavedEntity != null)
+                    {
+                        otherSavedEntity.IsSelected = true;
+                        currentSelected = UniversityEntitiesRepository.GetSelected();
+                    }
                 }
                 currentSelected.Remove(entity.SavedEntity);
             }
