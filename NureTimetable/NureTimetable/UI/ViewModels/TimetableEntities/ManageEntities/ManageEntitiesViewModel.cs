@@ -1,6 +1,7 @@
 ﻿using Microsoft.AppCenter.Analytics;
 using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Consts;
+using NureTimetable.Core.Models.Exceptions;
 using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
 using NureTimetable.UI.Helpers;
@@ -223,6 +224,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
             
             List<string> success = new List<string>(), fail = new List<string>();
             bool isNetworkError = false;
+            bool isCistOutOfMemoryError = false;
             for (int i = 0; i < updateTasks.Count; i++)
             {
                 Exception ex = updateTasks[i].Result.Exception;
@@ -237,6 +239,10 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
                 {
                     isNetworkError = true;
                 }
+                else if (ex is CistOutOfMemoryException)
+                {
+                    isCistOutOfMemoryError = true;
+                }
 
                 string errorMessage = ex.Message;
                 if (errorMessage.Length > 30)
@@ -250,6 +256,10 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
             if (isNetworkError && fail.Count == entitiesAllowed.Count)
             {
                 result = LN.CannotGetDataFromCist;
+            }
+            else if (isCistOutOfMemoryError)
+            {
+                result = LN.CistOutOfMemory;
             }
             else
             {

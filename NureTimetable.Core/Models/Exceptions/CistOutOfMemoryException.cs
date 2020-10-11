@@ -14,10 +14,6 @@ namespace NureTimetable.Core.Models.Exceptions
 
         public CistOutOfMemoryException(string message, Exception innerException) : base(message, innerException)
         {
-            foreach (object key in innerException.Data.Keys)
-            {
-                innerException.Data.Add(key, innerException.Data[key]);
-            }
         }
     }
 }
