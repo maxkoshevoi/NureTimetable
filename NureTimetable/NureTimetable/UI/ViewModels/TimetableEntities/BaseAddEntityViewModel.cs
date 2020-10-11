@@ -59,18 +59,15 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
 
         public string SearchBarText { get => _searchBarText; set => SetProperty(ref _searchBarText, value); }
 
-        public ICommand UpdateCommand { get; protected set; }
+        public ICommand UpdateCommand { get; }
 
-        public ICommand SearchBarTextChangedCommand { get; protected set; }
-
-        public ICommand ContentPageAppearingCommand { get; protected set; }
+        public ICommand SearchBarTextChangedCommand { get; }
 
         #endregion
 
         public BaseAddEntityViewModel(INavigation navigation) : base(navigation)
         {
             SearchBarTextChangedCommand = CommandHelper.CreateCommand(SearchBarTextChanged);
-            ContentPageAppearingCommand = CommandHelper.CreateCommand(async () => await UpdateEntities());
             UpdateCommand = CommandHelper.CreateCommand(UpdateFromCist);
             MainThread.BeginInvokeOnMainThread(async () => await UpdateEntities(false));
 
@@ -136,10 +133,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
             else
             {
                 string searchQuery = SearchBarText.ToLower();
-                Entities =
-                    new ObservableCollection<T>(
-                        SearchEntities(searchQuery)
-                    );
+                Entities = new ObservableCollection<T>(SearchEntities(searchQuery));
             }
         }
 

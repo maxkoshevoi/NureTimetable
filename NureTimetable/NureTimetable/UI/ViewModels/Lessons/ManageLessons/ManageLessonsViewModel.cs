@@ -73,13 +73,15 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
 
         private async Task PageAppearing()
         {
-            if (Lessons is null)
+            if (Lessons != null)
             {
-                await App.Current.MainPage.DisplayAlert(LN.LessonsManagement, LN.AtFirstLoadTimetable, LN.Ok);
-                Navigation.PopAsync();
+                return;
             }
+
+            await App.Current.MainPage.DisplayAlert(LN.LessonsManagement, LN.AtFirstLoadTimetable, LN.Ok);
+            Navigation.PopAsync();
         }
-        
+
         private async Task SaveClicked()
         {
             if (Lessons is null)

@@ -11,6 +11,7 @@ using NureTimetable.UI.Views.Info;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
@@ -52,41 +53,39 @@ namespace NureTimetable.UI.Views
 
         protected override async void OnAppearing()
         {
-            if (VersionTracking.IsFirstLaunchForCurrentBuild)
+            base.OnAppearing();
+            if (!VersionTracking.IsFirstLaunchForCurrentBuild)
             {
-                var migrationsToApply = new List<BaseMigration>();
-                foreach (var migration in BaseMigration.Migrations)
-                {
-                    if (migration.IsNeedsToBeApplied())
-                    {
-                        migrationsToApply.Add(migration);
-                    }
-                }
-
-                if (migrationsToApply.Count > 0)
-                {
-                    await App.Current.MainPage.DisplayAlert(LN.FinishingUpdateTitle, LN.FinishingUpdateDescription, LN.Ok);
-                    bool isSuccess = true;
-                    foreach (var migration in migrationsToApply)
-                    {
-                        if (!migration.Apply())
-                        {
-                            isSuccess = false;
-                        }
-                    }
-                    if (!isSuccess)
-                    {
-                        await App.Current.MainPage.DisplayAlert(LN.FinishingUpdateTitle, LN.FinishingUpdateFail, LN.Ok);
-                    }
-                    var timetablePage = new TimetablePage();
-                    timetablePage.BindingContext = new TimetableViewModel(timetablePage.Navigation, timetablePage);
-                    Detail = new NavigationPage(timetablePage);
-                }
+                return;
             }
 
-            base.OnAppearing();
+            var migrationsToApply = new List<BaseMigration>();
+            foreach (var migration in BaseMigration.Migrations.Where(m => m.IsNeedsToBeApplied()))
+            {
+                migrationsToApply.Add(migration);
+            }
+
+            if (migrationsToApply.Count > 0)
+            {
+                await App.Current.MainPage.DisplayAlert(LN.FinishingUpdateTitle, LN.FinishingUpdateDescription, LN.Ok);
+                bool isSuccess = true;
+                foreach (var migration in migrationsToApply)
+                {
+                    if (!migration.Apply())
+                    {
+                        isSuccess = false;
+                    }
+                }
+                if (!isSuccess)
+                {
+                    await App.Current.MainPage.DisplayAlert(LN.FinishingUpdateTitle, LN.FinishingUpdateFail, LN.Ok);
+                }
+                var timetablePage = new TimetablePage();
+                timetablePage.BindingContext = new TimetableViewModel(timetablePage.Navigation, timetablePage);
+                Detail = new NavigationPage(timetablePage);
+            }
         }
-        
+
         private static void LogException(Exception ex)
         {
             // Getting exception Data
