@@ -79,7 +79,7 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
             }
 
             await App.Current.MainPage.DisplayAlert(LN.LessonsManagement, LN.AtFirstLoadTimetable, LN.Ok);
-            Navigation.PopAsync();
+            await Navigation.PopAsync();
         }
 
         private async Task SaveClicked()
@@ -92,7 +92,7 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
 
             EventsRepository.UpdateLessonsInfo(timetable.Entity, Lessons.Select(l => l.LessonInfo).ToList());
             await App.Current.MainPage.DisplayAlert(LN.SavingSettings, string.Format(LN.EntityLessonSettingsSaved, timetable.Entity.Name), LN.Ok);
-            Navigation.PopAsync();
+            await Navigation.PopAsync();
         }
     }
 }

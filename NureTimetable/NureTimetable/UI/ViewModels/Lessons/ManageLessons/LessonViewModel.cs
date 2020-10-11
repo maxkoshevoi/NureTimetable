@@ -34,7 +34,7 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
 
         private async Task SettingsClicked()
         {
-            Navigation.PushAsync(new LessonSettingsPage
+            await Navigation.PushAsync(new LessonSettingsPage
             {
                 BindingContext = new LessonSettingsViewModel(Navigation, LessonInfo, timetableInfo)
             });
@@ -42,7 +42,7 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
 
         private async Task InfoClicked()
         {
-            Navigation.PushAsync(new LessonInfoPage
+            await Navigation.PushAsync(new LessonInfoPage
             {
                 BindingContext = new LessonInfoViewModel(Navigation, LessonInfo, timetableInfo)
             });

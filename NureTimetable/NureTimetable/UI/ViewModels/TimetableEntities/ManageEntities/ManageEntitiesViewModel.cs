@@ -105,7 +105,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
         public async Task SelectOneAndExit(SavedEntity savedEntity)
         {
             UniversityEntitiesRepository.UpdateSelected(savedEntity);
-            Navigation.PopToRootAsync();
+            await Navigation.PopToRootAsync();
         }
 
         public void OnEntitySelectChange(SavedEntityItemViewModel entity)
@@ -164,7 +164,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
             {
                 return;
             }
-            Navigation.PushAsync(new AddTimetablePage()
+            await Navigation.PushAsync(new AddTimetablePage()
             {
                 BindingContext = new AddTimetableViewModel(Navigation)
             });
@@ -267,15 +267,17 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
             IsEntitiesLayoutEnabled = true;
             if (await App.Current.MainPage.DisplayAlert(LN.TimetableUpdate, result, LN.ToTimetable, LN.Ok))
             {
+#pragma warning disable CS4014 // TimetableViewModel.PageAppearing wouldn't trigger if we use await. See issue #35
                 List<SavedEntity> selected = UniversityEntitiesRepository.GetSelected();
                 if (entitiesAllowed.Count == 1 && !selected.Contains(entitiesAllowed[0]))
                 {
-                    await SelectOneAndExit(entitiesAllowed[0]);
+                    SelectOneAndExit(entitiesAllowed[0]);
                 }
                 else
                 {
                     Navigation.PopToRootAsync();
                 }
+#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
             }
         }
         #endregion
