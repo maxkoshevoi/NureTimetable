@@ -1,6 +1,7 @@
 ﻿using Microsoft.AppCenter.Analytics;
 using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Consts;
+using NureTimetable.Core.Models.Exceptions;
 using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
 using NureTimetable.UI.Helpers;
@@ -10,12 +11,11 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using NureTimetable.Core.Extensions;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
-using System.Net;
 
 namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
 {
@@ -88,7 +88,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
         #region Methods
         public async void SavedEntitySelected()
         {
-            if (SelectedEntity == null)
+            if (SelectedEntity is null)
             {
                 return;
             }
@@ -106,31 +106,38 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
         public async Task SelectOneAndExit(SavedEntity savedEntity)
         {
             UniversityEntitiesRepository.UpdateSelected(savedEntity);
-            Navigation.PopToRootAsync();
+            await Navigation.PopToRootAsync();
         }
 
         public void OnEntitySelectChange(SavedEntityItemViewModel entity)
         {
             List<SavedEntity> currentSelected = UniversityEntitiesRepository.GetSelected();
+            if (currentSelected.Contains(entity.SavedEntity) == entity.IsSelected)
+            {
+                return;
+            }
+
             if (entity.IsSelected)
             {
-                if (currentSelected.Contains(entity.SavedEntity))
-                {
-                    return;
-                }
                 currentSelected.Add(entity.SavedEntity);
             }
             else
             {
-                if (!currentSelected.Contains(entity.SavedEntity))
-                {
-                    return;
-                }
                 if (currentSelected.Count == 1)
                 {
-                    // User cannot deselect last selected entity
-                    entity.IsSelected = true;
-                    return;
+                    if (Entities.Contains(entity))
+                    {
+                        // User cannot deselect last selected entity
+                        entity.IsSelected = true;
+                        return;
+                    }
+
+                    var otherSavedEntity = Entities.FirstOrDefault();
+                    if (otherSavedEntity != null)
+                    {
+                        otherSavedEntity.IsSelected = true;
+                        currentSelected = UniversityEntitiesRepository.GetSelected();
+                    }
                 }
                 currentSelected.Remove(entity.SavedEntity);
             }
@@ -158,7 +165,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
             {
                 return;
             }
-            Navigation.PushAsync(new AddTimetablePage()
+            await Navigation.PushAsync(new AddTimetablePage()
             {
                 BindingContext = new AddTimetableViewModel(Navigation)
             });
@@ -183,7 +190,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
 
         private async Task UpdateTimetable(List<SavedEntity> entities)
         {
-            if (entities == null || entities.Count == 0)
+            if (entities is null || !entities.Any())
             {
                 return;
             }
@@ -198,13 +205,12 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
             IsEntitiesLayoutEnabled = false;
             IsProgressVisable = true;
 
-#if !DEBUG
             Analytics.TrackEvent("Updating timetable", new Dictionary<string, string>
             {
                 { "Count", entitiesAllowed.Count.ToString() },
                 { "Hour of the day", DateTime.Now.Hour.ToString() }
             });
-#endif
+
             const int batchSize = 10;
             var updateTasks = new List<Task<(TimetableInfo _, Exception Exception)>>();
             for (int i = 0; i < entitiesAllowed.Count; i += batchSize)
@@ -218,6 +224,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
             
             List<string> success = new List<string>(), fail = new List<string>();
             bool isNetworkError = false;
+            bool isCistOutOfMemoryError = false;
             for (int i = 0; i < updateTasks.Count; i++)
             {
                 Exception ex = updateTasks[i].Result.Exception;
@@ -232,13 +239,27 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
                 {
                     isNetworkError = true;
                 }
-                fail.Add(entity.Name);
+                else if (ex is CistOutOfMemoryException)
+                {
+                    isCistOutOfMemoryError = true;
+                }
+
+                string errorMessage = ex.Message;
+                if (errorMessage.Length > 30)
+                {
+                    errorMessage = errorMessage.Remove(30);
+                }
+                fail.Add($"{entity.Name} ({errorMessage.Trim()})");
             }
 
             string result = "";
             if (isNetworkError && fail.Count == entitiesAllowed.Count)
             {
                 result = LN.CannotGetDataFromCist;
+            }
+            else if (isCistOutOfMemoryError)
+            {
+                result = LN.CistOutOfMemory;
             }
             else
             {
@@ -256,15 +277,17 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
             IsEntitiesLayoutEnabled = true;
             if (await App.Current.MainPage.DisplayAlert(LN.TimetableUpdate, result, LN.ToTimetable, LN.Ok))
             {
+#pragma warning disable CS4014 // TimetableViewModel.PageAppearing wouldn't trigger if we use await. See issue #35
                 List<SavedEntity> selected = UniversityEntitiesRepository.GetSelected();
                 if (entitiesAllowed.Count == 1 && !selected.Contains(entitiesAllowed[0]))
                 {
-                    await SelectOneAndExit(entitiesAllowed[0]);
+                    SelectOneAndExit(entitiesAllowed[0]);
                 }
                 else
                 {
                     Navigation.PopToRootAsync();
                 }
+#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
             }
         }
         #endregion

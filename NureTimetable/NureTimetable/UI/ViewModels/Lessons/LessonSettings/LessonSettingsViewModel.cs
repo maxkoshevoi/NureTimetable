@@ -1,4 +1,5 @@
-﻿using NureTimetable.DAL.Models.Local;
+﻿using NureTimetable.Core.Models.Consts;
+using NureTimetable.DAL.Models.Local;
 using NureTimetable.UI.Helpers;
 using NureTimetable.UI.ViewModels.Core;
 using System.Collections.ObjectModel;
@@ -17,13 +18,11 @@ namespace NureTimetable.UI.ViewModels.Lessons.LessonSettings
 
         private bool? _showLessonIsChecked = false;
         private string _lessonNotesText;
-        private string _title;
         #endregion
 
         #region Properties
         public bool? ShowLessonIsChecked { get => _showLessonIsChecked; set => SetProperty(ref _showLessonIsChecked, value); }
         public string LessonNotesText { get => _lessonNotesText; set => SetProperty(ref _lessonNotesText, value); }
-        public string Title { get => _title; set => SetProperty(ref _title, value); }
         public ListViewViewModel<EventType> LvEventTypes { get; set; }
         public ListViewViewModel<Teacher> LvTeachers { get; set; }
 
@@ -93,7 +92,7 @@ namespace NureTimetable.UI.ViewModels.Lessons.LessonSettings
 
             MainThread.BeginInvokeOnMainThread(() =>
             {
-                MessagingCenter.Send(this, "OneLessonSettingsChanged", lessonInfo);
+                MessagingCenter.Send(this, MessageTypes.OneLessonSettingsChanged, lessonInfo);
             });
         }
 

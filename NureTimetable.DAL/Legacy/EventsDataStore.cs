@@ -30,7 +30,7 @@ namespace NureTimetable.DAL.Legacy
                     Uri uri = new Uri(Urls.CistGroupTimetableUrl(Urls.CistTimetableFormat.Csv, dateStart, dateEnd, groupsAllowed.Select(g => g.ID).ToArray()));
                     string data = client.DownloadString(uri);
                     Dictionary<string, List<Event>> newEvents = ParseCistCsvTimetable(data, groupsAllowed.Count > 1);
-                    if (newEvents == null)
+                    if (newEvents is null)
                     {
                         // Parsing error
                         return null;
@@ -49,7 +49,7 @@ namespace NureTimetable.DAL.Legacy
                             groupEvents = newEvents.Values.First();
                         }
                         TimetableInfo groupTimetable = timetables.FirstOrDefault(tt => tt.Group.ID == group.ID);
-                        if (groupTimetable == null)
+                        if (groupTimetable is null)
                         {
                             groupTimetable = new TimetableInfo(group);
                             timetables.Add(groupTimetable);
@@ -73,7 +73,7 @@ namespace NureTimetable.DAL.Legacy
                                 foreach (LessonInfo newLessonInfo in groupsLessons[group.Name])
                                 {
                                     LessonInfo oldLessonInfo = timetable.LessonsInfo.FirstOrDefault(li => li.ShortName == newLessonInfo.ShortName);
-                                    if (oldLessonInfo == null)
+                                    if (oldLessonInfo is null)
                                     {
                                         oldLessonInfo = new LessonInfo();
                                         timetable.LessonsInfo.Add(oldLessonInfo);
@@ -231,7 +231,7 @@ namespace NureTimetable.DAL.Legacy
         public static Dictionary<string, List<LessonInfo>> ParseCistXlsLessonInfo(string cistXlsTimetableData, params Group[] searchGroups)
         {
             var groupsLessons = new Dictionary<string, List<LessonInfo>>();
-            if (searchGroups == null || searchGroups.Length == 0)
+            if (searchGroups is null || searchGroups.Length == 0)
             {
                 return groupsLessons;
             }
@@ -301,7 +301,7 @@ namespace NureTimetable.DAL.Legacy
                             string teacher = $"{eventTypeInfo[4]} {eventTypeInfo[5]}{eventTypeInfo[6]}".TrimEnd(',');
                                 
                             EventTypeInfo eventType = lessonInfo.EventTypesInfo.FirstOrDefault(et => et.Name == type);
-                            if (eventType == null)
+                            if (eventType is null)
                             {
                                 eventType = new EventTypeInfo
                                 {

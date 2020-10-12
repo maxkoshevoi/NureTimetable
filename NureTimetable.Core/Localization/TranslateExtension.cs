@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Reflection;
 using System.Resources;
 using Xamarin.Forms;
@@ -20,13 +21,13 @@ namespace NureTimetable.Core.Localization
 
         public object ProvideValue(IServiceProvider serviceProvider)
         {
-            if (Text == null)
+            if (Text is null)
                 return "";
 
-            var ci = LN.Culture; //CrossMultilingual.Current.CurrentCultureInfo;
-            var translation = resmgr.Value.GetString(Text, ci);
+            CultureInfo ci = LN.Culture; //CrossMultilingual.Current.CurrentCultureInfo;
+            string translation = resmgr.Value.GetString(Text, ci);
 
-            if (translation == null)
+            if (translation is null)
             {
                 translation = Text; // returns the key, which GETS DISPLAYED TO THE USER
             }

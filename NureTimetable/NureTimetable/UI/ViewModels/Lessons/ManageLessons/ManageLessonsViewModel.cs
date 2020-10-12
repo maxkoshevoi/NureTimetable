@@ -1,4 +1,5 @@
 ﻿using NureTimetable.Core.Localization;
+using NureTimetable.Core.Models.Consts;
 using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
 using NureTimetable.UI.Helpers;
@@ -20,18 +21,10 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
 
         private readonly TimetableInfo timetable;
 
-        private string _title;
-
         private ObservableCollection<LessonViewModel> _lessons;
         #endregion
 
         #region Properties
-        public string Title
-        {
-            get => _title;
-            private set => SetProperty(ref _title, value);
-        }
-
         public bool IsNoSourceLayoutVisable
         {
             get => _isNoSourceLayoutVisable;
@@ -50,7 +43,11 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
             Title = $"{LN.Lessons}: {savedEntity.Name}";
 
             timetable = EventsRepository.GetTimetableLocal(savedEntity);
-            if (timetable != null)
+            if (timetable is null)
+            {
+                IsNoSourceLayoutVisable = true;
+            }
+            else
             {
                 Lessons = new ObservableCollection<LessonViewModel>
                 (
@@ -61,24 +58,14 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
                         .Select(lesson => new LessonViewModel(Navigation, lesson, timetable))
                 );
                 IsNoSourceLayoutVisable = Lessons.Count == 0;
-            }
-            else
-            {
-                IsNoSourceLayoutVisable = true;
-            }
 
-            MessagingCenter.Subscribe<LessonSettingsViewModel, LessonInfo>(this, "OneLessonSettingsChanged", (sender, newLessonSettings) =>
-            {
-                for (int i = 0; i < Lessons.Count; i++)
+                MessagingCenter.Subscribe<LessonSettingsViewModel, LessonInfo>(this, MessageTypes.OneLessonSettingsChanged, (sender, newLessonSettings) =>
                 {
-                    if (Lessons[i].LessonInfo.Lesson == newLessonSettings.Lesson)
-                    {
-                        Lessons[i].LessonInfo = newLessonSettings;
-                        Lessons[i].LessonInfo.Settings.NotifyChanged();
-                        break;
-                    }
-                }
-            });
+                    LessonViewModel lesson = Lessons.Single(l => l.LessonInfo.Lesson == newLessonSettings.Lesson);
+                    lesson.LessonInfo = newLessonSettings;
+                    lesson.LessonInfo.Settings.NotifyChanged();
+                });
+            }
 
             PageAppearingCommand = CommandHelper.CreateCommand(PageAppearing);
             SaveClickedCommand = CommandHelper.CreateCommand(SaveClicked);
@@ -86,16 +73,18 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
 
         private async Task PageAppearing()
         {
-            if (Lessons == null)
+            if (Lessons != null)
             {
-                await App.Current.MainPage.DisplayAlert(LN.LessonsManagement, LN.AtFirstLoadTimetable, LN.Ok);
-                Navigation.PopAsync();
+                return;
             }
+
+            await App.Current.MainPage.DisplayAlert(LN.LessonsManagement, LN.AtFirstLoadTimetable, LN.Ok);
+            await Navigation.PopAsync();
         }
-        
+
         private async Task SaveClicked()
         {
-            if (Lessons == null)
+            if (Lessons is null)
             {
                 await App.Current.MainPage.DisplayAlert(LN.LessonsManagement, LN.AtFirstLoadTimetable, LN.Ok);
                 return;
@@ -103,7 +92,7 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
 
             EventsRepository.UpdateLessonsInfo(timetable.Entity, Lessons.Select(l => l.LessonInfo).ToList());
             await App.Current.MainPage.DisplayAlert(LN.SavingSettings, string.Format(LN.EntityLessonSettingsSaved, timetable.Entity.Name), LN.Ok);
-            Navigation.PopAsync();
+            await Navigation.PopAsync();
         }
     }
 }

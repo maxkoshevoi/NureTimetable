@@ -242,6 +242,15 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Too much load on cist.nure.ua. Please try again later..
+        /// </summary>
+        public static string CistOutOfMemory {
+            get {
+                return ResourceManager.GetString("CistOutOfMemory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Day.
         /// </summary>
         public static string Day {

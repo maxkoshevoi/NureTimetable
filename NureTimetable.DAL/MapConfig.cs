@@ -13,7 +13,7 @@ namespace NureTimetable.DAL
         {
             get
             {
-                if (_config == null)
+                if (_config is null)
                 {
                     Init();
                 }

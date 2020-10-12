@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
-using Newtonsoft.Json;
+using Microsoft.AppCenter.Analytics;
+using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Models.Consts;
+using NureTimetable.Core.Models.Exceptions;
 using NureTimetable.DAL.Helpers;
 using NureTimetable.DAL.Models.Consts;
 using System;
@@ -8,15 +10,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Text;
-using NureTimetable.Core.Extensions;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Cist = NureTimetable.DAL.Models.Cist;
 using Local = NureTimetable.DAL.Models.Local;
-using System.Threading.Tasks;
-using System.Net.Http;
-using Microsoft.AppCenter.Analytics;
-using Xamarin.Essentials;
 
 namespace NureTimetable.DAL
 {
@@ -52,6 +51,11 @@ namespace NureTimetable.DAL
                 GroupsException is WebException 
                 || TeachersException is WebException 
                 || RoomsException is WebException;
+
+            public bool IsCistOutOfMemory =>
+                GroupsException is CistOutOfMemoryException
+                || TeachersException is CistOutOfMemoryException
+                || RoomsException is CistOutOfMemoryException;
         }
 
         #region All Entities Cist
@@ -72,7 +76,7 @@ namespace NureTimetable.DAL
         public static bool UpdateLocal()
         {
             Cist.University university = GetLocal();
-            if (university == null)
+            if (university is null)
             {
                 return false;
             }
@@ -140,8 +144,8 @@ namespace NureTimetable.DAL
                 return new UniversityEntitiesCistUpdateResult(null, null, null);
             }
 
-            var groupsTask = GetAllGroupsFromCist();
-            var teachersTask = GetAllTeachersFromCist();
+            var groupsTask = TaskWithFallbacks(GetAllGroupsFromCist, GetAllGroupsFromCistHtml);
+            var teachersTask = TaskWithFallbacks(GetAllTeachersFromCist, GetAllTeachersFromCistHtml);
             var roomsTask = GetAllRoomsFromCist();
 
             var result = new UniversityEntitiesCistUpdateResult();
@@ -150,7 +154,7 @@ namespace NureTimetable.DAL
                 Task.WaitAll(groupsTask, teachersTask, roomsTask);
             }
             catch
-            { 
+            {
                 result = new UniversityEntitiesCistUpdateResult
                 {
                     GroupsException = groupsTask.Exception?.InnerException,
@@ -166,20 +170,27 @@ namespace NureTimetable.DAL
             }
             if (!groupsTask.IsFaulted)
             {
-                university.Faculties = groupsTask.Result;
+                foreach (Cist.Faculty faculty in groupsTask.Result)
+                {
+                    Cist.Faculty oldFaculty = university.Faculties.FirstOrDefault(f => f.Id == faculty.Id);
+                    if (oldFaculty != null)
+                    {
+                        faculty.Departments = oldFaculty.Departments;
+                        university.Faculties.Remove(oldFaculty);
+                    }
+                    university.Faculties.Add(faculty);
+                }
             }
             if (!teachersTask.IsFaulted)
             {
                 foreach (Cist.Faculty faculty in teachersTask.Result)
                 {
                     Cist.Faculty oldFaculty = university.Faculties.FirstOrDefault(f => f.Id == faculty.Id);
-                    if (oldFaculty == null)
+                    if (oldFaculty != null)
                     {
-                        university.Faculties.Add(faculty);
-                        continue;
+                        faculty.Directions = oldFaculty.Directions;
+                        university.Faculties.Remove(oldFaculty);
                     }
-                    faculty.Directions = oldFaculty.Directions;
-                    university.Faculties.Remove(oldFaculty);
                     university.Faculties.Add(faculty);
                 }
             }
@@ -197,21 +208,46 @@ namespace NureTimetable.DAL
             return result;
         }
 
+        private static async Task<T> TaskWithFallbacks<T>(params Func<Task<T>>[] tasks)
+        {
+            if (tasks.Any() != true)
+            {
+                throw new ArgumentException($"{nameof(tasks)} cannot be null or empty");
+            }
+
+            for (int i = 0; i < tasks.Length; i++)
+            {
+                try
+                {
+                    return await tasks[i]();
+                }
+                catch (Exception ex)
+                {
+                    if (ex is WebException || i == tasks.Length - 1)
+                    {
+                        throw;
+                    }
+                }
+            }
+
+            return default;
+        }
+
+        #region From Cist Api
         private static async Task<List<Cist.Faculty>> GetAllGroupsFromCist()
         {
             using var client = new HttpClient();
             try
             {
-#if !DEBUG
                 Analytics.TrackEvent("Cist request", new Dictionary<string, string>
                 {
                     { "Type", "GetAllGroups" },
                     { "Hour of the day", DateTime.Now.Hour.ToString() }
                 });
-#endif
-                Uri uri = Urls.CistAllGroupsUrl;
+
+                Uri uri = Urls.CistApiAllGroups;
                 string responseStr = GetHardcodedGroupsFromCist();
-                Cist.University newUniversity = Serialisation.FromJson<Cist.UniversityRootObject>(responseStr).University;
+                Cist.University newUniversity = CistHelper.FromJson<Cist.UniversityRootObject>(responseStr).University;
 
                 return newUniversity.Faculties;
             }
@@ -230,27 +266,15 @@ namespace NureTimetable.DAL
             using var client = new HttpClient();
             try
             {
-#if !DEBUG
                 Analytics.TrackEvent("Cist request", new Dictionary<string, string>
                 {
                     { "Type", "GetAllTeachers" },
                     { "Hour of the day", DateTime.Now.Hour.ToString() }
                 });
-#endif
-                Uri uri = Urls.CistAllTeachersUrl;
+
+                Uri uri = Urls.CistApiAllTeachers;
                 string responseStr = await client.GetStringOrWebExceptionAsync(uri);
-                Cist.University newUniversity;
-                try
-                {
-                    newUniversity = Serialisation.FromJson<Cist.UniversityRootObject>(responseStr).University;
-                }
-                catch (JsonReaderException ex) when (ex.Message.StartsWith("JsonToken EndObject is not valid for closing JsonType Array. Path 'university.faculties'"))
-                {
-                    // Temporary workaround. Needs to be removed when fixed on Cist!
-                    responseStr = responseStr.TrimEnd('\n');
-                    responseStr = responseStr.Remove(responseStr.Length - 1) + "]}}";
-                    newUniversity = Serialisation.FromJson<Cist.UniversityRootObject>(responseStr).University;
-                }
+                Cist.University newUniversity = CistHelper.FromJson<Cist.UniversityRootObject>(responseStr).University;
 
                 return newUniversity.Faculties;
             }
@@ -269,17 +293,16 @@ namespace NureTimetable.DAL
             using var client = new HttpClient();
             try
             {
-#if !DEBUG
                 Analytics.TrackEvent("Cist request", new Dictionary<string, string>
                 {
                     { "Type", "GetAllRooms" },
                     { "Hour of the day", DateTime.Now.Hour.ToString() }
                 });
-#endif
-                Uri uri = Urls.CistAllRoomsUrl;
+
+                Uri uri = Urls.CistApiAllRooms;
                 string responseStr = await client.GetStringOrWebExceptionAsync(uri);
                 responseStr = responseStr.Replace("\n", "").Replace("[}]", "[]");
-                Cist.University newUniversity = Serialisation.FromJson<Cist.UniversityRootObject>(responseStr).University;
+                Cist.University newUniversity = CistHelper.FromJson<Cist.UniversityRootObject>(responseStr).University;
 
                 return newUniversity.Buildings;
             }
@@ -292,6 +315,185 @@ namespace NureTimetable.DAL
                 throw;
             }
         }
+        #endregion
+
+        #region From Cist Html
+        private static async Task<List<Cist.Faculty>> GetAllGroupsFromCistHtml()
+        {
+            using var client = new HttpClient();
+            try
+            {
+                Analytics.TrackEvent("Cist request", new Dictionary<string, string>
+                {
+                    { "Type", "GetAllGroupsHtml" },
+                    { "Hour of the day", DateTime.Now.Hour.ToString() }
+                });
+
+                var faculties = new List<Cist.Faculty>();
+
+                // Getting branches
+                Uri uri = Urls.CistSiteAllGroups(null);
+                string branchesListPage = await client.GetStringOrWebExceptionAsync(uri);
+                foreach (string part in branchesListPage.Split(new string[] { "IAS_Change_Groups(" }, StringSplitOptions.RemoveEmptyEntries).Skip(1))
+                {
+                    string branchIdStr = part.Remove(part.IndexOf(')'));
+                    if (!int.TryParse(branchIdStr, out int facultyId))
+                    {
+                        continue;
+                    }
+
+                    int facultyNameStart = part.IndexOf('>') + 1;
+                    faculties.Add(new Cist.Faculty
+                    {
+                        Id = facultyId,
+                        ShortName = part.Substring(facultyNameStart, part.IndexOf('<') - facultyNameStart)
+                    });
+                }
+
+                //Getting groups
+                foreach (Cist.Faculty faculty in faculties)
+                {
+                    faculty.Directions = new List<Cist.Direction> { new Cist.Direction() };
+
+                    uri = Urls.CistSiteAllGroups(faculty.Id);
+                    string branchGroupsPage = await client.GetStringOrWebExceptionAsync(uri);
+                    foreach (string part in branchGroupsPage.Split(new string[] { "IAS_ADD_Group_in_List(" }, StringSplitOptions.RemoveEmptyEntries).Skip(1))
+                    {
+                        string[] groupInfo = part
+                            .Remove(part.IndexOf(")\">"))
+                            .Split(new char[] { ',', '\'' }, StringSplitOptions.RemoveEmptyEntries);
+
+                        if (groupInfo.Length != 2 || !int.TryParse(groupInfo[1], out int groupID))
+                        {
+                            continue;
+                        }
+
+                        string groupName = groupInfo[0];
+                        faculty.Directions[0].Groups.Add(new Cist.Group
+                        {
+                            Id = groupID,
+                            Name = groupName
+                        });
+                    }
+                }
+
+                return faculties;
+            }
+            catch (Exception ex)
+            {
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
+                });
+                throw;
+            }
+        }
+
+        private static async Task<List<Cist.Faculty>> GetAllTeachersFromCistHtml()
+        {
+            using var client = new HttpClient();
+            try
+            {
+                Analytics.TrackEvent("Cist request", new Dictionary<string, string>
+                {
+                    { "Type", "GetAllTeachersHtml" },
+                    { "Hour of the day", DateTime.Now.Hour.ToString() }
+                });
+
+                var faculties = new List<Cist.Faculty>();
+
+                // Getting faculties
+                Uri uri = Urls.CistSiteAllTeachers();
+                string facultyListPage = await client.GetStringOrWebExceptionAsync(uri);
+                foreach (string part in facultyListPage.Split(new string[] { "IAS_Change_Kaf(" }, StringSplitOptions.RemoveEmptyEntries).Skip(1))
+                {
+                    string facultyIdStr = part.Remove(part.IndexOf(','));
+                    if (!int.TryParse(facultyIdStr, out int facId))
+                    {
+                        continue;
+                    }
+
+                    int facNameStart = part.IndexOf('>') + 1;
+                    faculties.Add(new Cist.Faculty
+                    {
+                        Id = facId,
+                        ShortName = part.Substring(facNameStart, part.IndexOf('<') - facNameStart),
+                        Departments = await GetDepartmentsForFaculty(facId)
+                    });
+                }
+
+                return faculties;
+            }
+            catch (Exception ex)
+            {
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
+                });
+                throw;
+            }
+        }
+
+        private static async Task<List<Cist.Department>> GetDepartmentsForFaculty(long facultyId)
+        {
+            var departments = new List<Cist.Department>();
+
+            // Getting departments
+            Uri uri = Urls.CistSiteAllTeachers(facultyId);
+            using var client = new HttpClient();
+            string facultyPage = await client.GetStringOrWebExceptionAsync(uri);
+
+            foreach (string part in facultyPage.Split(new string[] { $"IAS_Change_Kaf({facultyId}," }, StringSplitOptions.RemoveEmptyEntries).Skip(1))
+            {
+                string departmentIdStr = part.Remove(part.IndexOf(')'));
+                if (!int.TryParse(departmentIdStr, out int depId) || depId == -1)
+                {
+                    continue;
+                }
+
+                int depNameStart = part.IndexOf('>') + 1;
+                departments.Add(new Cist.Department
+                {
+                    Id = depId,
+                    ShortName = part.Substring(depNameStart, part.IndexOf('<') - depNameStart),
+                    Teachers = await GetTeachersForDepartment(facultyId, depId)
+                });
+            }
+
+            return departments;
+        }
+
+        private static async Task<List<Cist.Teacher>> GetTeachersForDepartment(long facultyId, long departmentId)
+        {
+            var teachers = new List<Cist.Teacher>();
+
+            // Getting teachers
+            Uri uri = Urls.CistSiteAllTeachers(facultyId, departmentId);
+            using var client = new HttpClient();
+            string branchGroupsPage = await client.GetStringOrWebExceptionAsync(uri);
+            foreach (string part in branchGroupsPage.Split(new string[] { "IAS_ADD_Teach_in_List(" }, StringSplitOptions.RemoveEmptyEntries).Skip(1))
+            {
+                string[] teacherInfo = part
+                    .Remove(part.IndexOf(")\">"))
+                    .Split(new char[] { ',', '\'' }, StringSplitOptions.RemoveEmptyEntries);
+
+                if (teacherInfo.Length != 2 || !int.TryParse(teacherInfo[1], out int teacherID))
+                {
+                    continue;
+                }
+
+                string teacherName = teacherInfo[0];
+                teachers.Add(new Cist.Teacher
+                {
+                    Id = teacherID,
+                    ShortName = teacherName,
+                    FullName = teacherName
+                });
+            }
+
+            return teachers;
+        }
+        #endregion
         #endregion
 
         #endregion

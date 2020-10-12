@@ -19,7 +19,7 @@ namespace NureTimetable.UI.ViewModels.Menu
         {
             get
             {
-                if (_menuItems == null)
+                if (_menuItems is null)
                 {
                     SetProperty(ref _menuItems, new ObservableCollection<HomeMenuItem>(GetMenuItems()));
                 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AppCenter.Analytics;
 using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Models.Consts;
+using NureTimetable.Core.Models.Exceptions;
 using NureTimetable.DAL.Helpers;
 using NureTimetable.DAL.Models.Consts;
 using System;
@@ -25,7 +26,7 @@ namespace NureTimetable.DAL
             Local.TimetableInfo timetable;
             if (tryUpdate)
             {
-                if (dateStart == null || dateEnd == null)
+                if (dateStart is null || dateEnd is null)
                 {
                     throw new ArgumentNullException($"{nameof(dateStart)} and {nameof(dateEnd)} must be set");
                 }
@@ -47,14 +48,14 @@ namespace NureTimetable.DAL
         public static List<Local.TimetableInfo> GetTimetableLocal(List<Local.SavedEntity> entities)
         {
             var timetables = new List<Local.TimetableInfo>();
-            if (entities == null)
+            if (entities is null)
             {
                 return timetables;
             }
             foreach (Local.SavedEntity entity in entities)
             {
                 Local.TimetableInfo timetableInfo = Serialisation.FromJsonFile<Local.TimetableInfo>(FilePath.SavedTimetable(entity.Type, entity.ID));
-                if (timetableInfo == null)
+                if (timetableInfo is null)
                 {
                     continue;
                 }
@@ -85,7 +86,7 @@ namespace NureTimetable.DAL
         #region Cist
         public static async Task<(Local.TimetableInfo Timetable, Exception Exception)> GetTimetableFromCist(Local.SavedEntity entity, DateTime dateStart, DateTime dateEnd)
         {
-            if (SettingsRepository.CheckCistTimetableUpdateRights(new List<Local.SavedEntity> { entity }).Count == 0)
+            if (!SettingsRepository.CheckCistTimetableUpdateRights(new List<Local.SavedEntity> { entity }).Any())
             {
                 return (null, null);
             }
@@ -96,24 +97,30 @@ namespace NureTimetable.DAL
                 Local.TimetableInfo timetable = GetTimetableLocal(entity) ?? new Local.TimetableInfo(entity);
 
                 // Getting events
-#if !DEBUG
                 Analytics.TrackEvent("Cist request", new Dictionary<string, string>
                 {
                     { "Type", "GetTimetable" },
                     { "Subtype", entity.Type.ToString() },
                     { "Hour of the day", DateTime.Now.Hour.ToString() }
                 });
-#endif
-                Uri uri = Urls.CistEntityTimetableUrl(entity.Type, entity.ID, dateStart, dateEnd);
+
+                Uri uri = Urls.CistApiEntityTimetable(entity.Type, entity.ID, dateStart, dateEnd);
                 string responseStr = GetHardcodedEventsFromCist();
                 responseStr = responseStr.Replace("&amp;", "&");
                 responseStr = responseStr.Replace("\"events\":[\n]}]", "\"events\": []");
-                Cist.Timetable cistTimetable = Serialisation.FromJson<Cist.Timetable>(responseStr);
+                Cist.Timetable cistTimetable = CistHelper.FromJson<Cist.Timetable>(responseStr);
 
                 // Check for valid results
                 if (timetable.Events.Count != 0 && cistTimetable.Events.Count == 0)
                 {
-                    throw new InvalidOperationException("Received timetable is empty");
+                    Analytics.TrackEvent("Received timetable is empty", new Dictionary<string, string>
+                    {
+                        { "Entity", $"{entity.Type} {entity.Name} ({entity.ID})" },
+                        { "From", dateStart.ToString("dd.MM.yyyy") },
+                        { "To", dateEnd.ToString("dd.MM.yyyy") }
+                    });
+
+                    return (null, null);
                 }
 
                 // Updating timetable information

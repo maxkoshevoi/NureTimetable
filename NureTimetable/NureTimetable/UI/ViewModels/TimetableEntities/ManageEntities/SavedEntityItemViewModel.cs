@@ -9,7 +9,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
@@ -53,14 +52,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
 
         public async Task SettingsClicked()
         {
-            List<string> actionList = new List<string> { LN.UpdateTimetable, LN.SetUpLessonDisplay, LN.Delete };
-            if (DeviceInfo.Platform == DevicePlatform.Android
-                && DeviceInfo.Version.Major > 0
-                && DeviceInfo.Version.Major < 5)
-            {
-                // SfCheckBox doesn`t support Android 4
-                actionList.Remove(LN.SetUpLessonDisplay);
-            }
+            var actionList = new List<string> { LN.UpdateTimetable, LN.SetUpLessonDisplay, LN.Delete };
             if (!IsSelected)
             {
                 actionList.Insert(0, LN.SelectOneEntity);
@@ -82,15 +74,17 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
             }
             else if (action == LN.SetUpLessonDisplay)
             {
-                Navigation.PushAsync(new ManageLessonsPage()
+#pragma warning disable CS4014 // ManageLessonsViewModel.PageAppearing wouldn't trigger if we use await. See issue #35
+                Navigation.PushAsync(new ManageLessonsPage
                 {
                     BindingContext = new ManageLessonsViewModel(Navigation, SavedEntity)
                 });
+#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
             }
             else if (action == LN.Delete)
             {
-                IsSelected = false;
                 _manageEntitiesViewModel.Entities.Remove(this);
+                IsSelected = false;
                 UniversityEntitiesRepository.UpdateSaved(_manageEntitiesViewModel.Entities.Select(vm => vm.SavedEntity).ToList());
             }
         }

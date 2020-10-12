@@ -2,6 +2,7 @@
 using Microsoft.AppCenter.Crashes;
 using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Consts;
+using NureTimetable.Core.Models.Exceptions;
 using NureTimetable.Migrations;
 using NureTimetable.UI.ViewModels.Info;
 using NureTimetable.UI.ViewModels.Menu;
@@ -10,6 +11,7 @@ using NureTimetable.UI.Views.Info;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
@@ -51,44 +53,41 @@ namespace NureTimetable.UI.Views
 
         protected override async void OnAppearing()
         {
-            if (VersionTracking.IsFirstLaunchForCurrentBuild)
+            base.OnAppearing();
+            if (!VersionTracking.IsFirstLaunchForCurrentBuild)
             {
-                var migrationsToApply = new List<BaseMigration>();
-                foreach (var migration in BaseMigration.Migrations)
-                {
-                    if (migration.IsNeedsToBeApplied())
-                    {
-                        migrationsToApply.Add(migration);
-                    }
-                }
-
-                if (migrationsToApply.Count > 0)
-                {
-                    await App.Current.MainPage.DisplayAlert(LN.FinishingUpdateTitle, LN.FinishingUpdateDescription, LN.Ok);
-                    bool isSuccess = true;
-                    foreach (var migration in migrationsToApply)
-                    {
-                        if (!migration.Apply())
-                        {
-                            isSuccess = false;
-                        }
-                    }
-                    if (!isSuccess)
-                    {
-                        await App.Current.MainPage.DisplayAlert(LN.FinishingUpdateTitle, LN.FinishingUpdateFail, LN.Ok);
-                    }
-                    var timetablePage = new TimetablePage();
-                    timetablePage.BindingContext = new TimetableViewModel(timetablePage.Navigation, timetablePage);
-                    Detail = new NavigationPage(timetablePage);
-                }
+                return;
             }
 
-            base.OnAppearing();
+            var migrationsToApply = new List<BaseMigration>();
+            foreach (var migration in BaseMigration.Migrations.Where(m => m.IsNeedsToBeApplied()))
+            {
+                migrationsToApply.Add(migration);
+            }
+
+            if (migrationsToApply.Count > 0)
+            {
+                await App.Current.MainPage.DisplayAlert(LN.FinishingUpdateTitle, LN.FinishingUpdateDescription, LN.Ok);
+                bool isSuccess = true;
+                foreach (var migration in migrationsToApply)
+                {
+                    if (!migration.Apply())
+                    {
+                        isSuccess = false;
+                    }
+                }
+                if (!isSuccess)
+                {
+                    await App.Current.MainPage.DisplayAlert(LN.FinishingUpdateTitle, LN.FinishingUpdateFail, LN.Ok);
+                }
+                var timetablePage = new TimetablePage();
+                timetablePage.BindingContext = new TimetableViewModel(timetablePage.Navigation, timetablePage);
+                Detail = new NavigationPage(timetablePage);
+            }
         }
-        
+
         private static void LogException(Exception ex)
         {
-#if !DEBUG
             // Getting exception Data
             var properties = new Dictionary<string, string>();
             var attachments = new List<ErrorAttachmentLog>();
@@ -118,7 +117,7 @@ namespace NureTimetable.UI.Views
                 // WebException happens for external reasons, and shouldn't be treated as an exception.
                 // But just in case it is logged as Event
 
-                if (webEx.Status != 0)
+                if (webEx.Status != 0 && webEx.Status != WebExceptionStatus.UnknownError)
                 {
                     properties.Add("Status", webEx.Status.ToString());
                 }
@@ -131,10 +130,17 @@ namespace NureTimetable.UI.Views
                 Analytics.TrackEvent("WebException", properties);
                 return;
             }
+            else if (ex is CistOutOfMemoryException)
+            {
+                // CistOutOfMemoryException happens for external reasons, and shouldn't be treated as an exception.
+                // But just in case it is logged as Event
+
+                Analytics.TrackEvent("CistOutOfMemoryException", properties);
+                return;
+            }
 
             // Logging exception
             Crashes.TrackError(ex, properties, attachments.ToArray());
-#endif
         }
 
         public async Task NavigateFromMenu(int id)

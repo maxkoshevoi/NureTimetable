@@ -1,4 +1,5 @@
-﻿using NureTimetable.Core.Extensions;
+﻿using Microsoft.AppCenter.Analytics;
+using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models;
 using NureTimetable.Core.Models.Consts;
@@ -17,8 +18,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Essentials;
@@ -43,7 +42,6 @@ namespace NureTimetable.UI.ViewModels.Timetable
 
         private string _hideSelectedEventsIcon = "filter";
         private DateTime? _timetableSelectedDate;
-        private string _title = LN.AppName;
         private ScheduleView _timetableScheduleView = ScheduleView.WeekView;
         private string _timetableLocale;
         private bool _timetableIsEnabled = true;
@@ -67,8 +65,6 @@ namespace NureTimetable.UI.ViewModels.Timetable
         #endregion
 
         #region Properties
-        public string Title { get => _title; set => SetProperty(ref _title, value); }
-
         public string HideSelectedEventsIcon { get => _hideSelectedEventsIcon; set => SetProperty(ref _hideSelectedEventsIcon, value); }
 
         public DateTime? TimetableSelectedDate { get => _timetableSelectedDate; set => SetProperty(ref _timetableSelectedDate, value); }
@@ -133,7 +129,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
             MessagingCenter.Subscribe<Application, SavedEntity>(this, MessageTypes.TimetableUpdated, (sender, entity) =>
             {
                 List<SavedEntity> selectedEntities = UniversityEntitiesRepository.GetSelected();
-                if (selectedEntities == null || !selectedEntities.Contains(entity))
+                if (selectedEntities is null || !selectedEntities.Contains(entity))
                 {
                     return;
                 }
@@ -142,7 +138,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
             MessagingCenter.Subscribe<Application, SavedEntity>(this, MessageTypes.LessonSettingsChanged, (sender, entity) =>
             {
                 List<SavedEntity> selectedEntities = UniversityEntitiesRepository.GetSelected();
-                if (selectedEntities.Count == 0 || !selectedEntities.Contains(entity))
+                if (!selectedEntities.Any() || !selectedEntities.Contains(entity))
                 {
                     return;
                 }
@@ -211,14 +207,25 @@ namespace NureTimetable.UI.ViewModels.Timetable
             {
                 UpdateTimeLeft();
                 await UpdateTodayButton(true);
+                
+                if (needToUpdateEventsUI)
+                {
+                    UpdateEventsWithUI();
+                }
+
+                // Updaing current date if it's changed
+                if (visibleDates.Any())
+                {
+                    try
+                    {
+                        _timetablePage.TimetableNavigateTo(visibleDates.First());
+                    }
+                    catch
+                    { }
+                }
             }
 
-            Device.StartTimer(TimeSpan.FromSeconds(1), UpdateTimeLeft);
-
-            if (needToUpdateEventsUI)
-            {
-                UpdateEventsWithUI();
-            }
+            Device.StartTimer(TimeSpan.FromSeconds(1), () => { UpdateTimeLeft(); return isPageVisible; });
         }
 
         private void PageDisappearing()
@@ -226,63 +233,61 @@ namespace NureTimetable.UI.ViewModels.Timetable
             isPageVisible = false;
         }
 
-        private bool UpdateTimeLeft()
+        private void UpdateTimeLeft()
         {
-            if (timetableInfoList != null && timetableInfoList.Count > 0)
+            if (timetableInfoList is null || timetableInfoList.Count == 0)
             {
-                string text = null;
-                lock (enumeratingEvents)
+                TimeLeftIsVisible = false;
+                return;
+            }
+
+            string text = null;
+            lock (enumeratingEvents)
+            {
+                Event currentEvent = timetableInfoList.Events.FirstOrDefault(e => e.Start <= DateTime.Now && e.End >= DateTime.Now);
+                if (currentEvent != null)
                 {
-                    Event currentEvent = timetableInfoList.Events.FirstOrDefault(e => e.Start <= DateTime.Now && e.End >= DateTime.Now);
-                    if (currentEvent != null)
-                    {
-                        text = string.Format(
-                            LN.TimeUntilBreak, 
-                            currentEvent.RoomName, 
-                            (currentEvent.End - DateTime.Now).ToString("hh\\:mm\\:ss")
-                        );
-                    }
-                    else
-                    {
-                        Event nextEvent = timetableInfoList.Events
-                            .Where(e => e.Start > DateTime.Now)
-                            .OrderBy(e => e.Start)
-                            .FirstOrDefault();
-                        if (nextEvent != null && nextEvent.Start.Date == DateTime.Now.Date)
-                        {
-                            text = string.Format(
-                                LN.TimeUntilLesson,
-                                nextEvent.Lesson.ShortName,
-                                nextEvent.RoomName,
-                                (nextEvent.Start - DateTime.Now).ToString("hh\\:mm\\:ss")
-                            );
-                        }
-                    }
-                }
-                if (string.IsNullOrEmpty(text) || !isPageVisible)
-                {
-                    TimeLeftText = null;
-                    if (string.IsNullOrEmpty(text) && TimeLeftIsVisible)
-                    {
-                        TimeLeftIsVisible = false;
-                    }
+                    text = string.Format(
+                        LN.TimeUntilBreak,
+                        currentEvent.RoomName,
+                        (currentEvent.End - DateTime.Now).ToString("hh\\:mm\\:ss")
+                    );
                 }
                 else
                 {
-                    TimeLeftText = text;
-                    TimeLeftIsVisible = true;
+                    Event nextEvent = timetableInfoList.Events
+                        .Where(e => e.Start > DateTime.Now)
+                        .OrderBy(e => e.Start)
+                        .FirstOrDefault();
+                    if (nextEvent != null && nextEvent.Start.Date == DateTime.Now.Date)
+                    {
+                        text = string.Format(
+                            LN.TimeUntilLesson,
+                            nextEvent.Lesson.ShortName,
+                            nextEvent.RoomName,
+                            (nextEvent.Start - DateTime.Now).ToString("hh\\:mm\\:ss")
+                        );
+                    }
                 }
-
-                if (TimeLeftIsVisible != lastTimeLeftVisible)
+            }
+            if (string.IsNullOrEmpty(text) || !isPageVisible)
+            {
+                TimeLeftText = null;
+                if (string.IsNullOrEmpty(text) && TimeLeftIsVisible)
                 {
-                    lastTimeLeftVisible = TimeLeftIsVisible;
+                    TimeLeftIsVisible = false;
                 }
             }
             else
             {
-                TimeLeftIsVisible = false;
+                TimeLeftText = text;
+                TimeLeftIsVisible = true;
             }
-            return isPageVisible;
+
+            if (TimeLeftIsVisible != lastTimeLeftVisible)
+            {
+                lastTimeLeftVisible = TimeLeftIsVisible;
+            }
         }
 
         private void UpdateEventsWithUI()
@@ -311,7 +316,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
 
         private void UpdateEvents(List<SavedEntity> selectedEntities)
         {
-            if (selectedEntities == null || selectedEntities.Count == 0)
+            if (selectedEntities is null || !selectedEntities.Any())
             {
                 Title = LN.AppName;
                 TimetableLayoutIsVisible = false;
@@ -393,7 +398,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
         
         private async Task ManageGroupsClicked()
         {
-            Navigation.PushAsync(new ManageEntitiesPage
+            await Navigation.PushAsync(new ManageEntitiesPage
             {
                 BindingContext = new ManageEntitiesViewModel(Navigation)
             });
@@ -453,7 +458,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
 
         private async Task DisplayEventDetails(Event ev)
         {
-            if (ev == null)
+            if (ev is null)
             {
                 return;
             }
@@ -487,119 +492,138 @@ namespace NureTimetable.UI.ViewModels.Timetable
             if (isAddToCalendar)
             {
                 ProgressLayoutIsVisible = true;
-                
-                PermissionStatus? readStatus = null;
-                PermissionStatus? writeStatus = null;
-                const string customCalendarName = "NURE Timetable";
-                try
+
+                bool isAdded = await AddEventToCalendar(ev, eventNumber, eventsCount);
+                if (isAdded)
                 {
-                    bool isAdded = await Task.Run(async () =>
-                    {
-                        bool isCustomCalendarExists = true;
-
-                        readStatus = await Permissions.CheckStatusAsync<Permissions.CalendarRead>();
-                        if (readStatus != PermissionStatus.Granted)
-                        {
-                            readStatus = await MainThread.InvokeOnMainThreadAsync(Permissions.RequestAsync<Permissions.CalendarRead>);
-                        }
-                        writeStatus = await Permissions.CheckStatusAsync<Permissions.CalendarWrite>();
-                        if (writeStatus != PermissionStatus.Granted)
-                        {
-                            writeStatus = await MainThread.InvokeOnMainThreadAsync(Permissions.RequestAsync<Permissions.CalendarWrite>);
-                        }
-
-                        IList<Calendars.Calendar> calendars = await MainThread.InvokeOnMainThreadAsync(CrossCalendars.Current.GetCalendarsAsync);
-                        calendars = calendars.Where(c => 
-                            c.Name.ToLower() == c.AccountName.ToLower() 
-                            || c.AccountName.ToLower() == customCalendarName.ToLower()).ToList();
-                        Calendars.Calendar customCalendar = calendars
-                            .Where(c => c.AccountName.ToLower() == customCalendarName.ToLower())
-                            .FirstOrDefault();
-                        if (customCalendar == null)
-                        {
-                            isCustomCalendarExists = false;
-                            customCalendar = new Calendars.Calendar
-                            {
-                                Name = customCalendarName
-                            };
-                            calendars.Add(customCalendar);
-                        }
-                        else if (calendars.Where(c => c.AccountName == customCalendar.AccountName).Count() > 1)
-                        {
-                            Device.BeginInvokeOnMainThread(() =>
-                            {
-                                MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, new IndexOutOfRangeException($"There are {calendars.Where(c => c.AccountName == customCalendar.AccountName).Count()} calendars with AccountName {customCalendar.AccountName}"));
-                            });
-                        }
-                        
-                        Calendars.Calendar targetCalendar;
-                        if (calendars.Count == 1)
-                        {
-                            targetCalendar = customCalendar;
-                        }
-                        else
-                        {
-                            string targetCalendarName = await MainThread.InvokeOnMainThreadAsync(() => App.Current.MainPage.DisplayActionSheet(
-                                LN.ChooseCalendar,
-                                LN.Cancel,
-                                null,
-                                calendars.Select(c => c.Name).ToArray()));
-
-                            if (string.IsNullOrEmpty(targetCalendarName) || targetCalendarName == LN.Cancel)
-                            {
-                                return false;
-                            }
-                            targetCalendar = calendars.First(c => c.Name == targetCalendarName);
-                        }
-
-                        var calendarEvent = new Calendars.CalendarEvent
-                        {
-                            AllDay = false,
-                            Start = ev.StartUtc,
-                            End = ev.EndUtc,
-                            Name = $"{ev.Lesson.ShortName} ({ev.Type.ShortName} {eventNumber}/{eventsCount})",
-                            Description = string.Format(LN.EventClassroom, ev.RoomName) + nl +
-                                string.Format(LN.EventTeachers, string.Join(", ", ev.Teachers.Select(t => t.Name))) + nl +
-                                string.Format(LN.EventGroups, string.Join(", ", ev.Groups.Select(t => t.Name))),
-                            Location = $"KHNURE -\"{ev.RoomName}\"",
-                            Reminders = new[] {
-                                new Calendars.CalendarEventReminder
-                                {
-                                    Method = Calendars.CalendarReminderMethod.Alert,
-                                    TimeBefore = TimeSpan.FromMinutes(30)
-                                }
-                            }
-                        };
-
-                        if (!isCustomCalendarExists && targetCalendar == customCalendar)
-                        {
-                            await CrossCalendars.Current.AddOrUpdateCalendarAsync(customCalendar);
-                        }
-                        await CrossCalendars.Current.AddOrUpdateEventAsync(targetCalendar, calendarEvent);
-
-                        return true;
-                    });
-                    if (isAdded)
-                    {
-                        await App.Current.MainPage.DisplayAlert(LN.AddingToCalendarTitle, LN.AddingEventToCalendarSuccess, LN.Ok);
-                    }
+                    await App.Current.MainPage.DisplayAlert(LN.AddingToCalendarTitle, LN.AddingEventToCalendarSuccess, LN.Ok);
                 }
-                catch (Exception ex)
+                else
                 {
-                    if (readStatus == PermissionStatus.Granted || writeStatus == PermissionStatus.Granted)
-                    {
-                        MainThread.BeginInvokeOnMainThread(() =>
-                        {
-                            ex.Data.Add("Read Status", readStatus.ToString());
-                            ex.Data.Add("Write Status", writeStatus.ToString());
-                            MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
-                        });
-                    }
                     await App.Current.MainPage.DisplayAlert(LN.AddingToCalendarTitle, LN.AddingEventToCalendarFail, LN.Ok);
                 }
-                
+
                 ProgressLayoutIsVisible = false;
             }
+        }
+
+        private static async Task<bool> AddEventToCalendar(Event ev, int eventNumber, int eventsCount)
+        {
+            PermissionStatus? readStatus = null;
+            PermissionStatus? writeStatus = null;
+            try
+            {
+                const string customCalendarName = "NURE Timetable";
+                bool isCustomCalendarExists = true;
+
+                // Getting permissions
+                readStatus = await Permissions.CheckStatusAsync<Permissions.CalendarRead>();
+                writeStatus = await Permissions.CheckStatusAsync<Permissions.CalendarWrite>();
+                if (readStatus != PermissionStatus.Granted)
+                {
+                    readStatus = await MainThread.InvokeOnMainThreadAsync(Permissions.RequestAsync<Permissions.CalendarRead>);
+                }
+                if (writeStatus != PermissionStatus.Granted && readStatus == PermissionStatus.Granted)
+                {
+                    writeStatus = await MainThread.InvokeOnMainThreadAsync(Permissions.RequestAsync<Permissions.CalendarWrite>);
+                }
+                if (readStatus != PermissionStatus.Granted || writeStatus != PermissionStatus.Granted)
+                {
+                    return false;
+                }
+
+                // Getting Calendar list
+                IList<Calendars.Calendar> calendars = await MainThread.InvokeOnMainThreadAsync(CrossCalendars.Current.GetCalendarsAsync);
+                calendars = calendars
+                    .Where(c => c.Name.ToLower() == c.AccountName.ToLower() || c.AccountName.ToLower() == customCalendarName.ToLower())
+                    .ToList();
+
+                // Getting our custom calendar
+                Calendars.Calendar customCalendar = calendars
+                    .Where(c => c.AccountName.ToLower() == customCalendarName.ToLower())
+                    .FirstOrDefault();
+                if (customCalendar is null)
+                {
+                    isCustomCalendarExists = false;
+                    customCalendar = new Calendars.Calendar
+                    {
+                        Name = customCalendarName
+                    };
+                    calendars.Add(customCalendar);
+                }
+                else if (calendars.Where(c => c.AccountName == customCalendar.AccountName).Count() > 1)
+                {
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, new IndexOutOfRangeException($"There are {calendars.Where(c => c.AccountName == customCalendar.AccountName).Count()} calendars with AccountName {customCalendar.AccountName}"));
+                    });
+                }
+
+                // Getting calendar to add event into
+                Calendars.Calendar targetCalendar = customCalendar;
+                if (calendars.Count > 1)
+                {
+                    string targetCalendarName = await MainThread.InvokeOnMainThreadAsync(() => App.Current.MainPage.DisplayActionSheet(
+                        LN.ChooseCalendar,
+                        LN.Cancel,
+                        null,
+                        calendars.Select(c => c.Name).ToArray()));
+
+                    if (string.IsNullOrEmpty(targetCalendarName) || targetCalendarName == LN.Cancel)
+                    {
+                        return false;
+                    }
+                    targetCalendar = calendars.First(c => c.Name == targetCalendarName);
+                }
+
+                Analytics.TrackEvent("Add To Calendar", new Dictionary<string, string>
+                {
+                    { "Type", ev.Type.ShortName },
+                    { "Room", ev.RoomName },
+                    { "Groups", string.Join(", ", ev.Groups.Select(t => t.Name)) },
+                    { "Teachers", string.Join(", ", ev.Teachers.Select(t => t.Name)) },
+                });
+
+                // Adding event to calendar
+                string nl = Environment.NewLine;
+                var calendarEvent = new Calendars.CalendarEvent
+                {
+                    AllDay = false,
+                    Start = ev.StartUtc,
+                    End = ev.EndUtc,
+                    Name = $"{ev.Lesson.ShortName} ({ev.Type.ShortName} {eventNumber}/{eventsCount})",
+                    Description = string.Format(LN.EventClassroom, ev.RoomName) + nl +
+                        string.Format(LN.EventTeachers, string.Join(", ", ev.Teachers.Select(t => t.Name))) + nl +
+                        string.Format(LN.EventGroups, string.Join(", ", ev.Groups.Select(t => t.Name))),
+                    Location = $"KHNURE -\"{ev.RoomName}\"",
+                    Reminders = new[] 
+                    {
+                        new Calendars.CalendarEventReminder
+                        {
+                            Method = Calendars.CalendarReminderMethod.Alert,
+                            TimeBefore = TimeSpan.FromMinutes(30)
+                        }
+                    }
+                };
+
+                if (!isCustomCalendarExists && targetCalendar == customCalendar)
+                {
+                    await CrossCalendars.Current.AddOrUpdateCalendarAsync(customCalendar);
+                }
+                await CrossCalendars.Current.AddOrUpdateEventAsync(targetCalendar, calendarEvent);
+            }
+            catch (Exception ex)
+            {
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    ex.Data.Add("Read Status", readStatus?.ToString());
+                    ex.Data.Add("Write Status", writeStatus?.ToString());
+                    MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
+                });
+                return false;
+            }
+
+            return true;
         }
 
         private void HideSelectedEventsClicked()

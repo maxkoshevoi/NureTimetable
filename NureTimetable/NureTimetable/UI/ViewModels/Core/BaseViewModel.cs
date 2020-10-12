@@ -10,12 +10,15 @@ namespace NureTimetable.UI.ViewModels.Core
     {
         private protected INavigation Navigation;
         public event PropertyChangedEventHandler PropertyChanged;
+        
+        string title = string.Empty;
+        public string Title { get => title; set => SetProperty(ref title, value); }
 
         protected BaseViewModel(INavigation navigation)
         {
             Navigation = navigation;
         }
-        
+
         private readonly object lockObject = new object();
 
         protected bool SetProperty<T>(ref T backingStore,
