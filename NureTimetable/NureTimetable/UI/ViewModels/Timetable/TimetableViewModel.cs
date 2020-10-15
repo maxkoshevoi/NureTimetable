@@ -216,12 +216,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 // Updaing current date if it's changed
                 if (visibleDates.Any())
                 {
-                    try
-                    {
-                        _timetablePage.TimetableNavigateTo(visibleDates.First());
-                    }
-                    catch
-                    { }
+                    _timetablePage.TimetableNavigateTo(visibleDates.First());
                 }
             }
 
