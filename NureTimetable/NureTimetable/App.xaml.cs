@@ -42,7 +42,6 @@ namespace NureTimetable
 
         protected override void OnStart()
         {
-            // Handle when your app starts
 #if !DEBUG
             //Register Microsoft App Center metrics
             if (DeviceInfo.DeviceType != DeviceType.Virtual)
@@ -54,12 +53,10 @@ namespace NureTimetable
 
         protected override void OnSleep()
         {
-            // Handle when your app sleeps
         }
 
         protected override void OnResume()
         {
-            // Handle when your app resumes
         }
     }
 }

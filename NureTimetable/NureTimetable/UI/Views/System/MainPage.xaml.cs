@@ -4,6 +4,7 @@ using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Consts;
 using NureTimetable.Core.Models.Exceptions;
 using NureTimetable.Migrations;
+using NureTimetable.UI.Themes;
 using NureTimetable.UI.ViewModels.Info;
 using NureTimetable.UI.ViewModels.Menu;
 using NureTimetable.UI.ViewModels.Timetable;
@@ -54,6 +55,10 @@ namespace NureTimetable.UI.Views
         protected override async void OnAppearing()
         {
             base.OnAppearing();
+
+            ThemeHelper.SetAppTheme(App.Current.RequestedTheme);
+            App.Current.RequestedThemeChanged += (_, e) => ThemeHelper.SetAppTheme(e.RequestedTheme);
+            
             if (!VersionTracking.IsFirstLaunchForCurrentBuild)
             {
                 return;
@@ -65,7 +70,7 @@ namespace NureTimetable.UI.Views
                 migrationsToApply.Add(migration);
             }
 
-            if (migrationsToApply.Count > 0)
+            if (migrationsToApply.Any())
             {
                 await App.Current.MainPage.DisplayAlert(LN.FinishingUpdateTitle, LN.FinishingUpdateDescription, LN.Ok);
                 bool isSuccess = true;

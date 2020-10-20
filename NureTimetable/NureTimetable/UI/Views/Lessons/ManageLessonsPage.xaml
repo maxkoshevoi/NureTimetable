@@ -30,7 +30,7 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <Label Grid.Column="0" Text="{Binding LessonInfo.Lesson.ShortName}" Style="{DynamicResource ListItemTextStyle}" VerticalTextAlignment="Center" />
+                                <Label Grid.Column="0" Text="{Binding LessonInfo.Lesson.ShortName}" VerticalTextAlignment="Center" />
                                 <StackLayout Grid.Column="1" Orientation="Horizontal">
                                     <StackLayout.GestureRecognizers>
                                         <TapGestureRecognizer />

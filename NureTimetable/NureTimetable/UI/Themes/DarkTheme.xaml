@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ResourceDictionary
+    x:Class="NureTimetable.UI.Themes.DarkTheme"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <!--Global Styles-->
+    <Color x:Key="PrimaryColor">Black</Color>
+    <Color x:Key="AccentColor">#878787</Color>
+    <Color x:Key="SecondaryColor">White</Color>
+
+    <Color x:Key="StatusBarColor">Black</Color>
+    <Color x:Key="PageBackgroundColor">Black</Color>
+    <Color x:Key="NavigationBarColor">Black</Color>
+
+    <Color x:Key="PrimaryTextColor">WhiteSmoke</Color>
+    <Color x:Key="SecondaryTextColor">#d1d1d1</Color>
+    <Color x:Key="TertiaryTextColor">#dedede</Color>
+    
+    <!--Events colors-->
+    <Color x:Key="defaultColor">#ffb0c4de</Color>
+    <Color x:Key="lectureColor">#b28e59</Color>
+    <Color x:Key="practiceColor">#629748</Color>
+    <Color x:Key="laboratoryColor">#9774a8</Color>
+    <Color x:Key="consultationColor">#6a9aa1</Color>
+    <Color x:Key="testColor">#a8ac5f</Color>
+    <Color x:Key="examColor">#a85251</Color>
+    <!--Other colors-->
+    <Color x:Key="SelectedEntityColor">#132638</Color>
+
+    <!--Controls-->
+    <Color x:Key="SearchBarBackgroundColor">#d9d9d9</Color>
+</ResourceDictionary>
