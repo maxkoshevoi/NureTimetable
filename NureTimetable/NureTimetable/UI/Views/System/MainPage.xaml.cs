@@ -1,8 +1,10 @@
 ﻿using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using NureTimetable.Core.Localization;
+using NureTimetable.Core.Models;
 using NureTimetable.Core.Models.Consts;
 using NureTimetable.Core.Models.Exceptions;
+using NureTimetable.DAL;
 using NureTimetable.Migrations;
 using NureTimetable.UI.Themes;
 using NureTimetable.UI.ViewModels.Info;
@@ -56,9 +58,17 @@ namespace NureTimetable.UI.Views
         {
             base.OnAppearing();
 
+            // Adding theme chnage handler
             ThemeHelper.SetAppTheme(App.Current.RequestedTheme);
             App.Current.RequestedThemeChanged += (_, e) => ThemeHelper.SetAppTheme(e.RequestedTheme);
-            
+
+            // Log currect timetable view mode
+            Analytics.TrackEvent("Timetable view mode", new Dictionary<string, string> 
+            { 
+                { nameof(AppSettings.TimetableViewMode), SettingsRepository.GetSettings().TimetableViewMode.ToString() } 
+            });
+
+            // Processing migrations
             if (!VersionTracking.IsFirstLaunchForCurrentBuild)
             {
                 return;
