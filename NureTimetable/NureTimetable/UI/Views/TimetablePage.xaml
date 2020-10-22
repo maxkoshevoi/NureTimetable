@@ -64,8 +64,8 @@
                         <syncfusion:ViewHeaderStyle 
                             DateFontSize="13" 
                             DayFontSize="8" 
-                            CurrentDateTextColor="DodgerBlue" 
-                            CurrentDayTextColor="DodgerBlue" 
+                            CurrentDateTextColor="{DynamicResource CurrentDayColor}" 
+                            CurrentDayTextColor="{DynamicResource CurrentDayColor}" 
                             BackgroundColor="{DynamicResource PageBackgroundColor}" 
                             DateTextColor="{DynamicResource PrimaryTextColor}" 
                             DayTextColor="{DynamicResource PrimaryTextColor}" />
@@ -76,7 +76,9 @@
                             EndHour="{Binding TimetableEndHour}" 
                             WorkStartHour="0" 
                             WorkEndHour="24" 
-                            TimeSlotColor="{DynamicResource PageBackgroundColor}">
+                            TimeSlotColor="{DynamicResource PageBackgroundColor}"
+                            TimeSlotBorderColor="{DynamicResource BorderColor}"
+                            VerticalLineColor="{DynamicResource BorderColor}">
                             <syncfusion:WeekViewSettings.WeekLabelSettings>
                                 <syncfusion:WeekLabelSettings TimeFormat="HH:mm"/>
                             </syncfusion:WeekViewSettings.WeekLabelSettings>
@@ -88,7 +90,9 @@
                             EndHour="{Binding TimetableEndHour}" 
                             WorkStartHour="0"
                             WorkEndHour="24"
-                            TimeSlotColor="{DynamicResource PageBackgroundColor}">
+                            TimeSlotColor="{DynamicResource PageBackgroundColor}"
+                            TimeSlotBorderColor="{DynamicResource BorderColor}"
+                            VerticalLineColor="{DynamicResource BorderColor}">
                             <syncfusion:DayViewSettings.DayLabelSettings>
                                 <syncfusion:DayLabelSettings TimeFormat="HH:mm"/>
                             </syncfusion:DayViewSettings.DayLabelSettings>
@@ -98,7 +102,8 @@
                         <syncfusion:TimelineViewSettings 
                             StartHour="{Binding TimetableStartHour}" 
                             EndHour="{Binding TimetableEndHour}"
-                            Color="{DynamicResource PageBackgroundColor}">
+                            Color="{DynamicResource PageBackgroundColor}"
+                            BorderColor="{DynamicResource BorderColor}">
                             <syncfusion:TimelineViewSettings.LabelSettings>
                                 <syncfusion:TimelineLabelSettings TimeFormat="HH:mm"/>
                             </syncfusion:TimelineViewSettings.LabelSettings>
@@ -136,7 +141,9 @@
                         </syncfusion:ScheduleAppointmentMapping>
                     </syncfusion:SfSchedule.AppointmentMapping>
                     <syncfusion:SfSchedule.AppointmentStyle>
-                        <syncfusion:AppointmentStyle BorderColor="{DynamicResource PageBackgroundColor}"/>
+                        <syncfusion:AppointmentStyle 
+                            BorderColor="{DynamicResource PageBackgroundColor}"
+                            TextColor="{DynamicResource AppointmentTextColor}" />
                     </syncfusion:SfSchedule.AppointmentStyle>
                 </syncfusion:SfSchedule>
             </StackLayout>
@@ -151,7 +158,7 @@
                 Margin="20"
                 WidthRequest="47" 
                 HeightRequest="47" 
-                BackgroundColor="#03A9F4" 
+                BackgroundColor="{DynamicResource CurrentDayColor}" 
                 TextColor="White"
                 HasShadow="True"
                 ShadowColor="#cccccc"
@@ -167,8 +174,8 @@
             <StackLayout x:Name="ProgressLayout" IsVisible="{Binding ProgressLayoutIsVisible}" Padding="12"
                     AbsoluteLayout.LayoutFlags="PositionProportional"
                     AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
-                <ActivityIndicator IsRunning="True" Color="#80000000"/>
-                <Label Text="{LN:Translate Wait}" HorizontalOptions="Center" TextColor="LightSkyBlue"/>
+                <ActivityIndicator IsRunning="True"/>
+                <Label Text="{LN:Translate Wait}" HorizontalOptions="Center" TextColor="{DynamicResource ActivityIndicatorTextColor}"/>
             </StackLayout>
         </AbsoluteLayout>
     </ContentPage.Content>

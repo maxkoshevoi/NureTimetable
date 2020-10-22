@@ -1,8 +1,10 @@
-﻿using NureTimetable.Core.Models.InterplatformCommunication;
+﻿using NureTimetable.Core.Models.Consts;
+using NureTimetable.Core.Models.InterplatformCommunication;
 using NureTimetable.Models.Consts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace NureTimetable.UI.Themes
@@ -29,6 +31,12 @@ namespace NureTimetable.UI.Themes
             var statusBarManager = DependencyService.Get<IBarStyleManager>();
             statusBarManager.SetStatusBarColor(ResourceManager.StatusBarColor.ToHex());
             statusBarManager.SetNavigationBarColor(ResourceManager.NavigationBarColor.ToHex());
+
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                MessagingCenter.Send(Application.Current, MessageTypes.ThemeChanged, selectedTheme);
+            });
+
             return true;
         }
     }

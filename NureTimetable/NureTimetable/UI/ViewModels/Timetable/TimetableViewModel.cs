@@ -122,6 +122,16 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 _ => TimetableScheduleView
             };
 
+            MessagingCenter.Subscribe<Application, OSAppTheme>(this, MessageTypes.ThemeChanged, (sender, newTheme) =>
+            {
+                if (timetableInfoList is null)
+                {
+                    return;
+                }
+
+                needToUpdateEventsUI = true;
+                UpdateEventsWithUI();
+            });
             MessagingCenter.Subscribe<Application, List<SavedEntity>>(this, MessageTypes.SelectedEntitiesChanged, (sender, newSelectedEntities) =>
             {
                 UpdateEvents(newSelectedEntities);
@@ -129,7 +139,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
             MessagingCenter.Subscribe<Application, SavedEntity>(this, MessageTypes.TimetableUpdated, (sender, entity) =>
             {
                 List<SavedEntity> selectedEntities = UniversityEntitiesRepository.GetSelected();
-                if (selectedEntities is null || !selectedEntities.Contains(entity))
+                if (!selectedEntities.Contains(entity))
                 {
                     return;
                 }
@@ -138,7 +148,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
             MessagingCenter.Subscribe<Application, SavedEntity>(this, MessageTypes.LessonSettingsChanged, (sender, entity) =>
             {
                 List<SavedEntity> selectedEntities = UniversityEntitiesRepository.GetSelected();
-                if (!selectedEntities.Any() || !selectedEntities.Contains(entity))
+                if (!selectedEntities.Contains(entity))
                 {
                     return;
                 }

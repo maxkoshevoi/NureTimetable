@@ -18,7 +18,7 @@
     <Color x:Key="TertiaryTextColor">#7d7d7d</Color>
 
     <!--Events colors-->
-    <Color x:Key="defaultColor">#ffb0c4de</Color>
+    <Color x:Key="defaultColor">#b0c4de</Color>
     <Color x:Key="lectureColor">#ffcc80</Color>
     <Color x:Key="practiceColor">#8dd967</Color>
     <Color x:Key="laboratoryColor">#d9a7f1</Color>
@@ -27,7 +27,20 @@
     <Color x:Key="examColor">#f17674</Color>
     <!--Other colors-->
     <Color x:Key="SelectedEntityColor">#AED9FA</Color>
+    <Color x:Key="BigImageBackgroundColor">#96d1ff</Color>
+    <Color x:Key="DonateButtonColor">#3acc0a</Color>
 
     <!--Controls-->
     <Color x:Key="SearchBarBackgroundColor">White</Color>
+
+    <!--SfSchedule-->
+    <Color x:Key="BorderColor">#f7f4f4</Color>
+    <Color x:Key="CurrentDayColor">DodgerBlue</Color>
+    <Color x:Key="AppointmentTextColor">White</Color>
+
+    <!--SfCheckBox-->
+    <Color x:Key="CheckedColor">DeepSkyBlue</Color>
+
+    <!--ActivityIndicator-->
+    <Color x:Key="ActivityIndicatorTextColor">#8087CEFA</Color>
 </ResourceDictionary>

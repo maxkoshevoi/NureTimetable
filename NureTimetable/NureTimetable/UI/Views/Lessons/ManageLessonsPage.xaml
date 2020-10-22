@@ -45,7 +45,7 @@
                                             <TapGestureRecognizer Command="{Binding SettingsClickedCommand}" />
                                         </Label.GestureRecognizers>
                                     </Label>
-                                    <syncfusion:SfCheckBox Margin="4,0,0,0" IsChecked="{Binding LessonInfo.Settings.Hiding.ShowLesson}" CheckedColor="DeepSkyBlue"/>
+                                    <syncfusion:SfCheckBox Margin="4,0,0,0" IsChecked="{Binding LessonInfo.Settings.Hiding.ShowLesson}" />
                                 </StackLayout>
                             </Grid>
                         </ViewCell>

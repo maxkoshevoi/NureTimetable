@@ -15,7 +15,6 @@
                     x:Name="ShowLesson"
                     Margin="5,15,5,0"
                     VerticalOptions="Fill"
-                    CheckedColor="DeepSkyBlue"
                     IsChecked="{Binding ShowLessonIsChecked}"
                     Text="{LN:Translate DisplayLesson}" >
                 <syncfusion:SfCheckBox.Behaviors>
@@ -39,7 +38,6 @@
                         <DataTemplate>
                             <ViewCell>
                                 <syncfusion:SfCheckBox 
-                                    CheckedColor="DeepSkyBlue"
                                     Margin="10,5,10,5"
                                     Text="{Binding Entity.ShortName}"
                                     IsChecked="{Binding IsChecked}" />
@@ -65,7 +63,6 @@
                         <DataTemplate>
                             <ViewCell>
                                 <syncfusion:SfCheckBox 
-                                    CheckedColor="DeepSkyBlue"
                                     Margin="10,5,10,5"
                                     Text="{Binding Entity.ShortName}"
                                     IsChecked="{Binding IsChecked}" />

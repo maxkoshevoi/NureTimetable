@@ -4,7 +4,7 @@
     <item name="android:windowBackground">@drawable/splash</item>
     <item name="colorPrimary">#FFFFFF</item>
     <item name="colorPrimaryDark">#000000</item>
-    <item name="colorAccent">#484848</item>
+    <item name="colorAccent">#78909C</item>
 
     <item name="android:colorPressedHighlight">@color/colorListViewHighlighted</item>
     <item name="android:colorLongPressedHighlight">@color/colorListViewHighlighted</item>

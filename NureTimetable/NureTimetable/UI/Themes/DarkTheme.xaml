@@ -18,16 +18,29 @@
     <Color x:Key="TertiaryTextColor">#dedede</Color>
     
     <!--Events colors-->
-    <Color x:Key="defaultColor">#ffb0c4de</Color>
-    <Color x:Key="lectureColor">#b28e59</Color>
-    <Color x:Key="practiceColor">#629748</Color>
-    <Color x:Key="laboratoryColor">#9774a8</Color>
-    <Color x:Key="consultationColor">#6a9aa1</Color>
-    <Color x:Key="testColor">#a8ac5f</Color>
-    <Color x:Key="examColor">#a85251</Color>
+    <Color x:Key="defaultColor">#58626f</Color>
+    <Color x:Key="lectureColor">#7f6640</Color>
+    <Color x:Key="practiceColor">#466c33</Color>
+    <Color x:Key="laboratoryColor">#6c5378</Color>
+    <Color x:Key="consultationColor">#4c6e73</Color>
+    <Color x:Key="testColor">#787b44</Color>
+    <Color x:Key="examColor">#783b3a</Color>
     <!--Other colors-->
-    <Color x:Key="SelectedEntityColor">#132638</Color>
+    <Color x:Key="SelectedEntityColor">#2a3b4b</Color>
+    <Color x:Key="BigImageBackgroundColor">#3c5366</Color>
+    <Color x:Key="DonateButtonColor">#227a06</Color>
 
     <!--Controls-->
     <Color x:Key="SearchBarBackgroundColor">#d9d9d9</Color>
+    
+    <!--SfSchedule-->
+    <Color x:Key="BorderColor">#333</Color>
+    <Color x:Key="CurrentDayColor">CornflowerBlue</Color>
+    <Color x:Key="AppointmentTextColor">#dedede</Color>
+    
+    <!--SfCheckBox-->
+    <Color x:Key="CheckedColor">#005f7f</Color>
+
+    <!--ActivityIndicator-->
+    <Color x:Key="ActivityIndicatorTextColor">#8087CEFA</Color>
 </ResourceDictionary>

@@ -34,6 +34,14 @@
                 <Setter Property="BackgroundColor" Value="{DynamicResource SearchBarBackgroundColor}" />
             </Style>
 
+            <Style TargetType="syncfusion:SfCheckBox">
+                <Setter Property="CheckedColor" Value="{DynamicResource CheckedColor}"/>
+                <Setter Property="UncheckedColor" Value="{DynamicResource CheckedColor}"/>
+            </Style>
+
+            <Style TargetType="ActivityIndicator">
+                <Setter Property="Color" Value="#80808080"/>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
