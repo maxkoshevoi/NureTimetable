@@ -38,6 +38,9 @@
                 <Setter Property="CheckedColor" Value="{DynamicResource CheckedColor}"/>
                 <Setter Property="UncheckedColor" Value="{DynamicResource CheckedColor}"/>
             </Style>
+            <Style TargetType="CheckBox">
+                <Setter Property="Color" Value="{DynamicResource CheckedColor}"/>
+            </Style>
 
             <Style TargetType="ActivityIndicator">
                 <Setter Property="Color" Value="#80808080"/>

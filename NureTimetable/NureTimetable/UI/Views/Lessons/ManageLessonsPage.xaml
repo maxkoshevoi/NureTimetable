@@ -35,12 +35,12 @@
                                     <StackLayout.GestureRecognizers>
                                         <TapGestureRecognizer />
                                     </StackLayout.GestureRecognizers>
-                                    <Label Text="&#xf2fd;" FontFamily="{StaticResource MaterialFontFamily}" TextColor="#6b6b6b" FontSize="26" VerticalOptions="CenterAndExpand">
+                                    <Label Text="&#xf2fd;" FontFamily="{StaticResource MaterialFontFamily}" TextColor="{DynamicResource ListIconColor}" FontSize="26" VerticalOptions="CenterAndExpand">
                                         <Label.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding InfoClickedCommand}" />
                                         </Label.GestureRecognizers>
                                     </Label>
-                                    <Label Text="&#xf493;" Margin="4,0,0,0" FontFamily="{StaticResource MaterialFontFamily}" TextColor="#6b6b6b" FontSize="26" VerticalOptions="CenterAndExpand">
+                                    <Label Text="&#xf493;" Margin="4,0,0,0" FontFamily="{StaticResource MaterialFontFamily}" TextColor="{DynamicResource ListIconColor}" FontSize="26" VerticalOptions="CenterAndExpand">
                                         <Label.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding SettingsClickedCommand}" />
                                         </Label.GestureRecognizers>

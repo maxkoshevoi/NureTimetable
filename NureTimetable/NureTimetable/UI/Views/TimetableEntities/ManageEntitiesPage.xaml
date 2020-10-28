@@ -34,22 +34,22 @@
                                     <Label BackgroundColor="{DynamicResource SelectedEntityColor}" VerticalOptions="FillAndExpand" IsVisible="{Binding IsSelected}" />
                                 </StackLayout>
                                 <StackLayout Grid.Column="0" IsVisible="{Binding IsMultiselectMode}">
-                                    <CheckBox Margin="5,5,5,5" IsChecked="{Binding IsSelected}" Color="DeepSkyBlue" VerticalOptions="FillAndExpand" />
+                                    <CheckBox Margin="5,5,5,5" IsChecked="{Binding IsSelected}" VerticalOptions="FillAndExpand" />
                                 </StackLayout>
                                 <StackLayout Grid.Column="1" Margin="0,5,0,5">
-                                    <Label Text="{Binding SavedEntity.Name}" />
-                                    <Label Text="{Binding SavedEntity.LastUpdated}" />
+                                    <Label Text="{Binding SavedEntity.Name}" Style="{DynamicResource ListItemTextStyle}" />
+                                    <Label Text="{Binding SavedEntity.LastUpdated}" FontSize="13" Style="{DynamicResource ListItemDetailTextStyle}"/>
                                 </StackLayout>
                                 <StackLayout Grid.Column="2" Padding="0,5,10,5" Orientation="Horizontal">
                                     <StackLayout.GestureRecognizers>
                                         <TapGestureRecognizer />
                                     </StackLayout.GestureRecognizers>
-                                    <Label Text="&#xf450;" FontFamily="{StaticResource MaterialFontFamily}" TextColor="#6b6b6b" FontSize="30" VerticalOptions="CenterAndExpand">
+                                    <Label Text="&#xf450;" FontFamily="{StaticResource MaterialFontFamily}" TextColor="{DynamicResource ListIconColor}" FontSize="30" VerticalOptions="CenterAndExpand">
                                         <Label.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding UpdateClickedCommand}" />
                                         </Label.GestureRecognizers>
                                     </Label>
-                                    <Label Text="&#xf493;" Margin="11,0,0,0" FontFamily="{StaticResource MaterialFontFamily}" TextColor="#6b6b6b" FontSize="30" VerticalOptions="CenterAndExpand">
+                                    <Label Text="&#xf493;" Margin="11,0,0,0" FontFamily="{StaticResource MaterialFontFamily}" TextColor="{DynamicResource ListIconColor}" FontSize="30" VerticalOptions="CenterAndExpand">
                                         <Label.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding SettingsClickedCommand}" />
                                         </Label.GestureRecognizers>

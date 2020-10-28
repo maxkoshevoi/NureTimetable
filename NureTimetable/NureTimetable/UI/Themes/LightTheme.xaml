@@ -29,6 +29,7 @@
     <Color x:Key="SelectedEntityColor">#AED9FA</Color>
     <Color x:Key="BigImageBackgroundColor">#96d1ff</Color>
     <Color x:Key="DonateButtonColor">#3acc0a</Color>
+    <Color x:Key="ListIconColor">#6b6b6b</Color>
 
     <!--Controls-->
     <Color x:Key="SearchBarBackgroundColor">White</Color>

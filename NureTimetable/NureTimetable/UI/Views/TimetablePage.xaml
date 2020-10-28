@@ -161,7 +161,6 @@
                 BackgroundColor="{DynamicResource CurrentDayColor}" 
                 TextColor="White"
                 HasShadow="True"
-                ShadowColor="#cccccc"
                 Scale="{Binding BTodayScale, Mode=TwoWay}"
                 Command="{Binding BTodayClickedCommand}"
                 Text="{Binding BTodayText}"/>
