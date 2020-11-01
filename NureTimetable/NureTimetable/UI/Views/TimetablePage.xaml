@@ -6,6 +6,8 @@
              xmlns:syncfusion="clr-namespace:Syncfusion.SfSchedule.XForms;assembly=Syncfusion.SfSchedule.XForms"
              xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
              xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels.Timetable"
+             xmlns:fonts="clr-namespace:NureTimetable.Models.Consts.Fonts"
+             xmlns:converters="clr-namespace:NureTimetable.UI.Behaviors"
              x:Class="NureTimetable.UI.Views.TimetablePage"
              x:DataType="vm:TimetableViewModel"
              Title="{Binding Title}">
@@ -15,9 +17,8 @@
     </ContentPage.Behaviors>
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem x:DataType="vm:TimetableViewModel" Icon="{Binding HideSelectedEventsIcon}" Command="{Binding HideSelectedEventsClickedCommand}" />
-        <ToolbarItem x:DataType="vm:TimetableViewModel" Icon="today" Command="{Binding ScheduleModeClickedCommand}" x:Name="Today" />
-        <ToolbarItem x:DataType="vm:TimetableViewModel" Icon="group" Command="{Binding ManageGroupsClickedCommand}" x:Name="ManageGroups" />
+        <ToolbarItem x:DataType="vm:TimetableViewModel" IconImageSource="{Binding HideSelectedEventsIcon, Converter={converters:ToolbarIconValueConverter}}" Command="{Binding HideSelectedEventsClickedCommand}" />
+        <ToolbarItem x:DataType="vm:TimetableViewModel" IconImageSource="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static fonts:MaterialIconsFont.CalendarToday}}" Command="{Binding ScheduleModeClickedCommand}" x:Name="Today" />
     </ContentPage.ToolbarItems>
     
     <ContentPage.Content>

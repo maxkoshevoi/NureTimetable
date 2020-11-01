@@ -231,7 +231,7 @@ namespace NureTimetable.DAL.Legacy
         public static Dictionary<string, List<LessonInfo>> ParseCistXlsLessonInfo(string cistXlsTimetableData, params Group[] searchGroups)
         {
             var groupsLessons = new Dictionary<string, List<LessonInfo>>();
-            if (searchGroups is null || searchGroups.Length == 0)
+            if (searchGroups.Length == 0)
             {
                 return groupsLessons;
             }

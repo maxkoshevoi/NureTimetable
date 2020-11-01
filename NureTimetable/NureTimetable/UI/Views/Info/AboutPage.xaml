@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:LN="clr-namespace:NureTimetable.Core.Localization;assembly=NureTimetable.Core"
              xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels.Info"
-             x:Class="NureTimetable.UI.Views.Info.AboutPage"
+             xmlns:fonts="clr-namespace:NureTimetable.Models.Consts.Fonts"
+             x:Class="NureTimetable.UI.Views.AboutPage"
              x:DataType="vm:AboutViewModel"
              Title="{LN:Translate About}">
     
@@ -21,7 +22,7 @@
         <StackLayout BackgroundColor="{DynamicResource BigImageBackgroundColor}" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
                 <ContentView Padding="0,40,0,40" VerticalOptions="FillAndExpand">
-                    <Image Source="info.png" VerticalOptions="Center" HeightRequest="96" />
+                    <Image Source="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static fonts:MaterialIconsFont.InformationOutline}, Size=96}" VerticalOptions="Center" />
                 </ContentView>
             </StackLayout>
         </StackLayout>

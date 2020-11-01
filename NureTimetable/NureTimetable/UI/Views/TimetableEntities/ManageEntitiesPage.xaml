@@ -4,13 +4,14 @@
              xmlns:converters="clr-namespace:NureTimetable.UI.Behaviors"
              xmlns:LN="clr-namespace:NureTimetable.Core.Localization;assembly=NureTimetable.Core"
              xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities"
-             x:Class="NureTimetable.UI.Views.TimetableEntities.ManageEntitiesPage"
+             xmlns:fonts="clr-namespace:NureTimetable.Models.Consts.Fonts"
+             x:Class="NureTimetable.UI.Views.ManageEntitiesPage"
              x:DataType="vm:ManageEntitiesViewModel"
              Title="{LN:Translate SavedTimetables}">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem x:DataType="vm:ManageEntitiesViewModel" Icon="update" Command="{Binding UpdateAllCommand}" x:Name="UpdateAll" />
-        <ToolbarItem x:DataType="vm:ManageEntitiesViewModel" Icon="add" Command="{Binding AddEntityCommand}" x:Name="AddEntity" />
+        <ToolbarItem x:DataType="vm:ManageEntitiesViewModel" IconImageSource="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static fonts:MaterialIconsFont.Sync}}" Command="{Binding UpdateAllCommand}" x:Name="UpdateAll" />
+        <ToolbarItem x:DataType="vm:ManageEntitiesViewModel" IconImageSource="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static fonts:MaterialIconsFont.Plus}}" Command="{Binding AddEntityCommand}" x:Name="AddEntity" />
     </ContentPage.ToolbarItems>
 
     <AbsoluteLayout>
