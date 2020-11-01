@@ -3,7 +3,6 @@ using NureTimetable.Core.Models.Consts;
 using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
 using NureTimetable.UI.Helpers;
-using NureTimetable.UI.ViewModels.Core;
 using NureTimetable.UI.ViewModels.Lessons.LessonSettings;
 using System;
 using System.Collections.ObjectModel;
@@ -38,7 +37,7 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
         public ICommand SaveClickedCommand { get; }
         #endregion
 
-        public ManageLessonsViewModel(INavigation navigation, SavedEntity savedEntity) : base(navigation)
+        public ManageLessonsViewModel(SavedEntity savedEntity)
         {
             Title = $"{LN.Lessons}: {savedEntity.Name}";
 
@@ -55,7 +54,7 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
                         .Select(lesson => timetable.LessonsInfo.FirstOrDefault(li => li.Lesson == lesson) ?? new LessonInfo { Lesson = lesson })
                         .OrderBy(lesson => !timetable.Events.Where(e => e.Start >= DateTime.Now).Any(e => e.Lesson == lesson.Lesson))
                         .ThenBy(lesson => lesson.Lesson.ShortName)
-                        .Select(lesson => new LessonViewModel(Navigation, lesson, timetable))
+                        .Select(lesson => new LessonViewModel(lesson, timetable))
                 );
                 IsNoSourceLayoutVisable = Lessons.Count == 0;
 

@@ -4,7 +4,7 @@
              xmlns:behaviors="clr-namespace:NureTimetable.UI.Behaviors;assembly=NureTimetable"
              xmlns:LN="clr-namespace:NureTimetable.Core.Localization;assembly=NureTimetable.Core"
              xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels.TimetableEntities"
-             x:Class="NureTimetable.UI.Views.TimetableEntities.AddEntityPage"
+             x:Class="NureTimetable.UI.Views.AddEntityPage"
              Title="{Binding Title}">
 
     <ContentPage.ToolbarItems>

@@ -3,7 +3,6 @@ using NureTimetable.Core.Models.Consts;
 using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
 using NureTimetable.UI.Helpers;
-using NureTimetable.UI.ViewModels.Core;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -65,10 +64,10 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
 
         #endregion
 
-        public BaseAddEntityViewModel(INavigation navigation) : base(navigation)
+        protected BaseAddEntityViewModel()
         {
             SearchBarTextChangedCommand = CommandHelper.CreateCommand(SearchBarTextChanged);
-            UpdateCommand = CommandHelper.CreateCommand(UpdateFromCist);
+            UpdateCommand = CommandHelper.CreateCommand(UpdateFromCistClick);
             MainThread.BeginInvokeOnMainThread(async () => await UpdateEntities(false));
 
             MessagingCenter.Subscribe<Application>(this, MessageTypes.UniversityEntitiesUpdated, async (sender) =>
@@ -137,7 +136,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
             }
         }
 
-        protected async Task UpdateFromCist()
+        protected async Task UpdateFromCistClick()
         {
             if (SettingsRepository.CheckCistAllEntitiesUpdateRights() == false)
             {
@@ -160,45 +159,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
             {
                 if (fromCistOnly)
                 {
-                    var updateFromCistResult = UniversityEntitiesRepository.UpdateFromCist();
-
-                    if (updateFromCistResult.IsAllFail)
-                    {
-                        MainThread.BeginInvokeOnMainThread(() =>
-                        {
-                            string message = LN.UniversityInfoUpdateFail;
-                            if (updateFromCistResult.IsConnectionIssues)
-                            {
-                                message = LN.CannotGetDataFromCist;
-                            }
-                            else if (updateFromCistResult.IsCistOutOfMemory)
-                            {
-                                message = LN.CistOutOfMemory;
-                            }
-                            App.Current.MainPage.DisplayAlert(LN.UniversityInfoUpdate, message, LN.Ok);
-                        });
-                    }
-                    else if (!updateFromCistResult.IsAllSuccessful)
-                    {
-                        string failedEntities = Environment.NewLine;
-                        if (updateFromCistResult.GroupsException != null)
-                        {
-                            failedEntities += LN.Groups + Environment.NewLine;
-                        }
-                        if (updateFromCistResult.TeachersException != null)
-                        {
-                            failedEntities += LN.Teachers + Environment.NewLine;
-                        }
-                        if (updateFromCistResult.RoomsException != null)
-                        {
-                            failedEntities += LN.Rooms + Environment.NewLine;
-                        }
-
-                        MainThread.BeginInvokeOnMainThread(() =>
-                        {
-                            App.Current.MainPage.DisplayAlert(LN.UniversityInfoUpdate, string.Format(LN.UniversityInfoUpdatePartiallyFail, Environment.NewLine + failedEntities), LN.Ok);
-                        });
-                    }
+                    UpdateFromCist();
                 }
                 else
                 {
@@ -217,6 +178,49 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
                 ProgressLayoutIsVisable = false;
                 ProgressLayoutIsEnable = true;
             });
+        }
+
+        public static void UpdateFromCist()
+        {
+            var updateFromCistResult = UniversityEntitiesRepository.UpdateFromCist();
+
+            if (updateFromCistResult.IsAllFail)
+            {
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    string message = LN.UniversityInfoUpdateFail;
+                    if (updateFromCistResult.IsConnectionIssues)
+                    {
+                        message = LN.CannotGetDataFromCist;
+                    }
+                    else if (updateFromCistResult.IsCistOutOfMemory)
+                    {
+                        message = LN.CistOutOfMemory;
+                    }
+                    App.Current.MainPage.DisplayAlert(LN.UniversityInfoUpdate, message, LN.Ok);
+                });
+            }
+            else if (!updateFromCistResult.IsAllSuccessful)
+            {
+                string failedEntities = Environment.NewLine;
+                if (updateFromCistResult.GroupsException != null)
+                {
+                    failedEntities += LN.Groups + Environment.NewLine;
+                }
+                if (updateFromCistResult.TeachersException != null)
+                {
+                    failedEntities += LN.Teachers + Environment.NewLine;
+                }
+                if (updateFromCistResult.RoomsException != null)
+                {
+                    failedEntities += LN.Rooms + Environment.NewLine;
+                }
+
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    App.Current.MainPage.DisplayAlert(LN.UniversityInfoUpdate, string.Format(LN.UniversityInfoUpdatePartiallyFail, Environment.NewLine + failedEntities), LN.Ok);
+                });
+            }
         }
 
         #endregion

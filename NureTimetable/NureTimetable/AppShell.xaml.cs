@@ -7,41 +7,25 @@ using NureTimetable.Core.Models.Exceptions;
 using NureTimetable.DAL;
 using NureTimetable.Migrations;
 using NureTimetable.UI.Themes;
-using NureTimetable.UI.ViewModels.Info;
-using NureTimetable.UI.ViewModels.Menu;
-using NureTimetable.UI.ViewModels.Timetable;
-using NureTimetable.UI.Views.Info;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace NureTimetable.UI.Views
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MainPage : MasterDetailPage
+    public partial class AppShell : Shell
     {
-        readonly Dictionary<int, NavigationPage> MenuPages = new Dictionary<int, NavigationPage>();
-
-        public MainPage()
+        public AppShell()
         {
             InitializeComponent();
 
-            Master = new MenuPage
-            {
-                BindingContext = new MenuViewModel(Navigation)
-            };
-            var timetablePage = new TimetablePage();
-            timetablePage.BindingContext = new TimetableViewModel(timetablePage.Navigation, timetablePage);
-            Detail = new NavigationPage(timetablePage);
-
-            MasterBehavior = MasterBehavior.Popover;
-            MenuPages.Add((int)MenuItemType.Timetable, (NavigationPage)Detail);
+            // Adding theme change handler
+            ThemeHelper.SetAppTheme(App.Current.RequestedTheme);
+            App.Current.RequestedThemeChanged += (_, e) => ThemeHelper.SetAppTheme(e.RequestedTheme);
 
             MessagingCenter.Subscribe<Application, Exception>(this, MessageTypes.ExceptionOccurred, (sender, ex) =>
             {
@@ -54,18 +38,22 @@ namespace NureTimetable.UI.Views
             });
         }
 
-        protected override async void OnAppearing()
-        {
-            base.OnAppearing();
+        private bool isFirstNavigation = true;
 
-            // Adding theme chnage handler
-            ThemeHelper.SetAppTheme(App.Current.RequestedTheme);
-            App.Current.RequestedThemeChanged += (_, e) => ThemeHelper.SetAppTheme(e.RequestedTheme);
+        protected override async void OnNavigating(ShellNavigatingEventArgs args)
+        {
+            base.OnNavigating(args);
+
+            if (!isFirstNavigation)
+            {
+                return;
+            }
+            isFirstNavigation = false;
 
             // Log currect timetable view mode
-            Analytics.TrackEvent("Timetable view mode", new Dictionary<string, string> 
-            { 
-                { nameof(AppSettings.TimetableViewMode), SettingsRepository.GetSettings().TimetableViewMode.ToString() } 
+            Analytics.TrackEvent("Timetable view mode", new Dictionary<string, string>
+            {
+                { nameof(AppSettings.TimetableViewMode), SettingsRepository.GetSettings().TimetableViewMode.ToString() }
             });
 
             // Processing migrations
@@ -74,12 +62,7 @@ namespace NureTimetable.UI.Views
                 return;
             }
 
-            var migrationsToApply = new List<BaseMigration>();
-            foreach (var migration in BaseMigration.Migrations.Where(m => m.IsNeedsToBeApplied()))
-            {
-                migrationsToApply.Add(migration);
-            }
-
+            List<BaseMigration> migrationsToApply = BaseMigration.Migrations.Where(m => m.IsNeedsToBeApplied()).ToList();
             if (migrationsToApply.Any())
             {
                 await App.Current.MainPage.DisplayAlert(LN.FinishingUpdateTitle, LN.FinishingUpdateDescription, LN.Ok);
@@ -95,9 +78,6 @@ namespace NureTimetable.UI.Views
                 {
                     await App.Current.MainPage.DisplayAlert(LN.FinishingUpdateTitle, LN.FinishingUpdateFail, LN.Ok);
                 }
-                var timetablePage = new TimetablePage();
-                timetablePage.BindingContext = new TimetableViewModel(timetablePage.Navigation, timetablePage);
-                Detail = new NavigationPage(timetablePage);
             }
         }
 
@@ -156,47 +136,6 @@ namespace NureTimetable.UI.Views
 
             // Logging exception
             Crashes.TrackError(ex, properties, attachments.ToArray());
-        }
-
-        public async Task NavigateFromMenu(int id)
-        {
-            if (!MenuPages.ContainsKey(id))
-            {
-                switch (id)
-                {
-                    case (int)MenuItemType.Timetable:
-                        var timetablePage = new TimetablePage();
-                        timetablePage.BindingContext = new TimetableViewModel(timetablePage.Navigation, timetablePage);
-                        MenuPages.Add(id, new NavigationPage(timetablePage));
-                        break;
-                    case (int)MenuItemType.About:
-                        MenuPages.Add(id, new NavigationPage(new AboutPage
-                        {
-                            BindingContext = new AboutViewModel(Navigation)
-                        }));
-                        break;
-                    case (int)MenuItemType.Donate:
-                        MenuPages.Add(id, new NavigationPage(new DonatePage
-                        {
-                            BindingContext = new DonateViewModel(Navigation)
-                        }));
-                        break;
-                    default:
-                        throw new ArgumentException("Unknown menu page");
-                }
-            }
-
-            var newPage = MenuPages[id];
-            if (newPage != null && Detail != newPage)
-            {
-                Detail = newPage;
-
-                if (DeviceInfo.Platform == DevicePlatform.Android)
-                {
-                    await Task.Delay(100);
-                }
-                IsPresented = false;
-            }
         }
     }
 }

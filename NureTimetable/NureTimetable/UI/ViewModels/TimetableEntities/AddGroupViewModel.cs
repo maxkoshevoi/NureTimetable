@@ -9,7 +9,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
 {
     public class AddGroupViewModel : BaseAddEntityViewModel<Group>
     {
-        public AddGroupViewModel(INavigation navigation) : base(navigation)
+        public AddGroupViewModel()
         {
             Title = LN.Groups;
         }

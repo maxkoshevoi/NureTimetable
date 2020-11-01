@@ -1,6 +1,4 @@
-﻿using NureTimetable.UI.ViewModels.Core;
-using System;
-using Xamarin.Forms;
+﻿using System;
 
 namespace NureTimetable.UI.ViewModels.Lessons.LessonSettings
 {
@@ -13,7 +11,7 @@ namespace NureTimetable.UI.ViewModels.Lessons.LessonSettings
         public T Entity { get => _entity; set => SetProperty(ref _entity, value); }
         public bool? IsChecked { get => _isChecked; set => SetProperty(ref _isChecked, value, onChanged: _stateChanged); }
 
-        public CheckedEntity(INavigation navigation, Action<CheckedEntity<T>> stateChanged = null) : base(navigation)
+        public CheckedEntity(Action<CheckedEntity<T>> stateChanged = null)
         {
             _stateChanged = () => stateChanged?.Invoke(this);
         }

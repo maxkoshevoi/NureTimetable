@@ -1,7 +1,6 @@
 ﻿using NureTimetable.Core.Models.Consts;
 using NureTimetable.DAL.Models.Local;
 using NureTimetable.UI.Helpers;
-using NureTimetable.UI.ViewModels.Core;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
@@ -30,7 +29,7 @@ namespace NureTimetable.UI.ViewModels.Lessons.LessonSettings
         public ICommand LessonNotesTextChangedCommand { get; }
         #endregion
 
-        public LessonSettingsViewModel(INavigation navigation, LessonInfo lessonInfo, TimetableInfo timetableInfo) : base(navigation)
+        public LessonSettingsViewModel(LessonInfo lessonInfo, TimetableInfo timetableInfo)
         {
             Title = lessonInfo.Lesson.FullName;
 
@@ -40,19 +39,19 @@ namespace NureTimetable.UI.ViewModels.Lessons.LessonSettings
             LessonNotesText = lessonInfo.Notes;
             updatingProgrammatically = false;
 
-            LvEventTypes = new ListViewViewModel<EventType>(Navigation)
+            LvEventTypes = new ListViewViewModel<EventType>
             {
                 ItemsSource = new ObservableCollection<CheckedEntity<EventType>>(timetableInfo.EventTypes(lessonInfo.Lesson.ID)
-                    .Select(et => new CheckedEntity<EventType>(Navigation, EventTypeStateChanged)
+                    .Select(et => new CheckedEntity<EventType>(EventTypeStateChanged)
                     {
                         Entity = et
                     })
                     .OrderBy(et => et.Entity.ShortName))
             };
-            LvTeachers = new ListViewViewModel<Teacher>(Navigation)
+            LvTeachers = new ListViewViewModel<Teacher>
             {
                 ItemsSource = new ObservableCollection<CheckedEntity<Teacher>>(timetableInfo.Teachers(lessonInfo.Lesson.ID)
-                    .Select(t => new CheckedEntity<Teacher>(Navigation, TeacherStateChanged)
+                    .Select(t => new CheckedEntity<Teacher>(TeacherStateChanged)
                     {
                         Entity = t,
                     })

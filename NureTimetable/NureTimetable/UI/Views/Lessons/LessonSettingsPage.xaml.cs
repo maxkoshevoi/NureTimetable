@@ -1,10 +1,8 @@
 ﻿using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace NureTimetable.UI.Views.Lessons
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class LessonSettingsPage : ContentPage
+    public partial class LessonSettingsPage : ContentPage
     {
         public LessonSettingsPage()
         {

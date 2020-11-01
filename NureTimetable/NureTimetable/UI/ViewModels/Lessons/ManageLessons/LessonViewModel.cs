@@ -1,11 +1,9 @@
 ﻿using NureTimetable.DAL.Models.Local;
 using NureTimetable.UI.Helpers;
-using NureTimetable.UI.ViewModels.Core;
 using NureTimetable.UI.ViewModels.Lessons.LessonSettings;
 using NureTimetable.UI.Views.Lessons;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Xamarin.Forms;
 
 namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
 {
@@ -23,7 +21,7 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
         public ICommand InfoClickedCommand { get; }
         #endregion
 
-        public LessonViewModel(INavigation navigation, LessonInfo lessonInfo, TimetableInfo timetableInfo) : base(navigation)
+        public LessonViewModel(LessonInfo lessonInfo, TimetableInfo timetableInfo)
         {
             LessonInfo = lessonInfo;
             this.timetableInfo = timetableInfo;
@@ -36,7 +34,7 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
         {
             await Navigation.PushAsync(new LessonSettingsPage
             {
-                BindingContext = new LessonSettingsViewModel(Navigation, LessonInfo, timetableInfo)
+                BindingContext = new LessonSettingsViewModel(LessonInfo, timetableInfo)
             });
         }
 
@@ -44,7 +42,7 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
         {
             await Navigation.PushAsync(new LessonInfoPage
             {
-                BindingContext = new LessonInfoViewModel(Navigation, LessonInfo, timetableInfo)
+                BindingContext = new LessonInfoViewModel(LessonInfo, timetableInfo)
             });
         }
     }

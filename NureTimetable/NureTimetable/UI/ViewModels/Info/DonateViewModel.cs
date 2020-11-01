@@ -1,9 +1,7 @@
 ﻿using NureTimetable.Core.Localization;
 using NureTimetable.UI.Helpers;
-using NureTimetable.UI.ViewModels.Core;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Xamarin.Forms;
 
 namespace NureTimetable.UI.ViewModels.Info
 {
@@ -13,7 +11,7 @@ namespace NureTimetable.UI.ViewModels.Info
         public ICommand BuyProductCommand { get; }
         #endregion
 
-        public DonateViewModel(INavigation navigation) : base(navigation)
+        public DonateViewModel()
         {
             BuyProductCommand = CommandHelper.CreateCommand<string>(BuyProduct);
         }

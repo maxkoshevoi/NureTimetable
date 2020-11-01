@@ -9,7 +9,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
 {
     public class AddRoomViewModel : BaseAddEntityViewModel<Room>
     {
-        public AddRoomViewModel(INavigation navigation) : base(navigation)
+        public AddRoomViewModel()
         {
             Title = LN.Rooms;
         }

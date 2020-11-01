@@ -8,10 +8,7 @@ using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
 using NureTimetable.Models.Consts.Fonts;
 using NureTimetable.UI.Helpers;
-using NureTimetable.UI.ViewModels.Core;
-using NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities;
 using NureTimetable.UI.Views;
-using NureTimetable.UI.Views.TimetableEntities;
 using Plugin.Calendars;
 using Syncfusion.SfSchedule.XForms;
 using System;
@@ -40,7 +37,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
         private bool needToUpdateEventsUI = false;
         private bool lastTimeLeftVisible;
 
-        private string _hideSelectedEventsIcon = "filter";
+        private string _hideSelectedEventsIcon = MaterialIconsFont.Filter;
         private DateTime? _timetableSelectedDate;
         private ScheduleView _timetableScheduleView = ScheduleView.WeekView;
         private string _timetableLocale;
@@ -92,14 +89,13 @@ namespace NureTimetable.UI.ViewModels.Timetable
         public ICommand PageDisappearingCommand { get; }
         public ICommand HideSelectedEventsClickedCommand { get; }
         public ICommand ScheduleModeClickedCommand { get; }
-        public ICommand ManageGroupsClickedCommand { get; }
         public ICommand TimetableCellTappedCommand { get; }
         public ICommand TimetableMonthInlineAppointmentTappedCommand { get; }
         public ICommand TimetableVisibleDatesChangedCommand { get; private set; }
         public ICommand BTodayClickedCommand { get; }
         #endregion
 
-        public TimetableViewModel(INavigation navigation, ITimetablePageCommands timetablePage) : base(navigation)
+        public TimetableViewModel(ITimetablePageCommands timetablePage)
         {
             _timetablePage = timetablePage;
 
@@ -159,7 +155,6 @@ namespace NureTimetable.UI.ViewModels.Timetable
             PageDisappearingCommand = CommandHelper.CreateCommand(PageDisappearing);
             HideSelectedEventsClickedCommand = CommandHelper.CreateCommand(HideSelectedEventsClicked);
             ScheduleModeClickedCommand = CommandHelper.CreateCommand(ScheduleModeClicked);
-            ManageGroupsClickedCommand = CommandHelper.CreateCommand(ManageGroupsClicked);
             TimetableCellTappedCommand = CommandHelper.CreateCommand<CellTappedEventArgs>(TimetableCellTapped);
             TimetableMonthInlineAppointmentTappedCommand = CommandHelper.CreateCommand<MonthInlineAppointmentTappedEventArgs>(TimetableMonthInlineAppointmentTapped);
             TimetableVisibleDatesChangedCommand = CommandHelper.CreateCommand<VisibleDatesChangedEventArgs>(TimetableVisibleDatesChanged);
@@ -194,11 +189,11 @@ namespace NureTimetable.UI.ViewModels.Timetable
             {
                 if (visibleDates[0].Date > DateTime.Now)
                 {
-                    BTodayText = MaterialFont.ChevronLeft;
+                    BTodayText = MaterialIconsFont.ChevronLeft;
                 }
                 else
                 {
-                    BTodayText = MaterialFont.ChevronRight;
+                    BTodayText = MaterialIconsFont.ChevronRight;
                 }
                 await _timetablePage.ScaleTodayButtonTo(1);
             }
@@ -404,14 +399,6 @@ namespace NureTimetable.UI.ViewModels.Timetable
                     UpdateTimeLeft();
                 });
             }
-        }
-        
-        private async Task ManageGroupsClicked()
-        {
-            await Navigation.PushAsync(new ManageEntitiesPage
-            {
-                BindingContext = new ManageEntitiesViewModel(Navigation)
-            });
         }
 
         private async Task ScheduleModeClicked()
@@ -648,12 +635,12 @@ namespace NureTimetable.UI.ViewModels.Timetable
             string message, icon;
             if (applyHiddingSettings)
             {
-                icon = "filter";
+                icon = MaterialIconsFont.Filter;
                 message = LN.SelectedEventsShown;
             }
             else
             {
-                icon = "filter_outline";
+                icon = MaterialIconsFont.FilterOff;
                 message = LN.AllEventsShown;
             }
             HideSelectedEventsIcon = icon;

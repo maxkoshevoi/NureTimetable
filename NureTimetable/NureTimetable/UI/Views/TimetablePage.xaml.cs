@@ -1,16 +1,16 @@
-﻿using System;
+﻿using NureTimetable.UI.ViewModels.Timetable;
+using System;
 using System.Threading.Tasks;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace NureTimetable.UI.Views
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class TimetablePage : ContentPage, ITimetablePageCommands
     {
         public TimetablePage()
         {
             InitializeComponent();
+            BindingContext = new TimetableViewModel(this);
         }
 
         public void TimetableNavigateTo(DateTime date)

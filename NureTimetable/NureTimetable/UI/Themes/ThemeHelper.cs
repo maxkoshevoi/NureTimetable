@@ -28,9 +28,16 @@ namespace NureTimetable.UI.Themes
             resources.Clear();
             resources.Add(theme);
 
-            var statusBarManager = DependencyService.Get<IBarStyleManager>();
-            statusBarManager.SetStatusBarColor(ResourceManager.StatusBarColor.ToHex());
-            statusBarManager.SetNavigationBarColor(ResourceManager.NavigationBarColor.ToHex());
+            try
+            {
+                var statusBarManager = DependencyService.Get<IBarStyleManager>();
+                statusBarManager.SetStatusBarColor(ResourceManager.StatusBarColor.ToHex());
+                statusBarManager.SetNavigationBarColor(ResourceManager.NavigationBarColor.ToHex());
+            }
+            catch (Exception ex)
+            {
+
+            }
 
             MainThread.BeginInvokeOnMainThread(() =>
             {

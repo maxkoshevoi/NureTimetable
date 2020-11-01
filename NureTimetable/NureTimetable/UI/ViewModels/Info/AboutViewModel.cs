@@ -1,10 +1,8 @@
 ﻿using NureTimetable.UI.Helpers;
-using NureTimetable.UI.ViewModels.Core;
 using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Essentials;
-using Xamarin.Forms;
 
 namespace NureTimetable.UI.ViewModels.Info
 {
@@ -25,10 +23,9 @@ namespace NureTimetable.UI.ViewModels.Info
         public ICommand NavigateUriCommand { get; }
         #endregion
 
-        public AboutViewModel(INavigation navigation) : base(navigation)
+        public AboutViewModel()
         {
             VersionText = AppInfo.VersionString;
-
             NavigateUriCommand = CommandHelper.CreateCommand<string>(NavigateUri);
         }
 

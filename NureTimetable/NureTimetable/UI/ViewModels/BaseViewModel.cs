@@ -4,20 +4,15 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Xamarin.Forms;
 
-namespace NureTimetable.UI.ViewModels.Core
+namespace NureTimetable.UI.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        private protected INavigation Navigation;
+        private protected INavigation Navigation => Shell.Current.Navigation;
         public event PropertyChangedEventHandler PropertyChanged;
         
         string title = string.Empty;
         public string Title { get => title; set => SetProperty(ref title, value); }
-
-        protected BaseViewModel(INavigation navigation)
-        {
-            Navigation = navigation;
-        }
 
         private readonly object lockObject = new object();
 

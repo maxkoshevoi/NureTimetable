@@ -1,7 +1,5 @@
-﻿using NureTimetable.UI.ViewModels.Core;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
-using Xamarin.Forms;
 
 namespace NureTimetable.UI.ViewModels.Lessons.LessonSettings
 {
@@ -14,9 +12,6 @@ namespace NureTimetable.UI.ViewModels.Lessons.LessonSettings
         public ObservableCollection<CheckedEntity<T>> ItemsSource { get => _itemSource; internal set => SetProperty(ref _itemSource, value, onChanged: ItemsSourceChanged); }
         public bool IsVisible { get => _isVisible; set => SetProperty(ref _isVisible, value); }
         public double HeightRequest { get => _heightRequest; set => SetProperty(ref _heightRequest, value); }
-
-        public ListViewViewModel(INavigation navigation) : base(navigation)
-        { }
 
         private void ItemsSourceChanged()
         {

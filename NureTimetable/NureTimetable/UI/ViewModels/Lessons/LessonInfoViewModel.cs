@@ -1,10 +1,8 @@
 ﻿using NureTimetable.Core.Localization;
 using NureTimetable.DAL.Models.Local;
-using NureTimetable.UI.ViewModels.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Xamarin.Forms;
 
 namespace NureTimetable.UI.ViewModels.Lessons
 {
@@ -20,7 +18,7 @@ namespace NureTimetable.UI.ViewModels.Lessons
         public string Statistics { get; }
         #endregion
 
-        public LessonInfoViewModel(INavigation navigation, LessonInfo lessonInfo, TimetableInfo timetableInfo) : base(navigation)
+        public LessonInfoViewModel(LessonInfo lessonInfo, TimetableInfo timetableInfo)
         {
             LessonInfo = lessonInfo;
             this.timetableInfo = timetableInfo;

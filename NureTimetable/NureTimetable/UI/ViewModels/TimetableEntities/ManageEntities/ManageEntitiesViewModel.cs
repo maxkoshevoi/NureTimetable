@@ -5,8 +5,7 @@ using NureTimetable.Core.Models.Exceptions;
 using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
 using NureTimetable.UI.Helpers;
-using NureTimetable.UI.ViewModels.Core;
-using NureTimetable.UI.Views.TimetableEntities;
+using NureTimetable.UI.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -70,7 +69,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
 
         #endregion
 
-        public ManageEntitiesViewModel(INavigation navigation) : base(navigation)
+        public ManageEntitiesViewModel()
         {
             IsProgressVisable = false;
             IsEntitiesLayoutEnabled = true;
@@ -165,10 +164,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
             {
                 return;
             }
-            await Navigation.PushAsync(new AddTimetablePage()
-            {
-                BindingContext = new AddTimetableViewModel(Navigation)
-            });
+            await Navigation.PushAsync(new AddTimetablePage());
         }
 
         private void UpdateItems(List<SavedEntity> newItems)
@@ -177,7 +173,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
 
             List<SavedEntity> selectedEntities = UniversityEntitiesRepository.GetSelected();
             Entities = new ObservableCollection<SavedEntityItemViewModel>(
-                newItems.Select(sg => new SavedEntityItemViewModel(Navigation, sg, this)
+                newItems.Select(sg => new SavedEntityItemViewModel(sg, this)
                 {
                     IsSelected = selectedEntities.Any(se => se.ID == sg.ID)
                 })

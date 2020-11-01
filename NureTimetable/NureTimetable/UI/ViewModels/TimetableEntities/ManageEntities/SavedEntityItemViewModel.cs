@@ -2,14 +2,12 @@
 using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
 using NureTimetable.UI.Helpers;
-using NureTimetable.UI.ViewModels.Core;
 using NureTimetable.UI.ViewModels.Lessons.ManageLessons;
 using NureTimetable.UI.Views.Lessons;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Xamarin.Forms;
 
 namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
 {
@@ -37,7 +35,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
         public ICommand UpdateClickedCommand { get; }
         #endregion
 
-        public SavedEntityItemViewModel(INavigation navigation, SavedEntity savedEntity, ManageEntitiesViewModel manageEntitiesViewModel) : base(navigation)
+        public SavedEntityItemViewModel(SavedEntity savedEntity, ManageEntitiesViewModel manageEntitiesViewModel)
         {
             SavedEntity = savedEntity;
             _manageEntitiesViewModel = manageEntitiesViewModel;
@@ -77,7 +75,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
 #pragma warning disable CS4014 // ManageLessonsViewModel.PageAppearing wouldn't trigger if we use await. See issue #35
                 Navigation.PushAsync(new ManageLessonsPage
                 {
-                    BindingContext = new ManageLessonsViewModel(Navigation, SavedEntity)
+                    BindingContext = new ManageLessonsViewModel(SavedEntity)
                 });
 #pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
             }
