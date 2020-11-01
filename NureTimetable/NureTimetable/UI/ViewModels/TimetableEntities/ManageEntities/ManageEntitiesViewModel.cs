@@ -152,7 +152,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
             {
                 return;
             }
-            if (await App.Current.MainPage.DisplayAlert(LN.TimetableUpdate, LN.UpdateAllTimetables, LN.Yes, LN.Cancel))
+            if (await Shell.Current.DisplayAlert(LN.TimetableUpdate, LN.UpdateAllTimetables, LN.Yes, LN.Cancel))
             {
                 await UpdateTimetable(Entities?.Select(vm => vm.SavedEntity).ToList());
             }
@@ -194,7 +194,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
             List<SavedEntity> entitiesAllowed = SettingsRepository.CheckCistTimetableUpdateRights(entities);
             if (entitiesAllowed.Count == 0)
             {
-                await App.Current.MainPage.DisplayAlert(LN.TimetableUpdate, LN.TimetableLatest, LN.Ok);
+                await Shell.Current.DisplayAlert(LN.TimetableUpdate, LN.TimetableLatest, LN.Ok);
                 return;
             }
 

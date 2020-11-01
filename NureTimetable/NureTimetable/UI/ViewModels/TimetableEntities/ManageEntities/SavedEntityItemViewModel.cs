@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
 {
@@ -57,7 +58,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
                 actionList.Insert(1, LN.AddToSelected);
             }
 
-            string action = await App.Current.MainPage.DisplayActionSheet(LN.ChooseAction, LN.Cancel, null, actionList.ToArray());
+            string action = await Shell.Current.DisplayActionSheet(LN.ChooseAction, LN.Cancel, null, actionList.ToArray());
             if (action == LN.SelectOneEntity)
             {
                 await _manageEntitiesViewModel.SelectOneAndExit(SavedEntity);

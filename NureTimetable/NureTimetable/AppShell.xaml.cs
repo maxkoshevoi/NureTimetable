@@ -65,7 +65,7 @@ namespace NureTimetable.UI.Views
             List<BaseMigration> migrationsToApply = BaseMigration.Migrations.Where(m => m.IsNeedsToBeApplied()).ToList();
             if (migrationsToApply.Any())
             {
-                await App.Current.MainPage.DisplayAlert(LN.FinishingUpdateTitle, LN.FinishingUpdateDescription, LN.Ok);
+                await Shell.Current.DisplayAlert(LN.FinishingUpdateTitle, LN.FinishingUpdateDescription, LN.Ok);
                 bool isSuccess = true;
                 foreach (var migration in migrationsToApply)
                 {
@@ -76,7 +76,7 @@ namespace NureTimetable.UI.Views
                 }
                 if (!isSuccess)
                 {
-                    await App.Current.MainPage.DisplayAlert(LN.FinishingUpdateTitle, LN.FinishingUpdateFail, LN.Ok);
+                    await Shell.Current.DisplayAlert(LN.FinishingUpdateTitle, LN.FinishingUpdateFail, LN.Ok);
                 }
             }
         }

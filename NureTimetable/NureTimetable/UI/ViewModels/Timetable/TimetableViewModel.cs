@@ -408,7 +408,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 return;
             }
 
-            string displayMode = await App.Current.MainPage.DisplayActionSheet(LN.ChooseDisplayMode, LN.Cancel, null, LN.Day, LN.Week, LN.Timeline, LN.Month);
+            string displayMode = await Shell.Current.DisplayActionSheet(LN.ChooseDisplayMode, LN.Cancel, null, LN.Day, LN.Week, LN.Timeline, LN.Month);
 
             AppSettings settings = SettingsRepository.GetSettings();
             DateTime? selected = TimetableSelectedDate;
@@ -478,7 +478,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 .Where(e => e.Lesson == ev.Lesson && e.Type == ev.Type)
                 .DistinctBy(e => e.Start)
                 .Count();
-            bool isAddToCalendar = await App.Current.MainPage.DisplayAlert($"{ev.Lesson.FullName}", string.Format(LN.EventType, ev.Type.FullName + $" ({eventNumber}/{eventsCount})") + nl +
+            bool isAddToCalendar = await Shell.Current.DisplayAlert($"{ev.Lesson.FullName}", string.Format(LN.EventType, ev.Type.FullName + $" ({eventNumber}/{eventsCount})") + nl +
                 string.Format(LN.EventClassroom, ev.RoomName) + nl +
                 string.Format(LN.EventTeachers, string.Join(", ", ev.Teachers.Select(t => t.Name))) + nl +
                 string.Format(LN.EventGroups, string.Join(", ", ev.Groups.Select(t => t.Name))) + nl +
@@ -493,11 +493,11 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 bool isAdded = await AddEventToCalendar(ev, eventNumber, eventsCount);
                 if (isAdded)
                 {
-                    await App.Current.MainPage.DisplayAlert(LN.AddingToCalendarTitle, LN.AddingEventToCalendarSuccess, LN.Ok);
+                    await Shell.Current.DisplayAlert(LN.AddingToCalendarTitle, LN.AddingEventToCalendarSuccess, LN.Ok);
                 }
                 else
                 {
-                    await App.Current.MainPage.DisplayAlert(LN.AddingToCalendarTitle, LN.AddingEventToCalendarFail, LN.Ok);
+                    await Shell.Current.DisplayAlert(LN.AddingToCalendarTitle, LN.AddingEventToCalendarFail, LN.Ok);
                 }
 
                 ProgressLayoutIsVisible = false;
@@ -560,7 +560,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 Calendars.Calendar targetCalendar = customCalendar;
                 if (calendars.Count > 1)
                 {
-                    string targetCalendarName = await MainThread.InvokeOnMainThreadAsync(() => App.Current.MainPage.DisplayActionSheet(
+                    string targetCalendarName = await MainThread.InvokeOnMainThreadAsync(() => Shell.Current.DisplayActionSheet(
                         LN.ChooseCalendar,
                         LN.Cancel,
                         null,
@@ -664,7 +664,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
             }
             if (moveTo != today && visibleDates.Contains(moveTo))
             {
-                await App.Current.MainPage.DisplayAlert(LN.ShowToday, LN.NoTodayTimetable, LN.Ok);
+                await Shell.Current.DisplayAlert(LN.ShowToday, LN.NoTodayTimetable, LN.Ok);
                 return;
             }
 

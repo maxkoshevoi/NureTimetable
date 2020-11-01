@@ -111,14 +111,14 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
             List<SavedEntity> savedEntities = UniversityEntitiesRepository.GetSaved();
             if (savedEntities.Exists(e => e == newEntity))
             {
-                await App.Current.MainPage.DisplayAlert(LN.AddingTimetable, string.Format(LN.TimetableAlreadySaved, newEntity.Name), LN.Ok);
+                await Shell.Current.DisplayAlert(LN.AddingTimetable, string.Format(LN.TimetableAlreadySaved, newEntity.Name), LN.Ok);
                 return;
             }
 
             savedEntities.Add(newEntity);
             UniversityEntitiesRepository.UpdateSaved(savedEntities);
 
-            await App.Current.MainPage.DisplayAlert(LN.AddingTimetable, string.Format(LN.TimetableSaved, newEntity.Name), LN.Ok);
+            await Shell.Current.DisplayAlert(LN.AddingTimetable, string.Format(LN.TimetableSaved, newEntity.Name), LN.Ok);
         }
 
         protected void SearchBarTextChanged()
@@ -140,11 +140,11 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
         {
             if (SettingsRepository.CheckCistAllEntitiesUpdateRights() == false)
             {
-                await App.Current.MainPage.DisplayAlert(LN.UniversityInfoUpdate, LN.UniversityInfoUpToDate, LN.Ok);
+                await Shell.Current.DisplayAlert(LN.UniversityInfoUpdate, LN.UniversityInfoUpToDate, LN.Ok);
                 return;
             }
 
-            if (!ProgressLayoutIsVisable && await App.Current.MainPage.DisplayAlert(LN.UniversityInfoUpdate, LN.UniversityInfoUpdateConfirm, LN.Yes, LN.Cancel))
+            if (!ProgressLayoutIsVisable && await Shell.Current.DisplayAlert(LN.UniversityInfoUpdate, LN.UniversityInfoUpdateConfirm, LN.Yes, LN.Cancel))
             {
                 await UpdateEntities(true);
             }
@@ -197,7 +197,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
                     {
                         message = LN.CistOutOfMemory;
                     }
-                    App.Current.MainPage.DisplayAlert(LN.UniversityInfoUpdate, message, LN.Ok);
+                    Shell.Current.DisplayAlert(LN.UniversityInfoUpdate, message, LN.Ok);
                 });
             }
             else if (!updateFromCistResult.IsAllSuccessful)
@@ -218,7 +218,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
 
                 MainThread.BeginInvokeOnMainThread(() =>
                 {
-                    App.Current.MainPage.DisplayAlert(LN.UniversityInfoUpdate, string.Format(LN.UniversityInfoUpdatePartiallyFail, Environment.NewLine + failedEntities), LN.Ok);
+                    Shell.Current.DisplayAlert(LN.UniversityInfoUpdate, string.Format(LN.UniversityInfoUpdatePartiallyFail, Environment.NewLine + failedEntities), LN.Ok);
                 });
             }
         }

@@ -2,6 +2,7 @@
 using NureTimetable.UI.Helpers;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace NureTimetable.UI.ViewModels.Info
 {
@@ -20,11 +21,11 @@ namespace NureTimetable.UI.ViewModels.Info
         {
             if (await InAppPurchase.Buy(productId, true) != null)
             {
-                await App.Current.MainPage.DisplayAlert(LN.Purchase, LN.ThanksForYourSupport, LN.Ok);
+                await Shell.Current.DisplayAlert(LN.Purchase, LN.ThanksForYourSupport, LN.Ok);
             }
             else
             {
-                await App.Current.MainPage.DisplayAlert(LN.Purchase, LN.PurchaseFailed, LN.Ok);
+                await Shell.Current.DisplayAlert(LN.Purchase, LN.PurchaseFailed, LN.Ok);
             }
         }
     }
