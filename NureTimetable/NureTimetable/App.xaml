@@ -17,10 +17,6 @@
             <Style TargetType="Page" ApplyToDerivedTypes="True">
                 <Setter Property="BackgroundColor" Value="{DynamicResource PageBackgroundColor}" />
             </Style>
-            <Style TargetType="NavigationPage">
-                <Setter Property="BarBackgroundColor" Value="{DynamicResource PrimaryColor}" />
-                <Setter Property="BarTextColor" Value="{DynamicResource SecondaryColor}" />
-            </Style>
             <Style TargetType="TabbedPage" ApplyToDerivedTypes="True">
                 <Setter Property="BarBackgroundColor" Value="{DynamicResource PrimaryColor}" />
             </Style>
