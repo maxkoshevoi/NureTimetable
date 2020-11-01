@@ -74,7 +74,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
             IsProgressVisable = false;
             IsEntitiesLayoutEnabled = true;
 
-            UpdateItems(UniversityEntitiesRepository.GetSaved());
+            UpdateItems();
             MessagingCenter.Subscribe<Application, List<SavedEntity>>(this, MessageTypes.SavedEntitiesChanged, (sender, newSavedEntities) =>
             {
                 UpdateItems(newSavedEntities);
@@ -106,6 +106,8 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
         {
             UniversityEntitiesRepository.UpdateSelected(savedEntity);
             await Shell.Current.GoToAsync("//tabbar/events");
+            
+            UpdateItems();
         }
 
         public void OnEntitySelectChange(SavedEntityItemViewModel entity)
@@ -166,6 +168,9 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
             }
             await Navigation.PushAsync(new AddTimetablePage());
         }
+
+        private void UpdateItems()
+            => UpdateItems(UniversityEntitiesRepository.GetSaved());
 
         private void UpdateItems(List<SavedEntity> newItems)
         {
