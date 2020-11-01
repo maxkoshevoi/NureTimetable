@@ -18,23 +18,21 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
         #region Variables
         private bool _isNoSourceLayoutVisable;
 
+        private bool hasUnsavedChanes = false;
+
         private readonly TimetableInfo timetable;
 
         private ObservableCollection<LessonViewModel> _lessons;
         #endregion
 
         #region Properties
-        public bool IsNoSourceLayoutVisable
-        {
-            get => _isNoSourceLayoutVisable;
-            set => SetProperty(ref _isNoSourceLayoutVisable, value);
-        }
+        public bool IsNoSourceLayoutVisable { get => _isNoSourceLayoutVisable; set => SetProperty(ref _isNoSourceLayoutVisable, value); }
         
         public ObservableCollection<LessonViewModel> Lessons { get => _lessons; private set => SetProperty(ref _lessons, value); }
 
         public ICommand PageAppearingCommand { get; }
-
         public ICommand SaveClickedCommand { get; }
+        public ICommand BackButtonPressedCommand { get; }
         #endregion
 
         public ManageLessonsViewModel(SavedEntity savedEntity)
@@ -60,6 +58,8 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
 
                 MessagingCenter.Subscribe<LessonSettingsViewModel, LessonInfo>(this, MessageTypes.OneLessonSettingsChanged, (sender, newLessonSettings) =>
                 {
+                    hasUnsavedChanes = true;
+
                     LessonViewModel lesson = Lessons.Single(l => l.LessonInfo.Lesson == newLessonSettings.Lesson);
                     lesson.LessonInfo = newLessonSettings;
                     lesson.LessonInfo.Settings.NotifyChanged();
@@ -68,6 +68,7 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
 
             PageAppearingCommand = CommandHelper.CreateCommand(PageAppearing);
             SaveClickedCommand = CommandHelper.CreateCommand(SaveClicked);
+            BackButtonPressedCommand = CommandHelper.CreateCommand(BackButtonPressed);
         }
 
         private async Task PageAppearing()
@@ -77,7 +78,7 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
                 return;
             }
 
-            await App.Current.MainPage.DisplayAlert(LN.LessonsManagement, LN.AtFirstLoadTimetable, LN.Ok);
+            await Shell.Current.DisplayAlert(LN.LessonsManagement, LN.AtFirstLoadTimetable, LN.Ok);
             await Navigation.PopAsync();
         }
 
@@ -85,13 +86,32 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
         {
             if (Lessons is null)
             {
-                await App.Current.MainPage.DisplayAlert(LN.LessonsManagement, LN.AtFirstLoadTimetable, LN.Ok);
+                await Shell.Current.DisplayAlert(LN.LessonsManagement, LN.AtFirstLoadTimetable, LN.Ok);
                 return;
             }
 
             EventsRepository.UpdateLessonsInfo(timetable.Entity, Lessons.Select(l => l.LessonInfo).ToList());
-            await App.Current.MainPage.DisplayAlert(LN.SavingSettings, string.Format(LN.EntityLessonSettingsSaved, timetable.Entity.Name), LN.Ok);
+            hasUnsavedChanes = false;
+
+            await Shell.Current.DisplayAlert(LN.SavingSettings, string.Format(LN.EntityLessonSettingsSaved, timetable.Entity.Name), LN.Ok);
             await Navigation.PopAsync();
+        }
+
+        private async Task BackButtonPressed()
+        {
+            bool canClose = true;
+            if (hasUnsavedChanes)
+            {
+                canClose = await Shell.Current.DisplayAlert(
+                   "You have unsaved changes",
+                   "Close page without saving changes?",
+                   LN.Yes, LN.Cancel);
+            }
+
+            if (canClose)
+            {
+                await Navigation.PopAsync();
+            }
         }
     }
 }
