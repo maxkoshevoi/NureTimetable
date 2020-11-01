@@ -3,6 +3,7 @@
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
             xmlns:views="clr-namespace:NureTimetable.UI.Views"
             xmlns:fonts="clr-namespace:NureTimetable.Models.Consts.Fonts"
+            xmlns:LN="clr-namespace:NureTimetable.Core.Localization;assembly=NureTimetable.Core"
             x:Class="NureTimetable.UI.Views.AppShell">
     
     <Shell.Resources>
@@ -22,9 +23,9 @@
     </Shell.Resources>
 
     <TabBar Route="tabbar">
-        <ShellContent Title="Events" Route="events" Icon="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static fonts:MaterialIconsFont.CalendarBlank}}" ContentTemplate="{DataTemplate views:TimetablePage}" />
-        <ShellContent Title="Saved timetables" Icon="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static fonts:MaterialIconsFont.AccountMultiple} }" Route="AboutPage" ContentTemplate="{DataTemplate views:ManageEntitiesPage}" />
-        <ShellContent Title="Menu" Icon="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static fonts:MaterialIconsFont.Menu} }" Route="AboutPage" ContentTemplate="{DataTemplate views:AboutPage}" />
+        <ShellContent Title="{LN:Translate Events}" Route="Events" Icon="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static fonts:MaterialIconsFont.CalendarBlank}}" ContentTemplate="{DataTemplate views:TimetablePage}" />
+        <ShellContent Title="{LN:Translate Timetables}" Route="SavedTimetables" Icon="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static fonts:MaterialIconsFont.AccountMultiple} }" ContentTemplate="{DataTemplate views:ManageEntitiesPage}" />
+        <ShellContent Title="{LN:Translate Menu}" Route="Menu" Icon="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static fonts:MaterialIconsFont.Menu} }" ContentTemplate="{DataTemplate views:AboutPage}" />
     </TabBar>
     
 </Shell>

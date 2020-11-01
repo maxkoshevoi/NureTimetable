@@ -105,7 +105,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
         public async Task SelectOneAndExit(SavedEntity savedEntity)
         {
             UniversityEntitiesRepository.UpdateSelected(savedEntity);
-            await Shell.Current.GoToAsync("//tabbar/events");
+            await Shell.Current.GoToAsync("//tabbar/Events");
             
             UpdateItems();
         }
@@ -285,7 +285,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
                 }
                 else
                 {
-                    await Shell.Current.GoToAsync("//tabbar/events");
+                    await Shell.Current.GoToAsync("//tabbar/Events");
                 }
             }
         }

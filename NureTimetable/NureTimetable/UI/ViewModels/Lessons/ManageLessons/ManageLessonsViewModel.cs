@@ -102,10 +102,7 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
             bool canClose = true;
             if (hasUnsavedChanes)
             {
-                canClose = await Shell.Current.DisplayAlert(
-                   "You have unsaved changes",
-                   "Close page without saving changes?",
-                   LN.Yes, LN.Cancel);
+                canClose = await Shell.Current.DisplayAlert(LN.UnsavedChangesTitle, LN.UnsavedChangesMessage, LN.Yes, LN.Cancel);
             }
 
             if (canClose)

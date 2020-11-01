@@ -452,4 +452,19 @@
   <data name="CistOutOfMemory" xml:space="preserve">
     <value>Слишком большая нагрузка на cist.nure.ua. Повторите попытку позже.</value>
   </data>
+  <data name="UnsavedChangesMessage" xml:space="preserve">
+    <value>Закрыть страницу не сохраняя изменения?</value>
+  </data>
+  <data name="UnsavedChangesTitle" xml:space="preserve">
+    <value>У вас есть несохраненные изменения</value>
+  </data>
+  <data name="Events" xml:space="preserve">
+    <value>Пары</value>
+  </data>
+  <data name="Menu" xml:space="preserve">
+    <value>Меню</value>
+  </data>
+  <data name="Timetables" xml:space="preserve">
+    <value>Расписания</value>
+  </data>
 </root>

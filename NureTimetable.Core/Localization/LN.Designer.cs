@@ -386,6 +386,15 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Events.
+        /// </summary>
+        public static string Events {
+            get {
+                return ResourceManager.GetString("Events", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to left.
         /// </summary>
         public static string EventsLeft {
@@ -553,6 +562,15 @@ namespace NureTimetable.Core.Localization {
         public static string LessonsManagement {
             get {
                 return ResourceManager.GetString("LessonsManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Menu.
+        /// </summary>
+        public static string Menu {
+            get {
+                return ResourceManager.GetString("Menu", resourceCulture);
             }
         }
         
@@ -891,6 +909,15 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Timetables.
+        /// </summary>
+        public static string Timetables {
+            get {
+                return ResourceManager.GetString("Timetables", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Timetable &quot;{0}&quot; has been saved.
         /// </summary>
         public static string TimetableSaved {
@@ -986,6 +1013,24 @@ namespace NureTimetable.Core.Localization {
         public static string UniversityInfoUpToDate {
             get {
                 return ResourceManager.GetString("UniversityInfoUpToDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Close page without saving changes?.
+        /// </summary>
+        public static string UnsavedChangesMessage {
+            get {
+                return ResourceManager.GetString("UnsavedChangesMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have unsaved changes.
+        /// </summary>
+        public static string UnsavedChangesTitle {
+            get {
+                return ResourceManager.GetString("UnsavedChangesTitle", resourceCulture);
             }
         }
         
