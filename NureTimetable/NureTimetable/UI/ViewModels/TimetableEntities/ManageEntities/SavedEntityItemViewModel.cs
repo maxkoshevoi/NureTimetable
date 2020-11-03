@@ -49,8 +49,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
             return _manageEntitiesViewModel.UpdateTimetable(SavedEntity);
         }
 
-        // ManageLessonsViewModel.PageAppearing wouldn't trigger if we use "async Task". See issue #35
-        public async void SettingsClicked()
+        public async Task SettingsClicked()
         {
             var actionList = new List<string> { LN.UpdateTimetable, LN.SetUpLessonDisplay, LN.Delete };
             if (!IsSelected)
