@@ -35,31 +35,19 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
         #endregion
 
         #region Properties
-        public bool IsNoSourceLayoutVisable
-        {
-            get => _isNoSourceLayoutVisable;
-            set => SetProperty(ref _isNoSourceLayoutVisable, value);
-        }
+        public bool IsNoSourceLayoutVisable { get => _isNoSourceLayoutVisable; set => SetProperty(ref _isNoSourceLayoutVisable, value); }
 
-        public bool IsProgressVisable
-        {
-            get => _isProgressVisable;
-            set => SetProperty(ref _isProgressVisable, value);
-        }
+        public bool IsProgressVisable { get => _isProgressVisable; set => SetProperty(ref _isProgressVisable, value); }
 
-        public bool IsEntitiesLayoutEnabled
-        {
-            get => _isEntitiesLayoutEnable;
-            set => SetProperty(ref _isEntitiesLayoutEnable, value);
-        }
+        public bool IsEntitiesLayoutEnabled { get => _isEntitiesLayoutEnable;  set => SetProperty(ref _isEntitiesLayoutEnable, value); }
 
         public bool IsMultiselectMode
         {
             get => _isMultiselectMode;
-            set => SetProperty(ref _isMultiselectMode, value, onChanged: () => Entities?.ForEach(e => e.NotifyChanged(nameof(IsMultiselectMode))));
+            set => SetProperty(ref _isMultiselectMode, value, () => Entities?.ForEach(e => e.NotifyChanged(nameof(IsMultiselectMode))));
         }
 
-        public SavedEntityItemViewModel SelectedEntity { get => _selectedEntity; set => SetProperty(ref _selectedEntity, value, onChanged: SavedEntitySelected); }
+        public SavedEntityItemViewModel SelectedEntity { get => _selectedEntity; set => SetProperty(ref _selectedEntity, value, SavedEntitySelected); }
 
         public ObservableCollection<SavedEntityItemViewModel> Entities { get => _entities; private set => SetProperty(ref _entities, value); }
 

@@ -18,8 +18,8 @@ namespace NureTimetable.UI.ViewModels
 
         protected bool SetProperty<T>(ref T backingStore,
             T value,
-            [CallerMemberName]string propertyName = "",
-            Action onChanged = null)
+            Action onChanged = null,
+            [CallerMemberName] string propertyName = "")
         {
             if (EqualityComparer<T>.Default.Equals(backingStore, value))
             {
@@ -36,7 +36,7 @@ namespace NureTimetable.UI.ViewModels
             return true;
         }
 
-        protected void OnPropertyChanged(string propName) 
+        protected void OnPropertyChanged([CallerMemberName] string propName = "") 
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
     }
 }

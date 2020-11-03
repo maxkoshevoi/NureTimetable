@@ -9,7 +9,7 @@ namespace NureTimetable.UI.ViewModels.Lessons.LessonSettings
         private bool _isVisible;
         private double _heightRequest;
 
-        public ObservableCollection<CheckedEntity<T>> ItemsSource { get => _itemSource; internal set => SetProperty(ref _itemSource, value, onChanged: ItemsSourceChanged); }
+        public ObservableCollection<CheckedEntity<T>> ItemsSource { get => _itemSource; internal set => SetProperty(ref _itemSource, value, ItemsSourceChanged); }
         public bool IsVisible { get => _isVisible; set => SetProperty(ref _isVisible, value); }
         public double HeightRequest { get => _heightRequest; set => SetProperty(ref _heightRequest, value); }
 

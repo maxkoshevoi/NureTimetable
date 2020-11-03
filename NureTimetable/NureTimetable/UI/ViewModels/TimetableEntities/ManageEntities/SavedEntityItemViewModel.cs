@@ -26,7 +26,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
         public bool IsSelected
         {
             get => isSelected;
-            set => SetProperty(ref isSelected, value, onChanged: () => _manageEntitiesViewModel.OnEntitySelectChange(this));
+            set => SetProperty(ref isSelected, value, () => _manageEntitiesViewModel.OnEntitySelectChange(this));
         }
 
         public bool IsMultiselectMode => _manageEntitiesViewModel.IsMultiselectMode;
