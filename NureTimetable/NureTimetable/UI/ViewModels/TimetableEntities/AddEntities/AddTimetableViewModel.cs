@@ -44,17 +44,17 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
                 return;
             }
 
-            UpdateCommandEnabled = false;
             if (await Shell.Current.DisplayAlert(LN.UniversityInfoUpdate, LN.UniversityInfoUpdateConfirm, LN.Yes, LN.Cancel))
             {
+                UpdateCommandEnabled = false;
                 var updateFromCist = Task.Run(UpdateFromCist);
                 await Task.WhenAll(
                     AddGroupPageViewModel.UpdateEntities(updateFromCist),
                     AddTeacherPageViewModel.UpdateEntities(updateFromCist),
                     AddRoomPageViewModel.UpdateEntities(updateFromCist)
                 );
+                UpdateCommandEnabled = true;
             }
-            UpdateCommandEnabled = true;
         }
 
         public static void UpdateFromCist()

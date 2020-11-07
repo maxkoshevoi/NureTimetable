@@ -136,24 +136,27 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
 
         public async Task UpdateEntities(Task updateDataSource = null)
         {
-            updateDataSource ??= Task.Run(UniversityEntitiesRepository.AssureInitialized);
-
-            ProgressLayoutIsVisable = true;
-            ProgressLayoutIsEnable = false;
-
-            await updateDataSource;
-            _allEntities = GetAllEntities();
-            Entities = new ObservableCollection<T>(OrderEntities());
-                
-            NoSourceLayoutIsVisible = Entities.Count == 0;
-
-            if (SearchBarTextChangedCommand.CanExecute(null))
+            await Task.Run(async () =>
             {
-                SearchBarTextChangedCommand.Execute(null);
-            }
+                updateDataSource ??= Task.Run(UniversityEntitiesRepository.AssureInitialized);
 
-            ProgressLayoutIsVisable = false;
-            ProgressLayoutIsEnable = true;
+                ProgressLayoutIsVisable = true;
+                ProgressLayoutIsEnable = false;
+
+                await updateDataSource;
+                _allEntities = GetAllEntities();
+                Entities = new ObservableCollection<T>(OrderEntities());
+
+                NoSourceLayoutIsVisible = Entities.Count == 0;
+
+                if (SearchBarTextChangedCommand.CanExecute(null))
+                {
+                    SearchBarTextChangedCommand.Execute(null);
+                }
+
+                ProgressLayoutIsVisable = false;
+                ProgressLayoutIsEnable = true;
+            });
         }
 
         #endregion

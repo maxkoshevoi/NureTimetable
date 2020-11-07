@@ -1,9 +1,7 @@
 ﻿using NureTimetable.Core.Localization;
-using NureTimetable.Core.Models.Consts;
 using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
 using NureTimetable.UI.Helpers;
-using NureTimetable.UI.ViewModels.Lessons.LessonSettings;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;

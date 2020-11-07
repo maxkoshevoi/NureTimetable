@@ -12,7 +12,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 
@@ -39,7 +38,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
 
         public bool IsProgressVisable { get => _isProgressVisable; set => SetProperty(ref _isProgressVisable, value); }
 
-        public bool IsEntitiesLayoutEnabled { get => _isEntitiesLayoutEnable;  set => SetProperty(ref _isEntitiesLayoutEnable, value); }
+        public bool IsEntitiesLayoutEnabled { get => _isEntitiesLayoutEnable;  set => SetProperty(ref _isEntitiesLayoutEnable, value, () => { UpdateAllCommand.ChangeCanExecute();  AddEntityCommand.ChangeCanExecute(); }); }
 
         public bool IsMultiselectMode
         {
@@ -51,14 +50,17 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
 
         public ObservableCollection<SavedEntityItemViewModel> Entities { get => _entities; private set => SetProperty(ref _entities, value); }
 
-        public ICommand UpdateAllCommand { get; }
+        public Command UpdateAllCommand { get; }
 
-        public ICommand AddEntityCommand { get; }
+        public Command AddEntityCommand { get; }
 
         #endregion
 
         public ManageEntitiesViewModel()
         {
+            UpdateAllCommand = CommandHelper.Create(UpdateAll, () => IsEntitiesLayoutEnabled);
+            AddEntityCommand = CommandHelper.Create(AddEntity, () => IsEntitiesLayoutEnabled);
+
             IsProgressVisable = false;
             IsEntitiesLayoutEnabled = true;
 
@@ -67,9 +69,6 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
             {
                 UpdateItems(newSavedEntities);
             });
-
-            UpdateAllCommand = CommandHelper.Create(UpdateAll);
-            AddEntityCommand = CommandHelper.Create(AddEntity);
         }
 
         #region Methods
@@ -138,10 +137,6 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
 
         private async Task UpdateAll()
         {
-            if (!IsEntitiesLayoutEnabled)
-            {
-                return;
-            }
             if (await Shell.Current.DisplayAlert(LN.TimetableUpdate, LN.UpdateAllTimetables, LN.Yes, LN.Cancel))
             {
                 await UpdateTimetable(Entities?.Select(vm => vm.SavedEntity).ToList());
@@ -150,10 +145,6 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
 
         private async Task AddEntity()
         {
-            if (!IsEntitiesLayoutEnabled)
-            {
-                return;
-            }
             await Navigation.PushAsync(new AddTimetablePage());
         }
 

@@ -16,7 +16,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Calendars = Plugin.Calendars.Abstractions;
@@ -78,21 +77,21 @@ namespace NureTimetable.UI.ViewModels.Timetable
         public bool TimeLeftIsVisible { get => _timeLeftIsVisible; set => SetProperty(ref _timeLeftIsVisible, value); }
         public string TimeLeftText { get => _timeLeftText; set => SetProperty(ref _timeLeftText, value); }
 
-        public bool TimetableLayoutIsVisible { get => _timetableLayoutIsVisible; set => SetProperty(ref _timetableLayoutIsVisible, value); }
+        public bool TimetableLayoutIsVisible { get => _timetableLayoutIsVisible; set => SetProperty(ref _timetableLayoutIsVisible, value, () => { HideSelectedEventsCommand.ChangeCanExecute(); ScheduleModeCommand.ChangeCanExecute(); }); }
         public bool NoSourceLayoutIsVisible { get => _noSourceLayoutIsVisible; set => SetProperty(ref _noSourceLayoutIsVisible, value); }
         public string NoSourceLayoutText { get => _noSourceLayoutText; set => SetProperty(ref _noSourceLayoutText, value); }
         public bool ProgressLayoutIsVisible { get => _progressLayoutIsVisible; set => SetProperty(ref _progressLayoutIsVisible, value); }
         public string BTodayText { get => _bTodayText; set => SetProperty(ref _bTodayText, value); }
         public double BTodayScale { get => _bTodayScale; set => SetProperty(ref _bTodayScale, value); }
 
-        public ICommand PageAppearingCommand { get; }
-        public ICommand PageDisappearingCommand { get; }
-        public ICommand HideSelectedEventsClickedCommand { get; }
-        public ICommand ScheduleModeClickedCommand { get; }
-        public ICommand TimetableCellTappedCommand { get; }
-        public ICommand TimetableMonthInlineAppointmentTappedCommand { get; }
-        public ICommand TimetableVisibleDatesChangedCommand { get; private set; }
-        public ICommand BTodayClickedCommand { get; }
+        public Command PageAppearingCommand { get; }
+        public Command PageDisappearingCommand { get; }
+        public Command HideSelectedEventsCommand { get; }
+        public Command ScheduleModeCommand { get; }
+        public Command TimetableCellTappedCommand { get; }
+        public Command TimetableMonthInlineAppointmentTappedCommand { get; }
+        public Command TimetableVisibleDatesChangedCommand { get; private set; }
+        public Command BTodayClickedCommand { get; }
         #endregion
 
         public TimetableViewModel(ITimetablePageCommands timetablePage)
@@ -153,8 +152,8 @@ namespace NureTimetable.UI.ViewModels.Timetable
 
             PageAppearingCommand = CommandHelper.Create(PageAppearing);
             PageDisappearingCommand = CommandHelper.Create(PageDisappearing);
-            HideSelectedEventsClickedCommand = CommandHelper.Create(HideSelectedEventsClicked);
-            ScheduleModeClickedCommand = CommandHelper.Create(ScheduleModeClicked);
+            HideSelectedEventsCommand = CommandHelper.Create(HideSelectedEventsClicked, () => TimetableLayoutIsVisible);
+            ScheduleModeCommand = CommandHelper.Create(ScheduleModeClicked, () => TimetableLayoutIsVisible);
             TimetableCellTappedCommand = CommandHelper.Create<CellTappedEventArgs>(TimetableCellTapped);
             TimetableMonthInlineAppointmentTappedCommand = CommandHelper.Create<MonthInlineAppointmentTappedEventArgs>(TimetableMonthInlineAppointmentTapped);
             TimetableVisibleDatesChangedCommand = CommandHelper.Create<VisibleDatesChangedEventArgs>(TimetableVisibleDatesChanged);
@@ -622,11 +621,6 @@ namespace NureTimetable.UI.ViewModels.Timetable
 
         private void HideSelectedEventsClicked()
         {
-            if (!TimetableLayoutIsVisible)
-            {
-                return;
-            }
-
             applyHiddingSettings = !applyHiddingSettings;
 
             string message, icon;
