@@ -1,6 +1,6 @@
 ﻿using NureTimetable.DAL;
 using System;
-using Xamarin.Essentials;
+using System.Threading.Tasks;
 
 namespace NureTimetable.UI.ViewModels.TimetableEntities
 {
@@ -23,7 +23,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
 
             if (isNeedReloadFromCist)
             {
-                MainThread.BeginInvokeOnMainThread(BaseAddEntityViewModel<int>.UpdateFromCist);
+                Task.Run(BaseAddEntityViewModel<int>.UpdateFromCist);
             }
         }
     }

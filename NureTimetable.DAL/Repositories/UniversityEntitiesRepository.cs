@@ -202,6 +202,8 @@ namespace NureTimetable.DAL
                 {
                     SettingsRepository.UpdateCistAllEntitiesUpdateTime();
                 }
+
+                Singleton = university;
                 MessagingCenter.Send(Application.Current, MessageTypes.UniversityEntitiesUpdated);
             }
 
