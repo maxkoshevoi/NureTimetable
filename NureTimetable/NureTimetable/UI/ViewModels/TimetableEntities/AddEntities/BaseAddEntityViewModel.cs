@@ -58,22 +58,20 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
 
         public string SearchBarText { get => _searchBarText; set => SetProperty(ref _searchBarText, value); }
 
-        public ICommand UpdateCommand { get; }
-
         public ICommand SearchBarTextChangedCommand { get; }
 
         #endregion
 
         protected BaseAddEntityViewModel()
         {
-            SearchBarTextChangedCommand = CommandHelper.CreateCommand(SearchBarTextChanged);
-            UpdateCommand = CommandHelper.CreateCommand(UpdateFromCistClick);
-            MainThread.BeginInvokeOnMainThread(async () => await UpdateEntities(false));
+            SearchBarTextChangedCommand = CommandHelper.Create(SearchBarTextChanged);
 
             MessagingCenter.Subscribe<Application>(this, MessageTypes.UniversityEntitiesUpdated, async (sender) =>
             {
                 await UpdateEntities();
             });
+
+            MainThread.BeginInvokeOnMainThread(async () => await UpdateEntities());
         }
 
         #region Abstract Methods
@@ -136,91 +134,26 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
             }
         }
 
-        protected async Task UpdateFromCistClick()
+        public async Task UpdateEntities(Task updateDataSource = null)
         {
-            if (SettingsRepository.CheckCistAllEntitiesUpdateRights() == false)
-            {
-                await Shell.Current.DisplayAlert(LN.UniversityInfoUpdate, LN.UniversityInfoUpToDate, LN.Ok);
-                return;
-            }
+            updateDataSource ??= Task.Run(UniversityEntitiesRepository.AssureInitialized);
 
-            if (!ProgressLayoutIsVisable && await Shell.Current.DisplayAlert(LN.UniversityInfoUpdate, LN.UniversityInfoUpdateConfirm, LN.Yes, LN.Cancel))
-            {
-                await UpdateEntities(true);
-            }
-        }
-
-        public async Task UpdateEntities(bool fromCistOnly = false)
-        {
             ProgressLayoutIsVisable = true;
             ProgressLayoutIsEnable = false;
 
-            await Task.Run(() =>
-            {
-                if (fromCistOnly)
-                {
-                    UpdateFromCist();
-                }
-                else
-                {
-                    UniversityEntitiesRepository.AssureInitialized();
-                }
-                _allEntities = GetAllEntities();
-                Entities = new ObservableCollection<T>(OrderEntities());
+            await updateDataSource;
+            _allEntities = GetAllEntities();
+            Entities = new ObservableCollection<T>(OrderEntities());
                 
-                NoSourceLayoutIsVisible = Entities.Count == 0;
+            NoSourceLayoutIsVisible = Entities.Count == 0;
 
-                if (SearchBarTextChangedCommand.CanExecute(null))
-                {
-                    SearchBarTextChangedCommand.Execute(null);
-                }
-
-                ProgressLayoutIsVisable = false;
-                ProgressLayoutIsEnable = true;
-            });
-        }
-
-        public static void UpdateFromCist()
-        {
-            var updateFromCistResult = UniversityEntitiesRepository.UpdateFromCist();
-
-            if (updateFromCistResult.IsAllFail)
+            if (SearchBarTextChangedCommand.CanExecute(null))
             {
-                MainThread.BeginInvokeOnMainThread(() =>
-                {
-                    string message = LN.UniversityInfoUpdateFail;
-                    if (updateFromCistResult.IsConnectionIssues)
-                    {
-                        message = LN.CannotGetDataFromCist;
-                    }
-                    else if (updateFromCistResult.IsCistOutOfMemory)
-                    {
-                        message = LN.CistOutOfMemory;
-                    }
-                    Shell.Current.DisplayAlert(LN.UniversityInfoUpdate, message, LN.Ok);
-                });
+                SearchBarTextChangedCommand.Execute(null);
             }
-            else if (!updateFromCistResult.IsAllSuccessful)
-            {
-                string failedEntities = Environment.NewLine;
-                if (updateFromCistResult.GroupsException != null)
-                {
-                    failedEntities += LN.Groups + Environment.NewLine;
-                }
-                if (updateFromCistResult.TeachersException != null)
-                {
-                    failedEntities += LN.Teachers + Environment.NewLine;
-                }
-                if (updateFromCistResult.RoomsException != null)
-                {
-                    failedEntities += LN.Rooms + Environment.NewLine;
-                }
 
-                MainThread.BeginInvokeOnMainThread(() =>
-                {
-                    Shell.Current.DisplayAlert(LN.UniversityInfoUpdate, string.Format(LN.UniversityInfoUpdatePartiallyFail, Environment.NewLine + failedEntities), LN.Ok);
-                });
-            }
+            ProgressLayoutIsVisable = false;
+            ProgressLayoutIsEnable = true;
         }
 
         #endregion

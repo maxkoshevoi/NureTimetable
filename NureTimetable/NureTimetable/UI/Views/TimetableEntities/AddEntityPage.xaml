@@ -7,10 +7,6 @@
              x:Class="NureTimetable.UI.Views.AddEntityPage"
              Title="{Binding Title}">
 
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Icon="update" Command="{Binding UpdateCommand}" x:Name="UpdateFromCist" />
-    </ContentPage.ToolbarItems>
-
     <AbsoluteLayout>
         <StackLayout x:Name="EntitiesLayout" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
             <SearchBar x:Name="Searchbar" Text="{Binding SearchBarText}" HeightRequest="42">

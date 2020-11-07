@@ -5,8 +5,13 @@
             xmlns:LN="clr-namespace:NureTimetable.Core.Localization;assembly=NureTimetable.Core"
             x:Class="NureTimetable.UI.Views.AddTimetablePage"
             xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels.TimetableEntities"
+            xmlns:fonts="clr-namespace:NureTimetable.Models.Consts.Fonts"
             x:DataType="vm:AddTimetableViewModel"
             Title="{LN:Translate AddingTimetable}">
+
+    <TabbedPage.ToolbarItems>
+        <ToolbarItem IconImageSource="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static fonts:MaterialIconsFont.Sync}}" Command="{Binding UpdateCommand}" x:Name="UpdateFromCist" />
+    </TabbedPage.ToolbarItems>
 
     <views:AddEntityPage BindingContext="{Binding AddGroupPageViewModel}" />
     <views:AddEntityPage BindingContext="{Binding AddTeacherPageViewModel}" />
