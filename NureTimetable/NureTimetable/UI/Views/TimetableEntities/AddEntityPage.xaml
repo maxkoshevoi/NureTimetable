@@ -9,9 +9,9 @@
 
     <AbsoluteLayout>
         <StackLayout x:Name="EntitiesLayout" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
-            <SearchBar x:Name="Searchbar" Text="{Binding SearchBarText}" HeightRequest="42">
+            <SearchBar x:Name="searchbar" HeightRequest="42">
                 <SearchBar.Behaviors>
-                    <behaviors:EventToCommandBehavior EventName="TextChanged" Command="{Binding SearchBarTextChangedCommand}"/>
+                    <behaviors:EventToCommandBehavior EventName="TextChanged" Command="{Binding SearchBarTextChangedCommand}" CommandParameter="{Binding Text, Source={x:Reference searchbar}}"/>
                 </SearchBar.Behaviors>
             </SearchBar>
             <ListView x:Name="AllEntitiesList"

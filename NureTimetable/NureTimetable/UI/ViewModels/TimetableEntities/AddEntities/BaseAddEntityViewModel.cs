@@ -3,7 +3,6 @@ using NureTimetable.Core.Models.Consts;
 using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
 using NureTimetable.UI.Helpers;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -28,9 +27,9 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
 
         private protected bool _noSourceLayoutIsVisible;
 
-        private protected string _searchBarText;
-
         private protected T _selectedEntity;
+
+        private string lastSearchQuery;
 
         #endregion
 
@@ -56,15 +55,13 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
             set => SetProperty(ref _noSourceLayoutIsVisible, value);
         }
 
-        public string SearchBarText { get => _searchBarText; set => SetProperty(ref _searchBarText, value); }
-
         public ICommand SearchBarTextChangedCommand { get; }
 
         #endregion
 
         protected BaseAddEntityViewModel()
         {
-            SearchBarTextChangedCommand = CommandHelper.Create(SearchBarTextChanged);
+            SearchBarTextChangedCommand = CommandHelper.Create<string>(SearchBarTextChanged);
 
             MessagingCenter.Subscribe<Application>(this, MessageTypes.UniversityEntitiesUpdated, async (sender) =>
             {
@@ -119,18 +116,18 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
             await Shell.Current.DisplayAlert(LN.AddingTimetable, string.Format(LN.TimetableSaved, newEntity.Name), LN.Ok);
         }
 
-        protected void SearchBarTextChanged()
+        protected void SearchBarTextChanged(string searchQuery)
         {
             if (_allEntities is null) return;
 
-            if (string.IsNullOrEmpty(SearchBarText))
+            lastSearchQuery = searchQuery;
+            if (string.IsNullOrEmpty(searchQuery))
             {
                 Entities = new ObservableCollection<T>(OrderEntities());
             }
             else
             {
-                string searchQuery = SearchBarText.ToLower();
-                Entities = new ObservableCollection<T>(SearchEntities(searchQuery));
+                Entities = new ObservableCollection<T>(SearchEntities(searchQuery.ToLower()));
             }
         }
 
@@ -149,9 +146,9 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
 
                 NoSourceLayoutIsVisible = Entities.Count == 0;
 
-                if (SearchBarTextChangedCommand.CanExecute(null))
+                if (SearchBarTextChangedCommand.CanExecute(lastSearchQuery))
                 {
-                    SearchBarTextChangedCommand.Execute(null);
+                    SearchBarTextChangedCommand.Execute(lastSearchQuery);
                 }
 
                 ProgressLayoutIsVisable = false;
