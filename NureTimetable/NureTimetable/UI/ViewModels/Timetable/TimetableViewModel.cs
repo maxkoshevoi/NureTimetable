@@ -151,14 +151,14 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 UpdateEvents(selectedEntities);
             });
 
-            PageAppearingCommand = CommandHelper.CreateCommand(PageAppearing);
-            PageDisappearingCommand = CommandHelper.CreateCommand(PageDisappearing);
-            HideSelectedEventsClickedCommand = CommandHelper.CreateCommand(HideSelectedEventsClicked);
-            ScheduleModeClickedCommand = CommandHelper.CreateCommand(ScheduleModeClicked);
-            TimetableCellTappedCommand = CommandHelper.CreateCommand<CellTappedEventArgs>(TimetableCellTapped);
-            TimetableMonthInlineAppointmentTappedCommand = CommandHelper.CreateCommand<MonthInlineAppointmentTappedEventArgs>(TimetableMonthInlineAppointmentTapped);
-            TimetableVisibleDatesChangedCommand = CommandHelper.CreateCommand<VisibleDatesChangedEventArgs>(TimetableVisibleDatesChanged);
-            BTodayClickedCommand = CommandHelper.CreateCommand(BTodayClicked);
+            PageAppearingCommand = CommandHelper.Create(PageAppearing);
+            PageDisappearingCommand = CommandHelper.Create(PageDisappearing);
+            HideSelectedEventsClickedCommand = CommandHelper.Create(HideSelectedEventsClicked);
+            ScheduleModeClickedCommand = CommandHelper.Create(ScheduleModeClicked);
+            TimetableCellTappedCommand = CommandHelper.Create<CellTappedEventArgs>(TimetableCellTapped);
+            TimetableMonthInlineAppointmentTappedCommand = CommandHelper.Create<MonthInlineAppointmentTappedEventArgs>(TimetableMonthInlineAppointmentTapped);
+            TimetableVisibleDatesChangedCommand = CommandHelper.Create<VisibleDatesChangedEventArgs>(TimetableVisibleDatesChanged);
+            BTodayClickedCommand = CommandHelper.Create(BTodayClicked);
         }
 
         private async Task TimetableVisibleDatesChanged(VisibleDatesChangedEventArgs e)

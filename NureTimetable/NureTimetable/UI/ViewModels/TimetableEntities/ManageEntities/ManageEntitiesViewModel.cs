@@ -68,8 +68,8 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
                 UpdateItems(newSavedEntities);
             });
 
-            UpdateAllCommand = CommandHelper.CreateCommand(UpdateAll);
-            AddEntityCommand = CommandHelper.CreateCommand(AddEntity);
+            UpdateAllCommand = CommandHelper.Create(UpdateAll);
+            AddEntityCommand = CommandHelper.Create(AddEntity);
         }
 
         #region Methods

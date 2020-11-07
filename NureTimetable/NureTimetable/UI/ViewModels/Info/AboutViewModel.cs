@@ -26,7 +26,7 @@ namespace NureTimetable.UI.ViewModels.Info
         public AboutViewModel()
         {
             VersionText = AppInfo.VersionString;
-            NavigateUriCommand = CommandHelper.CreateCommand<string>(NavigateUri);
+            NavigateUriCommand = CommandHelper.Create<string>(NavigateUri);
         }
 
         private async Task NavigateUri(string url)

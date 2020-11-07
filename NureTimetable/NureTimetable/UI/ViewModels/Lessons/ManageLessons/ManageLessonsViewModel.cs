@@ -57,9 +57,9 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
                 IsNoSourceLayoutVisable = Lessons.Count == 0;
             }
 
-            PageAppearingCommand = CommandHelper.CreateCommand(PageAppearing);
-            SaveClickedCommand = CommandHelper.CreateCommand(SaveClicked);
-            BackButtonPressedCommand = CommandHelper.CreateCommand(BackButtonPressed);
+            PageAppearingCommand = CommandHelper.Create(PageAppearing);
+            SaveClickedCommand = CommandHelper.Create(SaveClicked);
+            BackButtonPressedCommand = CommandHelper.Create(BackButtonPressed);
         }
 
         private async Task PageAppearing()
