@@ -220,9 +220,13 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 // Updaing current date if it's changed
                 if (visibleDates.Any())
                 {
-                    // Delay needed to avoid calling disposed object
                     await Task.Delay(100);
-                    _timetablePage.TimetableNavigateTo(visibleDates.First());
+                    try
+                    {
+                        _timetablePage.TimetableNavigateTo(visibleDates.First());
+                    }
+                    catch (ObjectDisposedException)
+                    { }
                 }
             }
 
