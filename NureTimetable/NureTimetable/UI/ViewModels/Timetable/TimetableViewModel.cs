@@ -227,6 +227,8 @@ namespace NureTimetable.UI.ViewModels.Timetable
                     }
                     catch (ObjectDisposedException)
                     { }
+                    catch (NullReferenceException)
+                    { }
                 }
             }
 
