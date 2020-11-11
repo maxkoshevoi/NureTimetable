@@ -7,6 +7,7 @@
             xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels.TimetableEntities"
             xmlns:fonts="clr-namespace:NureTimetable.Models.Consts.Fonts"
             x:DataType="vm:AddTimetableViewModel"
+            Shell.NavBarHasShadow="False"
             Title="{LN:Translate AddingTimetable}">
 
     <TabbedPage.ToolbarItems>
