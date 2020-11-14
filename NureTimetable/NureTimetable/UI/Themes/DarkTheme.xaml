@@ -6,7 +6,7 @@
 
     <!--Global Styles-->
     <Color x:Key="PrimaryColor">Black</Color>
-    <Color x:Key="AccentColor">#878787</Color>
+    <Color x:Key="AccentColor">#2b2b2b</Color>
     <Color x:Key="SecondaryColor">White</Color>
 
     <Color x:Key="StatusBarColor">Black</Color>

@@ -25,7 +25,7 @@
     <TabBar Route="tabbar">
         <ShellContent Title="{LN:Translate Events}" Route="Events" Icon="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static fonts:MaterialIconsFont.CalendarBlank}}" ContentTemplate="{DataTemplate views:TimetablePage}" />
         <ShellContent Title="{LN:Translate Timetables}" Route="SavedTimetables" Icon="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static fonts:MaterialIconsFont.AccountMultiple} }" ContentTemplate="{DataTemplate views:ManageEntitiesPage}" />
-        <ShellContent Title="{LN:Translate Menu}" Route="Menu" Icon="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static fonts:MaterialIconsFont.Menu} }" ContentTemplate="{DataTemplate views:AboutPage}" />
+        <ShellContent Title="{LN:Translate Menu}" Route="Menu" Icon="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static fonts:MaterialIconsFont.Menu} }" ContentTemplate="{DataTemplate views:MenuPage}" />
     </TabBar>
     
 </Shell>
