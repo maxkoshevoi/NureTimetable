@@ -658,10 +658,7 @@ namespace NureTimetable.DAL
             }
 
             Serialisation.ToJsonFile(selectedEntities, FilePath.SelectedEntities);
-            MainThread.BeginInvokeOnMainThread(() =>
-            {
-                MessagingCenter.Send(Application.Current, MessageTypes.SelectedEntitiesChanged, selectedEntities);
-            });
+            MessagingCenter.Send(Application.Current, MessageTypes.SelectedEntitiesChanged, selectedEntities);
         }
         #endregion
     }

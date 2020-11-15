@@ -330,12 +330,6 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 NoSourceLayoutIsVisible = true;
                 return;
             }
-            if (timetableInfoList is not null 
-                && selectedEntities.Count == timetableInfoList.Timetables.Count 
-                && !selectedEntities.Except(timetableInfoList.Timetables.Select(t => t.Entity)).Any())
-            {
-                return;
-            }
 
             Title = string.Join(", ", selectedEntities.Select(se => se.Name));
 
