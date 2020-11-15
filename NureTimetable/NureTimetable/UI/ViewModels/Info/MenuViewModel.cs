@@ -144,6 +144,9 @@ namespace NureTimetable.UI.ViewModels.Info
 
             langIsRestartRequired = true;
             UpdateAppLanguageName();
+            
+            var activityManager = DependencyService.Get<IActivityManager>();
+            activityManager.Recreate();
         }
     }
 }

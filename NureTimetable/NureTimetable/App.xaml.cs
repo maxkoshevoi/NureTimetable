@@ -30,11 +30,12 @@ namespace NureTimetable
             SyncfusionLicenseProvider.RegisterLicense(Keys.SyncfusionLicenseKey);
 
             // Set user selected language for the app
-            AppLanguage language = SettingsRepository.Settings.Language;
-            if (language != AppLanguage.FollowSystem)
+            CultureInfo culture = CultureInfo.CurrentCulture;
+            if (SettingsRepository.Settings.Language != AppLanguage.FollowSystem)
             {
-                LN.Culture = CultureInfo.CurrentCulture = new CultureInfo((int)language);
+                culture = new CultureInfo((int)SettingsRepository.Settings.Language);
             }
+            LN.Culture = culture;
 
             Bugfix.InitCalendarCrashFix();
             VersionTracking.Track();

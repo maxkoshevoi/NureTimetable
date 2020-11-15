@@ -111,10 +111,11 @@ namespace NureTimetable.UI.ViewModels.Timetable
 
             Title = LN.AppName;
             lastTimeLeftVisible = TimeLeftIsVisible;
+            // Set custom TimetableLocale only if it is one of supported cultures
             string activeCultureCode = Cultures.SupportedCultures[0].TwoLetterISOLanguageName;
             if (Cultures.SupportedCultures.Any(c => c.TwoLetterISOLanguageName == CultureInfo.CurrentCulture.TwoLetterISOLanguageName))
             {
-                activeCultureCode = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
+                activeCultureCode = LN.Culture.TwoLetterISOLanguageName;
             }
             TimetableLocale = activeCultureCode;
             TimetableScheduleView = SettingsRepository.Settings.TimetableViewMode switch
