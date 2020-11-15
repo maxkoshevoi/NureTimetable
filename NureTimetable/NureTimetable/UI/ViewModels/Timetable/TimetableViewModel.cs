@@ -241,7 +241,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
 
         private void UpdateTimeLeft()
         {
-            if (timetableInfoList is null || timetableInfoList.Count == 0)
+            if (timetableInfoList is null || timetableInfoList.EventCount == 0)
             {
                 TimeLeftIsVisible = false;
                 return;
@@ -330,6 +330,13 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 NoSourceLayoutIsVisible = true;
                 return;
             }
+            if (timetableInfoList is not null 
+                && selectedEntities.Count == timetableInfoList.Timetables.Count 
+                && !selectedEntities.Except(timetableInfoList.Timetables.Select(t => t.Entity)).Any())
+            {
+                return;
+            }
+
             Title = string.Join(", ", selectedEntities.Select(se => se.Name));
 
             var timetableInfos = new List<TimetableInfo>();
@@ -377,7 +384,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 needToUpdateEventsUI = false;
                 MainThread.BeginInvokeOnMainThread(() =>
                 {
-                    if (timetableInfoList.Count == 0)
+                    if (timetableInfoList.EventCount == 0)
                     {
                         TimetableDataSource = null;
                         return;
