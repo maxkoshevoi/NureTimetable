@@ -82,7 +82,7 @@
                 <Label Text="{LN:Translate RateTheApp}" VerticalOptions="Center" Style="{DynamicResource ListItemTextStyle}"/>
             
                 <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding NavigateUriCommand}" CommandParameter="https://play.google.com/store/apps/details?id=com.whitebox.nuretimetable" />
+                    <TapGestureRecognizer Command="{Binding RequestReviewCommand}" />
                 </StackLayout.GestureRecognizers>
             </StackLayout>
             <StackLayout Style="{StaticResource Row}">
