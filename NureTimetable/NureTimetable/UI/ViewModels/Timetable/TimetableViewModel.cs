@@ -78,7 +78,17 @@ namespace NureTimetable.UI.ViewModels.Timetable
         public bool TimeLeftIsVisible { get => _timeLeftIsVisible; set => SetProperty(ref _timeLeftIsVisible, value); }
         public string TimeLeftText { get => _timeLeftText; set => SetProperty(ref _timeLeftText, value); }
 
-        public bool TimetableLayoutIsVisible { get => _timetableLayoutIsVisible; set => SetProperty(ref _timetableLayoutIsVisible, value, () => { HideSelectedEventsCommand.ChangeCanExecute(); ScheduleModeCommand.ChangeCanExecute(); }); }
+        public bool TimetableLayoutIsVisible 
+        { 
+            get => _timetableLayoutIsVisible;
+            set => SetProperty(ref _timetableLayoutIsVisible, value, async () =>
+                await Retry(() =>
+                {
+                    HideSelectedEventsCommand.ChangeCanExecute();
+                    ScheduleModeCommand.ChangeCanExecute();
+                }, 3)
+            );
+        }
         public bool NoSourceLayoutIsVisible { get => _noSourceLayoutIsVisible; set => SetProperty(ref _noSourceLayoutIsVisible, value); }
         public string NoSourceLayoutText { get => _noSourceLayoutText; set => SetProperty(ref _noSourceLayoutText, value); }
         public bool ProgressLayoutIsVisible { get => _progressLayoutIsVisible; set => SetProperty(ref _progressLayoutIsVisible, value); }
@@ -116,7 +126,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 _ => TimetableScheduleView
             };
 
-            MessagingCenter.Subscribe<Application, Settings.AppTheme>(this, MessageTypes.ThemeChanged, (sender, newTheme) =>
+            MessagingCenter.Subscribe<Application, Settings.AppTheme>(this, MessageTypes.ThemeChanged, async (sender, newTheme) =>
             {
                 if (timetableInfoList is null)
                 {
@@ -124,7 +134,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 }
 
                 needToUpdateEventsUI = true;
-                UpdateEventsWithUI();
+                await UpdateEventsWithUI();
             });
             MessagingCenter.Subscribe<Application, List<SavedEntity>>(this, MessageTypes.SelectedEntitiesChanged, (sender, newSelectedEntities) =>
             {
@@ -157,6 +167,29 @@ namespace NureTimetable.UI.ViewModels.Timetable
             TimetableMonthInlineAppointmentTappedCommand = CommandHelper.Create<MonthInlineAppointmentTappedEventArgs>(TimetableMonthInlineAppointmentTapped);
             TimetableVisibleDatesChangedCommand = CommandHelper.Create<VisibleDatesChangedEventArgs>(TimetableVisibleDatesChanged);
             BTodayClickedCommand = CommandHelper.Create(BTodayClicked);
+        }
+
+        public static async Task Retry(Action action, int maxRetryCount)
+        {
+            Exception exception = null;
+            for (int i = 0; i < maxRetryCount; i++)
+            {
+                exception = null;
+                try
+                {
+                    action();
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    exception = ex;
+                    await Task.Delay(100);
+                }
+            }
+            if (exception is not null)
+            {
+                throw exception;
+            }
         }
 
         private async Task TimetableVisibleDatesChanged(VisibleDatesChangedEventArgs e)
@@ -204,7 +237,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
             if (isFirstLoad)
             {
                 isFirstLoad = false;
-                UpdateEventsWithUI();
+                await UpdateEventsWithUI();
             }
             else
             {
@@ -213,7 +246,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 
                 if (needToUpdateEventsUI)
                 {
-                    UpdateEventsWithUI();
+                    await UpdateEventsWithUI();
                 }
 
                 // Updaing current date if it's changed
@@ -296,13 +329,13 @@ namespace NureTimetable.UI.ViewModels.Timetable
             }
         }
 
-        private void UpdateEventsWithUI()
+        private async Task UpdateEventsWithUI()
         {
-            TimetableIsEnabled = false;
-            ProgressLayoutIsVisible = true;
-
-            Task.Run(async () =>
+            await Task.Run(async () =>
             {
+                TimetableIsEnabled = false;
+                ProgressLayoutIsVisible = true;
+
                 if (needToUpdateEventsUI)
                 {
                     await Task.Delay(250);
@@ -312,11 +345,9 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 {
                     UpdateEvents(UniversityEntitiesRepository.GetSelected());
                 }
-                MainThread.BeginInvokeOnMainThread(() =>
-                {
-                    ProgressLayoutIsVisible = false;
-                    TimetableIsEnabled = true;
-                });
+
+                ProgressLayoutIsVisible = false;
+                TimetableIsEnabled = true;
             });
         }
 
@@ -549,7 +580,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 }
                 else if (calendars.Where(c => c.AccountName == customCalendar.AccountName).Count() > 1)
                 {
-                    Device.BeginInvokeOnMainThread(() =>
+                    MainThread.BeginInvokeOnMainThread(() =>
                     {
                         MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, new IndexOutOfRangeException($"There are {calendars.Where(c => c.AccountName == customCalendar.AccountName).Count()} calendars with AccountName {customCalendar.AccountName}"));
                     });
@@ -622,7 +653,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
             return true;
         }
 
-        private void HideSelectedEventsClicked()
+        private async Task HideSelectedEventsClicked()
         {
             applyHiddingSettings = !applyHiddingSettings;
 
@@ -640,7 +671,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
             HideSelectedEventsIcon = icon;
             DependencyService.Get<IMessageManager>().LongAlert(message);
 
-            UpdateEventsWithUI();
+            await UpdateEventsWithUI();
         }
 
         private async Task BTodayClicked()
