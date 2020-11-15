@@ -139,7 +139,7 @@
     <value>Официальные страницы ХНУРЭ: </value>
   </data>
   <data name="ShowErrors" xml:space="preserve">
-    <value>Показывать ошибки</value>
+    <value>Показывать все ошибки</value>
   </data>
   <data name="StudentNure" xml:space="preserve">
     <value>Студент ХНУРЭ: </value>

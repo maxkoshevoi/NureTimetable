@@ -139,7 +139,7 @@
     <value>NURE official web-pages: </value>
   </data>
   <data name="ShowErrors" xml:space="preserve">
-    <value>Show errors</value>
+    <value>Show all errors</value>
   </data>
   <data name="StudentNure" xml:space="preserve">
     <value>Student NURE: </value>

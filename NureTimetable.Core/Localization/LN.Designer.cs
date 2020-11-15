@@ -819,7 +819,7 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show errors.
+        ///   Looks up a localized string similar to Show all errors.
         /// </summary>
         public static string ShowErrors {
             get {
