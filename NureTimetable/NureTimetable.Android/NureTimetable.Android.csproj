@@ -83,6 +83,7 @@
     <PackageReference Include="Xamarin.Forms" Version="4.8.0.1687" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dependences\ActivityManager.cs" />
     <Compile Include="Dependences\MessageManager.cs" />
     <Compile Include="Dependences\BarStyleManager.cs" />
     <Compile Include="MainActivity.cs" />
