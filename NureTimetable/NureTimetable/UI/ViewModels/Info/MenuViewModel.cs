@@ -1,5 +1,6 @@
 ﻿using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Consts;
+using NureTimetable.Core.Models.InterplatformCommunication;
 using NureTimetable.Core.Models.Settings;
 using NureTimetable.DAL;
 using NureTimetable.UI.Helpers;
@@ -52,14 +53,23 @@ namespace NureTimetable.UI.ViewModels.Info
             ChangeThemeCommand = CommandHelper.Create(ChangeTheme);
             ChangeLanguageCommand = CommandHelper.Create(ChangeLanguage);
 
-            UpdtaeAppThemeName();
+            UpdateAppThemeName();
             MessagingCenter.Subscribe<Application, Settings.AppTheme>(Application.Current, MessageTypes.ThemeChanged, (sender, theme) =>
             {
-                UpdtaeAppThemeName();
+                UpdateAppThemeName();
             });
+
+            AppLanguageName = SettingsRepository.Settings.Language switch
+            {
+                AppLanguage.English => LN.EnglishLanguage,
+                AppLanguage.Russian => LN.RussianLanguage,
+                AppLanguage.Ukrainian => LN.UkrainianLanguage,
+                AppLanguage.FollowSystem => LN.FollowSystem,
+                _ => throw new InvalidOperationException("Unsuported language")
+            };
         }
 
-        private void UpdtaeAppThemeName()
+        private void UpdateAppThemeName()
         {
             AppThemeName = SettingsRepository.Settings.Theme switch
             {
@@ -87,6 +97,11 @@ namespace NureTimetable.UI.ViewModels.Info
             {
                 theme = Settings.AppTheme.Dark;
             }
+
+            if (SettingsRepository.Settings.Theme == theme)
+            {
+                return;
+            }
             SettingsRepository.Settings.Theme = theme;
 
             ThemeHelper.SetAppTheme(theme);
@@ -113,9 +128,15 @@ namespace NureTimetable.UI.ViewModels.Info
             {
                 language = AppLanguage.Ukrainian;
             }
+
+            if (SettingsRepository.Settings.Language == language)
+            {
+                return;
+            }
             SettingsRepository.Settings.Language = language;
 
-
+            var activityManager = DependencyService.Get<IActivityManager>();
+            activityManager.Recreate();
         }
     }
 }

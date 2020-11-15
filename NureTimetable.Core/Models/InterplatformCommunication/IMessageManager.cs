@@ -1,6 +1,6 @@
 ﻿namespace NureTimetable.Core.Models.InterplatformCommunication
 {
-    public interface IMessage
+    public interface IMessageManager
     {
         void LongAlert(string message);
 

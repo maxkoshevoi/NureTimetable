@@ -637,7 +637,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 message = LN.AllEventsShown;
             }
             HideSelectedEventsIcon = icon;
-            DependencyService.Get<IMessage>().LongAlert(message);
+            DependencyService.Get<IMessageManager>().LongAlert(message);
 
             UpdateEventsWithUI();
         }

@@ -2,10 +2,10 @@
 using NureTimetable.Core.Models.InterplatformCommunication;
 using NureTimetable.Droid.Dependences;
 
-[assembly: Xamarin.Forms.Dependency(typeof(MessageAndroid))]
+[assembly: Xamarin.Forms.Dependency(typeof(MessageManager))]
 namespace NureTimetable.Droid.Dependences
 {
-    public class MessageAndroid : IMessage
+    public class MessageManager : IMessageManager
     {
         public void LongAlert(string message)
         {
