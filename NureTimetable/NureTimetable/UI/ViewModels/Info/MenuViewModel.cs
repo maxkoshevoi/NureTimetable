@@ -30,6 +30,7 @@ namespace NureTimetable.UI.ViewModels.Info
             }
         }
 
+        private bool langIsRestartRequired = false;
         private string appLanguageName;
         public string AppLanguageName { get => appLanguageName; set => SetProperty(ref appLanguageName, value); }
 
@@ -58,15 +59,7 @@ namespace NureTimetable.UI.ViewModels.Info
             {
                 UpdateAppThemeName();
             });
-
-            AppLanguageName = SettingsRepository.Settings.Language switch
-            {
-                AppLanguage.English => LN.EnglishLanguage,
-                AppLanguage.Russian => LN.RussianLanguage,
-                AppLanguage.Ukrainian => LN.UkrainianLanguage,
-                AppLanguage.FollowSystem => LN.FollowSystem,
-                _ => throw new InvalidOperationException("Unsuported language")
-            };
+            UpdateAppLanguageName();
         }
 
         private void UpdateAppThemeName()
@@ -77,6 +70,20 @@ namespace NureTimetable.UI.ViewModels.Info
                 Settings.AppTheme.Dark => LN.DarkTheme,
                 Settings.AppTheme.FollowSystem => LN.FollowSystem,
                 _ => throw new InvalidOperationException("Unsuported theme")
+            };
+        }
+
+        private void UpdateAppLanguageName()
+        {
+            string restartReqiredText = langIsRestartRequired ? $" ({LN.RestartRequired})" : string.Empty;
+
+            AppLanguageName = SettingsRepository.Settings.Language switch
+            {
+                AppLanguage.English => LN.EnglishLanguage + restartReqiredText,
+                AppLanguage.Russian => LN.RussianLanguage + restartReqiredText,
+                AppLanguage.Ukrainian => LN.UkrainianLanguage + restartReqiredText,
+                AppLanguage.FollowSystem => LN.FollowSystem + restartReqiredText,
+                _ => throw new InvalidOperationException("Unsuported language")
             };
         }
 
@@ -135,8 +142,8 @@ namespace NureTimetable.UI.ViewModels.Info
             }
             SettingsRepository.Settings.Language = language;
 
-            var activityManager = DependencyService.Get<IActivityManager>();
-            activityManager.Recreate();
+            langIsRestartRequired = true;
+            UpdateAppLanguageName();
         }
     }
 }

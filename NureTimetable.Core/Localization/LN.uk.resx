@@ -491,4 +491,7 @@
   <data name="Version" xml:space="preserve">
     <value>Версія</value>
   </data>
+  <data name="RestartRequired" xml:space="preserve">
+    <value>Необхідний перезапуск</value>
+  </data>
 </root>
