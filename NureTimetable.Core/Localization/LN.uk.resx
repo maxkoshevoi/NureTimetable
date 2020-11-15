@@ -118,386 +118,377 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AppDescription" xml:space="preserve">
-    <value>Application for displaying groups schedule for</value>
+    <value>Це застосунок для розкладів груп</value>
   </data>
   <data name="AppName" xml:space="preserve">
-    <value>NURE Timetable</value>
+    <value>Розклад ХНУРЕ</value>
   </data>
   <data name="HelpfulLinks" xml:space="preserve">
-    <value>Helpful links</value>
+    <value>Корисні посилання</value>
   </data>
   <data name="HelpWanted" xml:space="preserve">
-    <value>If you have experience with Xamarin apps development and you are willing to help, submit to: </value>
+    <value>Якщо в когось є досвід розробки на Xamarin та бажання допомогти, ось посилання на гітхаб: </value>
   </data>
   <data name="Institution" xml:space="preserve">
-    <value>NURE</value>
+    <value>ХНУРЕ</value>
   </data>
   <data name="NureHomepage" xml:space="preserve">
-    <value>Homepage</value>
+    <value>Сайт</value>
   </data>
   <data name="NureWebpages" xml:space="preserve">
-    <value>NURE official web-pages: </value>
+    <value>Офіційні сторінки ХНУРЕ: </value>
   </data>
   <data name="ShowErrors" xml:space="preserve">
-    <value>Show errors</value>
+    <value>Показувати помилки</value>
   </data>
   <data name="StudentNure" xml:space="preserve">
-    <value>Student NURE: </value>
+    <value>Студент ХНУРЕ: </value>
   </data>
   <data name="About" xml:space="preserve">
-    <value>About</value>
+    <value>Про программу</value>
   </data>
   <data name="NoTimetable" xml:space="preserve">
-    <value>Select timetable to display.</value>
+    <value>Додайте розклад для перегляду.</value>
   </data>
   <data name="AndWillAlwaysBe" xml:space="preserve">
-    <value>and will always be.</value>
+    <value>і завжди буде таким.</value>
   </data>
   <data name="DisplayLesson" xml:space="preserve">
-    <value>Display lesson</value>
+    <value>Показувати предмет</value>
   </data>
   <data name="DisplayLessonsForTypes" xml:space="preserve">
-    <value>Display lesson types for this lesson:</value>
+    <value>Показувати типи занять для цього предмета:</value>
   </data>
   <data name="Donate" xml:space="preserve">
-    <value>Donate</value>
+    <value>Пожертвувати</value>
   </data>
   <data name="EmptyLessonsList" xml:space="preserve">
-    <value>Timetable has no lessons to display (maybe it's empty).</value>
+    <value>В поточному розкладі відсутні предмети (можливо воно пусте).</value>
   </data>
   <data name="EventClassroom" xml:space="preserve">
-    <value>Room: {0}</value>
+    <value>Аудиторія: {0}</value>
   </data>
   <data name="EventDay" xml:space="preserve">
-    <value>Date: {0}</value>
+    <value>День: {0}</value>
   </data>
   <data name="EventTeachers" xml:space="preserve">
-    <value>Teachers: {0}</value>
+    <value>Викладачі: {0}</value>
   </data>
   <data name="EventTeacherNotFound" xml:space="preserve">
-    <value>Teacher: not found</value>
+    <value>Викладач(ка): не знайдений(а)</value>
   </data>
   <data name="EventTime" xml:space="preserve">
-    <value>Time: {0} - {1}</value>
+    <value>Час: {0} - {1}</value>
   </data>
   <data name="EventType" xml:space="preserve">
-    <value>Type: {0}</value>
+    <value>Тип: {0}</value>
   </data>
   <data name="EntityLessonSettingsSaved" xml:space="preserve">
-    <value>Lesson settings for "{0}" saved successfully.</value>
+    <value>Налаштування предметів для "{0}" успішно збережені.</value>
   </data>
   <data name="IsFree" xml:space="preserve">
-    <value>is free </value>
+    <value> безкоштовний </value>
   </data>
   <data name="Lessons" xml:space="preserve">
-    <value>Lessons</value>
+    <value>Предмети</value>
   </data>
   <data name="Notes" xml:space="preserve">
-    <value>Notes: </value>
+    <value>Нотатки: </value>
   </data>
   <data name="SavingSettings" xml:space="preserve">
-    <value>Saving settings</value>
+    <value>Збереження налаштувань</value>
   </data>
   <data name="Thank" xml:space="preserve">
-    <value>Say thank you</value>
+    <value>Сказати дякую</value>
   </data>
   <data name="Thank2" xml:space="preserve">
-    <value>Say big thank you</value>
+    <value>Сказати великие дякую</value>
   </data>
   <data name="Thank3" xml:space="preserve">
-    <value>Say huge thank you</value>
+    <value>Сказати величезне дякую</value>
   </data>
   <data name="ThisApp" xml:space="preserve">
-    <value>This app </value>
+    <value>Цей застосунок</value>
   </data>
   <data name="Timetable" xml:space="preserve">
-    <value>Timetable</value>
+    <value>Розклад</value>
   </data>
   <data name="TimetableDisplay" xml:space="preserve">
-    <value>Timetable display</value>
+    <value>Відображення розкладу</value>
   </data>
   <data name="TimetableDisplayError" xml:space="preserve">
-    <value>An error occurred while trying to display timetable</value>
+    <value>Виникла помилка при спробі відобразити розклад</value>
   </data>
   <data name="TimeUntilBreak" xml:space="preserve">
-    <value>Until break ({0}): {1}</value>
+    <value>До перерви ({0}): {1}</value>
   </data>
   <data name="TimeUntilLesson" xml:space="preserve">
-    <value>Until {0} ({1}): {2}</value>
+    <value>До {0} ({1}): {2}</value>
   </data>
   <data name="Wait" xml:space="preserve">
-    <value>Please wait...</value>
+    <value>Зачекайте...</value>
   </data>
   <data name="YourContribution" xml:space="preserve">
-    <value>Your contribution supports development and doesn't let me fall into oblivion.</value>
+    <value>Ваш внесок підтримує його розвиток та допмогає не відходити в небутяння.</value>
   </data>
   <data name="Cancel" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Відміна</value>
   </data>
   <data name="ChooseAction" xml:space="preserve">
-    <value>Choose action</value>
+    <value>Оберіть дію</value>
   </data>
   <data name="Delete" xml:space="preserve">
-    <value>Delete</value>
+    <value>Видалити</value>
   </data>
   <data name="ErrorTryAgainLater" xml:space="preserve">
-    <value>Error occurred. Please, try again later.</value>
+    <value>Виникла помилка.Будь ласка,спробуйте пізніше.</value>
   </data>
   <data name="Ok" xml:space="preserve">
-    <value>Ok</value>
+    <value>Ок</value>
   </data>
   <data name="Select" xml:space="preserve">
-    <value>Select</value>
+    <value>Вибрати</value>
   </data>
   <data name="SetUpLessonDisplay" xml:space="preserve">
-    <value>Lesson settings</value>
+    <value>Налаштування предметів</value>
   </data>
   <data name="TimetableLatest" xml:space="preserve">
-    <value>Timetable is already up-to-date</value>
+    <value>У вас вже завантажена остання версія розкладу</value>
   </data>
   <data name="TimetableUpdate" xml:space="preserve">
-    <value>Timetable update</value>
+    <value>Оновлення розкладу</value>
   </data>
   <data name="ToTimetable" xml:space="preserve">
-    <value>To timetable</value>
+    <value>До розкладу</value>
   </data>
   <data name="UpdateSavedGroupsTimetable" xml:space="preserve">
-    <value>Update saved groups timetable?</value>
+    <value>Оновити розклад всіх збережених груп?</value>
   </data>
   <data name="UpdateTimetable" xml:space="preserve">
-    <value>Update timetable</value>
+    <value>Оновити розклад</value>
   </data>
   <data name="Yes" xml:space="preserve">
-    <value>Yes</value>
+    <value>Так</value>
   </data>
   <data name="AtFirstLoadTimetable" xml:space="preserve">
-    <value>For lessons management, you need to download timetable first.</value>
+    <value>Для керування предметами необхідно спочату завантажити розклад.</value>
   </data>
   <data name="ErrorDetails" xml:space="preserve">
-    <value>Error details</value>
+    <value>Деталі помилки</value>
   </data>
   <data name="LessonsManagement" xml:space="preserve">
-    <value>Lessons management</value>
+    <value>Управління предметами</value>
   </data>
   <data name="Purchase" xml:space="preserve">
-    <value>Purchase</value>
+    <value>Покупка</value>
   </data>
   <data name="PurchaseFailed" xml:space="preserve">
-    <value>Something went wrong, purchase failed.</value>
+    <value>Щось пішло не так,покупка не вдалась.</value>
   </data>
   <data name="ThanksForYourSupport" xml:space="preserve">
-    <value>Thanks for your support!</value>
+    <value>Дякую за вашу підтримку!</value>
   </data>
   <data name="EventGroups" xml:space="preserve">
-    <value>Groups: {0}</value>
+    <value>Группи: {0}</value>
   </data>
   <data name="AddingTimetable" xml:space="preserve">
-    <value>Adding timetable</value>
+    <value>Додавання розкладу</value>
   </data>
   <data name="AllEventsShown" xml:space="preserve">
-    <value>All events are shown</value>
+    <value>Показані всі події</value>
   </data>
   <data name="AppGroup" xml:space="preserve">
-    <value>App discussion</value>
+    <value>Група застосунку</value>
   </data>
   <data name="AppNews" xml:space="preserve">
-    <value>App news</value>
+    <value>Новини застосунку</value>
   </data>
   <data name="ChooseDisplayMode" xml:space="preserve">
-    <value>Choose display mode:</value>
+    <value>Виберіть вид:</value>
   </data>
   <data name="Day" xml:space="preserve">
-    <value>Day</value>
+    <value>День</value>
   </data>
   <data name="DebugModeHeader" xml:space="preserve">
-    <value>And just in case, I’ll leave this here.</value>
+    <value>Та про всяк випадок залишу тут ось це.</value>
   </data>
   <data name="ErrorOccurred" xml:space="preserve">
-    <value>An error occurred: {0}</value>
+    <value>Виникла помилка: {0}</value>
   </data>
   <data name="Feedback" xml:space="preserve">
-    <value>Feedback</value>
+    <value>Зворотній зв'язок</value>
   </data>
   <data name="Groups" xml:space="preserve">
-    <value>Groups</value>
+    <value>Группи</value>
   </data>
   <data name="Month" xml:space="preserve">
-    <value>Month</value>
+    <value>Місяць</value>
   </data>
   <data name="NoSavedTimetables" xml:space="preserve">
-    <value>You have no saved timetable.</value>
+    <value>У вас немає жодного збереженого розкладу.</value>
   </data>
   <data name="NoTodayTimetable" xml:space="preserve">
-    <value>Timetable for today not found</value>
+    <value>Розклад на поточний день не знайдено</value>
   </data>
   <data name="NoUniversityInfo" xml:space="preserve">
-    <value>No data.
-To update, click on the button in the upper right corner.</value>
+    <value>Дані відсутні.
+Для оновлення натисніть на кнопку в правом верхньому куті.</value>
   </data>
   <data name="Rooms" xml:space="preserve">
-    <value>Rooms</value>
+    <value>Аудиторії</value>
   </data>
   <data name="SavedTimetables" xml:space="preserve">
-    <value>Saved timetables</value>
+    <value>Збережені розклади</value>
   </data>
   <data name="SelectedEventsShown" xml:space="preserve">
-    <value>Selected events are shown</value>
+    <value>Показані обрані події</value>
   </data>
   <data name="ShowToday" xml:space="preserve">
-    <value>Show today</value>
+    <value>Показати поточний день</value>
   </data>
   <data name="Teachers" xml:space="preserve">
-    <value>Teachers</value>
+    <value>Викладачі</value>
   </data>
   <data name="TimetableAlreadySaved" xml:space="preserve">
-    <value>Timetable "{0}" is already in saved</value>
+    <value>Розклад "{0}" вже знаходится в збережених</value>
   </data>
   <data name="TimetableSaved" xml:space="preserve">
-    <value>Timetable "{0}" has been saved</value>
+    <value>Розклад "{0}" додано в збережені</value>
   </data>
   <data name="TimetableUpdated" xml:space="preserve">
-    <value>Timetable has been successfully updated: {0}</value>
+    <value>Розклад успішно оновлено: {0}</value>
   </data>
   <data name="UniversityInfoUpdate" xml:space="preserve">
-    <value>University information update</value>
+    <value>Оновлення інформації про університет</value>
   </data>
   <data name="UniversityInfoUpdateConfirm" xml:space="preserve">
-    <value>Are you sure you want to update university information from Cist?</value>
+    <value>Ви впевнені, що хочете оновити інформацію про университет з Cist?</value>
   </data>
   <data name="UniversityInfoUpdateFail" xml:space="preserve">
-    <value>Failed to update university information. Please try again later.</value>
+    <value>Не вдалось оновити інформацію про университет.Будь ласка, спробуйте пізніше.</value>
   </data>
   <data name="UniversityInfoUpdatePartiallyFail" xml:space="preserve">
-    <value>Some information wasn't updated: {0}</value>
+    <value>Не вдалось оновити частину інформації про университет: {0}</value>
   </data>
   <data name="UniversityInfoUpToDate" xml:space="preserve">
-    <value>You have already downloaded the latest version of university information</value>
+    <value>У вас вже завантажена остання версія інформації про университет</value>
   </data>
   <data name="UpdateAllTimetables" xml:space="preserve">
-    <value>Update all saved timetables?</value>
+    <value>Оновити всі збережені розклади?</value>
   </data>
   <data name="UsefulLinks" xml:space="preserve">
-    <value>Useful links: </value>
+    <value>Корисні посилання: </value>
   </data>
   <data name="Week" xml:space="preserve">
-    <value>Week</value>
+    <value>Тиждень</value>
   </data>
   <data name="DisplayLessonsForTeachers" xml:space="preserve">
-    <value>Display teachers for this lesson:</value>
+    <value>Відображати викладачів для цього предмета:</value>
   </data>
   <data name="FinishingUpdateDescription" xml:space="preserve">
-    <value>In the new version, the data storage structure has changed. An application needs to convert data from the old format to the new one. Click OK to complete the upgrade.</value>
+    <value>В новій версії змінилась структура зберігання даних. Застосунжко потрібно сконвертувати дані зі старого формату в новый. Натисніть ОК, щоб завершити оновлення.</value>
   </data>
   <data name="FinishingUpdateFail" xml:space="preserve">
-    <value>Something went wrong.</value>
+    <value>Щось пішло не так</value>
   </data>
   <data name="FinishingUpdateTitle" xml:space="preserve">
-    <value>Finishing update</value>
+    <value>Завершення оновлення</value>
   </data>
   <data name="AddToSelectedEntities" xml:space="preserve">
-    <value>Add to selected</value>
+    <value>Додати до обраних</value>
   </data>
   <data name="RemoveFromSelectedEntities" xml:space="preserve">
-    <value>Remove from selected</value>
+    <value>Видалити з обраного</value>
   </data>
   <data name="SelectOneEntity" xml:space="preserve">
-    <value>Select only this one</value>
+    <value>Вибрати тілько це</value>
   </data>
   <data name="AddToSelected" xml:space="preserve">
-    <value>Add to selected</value>
+    <value>Додати до обраних</value>
   </data>
   <data name="Statistics" xml:space="preserve">
-    <value>Statistics:</value>
+    <value>Статистика:</value>
   </data>
   <data name="LessonName" xml:space="preserve">
-    <value>Name</value>
+    <value>Назва</value>
   </data>
   <data name="LessonInfo" xml:space="preserve">
-    <value>Lesson info</value>
+    <value>Інформація про предмет</value>
   </data>
   <data name="EventsLeft" xml:space="preserve">
-    <value>left</value>
+    <value>залишилось</value>
   </data>
   <data name="EventsTotal" xml:space="preserve">
-    <value>Classes total</value>
+    <value>Всього пар</value>
   </data>
   <data name="NextEvent" xml:space="preserve">
-    <value>Next</value>
+    <value>Наступна</value>
   </data>
   <data name="Timeline" xml:space="preserve">
-    <value>Timeline</value>
+    <value>Часова лінія</value>
   </data>
   <data name="AddingEventToCalendarFail" xml:space="preserve">
-    <value>Unable to add event to calendar</value>
+    <value>Не вдалось додати пару в календар</value>
   </data>
   <data name="AddingEventToCalendarSuccess" xml:space="preserve">
-    <value>Event has been added to calendar</value>
+    <value>Пара була успішно додана в календар</value>
   </data>
   <data name="AddingToCalendarTitle" xml:space="preserve">
-    <value>Adding to calendar</value>
+    <value>Додавання в календар</value>
   </data>
   <data name="AddToCalendar" xml:space="preserve">
-    <value>Add to calendar</value>
+    <value>Додати в календар</value>
   </data>
   <data name="ChooseCalendar" xml:space="preserve">
-    <value>Choose calendar:</value>
+    <value>Оберіть календар:</value>
   </data>
   <data name="CannotGetDataFromCist" xml:space="preserve">
-    <value>Error getting data from cist.nure.ua.
-Try again later, or try using different WIFI network or mobile internet connection.</value>
+    <value>Помилка при отриманні даних з cist.nure.ua.
+Повторіть спробу пізніше, або спробуйте іншу мережу WIFI або мобільний інтернет.</value>
   </data>
   <data name="TimetableIsEmpty" xml:space="preserve">
-    <value>Timetable doesn't contain any events</value>
+    <value>Розклад не містить жодної події</value>
   </data>
   <data name="CistOutOfMemory" xml:space="preserve">
-    <value>Too much load on cist.nure.ua. Please try again later.</value>
+    <value>Занадто велике навантаження на cist.nure.ua.Спробуйте,будь ласка,пізніше.</value>
   </data>
   <data name="UnsavedChangesMessage" xml:space="preserve">
-    <value>Close page without saving changes?</value>
+    <value>Закрити сторінку не зберігаючи зміни?</value>
   </data>
   <data name="UnsavedChangesTitle" xml:space="preserve">
-    <value>You have unsaved changes</value>
+    <value>У вас є незбережені зміни</value>
   </data>
   <data name="Events" xml:space="preserve">
-    <value>Events</value>
+    <value>Пари</value>
   </data>
   <data name="Menu" xml:space="preserve">
-    <value>Menu</value>
+    <value>Меню</value>
   </data>
   <data name="Timetables" xml:space="preserve">
-    <value>Timetables</value>
+    <value>Розклади</value>
   </data>
   <data name="DarkTheme" xml:space="preserve">
-    <value>Dark</value>
-  </data>
-  <data name="EnglishLanguage" xml:space="preserve">
-    <value>English</value>
+    <value>Темна</value>
   </data>
   <data name="FollowSystem" xml:space="preserve">
-    <value>Follow system</value>
+    <value>Як у системі</value>
   </data>
   <data name="Language" xml:space="preserve">
-    <value>Language</value>
+    <value>Мова</value>
   </data>
   <data name="LightTheme" xml:space="preserve">
-    <value>Light</value>
-  </data>
-  <data name="RateTheApp" xml:space="preserve">
-    <value>Rate the app</value>
-  </data>
-  <data name="RussianLanguage" xml:space="preserve">
-    <value>Русский</value>
-  </data>
-  <data name="SourceCode" xml:space="preserve">
-    <value>Source code</value>
+    <value>Світла</value>
   </data>
   <data name="Theme" xml:space="preserve">
-    <value>Theme</value>
+    <value>Тема</value>
   </data>
-  <data name="UkrainianLanguage" xml:space="preserve">
-    <value>Українська</value>
+  <data name="RateTheApp" xml:space="preserve">
+    <value>Оцініть додаток</value>
+  </data>
+  <data name="SourceCode" xml:space="preserve">
+    <value>Початковий код</value>
   </data>
   <data name="Version" xml:space="preserve">
-    <value>Version</value>
+    <value>Версія</value>
   </data>
 </root>

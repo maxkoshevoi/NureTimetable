@@ -3,6 +3,8 @@ using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Consts;
+using NureTimetable.Core.Models.Settings;
+using NureTimetable.DAL;
 using NureTimetable.UI.Views;
 using Syncfusion.Licensing;
 using System.Globalization;
@@ -26,13 +28,14 @@ namespace NureTimetable
         {
             //Register Syncfusion license
             SyncfusionLicenseProvider.RegisterLicense(Keys.SyncfusionLicenseKey);
-            
-            // Force Russian language for Ukraine
-            // TODO: Translate application to ukrainian
-            if (CultureInfo.CurrentCulture.TwoLetterISOLanguageName == "uk")
+
+            // Set user selected language for the app
+            AppLanguage language = SettingsRepository.Settings.Language;
+            if (language != AppLanguage.FollowSystem)
             {
-                LN.Culture = CultureInfo.CurrentCulture = new CultureInfo("ru");
+                LN.Culture = CultureInfo.CurrentCulture = new CultureInfo((int)language);
             }
+
             Bugfix.InitCalendarCrashFix();
             VersionTracking.Track();
 

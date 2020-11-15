@@ -33,6 +33,7 @@
             <Style TargetType="syncfusion:SfCheckBox">
                 <Setter Property="CheckedColor" Value="{DynamicResource CheckedColor}"/>
                 <Setter Property="UncheckedColor" Value="{DynamicResource CheckedColor}"/>
+                <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}" />
             </Style>
             <Style TargetType="CheckBox">
                 <Setter Property="Color" Value="{DynamicResource CheckedColor}"/>
@@ -40,6 +41,10 @@
 
             <Style TargetType="ActivityIndicator">
                 <Setter Property="Color" Value="#80808080"/>
+            </Style>
+
+            <Style TargetType="Editor">
+                <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}"/>
             </Style>
         </ResourceDictionary>
     </Application.Resources>

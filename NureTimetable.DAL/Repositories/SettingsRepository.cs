@@ -1,5 +1,5 @@
-﻿using NureTimetable.Core.Models;
-using NureTimetable.Core.Models.Consts;
+﻿using NureTimetable.Core.Models.Consts;
+using NureTimetable.Core.Models.Settings;
 using NureTimetable.DAL.Helpers;
 using NureTimetable.DAL.Models.Consts;
 using NureTimetable.DAL.Models.Local;
@@ -12,6 +12,8 @@ namespace NureTimetable.DAL
 {
     public static class SettingsRepository
     {
+        public static AppSettings Settings { get; } = new AppSettings();
+
         #region Timetable Update Rights
         public static List<SavedEntity> CheckCistTimetableUpdateRights(List<SavedEntity> entitiesToUpdate)
         {
@@ -99,18 +101,6 @@ namespace NureTimetable.DAL
         public static void UpdateCistAllEntitiesUpdateTime()
         {
             Serialisation.ToJsonFile(DateTime.Now, FilePath.LastCistAllEntitiesUpdate);
-        }
-        #endregion
-
-        #region Application Settings
-        public static AppSettings GetSettings()
-        {
-            return Serialisation.FromJsonFile<AppSettings>(FilePath.AppSettings) ?? new AppSettings();
-        }
-
-        public static void UpdateSettings(AppSettings settings)
-        {
-            Serialisation.ToJsonFile(settings, FilePath.AppSettings);
         }
         #endregion
     }

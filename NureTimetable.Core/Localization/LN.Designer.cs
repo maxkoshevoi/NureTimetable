@@ -251,6 +251,15 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dark.
+        /// </summary>
+        public static string DarkTheme {
+            get {
+                return ResourceManager.GetString("DarkTheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Day.
         /// </summary>
         public static string Day {
@@ -319,6 +328,15 @@ namespace NureTimetable.Core.Localization {
         public static string EmptyLessonsList {
             get {
                 return ResourceManager.GetString("EmptyLessonsList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to English.
+        /// </summary>
+        public static string EnglishLanguage {
+            get {
+                return ResourceManager.GetString("EnglishLanguage", resourceCulture);
             }
         }
         
@@ -449,7 +467,7 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Feedback: .
+        ///   Looks up a localized string similar to Feedback.
         /// </summary>
         public static string Feedback {
             get {
@@ -481,6 +499,15 @@ namespace NureTimetable.Core.Localization {
         public static string FinishingUpdateTitle {
             get {
                 return ResourceManager.GetString("FinishingUpdateTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Follow system.
+        /// </summary>
+        public static string FollowSystem {
+            get {
+                return ResourceManager.GetString("FollowSystem", resourceCulture);
             }
         }
         
@@ -530,6 +557,15 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Language.
+        /// </summary>
+        public static string Language {
+            get {
+                return ResourceManager.GetString("Language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lesson info.
         /// </summary>
         public static string LessonInfo {
@@ -562,6 +598,15 @@ namespace NureTimetable.Core.Localization {
         public static string LessonsManagement {
             get {
                 return ResourceManager.GetString("LessonsManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Light.
+        /// </summary>
+        public static string LightTheme {
+            get {
+                return ResourceManager.GetString("LightTheme", resourceCulture);
             }
         }
         
@@ -684,6 +729,15 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Rate the app.
+        /// </summary>
+        public static string RateTheApp {
+            get {
+                return ResourceManager.GetString("RateTheApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remove from selected.
         /// </summary>
         public static string RemoveFromSelectedEntities {
@@ -698,6 +752,15 @@ namespace NureTimetable.Core.Localization {
         public static string Rooms {
             get {
                 return ResourceManager.GetString("Rooms", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Русский.
+        /// </summary>
+        public static string RussianLanguage {
+            get {
+                return ResourceManager.GetString("RussianLanguage", resourceCulture);
             }
         }
         
@@ -774,6 +837,15 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Source code.
+        /// </summary>
+        public static string SourceCode {
+            get {
+                return ResourceManager.GetString("SourceCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Statistics:.
         /// </summary>
         public static string Statistics {
@@ -833,6 +905,15 @@ namespace NureTimetable.Core.Localization {
         public static string ThanksForYourSupport {
             get {
                 return ResourceManager.GetString("ThanksForYourSupport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Theme.
+        /// </summary>
+        public static string Theme {
+            get {
+                return ResourceManager.GetString("Theme", resourceCulture);
             }
         }
         
@@ -972,6 +1053,15 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Українська.
+        /// </summary>
+        public static string UkrainianLanguage {
+            get {
+                return ResourceManager.GetString("UkrainianLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to University information update.
         /// </summary>
         public static string UniversityInfoUpdate {
@@ -1067,6 +1157,15 @@ namespace NureTimetable.Core.Localization {
         public static string UsefulLinks {
             get {
                 return ResourceManager.GetString("UsefulLinks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version.
+        /// </summary>
+        public static string Version {
+            get {
+                return ResourceManager.GetString("Version", resourceCulture);
             }
         }
         

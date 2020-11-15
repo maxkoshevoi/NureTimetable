@@ -1,9 +1,9 @@
 ﻿using Microsoft.AppCenter.Analytics;
 using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Localization;
-using NureTimetable.Core.Models;
 using NureTimetable.Core.Models.Consts;
 using NureTimetable.Core.Models.InterplatformCommunication;
+using NureTimetable.Core.Models.Settings;
 using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
 using NureTimetable.Models.Consts.Fonts;
@@ -19,6 +19,7 @@ using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Calendars = Plugin.Calendars.Abstractions;
+using Settings = NureTimetable.Core.Models.Settings;
 
 namespace NureTimetable.UI.ViewModels.Timetable
 {
@@ -98,8 +99,6 @@ namespace NureTimetable.UI.ViewModels.Timetable
         {
             _timetablePage = timetablePage;
 
-            AppSettings settings = SettingsRepository.GetSettings();
-
             Title = LN.AppName;
             lastTimeLeftVisible = TimeLeftIsVisible;
             string activeCultureCode = Cultures.SupportedCultures[0].TwoLetterISOLanguageName;
@@ -108,7 +107,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 activeCultureCode = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
             }
             TimetableLocale = activeCultureCode;
-            TimetableScheduleView = settings.TimetableViewMode switch
+            TimetableScheduleView = SettingsRepository.Settings.TimetableViewMode switch
             {
                 TimetableViewMode.Day => ScheduleView.DayView,
                 TimetableViewMode.Week => ScheduleView.WeekView,
@@ -117,7 +116,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 _ => TimetableScheduleView
             };
 
-            MessagingCenter.Subscribe<Application, OSAppTheme>(this, MessageTypes.ThemeChanged, (sender, newTheme) =>
+            MessagingCenter.Subscribe<Application, Settings.AppTheme>(this, MessageTypes.ThemeChanged, (sender, newTheme) =>
             {
                 if (timetableInfoList is null)
                 {
@@ -412,28 +411,27 @@ namespace NureTimetable.UI.ViewModels.Timetable
 
             string displayMode = await Shell.Current.DisplayActionSheet(LN.ChooseDisplayMode, LN.Cancel, null, LN.Day, LN.Week, LN.Timeline, LN.Month);
 
-            AppSettings settings = SettingsRepository.GetSettings();
             DateTime? selected = TimetableSelectedDate;
             TimetableSelectedDate = null;
             if (displayMode == LN.Day)
             {
                 TimetableScheduleView = ScheduleView.DayView;
-                settings.TimetableViewMode = TimetableViewMode.Day;
+                SettingsRepository.Settings.TimetableViewMode = TimetableViewMode.Day;
             }
             else if (displayMode == LN.Week)
             {
                 TimetableScheduleView = ScheduleView.WeekView;
-                settings.TimetableViewMode = TimetableViewMode.Week;
+                SettingsRepository.Settings.TimetableViewMode = TimetableViewMode.Week;
             }
             else if (displayMode == LN.Timeline)
             {
                 TimetableScheduleView = ScheduleView.TimelineView;
-                settings.TimetableViewMode = TimetableViewMode.Timeline;
+                SettingsRepository.Settings.TimetableViewMode = TimetableViewMode.Timeline;
             }
             else if (displayMode == LN.Month)
             {
                 TimetableScheduleView = ScheduleView.MonthView;
-                settings.TimetableViewMode = TimetableViewMode.Month;
+                SettingsRepository.Settings.TimetableViewMode = TimetableViewMode.Month;
             }
             if (selected != null)
             {
@@ -441,8 +439,6 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 TimetableSelectedDate = selected;
                 TimetableSelectedDate = null;
             }
-
-            SettingsRepository.UpdateSettings(settings);
         }
 
         private async Task TimetableCellTapped(CellTappedEventArgs e)
