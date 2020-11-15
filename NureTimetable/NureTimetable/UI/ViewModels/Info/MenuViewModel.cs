@@ -6,7 +6,6 @@ using NureTimetable.DAL;
 using NureTimetable.UI.Helpers;
 using NureTimetable.UI.Themes;
 using NureTimetable.UI.Views;
-using Plugin.StoreReview;
 using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -43,7 +42,6 @@ namespace NureTimetable.UI.ViewModels.Info
         public ICommand OpenDonatePageCommand { get; }
         public ICommand ChangeThemeCommand { get; }
         public ICommand ChangeLanguageCommand { get; }
-        public ICommand RequestReviewCommand { get; }
         #endregion
 
         public MenuViewModel()
@@ -54,7 +52,6 @@ namespace NureTimetable.UI.ViewModels.Info
             OpenDonatePageCommand = CommandHelper.Create(async () => await Navigation.PushAsync(new DonatePage()));
             ChangeThemeCommand = CommandHelper.Create(ChangeTheme);
             ChangeLanguageCommand = CommandHelper.Create(ChangeLanguage);
-            RequestReviewCommand = CommandHelper.Create(async () => await CrossStoreReview.Current.RequestReview(false));
 
             UpdateAppThemeName();
             MessagingCenter.Subscribe<Application, Settings.AppTheme>(Application.Current, MessageTypes.ThemeChanged, (sender, theme) =>
