@@ -12,7 +12,7 @@
         <ResourceDictionary>
             <Style x:Key="Row" TargetType="StackLayout">
                 <Setter Property="Orientation" Value="Horizontal"/>
-                <Setter Property="Margin" Value="0,10"/>
+                <Setter Property="Padding" Value="0,10"/>
             </Style>
             <Style TargetType="Image">
                 <Setter Property="VerticalOptions" Value="Center"/>
