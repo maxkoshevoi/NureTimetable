@@ -78,17 +78,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
         public bool TimeLeftIsVisible { get => _timeLeftIsVisible; set => SetProperty(ref _timeLeftIsVisible, value); }
         public string TimeLeftText { get => _timeLeftText; set => SetProperty(ref _timeLeftText, value); }
 
-        public bool TimetableLayoutIsVisible 
-        { 
-            get => _timetableLayoutIsVisible;
-            set => SetProperty(ref _timetableLayoutIsVisible, value, async () =>
-                await Retry(() =>
-                {
-                    HideSelectedEventsCommand.ChangeCanExecute();
-                    ScheduleModeCommand.ChangeCanExecute();
-                }, 3)
-            );
-        }
+        public bool TimetableLayoutIsVisible { get => _timetableLayoutIsVisible; set => SetProperty(ref _timetableLayoutIsVisible, value); }
         public bool NoSourceLayoutIsVisible { get => _noSourceLayoutIsVisible; set => SetProperty(ref _noSourceLayoutIsVisible, value); }
         public string NoSourceLayoutText { get => _noSourceLayoutText; set => SetProperty(ref _noSourceLayoutText, value); }
         public bool ProgressLayoutIsVisible { get => _progressLayoutIsVisible; set => SetProperty(ref _progressLayoutIsVisible, value); }
@@ -162,35 +152,12 @@ namespace NureTimetable.UI.ViewModels.Timetable
 
             PageAppearingCommand = CommandHelper.Create(PageAppearing);
             PageDisappearingCommand = CommandHelper.Create(PageDisappearing);
-            HideSelectedEventsCommand = CommandHelper.Create(HideSelectedEventsClicked, () => TimetableLayoutIsVisible);
-            ScheduleModeCommand = CommandHelper.Create(ScheduleModeClicked, () => TimetableLayoutIsVisible);
+            HideSelectedEventsCommand = CommandHelper.Create(HideSelectedEventsClicked);
+            ScheduleModeCommand = CommandHelper.Create(ScheduleModeClicked);
             TimetableCellTappedCommand = CommandHelper.Create<CellTappedEventArgs>(TimetableCellTapped);
             TimetableMonthInlineAppointmentTappedCommand = CommandHelper.Create<MonthInlineAppointmentTappedEventArgs>(TimetableMonthInlineAppointmentTapped);
             TimetableVisibleDatesChangedCommand = CommandHelper.Create<VisibleDatesChangedEventArgs>(TimetableVisibleDatesChanged);
             BTodayClickedCommand = CommandHelper.Create(BTodayClicked);
-        }
-
-        public static async Task Retry(Action action, int maxRetryCount)
-        {
-            Exception exception = null;
-            for (int i = 0; i < maxRetryCount; i++)
-            {
-                exception = null;
-                try
-                {
-                    action();
-                    break;
-                }
-                catch (Exception ex)
-                {
-                    exception = ex;
-                    await Task.Delay(100);
-                }
-            }
-            if (exception is not null)
-            {
-                throw exception;
-            }
         }
 
         private async Task TimetableVisibleDatesChanged(VisibleDatesChangedEventArgs e)
@@ -656,6 +623,11 @@ namespace NureTimetable.UI.ViewModels.Timetable
 
         private async Task HideSelectedEventsClicked()
         {
+            if (!TimetableLayoutIsVisible)
+            {
+                return;
+            }
+
             applyHiddingSettings = !applyHiddingSettings;
 
             string message, icon;
