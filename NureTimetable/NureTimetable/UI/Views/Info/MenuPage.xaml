@@ -4,6 +4,7 @@
              xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels.Info"
              xmlns:LN="clr-namespace:NureTimetable.Core.Localization;assembly=NureTimetable.Core"
              xmlns:fonts="clr-namespace:NureTimetable.Models.Consts.Fonts"
+             xmlns:touch="clr-namespace:TouchEffect;assembly=TouchEffect"
              x:Class="NureTimetable.UI.Views.MenuPage"
              x:DataType="vm:MenuViewModel"
              Title="{LN:Translate AppName}">
@@ -12,7 +13,9 @@
         <ResourceDictionary>
             <Style x:Key="Row" TargetType="StackLayout">
                 <Setter Property="Orientation" Value="Horizontal"/>
-                <Setter Property="Padding" Value="0,10"/>
+                <Setter Property="Padding" Value="20,10"/>
+                <Setter Property="touch:TouchEff.NativeAnimation" Value="True"/>
+                <Setter Property="touch:TouchEff.NativeAnimationColor" Value="#40808080"/>
             </Style>
             <Style TargetType="Image">
                 <Setter Property="VerticalOptions" Value="Center"/>
@@ -21,13 +24,13 @@
             <Style TargetType="BoxView">
                 <Setter Property="HeightRequest" Value="1"/>
                 <Setter Property="Color" Value="{DynamicResource AccentColor}"/>
-                <Setter Property="Margin" Value="5"/>
+                <Setter Property="Margin" Value="25,5"/>
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
 
     <ScrollView>
-        <StackLayout Margin="20">
+        <StackLayout Margin="0,20">
             <StackLayout Style="{StaticResource Row}">
                 <Image>
                     <Image.Source>
