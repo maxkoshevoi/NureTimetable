@@ -1,32 +1,51 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:syncfusion="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
              x:Class="NureTimetable.App">
     <Application.Resources>
         <ResourceDictionary>
-            <!--Global Styles-->
-            <Color x:Key="NavigationPrimary">#2196F3</Color>
-            <!--Events colors-->
-            <Color x:Key="defaultColor">#ffb0c4de</Color>
-            <Color x:Key="lectureColor">#ffcc80</Color>
-            <Color x:Key="practiceColor">#8dd967</Color>
-            <Color x:Key="laboratoryColor">#d9a7f1</Color>
-            <Color x:Key="consultationColor">#98dce6</Color>
-            <Color x:Key="testColor">#f1f688</Color>
-            <Color x:Key="examColor">#f17674</Color>
-            <!--Page colors-->
-            <Style TargetType="NavigationPage">
-                <Setter Property="BarBackgroundColor" Value="{StaticResource NavigationPrimary}" />
-                <Setter Property="BarTextColor" Value="White" />
-            </Style>
-            <!--Other colors-->
-            <Color x:Key="SelectedEntityColor">#AED9FA</Color>
+
             <!--Fonts-->
             <OnPlatform x:Key="MaterialFontFamily" x:TypeArguments="x:String">
                 <On Platform="iOS" Value="Material Design Icons" />
                 <On Platform="Android" Value="materialdesignicons-webfont.ttf#Material Design Icons" />
                 <On Platform="UWP" Value="Assets/Fonts/materialdesignicons-webfont.ttf#Material Design Icons" />
             </OnPlatform>
+
+            <!--Styles-->
+            <Style TargetType="Page" ApplyToDerivedTypes="True">
+                <Setter Property="BackgroundColor" Value="{DynamicResource PageBackgroundColor}" />
+            </Style>
+            <Style TargetType="TabbedPage" ApplyToDerivedTypes="True">
+                <Setter Property="BarBackgroundColor" Value="{DynamicResource PrimaryColor}" />
+            </Style>
+            
+            <Style TargetType="Label">
+                <Setter Property="TextColor" Value="{DynamicResource SecondaryTextColor}" />
+            </Style>
+
+            <Style TargetType="SearchBar">
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="BackgroundColor" Value="{DynamicResource SearchBarBackgroundColor}" />
+            </Style>
+
+            <Style TargetType="syncfusion:SfCheckBox">
+                <Setter Property="CheckedColor" Value="{DynamicResource CheckedColor}"/>
+                <Setter Property="UncheckedColor" Value="{DynamicResource CheckedColor}"/>
+                <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}" />
+            </Style>
+            <Style TargetType="CheckBox">
+                <Setter Property="Color" Value="{DynamicResource CheckedColor}"/>
+            </Style>
+
+            <Style TargetType="ActivityIndicator">
+                <Setter Property="Color" Value="#80808080"/>
+            </Style>
+
+            <Style TargetType="Editor">
+                <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}"/>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

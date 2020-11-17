@@ -1,6 +1,5 @@
 ﻿using NureTimetable.Core.Localization;
 using NureTimetable.UI.Helpers;
-using NureTimetable.UI.ViewModels.Core;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -13,20 +12,20 @@ namespace NureTimetable.UI.ViewModels.Info
         public ICommand BuyProductCommand { get; }
         #endregion
 
-        public DonateViewModel(INavigation navigation) : base(navigation)
+        public DonateViewModel()
         {
-            BuyProductCommand = CommandHelper.CreateCommand<string>(BuyProduct);
+            BuyProductCommand = CommandHelper.Create<string>(BuyProduct);
         }
         
         public static async Task BuyProduct(string productId)
         {
             if (await InAppPurchase.Buy(productId, true) != null)
             {
-                await App.Current.MainPage.DisplayAlert(LN.Purchase, LN.ThanksForYourSupport, LN.Ok);
+                await Shell.Current.DisplayAlert(LN.Purchase, LN.ThanksForYourSupport, LN.Ok);
             }
             else
             {
-                await App.Current.MainPage.DisplayAlert(LN.Purchase, LN.PurchaseFailed, LN.Ok);
+                await Shell.Current.DisplayAlert(LN.Purchase, LN.PurchaseFailed, LN.Ok);
             }
         }
     }

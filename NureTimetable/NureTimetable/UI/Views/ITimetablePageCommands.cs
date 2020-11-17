@@ -5,7 +5,7 @@ namespace NureTimetable.UI.Views
 {
     public interface ITimetablePageCommands
     {
-        void TimetableNavigateTo(DateTime targetDate);
+        void TimetableNavigateTo(DateTime date);
 
         Task ScaleTodayButtonTo(double scale);
     }

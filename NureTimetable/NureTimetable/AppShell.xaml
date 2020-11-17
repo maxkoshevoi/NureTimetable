@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Shell xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:views="clr-namespace:NureTimetable.UI.Views"
+            xmlns:fonts="clr-namespace:NureTimetable.Models.Consts.Fonts"
+            xmlns:LN="clr-namespace:NureTimetable.Core.Localization;assembly=NureTimetable.Core"
+            x:Class="NureTimetable.UI.Views.AppShell">
+    
+    <Shell.Resources>
+        <ResourceDictionary>
+            <Style x:Key="BaseStyle" TargetType="Element">
+                <Setter Property="Shell.BackgroundColor" Value="{DynamicResource PrimaryColor}" />
+                <Setter Property="Shell.ForegroundColor" Value="{DynamicResource SecondaryColor}" />
+                <Setter Property="Shell.TitleColor" Value="{DynamicResource SecondaryColor}" />
+                <Setter Property="Shell.TabBarBackgroundColor" Value="{DynamicResource PrimaryColor}" />
+                <Setter Property="Shell.TabBarForegroundColor" Value="{DynamicResource SecondaryColor}"/>
+                <Setter Property="Shell.TabBarUnselectedColor" Value="#95FFFFFF"/>
+                <Setter Property="Shell.TabBarTitleColor" Value="{DynamicResource SecondaryColor}"/>
+            </Style>
+            <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
+            <Style TargetType="FlyoutItem" BasedOn="{StaticResource BaseStyle}" />
+        </ResourceDictionary>
+    </Shell.Resources>
+
+    <TabBar Route="tabbar">
+        <ShellContent Title="{LN:Translate Events}" Route="Events" Icon="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static fonts:MaterialIconsFont.CalendarBlank}}" ContentTemplate="{DataTemplate views:TimetablePage}" />
+        <ShellContent Title="{LN:Translate Timetables}" Route="SavedTimetables" Icon="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static fonts:MaterialIconsFont.AccountMultiple} }" ContentTemplate="{DataTemplate views:ManageEntitiesPage}" />
+        <ShellContent Title="{LN:Translate Menu}" Route="Menu" Icon="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static fonts:MaterialIconsFont.Menu} }" ContentTemplate="{DataTemplate views:MenuPage}" />
+    </TabBar>
+    
+</Shell>

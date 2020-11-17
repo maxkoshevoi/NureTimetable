@@ -9,5 +9,6 @@
         public const string ExceptionOccurred = nameof(ExceptionOccurred);
         public const string LessonSettingsChanged = nameof(LessonSettingsChanged);
         public const string OneLessonSettingsChanged = nameof(OneLessonSettingsChanged);
+        public const string ThemeChanged = nameof(ThemeChanged);
     }
 }

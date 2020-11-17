@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ResourceDictionary
+    x:Class="NureTimetable.UI.Themes.DarkTheme"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <!--Global Styles-->
+    <Color x:Key="PrimaryColor">Black</Color>
+    <Color x:Key="AccentColor">#2b2b2b</Color>
+    <Color x:Key="SecondaryColor">White</Color>
+
+    <Color x:Key="StatusBarColor">Black</Color>
+    <Color x:Key="PageBackgroundColor">Black</Color>
+    <Color x:Key="NavigationBarColor">Black</Color>
+
+    <Color x:Key="PrimaryTextColor">WhiteSmoke</Color>
+    <Color x:Key="SecondaryTextColor">#d1d1d1</Color>
+    <Color x:Key="TertiaryTextColor">#dedede</Color>
+
+    <!--Events colors-->
+    <Color x:Key="defaultColor">#4e6d94</Color>
+    <Color x:Key="lectureColor">#997032</Color>
+    <Color x:Key="practiceColor">#4d8a2f</Color>
+    <Color x:Key="laboratoryColor">#7e4a96</Color>
+    <Color x:Key="consultationColor">#3c848f</Color>
+    <Color x:Key="testColor">#a3a834</Color>
+    <Color x:Key="examColor">#8a2827</Color>
+    <!--Other colors-->
+    <Color x:Key="SelectedEntityColor">#4e7694</Color>
+    <Color x:Key="BigImageBackgroundColor">#5b99c9</Color>
+    <Color x:Key="DonateButtonColor">#28a300</Color>
+    <Color x:Key="ListIconColor">#a1a1a1</Color>
+
+    <!--Controls-->
+    <Color x:Key="SearchBarBackgroundColor">#d9d9d9</Color>
+    
+    <!--SfSchedule-->
+    <Color x:Key="BorderColor">#333</Color>
+    <Color x:Key="CurrentDayColor">CornflowerBlue</Color>
+    <Color x:Key="AppointmentTextColor">#dedede</Color>
+    
+    <!--SfCheckBox-->
+    <Color x:Key="CheckedColor">#16799c</Color>
+
+    <!--ActivityIndicator-->
+    <Color x:Key="ActivityIndicatorTextColor">#8087CEFA</Color>
+</ResourceDictionary>

@@ -1,14 +1,14 @@
-﻿using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+﻿using NureTimetable.UI.ViewModels.Info;
+using Xamarin.Forms;
 
-namespace NureTimetable.UI.Views.Info
+namespace NureTimetable.UI.Views
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class DonatePage : ContentPage
+    public partial class DonatePage : ContentPage
 	{
-		public DonatePage ()
+		public DonatePage()
 		{
-			InitializeComponent ();
+			InitializeComponent();
+			BindingContext = new DonateViewModel();
 		}
     }
 }

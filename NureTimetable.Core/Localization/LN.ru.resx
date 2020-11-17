@@ -139,7 +139,7 @@
     <value>Официальные страницы ХНУРЭ: </value>
   </data>
   <data name="ShowErrors" xml:space="preserve">
-    <value>Показывать ошибки</value>
+    <value>Показывать все ошибки</value>
   </data>
   <data name="StudentNure" xml:space="preserve">
     <value>Студент ХНУРЭ: </value>
@@ -316,7 +316,7 @@
     <value>Произошла ошибка: {0}</value>
   </data>
   <data name="Feedback" xml:space="preserve">
-    <value>Обратная связь: </value>
+    <value>Обратная связь</value>
   </data>
   <data name="Groups" xml:space="preserve">
     <value>Группы</value>
@@ -451,5 +451,47 @@
   </data>
   <data name="CistOutOfMemory" xml:space="preserve">
     <value>Слишком большая нагрузка на cist.nure.ua. Повторите попытку позже.</value>
+  </data>
+  <data name="UnsavedChangesMessage" xml:space="preserve">
+    <value>Закрыть страницу не сохраняя изменения?</value>
+  </data>
+  <data name="UnsavedChangesTitle" xml:space="preserve">
+    <value>У вас есть несохраненные изменения</value>
+  </data>
+  <data name="Events" xml:space="preserve">
+    <value>Пары</value>
+  </data>
+  <data name="Menu" xml:space="preserve">
+    <value>Меню</value>
+  </data>
+  <data name="Timetables" xml:space="preserve">
+    <value>Расписания</value>
+  </data>
+  <data name="DarkTheme" xml:space="preserve">
+    <value>Тёмная</value>
+  </data>
+  <data name="FollowSystem" xml:space="preserve">
+    <value>Как в системе</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Язык</value>
+  </data>
+  <data name="LightTheme" xml:space="preserve">
+    <value>Светлая</value>
+  </data>
+  <data name="RateTheApp" xml:space="preserve">
+    <value>Оцените приложение</value>
+  </data>
+  <data name="SourceCode" xml:space="preserve">
+    <value>Исходный код</value>
+  </data>
+  <data name="Theme" xml:space="preserve">
+    <value>Тема</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>Версия</value>
+  </data>
+  <data name="RestartRequired" xml:space="preserve">
+    <value>Необходим перезапуск</value>
   </data>
 </root>

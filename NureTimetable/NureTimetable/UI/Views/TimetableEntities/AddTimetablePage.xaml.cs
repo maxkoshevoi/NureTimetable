@@ -1,20 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using NureTimetable.UI.ViewModels.TimetableEntities;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
-namespace NureTimetable.UI.Views.TimetableEntities
+namespace NureTimetable.UI.Views
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AddTimetablePage : TabbedPage
     {
         public AddTimetablePage()
         {
             InitializeComponent();
+            BindingContext = new AddTimetableViewModel();
         }
     }
 }

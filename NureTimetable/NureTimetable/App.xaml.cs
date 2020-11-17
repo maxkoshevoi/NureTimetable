@@ -3,6 +3,8 @@ using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Consts;
+using NureTimetable.Core.Models.Settings;
+using NureTimetable.DAL;
 using NureTimetable.UI.Views;
 using Syncfusion.Licensing;
 using System.Globalization;
@@ -26,23 +28,24 @@ namespace NureTimetable
         {
             //Register Syncfusion license
             SyncfusionLicenseProvider.RegisterLicense(Keys.SyncfusionLicenseKey);
-            
-            // Force Russian language for Ukraine
-            // TODO: Translate application to ukrainian
-            if (CultureInfo.CurrentCulture.TwoLetterISOLanguageName == "uk")
+
+            // Set user selected language for the app
+            CultureInfo culture = CultureInfo.CurrentCulture;
+            if (SettingsRepository.Settings.Language != AppLanguage.FollowSystem)
             {
-                LN.Culture = CultureInfo.CurrentCulture = new CultureInfo("ru");
+                culture = new CultureInfo((int)SettingsRepository.Settings.Language);
             }
+            LN.Culture = culture;
+
             Bugfix.InitCalendarCrashFix();
             VersionTracking.Track();
 
             InitializeComponent();
-            MainPage = new MainPage();
+            MainPage = new AppShell();
         }
 
         protected override void OnStart()
         {
-            // Handle when your app starts
 #if !DEBUG
             //Register Microsoft App Center metrics
             if (DeviceInfo.DeviceType != DeviceType.Virtual)
@@ -54,12 +57,10 @@ namespace NureTimetable
 
         protected override void OnSleep()
         {
-            // Handle when your app sleeps
         }
 
         protected override void OnResume()
         {
-            // Handle when your app resumes
         }
     }
 }

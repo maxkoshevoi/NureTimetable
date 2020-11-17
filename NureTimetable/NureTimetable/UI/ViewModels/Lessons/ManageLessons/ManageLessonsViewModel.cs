@@ -1,10 +1,7 @@
 ﻿using NureTimetable.Core.Localization;
-using NureTimetable.Core.Models.Consts;
 using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
 using NureTimetable.UI.Helpers;
-using NureTimetable.UI.ViewModels.Core;
-using NureTimetable.UI.ViewModels.Lessons.LessonSettings;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -25,20 +22,18 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
         #endregion
 
         #region Properties
-        public bool IsNoSourceLayoutVisable
-        {
-            get => _isNoSourceLayoutVisable;
-            set => SetProperty(ref _isNoSourceLayoutVisable, value);
-        }
+        public bool HasUnsavedChanes { get; set; } = false;
+
+        public bool IsNoSourceLayoutVisable { get => _isNoSourceLayoutVisable; set => SetProperty(ref _isNoSourceLayoutVisable, value); }
         
         public ObservableCollection<LessonViewModel> Lessons { get => _lessons; private set => SetProperty(ref _lessons, value); }
 
         public ICommand PageAppearingCommand { get; }
-
         public ICommand SaveClickedCommand { get; }
+        public ICommand BackButtonPressedCommand { get; }
         #endregion
 
-        public ManageLessonsViewModel(INavigation navigation, SavedEntity savedEntity) : base(navigation)
+        public ManageLessonsViewModel(SavedEntity savedEntity)
         {
             Title = $"{LN.Lessons}: {savedEntity.Name}";
 
@@ -55,20 +50,14 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
                         .Select(lesson => timetable.LessonsInfo.FirstOrDefault(li => li.Lesson == lesson) ?? new LessonInfo { Lesson = lesson })
                         .OrderBy(lesson => !timetable.Events.Where(e => e.Start >= DateTime.Now).Any(e => e.Lesson == lesson.Lesson))
                         .ThenBy(lesson => lesson.Lesson.ShortName)
-                        .Select(lesson => new LessonViewModel(Navigation, lesson, timetable))
+                        .Select(lesson => new LessonViewModel(lesson, timetable, this))
                 );
                 IsNoSourceLayoutVisable = Lessons.Count == 0;
-
-                MessagingCenter.Subscribe<LessonSettingsViewModel, LessonInfo>(this, MessageTypes.OneLessonSettingsChanged, (sender, newLessonSettings) =>
-                {
-                    LessonViewModel lesson = Lessons.Single(l => l.LessonInfo.Lesson == newLessonSettings.Lesson);
-                    lesson.LessonInfo = newLessonSettings;
-                    lesson.LessonInfo.Settings.NotifyChanged();
-                });
             }
 
-            PageAppearingCommand = CommandHelper.CreateCommand(PageAppearing);
-            SaveClickedCommand = CommandHelper.CreateCommand(SaveClicked);
+            PageAppearingCommand = CommandHelper.Create(PageAppearing);
+            SaveClickedCommand = CommandHelper.Create(SaveClicked);
+            BackButtonPressedCommand = CommandHelper.Create(BackButtonPressed);
         }
 
         private async Task PageAppearing()
@@ -78,7 +67,7 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
                 return;
             }
 
-            await App.Current.MainPage.DisplayAlert(LN.LessonsManagement, LN.AtFirstLoadTimetable, LN.Ok);
+            await Shell.Current.DisplayAlert(LN.LessonsManagement, LN.AtFirstLoadTimetable, LN.Ok);
             await Navigation.PopAsync();
         }
 
@@ -86,13 +75,29 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
         {
             if (Lessons is null)
             {
-                await App.Current.MainPage.DisplayAlert(LN.LessonsManagement, LN.AtFirstLoadTimetable, LN.Ok);
+                await Shell.Current.DisplayAlert(LN.LessonsManagement, LN.AtFirstLoadTimetable, LN.Ok);
                 return;
             }
 
             EventsRepository.UpdateLessonsInfo(timetable.Entity, Lessons.Select(l => l.LessonInfo).ToList());
-            await App.Current.MainPage.DisplayAlert(LN.SavingSettings, string.Format(LN.EntityLessonSettingsSaved, timetable.Entity.Name), LN.Ok);
+            HasUnsavedChanes = false;
+
+            await Shell.Current.DisplayAlert(LN.SavingSettings, string.Format(LN.EntityLessonSettingsSaved, timetable.Entity.Name), LN.Ok);
             await Navigation.PopAsync();
+        }
+
+        private async Task BackButtonPressed()
+        {
+            bool canClose = true;
+            if (HasUnsavedChanes)
+            {
+                canClose = await Shell.Current.DisplayAlert(LN.UnsavedChangesTitle, LN.UnsavedChangesMessage, LN.Yes, LN.Cancel);
+            }
+
+            if (canClose)
+            {
+                await Navigation.PopAsync();
+            }
         }
     }
 }

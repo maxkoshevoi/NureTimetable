@@ -9,7 +9,7 @@ namespace NureTimetable.DAL.Models.Local
         private protected List<Event> events = new List<Event>();
 
         #region Statistics
-        public int Count => events.Count;
+        public int EventCount => events.Count;
 
         public IEnumerable<Lesson> Lessons()
             => events.Select(e => e.Lesson).Distinct();

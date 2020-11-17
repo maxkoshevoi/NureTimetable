@@ -4,27 +4,22 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Xamarin.Forms;
 
-namespace NureTimetable.UI.ViewModels.Core
+namespace NureTimetable.UI.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        private protected INavigation Navigation;
+        private protected INavigation Navigation => Shell.Current.Navigation;
         public event PropertyChangedEventHandler PropertyChanged;
         
         string title = string.Empty;
         public string Title { get => title; set => SetProperty(ref title, value); }
 
-        protected BaseViewModel(INavigation navigation)
-        {
-            Navigation = navigation;
-        }
-
         private readonly object lockObject = new object();
 
         protected bool SetProperty<T>(ref T backingStore,
             T value,
-            [CallerMemberName]string propertyName = "",
-            Action onChanged = null)
+            Action onChanged = null,
+            [CallerMemberName] string propertyName = "")
         {
             if (EqualityComparer<T>.Default.Equals(backingStore, value))
             {
@@ -41,7 +36,7 @@ namespace NureTimetable.UI.ViewModels.Core
             return true;
         }
 
-        protected void OnPropertyChanged(string propName) 
+        protected void OnPropertyChanged([CallerMemberName] string propName = "") 
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
     }
 }

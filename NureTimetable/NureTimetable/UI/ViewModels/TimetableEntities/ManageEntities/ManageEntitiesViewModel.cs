@@ -5,15 +5,13 @@ using NureTimetable.Core.Models.Exceptions;
 using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
 using NureTimetable.UI.Helpers;
-using NureTimetable.UI.ViewModels.Core;
-using NureTimetable.UI.Views.TimetableEntities;
+using NureTimetable.UI.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 
@@ -36,53 +34,41 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
         #endregion
 
         #region Properties
-        public bool IsNoSourceLayoutVisable
-        {
-            get => _isNoSourceLayoutVisable;
-            set => SetProperty(ref _isNoSourceLayoutVisable, value);
-        }
+        public bool IsNoSourceLayoutVisable { get => _isNoSourceLayoutVisable; set => SetProperty(ref _isNoSourceLayoutVisable, value); }
 
-        public bool IsProgressVisable
-        {
-            get => _isProgressVisable;
-            set => SetProperty(ref _isProgressVisable, value);
-        }
+        public bool IsProgressVisable { get => _isProgressVisable; set => SetProperty(ref _isProgressVisable, value); }
 
-        public bool IsEntitiesLayoutEnabled
-        {
-            get => _isEntitiesLayoutEnable;
-            set => SetProperty(ref _isEntitiesLayoutEnable, value);
-        }
+        public bool IsEntitiesLayoutEnabled { get => _isEntitiesLayoutEnable;  set => SetProperty(ref _isEntitiesLayoutEnable, value, () => { UpdateAllCommand.ChangeCanExecute();  AddEntityCommand.ChangeCanExecute(); }); }
 
         public bool IsMultiselectMode
         {
             get => _isMultiselectMode;
-            set => SetProperty(ref _isMultiselectMode, value, onChanged: () => Entities?.ForEach(e => e.NotifyChanged(nameof(IsMultiselectMode))));
+            set => SetProperty(ref _isMultiselectMode, value, () => Entities?.ForEach(e => e.NotifyChanged(nameof(IsMultiselectMode))));
         }
 
-        public SavedEntityItemViewModel SelectedEntity { get => _selectedEntity; set => SetProperty(ref _selectedEntity, value, onChanged: SavedEntitySelected); }
+        public SavedEntityItemViewModel SelectedEntity { get => _selectedEntity; set => SetProperty(ref _selectedEntity, value, SavedEntitySelected); }
 
         public ObservableCollection<SavedEntityItemViewModel> Entities { get => _entities; private set => SetProperty(ref _entities, value); }
 
-        public ICommand UpdateAllCommand { get; }
+        public Command UpdateAllCommand { get; }
 
-        public ICommand AddEntityCommand { get; }
+        public Command AddEntityCommand { get; }
 
         #endregion
 
-        public ManageEntitiesViewModel(INavigation navigation) : base(navigation)
+        public ManageEntitiesViewModel()
         {
+            UpdateAllCommand = CommandHelper.Create(UpdateAll, () => IsEntitiesLayoutEnabled);
+            AddEntityCommand = CommandHelper.Create(AddEntity, () => IsEntitiesLayoutEnabled);
+
             IsProgressVisable = false;
             IsEntitiesLayoutEnabled = true;
 
-            UpdateItems(UniversityEntitiesRepository.GetSaved());
+            UpdateItems();
             MessagingCenter.Subscribe<Application, List<SavedEntity>>(this, MessageTypes.SavedEntitiesChanged, (sender, newSavedEntities) =>
             {
                 UpdateItems(newSavedEntities);
             });
-
-            UpdateAllCommand = CommandHelper.CreateCommand(UpdateAll);
-            AddEntityCommand = CommandHelper.CreateCommand(AddEntity);
         }
 
         #region Methods
@@ -106,7 +92,9 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
         public async Task SelectOneAndExit(SavedEntity savedEntity)
         {
             UniversityEntitiesRepository.UpdateSelected(savedEntity);
-            await Navigation.PopToRootAsync();
+            await Shell.Current.GoToAsync("//tabbar/Events");
+            
+            UpdateItems();
         }
 
         public void OnEntitySelectChange(SavedEntityItemViewModel entity)
@@ -149,11 +137,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
 
         private async Task UpdateAll()
         {
-            if (!IsEntitiesLayoutEnabled)
-            {
-                return;
-            }
-            if (await App.Current.MainPage.DisplayAlert(LN.TimetableUpdate, LN.UpdateAllTimetables, LN.Yes, LN.Cancel))
+            if (await Shell.Current.DisplayAlert(LN.TimetableUpdate, LN.UpdateAllTimetables, LN.Yes, LN.Cancel))
             {
                 await UpdateTimetable(Entities?.Select(vm => vm.SavedEntity).ToList());
             }
@@ -161,15 +145,11 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
 
         private async Task AddEntity()
         {
-            if (!IsEntitiesLayoutEnabled)
-            {
-                return;
-            }
-            await Navigation.PushAsync(new AddTimetablePage()
-            {
-                BindingContext = new AddTimetableViewModel(Navigation)
-            });
+            await Navigation.PushAsync(new AddTimetablePage());
         }
+
+        private void UpdateItems()
+            => UpdateItems(UniversityEntitiesRepository.GetSaved());
 
         private void UpdateItems(List<SavedEntity> newItems)
         {
@@ -177,7 +157,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
 
             List<SavedEntity> selectedEntities = UniversityEntitiesRepository.GetSelected();
             Entities = new ObservableCollection<SavedEntityItemViewModel>(
-                newItems.Select(sg => new SavedEntityItemViewModel(Navigation, sg, this)
+                newItems.Select(sg => new SavedEntityItemViewModel(sg, this)
                 {
                     IsSelected = selectedEntities.Any(se => se.ID == sg.ID)
                 })
@@ -198,7 +178,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
             List<SavedEntity> entitiesAllowed = SettingsRepository.CheckCistTimetableUpdateRights(entities);
             if (entitiesAllowed.Count == 0)
             {
-                await App.Current.MainPage.DisplayAlert(LN.TimetableUpdate, LN.TimetableLatest, LN.Ok);
+                await Shell.Current.DisplayAlert(LN.TimetableUpdate, LN.TimetableLatest, LN.Ok);
                 return;
             }
 
@@ -275,19 +255,17 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
 
             IsProgressVisable = false;
             IsEntitiesLayoutEnabled = true;
-            if (await App.Current.MainPage.DisplayAlert(LN.TimetableUpdate, result, LN.ToTimetable, LN.Ok))
+            if (await Shell.Current.DisplayAlert(LN.TimetableUpdate, result, LN.ToTimetable, LN.Ok))
             {
-#pragma warning disable CS4014 // TimetableViewModel.PageAppearing wouldn't trigger if we use await. See issue #35
                 List<SavedEntity> selected = UniversityEntitiesRepository.GetSelected();
                 if (entitiesAllowed.Count == 1 && !selected.Contains(entitiesAllowed[0]))
                 {
-                    SelectOneAndExit(entitiesAllowed[0]);
+                    await SelectOneAndExit(entitiesAllowed[0]);
                 }
                 else
                 {
-                    Navigation.PopToRootAsync();
+                    await Shell.Current.GoToAsync("//tabbar/Events");
                 }
-#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
             }
         }
         #endregion

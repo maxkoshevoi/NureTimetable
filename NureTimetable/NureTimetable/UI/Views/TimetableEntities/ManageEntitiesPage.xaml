@@ -4,13 +4,14 @@
              xmlns:converters="clr-namespace:NureTimetable.UI.Behaviors"
              xmlns:LN="clr-namespace:NureTimetable.Core.Localization;assembly=NureTimetable.Core"
              xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities"
-             x:Class="NureTimetable.UI.Views.TimetableEntities.ManageEntitiesPage"
+             xmlns:fonts="clr-namespace:NureTimetable.Models.Consts.Fonts"
+             x:Class="NureTimetable.UI.Views.ManageEntitiesPage"
              x:DataType="vm:ManageEntitiesViewModel"
              Title="{LN:Translate SavedTimetables}">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem x:DataType="vm:ManageEntitiesViewModel" Icon="update" Command="{Binding UpdateAllCommand}" x:Name="UpdateAll" />
-        <ToolbarItem x:DataType="vm:ManageEntitiesViewModel" Icon="add" Command="{Binding AddEntityCommand}" x:Name="AddEntity" />
+        <ToolbarItem x:DataType="vm:ManageEntitiesViewModel" IconImageSource="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static fonts:MaterialIconsFont.Sync}}" Command="{Binding UpdateAllCommand}" x:Name="UpdateAll" />
+        <ToolbarItem x:DataType="vm:ManageEntitiesViewModel" IconImageSource="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static fonts:MaterialIconsFont.Plus}}" Command="{Binding AddEntityCommand}" x:Name="AddEntity" />
     </ContentPage.ToolbarItems>
 
     <AbsoluteLayout>
@@ -31,25 +32,25 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
                                 <StackLayout Grid.Column="0" WidthRequest="10" IsVisible="{Binding IsMultiselectMode, Converter={converters:NegateBooleanConverter}}">
-                                    <Label BackgroundColor="{StaticResource SelectedEntityColor}" VerticalOptions="FillAndExpand" IsVisible="{Binding IsSelected}" />
+                                    <Label BackgroundColor="{DynamicResource SelectedEntityColor}" VerticalOptions="FillAndExpand" IsVisible="{Binding IsSelected}" />
                                 </StackLayout>
                                 <StackLayout Grid.Column="0" IsVisible="{Binding IsMultiselectMode}">
-                                    <CheckBox Margin="5,5,5,5" IsChecked="{Binding IsSelected}" Color="DeepSkyBlue" VerticalOptions="FillAndExpand" />
+                                    <CheckBox Margin="5,5,5,5" IsChecked="{Binding IsSelected}" VerticalOptions="FillAndExpand" />
                                 </StackLayout>
                                 <StackLayout Grid.Column="1" Margin="0,5,0,5">
                                     <Label Text="{Binding SavedEntity.Name}" Style="{DynamicResource ListItemTextStyle}" />
-                                    <Label Text="{Binding SavedEntity.LastUpdated}" Style="{DynamicResource ListItemDetailTextStyle}"/>
+                                    <Label Text="{Binding SavedEntity.LastUpdated}" FontSize="13" Style="{DynamicResource ListItemDetailTextStyle}"/>
                                 </StackLayout>
                                 <StackLayout Grid.Column="2" Padding="0,5,10,5" Orientation="Horizontal">
                                     <StackLayout.GestureRecognizers>
                                         <TapGestureRecognizer />
                                     </StackLayout.GestureRecognizers>
-                                    <Label Text="&#xf450;" FontFamily="{StaticResource MaterialFontFamily}" TextColor="#6b6b6b" FontSize="30" VerticalOptions="CenterAndExpand">
+                                    <Label Text="{x:Static fonts:MaterialIconsFont.Refresh}" FontFamily="{StaticResource MaterialFontFamily}" TextColor="{DynamicResource ListIconColor}" FontSize="30" VerticalOptions="CenterAndExpand">
                                         <Label.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding UpdateClickedCommand}" />
                                         </Label.GestureRecognizers>
                                     </Label>
-                                    <Label Text="&#xf493;" Margin="11,0,0,0" FontFamily="{StaticResource MaterialFontFamily}" TextColor="#6b6b6b" FontSize="30" VerticalOptions="CenterAndExpand">
+                                    <Label Text="{x:Static fonts:MaterialIconsFont.Cog}" Margin="11,0,0,0" FontFamily="{StaticResource MaterialFontFamily}" TextColor="{DynamicResource ListIconColor}" FontSize="30" VerticalOptions="CenterAndExpand">
                                         <Label.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding SettingsClickedCommand}" />
                                         </Label.GestureRecognizers>
@@ -64,8 +65,8 @@
         <StackLayout IsVisible="{Binding IsProgressVisable}" Padding="12"
                 AbsoluteLayout.LayoutFlags="PositionProportional"
                 AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
-            <ActivityIndicator IsRunning="True" Color="#80000000"/>
-            <Label Text="{LN:Translate Wait}" HorizontalOptions="Center" TextColor="LightSkyBlue"/>
+            <ActivityIndicator IsRunning="True"/>
+            <Label Text="{LN:Translate Wait}" HorizontalOptions="Center" TextColor="{DynamicResource ActivityIndicatorTextColor}"/>
         </StackLayout>
         <StackLayout IsVisible="{Binding IsNoSourceLayoutVisable}"  AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
             <Label Text="{LN:Translate NoSavedTimetables}"

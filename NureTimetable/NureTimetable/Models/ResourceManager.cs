@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using System.Runtime.CompilerServices;
+using Xamarin.Forms;
 
 namespace NureTimetable.Models.Consts
 {
@@ -7,12 +8,25 @@ namespace NureTimetable.Models.Consts
         public static Color EventColor(string typeName)
         {
             string key = $"{typeName.ToLower()}Color";
-            if (!App.Current.Resources.ContainsKey(key))
+            if (App.Current.Resources.TryGetValue(key, out object colorValue))
             {
-                key = "defaultColor";
+                return (Color)colorValue;
             }
-            Color typeColor = (Color)App.Current.Resources[key];
-            return typeColor;
+            else
+            {
+                Color typeColor = GetColor("defaultColor");
+                return typeColor;
+            }
+        }
+
+        public static Color StatusBarColor => GetColor();
+
+        public static Color NavigationBarColor => GetColor();
+
+        private static Color GetColor([CallerMemberName] string resourceName = null)
+        {
+            var color = (Color)App.Current.Resources[resourceName];
+            return color;
         }
     }
 }

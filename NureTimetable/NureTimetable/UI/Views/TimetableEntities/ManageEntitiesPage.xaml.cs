@@ -1,14 +1,14 @@
-﻿using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+﻿using NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities;
+using Xamarin.Forms;
 
-namespace NureTimetable.UI.Views.TimetableEntities
+namespace NureTimetable.UI.Views
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ManageEntitiesPage : ContentPage
     {
         public ManageEntitiesPage()
         {
             InitializeComponent();
+            BindingContext = new ManageEntitiesViewModel();
         }
         
         private void EntitiesList_OnItemTapped(object sender, ItemTappedEventArgs e)

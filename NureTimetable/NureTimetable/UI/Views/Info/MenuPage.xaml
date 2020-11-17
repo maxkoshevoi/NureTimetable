@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels.Info"
+             xmlns:LN="clr-namespace:NureTimetable.Core.Localization;assembly=NureTimetable.Core"
+             xmlns:fonts="clr-namespace:NureTimetable.Models.Consts.Fonts"
+             xmlns:touch="clr-namespace:TouchEffect;assembly=TouchEffect"
+             x:Class="NureTimetable.UI.Views.MenuPage"
+             x:DataType="vm:MenuViewModel"
+             Title="{LN:Translate AppName}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="Row" TargetType="StackLayout">
+                <Setter Property="Orientation" Value="Horizontal"/>
+                <Setter Property="Padding" Value="20,10"/>
+                <Setter Property="touch:TouchEff.NativeAnimation" Value="True"/>
+                <Setter Property="touch:TouchEff.NativeAnimationColor" Value="#40808080"/>
+            </Style>
+            <Style TargetType="Image">
+                <Setter Property="VerticalOptions" Value="Center"/>
+                <Setter Property="Margin" Value="0,0,10,0"/>
+            </Style>
+            <Style TargetType="BoxView">
+                <Setter Property="HeightRequest" Value="1"/>
+                <Setter Property="Color" Value="{DynamicResource AccentColor}"/>
+                <Setter Property="Margin" Value="25,5"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <StackLayout Margin="0,20">
+            <StackLayout Style="{StaticResource Row}">
+                <Image>
+                    <Image.Source>
+                        <FontImageSource FontFamily="{StaticResource MaterialFontFamily}" Glyph="{x:Static fonts:MaterialIconsFont.Brightness6}" Color="{DynamicResource SecondaryTextColor}" Size="30" />
+                    </Image.Source>
+                </Image>
+                <StackLayout VerticalOptions="Center">
+                    <Label Text="{LN:Translate Theme}" Style="{DynamicResource ListItemTextStyle}" />
+                    <Label Text="{Binding AppThemeName}" FontSize="13" Style="{DynamicResource ListItemDetailTextStyle}" />
+                </StackLayout>
+
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ChangeThemeCommand}"/>
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+            <StackLayout Style="{StaticResource Row}">
+                <Image>
+                    <Image.Source>
+                        <FontImageSource FontFamily="{StaticResource MaterialFontFamily}" Glyph="{x:Static fonts:MaterialIconsFont.Web}" Color="{DynamicResource SecondaryTextColor}" Size="30" />
+                    </Image.Source>
+                </Image>
+                <StackLayout>
+                    <Label Text="{LN:Translate Language}" Style="{DynamicResource ListItemTextStyle}" />
+                    <Label Text="{Binding AppLanguageName}" FontSize="13" Style="{DynamicResource ListItemDetailTextStyle}" />
+                </StackLayout>
+
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ChangeLanguageCommand}"/>
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+        
+            <BoxView/>
+
+            <StackLayout Style="{StaticResource Row}">
+                <Image>
+                    <Image.Source>
+                        <FontImageSource FontFamily="{StaticResource MaterialFontFamily}" Glyph="{x:Static fonts:MaterialIconsFont.CommentTextMultipleOutline}" Color="{DynamicResource SecondaryTextColor}" Size="30" />
+                    </Image.Source>
+                </Image>
+                <Label Text="{LN:Translate Feedback}" VerticalOptions="Center" Style="{DynamicResource ListItemTextStyle}"/>
+            
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NavigateUriCommand}" CommandParameter="https://t.me/nuretimetable_group" />
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+            <StackLayout Style="{StaticResource Row}">
+                <Image>
+                    <Image.Source>
+                        <FontImageSource FontFamily="{StaticResource MaterialFontFamily}" Glyph="{x:Static fonts:MaterialIconsFont.StarOutline}" Color="{DynamicResource SecondaryTextColor}" Size="30" />
+                    </Image.Source>
+                </Image>
+                <Label Text="{LN:Translate RateTheApp}" VerticalOptions="Center" Style="{DynamicResource ListItemTextStyle}"/>
+            
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NavigateUriCommand}" CommandParameter="https://play.google.com/store/apps/details?id=com.whitebox.nuretimetable" />
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+            <StackLayout Style="{StaticResource Row}">
+                <Image>
+                    <Image.Source>
+                        <FontImageSource FontFamily="{StaticResource MaterialFontFamily}" Glyph="{x:Static fonts:MaterialIconsFont.Cash}" Color="{DynamicResource SecondaryTextColor}" Size="30" />
+                    </Image.Source>
+                </Image>
+                <Label Text="{LN:Translate Donate}" VerticalOptions="Center" Style="{DynamicResource ListItemTextStyle}"/>
+
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding OpenDonatePageCommand}"/>
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+
+            <BoxView/>
+        
+            <StackLayout Style="{StaticResource Row}">
+                <Image>
+                    <Image.Source>
+                        <FontImageSource FontFamily="{StaticResource MaterialFontFamily}" Glyph="{x:Static fonts:MaterialIconsFont.CodeBraces}" Color="{DynamicResource SecondaryTextColor}" Size="30" />
+                    </Image.Source>
+                </Image>
+                <Label Text="{LN:Translate SourceCode}" VerticalOptions="Center" Style="{DynamicResource ListItemTextStyle}"/>
+            
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NavigateUriCommand}" CommandParameter="https://github.com/maxkoshevoi/NureTimetable" />
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+            <StackLayout Style="{StaticResource Row}">
+                <Image>
+                    <Image.Source>
+                        <FontImageSource FontFamily="{StaticResource MaterialFontFamily}" Glyph="{x:Static fonts:MaterialIconsFont.BugOutline}" Color="{DynamicResource SecondaryTextColor}" Size="30" />
+                    </Image.Source>
+                </Image>
+                <Label Text="{LN:Translate ShowErrors}" VerticalOptions="Center" Style="{DynamicResource ListItemTextStyle}"/>
+                <Switch IsToggled="{Binding IsDebugModeActive}" HorizontalOptions="EndAndExpand" VerticalOptions="Center" />
+            
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ToggleDebugModeCommand}" />
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+
+            <Label Margin="0,12" FontSize="13" HorizontalOptions="Center" TextColor="Gray">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <FormattedString.Spans>
+                            <Span Text="{LN:Translate Version}" />
+                            <Span Text=" " />
+                            <Span Text="{Binding VersionText}" />
+                        </FormattedString.Spans>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

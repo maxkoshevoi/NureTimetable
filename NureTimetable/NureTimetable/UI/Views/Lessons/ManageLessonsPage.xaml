@@ -5,15 +5,21 @@
              xmlns:LN="clr-namespace:NureTimetable.Core.Localization;assembly=NureTimetable.Core"
              xmlns:syncfusion="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
              xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels.Lessons.ManageLessons"
+             xmlns:fonts="clr-namespace:NureTimetable.Models.Consts.Fonts"
              x:Class="NureTimetable.UI.Views.Lessons.ManageLessonsPage"
              x:DataType="vm:ManageLessonsViewModel"
              Title="{Binding Title}">
+    
     <ContentPage.Behaviors>
         <behaviors:EventToCommandBehavior x:DataType="vm:ManageLessonsViewModel" EventName="Appearing" Command="{Binding PageAppearingCommand}"/>
     </ContentPage.Behaviors>
-
+    
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior Command="{Binding BackButtonPressedCommand}" />
+    </Shell.BackButtonBehavior>
+    
     <ContentPage.ToolbarItems>
-        <ToolbarItem Icon="save" Command="{Binding SaveClickedCommand}" x:Name="Save" />
+        <ToolbarItem x:DataType="vm:ManageLessonsViewModel" IconImageSource="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static fonts:MaterialIconsFont.ContentSave}}" Command="{Binding SaveClickedCommand}" x:Name="Save" />
     </ContentPage.ToolbarItems>
 
     <AbsoluteLayout>
@@ -30,22 +36,22 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <Label Grid.Column="0" Text="{Binding LessonInfo.Lesson.ShortName}" Style="{DynamicResource ListItemTextStyle}" VerticalTextAlignment="Center" />
+                                <Label Grid.Column="0" Text="{Binding LessonInfo.Lesson.ShortName}" VerticalTextAlignment="Center" />
                                 <StackLayout Grid.Column="1" Orientation="Horizontal">
                                     <StackLayout.GestureRecognizers>
                                         <TapGestureRecognizer />
                                     </StackLayout.GestureRecognizers>
-                                    <Label Text="&#xf2fd;" FontFamily="{StaticResource MaterialFontFamily}" TextColor="#6b6b6b" FontSize="26" VerticalOptions="CenterAndExpand">
+                                    <Label Text="{x:Static fonts:MaterialIconsFont.InformationOutline}" FontFamily="{StaticResource MaterialFontFamily}" TextColor="{DynamicResource ListIconColor}" FontSize="26" VerticalOptions="CenterAndExpand">
                                         <Label.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding InfoClickedCommand}" />
                                         </Label.GestureRecognizers>
                                     </Label>
-                                    <Label Text="&#xf493;" Margin="4,0,0,0" FontFamily="{StaticResource MaterialFontFamily}" TextColor="#6b6b6b" FontSize="26" VerticalOptions="CenterAndExpand">
+                                    <Label Text="{x:Static fonts:MaterialIconsFont.Cog}" Margin="4,0,0,0" FontFamily="{StaticResource MaterialFontFamily}" TextColor="{DynamicResource ListIconColor}" FontSize="26" VerticalOptions="CenterAndExpand">
                                         <Label.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding SettingsClickedCommand}" />
                                         </Label.GestureRecognizers>
                                     </Label>
-                                    <syncfusion:SfCheckBox Margin="4,0,0,0" IsChecked="{Binding LessonInfo.Settings.Hiding.ShowLesson}" CheckedColor="DeepSkyBlue"/>
+                                    <syncfusion:SfCheckBox Margin="4,0,0,0" IsChecked="{Binding IsChecked}" />
                                 </StackLayout>
                             </Grid>
                         </ViewCell>

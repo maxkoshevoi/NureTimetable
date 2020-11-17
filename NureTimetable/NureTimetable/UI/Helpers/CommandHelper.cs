@@ -1,83 +1,33 @@
 ﻿using System;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace NureTimetable.UI.Helpers
 {
     public static class CommandHelper
     {
-        /// <summary>
-        /// The current task
-        /// </summary>
-        private static Task _currentTask;
+        public static Command Create<T>(Func<T, Task> action) 
+            => new Command<T>(async param => await action(param));
 
-        /// <summary>
-        /// Creates the command.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="action">The action.</param>
-        /// <returns>ICommand.</returns>
-        public static ICommand CreateCommand<T>(Func<T, Task> action)
-        {
-            return new Command<T>(async param =>
-            {
-                if (_currentTask != null && !_currentTask.IsCompleted)
-                {
-                    return;
-                }
+        public static Command Create<T>(Func<T, Task> action, Func<T, bool> canExecute)
+            => new Command<T>(async param => await action(param), canExecute);
 
-                _currentTask = action?.Invoke(param);
+        public static Command Create(Func<Task> action)
+            => new Command(async () => await action());
 
-                if (_currentTask != null)
-                {
-                    await _currentTask;
-                }
-            });
-        }
+        public static Command Create(Func<Task> action, Func<bool> canExecute)
+            => new Command(async () => await action(), canExecute);
 
-        /// <summary>
-        /// Creates the command.
-        /// </summary>
-        /// <param name="action">The action.</param>
-        /// <returns>ICommand.</returns>
-        public static ICommand CreateCommand(Func<Task> action)
-        {
-            return new Command(async () =>
-            {
-                if (_currentTask != null && !_currentTask.IsCompleted)
-                {
-                    return;
-                }
+        public static Command Create<T>(Action<T> action)
+            => new Command<T>(action);
 
-                _currentTask = action?.Invoke();
+        public static Command Create<T>(Action<T> action, Func<T, bool> canExecute)
+            => new Command<T>(action, canExecute);
 
-                if (_currentTask != null)
-                {
-                    await _currentTask;
-                }
-            });
-        }
+        public static Command Create(Action action)
+            => new Command(action);
 
-        /// <summary>
-        /// Creates the command.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="action">The action.</param>
-        /// <returns>ICommand.</returns>
-        public static ICommand CreateCommand<T>(Action<T> action)
-        {
-            return new Command<T>(action);
-        }
-
-        /// <summary>
-        /// Creates the command.
-        /// </summary>
-        /// <param name="action">The action.</param>
-        /// <returns>ICommand.</returns>
-        public static ICommand CreateCommand(Action action)
-        {
-            return new Command(action);
-        }
+        public static Command Create(Action action, Func<bool> canExecute)
+            => new Command(action, canExecute);
     }
 }

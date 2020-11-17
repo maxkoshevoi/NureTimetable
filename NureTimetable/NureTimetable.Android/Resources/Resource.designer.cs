@@ -146,6 +146,2570 @@ namespace NureTimetable.Droid
 			global::Com.Syncfusion.Schedule.Resource.Styleable.SfSchedule_timeIntervalHeight = global::NureTimetable.Droid.Resource.Styleable.SfSchedule_timeIntervalHeight;
 			global::Com.Syncfusion.Schedule.Resource.Styleable.SfSchedule_timeZone = global::NureTimetable.Droid.Resource.Styleable.SfSchedule_timeZone;
 			global::Com.Syncfusion.Schedule.Resource.Styleable.SfSchedule_viewHeaderHeight = global::NureTimetable.Droid.Resource.Styleable.SfSchedule_viewHeaderHeight;
+			global::TouchEffect.Droid.Resource.Animation.abc_fade_in = global::NureTimetable.Droid.Resource.Animation.abc_fade_in;
+			global::TouchEffect.Droid.Resource.Animation.abc_fade_out = global::NureTimetable.Droid.Resource.Animation.abc_fade_out;
+			global::TouchEffect.Droid.Resource.Animation.abc_grow_fade_in_from_bottom = global::NureTimetable.Droid.Resource.Animation.abc_grow_fade_in_from_bottom;
+			global::TouchEffect.Droid.Resource.Animation.abc_popup_enter = global::NureTimetable.Droid.Resource.Animation.abc_popup_enter;
+			global::TouchEffect.Droid.Resource.Animation.abc_popup_exit = global::NureTimetable.Droid.Resource.Animation.abc_popup_exit;
+			global::TouchEffect.Droid.Resource.Animation.abc_shrink_fade_out_from_bottom = global::NureTimetable.Droid.Resource.Animation.abc_shrink_fade_out_from_bottom;
+			global::TouchEffect.Droid.Resource.Animation.abc_slide_in_bottom = global::NureTimetable.Droid.Resource.Animation.abc_slide_in_bottom;
+			global::TouchEffect.Droid.Resource.Animation.abc_slide_in_top = global::NureTimetable.Droid.Resource.Animation.abc_slide_in_top;
+			global::TouchEffect.Droid.Resource.Animation.abc_slide_out_bottom = global::NureTimetable.Droid.Resource.Animation.abc_slide_out_bottom;
+			global::TouchEffect.Droid.Resource.Animation.abc_slide_out_top = global::NureTimetable.Droid.Resource.Animation.abc_slide_out_top;
+			global::TouchEffect.Droid.Resource.Animation.abc_tooltip_enter = global::NureTimetable.Droid.Resource.Animation.abc_tooltip_enter;
+			global::TouchEffect.Droid.Resource.Animation.abc_tooltip_exit = global::NureTimetable.Droid.Resource.Animation.abc_tooltip_exit;
+			global::TouchEffect.Droid.Resource.Animation.design_bottom_sheet_slide_in = global::NureTimetable.Droid.Resource.Animation.design_bottom_sheet_slide_in;
+			global::TouchEffect.Droid.Resource.Animation.design_bottom_sheet_slide_out = global::NureTimetable.Droid.Resource.Animation.design_bottom_sheet_slide_out;
+			global::TouchEffect.Droid.Resource.Animation.design_snackbar_in = global::NureTimetable.Droid.Resource.Animation.design_snackbar_in;
+			global::TouchEffect.Droid.Resource.Animation.design_snackbar_out = global::NureTimetable.Droid.Resource.Animation.design_snackbar_out;
+			global::TouchEffect.Droid.Resource.Animation.EnterFromLeft = global::NureTimetable.Droid.Resource.Animation.EnterFromLeft;
+			global::TouchEffect.Droid.Resource.Animation.EnterFromRight = global::NureTimetable.Droid.Resource.Animation.EnterFromRight;
+			global::TouchEffect.Droid.Resource.Animation.ExitToLeft = global::NureTimetable.Droid.Resource.Animation.ExitToLeft;
+			global::TouchEffect.Droid.Resource.Animation.ExitToRight = global::NureTimetable.Droid.Resource.Animation.ExitToRight;
+			global::TouchEffect.Droid.Resource.Animator.design_appbar_state_list_animator = global::NureTimetable.Droid.Resource.Animator.design_appbar_state_list_animator;
+			global::TouchEffect.Droid.Resource.Animator.design_fab_hide_motion_spec = global::NureTimetable.Droid.Resource.Animator.design_fab_hide_motion_spec;
+			global::TouchEffect.Droid.Resource.Animator.design_fab_show_motion_spec = global::NureTimetable.Droid.Resource.Animator.design_fab_show_motion_spec;
+			global::TouchEffect.Droid.Resource.Animator.mtrl_btn_state_list_anim = global::NureTimetable.Droid.Resource.Animator.mtrl_btn_state_list_anim;
+			global::TouchEffect.Droid.Resource.Animator.mtrl_btn_unelevated_state_list_anim = global::NureTimetable.Droid.Resource.Animator.mtrl_btn_unelevated_state_list_anim;
+			global::TouchEffect.Droid.Resource.Animator.mtrl_chip_state_list_anim = global::NureTimetable.Droid.Resource.Animator.mtrl_chip_state_list_anim;
+			global::TouchEffect.Droid.Resource.Animator.mtrl_fab_hide_motion_spec = global::NureTimetable.Droid.Resource.Animator.mtrl_fab_hide_motion_spec;
+			global::TouchEffect.Droid.Resource.Animator.mtrl_fab_show_motion_spec = global::NureTimetable.Droid.Resource.Animator.mtrl_fab_show_motion_spec;
+			global::TouchEffect.Droid.Resource.Animator.mtrl_fab_transformation_sheet_collapse_spec = global::NureTimetable.Droid.Resource.Animator.mtrl_fab_transformation_sheet_collapse_spec;
+			global::TouchEffect.Droid.Resource.Animator.mtrl_fab_transformation_sheet_expand_spec = global::NureTimetable.Droid.Resource.Animator.mtrl_fab_transformation_sheet_expand_spec;
+			global::TouchEffect.Droid.Resource.Attribute.actionBarDivider = global::NureTimetable.Droid.Resource.Attribute.actionBarDivider;
+			global::TouchEffect.Droid.Resource.Attribute.actionBarItemBackground = global::NureTimetable.Droid.Resource.Attribute.actionBarItemBackground;
+			global::TouchEffect.Droid.Resource.Attribute.actionBarPopupTheme = global::NureTimetable.Droid.Resource.Attribute.actionBarPopupTheme;
+			global::TouchEffect.Droid.Resource.Attribute.actionBarSize = global::NureTimetable.Droid.Resource.Attribute.actionBarSize;
+			global::TouchEffect.Droid.Resource.Attribute.actionBarSplitStyle = global::NureTimetable.Droid.Resource.Attribute.actionBarSplitStyle;
+			global::TouchEffect.Droid.Resource.Attribute.actionBarStyle = global::NureTimetable.Droid.Resource.Attribute.actionBarStyle;
+			global::TouchEffect.Droid.Resource.Attribute.actionBarTabBarStyle = global::NureTimetable.Droid.Resource.Attribute.actionBarTabBarStyle;
+			global::TouchEffect.Droid.Resource.Attribute.actionBarTabStyle = global::NureTimetable.Droid.Resource.Attribute.actionBarTabStyle;
+			global::TouchEffect.Droid.Resource.Attribute.actionBarTabTextStyle = global::NureTimetable.Droid.Resource.Attribute.actionBarTabTextStyle;
+			global::TouchEffect.Droid.Resource.Attribute.actionBarTheme = global::NureTimetable.Droid.Resource.Attribute.actionBarTheme;
+			global::TouchEffect.Droid.Resource.Attribute.actionBarWidgetTheme = global::NureTimetable.Droid.Resource.Attribute.actionBarWidgetTheme;
+			global::TouchEffect.Droid.Resource.Attribute.actionButtonStyle = global::NureTimetable.Droid.Resource.Attribute.actionButtonStyle;
+			global::TouchEffect.Droid.Resource.Attribute.actionDropDownStyle = global::NureTimetable.Droid.Resource.Attribute.actionDropDownStyle;
+			global::TouchEffect.Droid.Resource.Attribute.actionLayout = global::NureTimetable.Droid.Resource.Attribute.actionLayout;
+			global::TouchEffect.Droid.Resource.Attribute.actionMenuTextAppearance = global::NureTimetable.Droid.Resource.Attribute.actionMenuTextAppearance;
+			global::TouchEffect.Droid.Resource.Attribute.actionMenuTextColor = global::NureTimetable.Droid.Resource.Attribute.actionMenuTextColor;
+			global::TouchEffect.Droid.Resource.Attribute.actionModeBackground = global::NureTimetable.Droid.Resource.Attribute.actionModeBackground;
+			global::TouchEffect.Droid.Resource.Attribute.actionModeCloseButtonStyle = global::NureTimetable.Droid.Resource.Attribute.actionModeCloseButtonStyle;
+			global::TouchEffect.Droid.Resource.Attribute.actionModeCloseDrawable = global::NureTimetable.Droid.Resource.Attribute.actionModeCloseDrawable;
+			global::TouchEffect.Droid.Resource.Attribute.actionModeCopyDrawable = global::NureTimetable.Droid.Resource.Attribute.actionModeCopyDrawable;
+			global::TouchEffect.Droid.Resource.Attribute.actionModeCutDrawable = global::NureTimetable.Droid.Resource.Attribute.actionModeCutDrawable;
+			global::TouchEffect.Droid.Resource.Attribute.actionModeFindDrawable = global::NureTimetable.Droid.Resource.Attribute.actionModeFindDrawable;
+			global::TouchEffect.Droid.Resource.Attribute.actionModePasteDrawable = global::NureTimetable.Droid.Resource.Attribute.actionModePasteDrawable;
+			global::TouchEffect.Droid.Resource.Attribute.actionModePopupWindowStyle = global::NureTimetable.Droid.Resource.Attribute.actionModePopupWindowStyle;
+			global::TouchEffect.Droid.Resource.Attribute.actionModeSelectAllDrawable = global::NureTimetable.Droid.Resource.Attribute.actionModeSelectAllDrawable;
+			global::TouchEffect.Droid.Resource.Attribute.actionModeShareDrawable = global::NureTimetable.Droid.Resource.Attribute.actionModeShareDrawable;
+			global::TouchEffect.Droid.Resource.Attribute.actionModeSplitBackground = global::NureTimetable.Droid.Resource.Attribute.actionModeSplitBackground;
+			global::TouchEffect.Droid.Resource.Attribute.actionModeStyle = global::NureTimetable.Droid.Resource.Attribute.actionModeStyle;
+			global::TouchEffect.Droid.Resource.Attribute.actionModeWebSearchDrawable = global::NureTimetable.Droid.Resource.Attribute.actionModeWebSearchDrawable;
+			global::TouchEffect.Droid.Resource.Attribute.actionOverflowButtonStyle = global::NureTimetable.Droid.Resource.Attribute.actionOverflowButtonStyle;
+			global::TouchEffect.Droid.Resource.Attribute.actionOverflowMenuStyle = global::NureTimetable.Droid.Resource.Attribute.actionOverflowMenuStyle;
+			global::TouchEffect.Droid.Resource.Attribute.actionProviderClass = global::NureTimetable.Droid.Resource.Attribute.actionProviderClass;
+			global::TouchEffect.Droid.Resource.Attribute.actionViewClass = global::NureTimetable.Droid.Resource.Attribute.actionViewClass;
+			global::TouchEffect.Droid.Resource.Attribute.activityChooserViewStyle = global::NureTimetable.Droid.Resource.Attribute.activityChooserViewStyle;
+			global::TouchEffect.Droid.Resource.Attribute.alertDialogButtonGroupStyle = global::NureTimetable.Droid.Resource.Attribute.alertDialogButtonGroupStyle;
+			global::TouchEffect.Droid.Resource.Attribute.alertDialogCenterButtons = global::NureTimetable.Droid.Resource.Attribute.alertDialogCenterButtons;
+			global::TouchEffect.Droid.Resource.Attribute.alertDialogStyle = global::NureTimetable.Droid.Resource.Attribute.alertDialogStyle;
+			global::TouchEffect.Droid.Resource.Attribute.alertDialogTheme = global::NureTimetable.Droid.Resource.Attribute.alertDialogTheme;
+			global::TouchEffect.Droid.Resource.Attribute.allowStacking = global::NureTimetable.Droid.Resource.Attribute.allowStacking;
+			global::TouchEffect.Droid.Resource.Attribute.alpha = global::NureTimetable.Droid.Resource.Attribute.alpha;
+			global::TouchEffect.Droid.Resource.Attribute.alphabeticModifiers = global::NureTimetable.Droid.Resource.Attribute.alphabeticModifiers;
+			global::TouchEffect.Droid.Resource.Attribute.arrowHeadLength = global::NureTimetable.Droid.Resource.Attribute.arrowHeadLength;
+			global::TouchEffect.Droid.Resource.Attribute.arrowShaftLength = global::NureTimetable.Droid.Resource.Attribute.arrowShaftLength;
+			global::TouchEffect.Droid.Resource.Attribute.autoCompleteTextViewStyle = global::NureTimetable.Droid.Resource.Attribute.autoCompleteTextViewStyle;
+			global::TouchEffect.Droid.Resource.Attribute.autoSizeMaxTextSize = global::NureTimetable.Droid.Resource.Attribute.autoSizeMaxTextSize;
+			global::TouchEffect.Droid.Resource.Attribute.autoSizeMinTextSize = global::NureTimetable.Droid.Resource.Attribute.autoSizeMinTextSize;
+			global::TouchEffect.Droid.Resource.Attribute.autoSizePresetSizes = global::NureTimetable.Droid.Resource.Attribute.autoSizePresetSizes;
+			global::TouchEffect.Droid.Resource.Attribute.autoSizeStepGranularity = global::NureTimetable.Droid.Resource.Attribute.autoSizeStepGranularity;
+			global::TouchEffect.Droid.Resource.Attribute.autoSizeTextType = global::NureTimetable.Droid.Resource.Attribute.autoSizeTextType;
+			global::TouchEffect.Droid.Resource.Attribute.background = global::NureTimetable.Droid.Resource.Attribute.background;
+			global::TouchEffect.Droid.Resource.Attribute.backgroundSplit = global::NureTimetable.Droid.Resource.Attribute.backgroundSplit;
+			global::TouchEffect.Droid.Resource.Attribute.backgroundStacked = global::NureTimetable.Droid.Resource.Attribute.backgroundStacked;
+			global::TouchEffect.Droid.Resource.Attribute.backgroundTint = global::NureTimetable.Droid.Resource.Attribute.backgroundTint;
+			global::TouchEffect.Droid.Resource.Attribute.backgroundTintMode = global::NureTimetable.Droid.Resource.Attribute.backgroundTintMode;
+			global::TouchEffect.Droid.Resource.Attribute.barLength = global::NureTimetable.Droid.Resource.Attribute.barLength;
+			global::TouchEffect.Droid.Resource.Attribute.behavior_autoHide = global::NureTimetable.Droid.Resource.Attribute.behavior_autoHide;
+			global::TouchEffect.Droid.Resource.Attribute.behavior_fitToContents = global::NureTimetable.Droid.Resource.Attribute.behavior_fitToContents;
+			global::TouchEffect.Droid.Resource.Attribute.behavior_hideable = global::NureTimetable.Droid.Resource.Attribute.behavior_hideable;
+			global::TouchEffect.Droid.Resource.Attribute.behavior_overlapTop = global::NureTimetable.Droid.Resource.Attribute.behavior_overlapTop;
+			global::TouchEffect.Droid.Resource.Attribute.behavior_peekHeight = global::NureTimetable.Droid.Resource.Attribute.behavior_peekHeight;
+			global::TouchEffect.Droid.Resource.Attribute.behavior_skipCollapsed = global::NureTimetable.Droid.Resource.Attribute.behavior_skipCollapsed;
+			global::TouchEffect.Droid.Resource.Attribute.borderWidth = global::NureTimetable.Droid.Resource.Attribute.borderWidth;
+			global::TouchEffect.Droid.Resource.Attribute.borderlessButtonStyle = global::NureTimetable.Droid.Resource.Attribute.borderlessButtonStyle;
+			global::TouchEffect.Droid.Resource.Attribute.bottomAppBarStyle = global::NureTimetable.Droid.Resource.Attribute.bottomAppBarStyle;
+			global::TouchEffect.Droid.Resource.Attribute.bottomNavigationStyle = global::NureTimetable.Droid.Resource.Attribute.bottomNavigationStyle;
+			global::TouchEffect.Droid.Resource.Attribute.bottomSheetDialogTheme = global::NureTimetable.Droid.Resource.Attribute.bottomSheetDialogTheme;
+			global::TouchEffect.Droid.Resource.Attribute.bottomSheetStyle = global::NureTimetable.Droid.Resource.Attribute.bottomSheetStyle;
+			global::TouchEffect.Droid.Resource.Attribute.boxBackgroundColor = global::NureTimetable.Droid.Resource.Attribute.boxBackgroundColor;
+			global::TouchEffect.Droid.Resource.Attribute.boxBackgroundMode = global::NureTimetable.Droid.Resource.Attribute.boxBackgroundMode;
+			global::TouchEffect.Droid.Resource.Attribute.boxCollapsedPaddingTop = global::NureTimetable.Droid.Resource.Attribute.boxCollapsedPaddingTop;
+			global::TouchEffect.Droid.Resource.Attribute.boxCornerRadiusBottomEnd = global::NureTimetable.Droid.Resource.Attribute.boxCornerRadiusBottomEnd;
+			global::TouchEffect.Droid.Resource.Attribute.boxCornerRadiusBottomStart = global::NureTimetable.Droid.Resource.Attribute.boxCornerRadiusBottomStart;
+			global::TouchEffect.Droid.Resource.Attribute.boxCornerRadiusTopEnd = global::NureTimetable.Droid.Resource.Attribute.boxCornerRadiusTopEnd;
+			global::TouchEffect.Droid.Resource.Attribute.boxCornerRadiusTopStart = global::NureTimetable.Droid.Resource.Attribute.boxCornerRadiusTopStart;
+			global::TouchEffect.Droid.Resource.Attribute.boxStrokeColor = global::NureTimetable.Droid.Resource.Attribute.boxStrokeColor;
+			global::TouchEffect.Droid.Resource.Attribute.boxStrokeWidth = global::NureTimetable.Droid.Resource.Attribute.boxStrokeWidth;
+			global::TouchEffect.Droid.Resource.Attribute.buttonBarButtonStyle = global::NureTimetable.Droid.Resource.Attribute.buttonBarButtonStyle;
+			global::TouchEffect.Droid.Resource.Attribute.buttonBarNegativeButtonStyle = global::NureTimetable.Droid.Resource.Attribute.buttonBarNegativeButtonStyle;
+			global::TouchEffect.Droid.Resource.Attribute.buttonBarNeutralButtonStyle = global::NureTimetable.Droid.Resource.Attribute.buttonBarNeutralButtonStyle;
+			global::TouchEffect.Droid.Resource.Attribute.buttonBarPositiveButtonStyle = global::NureTimetable.Droid.Resource.Attribute.buttonBarPositiveButtonStyle;
+			global::TouchEffect.Droid.Resource.Attribute.buttonBarStyle = global::NureTimetable.Droid.Resource.Attribute.buttonBarStyle;
+			global::TouchEffect.Droid.Resource.Attribute.buttonGravity = global::NureTimetable.Droid.Resource.Attribute.buttonGravity;
+			global::TouchEffect.Droid.Resource.Attribute.buttonIconDimen = global::NureTimetable.Droid.Resource.Attribute.buttonIconDimen;
+			global::TouchEffect.Droid.Resource.Attribute.buttonPanelSideLayout = global::NureTimetable.Droid.Resource.Attribute.buttonPanelSideLayout;
+			global::TouchEffect.Droid.Resource.Attribute.buttonStyle = global::NureTimetable.Droid.Resource.Attribute.buttonStyle;
+			global::TouchEffect.Droid.Resource.Attribute.buttonStyleSmall = global::NureTimetable.Droid.Resource.Attribute.buttonStyleSmall;
+			global::TouchEffect.Droid.Resource.Attribute.buttonTint = global::NureTimetable.Droid.Resource.Attribute.buttonTint;
+			global::TouchEffect.Droid.Resource.Attribute.buttonTintMode = global::NureTimetable.Droid.Resource.Attribute.buttonTintMode;
+			global::TouchEffect.Droid.Resource.Attribute.cardBackgroundColor = global::NureTimetable.Droid.Resource.Attribute.cardBackgroundColor;
+			global::TouchEffect.Droid.Resource.Attribute.cardCornerRadius = global::NureTimetable.Droid.Resource.Attribute.cardCornerRadius;
+			global::TouchEffect.Droid.Resource.Attribute.cardElevation = global::NureTimetable.Droid.Resource.Attribute.cardElevation;
+			global::TouchEffect.Droid.Resource.Attribute.cardMaxElevation = global::NureTimetable.Droid.Resource.Attribute.cardMaxElevation;
+			global::TouchEffect.Droid.Resource.Attribute.cardPreventCornerOverlap = global::NureTimetable.Droid.Resource.Attribute.cardPreventCornerOverlap;
+			global::TouchEffect.Droid.Resource.Attribute.cardUseCompatPadding = global::NureTimetable.Droid.Resource.Attribute.cardUseCompatPadding;
+			global::TouchEffect.Droid.Resource.Attribute.cardViewStyle = global::NureTimetable.Droid.Resource.Attribute.cardViewStyle;
+			global::TouchEffect.Droid.Resource.Attribute.checkboxStyle = global::NureTimetable.Droid.Resource.Attribute.checkboxStyle;
+			global::TouchEffect.Droid.Resource.Attribute.checkedChip = global::NureTimetable.Droid.Resource.Attribute.checkedChip;
+			global::TouchEffect.Droid.Resource.Attribute.checkedIcon = global::NureTimetable.Droid.Resource.Attribute.checkedIcon;
+			global::TouchEffect.Droid.Resource.Attribute.checkedIconEnabled = global::NureTimetable.Droid.Resource.Attribute.checkedIconEnabled;
+			global::TouchEffect.Droid.Resource.Attribute.checkedIconVisible = global::NureTimetable.Droid.Resource.Attribute.checkedIconVisible;
+			global::TouchEffect.Droid.Resource.Attribute.checkedTextViewStyle = global::NureTimetable.Droid.Resource.Attribute.checkedTextViewStyle;
+			global::TouchEffect.Droid.Resource.Attribute.chipBackgroundColor = global::NureTimetable.Droid.Resource.Attribute.chipBackgroundColor;
+			global::TouchEffect.Droid.Resource.Attribute.chipCornerRadius = global::NureTimetable.Droid.Resource.Attribute.chipCornerRadius;
+			global::TouchEffect.Droid.Resource.Attribute.chipEndPadding = global::NureTimetable.Droid.Resource.Attribute.chipEndPadding;
+			global::TouchEffect.Droid.Resource.Attribute.chipGroupStyle = global::NureTimetable.Droid.Resource.Attribute.chipGroupStyle;
+			global::TouchEffect.Droid.Resource.Attribute.chipIcon = global::NureTimetable.Droid.Resource.Attribute.chipIcon;
+			global::TouchEffect.Droid.Resource.Attribute.chipIconEnabled = global::NureTimetable.Droid.Resource.Attribute.chipIconEnabled;
+			global::TouchEffect.Droid.Resource.Attribute.chipIconSize = global::NureTimetable.Droid.Resource.Attribute.chipIconSize;
+			global::TouchEffect.Droid.Resource.Attribute.chipIconTint = global::NureTimetable.Droid.Resource.Attribute.chipIconTint;
+			global::TouchEffect.Droid.Resource.Attribute.chipIconVisible = global::NureTimetable.Droid.Resource.Attribute.chipIconVisible;
+			global::TouchEffect.Droid.Resource.Attribute.chipMinHeight = global::NureTimetable.Droid.Resource.Attribute.chipMinHeight;
+			global::TouchEffect.Droid.Resource.Attribute.chipSpacing = global::NureTimetable.Droid.Resource.Attribute.chipSpacing;
+			global::TouchEffect.Droid.Resource.Attribute.chipSpacingHorizontal = global::NureTimetable.Droid.Resource.Attribute.chipSpacingHorizontal;
+			global::TouchEffect.Droid.Resource.Attribute.chipSpacingVertical = global::NureTimetable.Droid.Resource.Attribute.chipSpacingVertical;
+			global::TouchEffect.Droid.Resource.Attribute.chipStandaloneStyle = global::NureTimetable.Droid.Resource.Attribute.chipStandaloneStyle;
+			global::TouchEffect.Droid.Resource.Attribute.chipStartPadding = global::NureTimetable.Droid.Resource.Attribute.chipStartPadding;
+			global::TouchEffect.Droid.Resource.Attribute.chipStrokeColor = global::NureTimetable.Droid.Resource.Attribute.chipStrokeColor;
+			global::TouchEffect.Droid.Resource.Attribute.chipStrokeWidth = global::NureTimetable.Droid.Resource.Attribute.chipStrokeWidth;
+			global::TouchEffect.Droid.Resource.Attribute.chipStyle = global::NureTimetable.Droid.Resource.Attribute.chipStyle;
+			global::TouchEffect.Droid.Resource.Attribute.closeIcon = global::NureTimetable.Droid.Resource.Attribute.closeIcon;
+			global::TouchEffect.Droid.Resource.Attribute.closeIconEnabled = global::NureTimetable.Droid.Resource.Attribute.closeIconEnabled;
+			global::TouchEffect.Droid.Resource.Attribute.closeIconEndPadding = global::NureTimetable.Droid.Resource.Attribute.closeIconEndPadding;
+			global::TouchEffect.Droid.Resource.Attribute.closeIconSize = global::NureTimetable.Droid.Resource.Attribute.closeIconSize;
+			global::TouchEffect.Droid.Resource.Attribute.closeIconStartPadding = global::NureTimetable.Droid.Resource.Attribute.closeIconStartPadding;
+			global::TouchEffect.Droid.Resource.Attribute.closeIconTint = global::NureTimetable.Droid.Resource.Attribute.closeIconTint;
+			global::TouchEffect.Droid.Resource.Attribute.closeIconVisible = global::NureTimetable.Droid.Resource.Attribute.closeIconVisible;
+			global::TouchEffect.Droid.Resource.Attribute.closeItemLayout = global::NureTimetable.Droid.Resource.Attribute.closeItemLayout;
+			global::TouchEffect.Droid.Resource.Attribute.collapseContentDescription = global::NureTimetable.Droid.Resource.Attribute.collapseContentDescription;
+			global::TouchEffect.Droid.Resource.Attribute.collapseIcon = global::NureTimetable.Droid.Resource.Attribute.collapseIcon;
+			global::TouchEffect.Droid.Resource.Attribute.collapsedTitleGravity = global::NureTimetable.Droid.Resource.Attribute.collapsedTitleGravity;
+			global::TouchEffect.Droid.Resource.Attribute.collapsedTitleTextAppearance = global::NureTimetable.Droid.Resource.Attribute.collapsedTitleTextAppearance;
+			global::TouchEffect.Droid.Resource.Attribute.color = global::NureTimetable.Droid.Resource.Attribute.color;
+			global::TouchEffect.Droid.Resource.Attribute.colorAccent = global::NureTimetable.Droid.Resource.Attribute.colorAccent;
+			global::TouchEffect.Droid.Resource.Attribute.colorBackgroundFloating = global::NureTimetable.Droid.Resource.Attribute.colorBackgroundFloating;
+			global::TouchEffect.Droid.Resource.Attribute.colorButtonNormal = global::NureTimetable.Droid.Resource.Attribute.colorButtonNormal;
+			global::TouchEffect.Droid.Resource.Attribute.colorControlActivated = global::NureTimetable.Droid.Resource.Attribute.colorControlActivated;
+			global::TouchEffect.Droid.Resource.Attribute.colorControlHighlight = global::NureTimetable.Droid.Resource.Attribute.colorControlHighlight;
+			global::TouchEffect.Droid.Resource.Attribute.colorControlNormal = global::NureTimetable.Droid.Resource.Attribute.colorControlNormal;
+			global::TouchEffect.Droid.Resource.Attribute.colorError = global::NureTimetable.Droid.Resource.Attribute.colorError;
+			global::TouchEffect.Droid.Resource.Attribute.colorPrimary = global::NureTimetable.Droid.Resource.Attribute.colorPrimary;
+			global::TouchEffect.Droid.Resource.Attribute.colorPrimaryDark = global::NureTimetable.Droid.Resource.Attribute.colorPrimaryDark;
+			global::TouchEffect.Droid.Resource.Attribute.colorSecondary = global::NureTimetable.Droid.Resource.Attribute.colorSecondary;
+			global::TouchEffect.Droid.Resource.Attribute.colorSwitchThumbNormal = global::NureTimetable.Droid.Resource.Attribute.colorSwitchThumbNormal;
+			global::TouchEffect.Droid.Resource.Attribute.commitIcon = global::NureTimetable.Droid.Resource.Attribute.commitIcon;
+			global::TouchEffect.Droid.Resource.Attribute.contentDescription = global::NureTimetable.Droid.Resource.Attribute.contentDescription;
+			global::TouchEffect.Droid.Resource.Attribute.contentInsetEnd = global::NureTimetable.Droid.Resource.Attribute.contentInsetEnd;
+			global::TouchEffect.Droid.Resource.Attribute.contentInsetEndWithActions = global::NureTimetable.Droid.Resource.Attribute.contentInsetEndWithActions;
+			global::TouchEffect.Droid.Resource.Attribute.contentInsetLeft = global::NureTimetable.Droid.Resource.Attribute.contentInsetLeft;
+			global::TouchEffect.Droid.Resource.Attribute.contentInsetRight = global::NureTimetable.Droid.Resource.Attribute.contentInsetRight;
+			global::TouchEffect.Droid.Resource.Attribute.contentInsetStart = global::NureTimetable.Droid.Resource.Attribute.contentInsetStart;
+			global::TouchEffect.Droid.Resource.Attribute.contentInsetStartWithNavigation = global::NureTimetable.Droid.Resource.Attribute.contentInsetStartWithNavigation;
+			global::TouchEffect.Droid.Resource.Attribute.contentPadding = global::NureTimetable.Droid.Resource.Attribute.contentPadding;
+			global::TouchEffect.Droid.Resource.Attribute.contentPaddingBottom = global::NureTimetable.Droid.Resource.Attribute.contentPaddingBottom;
+			global::TouchEffect.Droid.Resource.Attribute.contentPaddingLeft = global::NureTimetable.Droid.Resource.Attribute.contentPaddingLeft;
+			global::TouchEffect.Droid.Resource.Attribute.contentPaddingRight = global::NureTimetable.Droid.Resource.Attribute.contentPaddingRight;
+			global::TouchEffect.Droid.Resource.Attribute.contentPaddingTop = global::NureTimetable.Droid.Resource.Attribute.contentPaddingTop;
+			global::TouchEffect.Droid.Resource.Attribute.contentScrim = global::NureTimetable.Droid.Resource.Attribute.contentScrim;
+			global::TouchEffect.Droid.Resource.Attribute.controlBackground = global::NureTimetable.Droid.Resource.Attribute.controlBackground;
+			global::TouchEffect.Droid.Resource.Attribute.coordinatorLayoutStyle = global::NureTimetable.Droid.Resource.Attribute.coordinatorLayoutStyle;
+			global::TouchEffect.Droid.Resource.Attribute.cornerRadius = global::NureTimetable.Droid.Resource.Attribute.cornerRadius;
+			global::TouchEffect.Droid.Resource.Attribute.counterEnabled = global::NureTimetable.Droid.Resource.Attribute.counterEnabled;
+			global::TouchEffect.Droid.Resource.Attribute.counterMaxLength = global::NureTimetable.Droid.Resource.Attribute.counterMaxLength;
+			global::TouchEffect.Droid.Resource.Attribute.counterOverflowTextAppearance = global::NureTimetable.Droid.Resource.Attribute.counterOverflowTextAppearance;
+			global::TouchEffect.Droid.Resource.Attribute.counterTextAppearance = global::NureTimetable.Droid.Resource.Attribute.counterTextAppearance;
+			global::TouchEffect.Droid.Resource.Attribute.customNavigationLayout = global::NureTimetable.Droid.Resource.Attribute.customNavigationLayout;
+			global::TouchEffect.Droid.Resource.Attribute.defaultQueryHint = global::NureTimetable.Droid.Resource.Attribute.defaultQueryHint;
+			global::TouchEffect.Droid.Resource.Attribute.dialogCornerRadius = global::NureTimetable.Droid.Resource.Attribute.dialogCornerRadius;
+			global::TouchEffect.Droid.Resource.Attribute.dialogPreferredPadding = global::NureTimetable.Droid.Resource.Attribute.dialogPreferredPadding;
+			global::TouchEffect.Droid.Resource.Attribute.dialogTheme = global::NureTimetable.Droid.Resource.Attribute.dialogTheme;
+			global::TouchEffect.Droid.Resource.Attribute.displayOptions = global::NureTimetable.Droid.Resource.Attribute.displayOptions;
+			global::TouchEffect.Droid.Resource.Attribute.divider = global::NureTimetable.Droid.Resource.Attribute.divider;
+			global::TouchEffect.Droid.Resource.Attribute.dividerHorizontal = global::NureTimetable.Droid.Resource.Attribute.dividerHorizontal;
+			global::TouchEffect.Droid.Resource.Attribute.dividerPadding = global::NureTimetable.Droid.Resource.Attribute.dividerPadding;
+			global::TouchEffect.Droid.Resource.Attribute.dividerVertical = global::NureTimetable.Droid.Resource.Attribute.dividerVertical;
+			global::TouchEffect.Droid.Resource.Attribute.drawableSize = global::NureTimetable.Droid.Resource.Attribute.drawableSize;
+			global::TouchEffect.Droid.Resource.Attribute.drawerArrowStyle = global::NureTimetable.Droid.Resource.Attribute.drawerArrowStyle;
+			global::TouchEffect.Droid.Resource.Attribute.dropDownListViewStyle = global::NureTimetable.Droid.Resource.Attribute.dropDownListViewStyle;
+			global::TouchEffect.Droid.Resource.Attribute.dropdownListPreferredItemHeight = global::NureTimetable.Droid.Resource.Attribute.dropdownListPreferredItemHeight;
+			global::TouchEffect.Droid.Resource.Attribute.editTextBackground = global::NureTimetable.Droid.Resource.Attribute.editTextBackground;
+			global::TouchEffect.Droid.Resource.Attribute.editTextColor = global::NureTimetable.Droid.Resource.Attribute.editTextColor;
+			global::TouchEffect.Droid.Resource.Attribute.editTextStyle = global::NureTimetable.Droid.Resource.Attribute.editTextStyle;
+			global::TouchEffect.Droid.Resource.Attribute.elevation = global::NureTimetable.Droid.Resource.Attribute.elevation;
+			global::TouchEffect.Droid.Resource.Attribute.enforceMaterialTheme = global::NureTimetable.Droid.Resource.Attribute.enforceMaterialTheme;
+			global::TouchEffect.Droid.Resource.Attribute.enforceTextAppearance = global::NureTimetable.Droid.Resource.Attribute.enforceTextAppearance;
+			global::TouchEffect.Droid.Resource.Attribute.errorEnabled = global::NureTimetable.Droid.Resource.Attribute.errorEnabled;
+			global::TouchEffect.Droid.Resource.Attribute.errorTextAppearance = global::NureTimetable.Droid.Resource.Attribute.errorTextAppearance;
+			global::TouchEffect.Droid.Resource.Attribute.expandActivityOverflowButtonDrawable = global::NureTimetable.Droid.Resource.Attribute.expandActivityOverflowButtonDrawable;
+			global::TouchEffect.Droid.Resource.Attribute.expanded = global::NureTimetable.Droid.Resource.Attribute.expanded;
+			global::TouchEffect.Droid.Resource.Attribute.expandedTitleGravity = global::NureTimetable.Droid.Resource.Attribute.expandedTitleGravity;
+			global::TouchEffect.Droid.Resource.Attribute.expandedTitleMargin = global::NureTimetable.Droid.Resource.Attribute.expandedTitleMargin;
+			global::TouchEffect.Droid.Resource.Attribute.expandedTitleMarginBottom = global::NureTimetable.Droid.Resource.Attribute.expandedTitleMarginBottom;
+			global::TouchEffect.Droid.Resource.Attribute.expandedTitleMarginEnd = global::NureTimetable.Droid.Resource.Attribute.expandedTitleMarginEnd;
+			global::TouchEffect.Droid.Resource.Attribute.expandedTitleMarginStart = global::NureTimetable.Droid.Resource.Attribute.expandedTitleMarginStart;
+			global::TouchEffect.Droid.Resource.Attribute.expandedTitleMarginTop = global::NureTimetable.Droid.Resource.Attribute.expandedTitleMarginTop;
+			global::TouchEffect.Droid.Resource.Attribute.expandedTitleTextAppearance = global::NureTimetable.Droid.Resource.Attribute.expandedTitleTextAppearance;
+			global::TouchEffect.Droid.Resource.Attribute.fabAlignmentMode = global::NureTimetable.Droid.Resource.Attribute.fabAlignmentMode;
+			global::TouchEffect.Droid.Resource.Attribute.fabCradleMargin = global::NureTimetable.Droid.Resource.Attribute.fabCradleMargin;
+			global::TouchEffect.Droid.Resource.Attribute.fabCradleRoundedCornerRadius = global::NureTimetable.Droid.Resource.Attribute.fabCradleRoundedCornerRadius;
+			global::TouchEffect.Droid.Resource.Attribute.fabCradleVerticalOffset = global::NureTimetable.Droid.Resource.Attribute.fabCradleVerticalOffset;
+			global::TouchEffect.Droid.Resource.Attribute.fabCustomSize = global::NureTimetable.Droid.Resource.Attribute.fabCustomSize;
+			global::TouchEffect.Droid.Resource.Attribute.fabSize = global::NureTimetable.Droid.Resource.Attribute.fabSize;
+			global::TouchEffect.Droid.Resource.Attribute.fastScrollEnabled = global::NureTimetable.Droid.Resource.Attribute.fastScrollEnabled;
+			global::TouchEffect.Droid.Resource.Attribute.fastScrollHorizontalThumbDrawable = global::NureTimetable.Droid.Resource.Attribute.fastScrollHorizontalThumbDrawable;
+			global::TouchEffect.Droid.Resource.Attribute.fastScrollHorizontalTrackDrawable = global::NureTimetable.Droid.Resource.Attribute.fastScrollHorizontalTrackDrawable;
+			global::TouchEffect.Droid.Resource.Attribute.fastScrollVerticalThumbDrawable = global::NureTimetable.Droid.Resource.Attribute.fastScrollVerticalThumbDrawable;
+			global::TouchEffect.Droid.Resource.Attribute.fastScrollVerticalTrackDrawable = global::NureTimetable.Droid.Resource.Attribute.fastScrollVerticalTrackDrawable;
+			global::TouchEffect.Droid.Resource.Attribute.firstBaselineToTopHeight = global::NureTimetable.Droid.Resource.Attribute.firstBaselineToTopHeight;
+			global::TouchEffect.Droid.Resource.Attribute.floatingActionButtonStyle = global::NureTimetable.Droid.Resource.Attribute.floatingActionButtonStyle;
+			global::TouchEffect.Droid.Resource.Attribute.font = global::NureTimetable.Droid.Resource.Attribute.font;
+			global::TouchEffect.Droid.Resource.Attribute.fontFamily = global::NureTimetable.Droid.Resource.Attribute.fontFamily;
+			global::TouchEffect.Droid.Resource.Attribute.fontProviderAuthority = global::NureTimetable.Droid.Resource.Attribute.fontProviderAuthority;
+			global::TouchEffect.Droid.Resource.Attribute.fontProviderCerts = global::NureTimetable.Droid.Resource.Attribute.fontProviderCerts;
+			global::TouchEffect.Droid.Resource.Attribute.fontProviderFetchStrategy = global::NureTimetable.Droid.Resource.Attribute.fontProviderFetchStrategy;
+			global::TouchEffect.Droid.Resource.Attribute.fontProviderFetchTimeout = global::NureTimetable.Droid.Resource.Attribute.fontProviderFetchTimeout;
+			global::TouchEffect.Droid.Resource.Attribute.fontProviderPackage = global::NureTimetable.Droid.Resource.Attribute.fontProviderPackage;
+			global::TouchEffect.Droid.Resource.Attribute.fontProviderQuery = global::NureTimetable.Droid.Resource.Attribute.fontProviderQuery;
+			global::TouchEffect.Droid.Resource.Attribute.fontStyle = global::NureTimetable.Droid.Resource.Attribute.fontStyle;
+			global::TouchEffect.Droid.Resource.Attribute.fontVariationSettings = global::NureTimetable.Droid.Resource.Attribute.fontVariationSettings;
+			global::TouchEffect.Droid.Resource.Attribute.fontWeight = global::NureTimetable.Droid.Resource.Attribute.fontWeight;
+			global::TouchEffect.Droid.Resource.Attribute.foregroundInsidePadding = global::NureTimetable.Droid.Resource.Attribute.foregroundInsidePadding;
+			global::TouchEffect.Droid.Resource.Attribute.gapBetweenBars = global::NureTimetable.Droid.Resource.Attribute.gapBetweenBars;
+			global::TouchEffect.Droid.Resource.Attribute.goIcon = global::NureTimetable.Droid.Resource.Attribute.goIcon;
+			global::TouchEffect.Droid.Resource.Attribute.headerLayout = global::NureTimetable.Droid.Resource.Attribute.headerLayout;
+			global::TouchEffect.Droid.Resource.Attribute.height = global::NureTimetable.Droid.Resource.Attribute.height;
+			global::TouchEffect.Droid.Resource.Attribute.helperText = global::NureTimetable.Droid.Resource.Attribute.helperText;
+			global::TouchEffect.Droid.Resource.Attribute.helperTextEnabled = global::NureTimetable.Droid.Resource.Attribute.helperTextEnabled;
+			global::TouchEffect.Droid.Resource.Attribute.helperTextTextAppearance = global::NureTimetable.Droid.Resource.Attribute.helperTextTextAppearance;
+			global::TouchEffect.Droid.Resource.Attribute.hideMotionSpec = global::NureTimetable.Droid.Resource.Attribute.hideMotionSpec;
+			global::TouchEffect.Droid.Resource.Attribute.hideOnContentScroll = global::NureTimetable.Droid.Resource.Attribute.hideOnContentScroll;
+			global::TouchEffect.Droid.Resource.Attribute.hideOnScroll = global::NureTimetable.Droid.Resource.Attribute.hideOnScroll;
+			global::TouchEffect.Droid.Resource.Attribute.hintAnimationEnabled = global::NureTimetable.Droid.Resource.Attribute.hintAnimationEnabled;
+			global::TouchEffect.Droid.Resource.Attribute.hintEnabled = global::NureTimetable.Droid.Resource.Attribute.hintEnabled;
+			global::TouchEffect.Droid.Resource.Attribute.hintTextAppearance = global::NureTimetable.Droid.Resource.Attribute.hintTextAppearance;
+			global::TouchEffect.Droid.Resource.Attribute.homeAsUpIndicator = global::NureTimetable.Droid.Resource.Attribute.homeAsUpIndicator;
+			global::TouchEffect.Droid.Resource.Attribute.homeLayout = global::NureTimetable.Droid.Resource.Attribute.homeLayout;
+			global::TouchEffect.Droid.Resource.Attribute.hoveredFocusedTranslationZ = global::NureTimetable.Droid.Resource.Attribute.hoveredFocusedTranslationZ;
+			global::TouchEffect.Droid.Resource.Attribute.icon = global::NureTimetable.Droid.Resource.Attribute.icon;
+			global::TouchEffect.Droid.Resource.Attribute.iconEndPadding = global::NureTimetable.Droid.Resource.Attribute.iconEndPadding;
+			global::TouchEffect.Droid.Resource.Attribute.iconGravity = global::NureTimetable.Droid.Resource.Attribute.iconGravity;
+			global::TouchEffect.Droid.Resource.Attribute.iconPadding = global::NureTimetable.Droid.Resource.Attribute.iconPadding;
+			global::TouchEffect.Droid.Resource.Attribute.iconSize = global::NureTimetable.Droid.Resource.Attribute.iconSize;
+			global::TouchEffect.Droid.Resource.Attribute.iconStartPadding = global::NureTimetable.Droid.Resource.Attribute.iconStartPadding;
+			global::TouchEffect.Droid.Resource.Attribute.iconTint = global::NureTimetable.Droid.Resource.Attribute.iconTint;
+			global::TouchEffect.Droid.Resource.Attribute.iconTintMode = global::NureTimetable.Droid.Resource.Attribute.iconTintMode;
+			global::TouchEffect.Droid.Resource.Attribute.iconifiedByDefault = global::NureTimetable.Droid.Resource.Attribute.iconifiedByDefault;
+			global::TouchEffect.Droid.Resource.Attribute.imageButtonStyle = global::NureTimetable.Droid.Resource.Attribute.imageButtonStyle;
+			global::TouchEffect.Droid.Resource.Attribute.indeterminateProgressStyle = global::NureTimetable.Droid.Resource.Attribute.indeterminateProgressStyle;
+			global::TouchEffect.Droid.Resource.Attribute.initialActivityCount = global::NureTimetable.Droid.Resource.Attribute.initialActivityCount;
+			global::TouchEffect.Droid.Resource.Attribute.insetForeground = global::NureTimetable.Droid.Resource.Attribute.insetForeground;
+			global::TouchEffect.Droid.Resource.Attribute.isLightTheme = global::NureTimetable.Droid.Resource.Attribute.isLightTheme;
+			global::TouchEffect.Droid.Resource.Attribute.itemBackground = global::NureTimetable.Droid.Resource.Attribute.itemBackground;
+			global::TouchEffect.Droid.Resource.Attribute.itemHorizontalPadding = global::NureTimetable.Droid.Resource.Attribute.itemHorizontalPadding;
+			global::TouchEffect.Droid.Resource.Attribute.itemHorizontalTranslationEnabled = global::NureTimetable.Droid.Resource.Attribute.itemHorizontalTranslationEnabled;
+			global::TouchEffect.Droid.Resource.Attribute.itemIconPadding = global::NureTimetable.Droid.Resource.Attribute.itemIconPadding;
+			global::TouchEffect.Droid.Resource.Attribute.itemIconSize = global::NureTimetable.Droid.Resource.Attribute.itemIconSize;
+			global::TouchEffect.Droid.Resource.Attribute.itemIconTint = global::NureTimetable.Droid.Resource.Attribute.itemIconTint;
+			global::TouchEffect.Droid.Resource.Attribute.itemPadding = global::NureTimetable.Droid.Resource.Attribute.itemPadding;
+			global::TouchEffect.Droid.Resource.Attribute.itemSpacing = global::NureTimetable.Droid.Resource.Attribute.itemSpacing;
+			global::TouchEffect.Droid.Resource.Attribute.itemTextAppearance = global::NureTimetable.Droid.Resource.Attribute.itemTextAppearance;
+			global::TouchEffect.Droid.Resource.Attribute.itemTextAppearanceActive = global::NureTimetable.Droid.Resource.Attribute.itemTextAppearanceActive;
+			global::TouchEffect.Droid.Resource.Attribute.itemTextAppearanceInactive = global::NureTimetable.Droid.Resource.Attribute.itemTextAppearanceInactive;
+			global::TouchEffect.Droid.Resource.Attribute.itemTextColor = global::NureTimetable.Droid.Resource.Attribute.itemTextColor;
+			global::TouchEffect.Droid.Resource.Attribute.keylines = global::NureTimetable.Droid.Resource.Attribute.keylines;
+			global::TouchEffect.Droid.Resource.Attribute.labelVisibilityMode = global::NureTimetable.Droid.Resource.Attribute.labelVisibilityMode;
+			global::TouchEffect.Droid.Resource.Attribute.lastBaselineToBottomHeight = global::NureTimetable.Droid.Resource.Attribute.lastBaselineToBottomHeight;
+			global::TouchEffect.Droid.Resource.Attribute.layout = global::NureTimetable.Droid.Resource.Attribute.layout;
+			global::TouchEffect.Droid.Resource.Attribute.layoutManager = global::NureTimetable.Droid.Resource.Attribute.layoutManager;
+			global::TouchEffect.Droid.Resource.Attribute.layout_anchor = global::NureTimetable.Droid.Resource.Attribute.layout_anchor;
+			global::TouchEffect.Droid.Resource.Attribute.layout_anchorGravity = global::NureTimetable.Droid.Resource.Attribute.layout_anchorGravity;
+			global::TouchEffect.Droid.Resource.Attribute.layout_behavior = global::NureTimetable.Droid.Resource.Attribute.layout_behavior;
+			global::TouchEffect.Droid.Resource.Attribute.layout_collapseMode = global::NureTimetable.Droid.Resource.Attribute.layout_collapseMode;
+			global::TouchEffect.Droid.Resource.Attribute.layout_collapseParallaxMultiplier = global::NureTimetable.Droid.Resource.Attribute.layout_collapseParallaxMultiplier;
+			global::TouchEffect.Droid.Resource.Attribute.layout_dodgeInsetEdges = global::NureTimetable.Droid.Resource.Attribute.layout_dodgeInsetEdges;
+			global::TouchEffect.Droid.Resource.Attribute.layout_insetEdge = global::NureTimetable.Droid.Resource.Attribute.layout_insetEdge;
+			global::TouchEffect.Droid.Resource.Attribute.layout_keyline = global::NureTimetable.Droid.Resource.Attribute.layout_keyline;
+			global::TouchEffect.Droid.Resource.Attribute.layout_scrollFlags = global::NureTimetable.Droid.Resource.Attribute.layout_scrollFlags;
+			global::TouchEffect.Droid.Resource.Attribute.layout_scrollInterpolator = global::NureTimetable.Droid.Resource.Attribute.layout_scrollInterpolator;
+			global::TouchEffect.Droid.Resource.Attribute.liftOnScroll = global::NureTimetable.Droid.Resource.Attribute.liftOnScroll;
+			global::TouchEffect.Droid.Resource.Attribute.lineHeight = global::NureTimetable.Droid.Resource.Attribute.lineHeight;
+			global::TouchEffect.Droid.Resource.Attribute.lineSpacing = global::NureTimetable.Droid.Resource.Attribute.lineSpacing;
+			global::TouchEffect.Droid.Resource.Attribute.listChoiceBackgroundIndicator = global::NureTimetable.Droid.Resource.Attribute.listChoiceBackgroundIndicator;
+			global::TouchEffect.Droid.Resource.Attribute.listDividerAlertDialog = global::NureTimetable.Droid.Resource.Attribute.listDividerAlertDialog;
+			global::TouchEffect.Droid.Resource.Attribute.listItemLayout = global::NureTimetable.Droid.Resource.Attribute.listItemLayout;
+			global::TouchEffect.Droid.Resource.Attribute.listLayout = global::NureTimetable.Droid.Resource.Attribute.listLayout;
+			global::TouchEffect.Droid.Resource.Attribute.listMenuViewStyle = global::NureTimetable.Droid.Resource.Attribute.listMenuViewStyle;
+			global::TouchEffect.Droid.Resource.Attribute.listPopupWindowStyle = global::NureTimetable.Droid.Resource.Attribute.listPopupWindowStyle;
+			global::TouchEffect.Droid.Resource.Attribute.listPreferredItemHeight = global::NureTimetable.Droid.Resource.Attribute.listPreferredItemHeight;
+			global::TouchEffect.Droid.Resource.Attribute.listPreferredItemHeightLarge = global::NureTimetable.Droid.Resource.Attribute.listPreferredItemHeightLarge;
+			global::TouchEffect.Droid.Resource.Attribute.listPreferredItemHeightSmall = global::NureTimetable.Droid.Resource.Attribute.listPreferredItemHeightSmall;
+			global::TouchEffect.Droid.Resource.Attribute.listPreferredItemPaddingLeft = global::NureTimetable.Droid.Resource.Attribute.listPreferredItemPaddingLeft;
+			global::TouchEffect.Droid.Resource.Attribute.listPreferredItemPaddingRight = global::NureTimetable.Droid.Resource.Attribute.listPreferredItemPaddingRight;
+			global::TouchEffect.Droid.Resource.Attribute.logo = global::NureTimetable.Droid.Resource.Attribute.logo;
+			global::TouchEffect.Droid.Resource.Attribute.logoDescription = global::NureTimetable.Droid.Resource.Attribute.logoDescription;
+			global::TouchEffect.Droid.Resource.Attribute.materialButtonStyle = global::NureTimetable.Droid.Resource.Attribute.materialButtonStyle;
+			global::TouchEffect.Droid.Resource.Attribute.materialCardViewStyle = global::NureTimetable.Droid.Resource.Attribute.materialCardViewStyle;
+			global::TouchEffect.Droid.Resource.Attribute.maxActionInlineWidth = global::NureTimetable.Droid.Resource.Attribute.maxActionInlineWidth;
+			global::TouchEffect.Droid.Resource.Attribute.maxButtonHeight = global::NureTimetable.Droid.Resource.Attribute.maxButtonHeight;
+			global::TouchEffect.Droid.Resource.Attribute.maxImageSize = global::NureTimetable.Droid.Resource.Attribute.maxImageSize;
+			global::TouchEffect.Droid.Resource.Attribute.measureWithLargestChild = global::NureTimetable.Droid.Resource.Attribute.measureWithLargestChild;
+			global::TouchEffect.Droid.Resource.Attribute.menu = global::NureTimetable.Droid.Resource.Attribute.menu;
+			global::TouchEffect.Droid.Resource.Attribute.multiChoiceItemLayout = global::NureTimetable.Droid.Resource.Attribute.multiChoiceItemLayout;
+			global::TouchEffect.Droid.Resource.Attribute.navigationContentDescription = global::NureTimetable.Droid.Resource.Attribute.navigationContentDescription;
+			global::TouchEffect.Droid.Resource.Attribute.navigationIcon = global::NureTimetable.Droid.Resource.Attribute.navigationIcon;
+			global::TouchEffect.Droid.Resource.Attribute.navigationMode = global::NureTimetable.Droid.Resource.Attribute.navigationMode;
+			global::TouchEffect.Droid.Resource.Attribute.navigationViewStyle = global::NureTimetable.Droid.Resource.Attribute.navigationViewStyle;
+			global::TouchEffect.Droid.Resource.Attribute.numericModifiers = global::NureTimetable.Droid.Resource.Attribute.numericModifiers;
+			global::TouchEffect.Droid.Resource.Attribute.overlapAnchor = global::NureTimetable.Droid.Resource.Attribute.overlapAnchor;
+			global::TouchEffect.Droid.Resource.Attribute.paddingBottomNoButtons = global::NureTimetable.Droid.Resource.Attribute.paddingBottomNoButtons;
+			global::TouchEffect.Droid.Resource.Attribute.paddingEnd = global::NureTimetable.Droid.Resource.Attribute.paddingEnd;
+			global::TouchEffect.Droid.Resource.Attribute.paddingStart = global::NureTimetable.Droid.Resource.Attribute.paddingStart;
+			global::TouchEffect.Droid.Resource.Attribute.paddingTopNoTitle = global::NureTimetable.Droid.Resource.Attribute.paddingTopNoTitle;
+			global::TouchEffect.Droid.Resource.Attribute.panelBackground = global::NureTimetable.Droid.Resource.Attribute.panelBackground;
+			global::TouchEffect.Droid.Resource.Attribute.panelMenuListTheme = global::NureTimetable.Droid.Resource.Attribute.panelMenuListTheme;
+			global::TouchEffect.Droid.Resource.Attribute.panelMenuListWidth = global::NureTimetable.Droid.Resource.Attribute.panelMenuListWidth;
+			global::TouchEffect.Droid.Resource.Attribute.passwordToggleContentDescription = global::NureTimetable.Droid.Resource.Attribute.passwordToggleContentDescription;
+			global::TouchEffect.Droid.Resource.Attribute.passwordToggleDrawable = global::NureTimetable.Droid.Resource.Attribute.passwordToggleDrawable;
+			global::TouchEffect.Droid.Resource.Attribute.passwordToggleEnabled = global::NureTimetable.Droid.Resource.Attribute.passwordToggleEnabled;
+			global::TouchEffect.Droid.Resource.Attribute.passwordToggleTint = global::NureTimetable.Droid.Resource.Attribute.passwordToggleTint;
+			global::TouchEffect.Droid.Resource.Attribute.passwordToggleTintMode = global::NureTimetable.Droid.Resource.Attribute.passwordToggleTintMode;
+			global::TouchEffect.Droid.Resource.Attribute.popupMenuStyle = global::NureTimetable.Droid.Resource.Attribute.popupMenuStyle;
+			global::TouchEffect.Droid.Resource.Attribute.popupTheme = global::NureTimetable.Droid.Resource.Attribute.popupTheme;
+			global::TouchEffect.Droid.Resource.Attribute.popupWindowStyle = global::NureTimetable.Droid.Resource.Attribute.popupWindowStyle;
+			global::TouchEffect.Droid.Resource.Attribute.preserveIconSpacing = global::NureTimetable.Droid.Resource.Attribute.preserveIconSpacing;
+			global::TouchEffect.Droid.Resource.Attribute.pressedTranslationZ = global::NureTimetable.Droid.Resource.Attribute.pressedTranslationZ;
+			global::TouchEffect.Droid.Resource.Attribute.progressBarPadding = global::NureTimetable.Droid.Resource.Attribute.progressBarPadding;
+			global::TouchEffect.Droid.Resource.Attribute.progressBarStyle = global::NureTimetable.Droid.Resource.Attribute.progressBarStyle;
+			global::TouchEffect.Droid.Resource.Attribute.queryBackground = global::NureTimetable.Droid.Resource.Attribute.queryBackground;
+			global::TouchEffect.Droid.Resource.Attribute.queryHint = global::NureTimetable.Droid.Resource.Attribute.queryHint;
+			global::TouchEffect.Droid.Resource.Attribute.radioButtonStyle = global::NureTimetable.Droid.Resource.Attribute.radioButtonStyle;
+			global::TouchEffect.Droid.Resource.Attribute.ratingBarStyle = global::NureTimetable.Droid.Resource.Attribute.ratingBarStyle;
+			global::TouchEffect.Droid.Resource.Attribute.ratingBarStyleIndicator = global::NureTimetable.Droid.Resource.Attribute.ratingBarStyleIndicator;
+			global::TouchEffect.Droid.Resource.Attribute.ratingBarStyleSmall = global::NureTimetable.Droid.Resource.Attribute.ratingBarStyleSmall;
+			global::TouchEffect.Droid.Resource.Attribute.reverseLayout = global::NureTimetable.Droid.Resource.Attribute.reverseLayout;
+			global::TouchEffect.Droid.Resource.Attribute.rippleColor = global::NureTimetable.Droid.Resource.Attribute.rippleColor;
+			global::TouchEffect.Droid.Resource.Attribute.scrimAnimationDuration = global::NureTimetable.Droid.Resource.Attribute.scrimAnimationDuration;
+			global::TouchEffect.Droid.Resource.Attribute.scrimBackground = global::NureTimetable.Droid.Resource.Attribute.scrimBackground;
+			global::TouchEffect.Droid.Resource.Attribute.scrimVisibleHeightTrigger = global::NureTimetable.Droid.Resource.Attribute.scrimVisibleHeightTrigger;
+			global::TouchEffect.Droid.Resource.Attribute.searchHintIcon = global::NureTimetable.Droid.Resource.Attribute.searchHintIcon;
+			global::TouchEffect.Droid.Resource.Attribute.searchIcon = global::NureTimetable.Droid.Resource.Attribute.searchIcon;
+			global::TouchEffect.Droid.Resource.Attribute.searchViewStyle = global::NureTimetable.Droid.Resource.Attribute.searchViewStyle;
+			global::TouchEffect.Droid.Resource.Attribute.seekBarStyle = global::NureTimetable.Droid.Resource.Attribute.seekBarStyle;
+			global::TouchEffect.Droid.Resource.Attribute.selectableItemBackground = global::NureTimetable.Droid.Resource.Attribute.selectableItemBackground;
+			global::TouchEffect.Droid.Resource.Attribute.selectableItemBackgroundBorderless = global::NureTimetable.Droid.Resource.Attribute.selectableItemBackgroundBorderless;
+			global::TouchEffect.Droid.Resource.Attribute.showAsAction = global::NureTimetable.Droid.Resource.Attribute.showAsAction;
+			global::TouchEffect.Droid.Resource.Attribute.showDividers = global::NureTimetable.Droid.Resource.Attribute.showDividers;
+			global::TouchEffect.Droid.Resource.Attribute.showMotionSpec = global::NureTimetable.Droid.Resource.Attribute.showMotionSpec;
+			global::TouchEffect.Droid.Resource.Attribute.showText = global::NureTimetable.Droid.Resource.Attribute.showText;
+			global::TouchEffect.Droid.Resource.Attribute.showTitle = global::NureTimetable.Droid.Resource.Attribute.showTitle;
+			global::TouchEffect.Droid.Resource.Attribute.singleChoiceItemLayout = global::NureTimetable.Droid.Resource.Attribute.singleChoiceItemLayout;
+			global::TouchEffect.Droid.Resource.Attribute.singleLine = global::NureTimetable.Droid.Resource.Attribute.singleLine;
+			global::TouchEffect.Droid.Resource.Attribute.singleSelection = global::NureTimetable.Droid.Resource.Attribute.singleSelection;
+			global::TouchEffect.Droid.Resource.Attribute.snackbarButtonStyle = global::NureTimetable.Droid.Resource.Attribute.snackbarButtonStyle;
+			global::TouchEffect.Droid.Resource.Attribute.snackbarStyle = global::NureTimetable.Droid.Resource.Attribute.snackbarStyle;
+			global::TouchEffect.Droid.Resource.Attribute.spanCount = global::NureTimetable.Droid.Resource.Attribute.spanCount;
+			global::TouchEffect.Droid.Resource.Attribute.spinBars = global::NureTimetable.Droid.Resource.Attribute.spinBars;
+			global::TouchEffect.Droid.Resource.Attribute.spinnerDropDownItemStyle = global::NureTimetable.Droid.Resource.Attribute.spinnerDropDownItemStyle;
+			global::TouchEffect.Droid.Resource.Attribute.spinnerStyle = global::NureTimetable.Droid.Resource.Attribute.spinnerStyle;
+			global::TouchEffect.Droid.Resource.Attribute.splitTrack = global::NureTimetable.Droid.Resource.Attribute.splitTrack;
+			global::TouchEffect.Droid.Resource.Attribute.srcCompat = global::NureTimetable.Droid.Resource.Attribute.srcCompat;
+			global::TouchEffect.Droid.Resource.Attribute.stackFromEnd = global::NureTimetable.Droid.Resource.Attribute.stackFromEnd;
+			global::TouchEffect.Droid.Resource.Attribute.state_above_anchor = global::NureTimetable.Droid.Resource.Attribute.state_above_anchor;
+			global::TouchEffect.Droid.Resource.Attribute.state_collapsed = global::NureTimetable.Droid.Resource.Attribute.state_collapsed;
+			global::TouchEffect.Droid.Resource.Attribute.state_collapsible = global::NureTimetable.Droid.Resource.Attribute.state_collapsible;
+			global::TouchEffect.Droid.Resource.Attribute.state_liftable = global::NureTimetable.Droid.Resource.Attribute.state_liftable;
+			global::TouchEffect.Droid.Resource.Attribute.state_lifted = global::NureTimetable.Droid.Resource.Attribute.state_lifted;
+			global::TouchEffect.Droid.Resource.Attribute.statusBarBackground = global::NureTimetable.Droid.Resource.Attribute.statusBarBackground;
+			global::TouchEffect.Droid.Resource.Attribute.statusBarScrim = global::NureTimetable.Droid.Resource.Attribute.statusBarScrim;
+			global::TouchEffect.Droid.Resource.Attribute.strokeColor = global::NureTimetable.Droid.Resource.Attribute.strokeColor;
+			global::TouchEffect.Droid.Resource.Attribute.strokeWidth = global::NureTimetable.Droid.Resource.Attribute.strokeWidth;
+			global::TouchEffect.Droid.Resource.Attribute.subMenuArrow = global::NureTimetable.Droid.Resource.Attribute.subMenuArrow;
+			global::TouchEffect.Droid.Resource.Attribute.submitBackground = global::NureTimetable.Droid.Resource.Attribute.submitBackground;
+			global::TouchEffect.Droid.Resource.Attribute.subtitle = global::NureTimetable.Droid.Resource.Attribute.subtitle;
+			global::TouchEffect.Droid.Resource.Attribute.subtitleTextAppearance = global::NureTimetable.Droid.Resource.Attribute.subtitleTextAppearance;
+			global::TouchEffect.Droid.Resource.Attribute.subtitleTextColor = global::NureTimetable.Droid.Resource.Attribute.subtitleTextColor;
+			global::TouchEffect.Droid.Resource.Attribute.subtitleTextStyle = global::NureTimetable.Droid.Resource.Attribute.subtitleTextStyle;
+			global::TouchEffect.Droid.Resource.Attribute.suggestionRowLayout = global::NureTimetable.Droid.Resource.Attribute.suggestionRowLayout;
+			global::TouchEffect.Droid.Resource.Attribute.switchMinWidth = global::NureTimetable.Droid.Resource.Attribute.switchMinWidth;
+			global::TouchEffect.Droid.Resource.Attribute.switchPadding = global::NureTimetable.Droid.Resource.Attribute.switchPadding;
+			global::TouchEffect.Droid.Resource.Attribute.switchStyle = global::NureTimetable.Droid.Resource.Attribute.switchStyle;
+			global::TouchEffect.Droid.Resource.Attribute.switchTextAppearance = global::NureTimetable.Droid.Resource.Attribute.switchTextAppearance;
+			global::TouchEffect.Droid.Resource.Attribute.tabBackground = global::NureTimetable.Droid.Resource.Attribute.tabBackground;
+			global::TouchEffect.Droid.Resource.Attribute.tabContentStart = global::NureTimetable.Droid.Resource.Attribute.tabContentStart;
+			global::TouchEffect.Droid.Resource.Attribute.tabGravity = global::NureTimetable.Droid.Resource.Attribute.tabGravity;
+			global::TouchEffect.Droid.Resource.Attribute.tabIconTint = global::NureTimetable.Droid.Resource.Attribute.tabIconTint;
+			global::TouchEffect.Droid.Resource.Attribute.tabIconTintMode = global::NureTimetable.Droid.Resource.Attribute.tabIconTintMode;
+			global::TouchEffect.Droid.Resource.Attribute.tabIndicator = global::NureTimetable.Droid.Resource.Attribute.tabIndicator;
+			global::TouchEffect.Droid.Resource.Attribute.tabIndicatorAnimationDuration = global::NureTimetable.Droid.Resource.Attribute.tabIndicatorAnimationDuration;
+			global::TouchEffect.Droid.Resource.Attribute.tabIndicatorColor = global::NureTimetable.Droid.Resource.Attribute.tabIndicatorColor;
+			global::TouchEffect.Droid.Resource.Attribute.tabIndicatorFullWidth = global::NureTimetable.Droid.Resource.Attribute.tabIndicatorFullWidth;
+			global::TouchEffect.Droid.Resource.Attribute.tabIndicatorGravity = global::NureTimetable.Droid.Resource.Attribute.tabIndicatorGravity;
+			global::TouchEffect.Droid.Resource.Attribute.tabIndicatorHeight = global::NureTimetable.Droid.Resource.Attribute.tabIndicatorHeight;
+			global::TouchEffect.Droid.Resource.Attribute.tabInlineLabel = global::NureTimetable.Droid.Resource.Attribute.tabInlineLabel;
+			global::TouchEffect.Droid.Resource.Attribute.tabMaxWidth = global::NureTimetable.Droid.Resource.Attribute.tabMaxWidth;
+			global::TouchEffect.Droid.Resource.Attribute.tabMinWidth = global::NureTimetable.Droid.Resource.Attribute.tabMinWidth;
+			global::TouchEffect.Droid.Resource.Attribute.tabMode = global::NureTimetable.Droid.Resource.Attribute.tabMode;
+			global::TouchEffect.Droid.Resource.Attribute.tabPadding = global::NureTimetable.Droid.Resource.Attribute.tabPadding;
+			global::TouchEffect.Droid.Resource.Attribute.tabPaddingBottom = global::NureTimetable.Droid.Resource.Attribute.tabPaddingBottom;
+			global::TouchEffect.Droid.Resource.Attribute.tabPaddingEnd = global::NureTimetable.Droid.Resource.Attribute.tabPaddingEnd;
+			global::TouchEffect.Droid.Resource.Attribute.tabPaddingStart = global::NureTimetable.Droid.Resource.Attribute.tabPaddingStart;
+			global::TouchEffect.Droid.Resource.Attribute.tabPaddingTop = global::NureTimetable.Droid.Resource.Attribute.tabPaddingTop;
+			global::TouchEffect.Droid.Resource.Attribute.tabRippleColor = global::NureTimetable.Droid.Resource.Attribute.tabRippleColor;
+			global::TouchEffect.Droid.Resource.Attribute.tabSelectedTextColor = global::NureTimetable.Droid.Resource.Attribute.tabSelectedTextColor;
+			global::TouchEffect.Droid.Resource.Attribute.tabStyle = global::NureTimetable.Droid.Resource.Attribute.tabStyle;
+			global::TouchEffect.Droid.Resource.Attribute.tabTextAppearance = global::NureTimetable.Droid.Resource.Attribute.tabTextAppearance;
+			global::TouchEffect.Droid.Resource.Attribute.tabTextColor = global::NureTimetable.Droid.Resource.Attribute.tabTextColor;
+			global::TouchEffect.Droid.Resource.Attribute.tabUnboundedRipple = global::NureTimetable.Droid.Resource.Attribute.tabUnboundedRipple;
+			global::TouchEffect.Droid.Resource.Attribute.textAllCaps = global::NureTimetable.Droid.Resource.Attribute.textAllCaps;
+			global::TouchEffect.Droid.Resource.Attribute.textAppearanceBody1 = global::NureTimetable.Droid.Resource.Attribute.textAppearanceBody1;
+			global::TouchEffect.Droid.Resource.Attribute.textAppearanceBody2 = global::NureTimetable.Droid.Resource.Attribute.textAppearanceBody2;
+			global::TouchEffect.Droid.Resource.Attribute.textAppearanceButton = global::NureTimetable.Droid.Resource.Attribute.textAppearanceButton;
+			global::TouchEffect.Droid.Resource.Attribute.textAppearanceCaption = global::NureTimetable.Droid.Resource.Attribute.textAppearanceCaption;
+			global::TouchEffect.Droid.Resource.Attribute.textAppearanceHeadline1 = global::NureTimetable.Droid.Resource.Attribute.textAppearanceHeadline1;
+			global::TouchEffect.Droid.Resource.Attribute.textAppearanceHeadline2 = global::NureTimetable.Droid.Resource.Attribute.textAppearanceHeadline2;
+			global::TouchEffect.Droid.Resource.Attribute.textAppearanceHeadline3 = global::NureTimetable.Droid.Resource.Attribute.textAppearanceHeadline3;
+			global::TouchEffect.Droid.Resource.Attribute.textAppearanceHeadline4 = global::NureTimetable.Droid.Resource.Attribute.textAppearanceHeadline4;
+			global::TouchEffect.Droid.Resource.Attribute.textAppearanceHeadline5 = global::NureTimetable.Droid.Resource.Attribute.textAppearanceHeadline5;
+			global::TouchEffect.Droid.Resource.Attribute.textAppearanceHeadline6 = global::NureTimetable.Droid.Resource.Attribute.textAppearanceHeadline6;
+			global::TouchEffect.Droid.Resource.Attribute.textAppearanceLargePopupMenu = global::NureTimetable.Droid.Resource.Attribute.textAppearanceLargePopupMenu;
+			global::TouchEffect.Droid.Resource.Attribute.textAppearanceListItem = global::NureTimetable.Droid.Resource.Attribute.textAppearanceListItem;
+			global::TouchEffect.Droid.Resource.Attribute.textAppearanceListItemSecondary = global::NureTimetable.Droid.Resource.Attribute.textAppearanceListItemSecondary;
+			global::TouchEffect.Droid.Resource.Attribute.textAppearanceListItemSmall = global::NureTimetable.Droid.Resource.Attribute.textAppearanceListItemSmall;
+			global::TouchEffect.Droid.Resource.Attribute.textAppearanceOverline = global::NureTimetable.Droid.Resource.Attribute.textAppearanceOverline;
+			global::TouchEffect.Droid.Resource.Attribute.textAppearancePopupMenuHeader = global::NureTimetable.Droid.Resource.Attribute.textAppearancePopupMenuHeader;
+			global::TouchEffect.Droid.Resource.Attribute.textAppearanceSearchResultSubtitle = global::NureTimetable.Droid.Resource.Attribute.textAppearanceSearchResultSubtitle;
+			global::TouchEffect.Droid.Resource.Attribute.textAppearanceSearchResultTitle = global::NureTimetable.Droid.Resource.Attribute.textAppearanceSearchResultTitle;
+			global::TouchEffect.Droid.Resource.Attribute.textAppearanceSmallPopupMenu = global::NureTimetable.Droid.Resource.Attribute.textAppearanceSmallPopupMenu;
+			global::TouchEffect.Droid.Resource.Attribute.textAppearanceSubtitle1 = global::NureTimetable.Droid.Resource.Attribute.textAppearanceSubtitle1;
+			global::TouchEffect.Droid.Resource.Attribute.textAppearanceSubtitle2 = global::NureTimetable.Droid.Resource.Attribute.textAppearanceSubtitle2;
+			global::TouchEffect.Droid.Resource.Attribute.textColorAlertDialogListItem = global::NureTimetable.Droid.Resource.Attribute.textColorAlertDialogListItem;
+			global::TouchEffect.Droid.Resource.Attribute.textColorSearchUrl = global::NureTimetable.Droid.Resource.Attribute.textColorSearchUrl;
+			global::TouchEffect.Droid.Resource.Attribute.textEndPadding = global::NureTimetable.Droid.Resource.Attribute.textEndPadding;
+			global::TouchEffect.Droid.Resource.Attribute.textInputStyle = global::NureTimetable.Droid.Resource.Attribute.textInputStyle;
+			global::TouchEffect.Droid.Resource.Attribute.textStartPadding = global::NureTimetable.Droid.Resource.Attribute.textStartPadding;
+			global::TouchEffect.Droid.Resource.Attribute.theme = global::NureTimetable.Droid.Resource.Attribute.theme;
+			global::TouchEffect.Droid.Resource.Attribute.thickness = global::NureTimetable.Droid.Resource.Attribute.thickness;
+			global::TouchEffect.Droid.Resource.Attribute.thumbTextPadding = global::NureTimetable.Droid.Resource.Attribute.thumbTextPadding;
+			global::TouchEffect.Droid.Resource.Attribute.thumbTint = global::NureTimetable.Droid.Resource.Attribute.thumbTint;
+			global::TouchEffect.Droid.Resource.Attribute.thumbTintMode = global::NureTimetable.Droid.Resource.Attribute.thumbTintMode;
+			global::TouchEffect.Droid.Resource.Attribute.tickMark = global::NureTimetable.Droid.Resource.Attribute.tickMark;
+			global::TouchEffect.Droid.Resource.Attribute.tickMarkTint = global::NureTimetable.Droid.Resource.Attribute.tickMarkTint;
+			global::TouchEffect.Droid.Resource.Attribute.tickMarkTintMode = global::NureTimetable.Droid.Resource.Attribute.tickMarkTintMode;
+			global::TouchEffect.Droid.Resource.Attribute.tint = global::NureTimetable.Droid.Resource.Attribute.tint;
+			global::TouchEffect.Droid.Resource.Attribute.tintMode = global::NureTimetable.Droid.Resource.Attribute.tintMode;
+			global::TouchEffect.Droid.Resource.Attribute.title = global::NureTimetable.Droid.Resource.Attribute.title;
+			global::TouchEffect.Droid.Resource.Attribute.titleEnabled = global::NureTimetable.Droid.Resource.Attribute.titleEnabled;
+			global::TouchEffect.Droid.Resource.Attribute.titleMargin = global::NureTimetable.Droid.Resource.Attribute.titleMargin;
+			global::TouchEffect.Droid.Resource.Attribute.titleMarginBottom = global::NureTimetable.Droid.Resource.Attribute.titleMarginBottom;
+			global::TouchEffect.Droid.Resource.Attribute.titleMarginEnd = global::NureTimetable.Droid.Resource.Attribute.titleMarginEnd;
+			global::TouchEffect.Droid.Resource.Attribute.titleMarginStart = global::NureTimetable.Droid.Resource.Attribute.titleMarginStart;
+			global::TouchEffect.Droid.Resource.Attribute.titleMarginTop = global::NureTimetable.Droid.Resource.Attribute.titleMarginTop;
+			global::TouchEffect.Droid.Resource.Attribute.titleMargins = global::NureTimetable.Droid.Resource.Attribute.titleMargins;
+			global::TouchEffect.Droid.Resource.Attribute.titleTextAppearance = global::NureTimetable.Droid.Resource.Attribute.titleTextAppearance;
+			global::TouchEffect.Droid.Resource.Attribute.titleTextColor = global::NureTimetable.Droid.Resource.Attribute.titleTextColor;
+			global::TouchEffect.Droid.Resource.Attribute.titleTextStyle = global::NureTimetable.Droid.Resource.Attribute.titleTextStyle;
+			global::TouchEffect.Droid.Resource.Attribute.toolbarId = global::NureTimetable.Droid.Resource.Attribute.toolbarId;
+			global::TouchEffect.Droid.Resource.Attribute.toolbarNavigationButtonStyle = global::NureTimetable.Droid.Resource.Attribute.toolbarNavigationButtonStyle;
+			global::TouchEffect.Droid.Resource.Attribute.toolbarStyle = global::NureTimetable.Droid.Resource.Attribute.toolbarStyle;
+			global::TouchEffect.Droid.Resource.Attribute.tooltipForegroundColor = global::NureTimetable.Droid.Resource.Attribute.tooltipForegroundColor;
+			global::TouchEffect.Droid.Resource.Attribute.tooltipFrameBackground = global::NureTimetable.Droid.Resource.Attribute.tooltipFrameBackground;
+			global::TouchEffect.Droid.Resource.Attribute.tooltipText = global::NureTimetable.Droid.Resource.Attribute.tooltipText;
+			global::TouchEffect.Droid.Resource.Attribute.track = global::NureTimetable.Droid.Resource.Attribute.track;
+			global::TouchEffect.Droid.Resource.Attribute.trackTint = global::NureTimetable.Droid.Resource.Attribute.trackTint;
+			global::TouchEffect.Droid.Resource.Attribute.trackTintMode = global::NureTimetable.Droid.Resource.Attribute.trackTintMode;
+			global::TouchEffect.Droid.Resource.Attribute.ttcIndex = global::NureTimetable.Droid.Resource.Attribute.ttcIndex;
+			global::TouchEffect.Droid.Resource.Attribute.useCompatPadding = global::NureTimetable.Droid.Resource.Attribute.useCompatPadding;
+			global::TouchEffect.Droid.Resource.Attribute.viewInflaterClass = global::NureTimetable.Droid.Resource.Attribute.viewInflaterClass;
+			global::TouchEffect.Droid.Resource.Attribute.voiceIcon = global::NureTimetable.Droid.Resource.Attribute.voiceIcon;
+			global::TouchEffect.Droid.Resource.Attribute.windowActionBar = global::NureTimetable.Droid.Resource.Attribute.windowActionBar;
+			global::TouchEffect.Droid.Resource.Attribute.windowActionBarOverlay = global::NureTimetable.Droid.Resource.Attribute.windowActionBarOverlay;
+			global::TouchEffect.Droid.Resource.Attribute.windowActionModeOverlay = global::NureTimetable.Droid.Resource.Attribute.windowActionModeOverlay;
+			global::TouchEffect.Droid.Resource.Attribute.windowFixedHeightMajor = global::NureTimetable.Droid.Resource.Attribute.windowFixedHeightMajor;
+			global::TouchEffect.Droid.Resource.Attribute.windowFixedHeightMinor = global::NureTimetable.Droid.Resource.Attribute.windowFixedHeightMinor;
+			global::TouchEffect.Droid.Resource.Attribute.windowFixedWidthMajor = global::NureTimetable.Droid.Resource.Attribute.windowFixedWidthMajor;
+			global::TouchEffect.Droid.Resource.Attribute.windowFixedWidthMinor = global::NureTimetable.Droid.Resource.Attribute.windowFixedWidthMinor;
+			global::TouchEffect.Droid.Resource.Attribute.windowMinWidthMajor = global::NureTimetable.Droid.Resource.Attribute.windowMinWidthMajor;
+			global::TouchEffect.Droid.Resource.Attribute.windowMinWidthMinor = global::NureTimetable.Droid.Resource.Attribute.windowMinWidthMinor;
+			global::TouchEffect.Droid.Resource.Attribute.windowNoTitle = global::NureTimetable.Droid.Resource.Attribute.windowNoTitle;
+			global::TouchEffect.Droid.Resource.Boolean.abc_action_bar_embed_tabs = global::NureTimetable.Droid.Resource.Boolean.abc_action_bar_embed_tabs;
+			global::TouchEffect.Droid.Resource.Boolean.abc_allow_stacked_button_bar = global::NureTimetable.Droid.Resource.Boolean.abc_allow_stacked_button_bar;
+			global::TouchEffect.Droid.Resource.Boolean.abc_config_actionMenuItemAllCaps = global::NureTimetable.Droid.Resource.Boolean.abc_config_actionMenuItemAllCaps;
+			global::TouchEffect.Droid.Resource.Boolean.mtrl_btn_textappearance_all_caps = global::NureTimetable.Droid.Resource.Boolean.mtrl_btn_textappearance_all_caps;
+			global::TouchEffect.Droid.Resource.Color.abc_background_cache_hint_selector_material_dark = global::NureTimetable.Droid.Resource.Color.abc_background_cache_hint_selector_material_dark;
+			global::TouchEffect.Droid.Resource.Color.abc_background_cache_hint_selector_material_light = global::NureTimetable.Droid.Resource.Color.abc_background_cache_hint_selector_material_light;
+			global::TouchEffect.Droid.Resource.Color.abc_btn_colored_borderless_text_material = global::NureTimetable.Droid.Resource.Color.abc_btn_colored_borderless_text_material;
+			global::TouchEffect.Droid.Resource.Color.abc_btn_colored_text_material = global::NureTimetable.Droid.Resource.Color.abc_btn_colored_text_material;
+			global::TouchEffect.Droid.Resource.Color.abc_color_highlight_material = global::NureTimetable.Droid.Resource.Color.abc_color_highlight_material;
+			global::TouchEffect.Droid.Resource.Color.abc_hint_foreground_material_dark = global::NureTimetable.Droid.Resource.Color.abc_hint_foreground_material_dark;
+			global::TouchEffect.Droid.Resource.Color.abc_hint_foreground_material_light = global::NureTimetable.Droid.Resource.Color.abc_hint_foreground_material_light;
+			global::TouchEffect.Droid.Resource.Color.abc_input_method_navigation_guard = global::NureTimetable.Droid.Resource.Color.abc_input_method_navigation_guard;
+			global::TouchEffect.Droid.Resource.Color.abc_primary_text_disable_only_material_dark = global::NureTimetable.Droid.Resource.Color.abc_primary_text_disable_only_material_dark;
+			global::TouchEffect.Droid.Resource.Color.abc_primary_text_disable_only_material_light = global::NureTimetable.Droid.Resource.Color.abc_primary_text_disable_only_material_light;
+			global::TouchEffect.Droid.Resource.Color.abc_primary_text_material_dark = global::NureTimetable.Droid.Resource.Color.abc_primary_text_material_dark;
+			global::TouchEffect.Droid.Resource.Color.abc_primary_text_material_light = global::NureTimetable.Droid.Resource.Color.abc_primary_text_material_light;
+			global::TouchEffect.Droid.Resource.Color.abc_search_url_text = global::NureTimetable.Droid.Resource.Color.abc_search_url_text;
+			global::TouchEffect.Droid.Resource.Color.abc_search_url_text_normal = global::NureTimetable.Droid.Resource.Color.abc_search_url_text_normal;
+			global::TouchEffect.Droid.Resource.Color.abc_search_url_text_pressed = global::NureTimetable.Droid.Resource.Color.abc_search_url_text_pressed;
+			global::TouchEffect.Droid.Resource.Color.abc_search_url_text_selected = global::NureTimetable.Droid.Resource.Color.abc_search_url_text_selected;
+			global::TouchEffect.Droid.Resource.Color.abc_secondary_text_material_dark = global::NureTimetable.Droid.Resource.Color.abc_secondary_text_material_dark;
+			global::TouchEffect.Droid.Resource.Color.abc_secondary_text_material_light = global::NureTimetable.Droid.Resource.Color.abc_secondary_text_material_light;
+			global::TouchEffect.Droid.Resource.Color.abc_tint_btn_checkable = global::NureTimetable.Droid.Resource.Color.abc_tint_btn_checkable;
+			global::TouchEffect.Droid.Resource.Color.abc_tint_default = global::NureTimetable.Droid.Resource.Color.abc_tint_default;
+			global::TouchEffect.Droid.Resource.Color.abc_tint_edittext = global::NureTimetable.Droid.Resource.Color.abc_tint_edittext;
+			global::TouchEffect.Droid.Resource.Color.abc_tint_seek_thumb = global::NureTimetable.Droid.Resource.Color.abc_tint_seek_thumb;
+			global::TouchEffect.Droid.Resource.Color.abc_tint_spinner = global::NureTimetable.Droid.Resource.Color.abc_tint_spinner;
+			global::TouchEffect.Droid.Resource.Color.abc_tint_switch_track = global::NureTimetable.Droid.Resource.Color.abc_tint_switch_track;
+			global::TouchEffect.Droid.Resource.Color.accent_material_dark = global::NureTimetable.Droid.Resource.Color.accent_material_dark;
+			global::TouchEffect.Droid.Resource.Color.accent_material_light = global::NureTimetable.Droid.Resource.Color.accent_material_light;
+			global::TouchEffect.Droid.Resource.Color.background_floating_material_dark = global::NureTimetable.Droid.Resource.Color.background_floating_material_dark;
+			global::TouchEffect.Droid.Resource.Color.background_floating_material_light = global::NureTimetable.Droid.Resource.Color.background_floating_material_light;
+			global::TouchEffect.Droid.Resource.Color.background_material_dark = global::NureTimetable.Droid.Resource.Color.background_material_dark;
+			global::TouchEffect.Droid.Resource.Color.background_material_light = global::NureTimetable.Droid.Resource.Color.background_material_light;
+			global::TouchEffect.Droid.Resource.Color.bright_foreground_disabled_material_dark = global::NureTimetable.Droid.Resource.Color.bright_foreground_disabled_material_dark;
+			global::TouchEffect.Droid.Resource.Color.bright_foreground_disabled_material_light = global::NureTimetable.Droid.Resource.Color.bright_foreground_disabled_material_light;
+			global::TouchEffect.Droid.Resource.Color.bright_foreground_inverse_material_dark = global::NureTimetable.Droid.Resource.Color.bright_foreground_inverse_material_dark;
+			global::TouchEffect.Droid.Resource.Color.bright_foreground_inverse_material_light = global::NureTimetable.Droid.Resource.Color.bright_foreground_inverse_material_light;
+			global::TouchEffect.Droid.Resource.Color.bright_foreground_material_dark = global::NureTimetable.Droid.Resource.Color.bright_foreground_material_dark;
+			global::TouchEffect.Droid.Resource.Color.bright_foreground_material_light = global::NureTimetable.Droid.Resource.Color.bright_foreground_material_light;
+			global::TouchEffect.Droid.Resource.Color.browser_actions_bg_grey = global::NureTimetable.Droid.Resource.Color.browser_actions_bg_grey;
+			global::TouchEffect.Droid.Resource.Color.browser_actions_divider_color = global::NureTimetable.Droid.Resource.Color.browser_actions_divider_color;
+			global::TouchEffect.Droid.Resource.Color.browser_actions_text_color = global::NureTimetable.Droid.Resource.Color.browser_actions_text_color;
+			global::TouchEffect.Droid.Resource.Color.browser_actions_title_color = global::NureTimetable.Droid.Resource.Color.browser_actions_title_color;
+			global::TouchEffect.Droid.Resource.Color.button_material_dark = global::NureTimetable.Droid.Resource.Color.button_material_dark;
+			global::TouchEffect.Droid.Resource.Color.button_material_light = global::NureTimetable.Droid.Resource.Color.button_material_light;
+			global::TouchEffect.Droid.Resource.Color.cardview_dark_background = global::NureTimetable.Droid.Resource.Color.cardview_dark_background;
+			global::TouchEffect.Droid.Resource.Color.cardview_light_background = global::NureTimetable.Droid.Resource.Color.cardview_light_background;
+			global::TouchEffect.Droid.Resource.Color.cardview_shadow_end_color = global::NureTimetable.Droid.Resource.Color.cardview_shadow_end_color;
+			global::TouchEffect.Droid.Resource.Color.cardview_shadow_start_color = global::NureTimetable.Droid.Resource.Color.cardview_shadow_start_color;
+			global::TouchEffect.Droid.Resource.Color.design_bottom_navigation_shadow_color = global::NureTimetable.Droid.Resource.Color.design_bottom_navigation_shadow_color;
+			global::TouchEffect.Droid.Resource.Color.design_default_color_primary = global::NureTimetable.Droid.Resource.Color.design_default_color_primary;
+			global::TouchEffect.Droid.Resource.Color.design_default_color_primary_dark = global::NureTimetable.Droid.Resource.Color.design_default_color_primary_dark;
+			global::TouchEffect.Droid.Resource.Color.design_error = global::NureTimetable.Droid.Resource.Color.design_error;
+			global::TouchEffect.Droid.Resource.Color.design_fab_shadow_end_color = global::NureTimetable.Droid.Resource.Color.design_fab_shadow_end_color;
+			global::TouchEffect.Droid.Resource.Color.design_fab_shadow_mid_color = global::NureTimetable.Droid.Resource.Color.design_fab_shadow_mid_color;
+			global::TouchEffect.Droid.Resource.Color.design_fab_shadow_start_color = global::NureTimetable.Droid.Resource.Color.design_fab_shadow_start_color;
+			global::TouchEffect.Droid.Resource.Color.design_fab_stroke_end_inner_color = global::NureTimetable.Droid.Resource.Color.design_fab_stroke_end_inner_color;
+			global::TouchEffect.Droid.Resource.Color.design_fab_stroke_end_outer_color = global::NureTimetable.Droid.Resource.Color.design_fab_stroke_end_outer_color;
+			global::TouchEffect.Droid.Resource.Color.design_fab_stroke_top_inner_color = global::NureTimetable.Droid.Resource.Color.design_fab_stroke_top_inner_color;
+			global::TouchEffect.Droid.Resource.Color.design_fab_stroke_top_outer_color = global::NureTimetable.Droid.Resource.Color.design_fab_stroke_top_outer_color;
+			global::TouchEffect.Droid.Resource.Color.design_snackbar_background_color = global::NureTimetable.Droid.Resource.Color.design_snackbar_background_color;
+			global::TouchEffect.Droid.Resource.Color.design_tint_password_toggle = global::NureTimetable.Droid.Resource.Color.design_tint_password_toggle;
+			global::TouchEffect.Droid.Resource.Color.dim_foreground_disabled_material_dark = global::NureTimetable.Droid.Resource.Color.dim_foreground_disabled_material_dark;
+			global::TouchEffect.Droid.Resource.Color.dim_foreground_disabled_material_light = global::NureTimetable.Droid.Resource.Color.dim_foreground_disabled_material_light;
+			global::TouchEffect.Droid.Resource.Color.dim_foreground_material_dark = global::NureTimetable.Droid.Resource.Color.dim_foreground_material_dark;
+			global::TouchEffect.Droid.Resource.Color.dim_foreground_material_light = global::NureTimetable.Droid.Resource.Color.dim_foreground_material_light;
+			global::TouchEffect.Droid.Resource.Color.error_color_material_dark = global::NureTimetable.Droid.Resource.Color.error_color_material_dark;
+			global::TouchEffect.Droid.Resource.Color.error_color_material_light = global::NureTimetable.Droid.Resource.Color.error_color_material_light;
+			global::TouchEffect.Droid.Resource.Color.foreground_material_dark = global::NureTimetable.Droid.Resource.Color.foreground_material_dark;
+			global::TouchEffect.Droid.Resource.Color.foreground_material_light = global::NureTimetable.Droid.Resource.Color.foreground_material_light;
+			global::TouchEffect.Droid.Resource.Color.highlighted_text_material_dark = global::NureTimetable.Droid.Resource.Color.highlighted_text_material_dark;
+			global::TouchEffect.Droid.Resource.Color.highlighted_text_material_light = global::NureTimetable.Droid.Resource.Color.highlighted_text_material_light;
+			global::TouchEffect.Droid.Resource.Color.material_blue_grey_800 = global::NureTimetable.Droid.Resource.Color.material_blue_grey_800;
+			global::TouchEffect.Droid.Resource.Color.material_blue_grey_900 = global::NureTimetable.Droid.Resource.Color.material_blue_grey_900;
+			global::TouchEffect.Droid.Resource.Color.material_blue_grey_950 = global::NureTimetable.Droid.Resource.Color.material_blue_grey_950;
+			global::TouchEffect.Droid.Resource.Color.material_deep_teal_200 = global::NureTimetable.Droid.Resource.Color.material_deep_teal_200;
+			global::TouchEffect.Droid.Resource.Color.material_deep_teal_500 = global::NureTimetable.Droid.Resource.Color.material_deep_teal_500;
+			global::TouchEffect.Droid.Resource.Color.material_grey_100 = global::NureTimetable.Droid.Resource.Color.material_grey_100;
+			global::TouchEffect.Droid.Resource.Color.material_grey_300 = global::NureTimetable.Droid.Resource.Color.material_grey_300;
+			global::TouchEffect.Droid.Resource.Color.material_grey_50 = global::NureTimetable.Droid.Resource.Color.material_grey_50;
+			global::TouchEffect.Droid.Resource.Color.material_grey_600 = global::NureTimetable.Droid.Resource.Color.material_grey_600;
+			global::TouchEffect.Droid.Resource.Color.material_grey_800 = global::NureTimetable.Droid.Resource.Color.material_grey_800;
+			global::TouchEffect.Droid.Resource.Color.material_grey_850 = global::NureTimetable.Droid.Resource.Color.material_grey_850;
+			global::TouchEffect.Droid.Resource.Color.material_grey_900 = global::NureTimetable.Droid.Resource.Color.material_grey_900;
+			global::TouchEffect.Droid.Resource.Color.mtrl_bottom_nav_colored_item_tint = global::NureTimetable.Droid.Resource.Color.mtrl_bottom_nav_colored_item_tint;
+			global::TouchEffect.Droid.Resource.Color.mtrl_bottom_nav_item_tint = global::NureTimetable.Droid.Resource.Color.mtrl_bottom_nav_item_tint;
+			global::TouchEffect.Droid.Resource.Color.mtrl_btn_bg_color_disabled = global::NureTimetable.Droid.Resource.Color.mtrl_btn_bg_color_disabled;
+			global::TouchEffect.Droid.Resource.Color.mtrl_btn_bg_color_selector = global::NureTimetable.Droid.Resource.Color.mtrl_btn_bg_color_selector;
+			global::TouchEffect.Droid.Resource.Color.mtrl_btn_ripple_color = global::NureTimetable.Droid.Resource.Color.mtrl_btn_ripple_color;
+			global::TouchEffect.Droid.Resource.Color.mtrl_btn_stroke_color_selector = global::NureTimetable.Droid.Resource.Color.mtrl_btn_stroke_color_selector;
+			global::TouchEffect.Droid.Resource.Color.mtrl_btn_text_btn_ripple_color = global::NureTimetable.Droid.Resource.Color.mtrl_btn_text_btn_ripple_color;
+			global::TouchEffect.Droid.Resource.Color.mtrl_btn_text_color_disabled = global::NureTimetable.Droid.Resource.Color.mtrl_btn_text_color_disabled;
+			global::TouchEffect.Droid.Resource.Color.mtrl_btn_text_color_selector = global::NureTimetable.Droid.Resource.Color.mtrl_btn_text_color_selector;
+			global::TouchEffect.Droid.Resource.Color.mtrl_btn_transparent_bg_color = global::NureTimetable.Droid.Resource.Color.mtrl_btn_transparent_bg_color;
+			global::TouchEffect.Droid.Resource.Color.mtrl_chip_background_color = global::NureTimetable.Droid.Resource.Color.mtrl_chip_background_color;
+			global::TouchEffect.Droid.Resource.Color.mtrl_chip_close_icon_tint = global::NureTimetable.Droid.Resource.Color.mtrl_chip_close_icon_tint;
+			global::TouchEffect.Droid.Resource.Color.mtrl_chip_ripple_color = global::NureTimetable.Droid.Resource.Color.mtrl_chip_ripple_color;
+			global::TouchEffect.Droid.Resource.Color.mtrl_chip_text_color = global::NureTimetable.Droid.Resource.Color.mtrl_chip_text_color;
+			global::TouchEffect.Droid.Resource.Color.mtrl_fab_ripple_color = global::NureTimetable.Droid.Resource.Color.mtrl_fab_ripple_color;
+			global::TouchEffect.Droid.Resource.Color.mtrl_scrim_color = global::NureTimetable.Droid.Resource.Color.mtrl_scrim_color;
+			global::TouchEffect.Droid.Resource.Color.mtrl_tabs_colored_ripple_color = global::NureTimetable.Droid.Resource.Color.mtrl_tabs_colored_ripple_color;
+			global::TouchEffect.Droid.Resource.Color.mtrl_tabs_icon_color_selector = global::NureTimetable.Droid.Resource.Color.mtrl_tabs_icon_color_selector;
+			global::TouchEffect.Droid.Resource.Color.mtrl_tabs_icon_color_selector_colored = global::NureTimetable.Droid.Resource.Color.mtrl_tabs_icon_color_selector_colored;
+			global::TouchEffect.Droid.Resource.Color.mtrl_tabs_legacy_text_color_selector = global::NureTimetable.Droid.Resource.Color.mtrl_tabs_legacy_text_color_selector;
+			global::TouchEffect.Droid.Resource.Color.mtrl_tabs_ripple_color = global::NureTimetable.Droid.Resource.Color.mtrl_tabs_ripple_color;
+			global::TouchEffect.Droid.Resource.Color.mtrl_text_btn_text_color_selector = global::NureTimetable.Droid.Resource.Color.mtrl_text_btn_text_color_selector;
+			global::TouchEffect.Droid.Resource.Color.mtrl_textinput_default_box_stroke_color = global::NureTimetable.Droid.Resource.Color.mtrl_textinput_default_box_stroke_color;
+			global::TouchEffect.Droid.Resource.Color.mtrl_textinput_disabled_color = global::NureTimetable.Droid.Resource.Color.mtrl_textinput_disabled_color;
+			global::TouchEffect.Droid.Resource.Color.mtrl_textinput_filled_box_default_background_color = global::NureTimetable.Droid.Resource.Color.mtrl_textinput_filled_box_default_background_color;
+			global::TouchEffect.Droid.Resource.Color.mtrl_textinput_hovered_box_stroke_color = global::NureTimetable.Droid.Resource.Color.mtrl_textinput_hovered_box_stroke_color;
+			global::TouchEffect.Droid.Resource.Color.notification_action_color_filter = global::NureTimetable.Droid.Resource.Color.notification_action_color_filter;
+			global::TouchEffect.Droid.Resource.Color.notification_icon_bg_color = global::NureTimetable.Droid.Resource.Color.notification_icon_bg_color;
+			global::TouchEffect.Droid.Resource.Color.notification_material_background_media_default_color = global::NureTimetable.Droid.Resource.Color.notification_material_background_media_default_color;
+			global::TouchEffect.Droid.Resource.Color.primary_dark_material_dark = global::NureTimetable.Droid.Resource.Color.primary_dark_material_dark;
+			global::TouchEffect.Droid.Resource.Color.primary_dark_material_light = global::NureTimetable.Droid.Resource.Color.primary_dark_material_light;
+			global::TouchEffect.Droid.Resource.Color.primary_material_dark = global::NureTimetable.Droid.Resource.Color.primary_material_dark;
+			global::TouchEffect.Droid.Resource.Color.primary_material_light = global::NureTimetable.Droid.Resource.Color.primary_material_light;
+			global::TouchEffect.Droid.Resource.Color.primary_text_default_material_dark = global::NureTimetable.Droid.Resource.Color.primary_text_default_material_dark;
+			global::TouchEffect.Droid.Resource.Color.primary_text_default_material_light = global::NureTimetable.Droid.Resource.Color.primary_text_default_material_light;
+			global::TouchEffect.Droid.Resource.Color.primary_text_disabled_material_dark = global::NureTimetable.Droid.Resource.Color.primary_text_disabled_material_dark;
+			global::TouchEffect.Droid.Resource.Color.primary_text_disabled_material_light = global::NureTimetable.Droid.Resource.Color.primary_text_disabled_material_light;
+			global::TouchEffect.Droid.Resource.Color.ripple_material_dark = global::NureTimetable.Droid.Resource.Color.ripple_material_dark;
+			global::TouchEffect.Droid.Resource.Color.ripple_material_light = global::NureTimetable.Droid.Resource.Color.ripple_material_light;
+			global::TouchEffect.Droid.Resource.Color.secondary_text_default_material_dark = global::NureTimetable.Droid.Resource.Color.secondary_text_default_material_dark;
+			global::TouchEffect.Droid.Resource.Color.secondary_text_default_material_light = global::NureTimetable.Droid.Resource.Color.secondary_text_default_material_light;
+			global::TouchEffect.Droid.Resource.Color.secondary_text_disabled_material_dark = global::NureTimetable.Droid.Resource.Color.secondary_text_disabled_material_dark;
+			global::TouchEffect.Droid.Resource.Color.secondary_text_disabled_material_light = global::NureTimetable.Droid.Resource.Color.secondary_text_disabled_material_light;
+			global::TouchEffect.Droid.Resource.Color.switch_thumb_disabled_material_dark = global::NureTimetable.Droid.Resource.Color.switch_thumb_disabled_material_dark;
+			global::TouchEffect.Droid.Resource.Color.switch_thumb_disabled_material_light = global::NureTimetable.Droid.Resource.Color.switch_thumb_disabled_material_light;
+			global::TouchEffect.Droid.Resource.Color.switch_thumb_material_dark = global::NureTimetable.Droid.Resource.Color.switch_thumb_material_dark;
+			global::TouchEffect.Droid.Resource.Color.switch_thumb_material_light = global::NureTimetable.Droid.Resource.Color.switch_thumb_material_light;
+			global::TouchEffect.Droid.Resource.Color.switch_thumb_normal_material_dark = global::NureTimetable.Droid.Resource.Color.switch_thumb_normal_material_dark;
+			global::TouchEffect.Droid.Resource.Color.switch_thumb_normal_material_light = global::NureTimetable.Droid.Resource.Color.switch_thumb_normal_material_light;
+			global::TouchEffect.Droid.Resource.Color.tooltip_background_dark = global::NureTimetable.Droid.Resource.Color.tooltip_background_dark;
+			global::TouchEffect.Droid.Resource.Color.tooltip_background_light = global::NureTimetable.Droid.Resource.Color.tooltip_background_light;
+			global::TouchEffect.Droid.Resource.Dimension.abc_action_bar_content_inset_material = global::NureTimetable.Droid.Resource.Dimension.abc_action_bar_content_inset_material;
+			global::TouchEffect.Droid.Resource.Dimension.abc_action_bar_content_inset_with_nav = global::NureTimetable.Droid.Resource.Dimension.abc_action_bar_content_inset_with_nav;
+			global::TouchEffect.Droid.Resource.Dimension.abc_action_bar_default_height_material = global::NureTimetable.Droid.Resource.Dimension.abc_action_bar_default_height_material;
+			global::TouchEffect.Droid.Resource.Dimension.abc_action_bar_default_padding_end_material = global::NureTimetable.Droid.Resource.Dimension.abc_action_bar_default_padding_end_material;
+			global::TouchEffect.Droid.Resource.Dimension.abc_action_bar_default_padding_start_material = global::NureTimetable.Droid.Resource.Dimension.abc_action_bar_default_padding_start_material;
+			global::TouchEffect.Droid.Resource.Dimension.abc_action_bar_elevation_material = global::NureTimetable.Droid.Resource.Dimension.abc_action_bar_elevation_material;
+			global::TouchEffect.Droid.Resource.Dimension.abc_action_bar_icon_vertical_padding_material = global::NureTimetable.Droid.Resource.Dimension.abc_action_bar_icon_vertical_padding_material;
+			global::TouchEffect.Droid.Resource.Dimension.abc_action_bar_overflow_padding_end_material = global::NureTimetable.Droid.Resource.Dimension.abc_action_bar_overflow_padding_end_material;
+			global::TouchEffect.Droid.Resource.Dimension.abc_action_bar_overflow_padding_start_material = global::NureTimetable.Droid.Resource.Dimension.abc_action_bar_overflow_padding_start_material;
+			global::TouchEffect.Droid.Resource.Dimension.abc_action_bar_stacked_max_height = global::NureTimetable.Droid.Resource.Dimension.abc_action_bar_stacked_max_height;
+			global::TouchEffect.Droid.Resource.Dimension.abc_action_bar_stacked_tab_max_width = global::NureTimetable.Droid.Resource.Dimension.abc_action_bar_stacked_tab_max_width;
+			global::TouchEffect.Droid.Resource.Dimension.abc_action_bar_subtitle_bottom_margin_material = global::NureTimetable.Droid.Resource.Dimension.abc_action_bar_subtitle_bottom_margin_material;
+			global::TouchEffect.Droid.Resource.Dimension.abc_action_bar_subtitle_top_margin_material = global::NureTimetable.Droid.Resource.Dimension.abc_action_bar_subtitle_top_margin_material;
+			global::TouchEffect.Droid.Resource.Dimension.abc_action_button_min_height_material = global::NureTimetable.Droid.Resource.Dimension.abc_action_button_min_height_material;
+			global::TouchEffect.Droid.Resource.Dimension.abc_action_button_min_width_material = global::NureTimetable.Droid.Resource.Dimension.abc_action_button_min_width_material;
+			global::TouchEffect.Droid.Resource.Dimension.abc_action_button_min_width_overflow_material = global::NureTimetable.Droid.Resource.Dimension.abc_action_button_min_width_overflow_material;
+			global::TouchEffect.Droid.Resource.Dimension.abc_alert_dialog_button_bar_height = global::NureTimetable.Droid.Resource.Dimension.abc_alert_dialog_button_bar_height;
+			global::TouchEffect.Droid.Resource.Dimension.abc_alert_dialog_button_dimen = global::NureTimetable.Droid.Resource.Dimension.abc_alert_dialog_button_dimen;
+			global::TouchEffect.Droid.Resource.Dimension.abc_button_inset_horizontal_material = global::NureTimetable.Droid.Resource.Dimension.abc_button_inset_horizontal_material;
+			global::TouchEffect.Droid.Resource.Dimension.abc_button_inset_vertical_material = global::NureTimetable.Droid.Resource.Dimension.abc_button_inset_vertical_material;
+			global::TouchEffect.Droid.Resource.Dimension.abc_button_padding_horizontal_material = global::NureTimetable.Droid.Resource.Dimension.abc_button_padding_horizontal_material;
+			global::TouchEffect.Droid.Resource.Dimension.abc_button_padding_vertical_material = global::NureTimetable.Droid.Resource.Dimension.abc_button_padding_vertical_material;
+			global::TouchEffect.Droid.Resource.Dimension.abc_cascading_menus_min_smallest_width = global::NureTimetable.Droid.Resource.Dimension.abc_cascading_menus_min_smallest_width;
+			global::TouchEffect.Droid.Resource.Dimension.abc_config_prefDialogWidth = global::NureTimetable.Droid.Resource.Dimension.abc_config_prefDialogWidth;
+			global::TouchEffect.Droid.Resource.Dimension.abc_control_corner_material = global::NureTimetable.Droid.Resource.Dimension.abc_control_corner_material;
+			global::TouchEffect.Droid.Resource.Dimension.abc_control_inset_material = global::NureTimetable.Droid.Resource.Dimension.abc_control_inset_material;
+			global::TouchEffect.Droid.Resource.Dimension.abc_control_padding_material = global::NureTimetable.Droid.Resource.Dimension.abc_control_padding_material;
+			global::TouchEffect.Droid.Resource.Dimension.abc_dialog_corner_radius_material = global::NureTimetable.Droid.Resource.Dimension.abc_dialog_corner_radius_material;
+			global::TouchEffect.Droid.Resource.Dimension.abc_dialog_fixed_height_major = global::NureTimetable.Droid.Resource.Dimension.abc_dialog_fixed_height_major;
+			global::TouchEffect.Droid.Resource.Dimension.abc_dialog_fixed_height_minor = global::NureTimetable.Droid.Resource.Dimension.abc_dialog_fixed_height_minor;
+			global::TouchEffect.Droid.Resource.Dimension.abc_dialog_fixed_width_major = global::NureTimetable.Droid.Resource.Dimension.abc_dialog_fixed_width_major;
+			global::TouchEffect.Droid.Resource.Dimension.abc_dialog_fixed_width_minor = global::NureTimetable.Droid.Resource.Dimension.abc_dialog_fixed_width_minor;
+			global::TouchEffect.Droid.Resource.Dimension.abc_dialog_list_padding_bottom_no_buttons = global::NureTimetable.Droid.Resource.Dimension.abc_dialog_list_padding_bottom_no_buttons;
+			global::TouchEffect.Droid.Resource.Dimension.abc_dialog_list_padding_top_no_title = global::NureTimetable.Droid.Resource.Dimension.abc_dialog_list_padding_top_no_title;
+			global::TouchEffect.Droid.Resource.Dimension.abc_dialog_min_width_major = global::NureTimetable.Droid.Resource.Dimension.abc_dialog_min_width_major;
+			global::TouchEffect.Droid.Resource.Dimension.abc_dialog_min_width_minor = global::NureTimetable.Droid.Resource.Dimension.abc_dialog_min_width_minor;
+			global::TouchEffect.Droid.Resource.Dimension.abc_dialog_padding_material = global::NureTimetable.Droid.Resource.Dimension.abc_dialog_padding_material;
+			global::TouchEffect.Droid.Resource.Dimension.abc_dialog_padding_top_material = global::NureTimetable.Droid.Resource.Dimension.abc_dialog_padding_top_material;
+			global::TouchEffect.Droid.Resource.Dimension.abc_dialog_title_divider_material = global::NureTimetable.Droid.Resource.Dimension.abc_dialog_title_divider_material;
+			global::TouchEffect.Droid.Resource.Dimension.abc_disabled_alpha_material_dark = global::NureTimetable.Droid.Resource.Dimension.abc_disabled_alpha_material_dark;
+			global::TouchEffect.Droid.Resource.Dimension.abc_disabled_alpha_material_light = global::NureTimetable.Droid.Resource.Dimension.abc_disabled_alpha_material_light;
+			global::TouchEffect.Droid.Resource.Dimension.abc_dropdownitem_icon_width = global::NureTimetable.Droid.Resource.Dimension.abc_dropdownitem_icon_width;
+			global::TouchEffect.Droid.Resource.Dimension.abc_dropdownitem_text_padding_left = global::NureTimetable.Droid.Resource.Dimension.abc_dropdownitem_text_padding_left;
+			global::TouchEffect.Droid.Resource.Dimension.abc_dropdownitem_text_padding_right = global::NureTimetable.Droid.Resource.Dimension.abc_dropdownitem_text_padding_right;
+			global::TouchEffect.Droid.Resource.Dimension.abc_edit_text_inset_bottom_material = global::NureTimetable.Droid.Resource.Dimension.abc_edit_text_inset_bottom_material;
+			global::TouchEffect.Droid.Resource.Dimension.abc_edit_text_inset_horizontal_material = global::NureTimetable.Droid.Resource.Dimension.abc_edit_text_inset_horizontal_material;
+			global::TouchEffect.Droid.Resource.Dimension.abc_edit_text_inset_top_material = global::NureTimetable.Droid.Resource.Dimension.abc_edit_text_inset_top_material;
+			global::TouchEffect.Droid.Resource.Dimension.abc_floating_window_z = global::NureTimetable.Droid.Resource.Dimension.abc_floating_window_z;
+			global::TouchEffect.Droid.Resource.Dimension.abc_list_item_padding_horizontal_material = global::NureTimetable.Droid.Resource.Dimension.abc_list_item_padding_horizontal_material;
+			global::TouchEffect.Droid.Resource.Dimension.abc_panel_menu_list_width = global::NureTimetable.Droid.Resource.Dimension.abc_panel_menu_list_width;
+			global::TouchEffect.Droid.Resource.Dimension.abc_progress_bar_height_material = global::NureTimetable.Droid.Resource.Dimension.abc_progress_bar_height_material;
+			global::TouchEffect.Droid.Resource.Dimension.abc_search_view_preferred_height = global::NureTimetable.Droid.Resource.Dimension.abc_search_view_preferred_height;
+			global::TouchEffect.Droid.Resource.Dimension.abc_search_view_preferred_width = global::NureTimetable.Droid.Resource.Dimension.abc_search_view_preferred_width;
+			global::TouchEffect.Droid.Resource.Dimension.abc_seekbar_track_background_height_material = global::NureTimetable.Droid.Resource.Dimension.abc_seekbar_track_background_height_material;
+			global::TouchEffect.Droid.Resource.Dimension.abc_seekbar_track_progress_height_material = global::NureTimetable.Droid.Resource.Dimension.abc_seekbar_track_progress_height_material;
+			global::TouchEffect.Droid.Resource.Dimension.abc_select_dialog_padding_start_material = global::NureTimetable.Droid.Resource.Dimension.abc_select_dialog_padding_start_material;
+			global::TouchEffect.Droid.Resource.Dimension.abc_switch_padding = global::NureTimetable.Droid.Resource.Dimension.abc_switch_padding;
+			global::TouchEffect.Droid.Resource.Dimension.abc_text_size_body_1_material = global::NureTimetable.Droid.Resource.Dimension.abc_text_size_body_1_material;
+			global::TouchEffect.Droid.Resource.Dimension.abc_text_size_body_2_material = global::NureTimetable.Droid.Resource.Dimension.abc_text_size_body_2_material;
+			global::TouchEffect.Droid.Resource.Dimension.abc_text_size_button_material = global::NureTimetable.Droid.Resource.Dimension.abc_text_size_button_material;
+			global::TouchEffect.Droid.Resource.Dimension.abc_text_size_caption_material = global::NureTimetable.Droid.Resource.Dimension.abc_text_size_caption_material;
+			global::TouchEffect.Droid.Resource.Dimension.abc_text_size_display_1_material = global::NureTimetable.Droid.Resource.Dimension.abc_text_size_display_1_material;
+			global::TouchEffect.Droid.Resource.Dimension.abc_text_size_display_2_material = global::NureTimetable.Droid.Resource.Dimension.abc_text_size_display_2_material;
+			global::TouchEffect.Droid.Resource.Dimension.abc_text_size_display_3_material = global::NureTimetable.Droid.Resource.Dimension.abc_text_size_display_3_material;
+			global::TouchEffect.Droid.Resource.Dimension.abc_text_size_display_4_material = global::NureTimetable.Droid.Resource.Dimension.abc_text_size_display_4_material;
+			global::TouchEffect.Droid.Resource.Dimension.abc_text_size_headline_material = global::NureTimetable.Droid.Resource.Dimension.abc_text_size_headline_material;
+			global::TouchEffect.Droid.Resource.Dimension.abc_text_size_large_material = global::NureTimetable.Droid.Resource.Dimension.abc_text_size_large_material;
+			global::TouchEffect.Droid.Resource.Dimension.abc_text_size_medium_material = global::NureTimetable.Droid.Resource.Dimension.abc_text_size_medium_material;
+			global::TouchEffect.Droid.Resource.Dimension.abc_text_size_menu_header_material = global::NureTimetable.Droid.Resource.Dimension.abc_text_size_menu_header_material;
+			global::TouchEffect.Droid.Resource.Dimension.abc_text_size_menu_material = global::NureTimetable.Droid.Resource.Dimension.abc_text_size_menu_material;
+			global::TouchEffect.Droid.Resource.Dimension.abc_text_size_small_material = global::NureTimetable.Droid.Resource.Dimension.abc_text_size_small_material;
+			global::TouchEffect.Droid.Resource.Dimension.abc_text_size_subhead_material = global::NureTimetable.Droid.Resource.Dimension.abc_text_size_subhead_material;
+			global::TouchEffect.Droid.Resource.Dimension.abc_text_size_subtitle_material_toolbar = global::NureTimetable.Droid.Resource.Dimension.abc_text_size_subtitle_material_toolbar;
+			global::TouchEffect.Droid.Resource.Dimension.abc_text_size_title_material = global::NureTimetable.Droid.Resource.Dimension.abc_text_size_title_material;
+			global::TouchEffect.Droid.Resource.Dimension.abc_text_size_title_material_toolbar = global::NureTimetable.Droid.Resource.Dimension.abc_text_size_title_material_toolbar;
+			global::TouchEffect.Droid.Resource.Dimension.browser_actions_context_menu_max_width = global::NureTimetable.Droid.Resource.Dimension.browser_actions_context_menu_max_width;
+			global::TouchEffect.Droid.Resource.Dimension.browser_actions_context_menu_min_padding = global::NureTimetable.Droid.Resource.Dimension.browser_actions_context_menu_min_padding;
+			global::TouchEffect.Droid.Resource.Dimension.cardview_compat_inset_shadow = global::NureTimetable.Droid.Resource.Dimension.cardview_compat_inset_shadow;
+			global::TouchEffect.Droid.Resource.Dimension.cardview_default_elevation = global::NureTimetable.Droid.Resource.Dimension.cardview_default_elevation;
+			global::TouchEffect.Droid.Resource.Dimension.cardview_default_radius = global::NureTimetable.Droid.Resource.Dimension.cardview_default_radius;
+			global::TouchEffect.Droid.Resource.Dimension.compat_button_inset_horizontal_material = global::NureTimetable.Droid.Resource.Dimension.compat_button_inset_horizontal_material;
+			global::TouchEffect.Droid.Resource.Dimension.compat_button_inset_vertical_material = global::NureTimetable.Droid.Resource.Dimension.compat_button_inset_vertical_material;
+			global::TouchEffect.Droid.Resource.Dimension.compat_button_padding_horizontal_material = global::NureTimetable.Droid.Resource.Dimension.compat_button_padding_horizontal_material;
+			global::TouchEffect.Droid.Resource.Dimension.compat_button_padding_vertical_material = global::NureTimetable.Droid.Resource.Dimension.compat_button_padding_vertical_material;
+			global::TouchEffect.Droid.Resource.Dimension.compat_control_corner_material = global::NureTimetable.Droid.Resource.Dimension.compat_control_corner_material;
+			global::TouchEffect.Droid.Resource.Dimension.compat_notification_large_icon_max_height = global::NureTimetable.Droid.Resource.Dimension.compat_notification_large_icon_max_height;
+			global::TouchEffect.Droid.Resource.Dimension.compat_notification_large_icon_max_width = global::NureTimetable.Droid.Resource.Dimension.compat_notification_large_icon_max_width;
+			global::TouchEffect.Droid.Resource.Dimension.design_appbar_elevation = global::NureTimetable.Droid.Resource.Dimension.design_appbar_elevation;
+			global::TouchEffect.Droid.Resource.Dimension.design_bottom_navigation_active_item_max_width = global::NureTimetable.Droid.Resource.Dimension.design_bottom_navigation_active_item_max_width;
+			global::TouchEffect.Droid.Resource.Dimension.design_bottom_navigation_active_item_min_width = global::NureTimetable.Droid.Resource.Dimension.design_bottom_navigation_active_item_min_width;
+			global::TouchEffect.Droid.Resource.Dimension.design_bottom_navigation_active_text_size = global::NureTimetable.Droid.Resource.Dimension.design_bottom_navigation_active_text_size;
+			global::TouchEffect.Droid.Resource.Dimension.design_bottom_navigation_elevation = global::NureTimetable.Droid.Resource.Dimension.design_bottom_navigation_elevation;
+			global::TouchEffect.Droid.Resource.Dimension.design_bottom_navigation_height = global::NureTimetable.Droid.Resource.Dimension.design_bottom_navigation_height;
+			global::TouchEffect.Droid.Resource.Dimension.design_bottom_navigation_icon_size = global::NureTimetable.Droid.Resource.Dimension.design_bottom_navigation_icon_size;
+			global::TouchEffect.Droid.Resource.Dimension.design_bottom_navigation_item_max_width = global::NureTimetable.Droid.Resource.Dimension.design_bottom_navigation_item_max_width;
+			global::TouchEffect.Droid.Resource.Dimension.design_bottom_navigation_item_min_width = global::NureTimetable.Droid.Resource.Dimension.design_bottom_navigation_item_min_width;
+			global::TouchEffect.Droid.Resource.Dimension.design_bottom_navigation_margin = global::NureTimetable.Droid.Resource.Dimension.design_bottom_navigation_margin;
+			global::TouchEffect.Droid.Resource.Dimension.design_bottom_navigation_shadow_height = global::NureTimetable.Droid.Resource.Dimension.design_bottom_navigation_shadow_height;
+			global::TouchEffect.Droid.Resource.Dimension.design_bottom_navigation_text_size = global::NureTimetable.Droid.Resource.Dimension.design_bottom_navigation_text_size;
+			global::TouchEffect.Droid.Resource.Dimension.design_bottom_sheet_modal_elevation = global::NureTimetable.Droid.Resource.Dimension.design_bottom_sheet_modal_elevation;
+			global::TouchEffect.Droid.Resource.Dimension.design_bottom_sheet_peek_height_min = global::NureTimetable.Droid.Resource.Dimension.design_bottom_sheet_peek_height_min;
+			global::TouchEffect.Droid.Resource.Dimension.design_fab_border_width = global::NureTimetable.Droid.Resource.Dimension.design_fab_border_width;
+			global::TouchEffect.Droid.Resource.Dimension.design_fab_elevation = global::NureTimetable.Droid.Resource.Dimension.design_fab_elevation;
+			global::TouchEffect.Droid.Resource.Dimension.design_fab_image_size = global::NureTimetable.Droid.Resource.Dimension.design_fab_image_size;
+			global::TouchEffect.Droid.Resource.Dimension.design_fab_size_mini = global::NureTimetable.Droid.Resource.Dimension.design_fab_size_mini;
+			global::TouchEffect.Droid.Resource.Dimension.design_fab_size_normal = global::NureTimetable.Droid.Resource.Dimension.design_fab_size_normal;
+			global::TouchEffect.Droid.Resource.Dimension.design_fab_translation_z_hovered_focused = global::NureTimetable.Droid.Resource.Dimension.design_fab_translation_z_hovered_focused;
+			global::TouchEffect.Droid.Resource.Dimension.design_fab_translation_z_pressed = global::NureTimetable.Droid.Resource.Dimension.design_fab_translation_z_pressed;
+			global::TouchEffect.Droid.Resource.Dimension.design_navigation_elevation = global::NureTimetable.Droid.Resource.Dimension.design_navigation_elevation;
+			global::TouchEffect.Droid.Resource.Dimension.design_navigation_icon_padding = global::NureTimetable.Droid.Resource.Dimension.design_navigation_icon_padding;
+			global::TouchEffect.Droid.Resource.Dimension.design_navigation_icon_size = global::NureTimetable.Droid.Resource.Dimension.design_navigation_icon_size;
+			global::TouchEffect.Droid.Resource.Dimension.design_navigation_item_horizontal_padding = global::NureTimetable.Droid.Resource.Dimension.design_navigation_item_horizontal_padding;
+			global::TouchEffect.Droid.Resource.Dimension.design_navigation_item_icon_padding = global::NureTimetable.Droid.Resource.Dimension.design_navigation_item_icon_padding;
+			global::TouchEffect.Droid.Resource.Dimension.design_navigation_max_width = global::NureTimetable.Droid.Resource.Dimension.design_navigation_max_width;
+			global::TouchEffect.Droid.Resource.Dimension.design_navigation_padding_bottom = global::NureTimetable.Droid.Resource.Dimension.design_navigation_padding_bottom;
+			global::TouchEffect.Droid.Resource.Dimension.design_navigation_separator_vertical_padding = global::NureTimetable.Droid.Resource.Dimension.design_navigation_separator_vertical_padding;
+			global::TouchEffect.Droid.Resource.Dimension.design_snackbar_action_inline_max_width = global::NureTimetable.Droid.Resource.Dimension.design_snackbar_action_inline_max_width;
+			global::TouchEffect.Droid.Resource.Dimension.design_snackbar_background_corner_radius = global::NureTimetable.Droid.Resource.Dimension.design_snackbar_background_corner_radius;
+			global::TouchEffect.Droid.Resource.Dimension.design_snackbar_elevation = global::NureTimetable.Droid.Resource.Dimension.design_snackbar_elevation;
+			global::TouchEffect.Droid.Resource.Dimension.design_snackbar_extra_spacing_horizontal = global::NureTimetable.Droid.Resource.Dimension.design_snackbar_extra_spacing_horizontal;
+			global::TouchEffect.Droid.Resource.Dimension.design_snackbar_max_width = global::NureTimetable.Droid.Resource.Dimension.design_snackbar_max_width;
+			global::TouchEffect.Droid.Resource.Dimension.design_snackbar_min_width = global::NureTimetable.Droid.Resource.Dimension.design_snackbar_min_width;
+			global::TouchEffect.Droid.Resource.Dimension.design_snackbar_padding_horizontal = global::NureTimetable.Droid.Resource.Dimension.design_snackbar_padding_horizontal;
+			global::TouchEffect.Droid.Resource.Dimension.design_snackbar_padding_vertical = global::NureTimetable.Droid.Resource.Dimension.design_snackbar_padding_vertical;
+			global::TouchEffect.Droid.Resource.Dimension.design_snackbar_padding_vertical_2lines = global::NureTimetable.Droid.Resource.Dimension.design_snackbar_padding_vertical_2lines;
+			global::TouchEffect.Droid.Resource.Dimension.design_snackbar_text_size = global::NureTimetable.Droid.Resource.Dimension.design_snackbar_text_size;
+			global::TouchEffect.Droid.Resource.Dimension.design_tab_max_width = global::NureTimetable.Droid.Resource.Dimension.design_tab_max_width;
+			global::TouchEffect.Droid.Resource.Dimension.design_tab_scrollable_min_width = global::NureTimetable.Droid.Resource.Dimension.design_tab_scrollable_min_width;
+			global::TouchEffect.Droid.Resource.Dimension.design_tab_text_size = global::NureTimetable.Droid.Resource.Dimension.design_tab_text_size;
+			global::TouchEffect.Droid.Resource.Dimension.design_tab_text_size_2line = global::NureTimetable.Droid.Resource.Dimension.design_tab_text_size_2line;
+			global::TouchEffect.Droid.Resource.Dimension.design_textinput_caption_translate_y = global::NureTimetable.Droid.Resource.Dimension.design_textinput_caption_translate_y;
+			global::TouchEffect.Droid.Resource.Dimension.disabled_alpha_material_dark = global::NureTimetable.Droid.Resource.Dimension.disabled_alpha_material_dark;
+			global::TouchEffect.Droid.Resource.Dimension.disabled_alpha_material_light = global::NureTimetable.Droid.Resource.Dimension.disabled_alpha_material_light;
+			global::TouchEffect.Droid.Resource.Dimension.fastscroll_default_thickness = global::NureTimetable.Droid.Resource.Dimension.fastscroll_default_thickness;
+			global::TouchEffect.Droid.Resource.Dimension.fastscroll_margin = global::NureTimetable.Droid.Resource.Dimension.fastscroll_margin;
+			global::TouchEffect.Droid.Resource.Dimension.fastscroll_minimum_range = global::NureTimetable.Droid.Resource.Dimension.fastscroll_minimum_range;
+			global::TouchEffect.Droid.Resource.Dimension.highlight_alpha_material_colored = global::NureTimetable.Droid.Resource.Dimension.highlight_alpha_material_colored;
+			global::TouchEffect.Droid.Resource.Dimension.highlight_alpha_material_dark = global::NureTimetable.Droid.Resource.Dimension.highlight_alpha_material_dark;
+			global::TouchEffect.Droid.Resource.Dimension.highlight_alpha_material_light = global::NureTimetable.Droid.Resource.Dimension.highlight_alpha_material_light;
+			global::TouchEffect.Droid.Resource.Dimension.hint_alpha_material_dark = global::NureTimetable.Droid.Resource.Dimension.hint_alpha_material_dark;
+			global::TouchEffect.Droid.Resource.Dimension.hint_alpha_material_light = global::NureTimetable.Droid.Resource.Dimension.hint_alpha_material_light;
+			global::TouchEffect.Droid.Resource.Dimension.hint_pressed_alpha_material_dark = global::NureTimetable.Droid.Resource.Dimension.hint_pressed_alpha_material_dark;
+			global::TouchEffect.Droid.Resource.Dimension.hint_pressed_alpha_material_light = global::NureTimetable.Droid.Resource.Dimension.hint_pressed_alpha_material_light;
+			global::TouchEffect.Droid.Resource.Dimension.item_touch_helper_max_drag_scroll_per_frame = global::NureTimetable.Droid.Resource.Dimension.item_touch_helper_max_drag_scroll_per_frame;
+			global::TouchEffect.Droid.Resource.Dimension.item_touch_helper_swipe_escape_max_velocity = global::NureTimetable.Droid.Resource.Dimension.item_touch_helper_swipe_escape_max_velocity;
+			global::TouchEffect.Droid.Resource.Dimension.item_touch_helper_swipe_escape_velocity = global::NureTimetable.Droid.Resource.Dimension.item_touch_helper_swipe_escape_velocity;
+			global::TouchEffect.Droid.Resource.Dimension.mtrl_bottomappbar_fabOffsetEndMode = global::NureTimetable.Droid.Resource.Dimension.mtrl_bottomappbar_fabOffsetEndMode;
+			global::TouchEffect.Droid.Resource.Dimension.mtrl_bottomappbar_fab_cradle_margin = global::NureTimetable.Droid.Resource.Dimension.mtrl_bottomappbar_fab_cradle_margin;
+			global::TouchEffect.Droid.Resource.Dimension.mtrl_bottomappbar_fab_cradle_rounded_corner_radius = global::NureTimetable.Droid.Resource.Dimension.mtrl_bottomappbar_fab_cradle_rounded_corner_radius;
+			global::TouchEffect.Droid.Resource.Dimension.mtrl_bottomappbar_fab_cradle_vertical_offset = global::NureTimetable.Droid.Resource.Dimension.mtrl_bottomappbar_fab_cradle_vertical_offset;
+			global::TouchEffect.Droid.Resource.Dimension.mtrl_bottomappbar_height = global::NureTimetable.Droid.Resource.Dimension.mtrl_bottomappbar_height;
+			global::TouchEffect.Droid.Resource.Dimension.mtrl_btn_corner_radius = global::NureTimetable.Droid.Resource.Dimension.mtrl_btn_corner_radius;
+			global::TouchEffect.Droid.Resource.Dimension.mtrl_btn_dialog_btn_min_width = global::NureTimetable.Droid.Resource.Dimension.mtrl_btn_dialog_btn_min_width;
+			global::TouchEffect.Droid.Resource.Dimension.mtrl_btn_disabled_elevation = global::NureTimetable.Droid.Resource.Dimension.mtrl_btn_disabled_elevation;
+			global::TouchEffect.Droid.Resource.Dimension.mtrl_btn_disabled_z = global::NureTimetable.Droid.Resource.Dimension.mtrl_btn_disabled_z;
+			global::TouchEffect.Droid.Resource.Dimension.mtrl_btn_elevation = global::NureTimetable.Droid.Resource.Dimension.mtrl_btn_elevation;
+			global::TouchEffect.Droid.Resource.Dimension.mtrl_btn_focused_z = global::NureTimetable.Droid.Resource.Dimension.mtrl_btn_focused_z;
+			global::TouchEffect.Droid.Resource.Dimension.mtrl_btn_hovered_z = global::NureTimetable.Droid.Resource.Dimension.mtrl_btn_hovered_z;
+			global::TouchEffect.Droid.Resource.Dimension.mtrl_btn_icon_btn_padding_left = global::NureTimetable.Droid.Resource.Dimension.mtrl_btn_icon_btn_padding_left;
+			global::TouchEffect.Droid.Resource.Dimension.mtrl_btn_icon_padding = global::NureTimetable.Droid.Resource.Dimension.mtrl_btn_icon_padding;
+			global::TouchEffect.Droid.Resource.Dimension.mtrl_btn_inset = global::NureTimetable.Droid.Resource.Dimension.mtrl_btn_inset;
+			global::TouchEffect.Droid.Resource.Dimension.mtrl_btn_letter_spacing = global::NureTimetable.Droid.Resource.Dimension.mtrl_btn_letter_spacing;
+			global::TouchEffect.Droid.Resource.Dimension.mtrl_btn_padding_bottom = global::NureTimetable.Droid.Resource.Dimension.mtrl_btn_padding_bottom;
+			global::TouchEffect.Droid.Resource.Dimension.mtrl_btn_padding_left = global::NureTimetable.Droid.Resource.Dimension.mtrl_btn_padding_left;
+			global::TouchEffect.Droid.Resource.Dimension.mtrl_btn_padding_right = global::NureTimetable.Droid.Resource.Dimension.mtrl_btn_padding_right;
+			global::TouchEffect.Droid.Resource.Dimension.mtrl_btn_padding_top = global::NureTimetable.Droid.Resource.Dimension.mtrl_btn_padding_top;
+			global::TouchEffect.Droid.Resource.Dimension.mtrl_btn_pressed_z = global::NureTimetable.Droid.Resource.Dimension.mtrl_btn_pressed_z;
+			global::TouchEffect.Droid.Resource.Dimension.mtrl_btn_stroke_size = global::NureTimetable.Droid.Resource.Dimension.mtrl_btn_stroke_size;
+			global::TouchEffect.Droid.Resource.Dimension.mtrl_btn_text_btn_icon_padding = global::NureTimetable.Droid.Resource.Dimension.mtrl_btn_text_btn_icon_padding;
+			global::TouchEffect.Droid.Resource.Dimension.mtrl_btn_text_btn_padding_left = global::NureTimetable.Droid.Resource.Dimension.mtrl_btn_text_btn_padding_left;
+			global::TouchEffect.Droid.Resource.Dimension.mtrl_btn_text_btn_padding_right = global::NureTimetable.Droid.Resource.Dimension.mtrl_btn_text_btn_padding_right;
+			global::TouchEffect.Droid.Resource.Dimension.mtrl_btn_text_size = global::NureTimetable.Droid.Resource.Dimension.mtrl_btn_text_size;
+			global::TouchEffect.Droid.Resource.Dimension.mtrl_btn_z = global::NureTimetable.Droid.Resource.Dimension.mtrl_btn_z;
+			global::TouchEffect.Droid.Resource.Dimension.mtrl_card_elevation = global::NureTimetable.Droid.Resource.Dimension.mtrl_card_elevation;
+			global::TouchEffect.Droid.Resource.Dimension.mtrl_card_spacing = global::NureTimetable.Droid.Resource.Dimension.mtrl_card_spacing;
+			global::TouchEffect.Droid.Resource.Dimension.mtrl_chip_pressed_translation_z = global::NureTimetable.Droid.Resource.Dimension.mtrl_chip_pressed_translation_z;
+			global::TouchEffect.Droid.Resource.Dimension.mtrl_chip_text_size = global::NureTimetable.Droid.Resource.Dimension.mtrl_chip_text_size;
+			global::TouchEffect.Droid.Resource.Dimension.mtrl_fab_elevation = global::NureTimetable.Droid.Resource.Dimension.mtrl_fab_elevation;
+			global::TouchEffect.Droid.Resource.Dimension.mtrl_fab_translation_z_hovered_focused = global::NureTimetable.Droid.Resource.Dimension.mtrl_fab_translation_z_hovered_focused;
+			global::TouchEffect.Droid.Resource.Dimension.mtrl_fab_translation_z_pressed = global::NureTimetable.Droid.Resource.Dimension.mtrl_fab_translation_z_pressed;
+			global::TouchEffect.Droid.Resource.Dimension.mtrl_navigation_elevation = global::NureTimetable.Droid.Resource.Dimension.mtrl_navigation_elevation;
+			global::TouchEffect.Droid.Resource.Dimension.mtrl_navigation_item_horizontal_padding = global::NureTimetable.Droid.Resource.Dimension.mtrl_navigation_item_horizontal_padding;
+			global::TouchEffect.Droid.Resource.Dimension.mtrl_navigation_item_icon_padding = global::NureTimetable.Droid.Resource.Dimension.mtrl_navigation_item_icon_padding;
+			global::TouchEffect.Droid.Resource.Dimension.mtrl_snackbar_background_corner_radius = global::NureTimetable.Droid.Resource.Dimension.mtrl_snackbar_background_corner_radius;
+			global::TouchEffect.Droid.Resource.Dimension.mtrl_snackbar_margin = global::NureTimetable.Droid.Resource.Dimension.mtrl_snackbar_margin;
+			global::TouchEffect.Droid.Resource.Dimension.mtrl_textinput_box_bottom_offset = global::NureTimetable.Droid.Resource.Dimension.mtrl_textinput_box_bottom_offset;
+			global::TouchEffect.Droid.Resource.Dimension.mtrl_textinput_box_corner_radius_medium = global::NureTimetable.Droid.Resource.Dimension.mtrl_textinput_box_corner_radius_medium;
+			global::TouchEffect.Droid.Resource.Dimension.mtrl_textinput_box_corner_radius_small = global::NureTimetable.Droid.Resource.Dimension.mtrl_textinput_box_corner_radius_small;
+			global::TouchEffect.Droid.Resource.Dimension.mtrl_textinput_box_label_cutout_padding = global::NureTimetable.Droid.Resource.Dimension.mtrl_textinput_box_label_cutout_padding;
+			global::TouchEffect.Droid.Resource.Dimension.mtrl_textinput_box_padding_end = global::NureTimetable.Droid.Resource.Dimension.mtrl_textinput_box_padding_end;
+			global::TouchEffect.Droid.Resource.Dimension.mtrl_textinput_box_stroke_width_default = global::NureTimetable.Droid.Resource.Dimension.mtrl_textinput_box_stroke_width_default;
+			global::TouchEffect.Droid.Resource.Dimension.mtrl_textinput_box_stroke_width_focused = global::NureTimetable.Droid.Resource.Dimension.mtrl_textinput_box_stroke_width_focused;
+			global::TouchEffect.Droid.Resource.Dimension.mtrl_textinput_outline_box_expanded_padding = global::NureTimetable.Droid.Resource.Dimension.mtrl_textinput_outline_box_expanded_padding;
+			global::TouchEffect.Droid.Resource.Dimension.mtrl_toolbar_default_height = global::NureTimetable.Droid.Resource.Dimension.mtrl_toolbar_default_height;
+			global::TouchEffect.Droid.Resource.Dimension.notification_action_icon_size = global::NureTimetable.Droid.Resource.Dimension.notification_action_icon_size;
+			global::TouchEffect.Droid.Resource.Dimension.notification_action_text_size = global::NureTimetable.Droid.Resource.Dimension.notification_action_text_size;
+			global::TouchEffect.Droid.Resource.Dimension.notification_big_circle_margin = global::NureTimetable.Droid.Resource.Dimension.notification_big_circle_margin;
+			global::TouchEffect.Droid.Resource.Dimension.notification_content_margin_start = global::NureTimetable.Droid.Resource.Dimension.notification_content_margin_start;
+			global::TouchEffect.Droid.Resource.Dimension.notification_large_icon_height = global::NureTimetable.Droid.Resource.Dimension.notification_large_icon_height;
+			global::TouchEffect.Droid.Resource.Dimension.notification_large_icon_width = global::NureTimetable.Droid.Resource.Dimension.notification_large_icon_width;
+			global::TouchEffect.Droid.Resource.Dimension.notification_main_column_padding_top = global::NureTimetable.Droid.Resource.Dimension.notification_main_column_padding_top;
+			global::TouchEffect.Droid.Resource.Dimension.notification_media_narrow_margin = global::NureTimetable.Droid.Resource.Dimension.notification_media_narrow_margin;
+			global::TouchEffect.Droid.Resource.Dimension.notification_right_icon_size = global::NureTimetable.Droid.Resource.Dimension.notification_right_icon_size;
+			global::TouchEffect.Droid.Resource.Dimension.notification_right_side_padding_top = global::NureTimetable.Droid.Resource.Dimension.notification_right_side_padding_top;
+			global::TouchEffect.Droid.Resource.Dimension.notification_small_icon_background_padding = global::NureTimetable.Droid.Resource.Dimension.notification_small_icon_background_padding;
+			global::TouchEffect.Droid.Resource.Dimension.notification_small_icon_size_as_large = global::NureTimetable.Droid.Resource.Dimension.notification_small_icon_size_as_large;
+			global::TouchEffect.Droid.Resource.Dimension.notification_subtext_size = global::NureTimetable.Droid.Resource.Dimension.notification_subtext_size;
+			global::TouchEffect.Droid.Resource.Dimension.notification_top_pad = global::NureTimetable.Droid.Resource.Dimension.notification_top_pad;
+			global::TouchEffect.Droid.Resource.Dimension.notification_top_pad_large_text = global::NureTimetable.Droid.Resource.Dimension.notification_top_pad_large_text;
+			global::TouchEffect.Droid.Resource.Dimension.subtitle_corner_radius = global::NureTimetable.Droid.Resource.Dimension.subtitle_corner_radius;
+			global::TouchEffect.Droid.Resource.Dimension.subtitle_outline_width = global::NureTimetable.Droid.Resource.Dimension.subtitle_outline_width;
+			global::TouchEffect.Droid.Resource.Dimension.subtitle_shadow_offset = global::NureTimetable.Droid.Resource.Dimension.subtitle_shadow_offset;
+			global::TouchEffect.Droid.Resource.Dimension.subtitle_shadow_radius = global::NureTimetable.Droid.Resource.Dimension.subtitle_shadow_radius;
+			global::TouchEffect.Droid.Resource.Dimension.tooltip_corner_radius = global::NureTimetable.Droid.Resource.Dimension.tooltip_corner_radius;
+			global::TouchEffect.Droid.Resource.Dimension.tooltip_horizontal_padding = global::NureTimetable.Droid.Resource.Dimension.tooltip_horizontal_padding;
+			global::TouchEffect.Droid.Resource.Dimension.tooltip_margin = global::NureTimetable.Droid.Resource.Dimension.tooltip_margin;
+			global::TouchEffect.Droid.Resource.Dimension.tooltip_precise_anchor_extra_offset = global::NureTimetable.Droid.Resource.Dimension.tooltip_precise_anchor_extra_offset;
+			global::TouchEffect.Droid.Resource.Dimension.tooltip_precise_anchor_threshold = global::NureTimetable.Droid.Resource.Dimension.tooltip_precise_anchor_threshold;
+			global::TouchEffect.Droid.Resource.Dimension.tooltip_vertical_padding = global::NureTimetable.Droid.Resource.Dimension.tooltip_vertical_padding;
+			global::TouchEffect.Droid.Resource.Dimension.tooltip_y_offset_non_touch = global::NureTimetable.Droid.Resource.Dimension.tooltip_y_offset_non_touch;
+			global::TouchEffect.Droid.Resource.Dimension.tooltip_y_offset_touch = global::NureTimetable.Droid.Resource.Dimension.tooltip_y_offset_touch;
+			global::TouchEffect.Droid.Resource.Drawable.abc_ab_share_pack_mtrl_alpha = global::NureTimetable.Droid.Resource.Drawable.abc_ab_share_pack_mtrl_alpha;
+			global::TouchEffect.Droid.Resource.Drawable.abc_action_bar_item_background_material = global::NureTimetable.Droid.Resource.Drawable.abc_action_bar_item_background_material;
+			global::TouchEffect.Droid.Resource.Drawable.abc_btn_borderless_material = global::NureTimetable.Droid.Resource.Drawable.abc_btn_borderless_material;
+			global::TouchEffect.Droid.Resource.Drawable.abc_btn_check_material = global::NureTimetable.Droid.Resource.Drawable.abc_btn_check_material;
+			global::TouchEffect.Droid.Resource.Drawable.abc_btn_check_to_on_mtrl_000 = global::NureTimetable.Droid.Resource.Drawable.abc_btn_check_to_on_mtrl_000;
+			global::TouchEffect.Droid.Resource.Drawable.abc_btn_check_to_on_mtrl_015 = global::NureTimetable.Droid.Resource.Drawable.abc_btn_check_to_on_mtrl_015;
+			global::TouchEffect.Droid.Resource.Drawable.abc_btn_colored_material = global::NureTimetable.Droid.Resource.Drawable.abc_btn_colored_material;
+			global::TouchEffect.Droid.Resource.Drawable.abc_btn_default_mtrl_shape = global::NureTimetable.Droid.Resource.Drawable.abc_btn_default_mtrl_shape;
+			global::TouchEffect.Droid.Resource.Drawable.abc_btn_radio_material = global::NureTimetable.Droid.Resource.Drawable.abc_btn_radio_material;
+			global::TouchEffect.Droid.Resource.Drawable.abc_btn_radio_to_on_mtrl_000 = global::NureTimetable.Droid.Resource.Drawable.abc_btn_radio_to_on_mtrl_000;
+			global::TouchEffect.Droid.Resource.Drawable.abc_btn_radio_to_on_mtrl_015 = global::NureTimetable.Droid.Resource.Drawable.abc_btn_radio_to_on_mtrl_015;
+			global::TouchEffect.Droid.Resource.Drawable.abc_btn_switch_to_on_mtrl_00001 = global::NureTimetable.Droid.Resource.Drawable.abc_btn_switch_to_on_mtrl_00001;
+			global::TouchEffect.Droid.Resource.Drawable.abc_btn_switch_to_on_mtrl_00012 = global::NureTimetable.Droid.Resource.Drawable.abc_btn_switch_to_on_mtrl_00012;
+			global::TouchEffect.Droid.Resource.Drawable.abc_cab_background_internal_bg = global::NureTimetable.Droid.Resource.Drawable.abc_cab_background_internal_bg;
+			global::TouchEffect.Droid.Resource.Drawable.abc_cab_background_top_material = global::NureTimetable.Droid.Resource.Drawable.abc_cab_background_top_material;
+			global::TouchEffect.Droid.Resource.Drawable.abc_cab_background_top_mtrl_alpha = global::NureTimetable.Droid.Resource.Drawable.abc_cab_background_top_mtrl_alpha;
+			global::TouchEffect.Droid.Resource.Drawable.abc_control_background_material = global::NureTimetable.Droid.Resource.Drawable.abc_control_background_material;
+			global::TouchEffect.Droid.Resource.Drawable.abc_dialog_material_background = global::NureTimetable.Droid.Resource.Drawable.abc_dialog_material_background;
+			global::TouchEffect.Droid.Resource.Drawable.abc_edit_text_material = global::NureTimetable.Droid.Resource.Drawable.abc_edit_text_material;
+			global::TouchEffect.Droid.Resource.Drawable.abc_ic_ab_back_material = global::NureTimetable.Droid.Resource.Drawable.abc_ic_ab_back_material;
+			global::TouchEffect.Droid.Resource.Drawable.abc_ic_arrow_drop_right_black_24dp = global::NureTimetable.Droid.Resource.Drawable.abc_ic_arrow_drop_right_black_24dp;
+			global::TouchEffect.Droid.Resource.Drawable.abc_ic_clear_material = global::NureTimetable.Droid.Resource.Drawable.abc_ic_clear_material;
+			global::TouchEffect.Droid.Resource.Drawable.abc_ic_commit_search_api_mtrl_alpha = global::NureTimetable.Droid.Resource.Drawable.abc_ic_commit_search_api_mtrl_alpha;
+			global::TouchEffect.Droid.Resource.Drawable.abc_ic_go_search_api_material = global::NureTimetable.Droid.Resource.Drawable.abc_ic_go_search_api_material;
+			global::TouchEffect.Droid.Resource.Drawable.abc_ic_menu_copy_mtrl_am_alpha = global::NureTimetable.Droid.Resource.Drawable.abc_ic_menu_copy_mtrl_am_alpha;
+			global::TouchEffect.Droid.Resource.Drawable.abc_ic_menu_cut_mtrl_alpha = global::NureTimetable.Droid.Resource.Drawable.abc_ic_menu_cut_mtrl_alpha;
+			global::TouchEffect.Droid.Resource.Drawable.abc_ic_menu_overflow_material = global::NureTimetable.Droid.Resource.Drawable.abc_ic_menu_overflow_material;
+			global::TouchEffect.Droid.Resource.Drawable.abc_ic_menu_paste_mtrl_am_alpha = global::NureTimetable.Droid.Resource.Drawable.abc_ic_menu_paste_mtrl_am_alpha;
+			global::TouchEffect.Droid.Resource.Drawable.abc_ic_menu_selectall_mtrl_alpha = global::NureTimetable.Droid.Resource.Drawable.abc_ic_menu_selectall_mtrl_alpha;
+			global::TouchEffect.Droid.Resource.Drawable.abc_ic_menu_share_mtrl_alpha = global::NureTimetable.Droid.Resource.Drawable.abc_ic_menu_share_mtrl_alpha;
+			global::TouchEffect.Droid.Resource.Drawable.abc_ic_search_api_material = global::NureTimetable.Droid.Resource.Drawable.abc_ic_search_api_material;
+			global::TouchEffect.Droid.Resource.Drawable.abc_ic_star_black_16dp = global::NureTimetable.Droid.Resource.Drawable.abc_ic_star_black_16dp;
+			global::TouchEffect.Droid.Resource.Drawable.abc_ic_star_black_36dp = global::NureTimetable.Droid.Resource.Drawable.abc_ic_star_black_36dp;
+			global::TouchEffect.Droid.Resource.Drawable.abc_ic_star_black_48dp = global::NureTimetable.Droid.Resource.Drawable.abc_ic_star_black_48dp;
+			global::TouchEffect.Droid.Resource.Drawable.abc_ic_star_half_black_16dp = global::NureTimetable.Droid.Resource.Drawable.abc_ic_star_half_black_16dp;
+			global::TouchEffect.Droid.Resource.Drawable.abc_ic_star_half_black_36dp = global::NureTimetable.Droid.Resource.Drawable.abc_ic_star_half_black_36dp;
+			global::TouchEffect.Droid.Resource.Drawable.abc_ic_star_half_black_48dp = global::NureTimetable.Droid.Resource.Drawable.abc_ic_star_half_black_48dp;
+			global::TouchEffect.Droid.Resource.Drawable.abc_ic_voice_search_api_material = global::NureTimetable.Droid.Resource.Drawable.abc_ic_voice_search_api_material;
+			global::TouchEffect.Droid.Resource.Drawable.abc_item_background_holo_dark = global::NureTimetable.Droid.Resource.Drawable.abc_item_background_holo_dark;
+			global::TouchEffect.Droid.Resource.Drawable.abc_item_background_holo_light = global::NureTimetable.Droid.Resource.Drawable.abc_item_background_holo_light;
+			global::TouchEffect.Droid.Resource.Drawable.abc_list_divider_material = global::NureTimetable.Droid.Resource.Drawable.abc_list_divider_material;
+			global::TouchEffect.Droid.Resource.Drawable.abc_list_divider_mtrl_alpha = global::NureTimetable.Droid.Resource.Drawable.abc_list_divider_mtrl_alpha;
+			global::TouchEffect.Droid.Resource.Drawable.abc_list_focused_holo = global::NureTimetable.Droid.Resource.Drawable.abc_list_focused_holo;
+			global::TouchEffect.Droid.Resource.Drawable.abc_list_longpressed_holo = global::NureTimetable.Droid.Resource.Drawable.abc_list_longpressed_holo;
+			global::TouchEffect.Droid.Resource.Drawable.abc_list_pressed_holo_dark = global::NureTimetable.Droid.Resource.Drawable.abc_list_pressed_holo_dark;
+			global::TouchEffect.Droid.Resource.Drawable.abc_list_pressed_holo_light = global::NureTimetable.Droid.Resource.Drawable.abc_list_pressed_holo_light;
+			global::TouchEffect.Droid.Resource.Drawable.abc_list_selector_background_transition_holo_dark = global::NureTimetable.Droid.Resource.Drawable.abc_list_selector_background_transition_holo_dark;
+			global::TouchEffect.Droid.Resource.Drawable.abc_list_selector_background_transition_holo_light = global::NureTimetable.Droid.Resource.Drawable.abc_list_selector_background_transition_holo_light;
+			global::TouchEffect.Droid.Resource.Drawable.abc_list_selector_disabled_holo_dark = global::NureTimetable.Droid.Resource.Drawable.abc_list_selector_disabled_holo_dark;
+			global::TouchEffect.Droid.Resource.Drawable.abc_list_selector_disabled_holo_light = global::NureTimetable.Droid.Resource.Drawable.abc_list_selector_disabled_holo_light;
+			global::TouchEffect.Droid.Resource.Drawable.abc_list_selector_holo_dark = global::NureTimetable.Droid.Resource.Drawable.abc_list_selector_holo_dark;
+			global::TouchEffect.Droid.Resource.Drawable.abc_list_selector_holo_light = global::NureTimetable.Droid.Resource.Drawable.abc_list_selector_holo_light;
+			global::TouchEffect.Droid.Resource.Drawable.abc_menu_hardkey_panel_mtrl_mult = global::NureTimetable.Droid.Resource.Drawable.abc_menu_hardkey_panel_mtrl_mult;
+			global::TouchEffect.Droid.Resource.Drawable.abc_popup_background_mtrl_mult = global::NureTimetable.Droid.Resource.Drawable.abc_popup_background_mtrl_mult;
+			global::TouchEffect.Droid.Resource.Drawable.abc_ratingbar_indicator_material = global::NureTimetable.Droid.Resource.Drawable.abc_ratingbar_indicator_material;
+			global::TouchEffect.Droid.Resource.Drawable.abc_ratingbar_material = global::NureTimetable.Droid.Resource.Drawable.abc_ratingbar_material;
+			global::TouchEffect.Droid.Resource.Drawable.abc_ratingbar_small_material = global::NureTimetable.Droid.Resource.Drawable.abc_ratingbar_small_material;
+			global::TouchEffect.Droid.Resource.Drawable.abc_scrubber_control_off_mtrl_alpha = global::NureTimetable.Droid.Resource.Drawable.abc_scrubber_control_off_mtrl_alpha;
+			global::TouchEffect.Droid.Resource.Drawable.abc_scrubber_control_to_pressed_mtrl_000 = global::NureTimetable.Droid.Resource.Drawable.abc_scrubber_control_to_pressed_mtrl_000;
+			global::TouchEffect.Droid.Resource.Drawable.abc_scrubber_control_to_pressed_mtrl_005 = global::NureTimetable.Droid.Resource.Drawable.abc_scrubber_control_to_pressed_mtrl_005;
+			global::TouchEffect.Droid.Resource.Drawable.abc_scrubber_primary_mtrl_alpha = global::NureTimetable.Droid.Resource.Drawable.abc_scrubber_primary_mtrl_alpha;
+			global::TouchEffect.Droid.Resource.Drawable.abc_scrubber_track_mtrl_alpha = global::NureTimetable.Droid.Resource.Drawable.abc_scrubber_track_mtrl_alpha;
+			global::TouchEffect.Droid.Resource.Drawable.abc_seekbar_thumb_material = global::NureTimetable.Droid.Resource.Drawable.abc_seekbar_thumb_material;
+			global::TouchEffect.Droid.Resource.Drawable.abc_seekbar_tick_mark_material = global::NureTimetable.Droid.Resource.Drawable.abc_seekbar_tick_mark_material;
+			global::TouchEffect.Droid.Resource.Drawable.abc_seekbar_track_material = global::NureTimetable.Droid.Resource.Drawable.abc_seekbar_track_material;
+			global::TouchEffect.Droid.Resource.Drawable.abc_spinner_mtrl_am_alpha = global::NureTimetable.Droid.Resource.Drawable.abc_spinner_mtrl_am_alpha;
+			global::TouchEffect.Droid.Resource.Drawable.abc_spinner_textfield_background_material = global::NureTimetable.Droid.Resource.Drawable.abc_spinner_textfield_background_material;
+			global::TouchEffect.Droid.Resource.Drawable.abc_switch_thumb_material = global::NureTimetable.Droid.Resource.Drawable.abc_switch_thumb_material;
+			global::TouchEffect.Droid.Resource.Drawable.abc_switch_track_mtrl_alpha = global::NureTimetable.Droid.Resource.Drawable.abc_switch_track_mtrl_alpha;
+			global::TouchEffect.Droid.Resource.Drawable.abc_tab_indicator_material = global::NureTimetable.Droid.Resource.Drawable.abc_tab_indicator_material;
+			global::TouchEffect.Droid.Resource.Drawable.abc_tab_indicator_mtrl_alpha = global::NureTimetable.Droid.Resource.Drawable.abc_tab_indicator_mtrl_alpha;
+			global::TouchEffect.Droid.Resource.Drawable.abc_text_cursor_material = global::NureTimetable.Droid.Resource.Drawable.abc_text_cursor_material;
+			global::TouchEffect.Droid.Resource.Drawable.abc_text_select_handle_left_mtrl_dark = global::NureTimetable.Droid.Resource.Drawable.abc_text_select_handle_left_mtrl_dark;
+			global::TouchEffect.Droid.Resource.Drawable.abc_text_select_handle_left_mtrl_light = global::NureTimetable.Droid.Resource.Drawable.abc_text_select_handle_left_mtrl_light;
+			global::TouchEffect.Droid.Resource.Drawable.abc_text_select_handle_middle_mtrl_dark = global::NureTimetable.Droid.Resource.Drawable.abc_text_select_handle_middle_mtrl_dark;
+			global::TouchEffect.Droid.Resource.Drawable.abc_text_select_handle_middle_mtrl_light = global::NureTimetable.Droid.Resource.Drawable.abc_text_select_handle_middle_mtrl_light;
+			global::TouchEffect.Droid.Resource.Drawable.abc_text_select_handle_right_mtrl_dark = global::NureTimetable.Droid.Resource.Drawable.abc_text_select_handle_right_mtrl_dark;
+			global::TouchEffect.Droid.Resource.Drawable.abc_text_select_handle_right_mtrl_light = global::NureTimetable.Droid.Resource.Drawable.abc_text_select_handle_right_mtrl_light;
+			global::TouchEffect.Droid.Resource.Drawable.abc_textfield_activated_mtrl_alpha = global::NureTimetable.Droid.Resource.Drawable.abc_textfield_activated_mtrl_alpha;
+			global::TouchEffect.Droid.Resource.Drawable.abc_textfield_default_mtrl_alpha = global::NureTimetable.Droid.Resource.Drawable.abc_textfield_default_mtrl_alpha;
+			global::TouchEffect.Droid.Resource.Drawable.abc_textfield_search_activated_mtrl_alpha = global::NureTimetable.Droid.Resource.Drawable.abc_textfield_search_activated_mtrl_alpha;
+			global::TouchEffect.Droid.Resource.Drawable.abc_textfield_search_default_mtrl_alpha = global::NureTimetable.Droid.Resource.Drawable.abc_textfield_search_default_mtrl_alpha;
+			global::TouchEffect.Droid.Resource.Drawable.abc_textfield_search_material = global::NureTimetable.Droid.Resource.Drawable.abc_textfield_search_material;
+			global::TouchEffect.Droid.Resource.Drawable.abc_vector_test = global::NureTimetable.Droid.Resource.Drawable.abc_vector_test;
+			global::TouchEffect.Droid.Resource.Drawable.avd_hide_password = global::NureTimetable.Droid.Resource.Drawable.avd_hide_password;
+			global::TouchEffect.Droid.Resource.Drawable.avd_show_password = global::NureTimetable.Droid.Resource.Drawable.avd_show_password;
+			global::TouchEffect.Droid.Resource.Drawable.design_bottom_navigation_item_background = global::NureTimetable.Droid.Resource.Drawable.design_bottom_navigation_item_background;
+			global::TouchEffect.Droid.Resource.Drawable.design_fab_background = global::NureTimetable.Droid.Resource.Drawable.design_fab_background;
+			global::TouchEffect.Droid.Resource.Drawable.design_ic_visibility = global::NureTimetable.Droid.Resource.Drawable.design_ic_visibility;
+			global::TouchEffect.Droid.Resource.Drawable.design_ic_visibility_off = global::NureTimetable.Droid.Resource.Drawable.design_ic_visibility_off;
+			global::TouchEffect.Droid.Resource.Drawable.design_password_eye = global::NureTimetable.Droid.Resource.Drawable.design_password_eye;
+			global::TouchEffect.Droid.Resource.Drawable.design_snackbar_background = global::NureTimetable.Droid.Resource.Drawable.design_snackbar_background;
+			global::TouchEffect.Droid.Resource.Drawable.ic_mtrl_chip_checked_black = global::NureTimetable.Droid.Resource.Drawable.ic_mtrl_chip_checked_black;
+			global::TouchEffect.Droid.Resource.Drawable.ic_mtrl_chip_checked_circle = global::NureTimetable.Droid.Resource.Drawable.ic_mtrl_chip_checked_circle;
+			global::TouchEffect.Droid.Resource.Drawable.ic_mtrl_chip_close_circle = global::NureTimetable.Droid.Resource.Drawable.ic_mtrl_chip_close_circle;
+			global::TouchEffect.Droid.Resource.Drawable.mtrl_snackbar_background = global::NureTimetable.Droid.Resource.Drawable.mtrl_snackbar_background;
+			global::TouchEffect.Droid.Resource.Drawable.mtrl_tabs_default_indicator = global::NureTimetable.Droid.Resource.Drawable.mtrl_tabs_default_indicator;
+			global::TouchEffect.Droid.Resource.Drawable.navigation_empty_icon = global::NureTimetable.Droid.Resource.Drawable.navigation_empty_icon;
+			global::TouchEffect.Droid.Resource.Drawable.notification_action_background = global::NureTimetable.Droid.Resource.Drawable.notification_action_background;
+			global::TouchEffect.Droid.Resource.Drawable.notification_bg = global::NureTimetable.Droid.Resource.Drawable.notification_bg;
+			global::TouchEffect.Droid.Resource.Drawable.notification_bg_low = global::NureTimetable.Droid.Resource.Drawable.notification_bg_low;
+			global::TouchEffect.Droid.Resource.Drawable.notification_bg_low_normal = global::NureTimetable.Droid.Resource.Drawable.notification_bg_low_normal;
+			global::TouchEffect.Droid.Resource.Drawable.notification_bg_low_pressed = global::NureTimetable.Droid.Resource.Drawable.notification_bg_low_pressed;
+			global::TouchEffect.Droid.Resource.Drawable.notification_bg_normal = global::NureTimetable.Droid.Resource.Drawable.notification_bg_normal;
+			global::TouchEffect.Droid.Resource.Drawable.notification_bg_normal_pressed = global::NureTimetable.Droid.Resource.Drawable.notification_bg_normal_pressed;
+			global::TouchEffect.Droid.Resource.Drawable.notification_icon_background = global::NureTimetable.Droid.Resource.Drawable.notification_icon_background;
+			global::TouchEffect.Droid.Resource.Drawable.notification_template_icon_bg = global::NureTimetable.Droid.Resource.Drawable.notification_template_icon_bg;
+			global::TouchEffect.Droid.Resource.Drawable.notification_template_icon_low_bg = global::NureTimetable.Droid.Resource.Drawable.notification_template_icon_low_bg;
+			global::TouchEffect.Droid.Resource.Drawable.notification_tile_bg = global::NureTimetable.Droid.Resource.Drawable.notification_tile_bg;
+			global::TouchEffect.Droid.Resource.Drawable.notify_panel_notification_icon_bg = global::NureTimetable.Droid.Resource.Drawable.notify_panel_notification_icon_bg;
+			global::TouchEffect.Droid.Resource.Drawable.tooltip_frame_dark = global::NureTimetable.Droid.Resource.Drawable.tooltip_frame_dark;
+			global::TouchEffect.Droid.Resource.Drawable.tooltip_frame_light = global::NureTimetable.Droid.Resource.Drawable.tooltip_frame_light;
+			global::TouchEffect.Droid.Resource.Id.ALT = global::NureTimetable.Droid.Resource.Id.ALT;
+			global::TouchEffect.Droid.Resource.Id.CTRL = global::NureTimetable.Droid.Resource.Id.CTRL;
+			global::TouchEffect.Droid.Resource.Id.FUNCTION = global::NureTimetable.Droid.Resource.Id.FUNCTION;
+			global::TouchEffect.Droid.Resource.Id.META = global::NureTimetable.Droid.Resource.Id.META;
+			global::TouchEffect.Droid.Resource.Id.SHIFT = global::NureTimetable.Droid.Resource.Id.SHIFT;
+			global::TouchEffect.Droid.Resource.Id.SYM = global::NureTimetable.Droid.Resource.Id.SYM;
+			global::TouchEffect.Droid.Resource.Id.action0 = global::NureTimetable.Droid.Resource.Id.action0;
+			global::TouchEffect.Droid.Resource.Id.action_bar = global::NureTimetable.Droid.Resource.Id.action_bar;
+			global::TouchEffect.Droid.Resource.Id.action_bar_activity_content = global::NureTimetable.Droid.Resource.Id.action_bar_activity_content;
+			global::TouchEffect.Droid.Resource.Id.action_bar_container = global::NureTimetable.Droid.Resource.Id.action_bar_container;
+			global::TouchEffect.Droid.Resource.Id.action_bar_root = global::NureTimetable.Droid.Resource.Id.action_bar_root;
+			global::TouchEffect.Droid.Resource.Id.action_bar_spinner = global::NureTimetable.Droid.Resource.Id.action_bar_spinner;
+			global::TouchEffect.Droid.Resource.Id.action_bar_subtitle = global::NureTimetable.Droid.Resource.Id.action_bar_subtitle;
+			global::TouchEffect.Droid.Resource.Id.action_bar_title = global::NureTimetable.Droid.Resource.Id.action_bar_title;
+			global::TouchEffect.Droid.Resource.Id.action_container = global::NureTimetable.Droid.Resource.Id.action_container;
+			global::TouchEffect.Droid.Resource.Id.action_context_bar = global::NureTimetable.Droid.Resource.Id.action_context_bar;
+			global::TouchEffect.Droid.Resource.Id.action_divider = global::NureTimetable.Droid.Resource.Id.action_divider;
+			global::TouchEffect.Droid.Resource.Id.action_image = global::NureTimetable.Droid.Resource.Id.action_image;
+			global::TouchEffect.Droid.Resource.Id.action_menu_divider = global::NureTimetable.Droid.Resource.Id.action_menu_divider;
+			global::TouchEffect.Droid.Resource.Id.action_menu_presenter = global::NureTimetable.Droid.Resource.Id.action_menu_presenter;
+			global::TouchEffect.Droid.Resource.Id.action_mode_bar = global::NureTimetable.Droid.Resource.Id.action_mode_bar;
+			global::TouchEffect.Droid.Resource.Id.action_mode_bar_stub = global::NureTimetable.Droid.Resource.Id.action_mode_bar_stub;
+			global::TouchEffect.Droid.Resource.Id.action_mode_close_button = global::NureTimetable.Droid.Resource.Id.action_mode_close_button;
+			global::TouchEffect.Droid.Resource.Id.action_text = global::NureTimetable.Droid.Resource.Id.action_text;
+			global::TouchEffect.Droid.Resource.Id.actions = global::NureTimetable.Droid.Resource.Id.actions;
+			global::TouchEffect.Droid.Resource.Id.activity_chooser_view_content = global::NureTimetable.Droid.Resource.Id.activity_chooser_view_content;
+			global::TouchEffect.Droid.Resource.Id.add = global::NureTimetable.Droid.Resource.Id.add;
+			global::TouchEffect.Droid.Resource.Id.alertTitle = global::NureTimetable.Droid.Resource.Id.alertTitle;
+			global::TouchEffect.Droid.Resource.Id.all = global::NureTimetable.Droid.Resource.Id.all;
+			global::TouchEffect.Droid.Resource.Id.always = global::NureTimetable.Droid.Resource.Id.always;
+			global::TouchEffect.Droid.Resource.Id.async = global::NureTimetable.Droid.Resource.Id.async;
+			global::TouchEffect.Droid.Resource.Id.auto = global::NureTimetable.Droid.Resource.Id.auto;
+			global::TouchEffect.Droid.Resource.Id.beginning = global::NureTimetable.Droid.Resource.Id.beginning;
+			global::TouchEffect.Droid.Resource.Id.blocking = global::NureTimetable.Droid.Resource.Id.blocking;
+			global::TouchEffect.Droid.Resource.Id.bottom = global::NureTimetable.Droid.Resource.Id.bottom;
+			global::TouchEffect.Droid.Resource.Id.bottomtab_navarea = global::NureTimetable.Droid.Resource.Id.bottomtab_navarea;
+			global::TouchEffect.Droid.Resource.Id.bottomtab_tabbar = global::NureTimetable.Droid.Resource.Id.bottomtab_tabbar;
+			global::TouchEffect.Droid.Resource.Id.browser_actions_header_text = global::NureTimetable.Droid.Resource.Id.browser_actions_header_text;
+			global::TouchEffect.Droid.Resource.Id.browser_actions_menu_item_icon = global::NureTimetable.Droid.Resource.Id.browser_actions_menu_item_icon;
+			global::TouchEffect.Droid.Resource.Id.browser_actions_menu_item_text = global::NureTimetable.Droid.Resource.Id.browser_actions_menu_item_text;
+			global::TouchEffect.Droid.Resource.Id.browser_actions_menu_items = global::NureTimetable.Droid.Resource.Id.browser_actions_menu_items;
+			global::TouchEffect.Droid.Resource.Id.browser_actions_menu_view = global::NureTimetable.Droid.Resource.Id.browser_actions_menu_view;
+			global::TouchEffect.Droid.Resource.Id.buttonPanel = global::NureTimetable.Droid.Resource.Id.buttonPanel;
+			global::TouchEffect.Droid.Resource.Id.cancel_action = global::NureTimetable.Droid.Resource.Id.cancel_action;
+			global::TouchEffect.Droid.Resource.Id.center = global::NureTimetable.Droid.Resource.Id.center;
+			global::TouchEffect.Droid.Resource.Id.center_horizontal = global::NureTimetable.Droid.Resource.Id.center_horizontal;
+			global::TouchEffect.Droid.Resource.Id.center_vertical = global::NureTimetable.Droid.Resource.Id.center_vertical;
+			global::TouchEffect.Droid.Resource.Id.checkbox = global::NureTimetable.Droid.Resource.Id.checkbox;
+			global::TouchEffect.Droid.Resource.Id.chronometer = global::NureTimetable.Droid.Resource.Id.chronometer;
+			global::TouchEffect.Droid.Resource.Id.clip_horizontal = global::NureTimetable.Droid.Resource.Id.clip_horizontal;
+			global::TouchEffect.Droid.Resource.Id.clip_vertical = global::NureTimetable.Droid.Resource.Id.clip_vertical;
+			global::TouchEffect.Droid.Resource.Id.collapseActionView = global::NureTimetable.Droid.Resource.Id.collapseActionView;
+			global::TouchEffect.Droid.Resource.Id.container = global::NureTimetable.Droid.Resource.Id.container;
+			global::TouchEffect.Droid.Resource.Id.content = global::NureTimetable.Droid.Resource.Id.content;
+			global::TouchEffect.Droid.Resource.Id.contentPanel = global::NureTimetable.Droid.Resource.Id.contentPanel;
+			global::TouchEffect.Droid.Resource.Id.coordinator = global::NureTimetable.Droid.Resource.Id.coordinator;
+			global::TouchEffect.Droid.Resource.Id.custom = global::NureTimetable.Droid.Resource.Id.custom;
+			global::TouchEffect.Droid.Resource.Id.customPanel = global::NureTimetable.Droid.Resource.Id.customPanel;
+			global::TouchEffect.Droid.Resource.Id.decor_content_parent = global::NureTimetable.Droid.Resource.Id.decor_content_parent;
+			global::TouchEffect.Droid.Resource.Id.default_activity_button = global::NureTimetable.Droid.Resource.Id.default_activity_button;
+			global::TouchEffect.Droid.Resource.Id.design_bottom_sheet = global::NureTimetable.Droid.Resource.Id.design_bottom_sheet;
+			global::TouchEffect.Droid.Resource.Id.design_menu_item_action_area = global::NureTimetable.Droid.Resource.Id.design_menu_item_action_area;
+			global::TouchEffect.Droid.Resource.Id.design_menu_item_action_area_stub = global::NureTimetable.Droid.Resource.Id.design_menu_item_action_area_stub;
+			global::TouchEffect.Droid.Resource.Id.design_menu_item_text = global::NureTimetable.Droid.Resource.Id.design_menu_item_text;
+			global::TouchEffect.Droid.Resource.Id.design_navigation_view = global::NureTimetable.Droid.Resource.Id.design_navigation_view;
+			global::TouchEffect.Droid.Resource.Id.disableHome = global::NureTimetable.Droid.Resource.Id.disableHome;
+			global::TouchEffect.Droid.Resource.Id.edit_query = global::NureTimetable.Droid.Resource.Id.edit_query;
+			global::TouchEffect.Droid.Resource.Id.end = global::NureTimetable.Droid.Resource.Id.end;
+			global::TouchEffect.Droid.Resource.Id.end_padder = global::NureTimetable.Droid.Resource.Id.end_padder;
+			global::TouchEffect.Droid.Resource.Id.enterAlways = global::NureTimetable.Droid.Resource.Id.enterAlways;
+			global::TouchEffect.Droid.Resource.Id.enterAlwaysCollapsed = global::NureTimetable.Droid.Resource.Id.enterAlwaysCollapsed;
+			global::TouchEffect.Droid.Resource.Id.exitUntilCollapsed = global::NureTimetable.Droid.Resource.Id.exitUntilCollapsed;
+			global::TouchEffect.Droid.Resource.Id.expand_activities_button = global::NureTimetable.Droid.Resource.Id.expand_activities_button;
+			global::TouchEffect.Droid.Resource.Id.expanded_menu = global::NureTimetable.Droid.Resource.Id.expanded_menu;
+			global::TouchEffect.Droid.Resource.Id.fill = global::NureTimetable.Droid.Resource.Id.fill;
+			global::TouchEffect.Droid.Resource.Id.fill_horizontal = global::NureTimetable.Droid.Resource.Id.fill_horizontal;
+			global::TouchEffect.Droid.Resource.Id.fill_vertical = global::NureTimetable.Droid.Resource.Id.fill_vertical;
+			global::TouchEffect.Droid.Resource.Id.filled = global::NureTimetable.Droid.Resource.Id.filled;
+			global::TouchEffect.Droid.Resource.Id.@fixed = global::NureTimetable.Droid.Resource.Id.@fixed;
+			global::TouchEffect.Droid.Resource.Id.flyoutcontent_appbar = global::NureTimetable.Droid.Resource.Id.flyoutcontent_appbar;
+			global::TouchEffect.Droid.Resource.Id.flyoutcontent_recycler = global::NureTimetable.Droid.Resource.Id.flyoutcontent_recycler;
+			global::TouchEffect.Droid.Resource.Id.forever = global::NureTimetable.Droid.Resource.Id.forever;
+			global::TouchEffect.Droid.Resource.Id.ghost_view = global::NureTimetable.Droid.Resource.Id.ghost_view;
+			global::TouchEffect.Droid.Resource.Id.group_divider = global::NureTimetable.Droid.Resource.Id.group_divider;
+			global::TouchEffect.Droid.Resource.Id.home = global::NureTimetable.Droid.Resource.Id.home;
+			global::TouchEffect.Droid.Resource.Id.homeAsUp = global::NureTimetable.Droid.Resource.Id.homeAsUp;
+			global::TouchEffect.Droid.Resource.Id.icon = global::NureTimetable.Droid.Resource.Id.icon;
+			global::TouchEffect.Droid.Resource.Id.icon_group = global::NureTimetable.Droid.Resource.Id.icon_group;
+			global::TouchEffect.Droid.Resource.Id.ifRoom = global::NureTimetable.Droid.Resource.Id.ifRoom;
+			global::TouchEffect.Droid.Resource.Id.image = global::NureTimetable.Droid.Resource.Id.image;
+			global::TouchEffect.Droid.Resource.Id.info = global::NureTimetable.Droid.Resource.Id.info;
+			global::TouchEffect.Droid.Resource.Id.italic = global::NureTimetable.Droid.Resource.Id.italic;
+			global::TouchEffect.Droid.Resource.Id.item_touch_helper_previous_elevation = global::NureTimetable.Droid.Resource.Id.item_touch_helper_previous_elevation;
+			global::TouchEffect.Droid.Resource.Id.labeled = global::NureTimetable.Droid.Resource.Id.labeled;
+			global::TouchEffect.Droid.Resource.Id.largeLabel = global::NureTimetable.Droid.Resource.Id.largeLabel;
+			global::TouchEffect.Droid.Resource.Id.left = global::NureTimetable.Droid.Resource.Id.left;
+			global::TouchEffect.Droid.Resource.Id.line1 = global::NureTimetable.Droid.Resource.Id.line1;
+			global::TouchEffect.Droid.Resource.Id.line3 = global::NureTimetable.Droid.Resource.Id.line3;
+			global::TouchEffect.Droid.Resource.Id.listMode = global::NureTimetable.Droid.Resource.Id.listMode;
+			global::TouchEffect.Droid.Resource.Id.list_item = global::NureTimetable.Droid.Resource.Id.list_item;
+			global::TouchEffect.Droid.Resource.Id.main_appbar = global::NureTimetable.Droid.Resource.Id.main_appbar;
+			global::TouchEffect.Droid.Resource.Id.main_tablayout = global::NureTimetable.Droid.Resource.Id.main_tablayout;
+			global::TouchEffect.Droid.Resource.Id.main_toolbar = global::NureTimetable.Droid.Resource.Id.main_toolbar;
+			global::TouchEffect.Droid.Resource.Id.main_viewpager = global::NureTimetable.Droid.Resource.Id.main_viewpager;
+			global::TouchEffect.Droid.Resource.Id.masked = global::NureTimetable.Droid.Resource.Id.masked;
+			global::TouchEffect.Droid.Resource.Id.media_actions = global::NureTimetable.Droid.Resource.Id.media_actions;
+			global::TouchEffect.Droid.Resource.Id.message = global::NureTimetable.Droid.Resource.Id.message;
+			global::TouchEffect.Droid.Resource.Id.middle = global::NureTimetable.Droid.Resource.Id.middle;
+			global::TouchEffect.Droid.Resource.Id.mini = global::NureTimetable.Droid.Resource.Id.mini;
+			global::TouchEffect.Droid.Resource.Id.mtrl_child_content_container = global::NureTimetable.Droid.Resource.Id.mtrl_child_content_container;
+			global::TouchEffect.Droid.Resource.Id.mtrl_internal_children_alpha_tag = global::NureTimetable.Droid.Resource.Id.mtrl_internal_children_alpha_tag;
+			global::TouchEffect.Droid.Resource.Id.multiply = global::NureTimetable.Droid.Resource.Id.multiply;
+			global::TouchEffect.Droid.Resource.Id.navigation_header_container = global::NureTimetable.Droid.Resource.Id.navigation_header_container;
+			global::TouchEffect.Droid.Resource.Id.never = global::NureTimetable.Droid.Resource.Id.never;
+			global::TouchEffect.Droid.Resource.Id.none = global::NureTimetable.Droid.Resource.Id.none;
+			global::TouchEffect.Droid.Resource.Id.normal = global::NureTimetable.Droid.Resource.Id.normal;
+			global::TouchEffect.Droid.Resource.Id.notification_background = global::NureTimetable.Droid.Resource.Id.notification_background;
+			global::TouchEffect.Droid.Resource.Id.notification_main_column = global::NureTimetable.Droid.Resource.Id.notification_main_column;
+			global::TouchEffect.Droid.Resource.Id.notification_main_column_container = global::NureTimetable.Droid.Resource.Id.notification_main_column_container;
+			global::TouchEffect.Droid.Resource.Id.outline = global::NureTimetable.Droid.Resource.Id.outline;
+			global::TouchEffect.Droid.Resource.Id.parallax = global::NureTimetable.Droid.Resource.Id.parallax;
+			global::TouchEffect.Droid.Resource.Id.parentPanel = global::NureTimetable.Droid.Resource.Id.parentPanel;
+			global::TouchEffect.Droid.Resource.Id.parent_matrix = global::NureTimetable.Droid.Resource.Id.parent_matrix;
+			global::TouchEffect.Droid.Resource.Id.pin = global::NureTimetable.Droid.Resource.Id.pin;
+			global::TouchEffect.Droid.Resource.Id.progress_circular = global::NureTimetable.Droid.Resource.Id.progress_circular;
+			global::TouchEffect.Droid.Resource.Id.progress_horizontal = global::NureTimetable.Droid.Resource.Id.progress_horizontal;
+			global::TouchEffect.Droid.Resource.Id.radio = global::NureTimetable.Droid.Resource.Id.radio;
+			global::TouchEffect.Droid.Resource.Id.right = global::NureTimetable.Droid.Resource.Id.right;
+			global::TouchEffect.Droid.Resource.Id.right_icon = global::NureTimetable.Droid.Resource.Id.right_icon;
+			global::TouchEffect.Droid.Resource.Id.right_side = global::NureTimetable.Droid.Resource.Id.right_side;
+			global::TouchEffect.Droid.Resource.Id.save_non_transition_alpha = global::NureTimetable.Droid.Resource.Id.save_non_transition_alpha;
+			global::TouchEffect.Droid.Resource.Id.screen = global::NureTimetable.Droid.Resource.Id.screen;
+			global::TouchEffect.Droid.Resource.Id.scroll = global::NureTimetable.Droid.Resource.Id.scroll;
+			global::TouchEffect.Droid.Resource.Id.scrollIndicatorDown = global::NureTimetable.Droid.Resource.Id.scrollIndicatorDown;
+			global::TouchEffect.Droid.Resource.Id.scrollIndicatorUp = global::NureTimetable.Droid.Resource.Id.scrollIndicatorUp;
+			global::TouchEffect.Droid.Resource.Id.scrollView = global::NureTimetable.Droid.Resource.Id.scrollView;
+			global::TouchEffect.Droid.Resource.Id.scrollable = global::NureTimetable.Droid.Resource.Id.scrollable;
+			global::TouchEffect.Droid.Resource.Id.search_badge = global::NureTimetable.Droid.Resource.Id.search_badge;
+			global::TouchEffect.Droid.Resource.Id.search_bar = global::NureTimetable.Droid.Resource.Id.search_bar;
+			global::TouchEffect.Droid.Resource.Id.search_button = global::NureTimetable.Droid.Resource.Id.search_button;
+			global::TouchEffect.Droid.Resource.Id.search_close_btn = global::NureTimetable.Droid.Resource.Id.search_close_btn;
+			global::TouchEffect.Droid.Resource.Id.search_edit_frame = global::NureTimetable.Droid.Resource.Id.search_edit_frame;
+			global::TouchEffect.Droid.Resource.Id.search_go_btn = global::NureTimetable.Droid.Resource.Id.search_go_btn;
+			global::TouchEffect.Droid.Resource.Id.search_mag_icon = global::NureTimetable.Droid.Resource.Id.search_mag_icon;
+			global::TouchEffect.Droid.Resource.Id.search_plate = global::NureTimetable.Droid.Resource.Id.search_plate;
+			global::TouchEffect.Droid.Resource.Id.search_src_text = global::NureTimetable.Droid.Resource.Id.search_src_text;
+			global::TouchEffect.Droid.Resource.Id.search_voice_btn = global::NureTimetable.Droid.Resource.Id.search_voice_btn;
+			global::TouchEffect.Droid.Resource.Id.select_dialog_listview = global::NureTimetable.Droid.Resource.Id.select_dialog_listview;
+			global::TouchEffect.Droid.Resource.Id.selected = global::NureTimetable.Droid.Resource.Id.selected;
+			global::TouchEffect.Droid.Resource.Id.shellcontent_appbar = global::NureTimetable.Droid.Resource.Id.shellcontent_appbar;
+			global::TouchEffect.Droid.Resource.Id.shellcontent_toolbar = global::NureTimetable.Droid.Resource.Id.shellcontent_toolbar;
+			global::TouchEffect.Droid.Resource.Id.shortcut = global::NureTimetable.Droid.Resource.Id.shortcut;
+			global::TouchEffect.Droid.Resource.Id.showCustom = global::NureTimetable.Droid.Resource.Id.showCustom;
+			global::TouchEffect.Droid.Resource.Id.showHome = global::NureTimetable.Droid.Resource.Id.showHome;
+			global::TouchEffect.Droid.Resource.Id.showTitle = global::NureTimetable.Droid.Resource.Id.showTitle;
+			global::TouchEffect.Droid.Resource.Id.smallLabel = global::NureTimetable.Droid.Resource.Id.smallLabel;
+			global::TouchEffect.Droid.Resource.Id.snackbar_action = global::NureTimetable.Droid.Resource.Id.snackbar_action;
+			global::TouchEffect.Droid.Resource.Id.snackbar_text = global::NureTimetable.Droid.Resource.Id.snackbar_text;
+			global::TouchEffect.Droid.Resource.Id.snap = global::NureTimetable.Droid.Resource.Id.snap;
+			global::TouchEffect.Droid.Resource.Id.snapMargins = global::NureTimetable.Droid.Resource.Id.snapMargins;
+			global::TouchEffect.Droid.Resource.Id.spacer = global::NureTimetable.Droid.Resource.Id.spacer;
+			global::TouchEffect.Droid.Resource.Id.split_action_bar = global::NureTimetable.Droid.Resource.Id.split_action_bar;
+			global::TouchEffect.Droid.Resource.Id.src_atop = global::NureTimetable.Droid.Resource.Id.src_atop;
+			global::TouchEffect.Droid.Resource.Id.src_in = global::NureTimetable.Droid.Resource.Id.src_in;
+			global::TouchEffect.Droid.Resource.Id.src_over = global::NureTimetable.Droid.Resource.Id.src_over;
+			global::TouchEffect.Droid.Resource.Id.start = global::NureTimetable.Droid.Resource.Id.start;
+			global::TouchEffect.Droid.Resource.Id.status_bar_latest_event_content = global::NureTimetable.Droid.Resource.Id.status_bar_latest_event_content;
+			global::TouchEffect.Droid.Resource.Id.stretch = global::NureTimetable.Droid.Resource.Id.stretch;
+			global::TouchEffect.Droid.Resource.Id.submenuarrow = global::NureTimetable.Droid.Resource.Id.submenuarrow;
+			global::TouchEffect.Droid.Resource.Id.submit_area = global::NureTimetable.Droid.Resource.Id.submit_area;
+			global::TouchEffect.Droid.Resource.Id.tabMode = global::NureTimetable.Droid.Resource.Id.tabMode;
+			global::TouchEffect.Droid.Resource.Id.tag_transition_group = global::NureTimetable.Droid.Resource.Id.tag_transition_group;
+			global::TouchEffect.Droid.Resource.Id.tag_unhandled_key_event_manager = global::NureTimetable.Droid.Resource.Id.tag_unhandled_key_event_manager;
+			global::TouchEffect.Droid.Resource.Id.tag_unhandled_key_listeners = global::NureTimetable.Droid.Resource.Id.tag_unhandled_key_listeners;
+			global::TouchEffect.Droid.Resource.Id.text = global::NureTimetable.Droid.Resource.Id.text;
+			global::TouchEffect.Droid.Resource.Id.text2 = global::NureTimetable.Droid.Resource.Id.text2;
+			global::TouchEffect.Droid.Resource.Id.textSpacerNoButtons = global::NureTimetable.Droid.Resource.Id.textSpacerNoButtons;
+			global::TouchEffect.Droid.Resource.Id.textSpacerNoTitle = global::NureTimetable.Droid.Resource.Id.textSpacerNoTitle;
+			global::TouchEffect.Droid.Resource.Id.textStart = global::NureTimetable.Droid.Resource.Id.textStart;
+			global::TouchEffect.Droid.Resource.Id.text_input_password_toggle = global::NureTimetable.Droid.Resource.Id.text_input_password_toggle;
+			global::TouchEffect.Droid.Resource.Id.textinput_counter = global::NureTimetable.Droid.Resource.Id.textinput_counter;
+			global::TouchEffect.Droid.Resource.Id.textinput_error = global::NureTimetable.Droid.Resource.Id.textinput_error;
+			global::TouchEffect.Droid.Resource.Id.textinput_helper_text = global::NureTimetable.Droid.Resource.Id.textinput_helper_text;
+			global::TouchEffect.Droid.Resource.Id.time = global::NureTimetable.Droid.Resource.Id.time;
+			global::TouchEffect.Droid.Resource.Id.title = global::NureTimetable.Droid.Resource.Id.title;
+			global::TouchEffect.Droid.Resource.Id.titleDividerNoCustom = global::NureTimetable.Droid.Resource.Id.titleDividerNoCustom;
+			global::TouchEffect.Droid.Resource.Id.title_template = global::NureTimetable.Droid.Resource.Id.title_template;
+			global::TouchEffect.Droid.Resource.Id.top = global::NureTimetable.Droid.Resource.Id.top;
+			global::TouchEffect.Droid.Resource.Id.topPanel = global::NureTimetable.Droid.Resource.Id.topPanel;
+			global::TouchEffect.Droid.Resource.Id.touch_outside = global::NureTimetable.Droid.Resource.Id.touch_outside;
+			global::TouchEffect.Droid.Resource.Id.transition_current_scene = global::NureTimetable.Droid.Resource.Id.transition_current_scene;
+			global::TouchEffect.Droid.Resource.Id.transition_layout_save = global::NureTimetable.Droid.Resource.Id.transition_layout_save;
+			global::TouchEffect.Droid.Resource.Id.transition_position = global::NureTimetable.Droid.Resource.Id.transition_position;
+			global::TouchEffect.Droid.Resource.Id.transition_scene_layoutid_cache = global::NureTimetable.Droid.Resource.Id.transition_scene_layoutid_cache;
+			global::TouchEffect.Droid.Resource.Id.transition_transform = global::NureTimetable.Droid.Resource.Id.transition_transform;
+			global::TouchEffect.Droid.Resource.Id.uniform = global::NureTimetable.Droid.Resource.Id.uniform;
+			global::TouchEffect.Droid.Resource.Id.unlabeled = global::NureTimetable.Droid.Resource.Id.unlabeled;
+			global::TouchEffect.Droid.Resource.Id.up = global::NureTimetable.Droid.Resource.Id.up;
+			global::TouchEffect.Droid.Resource.Id.useLogo = global::NureTimetable.Droid.Resource.Id.useLogo;
+			global::TouchEffect.Droid.Resource.Id.view_offset_helper = global::NureTimetable.Droid.Resource.Id.view_offset_helper;
+			global::TouchEffect.Droid.Resource.Id.visible = global::NureTimetable.Droid.Resource.Id.visible;
+			global::TouchEffect.Droid.Resource.Id.withText = global::NureTimetable.Droid.Resource.Id.withText;
+			global::TouchEffect.Droid.Resource.Id.wrap_content = global::NureTimetable.Droid.Resource.Id.wrap_content;
+			global::TouchEffect.Droid.Resource.Integer.abc_config_activityDefaultDur = global::NureTimetable.Droid.Resource.Integer.abc_config_activityDefaultDur;
+			global::TouchEffect.Droid.Resource.Integer.abc_config_activityShortDur = global::NureTimetable.Droid.Resource.Integer.abc_config_activityShortDur;
+			global::TouchEffect.Droid.Resource.Integer.app_bar_elevation_anim_duration = global::NureTimetable.Droid.Resource.Integer.app_bar_elevation_anim_duration;
+			global::TouchEffect.Droid.Resource.Integer.bottom_sheet_slide_duration = global::NureTimetable.Droid.Resource.Integer.bottom_sheet_slide_duration;
+			global::TouchEffect.Droid.Resource.Integer.cancel_button_image_alpha = global::NureTimetable.Droid.Resource.Integer.cancel_button_image_alpha;
+			global::TouchEffect.Droid.Resource.Integer.config_tooltipAnimTime = global::NureTimetable.Droid.Resource.Integer.config_tooltipAnimTime;
+			global::TouchEffect.Droid.Resource.Integer.design_snackbar_text_max_lines = global::NureTimetable.Droid.Resource.Integer.design_snackbar_text_max_lines;
+			global::TouchEffect.Droid.Resource.Integer.design_tab_indicator_anim_duration_ms = global::NureTimetable.Droid.Resource.Integer.design_tab_indicator_anim_duration_ms;
+			global::TouchEffect.Droid.Resource.Integer.hide_password_duration = global::NureTimetable.Droid.Resource.Integer.hide_password_duration;
+			global::TouchEffect.Droid.Resource.Integer.mtrl_btn_anim_delay_ms = global::NureTimetable.Droid.Resource.Integer.mtrl_btn_anim_delay_ms;
+			global::TouchEffect.Droid.Resource.Integer.mtrl_btn_anim_duration_ms = global::NureTimetable.Droid.Resource.Integer.mtrl_btn_anim_duration_ms;
+			global::TouchEffect.Droid.Resource.Integer.mtrl_chip_anim_duration = global::NureTimetable.Droid.Resource.Integer.mtrl_chip_anim_duration;
+			global::TouchEffect.Droid.Resource.Integer.mtrl_tab_indicator_anim_duration_ms = global::NureTimetable.Droid.Resource.Integer.mtrl_tab_indicator_anim_duration_ms;
+			global::TouchEffect.Droid.Resource.Integer.show_password_duration = global::NureTimetable.Droid.Resource.Integer.show_password_duration;
+			global::TouchEffect.Droid.Resource.Integer.status_bar_notification_info_maxnum = global::NureTimetable.Droid.Resource.Integer.status_bar_notification_info_maxnum;
+			global::TouchEffect.Droid.Resource.Interpolator.mtrl_fast_out_linear_in = global::NureTimetable.Droid.Resource.Interpolator.mtrl_fast_out_linear_in;
+			global::TouchEffect.Droid.Resource.Interpolator.mtrl_fast_out_slow_in = global::NureTimetable.Droid.Resource.Interpolator.mtrl_fast_out_slow_in;
+			global::TouchEffect.Droid.Resource.Interpolator.mtrl_linear = global::NureTimetable.Droid.Resource.Interpolator.mtrl_linear;
+			global::TouchEffect.Droid.Resource.Interpolator.mtrl_linear_out_slow_in = global::NureTimetable.Droid.Resource.Interpolator.mtrl_linear_out_slow_in;
+			global::TouchEffect.Droid.Resource.Layout.abc_action_bar_title_item = global::NureTimetable.Droid.Resource.Layout.abc_action_bar_title_item;
+			global::TouchEffect.Droid.Resource.Layout.abc_action_bar_up_container = global::NureTimetable.Droid.Resource.Layout.abc_action_bar_up_container;
+			global::TouchEffect.Droid.Resource.Layout.abc_action_menu_item_layout = global::NureTimetable.Droid.Resource.Layout.abc_action_menu_item_layout;
+			global::TouchEffect.Droid.Resource.Layout.abc_action_menu_layout = global::NureTimetable.Droid.Resource.Layout.abc_action_menu_layout;
+			global::TouchEffect.Droid.Resource.Layout.abc_action_mode_bar = global::NureTimetable.Droid.Resource.Layout.abc_action_mode_bar;
+			global::TouchEffect.Droid.Resource.Layout.abc_action_mode_close_item_material = global::NureTimetable.Droid.Resource.Layout.abc_action_mode_close_item_material;
+			global::TouchEffect.Droid.Resource.Layout.abc_activity_chooser_view = global::NureTimetable.Droid.Resource.Layout.abc_activity_chooser_view;
+			global::TouchEffect.Droid.Resource.Layout.abc_activity_chooser_view_list_item = global::NureTimetable.Droid.Resource.Layout.abc_activity_chooser_view_list_item;
+			global::TouchEffect.Droid.Resource.Layout.abc_alert_dialog_button_bar_material = global::NureTimetable.Droid.Resource.Layout.abc_alert_dialog_button_bar_material;
+			global::TouchEffect.Droid.Resource.Layout.abc_alert_dialog_material = global::NureTimetable.Droid.Resource.Layout.abc_alert_dialog_material;
+			global::TouchEffect.Droid.Resource.Layout.abc_alert_dialog_title_material = global::NureTimetable.Droid.Resource.Layout.abc_alert_dialog_title_material;
+			global::TouchEffect.Droid.Resource.Layout.abc_cascading_menu_item_layout = global::NureTimetable.Droid.Resource.Layout.abc_cascading_menu_item_layout;
+			global::TouchEffect.Droid.Resource.Layout.abc_dialog_title_material = global::NureTimetable.Droid.Resource.Layout.abc_dialog_title_material;
+			global::TouchEffect.Droid.Resource.Layout.abc_expanded_menu_layout = global::NureTimetable.Droid.Resource.Layout.abc_expanded_menu_layout;
+			global::TouchEffect.Droid.Resource.Layout.abc_list_menu_item_checkbox = global::NureTimetable.Droid.Resource.Layout.abc_list_menu_item_checkbox;
+			global::TouchEffect.Droid.Resource.Layout.abc_list_menu_item_icon = global::NureTimetable.Droid.Resource.Layout.abc_list_menu_item_icon;
+			global::TouchEffect.Droid.Resource.Layout.abc_list_menu_item_layout = global::NureTimetable.Droid.Resource.Layout.abc_list_menu_item_layout;
+			global::TouchEffect.Droid.Resource.Layout.abc_list_menu_item_radio = global::NureTimetable.Droid.Resource.Layout.abc_list_menu_item_radio;
+			global::TouchEffect.Droid.Resource.Layout.abc_popup_menu_header_item_layout = global::NureTimetable.Droid.Resource.Layout.abc_popup_menu_header_item_layout;
+			global::TouchEffect.Droid.Resource.Layout.abc_popup_menu_item_layout = global::NureTimetable.Droid.Resource.Layout.abc_popup_menu_item_layout;
+			global::TouchEffect.Droid.Resource.Layout.abc_screen_content_include = global::NureTimetable.Droid.Resource.Layout.abc_screen_content_include;
+			global::TouchEffect.Droid.Resource.Layout.abc_screen_simple = global::NureTimetable.Droid.Resource.Layout.abc_screen_simple;
+			global::TouchEffect.Droid.Resource.Layout.abc_screen_simple_overlay_action_mode = global::NureTimetable.Droid.Resource.Layout.abc_screen_simple_overlay_action_mode;
+			global::TouchEffect.Droid.Resource.Layout.abc_screen_toolbar = global::NureTimetable.Droid.Resource.Layout.abc_screen_toolbar;
+			global::TouchEffect.Droid.Resource.Layout.abc_search_dropdown_item_icons_2line = global::NureTimetable.Droid.Resource.Layout.abc_search_dropdown_item_icons_2line;
+			global::TouchEffect.Droid.Resource.Layout.abc_search_view = global::NureTimetable.Droid.Resource.Layout.abc_search_view;
+			global::TouchEffect.Droid.Resource.Layout.abc_select_dialog_material = global::NureTimetable.Droid.Resource.Layout.abc_select_dialog_material;
+			global::TouchEffect.Droid.Resource.Layout.abc_tooltip = global::NureTimetable.Droid.Resource.Layout.abc_tooltip;
+			global::TouchEffect.Droid.Resource.Layout.BottomTabLayout = global::NureTimetable.Droid.Resource.Layout.BottomTabLayout;
+			global::TouchEffect.Droid.Resource.Layout.browser_actions_context_menu_page = global::NureTimetable.Droid.Resource.Layout.browser_actions_context_menu_page;
+			global::TouchEffect.Droid.Resource.Layout.browser_actions_context_menu_row = global::NureTimetable.Droid.Resource.Layout.browser_actions_context_menu_row;
+			global::TouchEffect.Droid.Resource.Layout.design_bottom_navigation_item = global::NureTimetable.Droid.Resource.Layout.design_bottom_navigation_item;
+			global::TouchEffect.Droid.Resource.Layout.design_bottom_sheet_dialog = global::NureTimetable.Droid.Resource.Layout.design_bottom_sheet_dialog;
+			global::TouchEffect.Droid.Resource.Layout.design_layout_snackbar = global::NureTimetable.Droid.Resource.Layout.design_layout_snackbar;
+			global::TouchEffect.Droid.Resource.Layout.design_layout_snackbar_include = global::NureTimetable.Droid.Resource.Layout.design_layout_snackbar_include;
+			global::TouchEffect.Droid.Resource.Layout.design_layout_tab_icon = global::NureTimetable.Droid.Resource.Layout.design_layout_tab_icon;
+			global::TouchEffect.Droid.Resource.Layout.design_layout_tab_text = global::NureTimetable.Droid.Resource.Layout.design_layout_tab_text;
+			global::TouchEffect.Droid.Resource.Layout.design_menu_item_action_area = global::NureTimetable.Droid.Resource.Layout.design_menu_item_action_area;
+			global::TouchEffect.Droid.Resource.Layout.design_navigation_item = global::NureTimetable.Droid.Resource.Layout.design_navigation_item;
+			global::TouchEffect.Droid.Resource.Layout.design_navigation_item_header = global::NureTimetable.Droid.Resource.Layout.design_navigation_item_header;
+			global::TouchEffect.Droid.Resource.Layout.design_navigation_item_separator = global::NureTimetable.Droid.Resource.Layout.design_navigation_item_separator;
+			global::TouchEffect.Droid.Resource.Layout.design_navigation_item_subheader = global::NureTimetable.Droid.Resource.Layout.design_navigation_item_subheader;
+			global::TouchEffect.Droid.Resource.Layout.design_navigation_menu = global::NureTimetable.Droid.Resource.Layout.design_navigation_menu;
+			global::TouchEffect.Droid.Resource.Layout.design_navigation_menu_item = global::NureTimetable.Droid.Resource.Layout.design_navigation_menu_item;
+			global::TouchEffect.Droid.Resource.Layout.design_text_input_password_icon = global::NureTimetable.Droid.Resource.Layout.design_text_input_password_icon;
+			global::TouchEffect.Droid.Resource.Layout.FlyoutContent = global::NureTimetable.Droid.Resource.Layout.FlyoutContent;
+			global::TouchEffect.Droid.Resource.Layout.mtrl_layout_snackbar = global::NureTimetable.Droid.Resource.Layout.mtrl_layout_snackbar;
+			global::TouchEffect.Droid.Resource.Layout.mtrl_layout_snackbar_include = global::NureTimetable.Droid.Resource.Layout.mtrl_layout_snackbar_include;
+			global::TouchEffect.Droid.Resource.Layout.notification_action = global::NureTimetable.Droid.Resource.Layout.notification_action;
+			global::TouchEffect.Droid.Resource.Layout.notification_action_tombstone = global::NureTimetable.Droid.Resource.Layout.notification_action_tombstone;
+			global::TouchEffect.Droid.Resource.Layout.notification_media_action = global::NureTimetable.Droid.Resource.Layout.notification_media_action;
+			global::TouchEffect.Droid.Resource.Layout.notification_media_cancel_action = global::NureTimetable.Droid.Resource.Layout.notification_media_cancel_action;
+			global::TouchEffect.Droid.Resource.Layout.notification_template_big_media = global::NureTimetable.Droid.Resource.Layout.notification_template_big_media;
+			global::TouchEffect.Droid.Resource.Layout.notification_template_big_media_custom = global::NureTimetable.Droid.Resource.Layout.notification_template_big_media_custom;
+			global::TouchEffect.Droid.Resource.Layout.notification_template_big_media_narrow = global::NureTimetable.Droid.Resource.Layout.notification_template_big_media_narrow;
+			global::TouchEffect.Droid.Resource.Layout.notification_template_big_media_narrow_custom = global::NureTimetable.Droid.Resource.Layout.notification_template_big_media_narrow_custom;
+			global::TouchEffect.Droid.Resource.Layout.notification_template_custom_big = global::NureTimetable.Droid.Resource.Layout.notification_template_custom_big;
+			global::TouchEffect.Droid.Resource.Layout.notification_template_icon_group = global::NureTimetable.Droid.Resource.Layout.notification_template_icon_group;
+			global::TouchEffect.Droid.Resource.Layout.notification_template_lines_media = global::NureTimetable.Droid.Resource.Layout.notification_template_lines_media;
+			global::TouchEffect.Droid.Resource.Layout.notification_template_media = global::NureTimetable.Droid.Resource.Layout.notification_template_media;
+			global::TouchEffect.Droid.Resource.Layout.notification_template_media_custom = global::NureTimetable.Droid.Resource.Layout.notification_template_media_custom;
+			global::TouchEffect.Droid.Resource.Layout.notification_template_part_chronometer = global::NureTimetable.Droid.Resource.Layout.notification_template_part_chronometer;
+			global::TouchEffect.Droid.Resource.Layout.notification_template_part_time = global::NureTimetable.Droid.Resource.Layout.notification_template_part_time;
+			global::TouchEffect.Droid.Resource.Layout.RootLayout = global::NureTimetable.Droid.Resource.Layout.RootLayout;
+			global::TouchEffect.Droid.Resource.Layout.select_dialog_item_material = global::NureTimetable.Droid.Resource.Layout.select_dialog_item_material;
+			global::TouchEffect.Droid.Resource.Layout.select_dialog_multichoice_material = global::NureTimetable.Droid.Resource.Layout.select_dialog_multichoice_material;
+			global::TouchEffect.Droid.Resource.Layout.select_dialog_singlechoice_material = global::NureTimetable.Droid.Resource.Layout.select_dialog_singlechoice_material;
+			global::TouchEffect.Droid.Resource.Layout.ShellContent = global::NureTimetable.Droid.Resource.Layout.ShellContent;
+			global::TouchEffect.Droid.Resource.Layout.support_simple_spinner_dropdown_item = global::NureTimetable.Droid.Resource.Layout.support_simple_spinner_dropdown_item;
+			global::TouchEffect.Droid.Resource.String.abc_action_bar_home_description = global::NureTimetable.Droid.Resource.String.abc_action_bar_home_description;
+			global::TouchEffect.Droid.Resource.String.abc_action_bar_up_description = global::NureTimetable.Droid.Resource.String.abc_action_bar_up_description;
+			global::TouchEffect.Droid.Resource.String.abc_action_menu_overflow_description = global::NureTimetable.Droid.Resource.String.abc_action_menu_overflow_description;
+			global::TouchEffect.Droid.Resource.String.abc_action_mode_done = global::NureTimetable.Droid.Resource.String.abc_action_mode_done;
+			global::TouchEffect.Droid.Resource.String.abc_activity_chooser_view_see_all = global::NureTimetable.Droid.Resource.String.abc_activity_chooser_view_see_all;
+			global::TouchEffect.Droid.Resource.String.abc_activitychooserview_choose_application = global::NureTimetable.Droid.Resource.String.abc_activitychooserview_choose_application;
+			global::TouchEffect.Droid.Resource.String.abc_capital_off = global::NureTimetable.Droid.Resource.String.abc_capital_off;
+			global::TouchEffect.Droid.Resource.String.abc_capital_on = global::NureTimetable.Droid.Resource.String.abc_capital_on;
+			global::TouchEffect.Droid.Resource.String.abc_menu_alt_shortcut_label = global::NureTimetable.Droid.Resource.String.abc_menu_alt_shortcut_label;
+			global::TouchEffect.Droid.Resource.String.abc_menu_ctrl_shortcut_label = global::NureTimetable.Droid.Resource.String.abc_menu_ctrl_shortcut_label;
+			global::TouchEffect.Droid.Resource.String.abc_menu_delete_shortcut_label = global::NureTimetable.Droid.Resource.String.abc_menu_delete_shortcut_label;
+			global::TouchEffect.Droid.Resource.String.abc_menu_enter_shortcut_label = global::NureTimetable.Droid.Resource.String.abc_menu_enter_shortcut_label;
+			global::TouchEffect.Droid.Resource.String.abc_menu_function_shortcut_label = global::NureTimetable.Droid.Resource.String.abc_menu_function_shortcut_label;
+			global::TouchEffect.Droid.Resource.String.abc_menu_meta_shortcut_label = global::NureTimetable.Droid.Resource.String.abc_menu_meta_shortcut_label;
+			global::TouchEffect.Droid.Resource.String.abc_menu_shift_shortcut_label = global::NureTimetable.Droid.Resource.String.abc_menu_shift_shortcut_label;
+			global::TouchEffect.Droid.Resource.String.abc_menu_space_shortcut_label = global::NureTimetable.Droid.Resource.String.abc_menu_space_shortcut_label;
+			global::TouchEffect.Droid.Resource.String.abc_menu_sym_shortcut_label = global::NureTimetable.Droid.Resource.String.abc_menu_sym_shortcut_label;
+			global::TouchEffect.Droid.Resource.String.abc_prepend_shortcut_label = global::NureTimetable.Droid.Resource.String.abc_prepend_shortcut_label;
+			global::TouchEffect.Droid.Resource.String.abc_search_hint = global::NureTimetable.Droid.Resource.String.abc_search_hint;
+			global::TouchEffect.Droid.Resource.String.abc_searchview_description_clear = global::NureTimetable.Droid.Resource.String.abc_searchview_description_clear;
+			global::TouchEffect.Droid.Resource.String.abc_searchview_description_query = global::NureTimetable.Droid.Resource.String.abc_searchview_description_query;
+			global::TouchEffect.Droid.Resource.String.abc_searchview_description_search = global::NureTimetable.Droid.Resource.String.abc_searchview_description_search;
+			global::TouchEffect.Droid.Resource.String.abc_searchview_description_submit = global::NureTimetable.Droid.Resource.String.abc_searchview_description_submit;
+			global::TouchEffect.Droid.Resource.String.abc_searchview_description_voice = global::NureTimetable.Droid.Resource.String.abc_searchview_description_voice;
+			global::TouchEffect.Droid.Resource.String.abc_shareactionprovider_share_with = global::NureTimetable.Droid.Resource.String.abc_shareactionprovider_share_with;
+			global::TouchEffect.Droid.Resource.String.abc_shareactionprovider_share_with_application = global::NureTimetable.Droid.Resource.String.abc_shareactionprovider_share_with_application;
+			global::TouchEffect.Droid.Resource.String.abc_toolbar_collapse_description = global::NureTimetable.Droid.Resource.String.abc_toolbar_collapse_description;
+			global::TouchEffect.Droid.Resource.String.appbar_scrolling_view_behavior = global::NureTimetable.Droid.Resource.String.appbar_scrolling_view_behavior;
+			global::TouchEffect.Droid.Resource.String.bottom_sheet_behavior = global::NureTimetable.Droid.Resource.String.bottom_sheet_behavior;
+			global::TouchEffect.Droid.Resource.String.character_counter_content_description = global::NureTimetable.Droid.Resource.String.character_counter_content_description;
+			global::TouchEffect.Droid.Resource.String.character_counter_pattern = global::NureTimetable.Droid.Resource.String.character_counter_pattern;
+			global::TouchEffect.Droid.Resource.String.fab_transformation_scrim_behavior = global::NureTimetable.Droid.Resource.String.fab_transformation_scrim_behavior;
+			global::TouchEffect.Droid.Resource.String.fab_transformation_sheet_behavior = global::NureTimetable.Droid.Resource.String.fab_transformation_sheet_behavior;
+			global::TouchEffect.Droid.Resource.String.hide_bottom_view_on_scroll_behavior = global::NureTimetable.Droid.Resource.String.hide_bottom_view_on_scroll_behavior;
+			global::TouchEffect.Droid.Resource.String.library_name = global::NureTimetable.Droid.Resource.String.library_name;
+			global::TouchEffect.Droid.Resource.String.mtrl_chip_close_icon_content_description = global::NureTimetable.Droid.Resource.String.mtrl_chip_close_icon_content_description;
+			global::TouchEffect.Droid.Resource.String.password_toggle_content_description = global::NureTimetable.Droid.Resource.String.password_toggle_content_description;
+			global::TouchEffect.Droid.Resource.String.path_password_eye = global::NureTimetable.Droid.Resource.String.path_password_eye;
+			global::TouchEffect.Droid.Resource.String.path_password_eye_mask_strike_through = global::NureTimetable.Droid.Resource.String.path_password_eye_mask_strike_through;
+			global::TouchEffect.Droid.Resource.String.path_password_eye_mask_visible = global::NureTimetable.Droid.Resource.String.path_password_eye_mask_visible;
+			global::TouchEffect.Droid.Resource.String.path_password_strike_through = global::NureTimetable.Droid.Resource.String.path_password_strike_through;
+			global::TouchEffect.Droid.Resource.String.search_menu_title = global::NureTimetable.Droid.Resource.String.search_menu_title;
+			global::TouchEffect.Droid.Resource.String.status_bar_notification_info_overflow = global::NureTimetable.Droid.Resource.String.status_bar_notification_info_overflow;
+			global::TouchEffect.Droid.Resource.Style.AlertDialog_AppCompat = global::NureTimetable.Droid.Resource.Style.AlertDialog_AppCompat;
+			global::TouchEffect.Droid.Resource.Style.AlertDialog_AppCompat_Light = global::NureTimetable.Droid.Resource.Style.AlertDialog_AppCompat_Light;
+			global::TouchEffect.Droid.Resource.Style.Animation_AppCompat_Dialog = global::NureTimetable.Droid.Resource.Style.Animation_AppCompat_Dialog;
+			global::TouchEffect.Droid.Resource.Style.Animation_AppCompat_DropDownUp = global::NureTimetable.Droid.Resource.Style.Animation_AppCompat_DropDownUp;
+			global::TouchEffect.Droid.Resource.Style.Animation_AppCompat_Tooltip = global::NureTimetable.Droid.Resource.Style.Animation_AppCompat_Tooltip;
+			global::TouchEffect.Droid.Resource.Style.Animation_Design_BottomSheetDialog = global::NureTimetable.Droid.Resource.Style.Animation_Design_BottomSheetDialog;
+			global::TouchEffect.Droid.Resource.Style.AppCompatDialogStyle = global::NureTimetable.Droid.Resource.Style.AppCompatDialogStyle;
+			global::TouchEffect.Droid.Resource.Style.Base_AlertDialog_AppCompat = global::NureTimetable.Droid.Resource.Style.Base_AlertDialog_AppCompat;
+			global::TouchEffect.Droid.Resource.Style.Base_AlertDialog_AppCompat_Light = global::NureTimetable.Droid.Resource.Style.Base_AlertDialog_AppCompat_Light;
+			global::TouchEffect.Droid.Resource.Style.Base_Animation_AppCompat_Dialog = global::NureTimetable.Droid.Resource.Style.Base_Animation_AppCompat_Dialog;
+			global::TouchEffect.Droid.Resource.Style.Base_Animation_AppCompat_DropDownUp = global::NureTimetable.Droid.Resource.Style.Base_Animation_AppCompat_DropDownUp;
+			global::TouchEffect.Droid.Resource.Style.Base_Animation_AppCompat_Tooltip = global::NureTimetable.Droid.Resource.Style.Base_Animation_AppCompat_Tooltip;
+			global::TouchEffect.Droid.Resource.Style.Base_CardView = global::NureTimetable.Droid.Resource.Style.Base_CardView;
+			global::TouchEffect.Droid.Resource.Style.Base_DialogWindowTitle_AppCompat = global::NureTimetable.Droid.Resource.Style.Base_DialogWindowTitle_AppCompat;
+			global::TouchEffect.Droid.Resource.Style.Base_DialogWindowTitleBackground_AppCompat = global::NureTimetable.Droid.Resource.Style.Base_DialogWindowTitleBackground_AppCompat;
+			global::TouchEffect.Droid.Resource.Style.Base_TextAppearance_AppCompat = global::NureTimetable.Droid.Resource.Style.Base_TextAppearance_AppCompat;
+			global::TouchEffect.Droid.Resource.Style.Base_TextAppearance_AppCompat_Body1 = global::NureTimetable.Droid.Resource.Style.Base_TextAppearance_AppCompat_Body1;
+			global::TouchEffect.Droid.Resource.Style.Base_TextAppearance_AppCompat_Body2 = global::NureTimetable.Droid.Resource.Style.Base_TextAppearance_AppCompat_Body2;
+			global::TouchEffect.Droid.Resource.Style.Base_TextAppearance_AppCompat_Button = global::NureTimetable.Droid.Resource.Style.Base_TextAppearance_AppCompat_Button;
+			global::TouchEffect.Droid.Resource.Style.Base_TextAppearance_AppCompat_Caption = global::NureTimetable.Droid.Resource.Style.Base_TextAppearance_AppCompat_Caption;
+			global::TouchEffect.Droid.Resource.Style.Base_TextAppearance_AppCompat_Display1 = global::NureTimetable.Droid.Resource.Style.Base_TextAppearance_AppCompat_Display1;
+			global::TouchEffect.Droid.Resource.Style.Base_TextAppearance_AppCompat_Display2 = global::NureTimetable.Droid.Resource.Style.Base_TextAppearance_AppCompat_Display2;
+			global::TouchEffect.Droid.Resource.Style.Base_TextAppearance_AppCompat_Display3 = global::NureTimetable.Droid.Resource.Style.Base_TextAppearance_AppCompat_Display3;
+			global::TouchEffect.Droid.Resource.Style.Base_TextAppearance_AppCompat_Display4 = global::NureTimetable.Droid.Resource.Style.Base_TextAppearance_AppCompat_Display4;
+			global::TouchEffect.Droid.Resource.Style.Base_TextAppearance_AppCompat_Headline = global::NureTimetable.Droid.Resource.Style.Base_TextAppearance_AppCompat_Headline;
+			global::TouchEffect.Droid.Resource.Style.Base_TextAppearance_AppCompat_Inverse = global::NureTimetable.Droid.Resource.Style.Base_TextAppearance_AppCompat_Inverse;
+			global::TouchEffect.Droid.Resource.Style.Base_TextAppearance_AppCompat_Large = global::NureTimetable.Droid.Resource.Style.Base_TextAppearance_AppCompat_Large;
+			global::TouchEffect.Droid.Resource.Style.Base_TextAppearance_AppCompat_Large_Inverse = global::NureTimetable.Droid.Resource.Style.Base_TextAppearance_AppCompat_Large_Inverse;
+			global::TouchEffect.Droid.Resource.Style.Base_TextAppearance_AppCompat_Light_Widget_PopupMenu_Large = global::NureTimetable.Droid.Resource.Style.Base_TextAppearance_AppCompat_Light_Widget_PopupMenu_Large;
+			global::TouchEffect.Droid.Resource.Style.Base_TextAppearance_AppCompat_Light_Widget_PopupMenu_Small = global::NureTimetable.Droid.Resource.Style.Base_TextAppearance_AppCompat_Light_Widget_PopupMenu_Small;
+			global::TouchEffect.Droid.Resource.Style.Base_TextAppearance_AppCompat_Medium = global::NureTimetable.Droid.Resource.Style.Base_TextAppearance_AppCompat_Medium;
+			global::TouchEffect.Droid.Resource.Style.Base_TextAppearance_AppCompat_Medium_Inverse = global::NureTimetable.Droid.Resource.Style.Base_TextAppearance_AppCompat_Medium_Inverse;
+			global::TouchEffect.Droid.Resource.Style.Base_TextAppearance_AppCompat_Menu = global::NureTimetable.Droid.Resource.Style.Base_TextAppearance_AppCompat_Menu;
+			global::TouchEffect.Droid.Resource.Style.Base_TextAppearance_AppCompat_SearchResult = global::NureTimetable.Droid.Resource.Style.Base_TextAppearance_AppCompat_SearchResult;
+			global::TouchEffect.Droid.Resource.Style.Base_TextAppearance_AppCompat_SearchResult_Subtitle = global::NureTimetable.Droid.Resource.Style.Base_TextAppearance_AppCompat_SearchResult_Subtitle;
+			global::TouchEffect.Droid.Resource.Style.Base_TextAppearance_AppCompat_SearchResult_Title = global::NureTimetable.Droid.Resource.Style.Base_TextAppearance_AppCompat_SearchResult_Title;
+			global::TouchEffect.Droid.Resource.Style.Base_TextAppearance_AppCompat_Small = global::NureTimetable.Droid.Resource.Style.Base_TextAppearance_AppCompat_Small;
+			global::TouchEffect.Droid.Resource.Style.Base_TextAppearance_AppCompat_Small_Inverse = global::NureTimetable.Droid.Resource.Style.Base_TextAppearance_AppCompat_Small_Inverse;
+			global::TouchEffect.Droid.Resource.Style.Base_TextAppearance_AppCompat_Subhead = global::NureTimetable.Droid.Resource.Style.Base_TextAppearance_AppCompat_Subhead;
+			global::TouchEffect.Droid.Resource.Style.Base_TextAppearance_AppCompat_Subhead_Inverse = global::NureTimetable.Droid.Resource.Style.Base_TextAppearance_AppCompat_Subhead_Inverse;
+			global::TouchEffect.Droid.Resource.Style.Base_TextAppearance_AppCompat_Title = global::NureTimetable.Droid.Resource.Style.Base_TextAppearance_AppCompat_Title;
+			global::TouchEffect.Droid.Resource.Style.Base_TextAppearance_AppCompat_Title_Inverse = global::NureTimetable.Droid.Resource.Style.Base_TextAppearance_AppCompat_Title_Inverse;
+			global::TouchEffect.Droid.Resource.Style.Base_TextAppearance_AppCompat_Tooltip = global::NureTimetable.Droid.Resource.Style.Base_TextAppearance_AppCompat_Tooltip;
+			global::TouchEffect.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Menu = global::NureTimetable.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Menu;
+			global::TouchEffect.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Subtitle = global::NureTimetable.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Subtitle;
+			global::TouchEffect.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Subtitle_Inverse = global::NureTimetable.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Subtitle_Inverse;
+			global::TouchEffect.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Title = global::NureTimetable.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Title;
+			global::TouchEffect.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Title_Inverse = global::NureTimetable.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Title_Inverse;
+			global::TouchEffect.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionMode_Subtitle = global::NureTimetable.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionMode_Subtitle;
+			global::TouchEffect.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionMode_Title = global::NureTimetable.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionMode_Title;
+			global::TouchEffect.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_Button = global::NureTimetable.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_Button;
+			global::TouchEffect.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_Button_Borderless_Colored = global::NureTimetable.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_Button_Borderless_Colored;
+			global::TouchEffect.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_Button_Colored = global::NureTimetable.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_Button_Colored;
+			global::TouchEffect.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_Button_Inverse = global::NureTimetable.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_Button_Inverse;
+			global::TouchEffect.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_DropDownItem = global::NureTimetable.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_DropDownItem;
+			global::TouchEffect.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_PopupMenu_Header = global::NureTimetable.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_PopupMenu_Header;
+			global::TouchEffect.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_PopupMenu_Large = global::NureTimetable.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_PopupMenu_Large;
+			global::TouchEffect.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_PopupMenu_Small = global::NureTimetable.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_PopupMenu_Small;
+			global::TouchEffect.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_Switch = global::NureTimetable.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_Switch;
+			global::TouchEffect.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_TextView_SpinnerItem = global::NureTimetable.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_TextView_SpinnerItem;
+			global::TouchEffect.Droid.Resource.Style.Base_TextAppearance_Widget_AppCompat_ExpandedMenu_Item = global::NureTimetable.Droid.Resource.Style.Base_TextAppearance_Widget_AppCompat_ExpandedMenu_Item;
+			global::TouchEffect.Droid.Resource.Style.Base_TextAppearance_Widget_AppCompat_Toolbar_Subtitle = global::NureTimetable.Droid.Resource.Style.Base_TextAppearance_Widget_AppCompat_Toolbar_Subtitle;
+			global::TouchEffect.Droid.Resource.Style.Base_TextAppearance_Widget_AppCompat_Toolbar_Title = global::NureTimetable.Droid.Resource.Style.Base_TextAppearance_Widget_AppCompat_Toolbar_Title;
+			global::TouchEffect.Droid.Resource.Style.Base_Theme_AppCompat = global::NureTimetable.Droid.Resource.Style.Base_Theme_AppCompat;
+			global::TouchEffect.Droid.Resource.Style.Base_Theme_AppCompat_CompactMenu = global::NureTimetable.Droid.Resource.Style.Base_Theme_AppCompat_CompactMenu;
+			global::TouchEffect.Droid.Resource.Style.Base_Theme_AppCompat_Dialog = global::NureTimetable.Droid.Resource.Style.Base_Theme_AppCompat_Dialog;
+			global::TouchEffect.Droid.Resource.Style.Base_Theme_AppCompat_Dialog_Alert = global::NureTimetable.Droid.Resource.Style.Base_Theme_AppCompat_Dialog_Alert;
+			global::TouchEffect.Droid.Resource.Style.Base_Theme_AppCompat_Dialog_FixedSize = global::NureTimetable.Droid.Resource.Style.Base_Theme_AppCompat_Dialog_FixedSize;
+			global::TouchEffect.Droid.Resource.Style.Base_Theme_AppCompat_Dialog_MinWidth = global::NureTimetable.Droid.Resource.Style.Base_Theme_AppCompat_Dialog_MinWidth;
+			global::TouchEffect.Droid.Resource.Style.Base_Theme_AppCompat_DialogWhenLarge = global::NureTimetable.Droid.Resource.Style.Base_Theme_AppCompat_DialogWhenLarge;
+			global::TouchEffect.Droid.Resource.Style.Base_Theme_AppCompat_Light = global::NureTimetable.Droid.Resource.Style.Base_Theme_AppCompat_Light;
+			global::TouchEffect.Droid.Resource.Style.Base_Theme_AppCompat_Light_DarkActionBar = global::NureTimetable.Droid.Resource.Style.Base_Theme_AppCompat_Light_DarkActionBar;
+			global::TouchEffect.Droid.Resource.Style.Base_Theme_AppCompat_Light_Dialog = global::NureTimetable.Droid.Resource.Style.Base_Theme_AppCompat_Light_Dialog;
+			global::TouchEffect.Droid.Resource.Style.Base_Theme_AppCompat_Light_Dialog_Alert = global::NureTimetable.Droid.Resource.Style.Base_Theme_AppCompat_Light_Dialog_Alert;
+			global::TouchEffect.Droid.Resource.Style.Base_Theme_AppCompat_Light_Dialog_FixedSize = global::NureTimetable.Droid.Resource.Style.Base_Theme_AppCompat_Light_Dialog_FixedSize;
+			global::TouchEffect.Droid.Resource.Style.Base_Theme_AppCompat_Light_Dialog_MinWidth = global::NureTimetable.Droid.Resource.Style.Base_Theme_AppCompat_Light_Dialog_MinWidth;
+			global::TouchEffect.Droid.Resource.Style.Base_Theme_AppCompat_Light_DialogWhenLarge = global::NureTimetable.Droid.Resource.Style.Base_Theme_AppCompat_Light_DialogWhenLarge;
+			global::TouchEffect.Droid.Resource.Style.Base_Theme_MaterialComponents = global::NureTimetable.Droid.Resource.Style.Base_Theme_MaterialComponents;
+			global::TouchEffect.Droid.Resource.Style.Base_Theme_MaterialComponents_Bridge = global::NureTimetable.Droid.Resource.Style.Base_Theme_MaterialComponents_Bridge;
+			global::TouchEffect.Droid.Resource.Style.Base_Theme_MaterialComponents_CompactMenu = global::NureTimetable.Droid.Resource.Style.Base_Theme_MaterialComponents_CompactMenu;
+			global::TouchEffect.Droid.Resource.Style.Base_Theme_MaterialComponents_Dialog = global::NureTimetable.Droid.Resource.Style.Base_Theme_MaterialComponents_Dialog;
+			global::TouchEffect.Droid.Resource.Style.Base_Theme_MaterialComponents_Dialog_Alert = global::NureTimetable.Droid.Resource.Style.Base_Theme_MaterialComponents_Dialog_Alert;
+			global::TouchEffect.Droid.Resource.Style.Base_Theme_MaterialComponents_Dialog_FixedSize = global::NureTimetable.Droid.Resource.Style.Base_Theme_MaterialComponents_Dialog_FixedSize;
+			global::TouchEffect.Droid.Resource.Style.Base_Theme_MaterialComponents_Dialog_MinWidth = global::NureTimetable.Droid.Resource.Style.Base_Theme_MaterialComponents_Dialog_MinWidth;
+			global::TouchEffect.Droid.Resource.Style.Base_Theme_MaterialComponents_DialogWhenLarge = global::NureTimetable.Droid.Resource.Style.Base_Theme_MaterialComponents_DialogWhenLarge;
+			global::TouchEffect.Droid.Resource.Style.Base_Theme_MaterialComponents_Light = global::NureTimetable.Droid.Resource.Style.Base_Theme_MaterialComponents_Light;
+			global::TouchEffect.Droid.Resource.Style.Base_Theme_MaterialComponents_Light_Bridge = global::NureTimetable.Droid.Resource.Style.Base_Theme_MaterialComponents_Light_Bridge;
+			global::TouchEffect.Droid.Resource.Style.Base_Theme_MaterialComponents_Light_DarkActionBar = global::NureTimetable.Droid.Resource.Style.Base_Theme_MaterialComponents_Light_DarkActionBar;
+			global::TouchEffect.Droid.Resource.Style.Base_Theme_MaterialComponents_Light_DarkActionBar_Bridge = global::NureTimetable.Droid.Resource.Style.Base_Theme_MaterialComponents_Light_DarkActionBar_Bridge;
+			global::TouchEffect.Droid.Resource.Style.Base_Theme_MaterialComponents_Light_Dialog = global::NureTimetable.Droid.Resource.Style.Base_Theme_MaterialComponents_Light_Dialog;
+			global::TouchEffect.Droid.Resource.Style.Base_Theme_MaterialComponents_Light_Dialog_Alert = global::NureTimetable.Droid.Resource.Style.Base_Theme_MaterialComponents_Light_Dialog_Alert;
+			global::TouchEffect.Droid.Resource.Style.Base_Theme_MaterialComponents_Light_Dialog_FixedSize = global::NureTimetable.Droid.Resource.Style.Base_Theme_MaterialComponents_Light_Dialog_FixedSize;
+			global::TouchEffect.Droid.Resource.Style.Base_Theme_MaterialComponents_Light_Dialog_MinWidth = global::NureTimetable.Droid.Resource.Style.Base_Theme_MaterialComponents_Light_Dialog_MinWidth;
+			global::TouchEffect.Droid.Resource.Style.Base_Theme_MaterialComponents_Light_DialogWhenLarge = global::NureTimetable.Droid.Resource.Style.Base_Theme_MaterialComponents_Light_DialogWhenLarge;
+			global::TouchEffect.Droid.Resource.Style.Base_ThemeOverlay_AppCompat = global::NureTimetable.Droid.Resource.Style.Base_ThemeOverlay_AppCompat;
+			global::TouchEffect.Droid.Resource.Style.Base_ThemeOverlay_AppCompat_ActionBar = global::NureTimetable.Droid.Resource.Style.Base_ThemeOverlay_AppCompat_ActionBar;
+			global::TouchEffect.Droid.Resource.Style.Base_ThemeOverlay_AppCompat_Dark = global::NureTimetable.Droid.Resource.Style.Base_ThemeOverlay_AppCompat_Dark;
+			global::TouchEffect.Droid.Resource.Style.Base_ThemeOverlay_AppCompat_Dark_ActionBar = global::NureTimetable.Droid.Resource.Style.Base_ThemeOverlay_AppCompat_Dark_ActionBar;
+			global::TouchEffect.Droid.Resource.Style.Base_ThemeOverlay_AppCompat_Dialog = global::NureTimetable.Droid.Resource.Style.Base_ThemeOverlay_AppCompat_Dialog;
+			global::TouchEffect.Droid.Resource.Style.Base_ThemeOverlay_AppCompat_Dialog_Alert = global::NureTimetable.Droid.Resource.Style.Base_ThemeOverlay_AppCompat_Dialog_Alert;
+			global::TouchEffect.Droid.Resource.Style.Base_ThemeOverlay_AppCompat_Light = global::NureTimetable.Droid.Resource.Style.Base_ThemeOverlay_AppCompat_Light;
+			global::TouchEffect.Droid.Resource.Style.Base_ThemeOverlay_MaterialComponents_Dialog = global::NureTimetable.Droid.Resource.Style.Base_ThemeOverlay_MaterialComponents_Dialog;
+			global::TouchEffect.Droid.Resource.Style.Base_ThemeOverlay_MaterialComponents_Dialog_Alert = global::NureTimetable.Droid.Resource.Style.Base_ThemeOverlay_MaterialComponents_Dialog_Alert;
+			global::TouchEffect.Droid.Resource.Style.Base_V14_Theme_MaterialComponents = global::NureTimetable.Droid.Resource.Style.Base_V14_Theme_MaterialComponents;
+			global::TouchEffect.Droid.Resource.Style.Base_V14_Theme_MaterialComponents_Bridge = global::NureTimetable.Droid.Resource.Style.Base_V14_Theme_MaterialComponents_Bridge;
+			global::TouchEffect.Droid.Resource.Style.Base_V14_Theme_MaterialComponents_Dialog = global::NureTimetable.Droid.Resource.Style.Base_V14_Theme_MaterialComponents_Dialog;
+			global::TouchEffect.Droid.Resource.Style.Base_V14_Theme_MaterialComponents_Light = global::NureTimetable.Droid.Resource.Style.Base_V14_Theme_MaterialComponents_Light;
+			global::TouchEffect.Droid.Resource.Style.Base_V14_Theme_MaterialComponents_Light_Bridge = global::NureTimetable.Droid.Resource.Style.Base_V14_Theme_MaterialComponents_Light_Bridge;
+			global::TouchEffect.Droid.Resource.Style.Base_V14_Theme_MaterialComponents_Light_DarkActionBar_Bridge = global::NureTimetable.Droid.Resource.Style.Base_V14_Theme_MaterialComponents_Light_DarkActionBar_Bridge;
+			global::TouchEffect.Droid.Resource.Style.Base_V14_Theme_MaterialComponents_Light_Dialog = global::NureTimetable.Droid.Resource.Style.Base_V14_Theme_MaterialComponents_Light_Dialog;
+			global::TouchEffect.Droid.Resource.Style.Base_V14_ThemeOverlay_MaterialComponents_Dialog = global::NureTimetable.Droid.Resource.Style.Base_V14_ThemeOverlay_MaterialComponents_Dialog;
+			global::TouchEffect.Droid.Resource.Style.Base_V14_ThemeOverlay_MaterialComponents_Dialog_Alert = global::NureTimetable.Droid.Resource.Style.Base_V14_ThemeOverlay_MaterialComponents_Dialog_Alert;
+			global::TouchEffect.Droid.Resource.Style.Base_V21_Theme_AppCompat = global::NureTimetable.Droid.Resource.Style.Base_V21_Theme_AppCompat;
+			global::TouchEffect.Droid.Resource.Style.Base_V21_Theme_AppCompat_Dialog = global::NureTimetable.Droid.Resource.Style.Base_V21_Theme_AppCompat_Dialog;
+			global::TouchEffect.Droid.Resource.Style.Base_V21_Theme_AppCompat_Light = global::NureTimetable.Droid.Resource.Style.Base_V21_Theme_AppCompat_Light;
+			global::TouchEffect.Droid.Resource.Style.Base_V21_Theme_AppCompat_Light_Dialog = global::NureTimetable.Droid.Resource.Style.Base_V21_Theme_AppCompat_Light_Dialog;
+			global::TouchEffect.Droid.Resource.Style.Base_V21_ThemeOverlay_AppCompat_Dialog = global::NureTimetable.Droid.Resource.Style.Base_V21_ThemeOverlay_AppCompat_Dialog;
+			global::TouchEffect.Droid.Resource.Style.Base_V22_Theme_AppCompat = global::NureTimetable.Droid.Resource.Style.Base_V22_Theme_AppCompat;
+			global::TouchEffect.Droid.Resource.Style.Base_V22_Theme_AppCompat_Light = global::NureTimetable.Droid.Resource.Style.Base_V22_Theme_AppCompat_Light;
+			global::TouchEffect.Droid.Resource.Style.Base_V23_Theme_AppCompat = global::NureTimetable.Droid.Resource.Style.Base_V23_Theme_AppCompat;
+			global::TouchEffect.Droid.Resource.Style.Base_V23_Theme_AppCompat_Light = global::NureTimetable.Droid.Resource.Style.Base_V23_Theme_AppCompat_Light;
+			global::TouchEffect.Droid.Resource.Style.Base_V26_Theme_AppCompat = global::NureTimetable.Droid.Resource.Style.Base_V26_Theme_AppCompat;
+			global::TouchEffect.Droid.Resource.Style.Base_V26_Theme_AppCompat_Light = global::NureTimetable.Droid.Resource.Style.Base_V26_Theme_AppCompat_Light;
+			global::TouchEffect.Droid.Resource.Style.Base_V26_Widget_AppCompat_Toolbar = global::NureTimetable.Droid.Resource.Style.Base_V26_Widget_AppCompat_Toolbar;
+			global::TouchEffect.Droid.Resource.Style.Base_V28_Theme_AppCompat = global::NureTimetable.Droid.Resource.Style.Base_V28_Theme_AppCompat;
+			global::TouchEffect.Droid.Resource.Style.Base_V28_Theme_AppCompat_Light = global::NureTimetable.Droid.Resource.Style.Base_V28_Theme_AppCompat_Light;
+			global::TouchEffect.Droid.Resource.Style.Base_V7_Theme_AppCompat = global::NureTimetable.Droid.Resource.Style.Base_V7_Theme_AppCompat;
+			global::TouchEffect.Droid.Resource.Style.Base_V7_Theme_AppCompat_Dialog = global::NureTimetable.Droid.Resource.Style.Base_V7_Theme_AppCompat_Dialog;
+			global::TouchEffect.Droid.Resource.Style.Base_V7_Theme_AppCompat_Light = global::NureTimetable.Droid.Resource.Style.Base_V7_Theme_AppCompat_Light;
+			global::TouchEffect.Droid.Resource.Style.Base_V7_Theme_AppCompat_Light_Dialog = global::NureTimetable.Droid.Resource.Style.Base_V7_Theme_AppCompat_Light_Dialog;
+			global::TouchEffect.Droid.Resource.Style.Base_V7_ThemeOverlay_AppCompat_Dialog = global::NureTimetable.Droid.Resource.Style.Base_V7_ThemeOverlay_AppCompat_Dialog;
+			global::TouchEffect.Droid.Resource.Style.Base_V7_Widget_AppCompat_AutoCompleteTextView = global::NureTimetable.Droid.Resource.Style.Base_V7_Widget_AppCompat_AutoCompleteTextView;
+			global::TouchEffect.Droid.Resource.Style.Base_V7_Widget_AppCompat_EditText = global::NureTimetable.Droid.Resource.Style.Base_V7_Widget_AppCompat_EditText;
+			global::TouchEffect.Droid.Resource.Style.Base_V7_Widget_AppCompat_Toolbar = global::NureTimetable.Droid.Resource.Style.Base_V7_Widget_AppCompat_Toolbar;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_ActionBar = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_ActionBar;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_ActionBar_Solid = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_ActionBar_Solid;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_ActionBar_TabBar = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_ActionBar_TabBar;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_ActionBar_TabText = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_ActionBar_TabText;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_ActionBar_TabView = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_ActionBar_TabView;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_ActionButton = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_ActionButton;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_ActionButton_CloseMode = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_ActionButton_CloseMode;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_ActionButton_Overflow = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_ActionButton_Overflow;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_ActionMode = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_ActionMode;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_ActivityChooserView = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_ActivityChooserView;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_AutoCompleteTextView = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_AutoCompleteTextView;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_Button = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_Button;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_Button_Borderless = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_Button_Borderless;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_Button_Borderless_Colored = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_Button_Borderless_Colored;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_Button_ButtonBar_AlertDialog = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_Button_ButtonBar_AlertDialog;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_Button_Colored = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_Button_Colored;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_Button_Small = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_Button_Small;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_ButtonBar = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_ButtonBar;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_ButtonBar_AlertDialog = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_ButtonBar_AlertDialog;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_CompoundButton_CheckBox = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_CompoundButton_CheckBox;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_CompoundButton_RadioButton = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_CompoundButton_RadioButton;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_CompoundButton_Switch = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_CompoundButton_Switch;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_DrawerArrowToggle = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_DrawerArrowToggle;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_DrawerArrowToggle_Common = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_DrawerArrowToggle_Common;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_DropDownItem_Spinner = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_DropDownItem_Spinner;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_EditText = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_EditText;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_ImageButton = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_ImageButton;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_Light_ActionBar = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_Light_ActionBar;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_Solid = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_Solid;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_TabBar = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_TabBar;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_TabText = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_TabText;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_TabText_Inverse = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_TabText_Inverse;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_TabView = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_TabView;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_Light_PopupMenu = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_Light_PopupMenu;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_Light_PopupMenu_Overflow = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_Light_PopupMenu_Overflow;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_ListMenuView = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_ListMenuView;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_ListPopupWindow = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_ListPopupWindow;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_ListView = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_ListView;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_ListView_DropDown = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_ListView_DropDown;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_ListView_Menu = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_ListView_Menu;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_PopupMenu = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_PopupMenu;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_PopupMenu_Overflow = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_PopupMenu_Overflow;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_PopupWindow = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_PopupWindow;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_ProgressBar = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_ProgressBar;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_ProgressBar_Horizontal = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_ProgressBar_Horizontal;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_RatingBar = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_RatingBar;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_RatingBar_Indicator = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_RatingBar_Indicator;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_RatingBar_Small = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_RatingBar_Small;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_SearchView = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_SearchView;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_SearchView_ActionBar = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_SearchView_ActionBar;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_SeekBar = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_SeekBar;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_SeekBar_Discrete = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_SeekBar_Discrete;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_Spinner = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_Spinner;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_Spinner_Underlined = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_Spinner_Underlined;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_TextView_SpinnerItem = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_TextView_SpinnerItem;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_Toolbar = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_Toolbar;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_AppCompat_Toolbar_Button_Navigation = global::NureTimetable.Droid.Resource.Style.Base_Widget_AppCompat_Toolbar_Button_Navigation;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_Design_TabLayout = global::NureTimetable.Droid.Resource.Style.Base_Widget_Design_TabLayout;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_MaterialComponents_Chip = global::NureTimetable.Droid.Resource.Style.Base_Widget_MaterialComponents_Chip;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_MaterialComponents_TextInputEditText = global::NureTimetable.Droid.Resource.Style.Base_Widget_MaterialComponents_TextInputEditText;
+			global::TouchEffect.Droid.Resource.Style.Base_Widget_MaterialComponents_TextInputLayout = global::NureTimetable.Droid.Resource.Style.Base_Widget_MaterialComponents_TextInputLayout;
+			global::TouchEffect.Droid.Resource.Style.CardView = global::NureTimetable.Droid.Resource.Style.CardView;
+			global::TouchEffect.Droid.Resource.Style.CardView_Dark = global::NureTimetable.Droid.Resource.Style.CardView_Dark;
+			global::TouchEffect.Droid.Resource.Style.CardView_Light = global::NureTimetable.Droid.Resource.Style.CardView_Light;
+			global::TouchEffect.Droid.Resource.Style.MainTheme = global::NureTimetable.Droid.Resource.Style.MainTheme;
+			global::TouchEffect.Droid.Resource.Style.MainTheme_Base = global::NureTimetable.Droid.Resource.Style.MainTheme_Base;
+			global::TouchEffect.Droid.Resource.Style.Platform_AppCompat = global::NureTimetable.Droid.Resource.Style.Platform_AppCompat;
+			global::TouchEffect.Droid.Resource.Style.Platform_AppCompat_Light = global::NureTimetable.Droid.Resource.Style.Platform_AppCompat_Light;
+			global::TouchEffect.Droid.Resource.Style.Platform_MaterialComponents = global::NureTimetable.Droid.Resource.Style.Platform_MaterialComponents;
+			global::TouchEffect.Droid.Resource.Style.Platform_MaterialComponents_Dialog = global::NureTimetable.Droid.Resource.Style.Platform_MaterialComponents_Dialog;
+			global::TouchEffect.Droid.Resource.Style.Platform_MaterialComponents_Light = global::NureTimetable.Droid.Resource.Style.Platform_MaterialComponents_Light;
+			global::TouchEffect.Droid.Resource.Style.Platform_MaterialComponents_Light_Dialog = global::NureTimetable.Droid.Resource.Style.Platform_MaterialComponents_Light_Dialog;
+			global::TouchEffect.Droid.Resource.Style.Platform_ThemeOverlay_AppCompat = global::NureTimetable.Droid.Resource.Style.Platform_ThemeOverlay_AppCompat;
+			global::TouchEffect.Droid.Resource.Style.Platform_ThemeOverlay_AppCompat_Dark = global::NureTimetable.Droid.Resource.Style.Platform_ThemeOverlay_AppCompat_Dark;
+			global::TouchEffect.Droid.Resource.Style.Platform_ThemeOverlay_AppCompat_Light = global::NureTimetable.Droid.Resource.Style.Platform_ThemeOverlay_AppCompat_Light;
+			global::TouchEffect.Droid.Resource.Style.Platform_V21_AppCompat = global::NureTimetable.Droid.Resource.Style.Platform_V21_AppCompat;
+			global::TouchEffect.Droid.Resource.Style.Platform_V21_AppCompat_Light = global::NureTimetable.Droid.Resource.Style.Platform_V21_AppCompat_Light;
+			global::TouchEffect.Droid.Resource.Style.Platform_V25_AppCompat = global::NureTimetable.Droid.Resource.Style.Platform_V25_AppCompat;
+			global::TouchEffect.Droid.Resource.Style.Platform_V25_AppCompat_Light = global::NureTimetable.Droid.Resource.Style.Platform_V25_AppCompat_Light;
+			global::TouchEffect.Droid.Resource.Style.Platform_Widget_AppCompat_Spinner = global::NureTimetable.Droid.Resource.Style.Platform_Widget_AppCompat_Spinner;
+			global::TouchEffect.Droid.Resource.Style.RtlOverlay_DialogWindowTitle_AppCompat = global::NureTimetable.Droid.Resource.Style.RtlOverlay_DialogWindowTitle_AppCompat;
+			global::TouchEffect.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_ActionBar_TitleItem = global::NureTimetable.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_ActionBar_TitleItem;
+			global::TouchEffect.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_DialogTitle_Icon = global::NureTimetable.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_DialogTitle_Icon;
+			global::TouchEffect.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_PopupMenuItem = global::NureTimetable.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_PopupMenuItem;
+			global::TouchEffect.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_PopupMenuItem_InternalGroup = global::NureTimetable.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_PopupMenuItem_InternalGroup;
+			global::TouchEffect.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_PopupMenuItem_Shortcut = global::NureTimetable.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_PopupMenuItem_Shortcut;
+			global::TouchEffect.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_PopupMenuItem_SubmenuArrow = global::NureTimetable.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_PopupMenuItem_SubmenuArrow;
+			global::TouchEffect.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_PopupMenuItem_Text = global::NureTimetable.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_PopupMenuItem_Text;
+			global::TouchEffect.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_PopupMenuItem_Title = global::NureTimetable.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_PopupMenuItem_Title;
+			global::TouchEffect.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown = global::NureTimetable.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown;
+			global::TouchEffect.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown_Icon1 = global::NureTimetable.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown_Icon1;
+			global::TouchEffect.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown_Icon2 = global::NureTimetable.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown_Icon2;
+			global::TouchEffect.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown_Query = global::NureTimetable.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown_Query;
+			global::TouchEffect.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown_Text = global::NureTimetable.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown_Text;
+			global::TouchEffect.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_SearchView_MagIcon = global::NureTimetable.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_SearchView_MagIcon;
+			global::TouchEffect.Droid.Resource.Style.RtlUnderlay_Widget_AppCompat_ActionButton = global::NureTimetable.Droid.Resource.Style.RtlUnderlay_Widget_AppCompat_ActionButton;
+			global::TouchEffect.Droid.Resource.Style.RtlUnderlay_Widget_AppCompat_ActionButton_Overflow = global::NureTimetable.Droid.Resource.Style.RtlUnderlay_Widget_AppCompat_ActionButton_Overflow;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_AppCompat = global::NureTimetable.Droid.Resource.Style.TextAppearance_AppCompat;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_AppCompat_Body1 = global::NureTimetable.Droid.Resource.Style.TextAppearance_AppCompat_Body1;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_AppCompat_Body2 = global::NureTimetable.Droid.Resource.Style.TextAppearance_AppCompat_Body2;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_AppCompat_Button = global::NureTimetable.Droid.Resource.Style.TextAppearance_AppCompat_Button;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_AppCompat_Caption = global::NureTimetable.Droid.Resource.Style.TextAppearance_AppCompat_Caption;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_AppCompat_Display1 = global::NureTimetable.Droid.Resource.Style.TextAppearance_AppCompat_Display1;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_AppCompat_Display2 = global::NureTimetable.Droid.Resource.Style.TextAppearance_AppCompat_Display2;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_AppCompat_Display3 = global::NureTimetable.Droid.Resource.Style.TextAppearance_AppCompat_Display3;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_AppCompat_Display4 = global::NureTimetable.Droid.Resource.Style.TextAppearance_AppCompat_Display4;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_AppCompat_Headline = global::NureTimetable.Droid.Resource.Style.TextAppearance_AppCompat_Headline;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_AppCompat_Inverse = global::NureTimetable.Droid.Resource.Style.TextAppearance_AppCompat_Inverse;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_AppCompat_Large = global::NureTimetable.Droid.Resource.Style.TextAppearance_AppCompat_Large;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_AppCompat_Large_Inverse = global::NureTimetable.Droid.Resource.Style.TextAppearance_AppCompat_Large_Inverse;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_AppCompat_Light_SearchResult_Subtitle = global::NureTimetable.Droid.Resource.Style.TextAppearance_AppCompat_Light_SearchResult_Subtitle;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_AppCompat_Light_SearchResult_Title = global::NureTimetable.Droid.Resource.Style.TextAppearance_AppCompat_Light_SearchResult_Title;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_AppCompat_Light_Widget_PopupMenu_Large = global::NureTimetable.Droid.Resource.Style.TextAppearance_AppCompat_Light_Widget_PopupMenu_Large;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_AppCompat_Light_Widget_PopupMenu_Small = global::NureTimetable.Droid.Resource.Style.TextAppearance_AppCompat_Light_Widget_PopupMenu_Small;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_AppCompat_Medium = global::NureTimetable.Droid.Resource.Style.TextAppearance_AppCompat_Medium;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_AppCompat_Medium_Inverse = global::NureTimetable.Droid.Resource.Style.TextAppearance_AppCompat_Medium_Inverse;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_AppCompat_Menu = global::NureTimetable.Droid.Resource.Style.TextAppearance_AppCompat_Menu;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_AppCompat_SearchResult_Subtitle = global::NureTimetable.Droid.Resource.Style.TextAppearance_AppCompat_SearchResult_Subtitle;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_AppCompat_SearchResult_Title = global::NureTimetable.Droid.Resource.Style.TextAppearance_AppCompat_SearchResult_Title;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_AppCompat_Small = global::NureTimetable.Droid.Resource.Style.TextAppearance_AppCompat_Small;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_AppCompat_Small_Inverse = global::NureTimetable.Droid.Resource.Style.TextAppearance_AppCompat_Small_Inverse;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_AppCompat_Subhead = global::NureTimetable.Droid.Resource.Style.TextAppearance_AppCompat_Subhead;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_AppCompat_Subhead_Inverse = global::NureTimetable.Droid.Resource.Style.TextAppearance_AppCompat_Subhead_Inverse;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_AppCompat_Title = global::NureTimetable.Droid.Resource.Style.TextAppearance_AppCompat_Title;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_AppCompat_Title_Inverse = global::NureTimetable.Droid.Resource.Style.TextAppearance_AppCompat_Title_Inverse;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_AppCompat_Tooltip = global::NureTimetable.Droid.Resource.Style.TextAppearance_AppCompat_Tooltip;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Menu = global::NureTimetable.Droid.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Menu;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Subtitle = global::NureTimetable.Droid.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Subtitle;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Subtitle_Inverse = global::NureTimetable.Droid.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Subtitle_Inverse;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Title = global::NureTimetable.Droid.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Title;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Title_Inverse = global::NureTimetable.Droid.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Title_Inverse;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_AppCompat_Widget_ActionMode_Subtitle = global::NureTimetable.Droid.Resource.Style.TextAppearance_AppCompat_Widget_ActionMode_Subtitle;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_AppCompat_Widget_ActionMode_Subtitle_Inverse = global::NureTimetable.Droid.Resource.Style.TextAppearance_AppCompat_Widget_ActionMode_Subtitle_Inverse;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_AppCompat_Widget_ActionMode_Title = global::NureTimetable.Droid.Resource.Style.TextAppearance_AppCompat_Widget_ActionMode_Title;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_AppCompat_Widget_ActionMode_Title_Inverse = global::NureTimetable.Droid.Resource.Style.TextAppearance_AppCompat_Widget_ActionMode_Title_Inverse;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_AppCompat_Widget_Button = global::NureTimetable.Droid.Resource.Style.TextAppearance_AppCompat_Widget_Button;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_AppCompat_Widget_Button_Borderless_Colored = global::NureTimetable.Droid.Resource.Style.TextAppearance_AppCompat_Widget_Button_Borderless_Colored;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_AppCompat_Widget_Button_Colored = global::NureTimetable.Droid.Resource.Style.TextAppearance_AppCompat_Widget_Button_Colored;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_AppCompat_Widget_Button_Inverse = global::NureTimetable.Droid.Resource.Style.TextAppearance_AppCompat_Widget_Button_Inverse;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_AppCompat_Widget_DropDownItem = global::NureTimetable.Droid.Resource.Style.TextAppearance_AppCompat_Widget_DropDownItem;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_AppCompat_Widget_PopupMenu_Header = global::NureTimetable.Droid.Resource.Style.TextAppearance_AppCompat_Widget_PopupMenu_Header;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_AppCompat_Widget_PopupMenu_Large = global::NureTimetable.Droid.Resource.Style.TextAppearance_AppCompat_Widget_PopupMenu_Large;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_AppCompat_Widget_PopupMenu_Small = global::NureTimetable.Droid.Resource.Style.TextAppearance_AppCompat_Widget_PopupMenu_Small;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_AppCompat_Widget_Switch = global::NureTimetable.Droid.Resource.Style.TextAppearance_AppCompat_Widget_Switch;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_AppCompat_Widget_TextView_SpinnerItem = global::NureTimetable.Droid.Resource.Style.TextAppearance_AppCompat_Widget_TextView_SpinnerItem;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_Compat_Notification = global::NureTimetable.Droid.Resource.Style.TextAppearance_Compat_Notification;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_Compat_Notification_Info = global::NureTimetable.Droid.Resource.Style.TextAppearance_Compat_Notification_Info;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_Compat_Notification_Info_Media = global::NureTimetable.Droid.Resource.Style.TextAppearance_Compat_Notification_Info_Media;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_Compat_Notification_Line2 = global::NureTimetable.Droid.Resource.Style.TextAppearance_Compat_Notification_Line2;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_Compat_Notification_Line2_Media = global::NureTimetable.Droid.Resource.Style.TextAppearance_Compat_Notification_Line2_Media;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_Compat_Notification_Media = global::NureTimetable.Droid.Resource.Style.TextAppearance_Compat_Notification_Media;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_Compat_Notification_Time = global::NureTimetable.Droid.Resource.Style.TextAppearance_Compat_Notification_Time;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_Compat_Notification_Time_Media = global::NureTimetable.Droid.Resource.Style.TextAppearance_Compat_Notification_Time_Media;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_Compat_Notification_Title = global::NureTimetable.Droid.Resource.Style.TextAppearance_Compat_Notification_Title;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_Compat_Notification_Title_Media = global::NureTimetable.Droid.Resource.Style.TextAppearance_Compat_Notification_Title_Media;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_Design_CollapsingToolbar_Expanded = global::NureTimetable.Droid.Resource.Style.TextAppearance_Design_CollapsingToolbar_Expanded;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_Design_Counter = global::NureTimetable.Droid.Resource.Style.TextAppearance_Design_Counter;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_Design_Counter_Overflow = global::NureTimetable.Droid.Resource.Style.TextAppearance_Design_Counter_Overflow;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_Design_Error = global::NureTimetable.Droid.Resource.Style.TextAppearance_Design_Error;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_Design_HelperText = global::NureTimetable.Droid.Resource.Style.TextAppearance_Design_HelperText;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_Design_Hint = global::NureTimetable.Droid.Resource.Style.TextAppearance_Design_Hint;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_Design_Snackbar_Message = global::NureTimetable.Droid.Resource.Style.TextAppearance_Design_Snackbar_Message;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_Design_Tab = global::NureTimetable.Droid.Resource.Style.TextAppearance_Design_Tab;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_MaterialComponents_Body1 = global::NureTimetable.Droid.Resource.Style.TextAppearance_MaterialComponents_Body1;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_MaterialComponents_Body2 = global::NureTimetable.Droid.Resource.Style.TextAppearance_MaterialComponents_Body2;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_MaterialComponents_Button = global::NureTimetable.Droid.Resource.Style.TextAppearance_MaterialComponents_Button;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_MaterialComponents_Caption = global::NureTimetable.Droid.Resource.Style.TextAppearance_MaterialComponents_Caption;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_MaterialComponents_Chip = global::NureTimetable.Droid.Resource.Style.TextAppearance_MaterialComponents_Chip;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_MaterialComponents_Headline1 = global::NureTimetable.Droid.Resource.Style.TextAppearance_MaterialComponents_Headline1;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_MaterialComponents_Headline2 = global::NureTimetable.Droid.Resource.Style.TextAppearance_MaterialComponents_Headline2;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_MaterialComponents_Headline3 = global::NureTimetable.Droid.Resource.Style.TextAppearance_MaterialComponents_Headline3;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_MaterialComponents_Headline4 = global::NureTimetable.Droid.Resource.Style.TextAppearance_MaterialComponents_Headline4;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_MaterialComponents_Headline5 = global::NureTimetable.Droid.Resource.Style.TextAppearance_MaterialComponents_Headline5;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_MaterialComponents_Headline6 = global::NureTimetable.Droid.Resource.Style.TextAppearance_MaterialComponents_Headline6;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_MaterialComponents_Overline = global::NureTimetable.Droid.Resource.Style.TextAppearance_MaterialComponents_Overline;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_MaterialComponents_Subtitle1 = global::NureTimetable.Droid.Resource.Style.TextAppearance_MaterialComponents_Subtitle1;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_MaterialComponents_Subtitle2 = global::NureTimetable.Droid.Resource.Style.TextAppearance_MaterialComponents_Subtitle2;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_MaterialComponents_Tab = global::NureTimetable.Droid.Resource.Style.TextAppearance_MaterialComponents_Tab;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_Widget_AppCompat_ExpandedMenu_Item = global::NureTimetable.Droid.Resource.Style.TextAppearance_Widget_AppCompat_ExpandedMenu_Item;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_Widget_AppCompat_Toolbar_Subtitle = global::NureTimetable.Droid.Resource.Style.TextAppearance_Widget_AppCompat_Toolbar_Subtitle;
+			global::TouchEffect.Droid.Resource.Style.TextAppearance_Widget_AppCompat_Toolbar_Title = global::NureTimetable.Droid.Resource.Style.TextAppearance_Widget_AppCompat_Toolbar_Title;
+			global::TouchEffect.Droid.Resource.Style.Theme_AppCompat = global::NureTimetable.Droid.Resource.Style.Theme_AppCompat;
+			global::TouchEffect.Droid.Resource.Style.Theme_AppCompat_CompactMenu = global::NureTimetable.Droid.Resource.Style.Theme_AppCompat_CompactMenu;
+			global::TouchEffect.Droid.Resource.Style.Theme_AppCompat_DayNight = global::NureTimetable.Droid.Resource.Style.Theme_AppCompat_DayNight;
+			global::TouchEffect.Droid.Resource.Style.Theme_AppCompat_DayNight_DarkActionBar = global::NureTimetable.Droid.Resource.Style.Theme_AppCompat_DayNight_DarkActionBar;
+			global::TouchEffect.Droid.Resource.Style.Theme_AppCompat_DayNight_Dialog = global::NureTimetable.Droid.Resource.Style.Theme_AppCompat_DayNight_Dialog;
+			global::TouchEffect.Droid.Resource.Style.Theme_AppCompat_DayNight_Dialog_Alert = global::NureTimetable.Droid.Resource.Style.Theme_AppCompat_DayNight_Dialog_Alert;
+			global::TouchEffect.Droid.Resource.Style.Theme_AppCompat_DayNight_Dialog_MinWidth = global::NureTimetable.Droid.Resource.Style.Theme_AppCompat_DayNight_Dialog_MinWidth;
+			global::TouchEffect.Droid.Resource.Style.Theme_AppCompat_DayNight_DialogWhenLarge = global::NureTimetable.Droid.Resource.Style.Theme_AppCompat_DayNight_DialogWhenLarge;
+			global::TouchEffect.Droid.Resource.Style.Theme_AppCompat_DayNight_NoActionBar = global::NureTimetable.Droid.Resource.Style.Theme_AppCompat_DayNight_NoActionBar;
+			global::TouchEffect.Droid.Resource.Style.Theme_AppCompat_Dialog = global::NureTimetable.Droid.Resource.Style.Theme_AppCompat_Dialog;
+			global::TouchEffect.Droid.Resource.Style.Theme_AppCompat_Dialog_Alert = global::NureTimetable.Droid.Resource.Style.Theme_AppCompat_Dialog_Alert;
+			global::TouchEffect.Droid.Resource.Style.Theme_AppCompat_Dialog_MinWidth = global::NureTimetable.Droid.Resource.Style.Theme_AppCompat_Dialog_MinWidth;
+			global::TouchEffect.Droid.Resource.Style.Theme_AppCompat_DialogWhenLarge = global::NureTimetable.Droid.Resource.Style.Theme_AppCompat_DialogWhenLarge;
+			global::TouchEffect.Droid.Resource.Style.Theme_AppCompat_Light = global::NureTimetable.Droid.Resource.Style.Theme_AppCompat_Light;
+			global::TouchEffect.Droid.Resource.Style.Theme_AppCompat_Light_DarkActionBar = global::NureTimetable.Droid.Resource.Style.Theme_AppCompat_Light_DarkActionBar;
+			global::TouchEffect.Droid.Resource.Style.Theme_AppCompat_Light_Dialog = global::NureTimetable.Droid.Resource.Style.Theme_AppCompat_Light_Dialog;
+			global::TouchEffect.Droid.Resource.Style.Theme_AppCompat_Light_Dialog_Alert = global::NureTimetable.Droid.Resource.Style.Theme_AppCompat_Light_Dialog_Alert;
+			global::TouchEffect.Droid.Resource.Style.Theme_AppCompat_Light_Dialog_MinWidth = global::NureTimetable.Droid.Resource.Style.Theme_AppCompat_Light_Dialog_MinWidth;
+			global::TouchEffect.Droid.Resource.Style.Theme_AppCompat_Light_DialogWhenLarge = global::NureTimetable.Droid.Resource.Style.Theme_AppCompat_Light_DialogWhenLarge;
+			global::TouchEffect.Droid.Resource.Style.Theme_AppCompat_Light_NoActionBar = global::NureTimetable.Droid.Resource.Style.Theme_AppCompat_Light_NoActionBar;
+			global::TouchEffect.Droid.Resource.Style.Theme_AppCompat_NoActionBar = global::NureTimetable.Droid.Resource.Style.Theme_AppCompat_NoActionBar;
+			global::TouchEffect.Droid.Resource.Style.Theme_Design = global::NureTimetable.Droid.Resource.Style.Theme_Design;
+			global::TouchEffect.Droid.Resource.Style.Theme_Design_BottomSheetDialog = global::NureTimetable.Droid.Resource.Style.Theme_Design_BottomSheetDialog;
+			global::TouchEffect.Droid.Resource.Style.Theme_Design_Light = global::NureTimetable.Droid.Resource.Style.Theme_Design_Light;
+			global::TouchEffect.Droid.Resource.Style.Theme_Design_Light_BottomSheetDialog = global::NureTimetable.Droid.Resource.Style.Theme_Design_Light_BottomSheetDialog;
+			global::TouchEffect.Droid.Resource.Style.Theme_Design_Light_NoActionBar = global::NureTimetable.Droid.Resource.Style.Theme_Design_Light_NoActionBar;
+			global::TouchEffect.Droid.Resource.Style.Theme_Design_NoActionBar = global::NureTimetable.Droid.Resource.Style.Theme_Design_NoActionBar;
+			global::TouchEffect.Droid.Resource.Style.Theme_MaterialComponents = global::NureTimetable.Droid.Resource.Style.Theme_MaterialComponents;
+			global::TouchEffect.Droid.Resource.Style.Theme_MaterialComponents_BottomSheetDialog = global::NureTimetable.Droid.Resource.Style.Theme_MaterialComponents_BottomSheetDialog;
+			global::TouchEffect.Droid.Resource.Style.Theme_MaterialComponents_Bridge = global::NureTimetable.Droid.Resource.Style.Theme_MaterialComponents_Bridge;
+			global::TouchEffect.Droid.Resource.Style.Theme_MaterialComponents_CompactMenu = global::NureTimetable.Droid.Resource.Style.Theme_MaterialComponents_CompactMenu;
+			global::TouchEffect.Droid.Resource.Style.Theme_MaterialComponents_Dialog = global::NureTimetable.Droid.Resource.Style.Theme_MaterialComponents_Dialog;
+			global::TouchEffect.Droid.Resource.Style.Theme_MaterialComponents_Dialog_Alert = global::NureTimetable.Droid.Resource.Style.Theme_MaterialComponents_Dialog_Alert;
+			global::TouchEffect.Droid.Resource.Style.Theme_MaterialComponents_Dialog_MinWidth = global::NureTimetable.Droid.Resource.Style.Theme_MaterialComponents_Dialog_MinWidth;
+			global::TouchEffect.Droid.Resource.Style.Theme_MaterialComponents_DialogWhenLarge = global::NureTimetable.Droid.Resource.Style.Theme_MaterialComponents_DialogWhenLarge;
+			global::TouchEffect.Droid.Resource.Style.Theme_MaterialComponents_Light = global::NureTimetable.Droid.Resource.Style.Theme_MaterialComponents_Light;
+			global::TouchEffect.Droid.Resource.Style.Theme_MaterialComponents_Light_BottomSheetDialog = global::NureTimetable.Droid.Resource.Style.Theme_MaterialComponents_Light_BottomSheetDialog;
+			global::TouchEffect.Droid.Resource.Style.Theme_MaterialComponents_Light_Bridge = global::NureTimetable.Droid.Resource.Style.Theme_MaterialComponents_Light_Bridge;
+			global::TouchEffect.Droid.Resource.Style.Theme_MaterialComponents_Light_DarkActionBar = global::NureTimetable.Droid.Resource.Style.Theme_MaterialComponents_Light_DarkActionBar;
+			global::TouchEffect.Droid.Resource.Style.Theme_MaterialComponents_Light_DarkActionBar_Bridge = global::NureTimetable.Droid.Resource.Style.Theme_MaterialComponents_Light_DarkActionBar_Bridge;
+			global::TouchEffect.Droid.Resource.Style.Theme_MaterialComponents_Light_Dialog = global::NureTimetable.Droid.Resource.Style.Theme_MaterialComponents_Light_Dialog;
+			global::TouchEffect.Droid.Resource.Style.Theme_MaterialComponents_Light_Dialog_Alert = global::NureTimetable.Droid.Resource.Style.Theme_MaterialComponents_Light_Dialog_Alert;
+			global::TouchEffect.Droid.Resource.Style.Theme_MaterialComponents_Light_Dialog_MinWidth = global::NureTimetable.Droid.Resource.Style.Theme_MaterialComponents_Light_Dialog_MinWidth;
+			global::TouchEffect.Droid.Resource.Style.Theme_MaterialComponents_Light_DialogWhenLarge = global::NureTimetable.Droid.Resource.Style.Theme_MaterialComponents_Light_DialogWhenLarge;
+			global::TouchEffect.Droid.Resource.Style.Theme_MaterialComponents_Light_NoActionBar = global::NureTimetable.Droid.Resource.Style.Theme_MaterialComponents_Light_NoActionBar;
+			global::TouchEffect.Droid.Resource.Style.Theme_MaterialComponents_Light_NoActionBar_Bridge = global::NureTimetable.Droid.Resource.Style.Theme_MaterialComponents_Light_NoActionBar_Bridge;
+			global::TouchEffect.Droid.Resource.Style.Theme_MaterialComponents_NoActionBar = global::NureTimetable.Droid.Resource.Style.Theme_MaterialComponents_NoActionBar;
+			global::TouchEffect.Droid.Resource.Style.Theme_MaterialComponents_NoActionBar_Bridge = global::NureTimetable.Droid.Resource.Style.Theme_MaterialComponents_NoActionBar_Bridge;
+			global::TouchEffect.Droid.Resource.Style.ThemeOverlay_AppCompat = global::NureTimetable.Droid.Resource.Style.ThemeOverlay_AppCompat;
+			global::TouchEffect.Droid.Resource.Style.ThemeOverlay_AppCompat_ActionBar = global::NureTimetable.Droid.Resource.Style.ThemeOverlay_AppCompat_ActionBar;
+			global::TouchEffect.Droid.Resource.Style.ThemeOverlay_AppCompat_Dark = global::NureTimetable.Droid.Resource.Style.ThemeOverlay_AppCompat_Dark;
+			global::TouchEffect.Droid.Resource.Style.ThemeOverlay_AppCompat_Dark_ActionBar = global::NureTimetable.Droid.Resource.Style.ThemeOverlay_AppCompat_Dark_ActionBar;
+			global::TouchEffect.Droid.Resource.Style.ThemeOverlay_AppCompat_Dialog = global::NureTimetable.Droid.Resource.Style.ThemeOverlay_AppCompat_Dialog;
+			global::TouchEffect.Droid.Resource.Style.ThemeOverlay_AppCompat_Dialog_Alert = global::NureTimetable.Droid.Resource.Style.ThemeOverlay_AppCompat_Dialog_Alert;
+			global::TouchEffect.Droid.Resource.Style.ThemeOverlay_AppCompat_Light = global::NureTimetable.Droid.Resource.Style.ThemeOverlay_AppCompat_Light;
+			global::TouchEffect.Droid.Resource.Style.ThemeOverlay_MaterialComponents = global::NureTimetable.Droid.Resource.Style.ThemeOverlay_MaterialComponents;
+			global::TouchEffect.Droid.Resource.Style.ThemeOverlay_MaterialComponents_ActionBar = global::NureTimetable.Droid.Resource.Style.ThemeOverlay_MaterialComponents_ActionBar;
+			global::TouchEffect.Droid.Resource.Style.ThemeOverlay_MaterialComponents_Dark = global::NureTimetable.Droid.Resource.Style.ThemeOverlay_MaterialComponents_Dark;
+			global::TouchEffect.Droid.Resource.Style.ThemeOverlay_MaterialComponents_Dark_ActionBar = global::NureTimetable.Droid.Resource.Style.ThemeOverlay_MaterialComponents_Dark_ActionBar;
+			global::TouchEffect.Droid.Resource.Style.ThemeOverlay_MaterialComponents_Dialog = global::NureTimetable.Droid.Resource.Style.ThemeOverlay_MaterialComponents_Dialog;
+			global::TouchEffect.Droid.Resource.Style.ThemeOverlay_MaterialComponents_Dialog_Alert = global::NureTimetable.Droid.Resource.Style.ThemeOverlay_MaterialComponents_Dialog_Alert;
+			global::TouchEffect.Droid.Resource.Style.ThemeOverlay_MaterialComponents_Light = global::NureTimetable.Droid.Resource.Style.ThemeOverlay_MaterialComponents_Light;
+			global::TouchEffect.Droid.Resource.Style.ThemeOverlay_MaterialComponents_TextInputEditText = global::NureTimetable.Droid.Resource.Style.ThemeOverlay_MaterialComponents_TextInputEditText;
+			global::TouchEffect.Droid.Resource.Style.ThemeOverlay_MaterialComponents_TextInputEditText_FilledBox = global::NureTimetable.Droid.Resource.Style.ThemeOverlay_MaterialComponents_TextInputEditText_FilledBox;
+			global::TouchEffect.Droid.Resource.Style.ThemeOverlay_MaterialComponents_TextInputEditText_FilledBox_Dense = global::NureTimetable.Droid.Resource.Style.ThemeOverlay_MaterialComponents_TextInputEditText_FilledBox_Dense;
+			global::TouchEffect.Droid.Resource.Style.ThemeOverlay_MaterialComponents_TextInputEditText_OutlinedBox = global::NureTimetable.Droid.Resource.Style.ThemeOverlay_MaterialComponents_TextInputEditText_OutlinedBox;
+			global::TouchEffect.Droid.Resource.Style.ThemeOverlay_MaterialComponents_TextInputEditText_OutlinedBox_Dense = global::NureTimetable.Droid.Resource.Style.ThemeOverlay_MaterialComponents_TextInputEditText_OutlinedBox_Dense;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_ActionBar = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_ActionBar;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_ActionBar_Solid = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_ActionBar_Solid;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_ActionBar_TabBar = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_ActionBar_TabBar;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_ActionBar_TabText = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_ActionBar_TabText;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_ActionBar_TabView = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_ActionBar_TabView;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_ActionButton = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_ActionButton;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_ActionButton_CloseMode = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_ActionButton_CloseMode;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_ActionButton_Overflow = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_ActionButton_Overflow;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_ActionMode = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_ActionMode;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_ActivityChooserView = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_ActivityChooserView;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_AutoCompleteTextView = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_AutoCompleteTextView;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_Button = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_Button;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_Button_Borderless = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_Button_Borderless;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_Button_Borderless_Colored = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_Button_Borderless_Colored;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_Button_ButtonBar_AlertDialog = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_Button_ButtonBar_AlertDialog;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_Button_Colored = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_Button_Colored;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_Button_Small = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_Button_Small;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_ButtonBar = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_ButtonBar;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_ButtonBar_AlertDialog = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_ButtonBar_AlertDialog;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_CompoundButton_CheckBox = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_CompoundButton_CheckBox;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_CompoundButton_RadioButton = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_CompoundButton_RadioButton;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_CompoundButton_Switch = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_CompoundButton_Switch;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_DrawerArrowToggle = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_DrawerArrowToggle;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_DropDownItem_Spinner = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_DropDownItem_Spinner;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_EditText = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_EditText;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_ImageButton = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_ImageButton;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_Light_ActionBar = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_Light_ActionBar;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_Light_ActionBar_Solid = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_Light_ActionBar_Solid;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_Light_ActionBar_Solid_Inverse = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_Light_ActionBar_Solid_Inverse;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_Light_ActionBar_TabBar = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_Light_ActionBar_TabBar;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_Light_ActionBar_TabBar_Inverse = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_Light_ActionBar_TabBar_Inverse;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_Light_ActionBar_TabText = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_Light_ActionBar_TabText;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_Light_ActionBar_TabText_Inverse = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_Light_ActionBar_TabText_Inverse;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_Light_ActionBar_TabView = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_Light_ActionBar_TabView;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_Light_ActionBar_TabView_Inverse = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_Light_ActionBar_TabView_Inverse;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_Light_ActionButton = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_Light_ActionButton;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_Light_ActionButton_CloseMode = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_Light_ActionButton_CloseMode;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_Light_ActionButton_Overflow = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_Light_ActionButton_Overflow;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_Light_ActionMode_Inverse = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_Light_ActionMode_Inverse;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_Light_ActivityChooserView = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_Light_ActivityChooserView;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_Light_AutoCompleteTextView = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_Light_AutoCompleteTextView;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_Light_DropDownItem_Spinner = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_Light_DropDownItem_Spinner;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_Light_ListPopupWindow = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_Light_ListPopupWindow;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_Light_ListView_DropDown = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_Light_ListView_DropDown;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_Light_PopupMenu = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_Light_PopupMenu;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_Light_PopupMenu_Overflow = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_Light_PopupMenu_Overflow;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_Light_SearchView = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_Light_SearchView;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_Light_Spinner_DropDown_ActionBar = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_Light_Spinner_DropDown_ActionBar;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_ListMenuView = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_ListMenuView;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_ListPopupWindow = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_ListPopupWindow;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_ListView = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_ListView;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_ListView_DropDown = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_ListView_DropDown;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_ListView_Menu = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_ListView_Menu;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_PopupMenu = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_PopupMenu;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_PopupMenu_Overflow = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_PopupMenu_Overflow;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_PopupWindow = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_PopupWindow;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_ProgressBar = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_ProgressBar;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_ProgressBar_Horizontal = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_ProgressBar_Horizontal;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_RatingBar = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_RatingBar;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_RatingBar_Indicator = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_RatingBar_Indicator;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_RatingBar_Small = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_RatingBar_Small;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_SearchView = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_SearchView;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_SearchView_ActionBar = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_SearchView_ActionBar;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_SeekBar = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_SeekBar;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_SeekBar_Discrete = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_SeekBar_Discrete;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_Spinner = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_Spinner;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_Spinner_DropDown = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_Spinner_DropDown;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_Spinner_DropDown_ActionBar = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_Spinner_DropDown_ActionBar;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_Spinner_Underlined = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_Spinner_Underlined;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_TextView_SpinnerItem = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_TextView_SpinnerItem;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_Toolbar = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_Toolbar;
+			global::TouchEffect.Droid.Resource.Style.Widget_AppCompat_Toolbar_Button_Navigation = global::NureTimetable.Droid.Resource.Style.Widget_AppCompat_Toolbar_Button_Navigation;
+			global::TouchEffect.Droid.Resource.Style.Widget_Compat_NotificationActionContainer = global::NureTimetable.Droid.Resource.Style.Widget_Compat_NotificationActionContainer;
+			global::TouchEffect.Droid.Resource.Style.Widget_Compat_NotificationActionText = global::NureTimetable.Droid.Resource.Style.Widget_Compat_NotificationActionText;
+			global::TouchEffect.Droid.Resource.Style.Widget_Design_AppBarLayout = global::NureTimetable.Droid.Resource.Style.Widget_Design_AppBarLayout;
+			global::TouchEffect.Droid.Resource.Style.Widget_Design_BottomNavigationView = global::NureTimetable.Droid.Resource.Style.Widget_Design_BottomNavigationView;
+			global::TouchEffect.Droid.Resource.Style.Widget_Design_BottomSheet_Modal = global::NureTimetable.Droid.Resource.Style.Widget_Design_BottomSheet_Modal;
+			global::TouchEffect.Droid.Resource.Style.Widget_Design_CollapsingToolbar = global::NureTimetable.Droid.Resource.Style.Widget_Design_CollapsingToolbar;
+			global::TouchEffect.Droid.Resource.Style.Widget_Design_FloatingActionButton = global::NureTimetable.Droid.Resource.Style.Widget_Design_FloatingActionButton;
+			global::TouchEffect.Droid.Resource.Style.Widget_Design_NavigationView = global::NureTimetable.Droid.Resource.Style.Widget_Design_NavigationView;
+			global::TouchEffect.Droid.Resource.Style.Widget_Design_ScrimInsetsFrameLayout = global::NureTimetable.Droid.Resource.Style.Widget_Design_ScrimInsetsFrameLayout;
+			global::TouchEffect.Droid.Resource.Style.Widget_Design_Snackbar = global::NureTimetable.Droid.Resource.Style.Widget_Design_Snackbar;
+			global::TouchEffect.Droid.Resource.Style.Widget_Design_TabLayout = global::NureTimetable.Droid.Resource.Style.Widget_Design_TabLayout;
+			global::TouchEffect.Droid.Resource.Style.Widget_Design_TextInputLayout = global::NureTimetable.Droid.Resource.Style.Widget_Design_TextInputLayout;
+			global::TouchEffect.Droid.Resource.Style.Widget_MaterialComponents_BottomAppBar = global::NureTimetable.Droid.Resource.Style.Widget_MaterialComponents_BottomAppBar;
+			global::TouchEffect.Droid.Resource.Style.Widget_MaterialComponents_BottomAppBar_Colored = global::NureTimetable.Droid.Resource.Style.Widget_MaterialComponents_BottomAppBar_Colored;
+			global::TouchEffect.Droid.Resource.Style.Widget_MaterialComponents_BottomNavigationView = global::NureTimetable.Droid.Resource.Style.Widget_MaterialComponents_BottomNavigationView;
+			global::TouchEffect.Droid.Resource.Style.Widget_MaterialComponents_BottomNavigationView_Colored = global::NureTimetable.Droid.Resource.Style.Widget_MaterialComponents_BottomNavigationView_Colored;
+			global::TouchEffect.Droid.Resource.Style.Widget_MaterialComponents_BottomSheet_Modal = global::NureTimetable.Droid.Resource.Style.Widget_MaterialComponents_BottomSheet_Modal;
+			global::TouchEffect.Droid.Resource.Style.Widget_MaterialComponents_Button = global::NureTimetable.Droid.Resource.Style.Widget_MaterialComponents_Button;
+			global::TouchEffect.Droid.Resource.Style.Widget_MaterialComponents_Button_Icon = global::NureTimetable.Droid.Resource.Style.Widget_MaterialComponents_Button_Icon;
+			global::TouchEffect.Droid.Resource.Style.Widget_MaterialComponents_Button_OutlinedButton = global::NureTimetable.Droid.Resource.Style.Widget_MaterialComponents_Button_OutlinedButton;
+			global::TouchEffect.Droid.Resource.Style.Widget_MaterialComponents_Button_OutlinedButton_Icon = global::NureTimetable.Droid.Resource.Style.Widget_MaterialComponents_Button_OutlinedButton_Icon;
+			global::TouchEffect.Droid.Resource.Style.Widget_MaterialComponents_Button_TextButton = global::NureTimetable.Droid.Resource.Style.Widget_MaterialComponents_Button_TextButton;
+			global::TouchEffect.Droid.Resource.Style.Widget_MaterialComponents_Button_TextButton_Dialog = global::NureTimetable.Droid.Resource.Style.Widget_MaterialComponents_Button_TextButton_Dialog;
+			global::TouchEffect.Droid.Resource.Style.Widget_MaterialComponents_Button_TextButton_Dialog_Icon = global::NureTimetable.Droid.Resource.Style.Widget_MaterialComponents_Button_TextButton_Dialog_Icon;
+			global::TouchEffect.Droid.Resource.Style.Widget_MaterialComponents_Button_TextButton_Icon = global::NureTimetable.Droid.Resource.Style.Widget_MaterialComponents_Button_TextButton_Icon;
+			global::TouchEffect.Droid.Resource.Style.Widget_MaterialComponents_Button_UnelevatedButton = global::NureTimetable.Droid.Resource.Style.Widget_MaterialComponents_Button_UnelevatedButton;
+			global::TouchEffect.Droid.Resource.Style.Widget_MaterialComponents_Button_UnelevatedButton_Icon = global::NureTimetable.Droid.Resource.Style.Widget_MaterialComponents_Button_UnelevatedButton_Icon;
+			global::TouchEffect.Droid.Resource.Style.Widget_MaterialComponents_CardView = global::NureTimetable.Droid.Resource.Style.Widget_MaterialComponents_CardView;
+			global::TouchEffect.Droid.Resource.Style.Widget_MaterialComponents_Chip_Action = global::NureTimetable.Droid.Resource.Style.Widget_MaterialComponents_Chip_Action;
+			global::TouchEffect.Droid.Resource.Style.Widget_MaterialComponents_Chip_Choice = global::NureTimetable.Droid.Resource.Style.Widget_MaterialComponents_Chip_Choice;
+			global::TouchEffect.Droid.Resource.Style.Widget_MaterialComponents_Chip_Entry = global::NureTimetable.Droid.Resource.Style.Widget_MaterialComponents_Chip_Entry;
+			global::TouchEffect.Droid.Resource.Style.Widget_MaterialComponents_Chip_Filter = global::NureTimetable.Droid.Resource.Style.Widget_MaterialComponents_Chip_Filter;
+			global::TouchEffect.Droid.Resource.Style.Widget_MaterialComponents_ChipGroup = global::NureTimetable.Droid.Resource.Style.Widget_MaterialComponents_ChipGroup;
+			global::TouchEffect.Droid.Resource.Style.Widget_MaterialComponents_FloatingActionButton = global::NureTimetable.Droid.Resource.Style.Widget_MaterialComponents_FloatingActionButton;
+			global::TouchEffect.Droid.Resource.Style.Widget_MaterialComponents_NavigationView = global::NureTimetable.Droid.Resource.Style.Widget_MaterialComponents_NavigationView;
+			global::TouchEffect.Droid.Resource.Style.Widget_MaterialComponents_Snackbar = global::NureTimetable.Droid.Resource.Style.Widget_MaterialComponents_Snackbar;
+			global::TouchEffect.Droid.Resource.Style.Widget_MaterialComponents_Snackbar_FullWidth = global::NureTimetable.Droid.Resource.Style.Widget_MaterialComponents_Snackbar_FullWidth;
+			global::TouchEffect.Droid.Resource.Style.Widget_MaterialComponents_TabLayout = global::NureTimetable.Droid.Resource.Style.Widget_MaterialComponents_TabLayout;
+			global::TouchEffect.Droid.Resource.Style.Widget_MaterialComponents_TabLayout_Colored = global::NureTimetable.Droid.Resource.Style.Widget_MaterialComponents_TabLayout_Colored;
+			global::TouchEffect.Droid.Resource.Style.Widget_MaterialComponents_TextInputEditText_FilledBox = global::NureTimetable.Droid.Resource.Style.Widget_MaterialComponents_TextInputEditText_FilledBox;
+			global::TouchEffect.Droid.Resource.Style.Widget_MaterialComponents_TextInputEditText_FilledBox_Dense = global::NureTimetable.Droid.Resource.Style.Widget_MaterialComponents_TextInputEditText_FilledBox_Dense;
+			global::TouchEffect.Droid.Resource.Style.Widget_MaterialComponents_TextInputEditText_OutlinedBox = global::NureTimetable.Droid.Resource.Style.Widget_MaterialComponents_TextInputEditText_OutlinedBox;
+			global::TouchEffect.Droid.Resource.Style.Widget_MaterialComponents_TextInputEditText_OutlinedBox_Dense = global::NureTimetable.Droid.Resource.Style.Widget_MaterialComponents_TextInputEditText_OutlinedBox_Dense;
+			global::TouchEffect.Droid.Resource.Style.Widget_MaterialComponents_TextInputLayout_FilledBox = global::NureTimetable.Droid.Resource.Style.Widget_MaterialComponents_TextInputLayout_FilledBox;
+			global::TouchEffect.Droid.Resource.Style.Widget_MaterialComponents_TextInputLayout_FilledBox_Dense = global::NureTimetable.Droid.Resource.Style.Widget_MaterialComponents_TextInputLayout_FilledBox_Dense;
+			global::TouchEffect.Droid.Resource.Style.Widget_MaterialComponents_TextInputLayout_OutlinedBox = global::NureTimetable.Droid.Resource.Style.Widget_MaterialComponents_TextInputLayout_OutlinedBox;
+			global::TouchEffect.Droid.Resource.Style.Widget_MaterialComponents_TextInputLayout_OutlinedBox_Dense = global::NureTimetable.Droid.Resource.Style.Widget_MaterialComponents_TextInputLayout_OutlinedBox_Dense;
+			global::TouchEffect.Droid.Resource.Style.Widget_MaterialComponents_Toolbar = global::NureTimetable.Droid.Resource.Style.Widget_MaterialComponents_Toolbar;
+			global::TouchEffect.Droid.Resource.Style.Widget_Support_CoordinatorLayout = global::NureTimetable.Droid.Resource.Style.Widget_Support_CoordinatorLayout;
+			global::TouchEffect.Droid.Resource.Styleable.ActionBar = global::NureTimetable.Droid.Resource.Styleable.ActionBar;
+			global::TouchEffect.Droid.Resource.Styleable.ActionBar_background = global::NureTimetable.Droid.Resource.Styleable.ActionBar_background;
+			global::TouchEffect.Droid.Resource.Styleable.ActionBar_backgroundSplit = global::NureTimetable.Droid.Resource.Styleable.ActionBar_backgroundSplit;
+			global::TouchEffect.Droid.Resource.Styleable.ActionBar_backgroundStacked = global::NureTimetable.Droid.Resource.Styleable.ActionBar_backgroundStacked;
+			global::TouchEffect.Droid.Resource.Styleable.ActionBar_contentInsetEnd = global::NureTimetable.Droid.Resource.Styleable.ActionBar_contentInsetEnd;
+			global::TouchEffect.Droid.Resource.Styleable.ActionBar_contentInsetEndWithActions = global::NureTimetable.Droid.Resource.Styleable.ActionBar_contentInsetEndWithActions;
+			global::TouchEffect.Droid.Resource.Styleable.ActionBar_contentInsetLeft = global::NureTimetable.Droid.Resource.Styleable.ActionBar_contentInsetLeft;
+			global::TouchEffect.Droid.Resource.Styleable.ActionBar_contentInsetRight = global::NureTimetable.Droid.Resource.Styleable.ActionBar_contentInsetRight;
+			global::TouchEffect.Droid.Resource.Styleable.ActionBar_contentInsetStart = global::NureTimetable.Droid.Resource.Styleable.ActionBar_contentInsetStart;
+			global::TouchEffect.Droid.Resource.Styleable.ActionBar_contentInsetStartWithNavigation = global::NureTimetable.Droid.Resource.Styleable.ActionBar_contentInsetStartWithNavigation;
+			global::TouchEffect.Droid.Resource.Styleable.ActionBar_customNavigationLayout = global::NureTimetable.Droid.Resource.Styleable.ActionBar_customNavigationLayout;
+			global::TouchEffect.Droid.Resource.Styleable.ActionBar_displayOptions = global::NureTimetable.Droid.Resource.Styleable.ActionBar_displayOptions;
+			global::TouchEffect.Droid.Resource.Styleable.ActionBar_divider = global::NureTimetable.Droid.Resource.Styleable.ActionBar_divider;
+			global::TouchEffect.Droid.Resource.Styleable.ActionBar_elevation = global::NureTimetable.Droid.Resource.Styleable.ActionBar_elevation;
+			global::TouchEffect.Droid.Resource.Styleable.ActionBar_height = global::NureTimetable.Droid.Resource.Styleable.ActionBar_height;
+			global::TouchEffect.Droid.Resource.Styleable.ActionBar_hideOnContentScroll = global::NureTimetable.Droid.Resource.Styleable.ActionBar_hideOnContentScroll;
+			global::TouchEffect.Droid.Resource.Styleable.ActionBar_homeAsUpIndicator = global::NureTimetable.Droid.Resource.Styleable.ActionBar_homeAsUpIndicator;
+			global::TouchEffect.Droid.Resource.Styleable.ActionBar_homeLayout = global::NureTimetable.Droid.Resource.Styleable.ActionBar_homeLayout;
+			global::TouchEffect.Droid.Resource.Styleable.ActionBar_icon = global::NureTimetable.Droid.Resource.Styleable.ActionBar_icon;
+			global::TouchEffect.Droid.Resource.Styleable.ActionBar_indeterminateProgressStyle = global::NureTimetable.Droid.Resource.Styleable.ActionBar_indeterminateProgressStyle;
+			global::TouchEffect.Droid.Resource.Styleable.ActionBar_itemPadding = global::NureTimetable.Droid.Resource.Styleable.ActionBar_itemPadding;
+			global::TouchEffect.Droid.Resource.Styleable.ActionBar_logo = global::NureTimetable.Droid.Resource.Styleable.ActionBar_logo;
+			global::TouchEffect.Droid.Resource.Styleable.ActionBar_navigationMode = global::NureTimetable.Droid.Resource.Styleable.ActionBar_navigationMode;
+			global::TouchEffect.Droid.Resource.Styleable.ActionBar_popupTheme = global::NureTimetable.Droid.Resource.Styleable.ActionBar_popupTheme;
+			global::TouchEffect.Droid.Resource.Styleable.ActionBar_progressBarPadding = global::NureTimetable.Droid.Resource.Styleable.ActionBar_progressBarPadding;
+			global::TouchEffect.Droid.Resource.Styleable.ActionBar_progressBarStyle = global::NureTimetable.Droid.Resource.Styleable.ActionBar_progressBarStyle;
+			global::TouchEffect.Droid.Resource.Styleable.ActionBar_subtitle = global::NureTimetable.Droid.Resource.Styleable.ActionBar_subtitle;
+			global::TouchEffect.Droid.Resource.Styleable.ActionBar_subtitleTextStyle = global::NureTimetable.Droid.Resource.Styleable.ActionBar_subtitleTextStyle;
+			global::TouchEffect.Droid.Resource.Styleable.ActionBar_title = global::NureTimetable.Droid.Resource.Styleable.ActionBar_title;
+			global::TouchEffect.Droid.Resource.Styleable.ActionBar_titleTextStyle = global::NureTimetable.Droid.Resource.Styleable.ActionBar_titleTextStyle;
+			global::TouchEffect.Droid.Resource.Styleable.ActionBarLayout = global::NureTimetable.Droid.Resource.Styleable.ActionBarLayout;
+			global::TouchEffect.Droid.Resource.Styleable.ActionBarLayout_android_layout_gravity = global::NureTimetable.Droid.Resource.Styleable.ActionBarLayout_android_layout_gravity;
+			global::TouchEffect.Droid.Resource.Styleable.ActionMenuItemView = global::NureTimetable.Droid.Resource.Styleable.ActionMenuItemView;
+			global::TouchEffect.Droid.Resource.Styleable.ActionMenuItemView_android_minWidth = global::NureTimetable.Droid.Resource.Styleable.ActionMenuItemView_android_minWidth;
+			global::TouchEffect.Droid.Resource.Styleable.ActionMenuView = global::NureTimetable.Droid.Resource.Styleable.ActionMenuView;
+			global::TouchEffect.Droid.Resource.Styleable.ActionMode = global::NureTimetable.Droid.Resource.Styleable.ActionMode;
+			global::TouchEffect.Droid.Resource.Styleable.ActionMode_background = global::NureTimetable.Droid.Resource.Styleable.ActionMode_background;
+			global::TouchEffect.Droid.Resource.Styleable.ActionMode_backgroundSplit = global::NureTimetable.Droid.Resource.Styleable.ActionMode_backgroundSplit;
+			global::TouchEffect.Droid.Resource.Styleable.ActionMode_closeItemLayout = global::NureTimetable.Droid.Resource.Styleable.ActionMode_closeItemLayout;
+			global::TouchEffect.Droid.Resource.Styleable.ActionMode_height = global::NureTimetable.Droid.Resource.Styleable.ActionMode_height;
+			global::TouchEffect.Droid.Resource.Styleable.ActionMode_subtitleTextStyle = global::NureTimetable.Droid.Resource.Styleable.ActionMode_subtitleTextStyle;
+			global::TouchEffect.Droid.Resource.Styleable.ActionMode_titleTextStyle = global::NureTimetable.Droid.Resource.Styleable.ActionMode_titleTextStyle;
+			global::TouchEffect.Droid.Resource.Styleable.ActivityChooserView = global::NureTimetable.Droid.Resource.Styleable.ActivityChooserView;
+			global::TouchEffect.Droid.Resource.Styleable.ActivityChooserView_expandActivityOverflowButtonDrawable = global::NureTimetable.Droid.Resource.Styleable.ActivityChooserView_expandActivityOverflowButtonDrawable;
+			global::TouchEffect.Droid.Resource.Styleable.ActivityChooserView_initialActivityCount = global::NureTimetable.Droid.Resource.Styleable.ActivityChooserView_initialActivityCount;
+			global::TouchEffect.Droid.Resource.Styleable.AlertDialog = global::NureTimetable.Droid.Resource.Styleable.AlertDialog;
+			global::TouchEffect.Droid.Resource.Styleable.AlertDialog_android_layout = global::NureTimetable.Droid.Resource.Styleable.AlertDialog_android_layout;
+			global::TouchEffect.Droid.Resource.Styleable.AlertDialog_buttonIconDimen = global::NureTimetable.Droid.Resource.Styleable.AlertDialog_buttonIconDimen;
+			global::TouchEffect.Droid.Resource.Styleable.AlertDialog_buttonPanelSideLayout = global::NureTimetable.Droid.Resource.Styleable.AlertDialog_buttonPanelSideLayout;
+			global::TouchEffect.Droid.Resource.Styleable.AlertDialog_listItemLayout = global::NureTimetable.Droid.Resource.Styleable.AlertDialog_listItemLayout;
+			global::TouchEffect.Droid.Resource.Styleable.AlertDialog_listLayout = global::NureTimetable.Droid.Resource.Styleable.AlertDialog_listLayout;
+			global::TouchEffect.Droid.Resource.Styleable.AlertDialog_multiChoiceItemLayout = global::NureTimetable.Droid.Resource.Styleable.AlertDialog_multiChoiceItemLayout;
+			global::TouchEffect.Droid.Resource.Styleable.AlertDialog_showTitle = global::NureTimetable.Droid.Resource.Styleable.AlertDialog_showTitle;
+			global::TouchEffect.Droid.Resource.Styleable.AlertDialog_singleChoiceItemLayout = global::NureTimetable.Droid.Resource.Styleable.AlertDialog_singleChoiceItemLayout;
+			global::TouchEffect.Droid.Resource.Styleable.AnimatedStateListDrawableCompat = global::NureTimetable.Droid.Resource.Styleable.AnimatedStateListDrawableCompat;
+			global::TouchEffect.Droid.Resource.Styleable.AnimatedStateListDrawableCompat_android_constantSize = global::NureTimetable.Droid.Resource.Styleable.AnimatedStateListDrawableCompat_android_constantSize;
+			global::TouchEffect.Droid.Resource.Styleable.AnimatedStateListDrawableCompat_android_dither = global::NureTimetable.Droid.Resource.Styleable.AnimatedStateListDrawableCompat_android_dither;
+			global::TouchEffect.Droid.Resource.Styleable.AnimatedStateListDrawableCompat_android_enterFadeDuration = global::NureTimetable.Droid.Resource.Styleable.AnimatedStateListDrawableCompat_android_enterFadeDuration;
+			global::TouchEffect.Droid.Resource.Styleable.AnimatedStateListDrawableCompat_android_exitFadeDuration = global::NureTimetable.Droid.Resource.Styleable.AnimatedStateListDrawableCompat_android_exitFadeDuration;
+			global::TouchEffect.Droid.Resource.Styleable.AnimatedStateListDrawableCompat_android_variablePadding = global::NureTimetable.Droid.Resource.Styleable.AnimatedStateListDrawableCompat_android_variablePadding;
+			global::TouchEffect.Droid.Resource.Styleable.AnimatedStateListDrawableCompat_android_visible = global::NureTimetable.Droid.Resource.Styleable.AnimatedStateListDrawableCompat_android_visible;
+			global::TouchEffect.Droid.Resource.Styleable.AnimatedStateListDrawableItem = global::NureTimetable.Droid.Resource.Styleable.AnimatedStateListDrawableItem;
+			global::TouchEffect.Droid.Resource.Styleable.AnimatedStateListDrawableItem_android_drawable = global::NureTimetable.Droid.Resource.Styleable.AnimatedStateListDrawableItem_android_drawable;
+			global::TouchEffect.Droid.Resource.Styleable.AnimatedStateListDrawableItem_android_id = global::NureTimetable.Droid.Resource.Styleable.AnimatedStateListDrawableItem_android_id;
+			global::TouchEffect.Droid.Resource.Styleable.AnimatedStateListDrawableTransition = global::NureTimetable.Droid.Resource.Styleable.AnimatedStateListDrawableTransition;
+			global::TouchEffect.Droid.Resource.Styleable.AnimatedStateListDrawableTransition_android_drawable = global::NureTimetable.Droid.Resource.Styleable.AnimatedStateListDrawableTransition_android_drawable;
+			global::TouchEffect.Droid.Resource.Styleable.AnimatedStateListDrawableTransition_android_fromId = global::NureTimetable.Droid.Resource.Styleable.AnimatedStateListDrawableTransition_android_fromId;
+			global::TouchEffect.Droid.Resource.Styleable.AnimatedStateListDrawableTransition_android_reversible = global::NureTimetable.Droid.Resource.Styleable.AnimatedStateListDrawableTransition_android_reversible;
+			global::TouchEffect.Droid.Resource.Styleable.AnimatedStateListDrawableTransition_android_toId = global::NureTimetable.Droid.Resource.Styleable.AnimatedStateListDrawableTransition_android_toId;
+			global::TouchEffect.Droid.Resource.Styleable.AppBarLayout = global::NureTimetable.Droid.Resource.Styleable.AppBarLayout;
+			global::TouchEffect.Droid.Resource.Styleable.AppBarLayout_android_background = global::NureTimetable.Droid.Resource.Styleable.AppBarLayout_android_background;
+			global::TouchEffect.Droid.Resource.Styleable.AppBarLayout_android_keyboardNavigationCluster = global::NureTimetable.Droid.Resource.Styleable.AppBarLayout_android_keyboardNavigationCluster;
+			global::TouchEffect.Droid.Resource.Styleable.AppBarLayout_android_touchscreenBlocksFocus = global::NureTimetable.Droid.Resource.Styleable.AppBarLayout_android_touchscreenBlocksFocus;
+			global::TouchEffect.Droid.Resource.Styleable.AppBarLayout_elevation = global::NureTimetable.Droid.Resource.Styleable.AppBarLayout_elevation;
+			global::TouchEffect.Droid.Resource.Styleable.AppBarLayout_expanded = global::NureTimetable.Droid.Resource.Styleable.AppBarLayout_expanded;
+			global::TouchEffect.Droid.Resource.Styleable.AppBarLayout_liftOnScroll = global::NureTimetable.Droid.Resource.Styleable.AppBarLayout_liftOnScroll;
+			global::TouchEffect.Droid.Resource.Styleable.AppBarLayoutStates = global::NureTimetable.Droid.Resource.Styleable.AppBarLayoutStates;
+			global::TouchEffect.Droid.Resource.Styleable.AppBarLayoutStates_state_collapsed = global::NureTimetable.Droid.Resource.Styleable.AppBarLayoutStates_state_collapsed;
+			global::TouchEffect.Droid.Resource.Styleable.AppBarLayoutStates_state_collapsible = global::NureTimetable.Droid.Resource.Styleable.AppBarLayoutStates_state_collapsible;
+			global::TouchEffect.Droid.Resource.Styleable.AppBarLayoutStates_state_liftable = global::NureTimetable.Droid.Resource.Styleable.AppBarLayoutStates_state_liftable;
+			global::TouchEffect.Droid.Resource.Styleable.AppBarLayoutStates_state_lifted = global::NureTimetable.Droid.Resource.Styleable.AppBarLayoutStates_state_lifted;
+			global::TouchEffect.Droid.Resource.Styleable.AppBarLayout_Layout = global::NureTimetable.Droid.Resource.Styleable.AppBarLayout_Layout;
+			global::TouchEffect.Droid.Resource.Styleable.AppBarLayout_Layout_layout_scrollFlags = global::NureTimetable.Droid.Resource.Styleable.AppBarLayout_Layout_layout_scrollFlags;
+			global::TouchEffect.Droid.Resource.Styleable.AppBarLayout_Layout_layout_scrollInterpolator = global::NureTimetable.Droid.Resource.Styleable.AppBarLayout_Layout_layout_scrollInterpolator;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatImageView = global::NureTimetable.Droid.Resource.Styleable.AppCompatImageView;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatImageView_android_src = global::NureTimetable.Droid.Resource.Styleable.AppCompatImageView_android_src;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatImageView_srcCompat = global::NureTimetable.Droid.Resource.Styleable.AppCompatImageView_srcCompat;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatImageView_tint = global::NureTimetable.Droid.Resource.Styleable.AppCompatImageView_tint;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatImageView_tintMode = global::NureTimetable.Droid.Resource.Styleable.AppCompatImageView_tintMode;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatSeekBar = global::NureTimetable.Droid.Resource.Styleable.AppCompatSeekBar;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatSeekBar_android_thumb = global::NureTimetable.Droid.Resource.Styleable.AppCompatSeekBar_android_thumb;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatSeekBar_tickMark = global::NureTimetable.Droid.Resource.Styleable.AppCompatSeekBar_tickMark;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatSeekBar_tickMarkTint = global::NureTimetable.Droid.Resource.Styleable.AppCompatSeekBar_tickMarkTint;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatSeekBar_tickMarkTintMode = global::NureTimetable.Droid.Resource.Styleable.AppCompatSeekBar_tickMarkTintMode;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTextHelper = global::NureTimetable.Droid.Resource.Styleable.AppCompatTextHelper;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTextHelper_android_drawableBottom = global::NureTimetable.Droid.Resource.Styleable.AppCompatTextHelper_android_drawableBottom;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTextHelper_android_drawableEnd = global::NureTimetable.Droid.Resource.Styleable.AppCompatTextHelper_android_drawableEnd;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTextHelper_android_drawableLeft = global::NureTimetable.Droid.Resource.Styleable.AppCompatTextHelper_android_drawableLeft;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTextHelper_android_drawableRight = global::NureTimetable.Droid.Resource.Styleable.AppCompatTextHelper_android_drawableRight;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTextHelper_android_drawableStart = global::NureTimetable.Droid.Resource.Styleable.AppCompatTextHelper_android_drawableStart;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTextHelper_android_drawableTop = global::NureTimetable.Droid.Resource.Styleable.AppCompatTextHelper_android_drawableTop;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTextHelper_android_textAppearance = global::NureTimetable.Droid.Resource.Styleable.AppCompatTextHelper_android_textAppearance;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTextView = global::NureTimetable.Droid.Resource.Styleable.AppCompatTextView;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTextView_android_textAppearance = global::NureTimetable.Droid.Resource.Styleable.AppCompatTextView_android_textAppearance;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTextView_autoSizeMaxTextSize = global::NureTimetable.Droid.Resource.Styleable.AppCompatTextView_autoSizeMaxTextSize;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTextView_autoSizeMinTextSize = global::NureTimetable.Droid.Resource.Styleable.AppCompatTextView_autoSizeMinTextSize;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTextView_autoSizePresetSizes = global::NureTimetable.Droid.Resource.Styleable.AppCompatTextView_autoSizePresetSizes;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTextView_autoSizeStepGranularity = global::NureTimetable.Droid.Resource.Styleable.AppCompatTextView_autoSizeStepGranularity;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTextView_autoSizeTextType = global::NureTimetable.Droid.Resource.Styleable.AppCompatTextView_autoSizeTextType;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTextView_firstBaselineToTopHeight = global::NureTimetable.Droid.Resource.Styleable.AppCompatTextView_firstBaselineToTopHeight;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTextView_fontFamily = global::NureTimetable.Droid.Resource.Styleable.AppCompatTextView_fontFamily;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTextView_lastBaselineToBottomHeight = global::NureTimetable.Droid.Resource.Styleable.AppCompatTextView_lastBaselineToBottomHeight;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTextView_lineHeight = global::NureTimetable.Droid.Resource.Styleable.AppCompatTextView_lineHeight;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTextView_textAllCaps = global::NureTimetable.Droid.Resource.Styleable.AppCompatTextView_textAllCaps;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_actionBarDivider = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_actionBarDivider;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_actionBarItemBackground = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_actionBarItemBackground;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_actionBarPopupTheme = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_actionBarPopupTheme;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_actionBarSize = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_actionBarSize;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_actionBarSplitStyle = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_actionBarSplitStyle;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_actionBarStyle = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_actionBarStyle;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_actionBarTabBarStyle = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_actionBarTabBarStyle;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_actionBarTabStyle = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_actionBarTabStyle;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_actionBarTabTextStyle = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_actionBarTabTextStyle;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_actionBarTheme = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_actionBarTheme;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_actionBarWidgetTheme = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_actionBarWidgetTheme;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_actionButtonStyle = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_actionButtonStyle;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_actionDropDownStyle = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_actionDropDownStyle;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_actionMenuTextAppearance = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_actionMenuTextAppearance;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_actionMenuTextColor = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_actionMenuTextColor;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_actionModeBackground = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_actionModeBackground;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_actionModeCloseButtonStyle = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_actionModeCloseButtonStyle;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_actionModeCloseDrawable = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_actionModeCloseDrawable;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_actionModeCopyDrawable = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_actionModeCopyDrawable;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_actionModeCutDrawable = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_actionModeCutDrawable;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_actionModeFindDrawable = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_actionModeFindDrawable;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_actionModePasteDrawable = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_actionModePasteDrawable;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_actionModePopupWindowStyle = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_actionModePopupWindowStyle;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_actionModeSelectAllDrawable = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_actionModeSelectAllDrawable;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_actionModeShareDrawable = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_actionModeShareDrawable;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_actionModeSplitBackground = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_actionModeSplitBackground;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_actionModeStyle = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_actionModeStyle;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_actionModeWebSearchDrawable = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_actionModeWebSearchDrawable;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_actionOverflowButtonStyle = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_actionOverflowButtonStyle;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_actionOverflowMenuStyle = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_actionOverflowMenuStyle;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_activityChooserViewStyle = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_activityChooserViewStyle;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_alertDialogButtonGroupStyle = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_alertDialogButtonGroupStyle;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_alertDialogCenterButtons = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_alertDialogCenterButtons;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_alertDialogStyle = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_alertDialogStyle;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_alertDialogTheme = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_alertDialogTheme;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_android_windowAnimationStyle = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_android_windowAnimationStyle;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_android_windowIsFloating = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_android_windowIsFloating;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_autoCompleteTextViewStyle = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_autoCompleteTextViewStyle;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_borderlessButtonStyle = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_borderlessButtonStyle;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_buttonBarButtonStyle = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_buttonBarButtonStyle;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_buttonBarNegativeButtonStyle = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_buttonBarNegativeButtonStyle;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_buttonBarNeutralButtonStyle = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_buttonBarNeutralButtonStyle;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_buttonBarPositiveButtonStyle = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_buttonBarPositiveButtonStyle;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_buttonBarStyle = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_buttonBarStyle;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_buttonStyle = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_buttonStyle;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_buttonStyleSmall = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_buttonStyleSmall;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_checkboxStyle = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_checkboxStyle;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_checkedTextViewStyle = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_checkedTextViewStyle;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_colorAccent = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_colorAccent;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_colorBackgroundFloating = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_colorBackgroundFloating;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_colorButtonNormal = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_colorButtonNormal;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_colorControlActivated = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_colorControlActivated;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_colorControlHighlight = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_colorControlHighlight;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_colorControlNormal = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_colorControlNormal;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_colorError = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_colorError;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_colorPrimary = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_colorPrimary;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_colorPrimaryDark = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_colorPrimaryDark;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_colorSwitchThumbNormal = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_colorSwitchThumbNormal;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_controlBackground = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_controlBackground;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_dialogCornerRadius = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_dialogCornerRadius;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_dialogPreferredPadding = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_dialogPreferredPadding;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_dialogTheme = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_dialogTheme;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_dividerHorizontal = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_dividerHorizontal;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_dividerVertical = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_dividerVertical;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_dropDownListViewStyle = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_dropDownListViewStyle;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_dropdownListPreferredItemHeight = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_dropdownListPreferredItemHeight;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_editTextBackground = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_editTextBackground;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_editTextColor = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_editTextColor;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_editTextStyle = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_editTextStyle;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_homeAsUpIndicator = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_homeAsUpIndicator;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_imageButtonStyle = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_imageButtonStyle;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_listChoiceBackgroundIndicator = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_listChoiceBackgroundIndicator;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_listDividerAlertDialog = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_listDividerAlertDialog;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_listMenuViewStyle = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_listMenuViewStyle;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_listPopupWindowStyle = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_listPopupWindowStyle;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_listPreferredItemHeight = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_listPreferredItemHeight;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_listPreferredItemHeightLarge = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_listPreferredItemHeightLarge;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_listPreferredItemHeightSmall = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_listPreferredItemHeightSmall;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_listPreferredItemPaddingLeft = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_listPreferredItemPaddingLeft;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_listPreferredItemPaddingRight = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_listPreferredItemPaddingRight;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_panelBackground = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_panelBackground;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_panelMenuListTheme = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_panelMenuListTheme;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_panelMenuListWidth = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_panelMenuListWidth;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_popupMenuStyle = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_popupMenuStyle;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_popupWindowStyle = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_popupWindowStyle;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_radioButtonStyle = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_radioButtonStyle;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_ratingBarStyle = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_ratingBarStyle;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_ratingBarStyleIndicator = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_ratingBarStyleIndicator;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_ratingBarStyleSmall = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_ratingBarStyleSmall;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_searchViewStyle = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_searchViewStyle;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_seekBarStyle = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_seekBarStyle;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_selectableItemBackground = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_selectableItemBackground;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_selectableItemBackgroundBorderless = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_selectableItemBackgroundBorderless;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_spinnerDropDownItemStyle = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_spinnerDropDownItemStyle;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_spinnerStyle = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_spinnerStyle;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_switchStyle = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_switchStyle;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_textAppearanceLargePopupMenu = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_textAppearanceLargePopupMenu;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_textAppearanceListItem = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_textAppearanceListItem;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_textAppearanceListItemSecondary = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_textAppearanceListItemSecondary;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_textAppearanceListItemSmall = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_textAppearanceListItemSmall;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_textAppearancePopupMenuHeader = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_textAppearancePopupMenuHeader;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_textAppearanceSearchResultSubtitle = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_textAppearanceSearchResultSubtitle;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_textAppearanceSearchResultTitle = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_textAppearanceSearchResultTitle;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_textAppearanceSmallPopupMenu = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_textAppearanceSmallPopupMenu;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_textColorAlertDialogListItem = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_textColorAlertDialogListItem;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_textColorSearchUrl = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_textColorSearchUrl;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_toolbarNavigationButtonStyle = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_toolbarNavigationButtonStyle;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_toolbarStyle = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_toolbarStyle;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_tooltipForegroundColor = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_tooltipForegroundColor;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_tooltipFrameBackground = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_tooltipFrameBackground;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_viewInflaterClass = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_viewInflaterClass;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_windowActionBar = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_windowActionBar;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_windowActionBarOverlay = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_windowActionBarOverlay;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_windowActionModeOverlay = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_windowActionModeOverlay;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_windowFixedHeightMajor = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_windowFixedHeightMajor;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_windowFixedHeightMinor = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_windowFixedHeightMinor;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_windowFixedWidthMajor = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_windowFixedWidthMajor;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_windowFixedWidthMinor = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_windowFixedWidthMinor;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_windowMinWidthMajor = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_windowMinWidthMajor;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_windowMinWidthMinor = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_windowMinWidthMinor;
+			global::TouchEffect.Droid.Resource.Styleable.AppCompatTheme_windowNoTitle = global::NureTimetable.Droid.Resource.Styleable.AppCompatTheme_windowNoTitle;
+			global::TouchEffect.Droid.Resource.Styleable.BottomAppBar = global::NureTimetable.Droid.Resource.Styleable.BottomAppBar;
+			global::TouchEffect.Droid.Resource.Styleable.BottomAppBar_backgroundTint = global::NureTimetable.Droid.Resource.Styleable.BottomAppBar_backgroundTint;
+			global::TouchEffect.Droid.Resource.Styleable.BottomAppBar_fabAlignmentMode = global::NureTimetable.Droid.Resource.Styleable.BottomAppBar_fabAlignmentMode;
+			global::TouchEffect.Droid.Resource.Styleable.BottomAppBar_fabCradleMargin = global::NureTimetable.Droid.Resource.Styleable.BottomAppBar_fabCradleMargin;
+			global::TouchEffect.Droid.Resource.Styleable.BottomAppBar_fabCradleRoundedCornerRadius = global::NureTimetable.Droid.Resource.Styleable.BottomAppBar_fabCradleRoundedCornerRadius;
+			global::TouchEffect.Droid.Resource.Styleable.BottomAppBar_fabCradleVerticalOffset = global::NureTimetable.Droid.Resource.Styleable.BottomAppBar_fabCradleVerticalOffset;
+			global::TouchEffect.Droid.Resource.Styleable.BottomAppBar_hideOnScroll = global::NureTimetable.Droid.Resource.Styleable.BottomAppBar_hideOnScroll;
+			global::TouchEffect.Droid.Resource.Styleable.BottomNavigationView = global::NureTimetable.Droid.Resource.Styleable.BottomNavigationView;
+			global::TouchEffect.Droid.Resource.Styleable.BottomNavigationView_elevation = global::NureTimetable.Droid.Resource.Styleable.BottomNavigationView_elevation;
+			global::TouchEffect.Droid.Resource.Styleable.BottomNavigationView_itemBackground = global::NureTimetable.Droid.Resource.Styleable.BottomNavigationView_itemBackground;
+			global::TouchEffect.Droid.Resource.Styleable.BottomNavigationView_itemHorizontalTranslationEnabled = global::NureTimetable.Droid.Resource.Styleable.BottomNavigationView_itemHorizontalTranslationEnabled;
+			global::TouchEffect.Droid.Resource.Styleable.BottomNavigationView_itemIconSize = global::NureTimetable.Droid.Resource.Styleable.BottomNavigationView_itemIconSize;
+			global::TouchEffect.Droid.Resource.Styleable.BottomNavigationView_itemIconTint = global::NureTimetable.Droid.Resource.Styleable.BottomNavigationView_itemIconTint;
+			global::TouchEffect.Droid.Resource.Styleable.BottomNavigationView_itemTextAppearanceActive = global::NureTimetable.Droid.Resource.Styleable.BottomNavigationView_itemTextAppearanceActive;
+			global::TouchEffect.Droid.Resource.Styleable.BottomNavigationView_itemTextAppearanceInactive = global::NureTimetable.Droid.Resource.Styleable.BottomNavigationView_itemTextAppearanceInactive;
+			global::TouchEffect.Droid.Resource.Styleable.BottomNavigationView_itemTextColor = global::NureTimetable.Droid.Resource.Styleable.BottomNavigationView_itemTextColor;
+			global::TouchEffect.Droid.Resource.Styleable.BottomNavigationView_labelVisibilityMode = global::NureTimetable.Droid.Resource.Styleable.BottomNavigationView_labelVisibilityMode;
+			global::TouchEffect.Droid.Resource.Styleable.BottomNavigationView_menu = global::NureTimetable.Droid.Resource.Styleable.BottomNavigationView_menu;
+			global::TouchEffect.Droid.Resource.Styleable.BottomSheetBehavior_Layout = global::NureTimetable.Droid.Resource.Styleable.BottomSheetBehavior_Layout;
+			global::TouchEffect.Droid.Resource.Styleable.BottomSheetBehavior_Layout_behavior_fitToContents = global::NureTimetable.Droid.Resource.Styleable.BottomSheetBehavior_Layout_behavior_fitToContents;
+			global::TouchEffect.Droid.Resource.Styleable.BottomSheetBehavior_Layout_behavior_hideable = global::NureTimetable.Droid.Resource.Styleable.BottomSheetBehavior_Layout_behavior_hideable;
+			global::TouchEffect.Droid.Resource.Styleable.BottomSheetBehavior_Layout_behavior_peekHeight = global::NureTimetable.Droid.Resource.Styleable.BottomSheetBehavior_Layout_behavior_peekHeight;
+			global::TouchEffect.Droid.Resource.Styleable.BottomSheetBehavior_Layout_behavior_skipCollapsed = global::NureTimetable.Droid.Resource.Styleable.BottomSheetBehavior_Layout_behavior_skipCollapsed;
+			global::TouchEffect.Droid.Resource.Styleable.ButtonBarLayout = global::NureTimetable.Droid.Resource.Styleable.ButtonBarLayout;
+			global::TouchEffect.Droid.Resource.Styleable.ButtonBarLayout_allowStacking = global::NureTimetable.Droid.Resource.Styleable.ButtonBarLayout_allowStacking;
+			global::TouchEffect.Droid.Resource.Styleable.CardView = global::NureTimetable.Droid.Resource.Styleable.CardView;
+			global::TouchEffect.Droid.Resource.Styleable.CardView_android_minHeight = global::NureTimetable.Droid.Resource.Styleable.CardView_android_minHeight;
+			global::TouchEffect.Droid.Resource.Styleable.CardView_android_minWidth = global::NureTimetable.Droid.Resource.Styleable.CardView_android_minWidth;
+			global::TouchEffect.Droid.Resource.Styleable.CardView_cardBackgroundColor = global::NureTimetable.Droid.Resource.Styleable.CardView_cardBackgroundColor;
+			global::TouchEffect.Droid.Resource.Styleable.CardView_cardCornerRadius = global::NureTimetable.Droid.Resource.Styleable.CardView_cardCornerRadius;
+			global::TouchEffect.Droid.Resource.Styleable.CardView_cardElevation = global::NureTimetable.Droid.Resource.Styleable.CardView_cardElevation;
+			global::TouchEffect.Droid.Resource.Styleable.CardView_cardMaxElevation = global::NureTimetable.Droid.Resource.Styleable.CardView_cardMaxElevation;
+			global::TouchEffect.Droid.Resource.Styleable.CardView_cardPreventCornerOverlap = global::NureTimetable.Droid.Resource.Styleable.CardView_cardPreventCornerOverlap;
+			global::TouchEffect.Droid.Resource.Styleable.CardView_cardUseCompatPadding = global::NureTimetable.Droid.Resource.Styleable.CardView_cardUseCompatPadding;
+			global::TouchEffect.Droid.Resource.Styleable.CardView_contentPadding = global::NureTimetable.Droid.Resource.Styleable.CardView_contentPadding;
+			global::TouchEffect.Droid.Resource.Styleable.CardView_contentPaddingBottom = global::NureTimetable.Droid.Resource.Styleable.CardView_contentPaddingBottom;
+			global::TouchEffect.Droid.Resource.Styleable.CardView_contentPaddingLeft = global::NureTimetable.Droid.Resource.Styleable.CardView_contentPaddingLeft;
+			global::TouchEffect.Droid.Resource.Styleable.CardView_contentPaddingRight = global::NureTimetable.Droid.Resource.Styleable.CardView_contentPaddingRight;
+			global::TouchEffect.Droid.Resource.Styleable.CardView_contentPaddingTop = global::NureTimetable.Droid.Resource.Styleable.CardView_contentPaddingTop;
+			global::TouchEffect.Droid.Resource.Styleable.Chip = global::NureTimetable.Droid.Resource.Styleable.Chip;
+			global::TouchEffect.Droid.Resource.Styleable.Chip_android_checkable = global::NureTimetable.Droid.Resource.Styleable.Chip_android_checkable;
+			global::TouchEffect.Droid.Resource.Styleable.Chip_android_ellipsize = global::NureTimetable.Droid.Resource.Styleable.Chip_android_ellipsize;
+			global::TouchEffect.Droid.Resource.Styleable.Chip_android_maxWidth = global::NureTimetable.Droid.Resource.Styleable.Chip_android_maxWidth;
+			global::TouchEffect.Droid.Resource.Styleable.Chip_android_text = global::NureTimetable.Droid.Resource.Styleable.Chip_android_text;
+			global::TouchEffect.Droid.Resource.Styleable.Chip_android_textAppearance = global::NureTimetable.Droid.Resource.Styleable.Chip_android_textAppearance;
+			global::TouchEffect.Droid.Resource.Styleable.Chip_checkedIcon = global::NureTimetable.Droid.Resource.Styleable.Chip_checkedIcon;
+			global::TouchEffect.Droid.Resource.Styleable.Chip_checkedIconEnabled = global::NureTimetable.Droid.Resource.Styleable.Chip_checkedIconEnabled;
+			global::TouchEffect.Droid.Resource.Styleable.Chip_checkedIconVisible = global::NureTimetable.Droid.Resource.Styleable.Chip_checkedIconVisible;
+			global::TouchEffect.Droid.Resource.Styleable.Chip_chipBackgroundColor = global::NureTimetable.Droid.Resource.Styleable.Chip_chipBackgroundColor;
+			global::TouchEffect.Droid.Resource.Styleable.Chip_chipCornerRadius = global::NureTimetable.Droid.Resource.Styleable.Chip_chipCornerRadius;
+			global::TouchEffect.Droid.Resource.Styleable.Chip_chipEndPadding = global::NureTimetable.Droid.Resource.Styleable.Chip_chipEndPadding;
+			global::TouchEffect.Droid.Resource.Styleable.Chip_chipIcon = global::NureTimetable.Droid.Resource.Styleable.Chip_chipIcon;
+			global::TouchEffect.Droid.Resource.Styleable.Chip_chipIconEnabled = global::NureTimetable.Droid.Resource.Styleable.Chip_chipIconEnabled;
+			global::TouchEffect.Droid.Resource.Styleable.Chip_chipIconSize = global::NureTimetable.Droid.Resource.Styleable.Chip_chipIconSize;
+			global::TouchEffect.Droid.Resource.Styleable.Chip_chipIconTint = global::NureTimetable.Droid.Resource.Styleable.Chip_chipIconTint;
+			global::TouchEffect.Droid.Resource.Styleable.Chip_chipIconVisible = global::NureTimetable.Droid.Resource.Styleable.Chip_chipIconVisible;
+			global::TouchEffect.Droid.Resource.Styleable.Chip_chipMinHeight = global::NureTimetable.Droid.Resource.Styleable.Chip_chipMinHeight;
+			global::TouchEffect.Droid.Resource.Styleable.Chip_chipStartPadding = global::NureTimetable.Droid.Resource.Styleable.Chip_chipStartPadding;
+			global::TouchEffect.Droid.Resource.Styleable.Chip_chipStrokeColor = global::NureTimetable.Droid.Resource.Styleable.Chip_chipStrokeColor;
+			global::TouchEffect.Droid.Resource.Styleable.Chip_chipStrokeWidth = global::NureTimetable.Droid.Resource.Styleable.Chip_chipStrokeWidth;
+			global::TouchEffect.Droid.Resource.Styleable.Chip_closeIcon = global::NureTimetable.Droid.Resource.Styleable.Chip_closeIcon;
+			global::TouchEffect.Droid.Resource.Styleable.Chip_closeIconEnabled = global::NureTimetable.Droid.Resource.Styleable.Chip_closeIconEnabled;
+			global::TouchEffect.Droid.Resource.Styleable.Chip_closeIconEndPadding = global::NureTimetable.Droid.Resource.Styleable.Chip_closeIconEndPadding;
+			global::TouchEffect.Droid.Resource.Styleable.Chip_closeIconSize = global::NureTimetable.Droid.Resource.Styleable.Chip_closeIconSize;
+			global::TouchEffect.Droid.Resource.Styleable.Chip_closeIconStartPadding = global::NureTimetable.Droid.Resource.Styleable.Chip_closeIconStartPadding;
+			global::TouchEffect.Droid.Resource.Styleable.Chip_closeIconTint = global::NureTimetable.Droid.Resource.Styleable.Chip_closeIconTint;
+			global::TouchEffect.Droid.Resource.Styleable.Chip_closeIconVisible = global::NureTimetable.Droid.Resource.Styleable.Chip_closeIconVisible;
+			global::TouchEffect.Droid.Resource.Styleable.Chip_hideMotionSpec = global::NureTimetable.Droid.Resource.Styleable.Chip_hideMotionSpec;
+			global::TouchEffect.Droid.Resource.Styleable.Chip_iconEndPadding = global::NureTimetable.Droid.Resource.Styleable.Chip_iconEndPadding;
+			global::TouchEffect.Droid.Resource.Styleable.Chip_iconStartPadding = global::NureTimetable.Droid.Resource.Styleable.Chip_iconStartPadding;
+			global::TouchEffect.Droid.Resource.Styleable.Chip_rippleColor = global::NureTimetable.Droid.Resource.Styleable.Chip_rippleColor;
+			global::TouchEffect.Droid.Resource.Styleable.Chip_showMotionSpec = global::NureTimetable.Droid.Resource.Styleable.Chip_showMotionSpec;
+			global::TouchEffect.Droid.Resource.Styleable.Chip_textEndPadding = global::NureTimetable.Droid.Resource.Styleable.Chip_textEndPadding;
+			global::TouchEffect.Droid.Resource.Styleable.Chip_textStartPadding = global::NureTimetable.Droid.Resource.Styleable.Chip_textStartPadding;
+			global::TouchEffect.Droid.Resource.Styleable.ChipGroup = global::NureTimetable.Droid.Resource.Styleable.ChipGroup;
+			global::TouchEffect.Droid.Resource.Styleable.ChipGroup_checkedChip = global::NureTimetable.Droid.Resource.Styleable.ChipGroup_checkedChip;
+			global::TouchEffect.Droid.Resource.Styleable.ChipGroup_chipSpacing = global::NureTimetable.Droid.Resource.Styleable.ChipGroup_chipSpacing;
+			global::TouchEffect.Droid.Resource.Styleable.ChipGroup_chipSpacingHorizontal = global::NureTimetable.Droid.Resource.Styleable.ChipGroup_chipSpacingHorizontal;
+			global::TouchEffect.Droid.Resource.Styleable.ChipGroup_chipSpacingVertical = global::NureTimetable.Droid.Resource.Styleable.ChipGroup_chipSpacingVertical;
+			global::TouchEffect.Droid.Resource.Styleable.ChipGroup_singleLine = global::NureTimetable.Droid.Resource.Styleable.ChipGroup_singleLine;
+			global::TouchEffect.Droid.Resource.Styleable.ChipGroup_singleSelection = global::NureTimetable.Droid.Resource.Styleable.ChipGroup_singleSelection;
+			global::TouchEffect.Droid.Resource.Styleable.CollapsingToolbarLayout = global::NureTimetable.Droid.Resource.Styleable.CollapsingToolbarLayout;
+			global::TouchEffect.Droid.Resource.Styleable.CollapsingToolbarLayout_collapsedTitleGravity = global::NureTimetable.Droid.Resource.Styleable.CollapsingToolbarLayout_collapsedTitleGravity;
+			global::TouchEffect.Droid.Resource.Styleable.CollapsingToolbarLayout_collapsedTitleTextAppearance = global::NureTimetable.Droid.Resource.Styleable.CollapsingToolbarLayout_collapsedTitleTextAppearance;
+			global::TouchEffect.Droid.Resource.Styleable.CollapsingToolbarLayout_contentScrim = global::NureTimetable.Droid.Resource.Styleable.CollapsingToolbarLayout_contentScrim;
+			global::TouchEffect.Droid.Resource.Styleable.CollapsingToolbarLayout_expandedTitleGravity = global::NureTimetable.Droid.Resource.Styleable.CollapsingToolbarLayout_expandedTitleGravity;
+			global::TouchEffect.Droid.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMargin = global::NureTimetable.Droid.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMargin;
+			global::TouchEffect.Droid.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMarginBottom = global::NureTimetable.Droid.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMarginBottom;
+			global::TouchEffect.Droid.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMarginEnd = global::NureTimetable.Droid.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMarginEnd;
+			global::TouchEffect.Droid.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMarginStart = global::NureTimetable.Droid.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMarginStart;
+			global::TouchEffect.Droid.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMarginTop = global::NureTimetable.Droid.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMarginTop;
+			global::TouchEffect.Droid.Resource.Styleable.CollapsingToolbarLayout_expandedTitleTextAppearance = global::NureTimetable.Droid.Resource.Styleable.CollapsingToolbarLayout_expandedTitleTextAppearance;
+			global::TouchEffect.Droid.Resource.Styleable.CollapsingToolbarLayout_scrimAnimationDuration = global::NureTimetable.Droid.Resource.Styleable.CollapsingToolbarLayout_scrimAnimationDuration;
+			global::TouchEffect.Droid.Resource.Styleable.CollapsingToolbarLayout_scrimVisibleHeightTrigger = global::NureTimetable.Droid.Resource.Styleable.CollapsingToolbarLayout_scrimVisibleHeightTrigger;
+			global::TouchEffect.Droid.Resource.Styleable.CollapsingToolbarLayout_statusBarScrim = global::NureTimetable.Droid.Resource.Styleable.CollapsingToolbarLayout_statusBarScrim;
+			global::TouchEffect.Droid.Resource.Styleable.CollapsingToolbarLayout_title = global::NureTimetable.Droid.Resource.Styleable.CollapsingToolbarLayout_title;
+			global::TouchEffect.Droid.Resource.Styleable.CollapsingToolbarLayout_titleEnabled = global::NureTimetable.Droid.Resource.Styleable.CollapsingToolbarLayout_titleEnabled;
+			global::TouchEffect.Droid.Resource.Styleable.CollapsingToolbarLayout_toolbarId = global::NureTimetable.Droid.Resource.Styleable.CollapsingToolbarLayout_toolbarId;
+			global::TouchEffect.Droid.Resource.Styleable.CollapsingToolbarLayout_Layout = global::NureTimetable.Droid.Resource.Styleable.CollapsingToolbarLayout_Layout;
+			global::TouchEffect.Droid.Resource.Styleable.CollapsingToolbarLayout_Layout_layout_collapseMode = global::NureTimetable.Droid.Resource.Styleable.CollapsingToolbarLayout_Layout_layout_collapseMode;
+			global::TouchEffect.Droid.Resource.Styleable.CollapsingToolbarLayout_Layout_layout_collapseParallaxMultiplier = global::NureTimetable.Droid.Resource.Styleable.CollapsingToolbarLayout_Layout_layout_collapseParallaxMultiplier;
+			global::TouchEffect.Droid.Resource.Styleable.ColorStateListItem = global::NureTimetable.Droid.Resource.Styleable.ColorStateListItem;
+			global::TouchEffect.Droid.Resource.Styleable.ColorStateListItem_alpha = global::NureTimetable.Droid.Resource.Styleable.ColorStateListItem_alpha;
+			global::TouchEffect.Droid.Resource.Styleable.ColorStateListItem_android_alpha = global::NureTimetable.Droid.Resource.Styleable.ColorStateListItem_android_alpha;
+			global::TouchEffect.Droid.Resource.Styleable.ColorStateListItem_android_color = global::NureTimetable.Droid.Resource.Styleable.ColorStateListItem_android_color;
+			global::TouchEffect.Droid.Resource.Styleable.CompoundButton = global::NureTimetable.Droid.Resource.Styleable.CompoundButton;
+			global::TouchEffect.Droid.Resource.Styleable.CompoundButton_android_button = global::NureTimetable.Droid.Resource.Styleable.CompoundButton_android_button;
+			global::TouchEffect.Droid.Resource.Styleable.CompoundButton_buttonTint = global::NureTimetable.Droid.Resource.Styleable.CompoundButton_buttonTint;
+			global::TouchEffect.Droid.Resource.Styleable.CompoundButton_buttonTintMode = global::NureTimetable.Droid.Resource.Styleable.CompoundButton_buttonTintMode;
+			global::TouchEffect.Droid.Resource.Styleable.CoordinatorLayout = global::NureTimetable.Droid.Resource.Styleable.CoordinatorLayout;
+			global::TouchEffect.Droid.Resource.Styleable.CoordinatorLayout_keylines = global::NureTimetable.Droid.Resource.Styleable.CoordinatorLayout_keylines;
+			global::TouchEffect.Droid.Resource.Styleable.CoordinatorLayout_statusBarBackground = global::NureTimetable.Droid.Resource.Styleable.CoordinatorLayout_statusBarBackground;
+			global::TouchEffect.Droid.Resource.Styleable.CoordinatorLayout_Layout = global::NureTimetable.Droid.Resource.Styleable.CoordinatorLayout_Layout;
+			global::TouchEffect.Droid.Resource.Styleable.CoordinatorLayout_Layout_android_layout_gravity = global::NureTimetable.Droid.Resource.Styleable.CoordinatorLayout_Layout_android_layout_gravity;
+			global::TouchEffect.Droid.Resource.Styleable.CoordinatorLayout_Layout_layout_anchor = global::NureTimetable.Droid.Resource.Styleable.CoordinatorLayout_Layout_layout_anchor;
+			global::TouchEffect.Droid.Resource.Styleable.CoordinatorLayout_Layout_layout_anchorGravity = global::NureTimetable.Droid.Resource.Styleable.CoordinatorLayout_Layout_layout_anchorGravity;
+			global::TouchEffect.Droid.Resource.Styleable.CoordinatorLayout_Layout_layout_behavior = global::NureTimetable.Droid.Resource.Styleable.CoordinatorLayout_Layout_layout_behavior;
+			global::TouchEffect.Droid.Resource.Styleable.CoordinatorLayout_Layout_layout_dodgeInsetEdges = global::NureTimetable.Droid.Resource.Styleable.CoordinatorLayout_Layout_layout_dodgeInsetEdges;
+			global::TouchEffect.Droid.Resource.Styleable.CoordinatorLayout_Layout_layout_insetEdge = global::NureTimetable.Droid.Resource.Styleable.CoordinatorLayout_Layout_layout_insetEdge;
+			global::TouchEffect.Droid.Resource.Styleable.CoordinatorLayout_Layout_layout_keyline = global::NureTimetable.Droid.Resource.Styleable.CoordinatorLayout_Layout_layout_keyline;
+			global::TouchEffect.Droid.Resource.Styleable.DesignTheme = global::NureTimetable.Droid.Resource.Styleable.DesignTheme;
+			global::TouchEffect.Droid.Resource.Styleable.DesignTheme_bottomSheetDialogTheme = global::NureTimetable.Droid.Resource.Styleable.DesignTheme_bottomSheetDialogTheme;
+			global::TouchEffect.Droid.Resource.Styleable.DesignTheme_bottomSheetStyle = global::NureTimetable.Droid.Resource.Styleable.DesignTheme_bottomSheetStyle;
+			global::TouchEffect.Droid.Resource.Styleable.DrawerArrowToggle = global::NureTimetable.Droid.Resource.Styleable.DrawerArrowToggle;
+			global::TouchEffect.Droid.Resource.Styleable.DrawerArrowToggle_arrowHeadLength = global::NureTimetable.Droid.Resource.Styleable.DrawerArrowToggle_arrowHeadLength;
+			global::TouchEffect.Droid.Resource.Styleable.DrawerArrowToggle_arrowShaftLength = global::NureTimetable.Droid.Resource.Styleable.DrawerArrowToggle_arrowShaftLength;
+			global::TouchEffect.Droid.Resource.Styleable.DrawerArrowToggle_barLength = global::NureTimetable.Droid.Resource.Styleable.DrawerArrowToggle_barLength;
+			global::TouchEffect.Droid.Resource.Styleable.DrawerArrowToggle_color = global::NureTimetable.Droid.Resource.Styleable.DrawerArrowToggle_color;
+			global::TouchEffect.Droid.Resource.Styleable.DrawerArrowToggle_drawableSize = global::NureTimetable.Droid.Resource.Styleable.DrawerArrowToggle_drawableSize;
+			global::TouchEffect.Droid.Resource.Styleable.DrawerArrowToggle_gapBetweenBars = global::NureTimetable.Droid.Resource.Styleable.DrawerArrowToggle_gapBetweenBars;
+			global::TouchEffect.Droid.Resource.Styleable.DrawerArrowToggle_spinBars = global::NureTimetable.Droid.Resource.Styleable.DrawerArrowToggle_spinBars;
+			global::TouchEffect.Droid.Resource.Styleable.DrawerArrowToggle_thickness = global::NureTimetable.Droid.Resource.Styleable.DrawerArrowToggle_thickness;
+			global::TouchEffect.Droid.Resource.Styleable.FloatingActionButton = global::NureTimetable.Droid.Resource.Styleable.FloatingActionButton;
+			global::TouchEffect.Droid.Resource.Styleable.FloatingActionButton_backgroundTint = global::NureTimetable.Droid.Resource.Styleable.FloatingActionButton_backgroundTint;
+			global::TouchEffect.Droid.Resource.Styleable.FloatingActionButton_backgroundTintMode = global::NureTimetable.Droid.Resource.Styleable.FloatingActionButton_backgroundTintMode;
+			global::TouchEffect.Droid.Resource.Styleable.FloatingActionButton_borderWidth = global::NureTimetable.Droid.Resource.Styleable.FloatingActionButton_borderWidth;
+			global::TouchEffect.Droid.Resource.Styleable.FloatingActionButton_elevation = global::NureTimetable.Droid.Resource.Styleable.FloatingActionButton_elevation;
+			global::TouchEffect.Droid.Resource.Styleable.FloatingActionButton_fabCustomSize = global::NureTimetable.Droid.Resource.Styleable.FloatingActionButton_fabCustomSize;
+			global::TouchEffect.Droid.Resource.Styleable.FloatingActionButton_fabSize = global::NureTimetable.Droid.Resource.Styleable.FloatingActionButton_fabSize;
+			global::TouchEffect.Droid.Resource.Styleable.FloatingActionButton_hideMotionSpec = global::NureTimetable.Droid.Resource.Styleable.FloatingActionButton_hideMotionSpec;
+			global::TouchEffect.Droid.Resource.Styleable.FloatingActionButton_hoveredFocusedTranslationZ = global::NureTimetable.Droid.Resource.Styleable.FloatingActionButton_hoveredFocusedTranslationZ;
+			global::TouchEffect.Droid.Resource.Styleable.FloatingActionButton_maxImageSize = global::NureTimetable.Droid.Resource.Styleable.FloatingActionButton_maxImageSize;
+			global::TouchEffect.Droid.Resource.Styleable.FloatingActionButton_pressedTranslationZ = global::NureTimetable.Droid.Resource.Styleable.FloatingActionButton_pressedTranslationZ;
+			global::TouchEffect.Droid.Resource.Styleable.FloatingActionButton_rippleColor = global::NureTimetable.Droid.Resource.Styleable.FloatingActionButton_rippleColor;
+			global::TouchEffect.Droid.Resource.Styleable.FloatingActionButton_showMotionSpec = global::NureTimetable.Droid.Resource.Styleable.FloatingActionButton_showMotionSpec;
+			global::TouchEffect.Droid.Resource.Styleable.FloatingActionButton_useCompatPadding = global::NureTimetable.Droid.Resource.Styleable.FloatingActionButton_useCompatPadding;
+			global::TouchEffect.Droid.Resource.Styleable.FloatingActionButton_Behavior_Layout = global::NureTimetable.Droid.Resource.Styleable.FloatingActionButton_Behavior_Layout;
+			global::TouchEffect.Droid.Resource.Styleable.FloatingActionButton_Behavior_Layout_behavior_autoHide = global::NureTimetable.Droid.Resource.Styleable.FloatingActionButton_Behavior_Layout_behavior_autoHide;
+			global::TouchEffect.Droid.Resource.Styleable.FlowLayout = global::NureTimetable.Droid.Resource.Styleable.FlowLayout;
+			global::TouchEffect.Droid.Resource.Styleable.FlowLayout_itemSpacing = global::NureTimetable.Droid.Resource.Styleable.FlowLayout_itemSpacing;
+			global::TouchEffect.Droid.Resource.Styleable.FlowLayout_lineSpacing = global::NureTimetable.Droid.Resource.Styleable.FlowLayout_lineSpacing;
+			global::TouchEffect.Droid.Resource.Styleable.FontFamily = global::NureTimetable.Droid.Resource.Styleable.FontFamily;
+			global::TouchEffect.Droid.Resource.Styleable.FontFamily_fontProviderAuthority = global::NureTimetable.Droid.Resource.Styleable.FontFamily_fontProviderAuthority;
+			global::TouchEffect.Droid.Resource.Styleable.FontFamily_fontProviderCerts = global::NureTimetable.Droid.Resource.Styleable.FontFamily_fontProviderCerts;
+			global::TouchEffect.Droid.Resource.Styleable.FontFamily_fontProviderFetchStrategy = global::NureTimetable.Droid.Resource.Styleable.FontFamily_fontProviderFetchStrategy;
+			global::TouchEffect.Droid.Resource.Styleable.FontFamily_fontProviderFetchTimeout = global::NureTimetable.Droid.Resource.Styleable.FontFamily_fontProviderFetchTimeout;
+			global::TouchEffect.Droid.Resource.Styleable.FontFamily_fontProviderPackage = global::NureTimetable.Droid.Resource.Styleable.FontFamily_fontProviderPackage;
+			global::TouchEffect.Droid.Resource.Styleable.FontFamily_fontProviderQuery = global::NureTimetable.Droid.Resource.Styleable.FontFamily_fontProviderQuery;
+			global::TouchEffect.Droid.Resource.Styleable.FontFamilyFont = global::NureTimetable.Droid.Resource.Styleable.FontFamilyFont;
+			global::TouchEffect.Droid.Resource.Styleable.FontFamilyFont_android_font = global::NureTimetable.Droid.Resource.Styleable.FontFamilyFont_android_font;
+			global::TouchEffect.Droid.Resource.Styleable.FontFamilyFont_android_fontStyle = global::NureTimetable.Droid.Resource.Styleable.FontFamilyFont_android_fontStyle;
+			global::TouchEffect.Droid.Resource.Styleable.FontFamilyFont_android_fontVariationSettings = global::NureTimetable.Droid.Resource.Styleable.FontFamilyFont_android_fontVariationSettings;
+			global::TouchEffect.Droid.Resource.Styleable.FontFamilyFont_android_fontWeight = global::NureTimetable.Droid.Resource.Styleable.FontFamilyFont_android_fontWeight;
+			global::TouchEffect.Droid.Resource.Styleable.FontFamilyFont_android_ttcIndex = global::NureTimetable.Droid.Resource.Styleable.FontFamilyFont_android_ttcIndex;
+			global::TouchEffect.Droid.Resource.Styleable.FontFamilyFont_font = global::NureTimetable.Droid.Resource.Styleable.FontFamilyFont_font;
+			global::TouchEffect.Droid.Resource.Styleable.FontFamilyFont_fontStyle = global::NureTimetable.Droid.Resource.Styleable.FontFamilyFont_fontStyle;
+			global::TouchEffect.Droid.Resource.Styleable.FontFamilyFont_fontVariationSettings = global::NureTimetable.Droid.Resource.Styleable.FontFamilyFont_fontVariationSettings;
+			global::TouchEffect.Droid.Resource.Styleable.FontFamilyFont_fontWeight = global::NureTimetable.Droid.Resource.Styleable.FontFamilyFont_fontWeight;
+			global::TouchEffect.Droid.Resource.Styleable.FontFamilyFont_ttcIndex = global::NureTimetable.Droid.Resource.Styleable.FontFamilyFont_ttcIndex;
+			global::TouchEffect.Droid.Resource.Styleable.ForegroundLinearLayout = global::NureTimetable.Droid.Resource.Styleable.ForegroundLinearLayout;
+			global::TouchEffect.Droid.Resource.Styleable.ForegroundLinearLayout_android_foreground = global::NureTimetable.Droid.Resource.Styleable.ForegroundLinearLayout_android_foreground;
+			global::TouchEffect.Droid.Resource.Styleable.ForegroundLinearLayout_android_foregroundGravity = global::NureTimetable.Droid.Resource.Styleable.ForegroundLinearLayout_android_foregroundGravity;
+			global::TouchEffect.Droid.Resource.Styleable.ForegroundLinearLayout_foregroundInsidePadding = global::NureTimetable.Droid.Resource.Styleable.ForegroundLinearLayout_foregroundInsidePadding;
+			global::TouchEffect.Droid.Resource.Styleable.GradientColor = global::NureTimetable.Droid.Resource.Styleable.GradientColor;
+			global::TouchEffect.Droid.Resource.Styleable.GradientColor_android_centerColor = global::NureTimetable.Droid.Resource.Styleable.GradientColor_android_centerColor;
+			global::TouchEffect.Droid.Resource.Styleable.GradientColor_android_centerX = global::NureTimetable.Droid.Resource.Styleable.GradientColor_android_centerX;
+			global::TouchEffect.Droid.Resource.Styleable.GradientColor_android_centerY = global::NureTimetable.Droid.Resource.Styleable.GradientColor_android_centerY;
+			global::TouchEffect.Droid.Resource.Styleable.GradientColor_android_endColor = global::NureTimetable.Droid.Resource.Styleable.GradientColor_android_endColor;
+			global::TouchEffect.Droid.Resource.Styleable.GradientColor_android_endX = global::NureTimetable.Droid.Resource.Styleable.GradientColor_android_endX;
+			global::TouchEffect.Droid.Resource.Styleable.GradientColor_android_endY = global::NureTimetable.Droid.Resource.Styleable.GradientColor_android_endY;
+			global::TouchEffect.Droid.Resource.Styleable.GradientColor_android_gradientRadius = global::NureTimetable.Droid.Resource.Styleable.GradientColor_android_gradientRadius;
+			global::TouchEffect.Droid.Resource.Styleable.GradientColor_android_startColor = global::NureTimetable.Droid.Resource.Styleable.GradientColor_android_startColor;
+			global::TouchEffect.Droid.Resource.Styleable.GradientColor_android_startX = global::NureTimetable.Droid.Resource.Styleable.GradientColor_android_startX;
+			global::TouchEffect.Droid.Resource.Styleable.GradientColor_android_startY = global::NureTimetable.Droid.Resource.Styleable.GradientColor_android_startY;
+			global::TouchEffect.Droid.Resource.Styleable.GradientColor_android_tileMode = global::NureTimetable.Droid.Resource.Styleable.GradientColor_android_tileMode;
+			global::TouchEffect.Droid.Resource.Styleable.GradientColor_android_type = global::NureTimetable.Droid.Resource.Styleable.GradientColor_android_type;
+			global::TouchEffect.Droid.Resource.Styleable.GradientColorItem = global::NureTimetable.Droid.Resource.Styleable.GradientColorItem;
+			global::TouchEffect.Droid.Resource.Styleable.GradientColorItem_android_color = global::NureTimetable.Droid.Resource.Styleable.GradientColorItem_android_color;
+			global::TouchEffect.Droid.Resource.Styleable.GradientColorItem_android_offset = global::NureTimetable.Droid.Resource.Styleable.GradientColorItem_android_offset;
+			global::TouchEffect.Droid.Resource.Styleable.LinearLayoutCompat = global::NureTimetable.Droid.Resource.Styleable.LinearLayoutCompat;
+			global::TouchEffect.Droid.Resource.Styleable.LinearLayoutCompat_android_baselineAligned = global::NureTimetable.Droid.Resource.Styleable.LinearLayoutCompat_android_baselineAligned;
+			global::TouchEffect.Droid.Resource.Styleable.LinearLayoutCompat_android_baselineAlignedChildIndex = global::NureTimetable.Droid.Resource.Styleable.LinearLayoutCompat_android_baselineAlignedChildIndex;
+			global::TouchEffect.Droid.Resource.Styleable.LinearLayoutCompat_android_gravity = global::NureTimetable.Droid.Resource.Styleable.LinearLayoutCompat_android_gravity;
+			global::TouchEffect.Droid.Resource.Styleable.LinearLayoutCompat_android_orientation = global::NureTimetable.Droid.Resource.Styleable.LinearLayoutCompat_android_orientation;
+			global::TouchEffect.Droid.Resource.Styleable.LinearLayoutCompat_android_weightSum = global::NureTimetable.Droid.Resource.Styleable.LinearLayoutCompat_android_weightSum;
+			global::TouchEffect.Droid.Resource.Styleable.LinearLayoutCompat_divider = global::NureTimetable.Droid.Resource.Styleable.LinearLayoutCompat_divider;
+			global::TouchEffect.Droid.Resource.Styleable.LinearLayoutCompat_dividerPadding = global::NureTimetable.Droid.Resource.Styleable.LinearLayoutCompat_dividerPadding;
+			global::TouchEffect.Droid.Resource.Styleable.LinearLayoutCompat_measureWithLargestChild = global::NureTimetable.Droid.Resource.Styleable.LinearLayoutCompat_measureWithLargestChild;
+			global::TouchEffect.Droid.Resource.Styleable.LinearLayoutCompat_showDividers = global::NureTimetable.Droid.Resource.Styleable.LinearLayoutCompat_showDividers;
+			global::TouchEffect.Droid.Resource.Styleable.LinearLayoutCompat_Layout = global::NureTimetable.Droid.Resource.Styleable.LinearLayoutCompat_Layout;
+			global::TouchEffect.Droid.Resource.Styleable.LinearLayoutCompat_Layout_android_layout_gravity = global::NureTimetable.Droid.Resource.Styleable.LinearLayoutCompat_Layout_android_layout_gravity;
+			global::TouchEffect.Droid.Resource.Styleable.LinearLayoutCompat_Layout_android_layout_height = global::NureTimetable.Droid.Resource.Styleable.LinearLayoutCompat_Layout_android_layout_height;
+			global::TouchEffect.Droid.Resource.Styleable.LinearLayoutCompat_Layout_android_layout_weight = global::NureTimetable.Droid.Resource.Styleable.LinearLayoutCompat_Layout_android_layout_weight;
+			global::TouchEffect.Droid.Resource.Styleable.LinearLayoutCompat_Layout_android_layout_width = global::NureTimetable.Droid.Resource.Styleable.LinearLayoutCompat_Layout_android_layout_width;
+			global::TouchEffect.Droid.Resource.Styleable.ListPopupWindow = global::NureTimetable.Droid.Resource.Styleable.ListPopupWindow;
+			global::TouchEffect.Droid.Resource.Styleable.ListPopupWindow_android_dropDownHorizontalOffset = global::NureTimetable.Droid.Resource.Styleable.ListPopupWindow_android_dropDownHorizontalOffset;
+			global::TouchEffect.Droid.Resource.Styleable.ListPopupWindow_android_dropDownVerticalOffset = global::NureTimetable.Droid.Resource.Styleable.ListPopupWindow_android_dropDownVerticalOffset;
+			global::TouchEffect.Droid.Resource.Styleable.MaterialButton = global::NureTimetable.Droid.Resource.Styleable.MaterialButton;
+			global::TouchEffect.Droid.Resource.Styleable.MaterialButton_android_insetBottom = global::NureTimetable.Droid.Resource.Styleable.MaterialButton_android_insetBottom;
+			global::TouchEffect.Droid.Resource.Styleable.MaterialButton_android_insetLeft = global::NureTimetable.Droid.Resource.Styleable.MaterialButton_android_insetLeft;
+			global::TouchEffect.Droid.Resource.Styleable.MaterialButton_android_insetRight = global::NureTimetable.Droid.Resource.Styleable.MaterialButton_android_insetRight;
+			global::TouchEffect.Droid.Resource.Styleable.MaterialButton_android_insetTop = global::NureTimetable.Droid.Resource.Styleable.MaterialButton_android_insetTop;
+			global::TouchEffect.Droid.Resource.Styleable.MaterialButton_backgroundTint = global::NureTimetable.Droid.Resource.Styleable.MaterialButton_backgroundTint;
+			global::TouchEffect.Droid.Resource.Styleable.MaterialButton_backgroundTintMode = global::NureTimetable.Droid.Resource.Styleable.MaterialButton_backgroundTintMode;
+			global::TouchEffect.Droid.Resource.Styleable.MaterialButton_cornerRadius = global::NureTimetable.Droid.Resource.Styleable.MaterialButton_cornerRadius;
+			global::TouchEffect.Droid.Resource.Styleable.MaterialButton_icon = global::NureTimetable.Droid.Resource.Styleable.MaterialButton_icon;
+			global::TouchEffect.Droid.Resource.Styleable.MaterialButton_iconGravity = global::NureTimetable.Droid.Resource.Styleable.MaterialButton_iconGravity;
+			global::TouchEffect.Droid.Resource.Styleable.MaterialButton_iconPadding = global::NureTimetable.Droid.Resource.Styleable.MaterialButton_iconPadding;
+			global::TouchEffect.Droid.Resource.Styleable.MaterialButton_iconSize = global::NureTimetable.Droid.Resource.Styleable.MaterialButton_iconSize;
+			global::TouchEffect.Droid.Resource.Styleable.MaterialButton_iconTint = global::NureTimetable.Droid.Resource.Styleable.MaterialButton_iconTint;
+			global::TouchEffect.Droid.Resource.Styleable.MaterialButton_iconTintMode = global::NureTimetable.Droid.Resource.Styleable.MaterialButton_iconTintMode;
+			global::TouchEffect.Droid.Resource.Styleable.MaterialButton_rippleColor = global::NureTimetable.Droid.Resource.Styleable.MaterialButton_rippleColor;
+			global::TouchEffect.Droid.Resource.Styleable.MaterialButton_strokeColor = global::NureTimetable.Droid.Resource.Styleable.MaterialButton_strokeColor;
+			global::TouchEffect.Droid.Resource.Styleable.MaterialButton_strokeWidth = global::NureTimetable.Droid.Resource.Styleable.MaterialButton_strokeWidth;
+			global::TouchEffect.Droid.Resource.Styleable.MaterialCardView = global::NureTimetable.Droid.Resource.Styleable.MaterialCardView;
+			global::TouchEffect.Droid.Resource.Styleable.MaterialCardView_strokeColor = global::NureTimetable.Droid.Resource.Styleable.MaterialCardView_strokeColor;
+			global::TouchEffect.Droid.Resource.Styleable.MaterialCardView_strokeWidth = global::NureTimetable.Droid.Resource.Styleable.MaterialCardView_strokeWidth;
+			global::TouchEffect.Droid.Resource.Styleable.MaterialComponentsTheme = global::NureTimetable.Droid.Resource.Styleable.MaterialComponentsTheme;
+			global::TouchEffect.Droid.Resource.Styleable.MaterialComponentsTheme_bottomSheetDialogTheme = global::NureTimetable.Droid.Resource.Styleable.MaterialComponentsTheme_bottomSheetDialogTheme;
+			global::TouchEffect.Droid.Resource.Styleable.MaterialComponentsTheme_bottomSheetStyle = global::NureTimetable.Droid.Resource.Styleable.MaterialComponentsTheme_bottomSheetStyle;
+			global::TouchEffect.Droid.Resource.Styleable.MaterialComponentsTheme_chipGroupStyle = global::NureTimetable.Droid.Resource.Styleable.MaterialComponentsTheme_chipGroupStyle;
+			global::TouchEffect.Droid.Resource.Styleable.MaterialComponentsTheme_chipStandaloneStyle = global::NureTimetable.Droid.Resource.Styleable.MaterialComponentsTheme_chipStandaloneStyle;
+			global::TouchEffect.Droid.Resource.Styleable.MaterialComponentsTheme_chipStyle = global::NureTimetable.Droid.Resource.Styleable.MaterialComponentsTheme_chipStyle;
+			global::TouchEffect.Droid.Resource.Styleable.MaterialComponentsTheme_colorAccent = global::NureTimetable.Droid.Resource.Styleable.MaterialComponentsTheme_colorAccent;
+			global::TouchEffect.Droid.Resource.Styleable.MaterialComponentsTheme_colorBackgroundFloating = global::NureTimetable.Droid.Resource.Styleable.MaterialComponentsTheme_colorBackgroundFloating;
+			global::TouchEffect.Droid.Resource.Styleable.MaterialComponentsTheme_colorPrimary = global::NureTimetable.Droid.Resource.Styleable.MaterialComponentsTheme_colorPrimary;
+			global::TouchEffect.Droid.Resource.Styleable.MaterialComponentsTheme_colorPrimaryDark = global::NureTimetable.Droid.Resource.Styleable.MaterialComponentsTheme_colorPrimaryDark;
+			global::TouchEffect.Droid.Resource.Styleable.MaterialComponentsTheme_colorSecondary = global::NureTimetable.Droid.Resource.Styleable.MaterialComponentsTheme_colorSecondary;
+			global::TouchEffect.Droid.Resource.Styleable.MaterialComponentsTheme_editTextStyle = global::NureTimetable.Droid.Resource.Styleable.MaterialComponentsTheme_editTextStyle;
+			global::TouchEffect.Droid.Resource.Styleable.MaterialComponentsTheme_floatingActionButtonStyle = global::NureTimetable.Droid.Resource.Styleable.MaterialComponentsTheme_floatingActionButtonStyle;
+			global::TouchEffect.Droid.Resource.Styleable.MaterialComponentsTheme_materialButtonStyle = global::NureTimetable.Droid.Resource.Styleable.MaterialComponentsTheme_materialButtonStyle;
+			global::TouchEffect.Droid.Resource.Styleable.MaterialComponentsTheme_materialCardViewStyle = global::NureTimetable.Droid.Resource.Styleable.MaterialComponentsTheme_materialCardViewStyle;
+			global::TouchEffect.Droid.Resource.Styleable.MaterialComponentsTheme_navigationViewStyle = global::NureTimetable.Droid.Resource.Styleable.MaterialComponentsTheme_navigationViewStyle;
+			global::TouchEffect.Droid.Resource.Styleable.MaterialComponentsTheme_scrimBackground = global::NureTimetable.Droid.Resource.Styleable.MaterialComponentsTheme_scrimBackground;
+			global::TouchEffect.Droid.Resource.Styleable.MaterialComponentsTheme_snackbarButtonStyle = global::NureTimetable.Droid.Resource.Styleable.MaterialComponentsTheme_snackbarButtonStyle;
+			global::TouchEffect.Droid.Resource.Styleable.MaterialComponentsTheme_tabStyle = global::NureTimetable.Droid.Resource.Styleable.MaterialComponentsTheme_tabStyle;
+			global::TouchEffect.Droid.Resource.Styleable.MaterialComponentsTheme_textAppearanceBody1 = global::NureTimetable.Droid.Resource.Styleable.MaterialComponentsTheme_textAppearanceBody1;
+			global::TouchEffect.Droid.Resource.Styleable.MaterialComponentsTheme_textAppearanceBody2 = global::NureTimetable.Droid.Resource.Styleable.MaterialComponentsTheme_textAppearanceBody2;
+			global::TouchEffect.Droid.Resource.Styleable.MaterialComponentsTheme_textAppearanceButton = global::NureTimetable.Droid.Resource.Styleable.MaterialComponentsTheme_textAppearanceButton;
+			global::TouchEffect.Droid.Resource.Styleable.MaterialComponentsTheme_textAppearanceCaption = global::NureTimetable.Droid.Resource.Styleable.MaterialComponentsTheme_textAppearanceCaption;
+			global::TouchEffect.Droid.Resource.Styleable.MaterialComponentsTheme_textAppearanceHeadline1 = global::NureTimetable.Droid.Resource.Styleable.MaterialComponentsTheme_textAppearanceHeadline1;
+			global::TouchEffect.Droid.Resource.Styleable.MaterialComponentsTheme_textAppearanceHeadline2 = global::NureTimetable.Droid.Resource.Styleable.MaterialComponentsTheme_textAppearanceHeadline2;
+			global::TouchEffect.Droid.Resource.Styleable.MaterialComponentsTheme_textAppearanceHeadline3 = global::NureTimetable.Droid.Resource.Styleable.MaterialComponentsTheme_textAppearanceHeadline3;
+			global::TouchEffect.Droid.Resource.Styleable.MaterialComponentsTheme_textAppearanceHeadline4 = global::NureTimetable.Droid.Resource.Styleable.MaterialComponentsTheme_textAppearanceHeadline4;
+			global::TouchEffect.Droid.Resource.Styleable.MaterialComponentsTheme_textAppearanceHeadline5 = global::NureTimetable.Droid.Resource.Styleable.MaterialComponentsTheme_textAppearanceHeadline5;
+			global::TouchEffect.Droid.Resource.Styleable.MaterialComponentsTheme_textAppearanceHeadline6 = global::NureTimetable.Droid.Resource.Styleable.MaterialComponentsTheme_textAppearanceHeadline6;
+			global::TouchEffect.Droid.Resource.Styleable.MaterialComponentsTheme_textAppearanceOverline = global::NureTimetable.Droid.Resource.Styleable.MaterialComponentsTheme_textAppearanceOverline;
+			global::TouchEffect.Droid.Resource.Styleable.MaterialComponentsTheme_textAppearanceSubtitle1 = global::NureTimetable.Droid.Resource.Styleable.MaterialComponentsTheme_textAppearanceSubtitle1;
+			global::TouchEffect.Droid.Resource.Styleable.MaterialComponentsTheme_textAppearanceSubtitle2 = global::NureTimetable.Droid.Resource.Styleable.MaterialComponentsTheme_textAppearanceSubtitle2;
+			global::TouchEffect.Droid.Resource.Styleable.MaterialComponentsTheme_textInputStyle = global::NureTimetable.Droid.Resource.Styleable.MaterialComponentsTheme_textInputStyle;
+			global::TouchEffect.Droid.Resource.Styleable.MenuGroup = global::NureTimetable.Droid.Resource.Styleable.MenuGroup;
+			global::TouchEffect.Droid.Resource.Styleable.MenuGroup_android_checkableBehavior = global::NureTimetable.Droid.Resource.Styleable.MenuGroup_android_checkableBehavior;
+			global::TouchEffect.Droid.Resource.Styleable.MenuGroup_android_enabled = global::NureTimetable.Droid.Resource.Styleable.MenuGroup_android_enabled;
+			global::TouchEffect.Droid.Resource.Styleable.MenuGroup_android_id = global::NureTimetable.Droid.Resource.Styleable.MenuGroup_android_id;
+			global::TouchEffect.Droid.Resource.Styleable.MenuGroup_android_menuCategory = global::NureTimetable.Droid.Resource.Styleable.MenuGroup_android_menuCategory;
+			global::TouchEffect.Droid.Resource.Styleable.MenuGroup_android_orderInCategory = global::NureTimetable.Droid.Resource.Styleable.MenuGroup_android_orderInCategory;
+			global::TouchEffect.Droid.Resource.Styleable.MenuGroup_android_visible = global::NureTimetable.Droid.Resource.Styleable.MenuGroup_android_visible;
+			global::TouchEffect.Droid.Resource.Styleable.MenuItem = global::NureTimetable.Droid.Resource.Styleable.MenuItem;
+			global::TouchEffect.Droid.Resource.Styleable.MenuItem_actionLayout = global::NureTimetable.Droid.Resource.Styleable.MenuItem_actionLayout;
+			global::TouchEffect.Droid.Resource.Styleable.MenuItem_actionProviderClass = global::NureTimetable.Droid.Resource.Styleable.MenuItem_actionProviderClass;
+			global::TouchEffect.Droid.Resource.Styleable.MenuItem_actionViewClass = global::NureTimetable.Droid.Resource.Styleable.MenuItem_actionViewClass;
+			global::TouchEffect.Droid.Resource.Styleable.MenuItem_alphabeticModifiers = global::NureTimetable.Droid.Resource.Styleable.MenuItem_alphabeticModifiers;
+			global::TouchEffect.Droid.Resource.Styleable.MenuItem_android_alphabeticShortcut = global::NureTimetable.Droid.Resource.Styleable.MenuItem_android_alphabeticShortcut;
+			global::TouchEffect.Droid.Resource.Styleable.MenuItem_android_checkable = global::NureTimetable.Droid.Resource.Styleable.MenuItem_android_checkable;
+			global::TouchEffect.Droid.Resource.Styleable.MenuItem_android_checked = global::NureTimetable.Droid.Resource.Styleable.MenuItem_android_checked;
+			global::TouchEffect.Droid.Resource.Styleable.MenuItem_android_enabled = global::NureTimetable.Droid.Resource.Styleable.MenuItem_android_enabled;
+			global::TouchEffect.Droid.Resource.Styleable.MenuItem_android_icon = global::NureTimetable.Droid.Resource.Styleable.MenuItem_android_icon;
+			global::TouchEffect.Droid.Resource.Styleable.MenuItem_android_id = global::NureTimetable.Droid.Resource.Styleable.MenuItem_android_id;
+			global::TouchEffect.Droid.Resource.Styleable.MenuItem_android_menuCategory = global::NureTimetable.Droid.Resource.Styleable.MenuItem_android_menuCategory;
+			global::TouchEffect.Droid.Resource.Styleable.MenuItem_android_numericShortcut = global::NureTimetable.Droid.Resource.Styleable.MenuItem_android_numericShortcut;
+			global::TouchEffect.Droid.Resource.Styleable.MenuItem_android_onClick = global::NureTimetable.Droid.Resource.Styleable.MenuItem_android_onClick;
+			global::TouchEffect.Droid.Resource.Styleable.MenuItem_android_orderInCategory = global::NureTimetable.Droid.Resource.Styleable.MenuItem_android_orderInCategory;
+			global::TouchEffect.Droid.Resource.Styleable.MenuItem_android_title = global::NureTimetable.Droid.Resource.Styleable.MenuItem_android_title;
+			global::TouchEffect.Droid.Resource.Styleable.MenuItem_android_titleCondensed = global::NureTimetable.Droid.Resource.Styleable.MenuItem_android_titleCondensed;
+			global::TouchEffect.Droid.Resource.Styleable.MenuItem_android_visible = global::NureTimetable.Droid.Resource.Styleable.MenuItem_android_visible;
+			global::TouchEffect.Droid.Resource.Styleable.MenuItem_contentDescription = global::NureTimetable.Droid.Resource.Styleable.MenuItem_contentDescription;
+			global::TouchEffect.Droid.Resource.Styleable.MenuItem_iconTint = global::NureTimetable.Droid.Resource.Styleable.MenuItem_iconTint;
+			global::TouchEffect.Droid.Resource.Styleable.MenuItem_iconTintMode = global::NureTimetable.Droid.Resource.Styleable.MenuItem_iconTintMode;
+			global::TouchEffect.Droid.Resource.Styleable.MenuItem_numericModifiers = global::NureTimetable.Droid.Resource.Styleable.MenuItem_numericModifiers;
+			global::TouchEffect.Droid.Resource.Styleable.MenuItem_showAsAction = global::NureTimetable.Droid.Resource.Styleable.MenuItem_showAsAction;
+			global::TouchEffect.Droid.Resource.Styleable.MenuItem_tooltipText = global::NureTimetable.Droid.Resource.Styleable.MenuItem_tooltipText;
+			global::TouchEffect.Droid.Resource.Styleable.MenuView = global::NureTimetable.Droid.Resource.Styleable.MenuView;
+			global::TouchEffect.Droid.Resource.Styleable.MenuView_android_headerBackground = global::NureTimetable.Droid.Resource.Styleable.MenuView_android_headerBackground;
+			global::TouchEffect.Droid.Resource.Styleable.MenuView_android_horizontalDivider = global::NureTimetable.Droid.Resource.Styleable.MenuView_android_horizontalDivider;
+			global::TouchEffect.Droid.Resource.Styleable.MenuView_android_itemBackground = global::NureTimetable.Droid.Resource.Styleable.MenuView_android_itemBackground;
+			global::TouchEffect.Droid.Resource.Styleable.MenuView_android_itemIconDisabledAlpha = global::NureTimetable.Droid.Resource.Styleable.MenuView_android_itemIconDisabledAlpha;
+			global::TouchEffect.Droid.Resource.Styleable.MenuView_android_itemTextAppearance = global::NureTimetable.Droid.Resource.Styleable.MenuView_android_itemTextAppearance;
+			global::TouchEffect.Droid.Resource.Styleable.MenuView_android_verticalDivider = global::NureTimetable.Droid.Resource.Styleable.MenuView_android_verticalDivider;
+			global::TouchEffect.Droid.Resource.Styleable.MenuView_android_windowAnimationStyle = global::NureTimetable.Droid.Resource.Styleable.MenuView_android_windowAnimationStyle;
+			global::TouchEffect.Droid.Resource.Styleable.MenuView_preserveIconSpacing = global::NureTimetable.Droid.Resource.Styleable.MenuView_preserveIconSpacing;
+			global::TouchEffect.Droid.Resource.Styleable.MenuView_subMenuArrow = global::NureTimetable.Droid.Resource.Styleable.MenuView_subMenuArrow;
+			global::TouchEffect.Droid.Resource.Styleable.NavigationView = global::NureTimetable.Droid.Resource.Styleable.NavigationView;
+			global::TouchEffect.Droid.Resource.Styleable.NavigationView_android_background = global::NureTimetable.Droid.Resource.Styleable.NavigationView_android_background;
+			global::TouchEffect.Droid.Resource.Styleable.NavigationView_android_fitsSystemWindows = global::NureTimetable.Droid.Resource.Styleable.NavigationView_android_fitsSystemWindows;
+			global::TouchEffect.Droid.Resource.Styleable.NavigationView_android_maxWidth = global::NureTimetable.Droid.Resource.Styleable.NavigationView_android_maxWidth;
+			global::TouchEffect.Droid.Resource.Styleable.NavigationView_elevation = global::NureTimetable.Droid.Resource.Styleable.NavigationView_elevation;
+			global::TouchEffect.Droid.Resource.Styleable.NavigationView_headerLayout = global::NureTimetable.Droid.Resource.Styleable.NavigationView_headerLayout;
+			global::TouchEffect.Droid.Resource.Styleable.NavigationView_itemBackground = global::NureTimetable.Droid.Resource.Styleable.NavigationView_itemBackground;
+			global::TouchEffect.Droid.Resource.Styleable.NavigationView_itemHorizontalPadding = global::NureTimetable.Droid.Resource.Styleable.NavigationView_itemHorizontalPadding;
+			global::TouchEffect.Droid.Resource.Styleable.NavigationView_itemIconPadding = global::NureTimetable.Droid.Resource.Styleable.NavigationView_itemIconPadding;
+			global::TouchEffect.Droid.Resource.Styleable.NavigationView_itemIconTint = global::NureTimetable.Droid.Resource.Styleable.NavigationView_itemIconTint;
+			global::TouchEffect.Droid.Resource.Styleable.NavigationView_itemTextAppearance = global::NureTimetable.Droid.Resource.Styleable.NavigationView_itemTextAppearance;
+			global::TouchEffect.Droid.Resource.Styleable.NavigationView_itemTextColor = global::NureTimetable.Droid.Resource.Styleable.NavigationView_itemTextColor;
+			global::TouchEffect.Droid.Resource.Styleable.NavigationView_menu = global::NureTimetable.Droid.Resource.Styleable.NavigationView_menu;
+			global::TouchEffect.Droid.Resource.Styleable.PopupWindow = global::NureTimetable.Droid.Resource.Styleable.PopupWindow;
+			global::TouchEffect.Droid.Resource.Styleable.PopupWindow_android_popupAnimationStyle = global::NureTimetable.Droid.Resource.Styleable.PopupWindow_android_popupAnimationStyle;
+			global::TouchEffect.Droid.Resource.Styleable.PopupWindow_android_popupBackground = global::NureTimetable.Droid.Resource.Styleable.PopupWindow_android_popupBackground;
+			global::TouchEffect.Droid.Resource.Styleable.PopupWindow_overlapAnchor = global::NureTimetable.Droid.Resource.Styleable.PopupWindow_overlapAnchor;
+			global::TouchEffect.Droid.Resource.Styleable.PopupWindowBackgroundState = global::NureTimetable.Droid.Resource.Styleable.PopupWindowBackgroundState;
+			global::TouchEffect.Droid.Resource.Styleable.PopupWindowBackgroundState_state_above_anchor = global::NureTimetable.Droid.Resource.Styleable.PopupWindowBackgroundState_state_above_anchor;
+			global::TouchEffect.Droid.Resource.Styleable.RecycleListView = global::NureTimetable.Droid.Resource.Styleable.RecycleListView;
+			global::TouchEffect.Droid.Resource.Styleable.RecycleListView_paddingBottomNoButtons = global::NureTimetable.Droid.Resource.Styleable.RecycleListView_paddingBottomNoButtons;
+			global::TouchEffect.Droid.Resource.Styleable.RecycleListView_paddingTopNoTitle = global::NureTimetable.Droid.Resource.Styleable.RecycleListView_paddingTopNoTitle;
+			global::TouchEffect.Droid.Resource.Styleable.RecyclerView = global::NureTimetable.Droid.Resource.Styleable.RecyclerView;
+			global::TouchEffect.Droid.Resource.Styleable.RecyclerView_android_descendantFocusability = global::NureTimetable.Droid.Resource.Styleable.RecyclerView_android_descendantFocusability;
+			global::TouchEffect.Droid.Resource.Styleable.RecyclerView_android_orientation = global::NureTimetable.Droid.Resource.Styleable.RecyclerView_android_orientation;
+			global::TouchEffect.Droid.Resource.Styleable.RecyclerView_fastScrollEnabled = global::NureTimetable.Droid.Resource.Styleable.RecyclerView_fastScrollEnabled;
+			global::TouchEffect.Droid.Resource.Styleable.RecyclerView_fastScrollHorizontalThumbDrawable = global::NureTimetable.Droid.Resource.Styleable.RecyclerView_fastScrollHorizontalThumbDrawable;
+			global::TouchEffect.Droid.Resource.Styleable.RecyclerView_fastScrollHorizontalTrackDrawable = global::NureTimetable.Droid.Resource.Styleable.RecyclerView_fastScrollHorizontalTrackDrawable;
+			global::TouchEffect.Droid.Resource.Styleable.RecyclerView_fastScrollVerticalThumbDrawable = global::NureTimetable.Droid.Resource.Styleable.RecyclerView_fastScrollVerticalThumbDrawable;
+			global::TouchEffect.Droid.Resource.Styleable.RecyclerView_fastScrollVerticalTrackDrawable = global::NureTimetable.Droid.Resource.Styleable.RecyclerView_fastScrollVerticalTrackDrawable;
+			global::TouchEffect.Droid.Resource.Styleable.RecyclerView_layoutManager = global::NureTimetable.Droid.Resource.Styleable.RecyclerView_layoutManager;
+			global::TouchEffect.Droid.Resource.Styleable.RecyclerView_reverseLayout = global::NureTimetable.Droid.Resource.Styleable.RecyclerView_reverseLayout;
+			global::TouchEffect.Droid.Resource.Styleable.RecyclerView_spanCount = global::NureTimetable.Droid.Resource.Styleable.RecyclerView_spanCount;
+			global::TouchEffect.Droid.Resource.Styleable.RecyclerView_stackFromEnd = global::NureTimetable.Droid.Resource.Styleable.RecyclerView_stackFromEnd;
+			global::TouchEffect.Droid.Resource.Styleable.ScrimInsetsFrameLayout = global::NureTimetable.Droid.Resource.Styleable.ScrimInsetsFrameLayout;
+			global::TouchEffect.Droid.Resource.Styleable.ScrimInsetsFrameLayout_insetForeground = global::NureTimetable.Droid.Resource.Styleable.ScrimInsetsFrameLayout_insetForeground;
+			global::TouchEffect.Droid.Resource.Styleable.ScrollingViewBehavior_Layout = global::NureTimetable.Droid.Resource.Styleable.ScrollingViewBehavior_Layout;
+			global::TouchEffect.Droid.Resource.Styleable.ScrollingViewBehavior_Layout_behavior_overlapTop = global::NureTimetable.Droid.Resource.Styleable.ScrollingViewBehavior_Layout_behavior_overlapTop;
+			global::TouchEffect.Droid.Resource.Styleable.SearchView = global::NureTimetable.Droid.Resource.Styleable.SearchView;
+			global::TouchEffect.Droid.Resource.Styleable.SearchView_android_focusable = global::NureTimetable.Droid.Resource.Styleable.SearchView_android_focusable;
+			global::TouchEffect.Droid.Resource.Styleable.SearchView_android_imeOptions = global::NureTimetable.Droid.Resource.Styleable.SearchView_android_imeOptions;
+			global::TouchEffect.Droid.Resource.Styleable.SearchView_android_inputType = global::NureTimetable.Droid.Resource.Styleable.SearchView_android_inputType;
+			global::TouchEffect.Droid.Resource.Styleable.SearchView_android_maxWidth = global::NureTimetable.Droid.Resource.Styleable.SearchView_android_maxWidth;
+			global::TouchEffect.Droid.Resource.Styleable.SearchView_closeIcon = global::NureTimetable.Droid.Resource.Styleable.SearchView_closeIcon;
+			global::TouchEffect.Droid.Resource.Styleable.SearchView_commitIcon = global::NureTimetable.Droid.Resource.Styleable.SearchView_commitIcon;
+			global::TouchEffect.Droid.Resource.Styleable.SearchView_defaultQueryHint = global::NureTimetable.Droid.Resource.Styleable.SearchView_defaultQueryHint;
+			global::TouchEffect.Droid.Resource.Styleable.SearchView_goIcon = global::NureTimetable.Droid.Resource.Styleable.SearchView_goIcon;
+			global::TouchEffect.Droid.Resource.Styleable.SearchView_iconifiedByDefault = global::NureTimetable.Droid.Resource.Styleable.SearchView_iconifiedByDefault;
+			global::TouchEffect.Droid.Resource.Styleable.SearchView_layout = global::NureTimetable.Droid.Resource.Styleable.SearchView_layout;
+			global::TouchEffect.Droid.Resource.Styleable.SearchView_queryBackground = global::NureTimetable.Droid.Resource.Styleable.SearchView_queryBackground;
+			global::TouchEffect.Droid.Resource.Styleable.SearchView_queryHint = global::NureTimetable.Droid.Resource.Styleable.SearchView_queryHint;
+			global::TouchEffect.Droid.Resource.Styleable.SearchView_searchHintIcon = global::NureTimetable.Droid.Resource.Styleable.SearchView_searchHintIcon;
+			global::TouchEffect.Droid.Resource.Styleable.SearchView_searchIcon = global::NureTimetable.Droid.Resource.Styleable.SearchView_searchIcon;
+			global::TouchEffect.Droid.Resource.Styleable.SearchView_submitBackground = global::NureTimetable.Droid.Resource.Styleable.SearchView_submitBackground;
+			global::TouchEffect.Droid.Resource.Styleable.SearchView_suggestionRowLayout = global::NureTimetable.Droid.Resource.Styleable.SearchView_suggestionRowLayout;
+			global::TouchEffect.Droid.Resource.Styleable.SearchView_voiceIcon = global::NureTimetable.Droid.Resource.Styleable.SearchView_voiceIcon;
+			global::TouchEffect.Droid.Resource.Styleable.Snackbar = global::NureTimetable.Droid.Resource.Styleable.Snackbar;
+			global::TouchEffect.Droid.Resource.Styleable.Snackbar_snackbarButtonStyle = global::NureTimetable.Droid.Resource.Styleable.Snackbar_snackbarButtonStyle;
+			global::TouchEffect.Droid.Resource.Styleable.Snackbar_snackbarStyle = global::NureTimetable.Droid.Resource.Styleable.Snackbar_snackbarStyle;
+			global::TouchEffect.Droid.Resource.Styleable.SnackbarLayout = global::NureTimetable.Droid.Resource.Styleable.SnackbarLayout;
+			global::TouchEffect.Droid.Resource.Styleable.SnackbarLayout_android_maxWidth = global::NureTimetable.Droid.Resource.Styleable.SnackbarLayout_android_maxWidth;
+			global::TouchEffect.Droid.Resource.Styleable.SnackbarLayout_elevation = global::NureTimetable.Droid.Resource.Styleable.SnackbarLayout_elevation;
+			global::TouchEffect.Droid.Resource.Styleable.SnackbarLayout_maxActionInlineWidth = global::NureTimetable.Droid.Resource.Styleable.SnackbarLayout_maxActionInlineWidth;
+			global::TouchEffect.Droid.Resource.Styleable.Spinner = global::NureTimetable.Droid.Resource.Styleable.Spinner;
+			global::TouchEffect.Droid.Resource.Styleable.Spinner_android_dropDownWidth = global::NureTimetable.Droid.Resource.Styleable.Spinner_android_dropDownWidth;
+			global::TouchEffect.Droid.Resource.Styleable.Spinner_android_entries = global::NureTimetable.Droid.Resource.Styleable.Spinner_android_entries;
+			global::TouchEffect.Droid.Resource.Styleable.Spinner_android_popupBackground = global::NureTimetable.Droid.Resource.Styleable.Spinner_android_popupBackground;
+			global::TouchEffect.Droid.Resource.Styleable.Spinner_android_prompt = global::NureTimetable.Droid.Resource.Styleable.Spinner_android_prompt;
+			global::TouchEffect.Droid.Resource.Styleable.Spinner_popupTheme = global::NureTimetable.Droid.Resource.Styleable.Spinner_popupTheme;
+			global::TouchEffect.Droid.Resource.Styleable.StateListDrawable = global::NureTimetable.Droid.Resource.Styleable.StateListDrawable;
+			global::TouchEffect.Droid.Resource.Styleable.StateListDrawable_android_constantSize = global::NureTimetable.Droid.Resource.Styleable.StateListDrawable_android_constantSize;
+			global::TouchEffect.Droid.Resource.Styleable.StateListDrawable_android_dither = global::NureTimetable.Droid.Resource.Styleable.StateListDrawable_android_dither;
+			global::TouchEffect.Droid.Resource.Styleable.StateListDrawable_android_enterFadeDuration = global::NureTimetable.Droid.Resource.Styleable.StateListDrawable_android_enterFadeDuration;
+			global::TouchEffect.Droid.Resource.Styleable.StateListDrawable_android_exitFadeDuration = global::NureTimetable.Droid.Resource.Styleable.StateListDrawable_android_exitFadeDuration;
+			global::TouchEffect.Droid.Resource.Styleable.StateListDrawable_android_variablePadding = global::NureTimetable.Droid.Resource.Styleable.StateListDrawable_android_variablePadding;
+			global::TouchEffect.Droid.Resource.Styleable.StateListDrawable_android_visible = global::NureTimetable.Droid.Resource.Styleable.StateListDrawable_android_visible;
+			global::TouchEffect.Droid.Resource.Styleable.StateListDrawableItem = global::NureTimetable.Droid.Resource.Styleable.StateListDrawableItem;
+			global::TouchEffect.Droid.Resource.Styleable.StateListDrawableItem_android_drawable = global::NureTimetable.Droid.Resource.Styleable.StateListDrawableItem_android_drawable;
+			global::TouchEffect.Droid.Resource.Styleable.SwitchCompat = global::NureTimetable.Droid.Resource.Styleable.SwitchCompat;
+			global::TouchEffect.Droid.Resource.Styleable.SwitchCompat_android_textOff = global::NureTimetable.Droid.Resource.Styleable.SwitchCompat_android_textOff;
+			global::TouchEffect.Droid.Resource.Styleable.SwitchCompat_android_textOn = global::NureTimetable.Droid.Resource.Styleable.SwitchCompat_android_textOn;
+			global::TouchEffect.Droid.Resource.Styleable.SwitchCompat_android_thumb = global::NureTimetable.Droid.Resource.Styleable.SwitchCompat_android_thumb;
+			global::TouchEffect.Droid.Resource.Styleable.SwitchCompat_showText = global::NureTimetable.Droid.Resource.Styleable.SwitchCompat_showText;
+			global::TouchEffect.Droid.Resource.Styleable.SwitchCompat_splitTrack = global::NureTimetable.Droid.Resource.Styleable.SwitchCompat_splitTrack;
+			global::TouchEffect.Droid.Resource.Styleable.SwitchCompat_switchMinWidth = global::NureTimetable.Droid.Resource.Styleable.SwitchCompat_switchMinWidth;
+			global::TouchEffect.Droid.Resource.Styleable.SwitchCompat_switchPadding = global::NureTimetable.Droid.Resource.Styleable.SwitchCompat_switchPadding;
+			global::TouchEffect.Droid.Resource.Styleable.SwitchCompat_switchTextAppearance = global::NureTimetable.Droid.Resource.Styleable.SwitchCompat_switchTextAppearance;
+			global::TouchEffect.Droid.Resource.Styleable.SwitchCompat_thumbTextPadding = global::NureTimetable.Droid.Resource.Styleable.SwitchCompat_thumbTextPadding;
+			global::TouchEffect.Droid.Resource.Styleable.SwitchCompat_thumbTint = global::NureTimetable.Droid.Resource.Styleable.SwitchCompat_thumbTint;
+			global::TouchEffect.Droid.Resource.Styleable.SwitchCompat_thumbTintMode = global::NureTimetable.Droid.Resource.Styleable.SwitchCompat_thumbTintMode;
+			global::TouchEffect.Droid.Resource.Styleable.SwitchCompat_track = global::NureTimetable.Droid.Resource.Styleable.SwitchCompat_track;
+			global::TouchEffect.Droid.Resource.Styleable.SwitchCompat_trackTint = global::NureTimetable.Droid.Resource.Styleable.SwitchCompat_trackTint;
+			global::TouchEffect.Droid.Resource.Styleable.SwitchCompat_trackTintMode = global::NureTimetable.Droid.Resource.Styleable.SwitchCompat_trackTintMode;
+			global::TouchEffect.Droid.Resource.Styleable.TabItem = global::NureTimetable.Droid.Resource.Styleable.TabItem;
+			global::TouchEffect.Droid.Resource.Styleable.TabItem_android_icon = global::NureTimetable.Droid.Resource.Styleable.TabItem_android_icon;
+			global::TouchEffect.Droid.Resource.Styleable.TabItem_android_layout = global::NureTimetable.Droid.Resource.Styleable.TabItem_android_layout;
+			global::TouchEffect.Droid.Resource.Styleable.TabItem_android_text = global::NureTimetable.Droid.Resource.Styleable.TabItem_android_text;
+			global::TouchEffect.Droid.Resource.Styleable.TabLayout = global::NureTimetable.Droid.Resource.Styleable.TabLayout;
+			global::TouchEffect.Droid.Resource.Styleable.TabLayout_tabBackground = global::NureTimetable.Droid.Resource.Styleable.TabLayout_tabBackground;
+			global::TouchEffect.Droid.Resource.Styleable.TabLayout_tabContentStart = global::NureTimetable.Droid.Resource.Styleable.TabLayout_tabContentStart;
+			global::TouchEffect.Droid.Resource.Styleable.TabLayout_tabGravity = global::NureTimetable.Droid.Resource.Styleable.TabLayout_tabGravity;
+			global::TouchEffect.Droid.Resource.Styleable.TabLayout_tabIconTint = global::NureTimetable.Droid.Resource.Styleable.TabLayout_tabIconTint;
+			global::TouchEffect.Droid.Resource.Styleable.TabLayout_tabIconTintMode = global::NureTimetable.Droid.Resource.Styleable.TabLayout_tabIconTintMode;
+			global::TouchEffect.Droid.Resource.Styleable.TabLayout_tabIndicator = global::NureTimetable.Droid.Resource.Styleable.TabLayout_tabIndicator;
+			global::TouchEffect.Droid.Resource.Styleable.TabLayout_tabIndicatorAnimationDuration = global::NureTimetable.Droid.Resource.Styleable.TabLayout_tabIndicatorAnimationDuration;
+			global::TouchEffect.Droid.Resource.Styleable.TabLayout_tabIndicatorColor = global::NureTimetable.Droid.Resource.Styleable.TabLayout_tabIndicatorColor;
+			global::TouchEffect.Droid.Resource.Styleable.TabLayout_tabIndicatorFullWidth = global::NureTimetable.Droid.Resource.Styleable.TabLayout_tabIndicatorFullWidth;
+			global::TouchEffect.Droid.Resource.Styleable.TabLayout_tabIndicatorGravity = global::NureTimetable.Droid.Resource.Styleable.TabLayout_tabIndicatorGravity;
+			global::TouchEffect.Droid.Resource.Styleable.TabLayout_tabIndicatorHeight = global::NureTimetable.Droid.Resource.Styleable.TabLayout_tabIndicatorHeight;
+			global::TouchEffect.Droid.Resource.Styleable.TabLayout_tabInlineLabel = global::NureTimetable.Droid.Resource.Styleable.TabLayout_tabInlineLabel;
+			global::TouchEffect.Droid.Resource.Styleable.TabLayout_tabMaxWidth = global::NureTimetable.Droid.Resource.Styleable.TabLayout_tabMaxWidth;
+			global::TouchEffect.Droid.Resource.Styleable.TabLayout_tabMinWidth = global::NureTimetable.Droid.Resource.Styleable.TabLayout_tabMinWidth;
+			global::TouchEffect.Droid.Resource.Styleable.TabLayout_tabMode = global::NureTimetable.Droid.Resource.Styleable.TabLayout_tabMode;
+			global::TouchEffect.Droid.Resource.Styleable.TabLayout_tabPadding = global::NureTimetable.Droid.Resource.Styleable.TabLayout_tabPadding;
+			global::TouchEffect.Droid.Resource.Styleable.TabLayout_tabPaddingBottom = global::NureTimetable.Droid.Resource.Styleable.TabLayout_tabPaddingBottom;
+			global::TouchEffect.Droid.Resource.Styleable.TabLayout_tabPaddingEnd = global::NureTimetable.Droid.Resource.Styleable.TabLayout_tabPaddingEnd;
+			global::TouchEffect.Droid.Resource.Styleable.TabLayout_tabPaddingStart = global::NureTimetable.Droid.Resource.Styleable.TabLayout_tabPaddingStart;
+			global::TouchEffect.Droid.Resource.Styleable.TabLayout_tabPaddingTop = global::NureTimetable.Droid.Resource.Styleable.TabLayout_tabPaddingTop;
+			global::TouchEffect.Droid.Resource.Styleable.TabLayout_tabRippleColor = global::NureTimetable.Droid.Resource.Styleable.TabLayout_tabRippleColor;
+			global::TouchEffect.Droid.Resource.Styleable.TabLayout_tabSelectedTextColor = global::NureTimetable.Droid.Resource.Styleable.TabLayout_tabSelectedTextColor;
+			global::TouchEffect.Droid.Resource.Styleable.TabLayout_tabTextAppearance = global::NureTimetable.Droid.Resource.Styleable.TabLayout_tabTextAppearance;
+			global::TouchEffect.Droid.Resource.Styleable.TabLayout_tabTextColor = global::NureTimetable.Droid.Resource.Styleable.TabLayout_tabTextColor;
+			global::TouchEffect.Droid.Resource.Styleable.TabLayout_tabUnboundedRipple = global::NureTimetable.Droid.Resource.Styleable.TabLayout_tabUnboundedRipple;
+			global::TouchEffect.Droid.Resource.Styleable.TextAppearance = global::NureTimetable.Droid.Resource.Styleable.TextAppearance;
+			global::TouchEffect.Droid.Resource.Styleable.TextAppearance_android_fontFamily = global::NureTimetable.Droid.Resource.Styleable.TextAppearance_android_fontFamily;
+			global::TouchEffect.Droid.Resource.Styleable.TextAppearance_android_shadowColor = global::NureTimetable.Droid.Resource.Styleable.TextAppearance_android_shadowColor;
+			global::TouchEffect.Droid.Resource.Styleable.TextAppearance_android_shadowDx = global::NureTimetable.Droid.Resource.Styleable.TextAppearance_android_shadowDx;
+			global::TouchEffect.Droid.Resource.Styleable.TextAppearance_android_shadowDy = global::NureTimetable.Droid.Resource.Styleable.TextAppearance_android_shadowDy;
+			global::TouchEffect.Droid.Resource.Styleable.TextAppearance_android_shadowRadius = global::NureTimetable.Droid.Resource.Styleable.TextAppearance_android_shadowRadius;
+			global::TouchEffect.Droid.Resource.Styleable.TextAppearance_android_textColor = global::NureTimetable.Droid.Resource.Styleable.TextAppearance_android_textColor;
+			global::TouchEffect.Droid.Resource.Styleable.TextAppearance_android_textColorHint = global::NureTimetable.Droid.Resource.Styleable.TextAppearance_android_textColorHint;
+			global::TouchEffect.Droid.Resource.Styleable.TextAppearance_android_textColorLink = global::NureTimetable.Droid.Resource.Styleable.TextAppearance_android_textColorLink;
+			global::TouchEffect.Droid.Resource.Styleable.TextAppearance_android_textSize = global::NureTimetable.Droid.Resource.Styleable.TextAppearance_android_textSize;
+			global::TouchEffect.Droid.Resource.Styleable.TextAppearance_android_textStyle = global::NureTimetable.Droid.Resource.Styleable.TextAppearance_android_textStyle;
+			global::TouchEffect.Droid.Resource.Styleable.TextAppearance_android_typeface = global::NureTimetable.Droid.Resource.Styleable.TextAppearance_android_typeface;
+			global::TouchEffect.Droid.Resource.Styleable.TextAppearance_fontFamily = global::NureTimetable.Droid.Resource.Styleable.TextAppearance_fontFamily;
+			global::TouchEffect.Droid.Resource.Styleable.TextAppearance_textAllCaps = global::NureTimetable.Droid.Resource.Styleable.TextAppearance_textAllCaps;
+			global::TouchEffect.Droid.Resource.Styleable.TextInputLayout = global::NureTimetable.Droid.Resource.Styleable.TextInputLayout;
+			global::TouchEffect.Droid.Resource.Styleable.TextInputLayout_android_hint = global::NureTimetable.Droid.Resource.Styleable.TextInputLayout_android_hint;
+			global::TouchEffect.Droid.Resource.Styleable.TextInputLayout_android_textColorHint = global::NureTimetable.Droid.Resource.Styleable.TextInputLayout_android_textColorHint;
+			global::TouchEffect.Droid.Resource.Styleable.TextInputLayout_boxBackgroundColor = global::NureTimetable.Droid.Resource.Styleable.TextInputLayout_boxBackgroundColor;
+			global::TouchEffect.Droid.Resource.Styleable.TextInputLayout_boxBackgroundMode = global::NureTimetable.Droid.Resource.Styleable.TextInputLayout_boxBackgroundMode;
+			global::TouchEffect.Droid.Resource.Styleable.TextInputLayout_boxCollapsedPaddingTop = global::NureTimetable.Droid.Resource.Styleable.TextInputLayout_boxCollapsedPaddingTop;
+			global::TouchEffect.Droid.Resource.Styleable.TextInputLayout_boxCornerRadiusBottomEnd = global::NureTimetable.Droid.Resource.Styleable.TextInputLayout_boxCornerRadiusBottomEnd;
+			global::TouchEffect.Droid.Resource.Styleable.TextInputLayout_boxCornerRadiusBottomStart = global::NureTimetable.Droid.Resource.Styleable.TextInputLayout_boxCornerRadiusBottomStart;
+			global::TouchEffect.Droid.Resource.Styleable.TextInputLayout_boxCornerRadiusTopEnd = global::NureTimetable.Droid.Resource.Styleable.TextInputLayout_boxCornerRadiusTopEnd;
+			global::TouchEffect.Droid.Resource.Styleable.TextInputLayout_boxCornerRadiusTopStart = global::NureTimetable.Droid.Resource.Styleable.TextInputLayout_boxCornerRadiusTopStart;
+			global::TouchEffect.Droid.Resource.Styleable.TextInputLayout_boxStrokeColor = global::NureTimetable.Droid.Resource.Styleable.TextInputLayout_boxStrokeColor;
+			global::TouchEffect.Droid.Resource.Styleable.TextInputLayout_boxStrokeWidth = global::NureTimetable.Droid.Resource.Styleable.TextInputLayout_boxStrokeWidth;
+			global::TouchEffect.Droid.Resource.Styleable.TextInputLayout_counterEnabled = global::NureTimetable.Droid.Resource.Styleable.TextInputLayout_counterEnabled;
+			global::TouchEffect.Droid.Resource.Styleable.TextInputLayout_counterMaxLength = global::NureTimetable.Droid.Resource.Styleable.TextInputLayout_counterMaxLength;
+			global::TouchEffect.Droid.Resource.Styleable.TextInputLayout_counterOverflowTextAppearance = global::NureTimetable.Droid.Resource.Styleable.TextInputLayout_counterOverflowTextAppearance;
+			global::TouchEffect.Droid.Resource.Styleable.TextInputLayout_counterTextAppearance = global::NureTimetable.Droid.Resource.Styleable.TextInputLayout_counterTextAppearance;
+			global::TouchEffect.Droid.Resource.Styleable.TextInputLayout_errorEnabled = global::NureTimetable.Droid.Resource.Styleable.TextInputLayout_errorEnabled;
+			global::TouchEffect.Droid.Resource.Styleable.TextInputLayout_errorTextAppearance = global::NureTimetable.Droid.Resource.Styleable.TextInputLayout_errorTextAppearance;
+			global::TouchEffect.Droid.Resource.Styleable.TextInputLayout_helperText = global::NureTimetable.Droid.Resource.Styleable.TextInputLayout_helperText;
+			global::TouchEffect.Droid.Resource.Styleable.TextInputLayout_helperTextEnabled = global::NureTimetable.Droid.Resource.Styleable.TextInputLayout_helperTextEnabled;
+			global::TouchEffect.Droid.Resource.Styleable.TextInputLayout_helperTextTextAppearance = global::NureTimetable.Droid.Resource.Styleable.TextInputLayout_helperTextTextAppearance;
+			global::TouchEffect.Droid.Resource.Styleable.TextInputLayout_hintAnimationEnabled = global::NureTimetable.Droid.Resource.Styleable.TextInputLayout_hintAnimationEnabled;
+			global::TouchEffect.Droid.Resource.Styleable.TextInputLayout_hintEnabled = global::NureTimetable.Droid.Resource.Styleable.TextInputLayout_hintEnabled;
+			global::TouchEffect.Droid.Resource.Styleable.TextInputLayout_hintTextAppearance = global::NureTimetable.Droid.Resource.Styleable.TextInputLayout_hintTextAppearance;
+			global::TouchEffect.Droid.Resource.Styleable.TextInputLayout_passwordToggleContentDescription = global::NureTimetable.Droid.Resource.Styleable.TextInputLayout_passwordToggleContentDescription;
+			global::TouchEffect.Droid.Resource.Styleable.TextInputLayout_passwordToggleDrawable = global::NureTimetable.Droid.Resource.Styleable.TextInputLayout_passwordToggleDrawable;
+			global::TouchEffect.Droid.Resource.Styleable.TextInputLayout_passwordToggleEnabled = global::NureTimetable.Droid.Resource.Styleable.TextInputLayout_passwordToggleEnabled;
+			global::TouchEffect.Droid.Resource.Styleable.TextInputLayout_passwordToggleTint = global::NureTimetable.Droid.Resource.Styleable.TextInputLayout_passwordToggleTint;
+			global::TouchEffect.Droid.Resource.Styleable.TextInputLayout_passwordToggleTintMode = global::NureTimetable.Droid.Resource.Styleable.TextInputLayout_passwordToggleTintMode;
+			global::TouchEffect.Droid.Resource.Styleable.ThemeEnforcement = global::NureTimetable.Droid.Resource.Styleable.ThemeEnforcement;
+			global::TouchEffect.Droid.Resource.Styleable.ThemeEnforcement_android_textAppearance = global::NureTimetable.Droid.Resource.Styleable.ThemeEnforcement_android_textAppearance;
+			global::TouchEffect.Droid.Resource.Styleable.ThemeEnforcement_enforceMaterialTheme = global::NureTimetable.Droid.Resource.Styleable.ThemeEnforcement_enforceMaterialTheme;
+			global::TouchEffect.Droid.Resource.Styleable.ThemeEnforcement_enforceTextAppearance = global::NureTimetable.Droid.Resource.Styleable.ThemeEnforcement_enforceTextAppearance;
+			global::TouchEffect.Droid.Resource.Styleable.Toolbar = global::NureTimetable.Droid.Resource.Styleable.Toolbar;
+			global::TouchEffect.Droid.Resource.Styleable.Toolbar_android_gravity = global::NureTimetable.Droid.Resource.Styleable.Toolbar_android_gravity;
+			global::TouchEffect.Droid.Resource.Styleable.Toolbar_android_minHeight = global::NureTimetable.Droid.Resource.Styleable.Toolbar_android_minHeight;
+			global::TouchEffect.Droid.Resource.Styleable.Toolbar_buttonGravity = global::NureTimetable.Droid.Resource.Styleable.Toolbar_buttonGravity;
+			global::TouchEffect.Droid.Resource.Styleable.Toolbar_collapseContentDescription = global::NureTimetable.Droid.Resource.Styleable.Toolbar_collapseContentDescription;
+			global::TouchEffect.Droid.Resource.Styleable.Toolbar_collapseIcon = global::NureTimetable.Droid.Resource.Styleable.Toolbar_collapseIcon;
+			global::TouchEffect.Droid.Resource.Styleable.Toolbar_contentInsetEnd = global::NureTimetable.Droid.Resource.Styleable.Toolbar_contentInsetEnd;
+			global::TouchEffect.Droid.Resource.Styleable.Toolbar_contentInsetEndWithActions = global::NureTimetable.Droid.Resource.Styleable.Toolbar_contentInsetEndWithActions;
+			global::TouchEffect.Droid.Resource.Styleable.Toolbar_contentInsetLeft = global::NureTimetable.Droid.Resource.Styleable.Toolbar_contentInsetLeft;
+			global::TouchEffect.Droid.Resource.Styleable.Toolbar_contentInsetRight = global::NureTimetable.Droid.Resource.Styleable.Toolbar_contentInsetRight;
+			global::TouchEffect.Droid.Resource.Styleable.Toolbar_contentInsetStart = global::NureTimetable.Droid.Resource.Styleable.Toolbar_contentInsetStart;
+			global::TouchEffect.Droid.Resource.Styleable.Toolbar_contentInsetStartWithNavigation = global::NureTimetable.Droid.Resource.Styleable.Toolbar_contentInsetStartWithNavigation;
+			global::TouchEffect.Droid.Resource.Styleable.Toolbar_logo = global::NureTimetable.Droid.Resource.Styleable.Toolbar_logo;
+			global::TouchEffect.Droid.Resource.Styleable.Toolbar_logoDescription = global::NureTimetable.Droid.Resource.Styleable.Toolbar_logoDescription;
+			global::TouchEffect.Droid.Resource.Styleable.Toolbar_maxButtonHeight = global::NureTimetable.Droid.Resource.Styleable.Toolbar_maxButtonHeight;
+			global::TouchEffect.Droid.Resource.Styleable.Toolbar_navigationContentDescription = global::NureTimetable.Droid.Resource.Styleable.Toolbar_navigationContentDescription;
+			global::TouchEffect.Droid.Resource.Styleable.Toolbar_navigationIcon = global::NureTimetable.Droid.Resource.Styleable.Toolbar_navigationIcon;
+			global::TouchEffect.Droid.Resource.Styleable.Toolbar_popupTheme = global::NureTimetable.Droid.Resource.Styleable.Toolbar_popupTheme;
+			global::TouchEffect.Droid.Resource.Styleable.Toolbar_subtitle = global::NureTimetable.Droid.Resource.Styleable.Toolbar_subtitle;
+			global::TouchEffect.Droid.Resource.Styleable.Toolbar_subtitleTextAppearance = global::NureTimetable.Droid.Resource.Styleable.Toolbar_subtitleTextAppearance;
+			global::TouchEffect.Droid.Resource.Styleable.Toolbar_subtitleTextColor = global::NureTimetable.Droid.Resource.Styleable.Toolbar_subtitleTextColor;
+			global::TouchEffect.Droid.Resource.Styleable.Toolbar_title = global::NureTimetable.Droid.Resource.Styleable.Toolbar_title;
+			global::TouchEffect.Droid.Resource.Styleable.Toolbar_titleMargin = global::NureTimetable.Droid.Resource.Styleable.Toolbar_titleMargin;
+			global::TouchEffect.Droid.Resource.Styleable.Toolbar_titleMarginBottom = global::NureTimetable.Droid.Resource.Styleable.Toolbar_titleMarginBottom;
+			global::TouchEffect.Droid.Resource.Styleable.Toolbar_titleMarginEnd = global::NureTimetable.Droid.Resource.Styleable.Toolbar_titleMarginEnd;
+			global::TouchEffect.Droid.Resource.Styleable.Toolbar_titleMarginStart = global::NureTimetable.Droid.Resource.Styleable.Toolbar_titleMarginStart;
+			global::TouchEffect.Droid.Resource.Styleable.Toolbar_titleMarginTop = global::NureTimetable.Droid.Resource.Styleable.Toolbar_titleMarginTop;
+			global::TouchEffect.Droid.Resource.Styleable.Toolbar_titleMargins = global::NureTimetable.Droid.Resource.Styleable.Toolbar_titleMargins;
+			global::TouchEffect.Droid.Resource.Styleable.Toolbar_titleTextAppearance = global::NureTimetable.Droid.Resource.Styleable.Toolbar_titleTextAppearance;
+			global::TouchEffect.Droid.Resource.Styleable.Toolbar_titleTextColor = global::NureTimetable.Droid.Resource.Styleable.Toolbar_titleTextColor;
+			global::TouchEffect.Droid.Resource.Styleable.View = global::NureTimetable.Droid.Resource.Styleable.View;
+			global::TouchEffect.Droid.Resource.Styleable.View_android_focusable = global::NureTimetable.Droid.Resource.Styleable.View_android_focusable;
+			global::TouchEffect.Droid.Resource.Styleable.View_android_theme = global::NureTimetable.Droid.Resource.Styleable.View_android_theme;
+			global::TouchEffect.Droid.Resource.Styleable.View_paddingEnd = global::NureTimetable.Droid.Resource.Styleable.View_paddingEnd;
+			global::TouchEffect.Droid.Resource.Styleable.View_paddingStart = global::NureTimetable.Droid.Resource.Styleable.View_paddingStart;
+			global::TouchEffect.Droid.Resource.Styleable.View_theme = global::NureTimetable.Droid.Resource.Styleable.View_theme;
+			global::TouchEffect.Droid.Resource.Styleable.ViewBackgroundHelper = global::NureTimetable.Droid.Resource.Styleable.ViewBackgroundHelper;
+			global::TouchEffect.Droid.Resource.Styleable.ViewBackgroundHelper_android_background = global::NureTimetable.Droid.Resource.Styleable.ViewBackgroundHelper_android_background;
+			global::TouchEffect.Droid.Resource.Styleable.ViewBackgroundHelper_backgroundTint = global::NureTimetable.Droid.Resource.Styleable.ViewBackgroundHelper_backgroundTint;
+			global::TouchEffect.Droid.Resource.Styleable.ViewBackgroundHelper_backgroundTintMode = global::NureTimetable.Droid.Resource.Styleable.ViewBackgroundHelper_backgroundTintMode;
+			global::TouchEffect.Droid.Resource.Styleable.ViewStubCompat = global::NureTimetable.Droid.Resource.Styleable.ViewStubCompat;
+			global::TouchEffect.Droid.Resource.Styleable.ViewStubCompat_android_id = global::NureTimetable.Droid.Resource.Styleable.ViewStubCompat_android_id;
+			global::TouchEffect.Droid.Resource.Styleable.ViewStubCompat_android_inflatedId = global::NureTimetable.Droid.Resource.Styleable.ViewStubCompat_android_inflatedId;
+			global::TouchEffect.Droid.Resource.Styleable.ViewStubCompat_android_layout = global::NureTimetable.Droid.Resource.Styleable.ViewStubCompat_android_layout;
 			global::Xamarin.Essentials.Resource.Attribute.alpha = global::NureTimetable.Droid.Resource.Attribute.alpha;
 			global::Xamarin.Essentials.Resource.Attribute.coordinatorLayoutStyle = global::NureTimetable.Droid.Resource.Attribute.coordinatorLayoutStyle;
 			global::Xamarin.Essentials.Resource.Attribute.font = global::NureTimetable.Droid.Resource.Attribute.font;
@@ -7522,425 +10086,413 @@ namespace NureTimetable.Droid
 		public partial class Color
 		{
 			
-			// aapt resource value: 0x7F050002
-			public const int abc_background_cache_hint_selector_material_dark = 2131034114;
-			
-			// aapt resource value: 0x7F050003
-			public const int abc_background_cache_hint_selector_material_light = 2131034115;
-			
-			// aapt resource value: 0x7F050004
-			public const int abc_btn_colored_borderless_text_material = 2131034116;
-			
-			// aapt resource value: 0x7F050005
-			public const int abc_btn_colored_text_material = 2131034117;
-			
-			// aapt resource value: 0x7F050006
-			public const int abc_color_highlight_material = 2131034118;
-			
-			// aapt resource value: 0x7F050007
-			public const int abc_hint_foreground_material_dark = 2131034119;
-			
-			// aapt resource value: 0x7F050008
-			public const int abc_hint_foreground_material_light = 2131034120;
-			
-			// aapt resource value: 0x7F050009
-			public const int abc_input_method_navigation_guard = 2131034121;
-			
-			// aapt resource value: 0x7F05000A
-			public const int abc_primary_text_disable_only_material_dark = 2131034122;
-			
-			// aapt resource value: 0x7F05000B
-			public const int abc_primary_text_disable_only_material_light = 2131034123;
-			
-			// aapt resource value: 0x7F05000C
-			public const int abc_primary_text_material_dark = 2131034124;
-			
-			// aapt resource value: 0x7F05000D
-			public const int abc_primary_text_material_light = 2131034125;
-			
-			// aapt resource value: 0x7F05000E
-			public const int abc_search_url_text = 2131034126;
-			
-			// aapt resource value: 0x7F05000F
-			public const int abc_search_url_text_normal = 2131034127;
-			
-			// aapt resource value: 0x7F050010
-			public const int abc_search_url_text_pressed = 2131034128;
-			
-			// aapt resource value: 0x7F050011
-			public const int abc_search_url_text_selected = 2131034129;
-			
-			// aapt resource value: 0x7F050012
-			public const int abc_secondary_text_material_dark = 2131034130;
-			
-			// aapt resource value: 0x7F050013
-			public const int abc_secondary_text_material_light = 2131034131;
-			
-			// aapt resource value: 0x7F050014
-			public const int abc_tint_btn_checkable = 2131034132;
-			
-			// aapt resource value: 0x7F050015
-			public const int abc_tint_default = 2131034133;
-			
-			// aapt resource value: 0x7F050016
-			public const int abc_tint_edittext = 2131034134;
-			
-			// aapt resource value: 0x7F050017
-			public const int abc_tint_seek_thumb = 2131034135;
-			
-			// aapt resource value: 0x7F050018
-			public const int abc_tint_spinner = 2131034136;
-			
-			// aapt resource value: 0x7F050019
-			public const int abc_tint_switch_track = 2131034137;
-			
-			// aapt resource value: 0x7F05001A
-			public const int accent_material_dark = 2131034138;
-			
-			// aapt resource value: 0x7F05001B
-			public const int accent_material_light = 2131034139;
-			
-			// aapt resource value: 0x7F05001C
-			public const int background_floating_material_dark = 2131034140;
-			
-			// aapt resource value: 0x7F05001D
-			public const int background_floating_material_light = 2131034141;
-			
-			// aapt resource value: 0x7F05001E
-			public const int background_material_dark = 2131034142;
-			
-			// aapt resource value: 0x7F05001F
-			public const int background_material_light = 2131034143;
-			
-			// aapt resource value: 0x7F050020
-			public const int bright_foreground_disabled_material_dark = 2131034144;
-			
-			// aapt resource value: 0x7F050021
-			public const int bright_foreground_disabled_material_light = 2131034145;
-			
-			// aapt resource value: 0x7F050022
-			public const int bright_foreground_inverse_material_dark = 2131034146;
-			
-			// aapt resource value: 0x7F050023
-			public const int bright_foreground_inverse_material_light = 2131034147;
-			
-			// aapt resource value: 0x7F050024
-			public const int bright_foreground_material_dark = 2131034148;
-			
-			// aapt resource value: 0x7F050025
-			public const int bright_foreground_material_light = 2131034149;
-			
-			// aapt resource value: 0x7F050026
-			public const int browser_actions_bg_grey = 2131034150;
-			
-			// aapt resource value: 0x7F050027
-			public const int browser_actions_divider_color = 2131034151;
-			
-			// aapt resource value: 0x7F050028
-			public const int browser_actions_text_color = 2131034152;
-			
-			// aapt resource value: 0x7F050029
-			public const int browser_actions_title_color = 2131034153;
-			
-			// aapt resource value: 0x7F05002A
-			public const int button_material_dark = 2131034154;
-			
-			// aapt resource value: 0x7F05002B
-			public const int button_material_light = 2131034155;
-			
-			// aapt resource value: 0x7F05002C
-			public const int cardview_dark_background = 2131034156;
-			
-			// aapt resource value: 0x7F05002D
-			public const int cardview_light_background = 2131034157;
-			
-			// aapt resource value: 0x7F05002E
-			public const int cardview_shadow_end_color = 2131034158;
-			
-			// aapt resource value: 0x7F05002F
-			public const int cardview_shadow_start_color = 2131034159;
-			
-			// aapt resource value: 0x7F050030
-			public const int colorAccent = 2131034160;
-			
-			// aapt resource value: 0x7F050031
-			public const int colorPrimary = 2131034161;
-			
-			// aapt resource value: 0x7F050032
-			public const int colorPrimaryDark = 2131034162;
-			
-			// aapt resource value: 0x7F050033
-			public const int control_checkable_material = 2131034163;
-			
-			// aapt resource value: 0x7F050034
-			public const int design_bottom_navigation_shadow_color = 2131034164;
-			
-			// aapt resource value: 0x7F050035
-			public const int design_default_color_primary = 2131034165;
-			
-			// aapt resource value: 0x7F050036
-			public const int design_default_color_primary_dark = 2131034166;
-			
-			// aapt resource value: 0x7F050037
-			public const int design_error = 2131034167;
-			
-			// aapt resource value: 0x7F050038
-			public const int design_fab_shadow_end_color = 2131034168;
-			
-			// aapt resource value: 0x7F050039
-			public const int design_fab_shadow_mid_color = 2131034169;
-			
-			// aapt resource value: 0x7F05003A
-			public const int design_fab_shadow_start_color = 2131034170;
-			
-			// aapt resource value: 0x7F05003B
-			public const int design_fab_stroke_end_inner_color = 2131034171;
-			
-			// aapt resource value: 0x7F05003C
-			public const int design_fab_stroke_end_outer_color = 2131034172;
-			
-			// aapt resource value: 0x7F05003D
-			public const int design_fab_stroke_top_inner_color = 2131034173;
-			
-			// aapt resource value: 0x7F05003E
-			public const int design_fab_stroke_top_outer_color = 2131034174;
-			
-			// aapt resource value: 0x7F05003F
-			public const int design_snackbar_background_color = 2131034175;
-			
-			// aapt resource value: 0x7F050040
-			public const int design_tint_password_toggle = 2131034176;
-			
-			// aapt resource value: 0x7F050041
-			public const int dim_foreground_disabled_material_dark = 2131034177;
-			
-			// aapt resource value: 0x7F050042
-			public const int dim_foreground_disabled_material_light = 2131034178;
-			
-			// aapt resource value: 0x7F050043
-			public const int dim_foreground_material_dark = 2131034179;
-			
-			// aapt resource value: 0x7F050044
-			public const int dim_foreground_material_light = 2131034180;
-			
-			// aapt resource value: 0x7F050045
-			public const int error_color_material_dark = 2131034181;
-			
-			// aapt resource value: 0x7F050046
-			public const int error_color_material_light = 2131034182;
-			
-			// aapt resource value: 0x7F050047
-			public const int foreground_material_dark = 2131034183;
-			
-			// aapt resource value: 0x7F050048
-			public const int foreground_material_light = 2131034184;
-			
-			// aapt resource value: 0x7F050049
-			public const int highlighted_text_material_dark = 2131034185;
-			
-			// aapt resource value: 0x7F05004A
-			public const int highlighted_text_material_light = 2131034186;
-			
-			// aapt resource value: 0x7F05004B
-			public const int launcher_background = 2131034187;
-			
 			// aapt resource value: 0x7F050000
-			public const int ListViewHighlighted = 2131034112;
+			public const int abc_background_cache_hint_selector_material_dark = 2131034112;
 			
 			// aapt resource value: 0x7F050001
-			public const int ListViewSelected = 2131034113;
+			public const int abc_background_cache_hint_selector_material_light = 2131034113;
+			
+			// aapt resource value: 0x7F050002
+			public const int abc_btn_colored_borderless_text_material = 2131034114;
+			
+			// aapt resource value: 0x7F050003
+			public const int abc_btn_colored_text_material = 2131034115;
+			
+			// aapt resource value: 0x7F050004
+			public const int abc_color_highlight_material = 2131034116;
+			
+			// aapt resource value: 0x7F050005
+			public const int abc_hint_foreground_material_dark = 2131034117;
+			
+			// aapt resource value: 0x7F050006
+			public const int abc_hint_foreground_material_light = 2131034118;
+			
+			// aapt resource value: 0x7F050007
+			public const int abc_input_method_navigation_guard = 2131034119;
+			
+			// aapt resource value: 0x7F050008
+			public const int abc_primary_text_disable_only_material_dark = 2131034120;
+			
+			// aapt resource value: 0x7F050009
+			public const int abc_primary_text_disable_only_material_light = 2131034121;
+			
+			// aapt resource value: 0x7F05000A
+			public const int abc_primary_text_material_dark = 2131034122;
+			
+			// aapt resource value: 0x7F05000B
+			public const int abc_primary_text_material_light = 2131034123;
+			
+			// aapt resource value: 0x7F05000C
+			public const int abc_search_url_text = 2131034124;
+			
+			// aapt resource value: 0x7F05000D
+			public const int abc_search_url_text_normal = 2131034125;
+			
+			// aapt resource value: 0x7F05000E
+			public const int abc_search_url_text_pressed = 2131034126;
+			
+			// aapt resource value: 0x7F05000F
+			public const int abc_search_url_text_selected = 2131034127;
+			
+			// aapt resource value: 0x7F050010
+			public const int abc_secondary_text_material_dark = 2131034128;
+			
+			// aapt resource value: 0x7F050011
+			public const int abc_secondary_text_material_light = 2131034129;
+			
+			// aapt resource value: 0x7F050012
+			public const int abc_tint_btn_checkable = 2131034130;
+			
+			// aapt resource value: 0x7F050013
+			public const int abc_tint_default = 2131034131;
+			
+			// aapt resource value: 0x7F050014
+			public const int abc_tint_edittext = 2131034132;
+			
+			// aapt resource value: 0x7F050015
+			public const int abc_tint_seek_thumb = 2131034133;
+			
+			// aapt resource value: 0x7F050016
+			public const int abc_tint_spinner = 2131034134;
+			
+			// aapt resource value: 0x7F050017
+			public const int abc_tint_switch_track = 2131034135;
+			
+			// aapt resource value: 0x7F050018
+			public const int accent_material_dark = 2131034136;
+			
+			// aapt resource value: 0x7F050019
+			public const int accent_material_light = 2131034137;
+			
+			// aapt resource value: 0x7F05001A
+			public const int background_floating_material_dark = 2131034138;
+			
+			// aapt resource value: 0x7F05001B
+			public const int background_floating_material_light = 2131034139;
+			
+			// aapt resource value: 0x7F05001C
+			public const int background_material_dark = 2131034140;
+			
+			// aapt resource value: 0x7F05001D
+			public const int background_material_light = 2131034141;
+			
+			// aapt resource value: 0x7F05001E
+			public const int bright_foreground_disabled_material_dark = 2131034142;
+			
+			// aapt resource value: 0x7F05001F
+			public const int bright_foreground_disabled_material_light = 2131034143;
+			
+			// aapt resource value: 0x7F050020
+			public const int bright_foreground_inverse_material_dark = 2131034144;
+			
+			// aapt resource value: 0x7F050021
+			public const int bright_foreground_inverse_material_light = 2131034145;
+			
+			// aapt resource value: 0x7F050022
+			public const int bright_foreground_material_dark = 2131034146;
+			
+			// aapt resource value: 0x7F050023
+			public const int bright_foreground_material_light = 2131034147;
+			
+			// aapt resource value: 0x7F050024
+			public const int browser_actions_bg_grey = 2131034148;
+			
+			// aapt resource value: 0x7F050025
+			public const int browser_actions_divider_color = 2131034149;
+			
+			// aapt resource value: 0x7F050026
+			public const int browser_actions_text_color = 2131034150;
+			
+			// aapt resource value: 0x7F050027
+			public const int browser_actions_title_color = 2131034151;
+			
+			// aapt resource value: 0x7F050028
+			public const int button_material_dark = 2131034152;
+			
+			// aapt resource value: 0x7F050029
+			public const int button_material_light = 2131034153;
+			
+			// aapt resource value: 0x7F05002A
+			public const int cardview_dark_background = 2131034154;
+			
+			// aapt resource value: 0x7F05002B
+			public const int cardview_light_background = 2131034155;
+			
+			// aapt resource value: 0x7F05002C
+			public const int cardview_shadow_end_color = 2131034156;
+			
+			// aapt resource value: 0x7F05002D
+			public const int cardview_shadow_start_color = 2131034157;
+			
+			// aapt resource value: 0x7F05002E
+			public const int colorListViewHighlighted = 2131034158;
+			
+			// aapt resource value: 0x7F05002F
+			public const int control_checkable_material = 2131034159;
+			
+			// aapt resource value: 0x7F050030
+			public const int design_bottom_navigation_shadow_color = 2131034160;
+			
+			// aapt resource value: 0x7F050031
+			public const int design_default_color_primary = 2131034161;
+			
+			// aapt resource value: 0x7F050032
+			public const int design_default_color_primary_dark = 2131034162;
+			
+			// aapt resource value: 0x7F050033
+			public const int design_error = 2131034163;
+			
+			// aapt resource value: 0x7F050034
+			public const int design_fab_shadow_end_color = 2131034164;
+			
+			// aapt resource value: 0x7F050035
+			public const int design_fab_shadow_mid_color = 2131034165;
+			
+			// aapt resource value: 0x7F050036
+			public const int design_fab_shadow_start_color = 2131034166;
+			
+			// aapt resource value: 0x7F050037
+			public const int design_fab_stroke_end_inner_color = 2131034167;
+			
+			// aapt resource value: 0x7F050038
+			public const int design_fab_stroke_end_outer_color = 2131034168;
+			
+			// aapt resource value: 0x7F050039
+			public const int design_fab_stroke_top_inner_color = 2131034169;
+			
+			// aapt resource value: 0x7F05003A
+			public const int design_fab_stroke_top_outer_color = 2131034170;
+			
+			// aapt resource value: 0x7F05003B
+			public const int design_snackbar_background_color = 2131034171;
+			
+			// aapt resource value: 0x7F05003C
+			public const int design_tint_password_toggle = 2131034172;
+			
+			// aapt resource value: 0x7F05003D
+			public const int dim_foreground_disabled_material_dark = 2131034173;
+			
+			// aapt resource value: 0x7F05003E
+			public const int dim_foreground_disabled_material_light = 2131034174;
+			
+			// aapt resource value: 0x7F05003F
+			public const int dim_foreground_material_dark = 2131034175;
+			
+			// aapt resource value: 0x7F050040
+			public const int dim_foreground_material_light = 2131034176;
+			
+			// aapt resource value: 0x7F050041
+			public const int error_color_material_dark = 2131034177;
+			
+			// aapt resource value: 0x7F050042
+			public const int error_color_material_light = 2131034178;
+			
+			// aapt resource value: 0x7F050043
+			public const int foreground_material_dark = 2131034179;
+			
+			// aapt resource value: 0x7F050044
+			public const int foreground_material_light = 2131034180;
+			
+			// aapt resource value: 0x7F050045
+			public const int highlighted_text_material_dark = 2131034181;
+			
+			// aapt resource value: 0x7F050046
+			public const int highlighted_text_material_light = 2131034182;
+			
+			// aapt resource value: 0x7F050047
+			public const int launcher_background = 2131034183;
+			
+			// aapt resource value: 0x7F050048
+			public const int material_blue_grey_800 = 2131034184;
+			
+			// aapt resource value: 0x7F050049
+			public const int material_blue_grey_900 = 2131034185;
+			
+			// aapt resource value: 0x7F05004A
+			public const int material_blue_grey_950 = 2131034186;
+			
+			// aapt resource value: 0x7F05004B
+			public const int material_deep_teal_200 = 2131034187;
 			
 			// aapt resource value: 0x7F05004C
-			public const int material_blue_grey_800 = 2131034188;
+			public const int material_deep_teal_500 = 2131034188;
 			
 			// aapt resource value: 0x7F05004D
-			public const int material_blue_grey_900 = 2131034189;
+			public const int material_grey_100 = 2131034189;
 			
 			// aapt resource value: 0x7F05004E
-			public const int material_blue_grey_950 = 2131034190;
+			public const int material_grey_300 = 2131034190;
 			
 			// aapt resource value: 0x7F05004F
-			public const int material_deep_teal_200 = 2131034191;
+			public const int material_grey_50 = 2131034191;
 			
 			// aapt resource value: 0x7F050050
-			public const int material_deep_teal_500 = 2131034192;
+			public const int material_grey_600 = 2131034192;
 			
 			// aapt resource value: 0x7F050051
-			public const int material_grey_100 = 2131034193;
+			public const int material_grey_800 = 2131034193;
 			
 			// aapt resource value: 0x7F050052
-			public const int material_grey_300 = 2131034194;
+			public const int material_grey_850 = 2131034194;
 			
 			// aapt resource value: 0x7F050053
-			public const int material_grey_50 = 2131034195;
+			public const int material_grey_900 = 2131034195;
 			
 			// aapt resource value: 0x7F050054
-			public const int material_grey_600 = 2131034196;
+			public const int mtrl_bottom_nav_colored_item_tint = 2131034196;
 			
 			// aapt resource value: 0x7F050055
-			public const int material_grey_800 = 2131034197;
+			public const int mtrl_bottom_nav_item_tint = 2131034197;
 			
 			// aapt resource value: 0x7F050056
-			public const int material_grey_850 = 2131034198;
+			public const int mtrl_btn_bg_color_disabled = 2131034198;
 			
 			// aapt resource value: 0x7F050057
-			public const int material_grey_900 = 2131034199;
+			public const int mtrl_btn_bg_color_selector = 2131034199;
 			
 			// aapt resource value: 0x7F050058
-			public const int mtrl_bottom_nav_colored_item_tint = 2131034200;
+			public const int mtrl_btn_ripple_color = 2131034200;
 			
 			// aapt resource value: 0x7F050059
-			public const int mtrl_bottom_nav_item_tint = 2131034201;
+			public const int mtrl_btn_stroke_color_selector = 2131034201;
 			
 			// aapt resource value: 0x7F05005A
-			public const int mtrl_btn_bg_color_disabled = 2131034202;
+			public const int mtrl_btn_text_btn_ripple_color = 2131034202;
 			
 			// aapt resource value: 0x7F05005B
-			public const int mtrl_btn_bg_color_selector = 2131034203;
+			public const int mtrl_btn_text_color_disabled = 2131034203;
 			
 			// aapt resource value: 0x7F05005C
-			public const int mtrl_btn_ripple_color = 2131034204;
+			public const int mtrl_btn_text_color_selector = 2131034204;
 			
 			// aapt resource value: 0x7F05005D
-			public const int mtrl_btn_stroke_color_selector = 2131034205;
+			public const int mtrl_btn_transparent_bg_color = 2131034205;
 			
 			// aapt resource value: 0x7F05005E
-			public const int mtrl_btn_text_btn_ripple_color = 2131034206;
+			public const int mtrl_chip_background_color = 2131034206;
 			
 			// aapt resource value: 0x7F05005F
-			public const int mtrl_btn_text_color_disabled = 2131034207;
+			public const int mtrl_chip_close_icon_tint = 2131034207;
 			
 			// aapt resource value: 0x7F050060
-			public const int mtrl_btn_text_color_selector = 2131034208;
+			public const int mtrl_chip_ripple_color = 2131034208;
 			
 			// aapt resource value: 0x7F050061
-			public const int mtrl_btn_transparent_bg_color = 2131034209;
+			public const int mtrl_chip_text_color = 2131034209;
 			
 			// aapt resource value: 0x7F050062
-			public const int mtrl_chip_background_color = 2131034210;
+			public const int mtrl_fab_ripple_color = 2131034210;
 			
 			// aapt resource value: 0x7F050063
-			public const int mtrl_chip_close_icon_tint = 2131034211;
+			public const int mtrl_scrim_color = 2131034211;
 			
 			// aapt resource value: 0x7F050064
-			public const int mtrl_chip_ripple_color = 2131034212;
+			public const int mtrl_tabs_colored_ripple_color = 2131034212;
 			
 			// aapt resource value: 0x7F050065
-			public const int mtrl_chip_text_color = 2131034213;
+			public const int mtrl_tabs_icon_color_selector = 2131034213;
 			
 			// aapt resource value: 0x7F050066
-			public const int mtrl_fab_ripple_color = 2131034214;
+			public const int mtrl_tabs_icon_color_selector_colored = 2131034214;
 			
 			// aapt resource value: 0x7F050067
-			public const int mtrl_scrim_color = 2131034215;
+			public const int mtrl_tabs_legacy_text_color_selector = 2131034215;
 			
 			// aapt resource value: 0x7F050068
-			public const int mtrl_tabs_colored_ripple_color = 2131034216;
-			
-			// aapt resource value: 0x7F050069
-			public const int mtrl_tabs_icon_color_selector = 2131034217;
+			public const int mtrl_tabs_ripple_color = 2131034216;
 			
 			// aapt resource value: 0x7F05006A
-			public const int mtrl_tabs_icon_color_selector_colored = 2131034218;
+			public const int mtrl_textinput_default_box_stroke_color = 2131034218;
 			
 			// aapt resource value: 0x7F05006B
-			public const int mtrl_tabs_legacy_text_color_selector = 2131034219;
+			public const int mtrl_textinput_disabled_color = 2131034219;
 			
 			// aapt resource value: 0x7F05006C
-			public const int mtrl_tabs_ripple_color = 2131034220;
-			
-			// aapt resource value: 0x7F05006E
-			public const int mtrl_textinput_default_box_stroke_color = 2131034222;
-			
-			// aapt resource value: 0x7F05006F
-			public const int mtrl_textinput_disabled_color = 2131034223;
-			
-			// aapt resource value: 0x7F050070
-			public const int mtrl_textinput_filled_box_default_background_color = 2131034224;
-			
-			// aapt resource value: 0x7F050071
-			public const int mtrl_textinput_hovered_box_stroke_color = 2131034225;
+			public const int mtrl_textinput_filled_box_default_background_color = 2131034220;
 			
 			// aapt resource value: 0x7F05006D
-			public const int mtrl_text_btn_text_color_selector = 2131034221;
+			public const int mtrl_textinput_hovered_box_stroke_color = 2131034221;
+			
+			// aapt resource value: 0x7F050069
+			public const int mtrl_text_btn_text_color_selector = 2131034217;
+			
+			// aapt resource value: 0x7F05006E
+			public const int notification_action_color_filter = 2131034222;
+			
+			// aapt resource value: 0x7F05006F
+			public const int notification_icon_bg_color = 2131034223;
+			
+			// aapt resource value: 0x7F050070
+			public const int notification_material_background_media_default_color = 2131034224;
+			
+			// aapt resource value: 0x7F050071
+			public const int primary_dark_material_dark = 2131034225;
 			
 			// aapt resource value: 0x7F050072
-			public const int notification_action_color_filter = 2131034226;
+			public const int primary_dark_material_light = 2131034226;
 			
 			// aapt resource value: 0x7F050073
-			public const int notification_icon_bg_color = 2131034227;
+			public const int primary_material_dark = 2131034227;
 			
 			// aapt resource value: 0x7F050074
-			public const int notification_material_background_media_default_color = 2131034228;
+			public const int primary_material_light = 2131034228;
 			
 			// aapt resource value: 0x7F050075
-			public const int primary_dark_material_dark = 2131034229;
+			public const int primary_text_default_material_dark = 2131034229;
 			
 			// aapt resource value: 0x7F050076
-			public const int primary_dark_material_light = 2131034230;
+			public const int primary_text_default_material_light = 2131034230;
 			
 			// aapt resource value: 0x7F050077
-			public const int primary_material_dark = 2131034231;
+			public const int primary_text_disabled_material_dark = 2131034231;
 			
 			// aapt resource value: 0x7F050078
-			public const int primary_material_light = 2131034232;
+			public const int primary_text_disabled_material_light = 2131034232;
 			
 			// aapt resource value: 0x7F050079
-			public const int primary_text_default_material_dark = 2131034233;
+			public const int ripple_material_dark = 2131034233;
 			
 			// aapt resource value: 0x7F05007A
-			public const int primary_text_default_material_light = 2131034234;
+			public const int ripple_material_light = 2131034234;
 			
 			// aapt resource value: 0x7F05007B
-			public const int primary_text_disabled_material_dark = 2131034235;
+			public const int secondary_text_default_material_dark = 2131034235;
 			
 			// aapt resource value: 0x7F05007C
-			public const int primary_text_disabled_material_light = 2131034236;
+			public const int secondary_text_default_material_light = 2131034236;
 			
 			// aapt resource value: 0x7F05007D
-			public const int ripple_material_dark = 2131034237;
+			public const int secondary_text_disabled_material_dark = 2131034237;
 			
 			// aapt resource value: 0x7F05007E
-			public const int ripple_material_light = 2131034238;
+			public const int secondary_text_disabled_material_light = 2131034238;
 			
 			// aapt resource value: 0x7F05007F
-			public const int secondary_text_default_material_dark = 2131034239;
+			public const int splash_background = 2131034239;
 			
 			// aapt resource value: 0x7F050080
-			public const int secondary_text_default_material_light = 2131034240;
+			public const int switch_thumb_disabled_material_dark = 2131034240;
 			
 			// aapt resource value: 0x7F050081
-			public const int secondary_text_disabled_material_dark = 2131034241;
+			public const int switch_thumb_disabled_material_light = 2131034241;
 			
 			// aapt resource value: 0x7F050082
-			public const int secondary_text_disabled_material_light = 2131034242;
+			public const int switch_thumb_material_dark = 2131034242;
 			
 			// aapt resource value: 0x7F050083
-			public const int splash_background = 2131034243;
+			public const int switch_thumb_material_light = 2131034243;
 			
 			// aapt resource value: 0x7F050084
-			public const int switch_thumb_disabled_material_dark = 2131034244;
+			public const int switch_thumb_normal_material_dark = 2131034244;
 			
 			// aapt resource value: 0x7F050085
-			public const int switch_thumb_disabled_material_light = 2131034245;
+			public const int switch_thumb_normal_material_light = 2131034245;
 			
 			// aapt resource value: 0x7F050086
-			public const int switch_thumb_material_dark = 2131034246;
+			public const int tooltip_background_dark = 2131034246;
 			
 			// aapt resource value: 0x7F050087
-			public const int switch_thumb_material_light = 2131034247;
-			
-			// aapt resource value: 0x7F050088
-			public const int switch_thumb_normal_material_dark = 2131034248;
-			
-			// aapt resource value: 0x7F050089
-			public const int switch_thumb_normal_material_light = 2131034249;
-			
-			// aapt resource value: 0x7F05008A
-			public const int tooltip_background_dark = 2131034250;
-			
-			// aapt resource value: 0x7F05008B
-			public const int tooltip_background_light = 2131034251;
+			public const int tooltip_background_light = 2131034247;
 			
 			static Color()
 			{
@@ -8902,286 +11454,268 @@ namespace NureTimetable.Droid
 			public const int abc_vector_test = 2131165275;
 			
 			// aapt resource value: 0x7F07005C
-			public const int add = 2131165276;
+			public const int arrow_down = 2131165276;
 			
 			// aapt resource value: 0x7F07005D
-			public const int arrow_down = 2131165277;
+			public const int arrow_up = 2131165277;
 			
 			// aapt resource value: 0x7F07005E
-			public const int arrow_up = 2131165278;
+			public const int Avatar1 = 2131165278;
 			
 			// aapt resource value: 0x7F07005F
-			public const int Avatar1 = 2131165279;
+			public const int Avatar10 = 2131165279;
 			
 			// aapt resource value: 0x7F070060
-			public const int Avatar10 = 2131165280;
+			public const int Avatar11 = 2131165280;
 			
 			// aapt resource value: 0x7F070061
-			public const int Avatar11 = 2131165281;
+			public const int Avatar12 = 2131165281;
 			
 			// aapt resource value: 0x7F070062
-			public const int Avatar12 = 2131165282;
+			public const int Avatar13 = 2131165282;
 			
 			// aapt resource value: 0x7F070063
-			public const int Avatar13 = 2131165283;
+			public const int Avatar14 = 2131165283;
 			
 			// aapt resource value: 0x7F070064
-			public const int Avatar14 = 2131165284;
+			public const int Avatar15 = 2131165284;
 			
 			// aapt resource value: 0x7F070065
-			public const int Avatar15 = 2131165285;
+			public const int Avatar16 = 2131165285;
 			
 			// aapt resource value: 0x7F070066
-			public const int Avatar16 = 2131165286;
+			public const int Avatar17 = 2131165286;
 			
 			// aapt resource value: 0x7F070067
-			public const int Avatar17 = 2131165287;
+			public const int Avatar18 = 2131165287;
 			
 			// aapt resource value: 0x7F070068
-			public const int Avatar18 = 2131165288;
+			public const int Avatar19 = 2131165288;
 			
 			// aapt resource value: 0x7F070069
-			public const int Avatar19 = 2131165289;
+			public const int Avatar2 = 2131165289;
 			
 			// aapt resource value: 0x7F07006A
-			public const int Avatar2 = 2131165290;
+			public const int Avatar20 = 2131165290;
 			
 			// aapt resource value: 0x7F07006B
-			public const int Avatar20 = 2131165291;
+			public const int Avatar21 = 2131165291;
 			
 			// aapt resource value: 0x7F07006C
-			public const int Avatar21 = 2131165292;
+			public const int Avatar22 = 2131165292;
 			
 			// aapt resource value: 0x7F07006D
-			public const int Avatar22 = 2131165293;
+			public const int Avatar23 = 2131165293;
 			
 			// aapt resource value: 0x7F07006E
-			public const int Avatar23 = 2131165294;
+			public const int Avatar24 = 2131165294;
 			
 			// aapt resource value: 0x7F07006F
-			public const int Avatar24 = 2131165295;
+			public const int Avatar25 = 2131165295;
 			
 			// aapt resource value: 0x7F070070
-			public const int Avatar25 = 2131165296;
+			public const int Avatar26 = 2131165296;
 			
 			// aapt resource value: 0x7F070071
-			public const int Avatar26 = 2131165297;
+			public const int Avatar27 = 2131165297;
 			
 			// aapt resource value: 0x7F070072
-			public const int Avatar27 = 2131165298;
+			public const int Avatar28 = 2131165298;
 			
 			// aapt resource value: 0x7F070073
-			public const int Avatar28 = 2131165299;
+			public const int Avatar29 = 2131165299;
 			
 			// aapt resource value: 0x7F070074
-			public const int Avatar29 = 2131165300;
+			public const int Avatar3 = 2131165300;
 			
 			// aapt resource value: 0x7F070075
-			public const int Avatar3 = 2131165301;
+			public const int Avatar30 = 2131165301;
 			
 			// aapt resource value: 0x7F070076
-			public const int Avatar30 = 2131165302;
+			public const int Avatar4 = 2131165302;
 			
 			// aapt resource value: 0x7F070077
-			public const int Avatar4 = 2131165303;
+			public const int Avatar5 = 2131165303;
 			
 			// aapt resource value: 0x7F070078
-			public const int Avatar5 = 2131165304;
+			public const int Avatar6 = 2131165304;
 			
 			// aapt resource value: 0x7F070079
-			public const int Avatar6 = 2131165305;
+			public const int Avatar7 = 2131165305;
 			
 			// aapt resource value: 0x7F07007A
-			public const int Avatar7 = 2131165306;
+			public const int Avatar8 = 2131165306;
 			
 			// aapt resource value: 0x7F07007B
-			public const int Avatar8 = 2131165307;
+			public const int Avatar9 = 2131165307;
 			
 			// aapt resource value: 0x7F07007C
-			public const int Avatar9 = 2131165308;
+			public const int avd_hide_password = 2131165308;
 			
 			// aapt resource value: 0x7F07007D
-			public const int avd_hide_password = 2131165309;
+			public const int avd_show_password = 2131165309;
 			
 			// aapt resource value: 0x7F07007E
-			public const int avd_show_password = 2131165310;
+			public const int btn_checkbox = 2131165310;
 			
 			// aapt resource value: 0x7F07007F
-			public const int btn_checkbox = 2131165311;
+			public const int btn_checkbox_checked = 2131165311;
 			
 			// aapt resource value: 0x7F070080
-			public const int btn_checkbox_checked = 2131165312;
+			public const int btn_checkbox_checked_mtrl = 2131165312;
 			
 			// aapt resource value: 0x7F070081
-			public const int btn_checkbox_checked_mtrl = 2131165313;
+			public const int btn_checkbox_checked_to_indeterminate_animation = 2131165313;
 			
 			// aapt resource value: 0x7F070082
-			public const int btn_checkbox_checked_to_indeterminate_animation = 2131165314;
+			public const int btn_checkbox_checked_to_unchecked_animation = 2131165314;
 			
 			// aapt resource value: 0x7F070083
-			public const int btn_checkbox_checked_to_unchecked_animation = 2131165315;
+			public const int btn_checkbox_checked_to_unchecked_mtrl_animation = 2131165315;
 			
 			// aapt resource value: 0x7F070084
-			public const int btn_checkbox_checked_to_unchecked_mtrl_animation = 2131165316;
+			public const int btn_checkbox_indeterminate = 2131165316;
 			
 			// aapt resource value: 0x7F070085
-			public const int btn_checkbox_indeterminate = 2131165317;
+			public const int btn_checkbox_indeterminate_to_checked_animation = 2131165317;
 			
 			// aapt resource value: 0x7F070086
-			public const int btn_checkbox_indeterminate_to_checked_animation = 2131165318;
+			public const int btn_checkbox_indeterminate_to_unchecked_animation = 2131165318;
 			
 			// aapt resource value: 0x7F070087
-			public const int btn_checkbox_indeterminate_to_unchecked_animation = 2131165319;
+			public const int btn_checkbox_unchecked = 2131165319;
 			
 			// aapt resource value: 0x7F070088
-			public const int btn_checkbox_unchecked = 2131165320;
+			public const int btn_checkbox_unchecked_mtrl = 2131165320;
 			
 			// aapt resource value: 0x7F070089
-			public const int btn_checkbox_unchecked_mtrl = 2131165321;
+			public const int btn_checkbox_unchecked_to_checked_animation = 2131165321;
 			
 			// aapt resource value: 0x7F07008A
-			public const int btn_checkbox_unchecked_to_checked_animation = 2131165322;
+			public const int btn_checkbox_unchecked_to_checked_mtrl_animation = 2131165322;
 			
 			// aapt resource value: 0x7F07008B
-			public const int btn_checkbox_unchecked_to_checked_mtrl_animation = 2131165323;
+			public const int btn_checkbox_unchecked_to_indeterminate_animation = 2131165323;
 			
 			// aapt resource value: 0x7F07008C
-			public const int btn_checkbox_unchecked_to_indeterminate_animation = 2131165324;
+			public const int btn_radio_off_mtrl = 2131165324;
 			
 			// aapt resource value: 0x7F07008D
-			public const int btn_radio_off_mtrl = 2131165325;
+			public const int btn_radio_off_to_on_mtrl_animation = 2131165325;
 			
 			// aapt resource value: 0x7F07008E
-			public const int btn_radio_off_to_on_mtrl_animation = 2131165326;
+			public const int btn_radio_on_mtrl = 2131165326;
 			
 			// aapt resource value: 0x7F07008F
-			public const int btn_radio_on_mtrl = 2131165327;
+			public const int btn_radio_on_to_off_mtrl_animation = 2131165327;
 			
 			// aapt resource value: 0x7F070090
-			public const int btn_radio_on_to_off_mtrl_animation = 2131165328;
+			public const int clear_button_icon = 2131165328;
 			
 			// aapt resource value: 0x7F070091
-			public const int clear_button_icon = 2131165329;
+			public const int coin = 2131165329;
 			
 			// aapt resource value: 0x7F070092
-			public const int coin = 2131165330;
+			public const int design_bottom_navigation_item_background = 2131165330;
 			
 			// aapt resource value: 0x7F070093
-			public const int design_bottom_navigation_item_background = 2131165331;
+			public const int design_fab_background = 2131165331;
 			
 			// aapt resource value: 0x7F070094
-			public const int design_fab_background = 2131165332;
+			public const int design_ic_visibility = 2131165332;
 			
 			// aapt resource value: 0x7F070095
-			public const int design_ic_visibility = 2131165333;
+			public const int design_ic_visibility_off = 2131165333;
 			
 			// aapt resource value: 0x7F070096
-			public const int design_ic_visibility_off = 2131165334;
+			public const int design_password_eye = 2131165334;
 			
 			// aapt resource value: 0x7F070097
-			public const int design_password_eye = 2131165335;
+			public const int design_snackbar_background = 2131165335;
 			
 			// aapt resource value: 0x7F070098
-			public const int design_snackbar_background = 2131165336;
+			public const int filter = 2131165336;
 			
 			// aapt resource value: 0x7F070099
-			public const int filter = 2131165337;
-			
-			// aapt resource value: 0x7F07009A
-			public const int filter_outline = 2131165338;
-			
-			// aapt resource value: 0x7F07009B
-			public const int group = 2131165339;
-			
-			// aapt resource value: 0x7F07009F
-			public const int icon = 2131165343;
-			
-			// aapt resource value: 0x7F07009C
-			public const int ic_mtrl_chip_checked_black = 2131165340;
+			public const int filter_outline = 2131165337;
 			
 			// aapt resource value: 0x7F07009D
-			public const int ic_mtrl_chip_checked_circle = 2131165341;
+			public const int icon = 2131165341;
 			
-			// aapt resource value: 0x7F07009E
-			public const int ic_mtrl_chip_close_circle = 2131165342;
+			// aapt resource value: 0x7F07009A
+			public const int ic_mtrl_chip_checked_black = 2131165338;
+			
+			// aapt resource value: 0x7F07009B
+			public const int ic_mtrl_chip_checked_circle = 2131165339;
+			
+			// aapt resource value: 0x7F07009C
+			public const int ic_mtrl_chip_close_circle = 2131165340;
+			
+			// aapt resource value: 0x7F07009F
+			public const int inputlayout_togglecollapseicon = 2131165343;
 			
 			// aapt resource value: 0x7F0700A0
-			public const int info = 2131165344;
+			public const int inputlayout_togglevisibleicon = 2131165344;
 			
-			// aapt resource value: 0x7F0700A2
-			public const int inputlayout_togglecollapseicon = 2131165346;
-			
-			// aapt resource value: 0x7F0700A3
-			public const int inputlayout_togglevisibleicon = 2131165347;
+			// aapt resource value: 0x7F07009E
+			public const int input_layout_drop_down_icon = 2131165342;
 			
 			// aapt resource value: 0x7F0700A1
-			public const int input_layout_drop_down_icon = 2131165345;
+			public const int mtrl_snackbar_background = 2131165345;
+			
+			// aapt resource value: 0x7F0700A2
+			public const int mtrl_tabs_default_indicator = 2131165346;
+			
+			// aapt resource value: 0x7F0700A3
+			public const int navigation_empty_icon = 2131165347;
 			
 			// aapt resource value: 0x7F0700A4
-			public const int mtrl_snackbar_background = 2131165348;
+			public const int notification_action_background = 2131165348;
 			
 			// aapt resource value: 0x7F0700A5
-			public const int mtrl_tabs_default_indicator = 2131165349;
+			public const int notification_bg = 2131165349;
 			
 			// aapt resource value: 0x7F0700A6
-			public const int navigation_empty_icon = 2131165350;
+			public const int notification_bg_low = 2131165350;
 			
 			// aapt resource value: 0x7F0700A7
-			public const int notification_action_background = 2131165351;
+			public const int notification_bg_low_normal = 2131165351;
 			
 			// aapt resource value: 0x7F0700A8
-			public const int notification_bg = 2131165352;
+			public const int notification_bg_low_pressed = 2131165352;
 			
 			// aapt resource value: 0x7F0700A9
-			public const int notification_bg_low = 2131165353;
+			public const int notification_bg_normal = 2131165353;
 			
 			// aapt resource value: 0x7F0700AA
-			public const int notification_bg_low_normal = 2131165354;
+			public const int notification_bg_normal_pressed = 2131165354;
 			
 			// aapt resource value: 0x7F0700AB
-			public const int notification_bg_low_pressed = 2131165355;
+			public const int notification_icon_background = 2131165355;
 			
 			// aapt resource value: 0x7F0700AC
-			public const int notification_bg_normal = 2131165356;
+			public const int notification_template_icon_bg = 2131165356;
 			
 			// aapt resource value: 0x7F0700AD
-			public const int notification_bg_normal_pressed = 2131165357;
+			public const int notification_template_icon_low_bg = 2131165357;
 			
 			// aapt resource value: 0x7F0700AE
-			public const int notification_icon_background = 2131165358;
+			public const int notification_tile_bg = 2131165358;
 			
 			// aapt resource value: 0x7F0700AF
-			public const int notification_template_icon_bg = 2131165359;
+			public const int notify_panel_notification_icon_bg = 2131165359;
 			
 			// aapt resource value: 0x7F0700B0
-			public const int notification_template_icon_low_bg = 2131165360;
+			public const int Recurrence = 2131165360;
 			
 			// aapt resource value: 0x7F0700B1
-			public const int notification_tile_bg = 2131165361;
+			public const int splash = 2131165361;
 			
 			// aapt resource value: 0x7F0700B2
-			public const int notify_panel_notification_icon_bg = 2131165362;
+			public const int tooltip_frame_dark = 2131165362;
 			
 			// aapt resource value: 0x7F0700B3
-			public const int Recurrence = 2131165363;
-			
-			// aapt resource value: 0x7F0700B4
-			public const int save = 2131165364;
-			
-			// aapt resource value: 0x7F0700B5
-			public const int splash = 2131165365;
-			
-			// aapt resource value: 0x7F0700B6
-			public const int today = 2131165366;
-			
-			// aapt resource value: 0x7F0700B7
-			public const int tooltip_frame_dark = 2131165367;
-			
-			// aapt resource value: 0x7F0700B8
-			public const int tooltip_frame_light = 2131165368;
-			
-			// aapt resource value: 0x7F0700B9
-			public const int update = 2131165369;
+			public const int tooltip_frame_light = 2131165363;
 			
 			static Drawable()
 			{

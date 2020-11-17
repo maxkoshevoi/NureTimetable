@@ -139,7 +139,7 @@
     <value>NURE official web-pages: </value>
   </data>
   <data name="ShowErrors" xml:space="preserve">
-    <value>Show errors</value>
+    <value>Show all errors</value>
   </data>
   <data name="StudentNure" xml:space="preserve">
     <value>Student NURE: </value>
@@ -316,7 +316,7 @@
     <value>An error occurred: {0}</value>
   </data>
   <data name="Feedback" xml:space="preserve">
-    <value>Feedback: </value>
+    <value>Feedback</value>
   </data>
   <data name="Groups" xml:space="preserve">
     <value>Groups</value>
@@ -451,5 +451,56 @@ Try again later, or try using different WIFI network or mobile internet connecti
   </data>
   <data name="CistOutOfMemory" xml:space="preserve">
     <value>Too much load on cist.nure.ua. Please try again later.</value>
+  </data>
+  <data name="UnsavedChangesMessage" xml:space="preserve">
+    <value>Close page without saving changes?</value>
+  </data>
+  <data name="UnsavedChangesTitle" xml:space="preserve">
+    <value>You have unsaved changes</value>
+  </data>
+  <data name="Events" xml:space="preserve">
+    <value>Events</value>
+  </data>
+  <data name="Menu" xml:space="preserve">
+    <value>Menu</value>
+  </data>
+  <data name="Timetables" xml:space="preserve">
+    <value>Timetables</value>
+  </data>
+  <data name="DarkTheme" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+  <data name="EnglishLanguage" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="FollowSystem" xml:space="preserve">
+    <value>Follow system</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="LightTheme" xml:space="preserve">
+    <value>Light</value>
+  </data>
+  <data name="RateTheApp" xml:space="preserve">
+    <value>Rate the app</value>
+  </data>
+  <data name="RussianLanguage" xml:space="preserve">
+    <value>Русский</value>
+  </data>
+  <data name="SourceCode" xml:space="preserve">
+    <value>Source code</value>
+  </data>
+  <data name="Theme" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="UkrainianLanguage" xml:space="preserve">
+    <value>Українська</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="RestartRequired" xml:space="preserve">
+    <value>Restart required</value>
   </data>
 </root>

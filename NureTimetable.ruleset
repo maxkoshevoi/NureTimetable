@@ -84,5 +84,6 @@
     <Rule Id="CA1801" Action="Info" />
     <Rule Id="CA1822" Action="Info" />
     <Rule Id="CA1805" Action="Info" />
+    <Rule Id="CA1310" Action="Info" />
   </Rules>
 </RuleSet>

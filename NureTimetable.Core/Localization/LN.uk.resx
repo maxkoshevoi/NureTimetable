@@ -1,0 +1,497 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AppDescription" xml:space="preserve">
+    <value>Це застосунок для розкладів груп</value>
+  </data>
+  <data name="AppName" xml:space="preserve">
+    <value>Розклад ХНУРЕ</value>
+  </data>
+  <data name="HelpfulLinks" xml:space="preserve">
+    <value>Корисні посилання</value>
+  </data>
+  <data name="HelpWanted" xml:space="preserve">
+    <value>Якщо в когось є досвід розробки на Xamarin та бажання допомогти, ось посилання на гітхаб: </value>
+  </data>
+  <data name="Institution" xml:space="preserve">
+    <value>ХНУРЕ</value>
+  </data>
+  <data name="NureHomepage" xml:space="preserve">
+    <value>Сайт</value>
+  </data>
+  <data name="NureWebpages" xml:space="preserve">
+    <value>Офіційні сторінки ХНУРЕ: </value>
+  </data>
+  <data name="ShowErrors" xml:space="preserve">
+    <value>Показувати усі помилки</value>
+  </data>
+  <data name="StudentNure" xml:space="preserve">
+    <value>Студент ХНУРЕ: </value>
+  </data>
+  <data name="About" xml:space="preserve">
+    <value>Про программу</value>
+  </data>
+  <data name="NoTimetable" xml:space="preserve">
+    <value>Додайте розклад для перегляду.</value>
+  </data>
+  <data name="AndWillAlwaysBe" xml:space="preserve">
+    <value>і завжди буде таким.</value>
+  </data>
+  <data name="DisplayLesson" xml:space="preserve">
+    <value>Показувати предмет</value>
+  </data>
+  <data name="DisplayLessonsForTypes" xml:space="preserve">
+    <value>Показувати типи занять для цього предмета:</value>
+  </data>
+  <data name="Donate" xml:space="preserve">
+    <value>Пожертвувати</value>
+  </data>
+  <data name="EmptyLessonsList" xml:space="preserve">
+    <value>В поточному розкладі відсутні предмети (можливо воно пусте).</value>
+  </data>
+  <data name="EventClassroom" xml:space="preserve">
+    <value>Аудиторія: {0}</value>
+  </data>
+  <data name="EventDay" xml:space="preserve">
+    <value>День: {0}</value>
+  </data>
+  <data name="EventTeachers" xml:space="preserve">
+    <value>Викладачі: {0}</value>
+  </data>
+  <data name="EventTeacherNotFound" xml:space="preserve">
+    <value>Викладач(ка): не знайдений(а)</value>
+  </data>
+  <data name="EventTime" xml:space="preserve">
+    <value>Час: {0} - {1}</value>
+  </data>
+  <data name="EventType" xml:space="preserve">
+    <value>Тип: {0}</value>
+  </data>
+  <data name="EntityLessonSettingsSaved" xml:space="preserve">
+    <value>Налаштування предметів для "{0}" успішно збережені.</value>
+  </data>
+  <data name="IsFree" xml:space="preserve">
+    <value> безкоштовний </value>
+  </data>
+  <data name="Lessons" xml:space="preserve">
+    <value>Предмети</value>
+  </data>
+  <data name="Notes" xml:space="preserve">
+    <value>Нотатки: </value>
+  </data>
+  <data name="SavingSettings" xml:space="preserve">
+    <value>Збереження налаштувань</value>
+  </data>
+  <data name="Thank" xml:space="preserve">
+    <value>Сказати дякую</value>
+  </data>
+  <data name="Thank2" xml:space="preserve">
+    <value>Сказати великие дякую</value>
+  </data>
+  <data name="Thank3" xml:space="preserve">
+    <value>Сказати величезне дякую</value>
+  </data>
+  <data name="ThisApp" xml:space="preserve">
+    <value>Цей застосунок</value>
+  </data>
+  <data name="Timetable" xml:space="preserve">
+    <value>Розклад</value>
+  </data>
+  <data name="TimetableDisplay" xml:space="preserve">
+    <value>Відображення розкладу</value>
+  </data>
+  <data name="TimetableDisplayError" xml:space="preserve">
+    <value>Виникла помилка при спробі відобразити розклад</value>
+  </data>
+  <data name="TimeUntilBreak" xml:space="preserve">
+    <value>До перерви ({0}): {1}</value>
+  </data>
+  <data name="TimeUntilLesson" xml:space="preserve">
+    <value>До {0} ({1}): {2}</value>
+  </data>
+  <data name="Wait" xml:space="preserve">
+    <value>Зачекайте...</value>
+  </data>
+  <data name="YourContribution" xml:space="preserve">
+    <value>Ваш внесок підтримує його розвиток та допмогає не відходити в небутяння.</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Відміна</value>
+  </data>
+  <data name="ChooseAction" xml:space="preserve">
+    <value>Оберіть дію</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Видалити</value>
+  </data>
+  <data name="ErrorTryAgainLater" xml:space="preserve">
+    <value>Виникла помилка.Будь ласка,спробуйте пізніше.</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>Ок</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Вибрати</value>
+  </data>
+  <data name="SetUpLessonDisplay" xml:space="preserve">
+    <value>Налаштування предметів</value>
+  </data>
+  <data name="TimetableLatest" xml:space="preserve">
+    <value>У вас вже завантажена остання версія розкладу</value>
+  </data>
+  <data name="TimetableUpdate" xml:space="preserve">
+    <value>Оновлення розкладу</value>
+  </data>
+  <data name="ToTimetable" xml:space="preserve">
+    <value>До розкладу</value>
+  </data>
+  <data name="UpdateSavedGroupsTimetable" xml:space="preserve">
+    <value>Оновити розклад всіх збережених груп?</value>
+  </data>
+  <data name="UpdateTimetable" xml:space="preserve">
+    <value>Оновити розклад</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Так</value>
+  </data>
+  <data name="AtFirstLoadTimetable" xml:space="preserve">
+    <value>Для керування предметами необхідно спочату завантажити розклад.</value>
+  </data>
+  <data name="ErrorDetails" xml:space="preserve">
+    <value>Деталі помилки</value>
+  </data>
+  <data name="LessonsManagement" xml:space="preserve">
+    <value>Управління предметами</value>
+  </data>
+  <data name="Purchase" xml:space="preserve">
+    <value>Покупка</value>
+  </data>
+  <data name="PurchaseFailed" xml:space="preserve">
+    <value>Щось пішло не так,покупка не вдалась.</value>
+  </data>
+  <data name="ThanksForYourSupport" xml:space="preserve">
+    <value>Дякую за вашу підтримку!</value>
+  </data>
+  <data name="EventGroups" xml:space="preserve">
+    <value>Группи: {0}</value>
+  </data>
+  <data name="AddingTimetable" xml:space="preserve">
+    <value>Додавання розкладу</value>
+  </data>
+  <data name="AllEventsShown" xml:space="preserve">
+    <value>Показані всі події</value>
+  </data>
+  <data name="AppGroup" xml:space="preserve">
+    <value>Група застосунку</value>
+  </data>
+  <data name="AppNews" xml:space="preserve">
+    <value>Новини застосунку</value>
+  </data>
+  <data name="ChooseDisplayMode" xml:space="preserve">
+    <value>Виберіть вид:</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>День</value>
+  </data>
+  <data name="DebugModeHeader" xml:space="preserve">
+    <value>Та про всяк випадок залишу тут ось це.</value>
+  </data>
+  <data name="ErrorOccurred" xml:space="preserve">
+    <value>Виникла помилка: {0}</value>
+  </data>
+  <data name="Feedback" xml:space="preserve">
+    <value>Зворотній зв'язок</value>
+  </data>
+  <data name="Groups" xml:space="preserve">
+    <value>Группи</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Місяць</value>
+  </data>
+  <data name="NoSavedTimetables" xml:space="preserve">
+    <value>У вас немає жодного збереженого розкладу.</value>
+  </data>
+  <data name="NoTodayTimetable" xml:space="preserve">
+    <value>Розклад на поточний день не знайдено</value>
+  </data>
+  <data name="NoUniversityInfo" xml:space="preserve">
+    <value>Дані відсутні.
+Для оновлення натисніть на кнопку в правом верхньому куті.</value>
+  </data>
+  <data name="Rooms" xml:space="preserve">
+    <value>Аудиторії</value>
+  </data>
+  <data name="SavedTimetables" xml:space="preserve">
+    <value>Збережені розклади</value>
+  </data>
+  <data name="SelectedEventsShown" xml:space="preserve">
+    <value>Показані обрані події</value>
+  </data>
+  <data name="ShowToday" xml:space="preserve">
+    <value>Показати поточний день</value>
+  </data>
+  <data name="Teachers" xml:space="preserve">
+    <value>Викладачі</value>
+  </data>
+  <data name="TimetableAlreadySaved" xml:space="preserve">
+    <value>Розклад "{0}" вже знаходится в збережених</value>
+  </data>
+  <data name="TimetableSaved" xml:space="preserve">
+    <value>Розклад "{0}" додано в збережені</value>
+  </data>
+  <data name="TimetableUpdated" xml:space="preserve">
+    <value>Розклад успішно оновлено: {0}</value>
+  </data>
+  <data name="UniversityInfoUpdate" xml:space="preserve">
+    <value>Оновлення інформації про університет</value>
+  </data>
+  <data name="UniversityInfoUpdateConfirm" xml:space="preserve">
+    <value>Ви впевнені, що хочете оновити інформацію про университет з Cist?</value>
+  </data>
+  <data name="UniversityInfoUpdateFail" xml:space="preserve">
+    <value>Не вдалось оновити інформацію про университет.Будь ласка, спробуйте пізніше.</value>
+  </data>
+  <data name="UniversityInfoUpdatePartiallyFail" xml:space="preserve">
+    <value>Не вдалось оновити частину інформації про университет: {0}</value>
+  </data>
+  <data name="UniversityInfoUpToDate" xml:space="preserve">
+    <value>У вас вже завантажена остання версія інформації про университет</value>
+  </data>
+  <data name="UpdateAllTimetables" xml:space="preserve">
+    <value>Оновити всі збережені розклади?</value>
+  </data>
+  <data name="UsefulLinks" xml:space="preserve">
+    <value>Корисні посилання: </value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>Тиждень</value>
+  </data>
+  <data name="DisplayLessonsForTeachers" xml:space="preserve">
+    <value>Відображати викладачів для цього предмета:</value>
+  </data>
+  <data name="FinishingUpdateDescription" xml:space="preserve">
+    <value>В новій версії змінилась структура зберігання даних. Застосунжко потрібно сконвертувати дані зі старого формату в новый. Натисніть ОК, щоб завершити оновлення.</value>
+  </data>
+  <data name="FinishingUpdateFail" xml:space="preserve">
+    <value>Щось пішло не так</value>
+  </data>
+  <data name="FinishingUpdateTitle" xml:space="preserve">
+    <value>Завершення оновлення</value>
+  </data>
+  <data name="AddToSelectedEntities" xml:space="preserve">
+    <value>Додати до обраних</value>
+  </data>
+  <data name="RemoveFromSelectedEntities" xml:space="preserve">
+    <value>Видалити з обраного</value>
+  </data>
+  <data name="SelectOneEntity" xml:space="preserve">
+    <value>Вибрати тілько це</value>
+  </data>
+  <data name="AddToSelected" xml:space="preserve">
+    <value>Додати до обраних</value>
+  </data>
+  <data name="Statistics" xml:space="preserve">
+    <value>Статистика:</value>
+  </data>
+  <data name="LessonName" xml:space="preserve">
+    <value>Назва</value>
+  </data>
+  <data name="LessonInfo" xml:space="preserve">
+    <value>Інформація про предмет</value>
+  </data>
+  <data name="EventsLeft" xml:space="preserve">
+    <value>залишилось</value>
+  </data>
+  <data name="EventsTotal" xml:space="preserve">
+    <value>Всього пар</value>
+  </data>
+  <data name="NextEvent" xml:space="preserve">
+    <value>Наступна</value>
+  </data>
+  <data name="Timeline" xml:space="preserve">
+    <value>Часова лінія</value>
+  </data>
+  <data name="AddingEventToCalendarFail" xml:space="preserve">
+    <value>Не вдалось додати пару в календар</value>
+  </data>
+  <data name="AddingEventToCalendarSuccess" xml:space="preserve">
+    <value>Пара була успішно додана в календар</value>
+  </data>
+  <data name="AddingToCalendarTitle" xml:space="preserve">
+    <value>Додавання в календар</value>
+  </data>
+  <data name="AddToCalendar" xml:space="preserve">
+    <value>Додати в календар</value>
+  </data>
+  <data name="ChooseCalendar" xml:space="preserve">
+    <value>Оберіть календар:</value>
+  </data>
+  <data name="CannotGetDataFromCist" xml:space="preserve">
+    <value>Помилка при отриманні даних з cist.nure.ua.
+Повторіть спробу пізніше, або спробуйте іншу мережу WIFI або мобільний інтернет.</value>
+  </data>
+  <data name="TimetableIsEmpty" xml:space="preserve">
+    <value>Розклад не містить жодної події</value>
+  </data>
+  <data name="CistOutOfMemory" xml:space="preserve">
+    <value>Занадто велике навантаження на cist.nure.ua.Спробуйте,будь ласка,пізніше.</value>
+  </data>
+  <data name="UnsavedChangesMessage" xml:space="preserve">
+    <value>Закрити сторінку не зберігаючи зміни?</value>
+  </data>
+  <data name="UnsavedChangesTitle" xml:space="preserve">
+    <value>У вас є незбережені зміни</value>
+  </data>
+  <data name="Events" xml:space="preserve">
+    <value>Пари</value>
+  </data>
+  <data name="Menu" xml:space="preserve">
+    <value>Меню</value>
+  </data>
+  <data name="Timetables" xml:space="preserve">
+    <value>Розклади</value>
+  </data>
+  <data name="DarkTheme" xml:space="preserve">
+    <value>Темна</value>
+  </data>
+  <data name="FollowSystem" xml:space="preserve">
+    <value>Як у системі</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Мова</value>
+  </data>
+  <data name="LightTheme" xml:space="preserve">
+    <value>Світла</value>
+  </data>
+  <data name="Theme" xml:space="preserve">
+    <value>Тема</value>
+  </data>
+  <data name="RateTheApp" xml:space="preserve">
+    <value>Оцініть додаток</value>
+  </data>
+  <data name="SourceCode" xml:space="preserve">
+    <value>Початковий код</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>Версія</value>
+  </data>
+  <data name="RestartRequired" xml:space="preserve">
+    <value>Необхідний перезапуск</value>
+  </data>
+</root>

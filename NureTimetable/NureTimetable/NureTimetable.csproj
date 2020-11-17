@@ -21,15 +21,16 @@
     <PackageReference Include="CClarke.Plugin.Calendars" Version="1.0.14" />
     <PackageReference Include="Microsoft.AppCenter.Analytics" Version="3.4.3" />
     <PackageReference Include="Microsoft.AppCenter.Crashes" Version="3.4.3" />
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0">
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Plugin.InAppBilling" Version="2.0.0" />
-    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="18.3.0.38" />
-    <PackageReference Include="Syncfusion.Xamarin.SfSchedule" Version="18.3.0.38" />
+    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="18.3.0.48" />
+    <PackageReference Include="Syncfusion.Xamarin.SfSchedule" Version="18.3.0.48" />
+    <PackageReference Include="TouchView" Version="4.1.96" />
     <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
-    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1534" />  
+    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1687" />  
   </ItemGroup>
 
   <ItemGroup>
@@ -37,11 +38,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="UI\Views\Info\AboutPage.xaml.cs">
-      <DependentUpon>%(Filename)</DependentUpon>
+    <Compile Update="AppShell.xaml.cs">
+      <DependentUpon>AppShell.xaml</DependentUpon>
     </Compile>
     <Compile Update="UI\Views\Info\DonatePage.xaml.cs">
       <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Update="UI\Views\Info\MenuPage.xaml.cs">
+      <DependentUpon>MenuPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="UI\Views\Lessons\LessonInfoPage.xaml.cs">
       <DependentUpon>%(Filename)</DependentUpon>
@@ -50,9 +54,6 @@
       <DependentUpon>%(Filename)</DependentUpon>
     </Compile>
     <Compile Update="UI\Views\Lessons\ManageLessonsPage.xaml.cs">
-      <DependentUpon>%(Filename)</DependentUpon>
-    </Compile>
-    <Compile Update="UI\Views\System\MenuPage.xaml.cs">
       <DependentUpon>%(Filename)</DependentUpon>
     </Compile>
     <Compile Update="UI\Views\TimetableEntities\AddEntityPage.xaml.cs">
@@ -67,5 +68,17 @@
     <Compile Update="UI\Views\TimetablePage.xaml.cs">
       <DependentUpon>%(Filename)</DependentUpon>
     </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="UI\Themes\DarkTheme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="UI\Themes\LightTheme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="UI\Views\Info\MenuPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

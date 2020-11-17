@@ -4,18 +4,14 @@
              xmlns:behaviors="clr-namespace:NureTimetable.UI.Behaviors;assembly=NureTimetable"
              xmlns:LN="clr-namespace:NureTimetable.Core.Localization;assembly=NureTimetable.Core"
              xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels.TimetableEntities"
-             x:Class="NureTimetable.UI.Views.TimetableEntities.AddEntityPage"
+             x:Class="NureTimetable.UI.Views.AddEntityPage"
              Title="{Binding Title}">
-
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Icon="update" Command="{Binding UpdateCommand}" x:Name="UpdateFromCist" />
-    </ContentPage.ToolbarItems>
 
     <AbsoluteLayout>
         <StackLayout x:Name="EntitiesLayout" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
-            <SearchBar x:Name="Searchbar" Text="{Binding SearchBarText}" HeightRequest="42">
+            <SearchBar x:Name="searchbar" HeightRequest="42">
                 <SearchBar.Behaviors>
-                    <behaviors:EventToCommandBehavior EventName="TextChanged" Command="{Binding SearchBarTextChangedCommand}"/>
+                    <behaviors:EventToCommandBehavior EventName="TextChanged" Command="{Binding SearchBarTextChangedCommand}" CommandParameter="{Binding Text, Source={x:Reference searchbar}}"/>
                 </SearchBar.Behaviors>
             </SearchBar>
             <ListView x:Name="AllEntitiesList"
@@ -26,7 +22,7 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <Label Text="{Binding Name}" Margin="10,0,10,0" VerticalOptions="Center" Style="{DynamicResource ListItemTextStyle}"/>
+                            <Label Text="{Binding Name}" Margin="10,0,10,0" VerticalOptions="Center" />
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
@@ -42,8 +38,8 @@
                      IsEnabled="{Binding ProgressLayoutIsEnable}" Padding="12"
                     AbsoluteLayout.LayoutFlags="PositionProportional"
                     AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
-            <ActivityIndicator IsRunning="True" Color="#80000000"/>
-            <Label Text="{LN:Translate Wait}" HorizontalOptions="Center" TextColor="LightSkyBlue"/>
+            <ActivityIndicator IsRunning="True"/>
+            <Label Text="{LN:Translate Wait}" HorizontalOptions="Center" TextColor="{DynamicResource ActivityIndicatorTextColor}"/>
         </StackLayout>
     </AbsoluteLayout>
 </ContentPage>
