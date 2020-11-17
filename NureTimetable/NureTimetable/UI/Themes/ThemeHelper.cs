@@ -4,7 +4,6 @@ using NureTimetable.Models.Consts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 using Settings = NureTimetable.Core.Models.Settings;
 
