@@ -74,10 +74,7 @@ namespace NureTimetable.DAL
             Local.TimetableInfo timetable = GetTimetableLocal(entity);
             timetable.LessonsInfo = lessonsInfo;
             UpdateTimetableLocal(timetable);
-            MainThread.BeginInvokeOnMainThread(() =>
-            {
-                MessagingCenter.Send(Application.Current, MessageTypes.LessonSettingsChanged, entity);
-            });
+            MessagingCenter.Send(Application.Current, MessageTypes.LessonSettingsChanged, entity);
         }
         #endregion
         #endregion
@@ -154,23 +151,17 @@ namespace NureTimetable.DAL
                     savedEntity.LastUpdated = DateTime.Now;
                 }
                 UniversityEntitiesRepository.UpdateSaved(AllSavedEntities);
-
-                MainThread.BeginInvokeOnMainThread(() =>
-                {
-                    MessagingCenter.Send(Application.Current, MessageTypes.TimetableUpdated, entity);
-                });
+                MessagingCenter.Send(Application.Current, MessageTypes.TimetableUpdated, entity);
 
                 return (timetable, null);
             }
             catch (Exception ex)
             {
-                MainThread.BeginInvokeOnMainThread(() =>
-                {
-                    ex.Data.Add("Entity", $"{entity.Type} {entity.Name} ({entity.ID})");
-                    ex.Data.Add("From", dateStart.ToString("dd.MM.yyyy"));
-                    ex.Data.Add("To", dateEnd.ToString("dd.MM.yyyy"));
-                    MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
-                });
+                ex.Data.Add("Entity", $"{entity.Type} {entity.Name} ({entity.ID})");
+                ex.Data.Add("From", dateStart.ToString("dd.MM.yyyy"));
+                ex.Data.Add("To", dateEnd.ToString("dd.MM.yyyy"));
+                MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
+
                 return (null, ex);
             }
         }

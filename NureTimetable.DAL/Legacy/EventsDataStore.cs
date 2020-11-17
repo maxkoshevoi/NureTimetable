@@ -102,20 +102,14 @@ namespace NureTimetable.DAL.Legacy
                     //foreach (TimetableInfo newTimetable in timetables)
                     //{
                     //    UpdateTimetableLocal(newTimetable);
-                    //    MainThread.BeginInvokeOnMainThread(() =>
-                    //    {
-                    //        MessagingCenter.Send(Application.Current, MessageTypes.TimetableUpdated, newTimetable.Group.ID);
-                    //    });
+                    //    MessagingCenter.Send(Application.Current, MessageTypes.TimetableUpdated, newTimetable.Group.ID);
                     //}
 
                     return timetables;
                 }
                 catch (Exception)
                 {
-                    //MainThread.BeginInvokeOnMainThread(() =>
-                    //{
-                    //    MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
-                    //});
+                    //MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
                 }
             }
             return null;
@@ -218,10 +212,7 @@ namespace NureTimetable.DAL.Legacy
                 }
                 catch (Exception)
                 {
-                    //MainThread.BeginInvokeOnMainThread(() =>
-                    //{
-                    //    MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
-                    //});
+                    //MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
                     return null;
                 }
             }
@@ -319,10 +310,7 @@ namespace NureTimetable.DAL.Legacy
             }
             catch (Exception)
             {
-                //MainThread.BeginInvokeOnMainThread(() =>
-                //{
-                //    MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
-                //});
+                //MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
                 groupsLessons = null;
             }
             return groupsLessons;

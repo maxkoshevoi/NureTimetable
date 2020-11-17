@@ -375,30 +375,28 @@ namespace NureTimetable.UI.ViewModels.Timetable
                     return;
                 }
                 needToUpdateEventsUI = false;
-                MainThread.BeginInvokeOnMainThread(() =>
+
+                if (timetableInfoList.EventCount == 0)
                 {
-                    if (timetableInfoList.EventCount == 0)
-                    {
-                        TimetableDataSource = null;
-                        return;
-                    }
+                    TimetableDataSource = null;
+                    return;
+                }
 
-                    lock (enumeratingEvents)
-                    {
-                        TimetableMinDisplayDate = timetableInfoList.StartDate();
-                        TimetableMaxDisplayDate = timetableInfoList.EndDate();
+                lock (enumeratingEvents)
+                {
+                    TimetableMinDisplayDate = timetableInfoList.StartDate();
+                    TimetableMaxDisplayDate = timetableInfoList.EndDate();
 
-                        TimetableEndHour = 24;
-                        TimetableStartHour = timetableInfoList.StartTime().Hours;
-                        TimetableEndHour = ((TimetableStartHour * 60d) + TimetableTimeInterval * Math.Ceiling((timetableInfoList.EndTime().TotalMinutes - (TimetableStartHour * 60d)) / TimetableTimeInterval)) / 60d;
-                    }
+                    TimetableEndHour = 24;
+                    TimetableStartHour = timetableInfoList.StartTime().Hours;
+                    TimetableEndHour = ((TimetableStartHour * 60d) + TimetableTimeInterval * Math.Ceiling((timetableInfoList.EndTime().TotalMinutes - (TimetableStartHour * 60d)) / TimetableTimeInterval)) / 60d;
+                }
 
-                    TimetableDataSource = timetableInfoList.Events
-                        .Select(ev => new EventViewModel(ev))
-                        .ToList();
+                TimetableDataSource = timetableInfoList.Events
+                    .Select(ev => new EventViewModel(ev))
+                    .ToList();
 
-                    UpdateTimeLeft();
-                });
+                UpdateTimeLeft();
             }
         }
 
@@ -516,11 +514,11 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 writeStatus = await Permissions.CheckStatusAsync<Permissions.CalendarWrite>();
                 if (readStatus != PermissionStatus.Granted)
                 {
-                    readStatus = await MainThread.InvokeOnMainThreadAsync(Permissions.RequestAsync<Permissions.CalendarRead>);
+                    readStatus = await Permissions.RequestAsync<Permissions.CalendarRead>();
                 }
                 if (writeStatus != PermissionStatus.Granted && readStatus == PermissionStatus.Granted)
                 {
-                    writeStatus = await MainThread.InvokeOnMainThreadAsync(Permissions.RequestAsync<Permissions.CalendarWrite>);
+                    writeStatus = await Permissions.RequestAsync<Permissions.CalendarWrite>();
                 }
                 if (readStatus != PermissionStatus.Granted || writeStatus != PermissionStatus.Granted)
                 {
@@ -528,7 +526,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 }
 
                 // Getting Calendar list
-                IList<Calendars.Calendar> calendars = await MainThread.InvokeOnMainThreadAsync(CrossCalendars.Current.GetCalendarsAsync);
+                IList<Calendars.Calendar> calendars = await CrossCalendars.Current.GetCalendarsAsync();
                 calendars = calendars
                     .Where(c => c.Name.ToLower() == c.AccountName.ToLower() || c.AccountName.ToLower() == customCalendarName.ToLower())
                     .ToList();
@@ -548,21 +546,18 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 }
                 else if (calendars.Where(c => c.AccountName == customCalendar.AccountName).Count() > 1)
                 {
-                    MainThread.BeginInvokeOnMainThread(() =>
-                    {
-                        MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, new IndexOutOfRangeException($"There are {calendars.Where(c => c.AccountName == customCalendar.AccountName).Count()} calendars with AccountName {customCalendar.AccountName}"));
-                    });
+                    MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, new IndexOutOfRangeException($"There are {calendars.Where(c => c.AccountName == customCalendar.AccountName).Count()} calendars with AccountName {customCalendar.AccountName}"));
                 }
 
                 // Getting calendar to add event into
                 Calendars.Calendar targetCalendar = customCalendar;
                 if (calendars.Count > 1)
                 {
-                    string targetCalendarName = await MainThread.InvokeOnMainThreadAsync(() => Shell.Current.DisplayActionSheet(
+                    string targetCalendarName = await Shell.Current.DisplayActionSheet(
                         LN.ChooseCalendar,
                         LN.Cancel,
                         null,
-                        calendars.Select(c => c.Name).ToArray()));
+                        calendars.Select(c => c.Name).ToArray());
 
                     if (string.IsNullOrEmpty(targetCalendarName) || targetCalendarName == LN.Cancel)
                     {
@@ -609,12 +604,10 @@ namespace NureTimetable.UI.ViewModels.Timetable
             }
             catch (Exception ex)
             {
-                MainThread.BeginInvokeOnMainThread(() =>
-                {
-                    ex.Data.Add("Read Status", readStatus?.ToString());
-                    ex.Data.Add("Write Status", writeStatus?.ToString());
-                    MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
-                });
+                ex.Data.Add("Read Status", readStatus?.ToString());
+                ex.Data.Add("Write Status", writeStatus?.ToString());
+                MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
+
                 return false;
             }
 

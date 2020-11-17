@@ -3,7 +3,6 @@ using Plugin.InAppBilling;
 using Plugin.InAppBilling.Abstractions;
 using System;
 using System.Threading.Tasks;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace NureTimetable.UI.Helpers
@@ -34,17 +33,11 @@ namespace NureTimetable.UI.Helpers
             }
             catch (InAppBillingPurchaseException billingEx)
             {
-                MainThread.BeginInvokeOnMainThread(() =>
-                {
-                    MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, billingEx);
-                });
+                MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, billingEx);
             }
             catch (Exception ex)
             {
-                MainThread.BeginInvokeOnMainThread(() =>
-                {
-                    MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
-                });
+                MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
             }
             finally
             {
@@ -77,10 +70,7 @@ namespace NureTimetable.UI.Helpers
             }
             catch (Exception ex)
             {
-                MainThread.BeginInvokeOnMainThread(() =>
-                {
-                    MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
-                });
+                MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
             }
             finally
             {

@@ -90,7 +90,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
             {
                 if (value != null)
                 {
-                    MainThread.BeginInvokeOnMainThread(async () => { await EntitySelected(value); });
+                    MainThread.BeginInvokeOnMainThread(async () => await EntitySelected(value));
                 }
 
                 _selectedEntity = value;
