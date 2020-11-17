@@ -28,10 +28,10 @@ namespace NureTimetable.Core.Extensions
             {
                 for (int i = startIndex; i < maxSearchLength; ++i)
                 {
-                    if (Char.ToLower(sb[i]) == Char.ToLower(value[0]))
+                    if (char.ToLower(sb[i]) == char.ToLower(value[0]))
                     {
                         index = 1;
-                        while ((index < length) && (Char.ToLower(sb[i + index]) == Char.ToLower(value[index])))
+                        while ((index < length) && (char.ToLower(sb[i + index]) == char.ToLower(value[index])))
                             ++index;
 
                         if (index == length)

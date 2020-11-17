@@ -12,7 +12,6 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 using Cist = NureTimetable.DAL.Models.Cist;
 using Local = NureTimetable.DAL.Models.Local;
@@ -339,7 +338,7 @@ namespace NureTimetable.DAL
                     faculties.Add(new Cist.Faculty
                     {
                         Id = facultyId,
-                        ShortName = part.Substring(facultyNameStart, part.IndexOf('<') - facultyNameStart)
+                        ShortName = part[facultyNameStart..part.IndexOf('<')]
                     });
                 }
 
@@ -407,7 +406,7 @@ namespace NureTimetable.DAL
                     faculties.Add(new Cist.Faculty
                     {
                         Id = facId,
-                        ShortName = part.Substring(facNameStart, part.IndexOf('<') - facNameStart),
+                        ShortName = part[facNameStart..part.IndexOf('<')],
                         Departments = await GetDepartmentsForFaculty(facId)
                     });
                 }
@@ -442,7 +441,7 @@ namespace NureTimetable.DAL
                 departments.Add(new Cist.Department
                 {
                     Id = depId,
-                    ShortName = part.Substring(depNameStart, part.IndexOf('<') - depNameStart),
+                    ShortName = part[depNameStart..part.IndexOf('<')],
                     Teachers = await GetTeachersForDepartment(facultyId, depId)
                 });
             }
