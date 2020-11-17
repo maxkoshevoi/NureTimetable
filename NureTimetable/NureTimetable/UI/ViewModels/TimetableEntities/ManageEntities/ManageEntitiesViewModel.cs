@@ -191,8 +191,9 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
                 { "Hour of the day", DateTime.Now.Hour.ToString() }
             });
 
+            // Update timetables in background
             const int batchSize = 10;
-            var updateTasks = new List<Task<(TimetableInfo _, Exception Exception)>>();
+            List<Task<(TimetableInfo _, Exception Exception)>> updateTasks = new();
             for (int i = 0; i < entitiesAllowed.Count; i += batchSize)
             {
                 foreach (SavedEntity entity in entitiesAllowed.Skip(i).Take(batchSize))
@@ -202,7 +203,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
                 await Task.WhenAll(updateTasks);
             }
             
-            List<string> success = new List<string>(), fail = new List<string>();
+            List<string> success = new(), fail = new();
             bool isNetworkError = false;
             bool isCistOutOfMemoryError = false;
             for (int i = 0; i < updateTasks.Count; i++)
@@ -232,7 +233,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
                 fail.Add($"{entity.Name} ({errorMessage.Trim()})");
             }
 
-            string result = "";
+            string result = string.Empty;
             if (isNetworkError && fail.Count == entitiesAllowed.Count)
             {
                 result = LN.CannotGetDataFromCist;

@@ -25,10 +25,7 @@ namespace NureTimetable.Migrations
             }
             catch (Exception ex)
             {
-                MainThread.BeginInvokeOnMainThread(() =>
-                {
-                    MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
-                });
+                MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
             }
             return false;
         }

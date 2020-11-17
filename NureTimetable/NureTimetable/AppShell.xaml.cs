@@ -37,7 +37,9 @@ namespace NureTimetable.UI.Views
             {
                 if (App.IsDebugMode)
                 {
-                    DisplayAlert(LN.ErrorDetails, ex.ToString(), LN.Ok);
+                    MainThread.BeginInvokeOnMainThread(async () => 
+                        await Shell.Current.DisplayAlert(LN.ErrorDetails, ex.ToString(), LN.Ok)
+                    );
                 }
 
                 LogException(ex);

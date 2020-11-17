@@ -24,10 +24,7 @@ namespace NureTimetable.DAL.Helpers
             }
             catch (Exception ex)
             {
-                MainThread.BeginInvokeOnMainThread(() =>
-                {
-                    MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
-                });
+                MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
             }
         }
 
@@ -44,11 +41,9 @@ namespace NureTimetable.DAL.Helpers
             }
             catch (Exception ex)
             {
-                MainThread.BeginInvokeOnMainThread(() =>
-                {
-                    ex.Data.Add("FilePath", filePath);
-                    MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
-                });
+                ex.Data.Add("FilePath", filePath);
+                MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
+
                 File.Delete(filePath);
             }
             return default;
@@ -236,7 +231,7 @@ namespace NureTimetable.DAL.Helpers
                 " ",
                 "\t"
             };
-            newJson = nonEssentialCharacters.Aggregate(newJson, (res, ch) => res.Replace(ch, ""));
+            newJson = nonEssentialCharacters.Aggregate(newJson, (res, ch) => res.Replace(ch, string.Empty));
 
             // Add null values instead of empty ones
             string[] noValue = 

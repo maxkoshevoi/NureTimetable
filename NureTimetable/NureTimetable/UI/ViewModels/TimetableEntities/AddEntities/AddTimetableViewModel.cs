@@ -57,25 +57,24 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
             }
         }
 
-        public static void UpdateFromCist()
+        public static async Task UpdateFromCist()
         {
             var updateFromCistResult = UniversityEntitiesRepository.UpdateFromCist();
 
             if (updateFromCistResult.IsAllFail)
             {
-                MainThread.BeginInvokeOnMainThread(async () =>
+                string message = LN.UniversityInfoUpdateFail;
+                if (updateFromCistResult.IsConnectionIssues)
                 {
-                    string message = LN.UniversityInfoUpdateFail;
-                    if (updateFromCistResult.IsConnectionIssues)
-                    {
-                        message = LN.CannotGetDataFromCist;
-                    }
-                    else if (updateFromCistResult.IsCistOutOfMemory)
-                    {
-                        message = LN.CistOutOfMemory;
-                    }
-                    await Shell.Current.DisplayAlert(LN.UniversityInfoUpdate, message, LN.Ok);
-                });
+                    message = LN.CannotGetDataFromCist;
+                }
+                else if (updateFromCistResult.IsCistOutOfMemory)
+                {
+                    message = LN.CistOutOfMemory;
+                }
+                await MainThread.InvokeOnMainThreadAsync(async () =>
+                    await Shell.Current.DisplayAlert(LN.UniversityInfoUpdate, message, LN.Ok)
+                );
             }
             else if (!updateFromCistResult.IsAllSuccessful)
             {
@@ -92,11 +91,9 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
                 {
                     failedEntities += LN.Rooms + Environment.NewLine;
                 }
-
-                MainThread.BeginInvokeOnMainThread(async () =>
-                {
-                    await Shell.Current.DisplayAlert(LN.UniversityInfoUpdate, string.Format(LN.UniversityInfoUpdatePartiallyFail, Environment.NewLine + failedEntities), LN.Ok);
-                });
+                await MainThread.InvokeOnMainThreadAsync(async () =>
+                    await Shell.Current.DisplayAlert(LN.UniversityInfoUpdate, string.Format(LN.UniversityInfoUpdatePartiallyFail, Environment.NewLine + failedEntities), LN.Ok)
+                );
             }
         }
     }

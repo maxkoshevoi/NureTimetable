@@ -255,10 +255,7 @@ namespace NureTimetable.DAL
             }
             catch (Exception ex)
             {
-                MainThread.BeginInvokeOnMainThread(() =>
-                {
-                    MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
-                });
+                MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
                 throw;
             }
         }
@@ -282,10 +279,7 @@ namespace NureTimetable.DAL
             }
             catch (Exception ex)
             {
-                MainThread.BeginInvokeOnMainThread(() =>
-                {
-                    MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
-                });
+                MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
                 throw;
             }
         }
@@ -310,10 +304,7 @@ namespace NureTimetable.DAL
             }
             catch (Exception ex)
             {
-                MainThread.BeginInvokeOnMainThread(() =>
-                {
-                    MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
-                });
+                MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
                 throw;
             }
         }
@@ -383,10 +374,7 @@ namespace NureTimetable.DAL
             }
             catch (Exception ex)
             {
-                MainThread.BeginInvokeOnMainThread(() =>
-                {
-                    MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
-                });
+                MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
                 throw;
             }
         }
@@ -428,10 +416,7 @@ namespace NureTimetable.DAL
             }
             catch (Exception ex)
             {
-                MainThread.BeginInvokeOnMainThread(() =>
-                {
-                    MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
-                });
+                MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
                 throw;
             }
         }
@@ -605,10 +590,7 @@ namespace NureTimetable.DAL
             }
             // Saving saved entities list
             Serialisation.ToJsonFile(savedEntities, FilePath.SavedEntitiesList);
-            MainThread.BeginInvokeOnMainThread(() =>
-            {
-                MessagingCenter.Send(Application.Current, MessageTypes.SavedEntitiesChanged, savedEntities);
-            });
+            MessagingCenter.Send(Application.Current, MessageTypes.SavedEntitiesChanged, savedEntities);
             // Updating selected entity if needed
             List<Local.SavedEntity> selectedEntities = savedEntities.Intersect(GetSelected()).ToList();
             if (selectedEntities.Count == 0 && savedEntities.Count > 0)

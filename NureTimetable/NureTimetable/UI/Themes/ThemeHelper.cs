@@ -38,11 +38,7 @@ namespace NureTimetable.UI.Themes
             statusBarManager.SetStatusBarColor(ResourceManager.StatusBarColor.ToHex());
             statusBarManager.SetNavigationBarColor(ResourceManager.NavigationBarColor.ToHex());
 
-            MainThread.BeginInvokeOnMainThread(() =>
-            {
-                MessagingCenter.Send(Application.Current, MessageTypes.ThemeChanged, selectedTheme);
-            });
-
+            MessagingCenter.Send(Application.Current, MessageTypes.ThemeChanged, selectedTheme);
             return true;
         }
     }
