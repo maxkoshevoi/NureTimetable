@@ -15,7 +15,6 @@
                 <Setter Property="Orientation" Value="Horizontal"/>
                 <Setter Property="Padding" Value="20,10"/>
                 <Setter Property="touch:TouchEff.NativeAnimation" Value="True"/>
-                <Setter Property="touch:TouchEff.NativeAnimationColor" Value="#40808080"/>
             </Style>
             <Style TargetType="Image">
                 <Setter Property="VerticalOptions" Value="Center"/>
