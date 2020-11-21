@@ -18,7 +18,7 @@
 
     <ContentPage.ToolbarItems>
         <ToolbarItem x:DataType="vm:TimetableViewModel" IconImageSource="{Binding HideSelectedEventsIcon, Converter={converters:ToolbarIconValueConverter}}" Command="{Binding HideSelectedEventsCommand}" />
-        <ToolbarItem x:DataType="vm:TimetableViewModel" IconImageSource="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static fonts:MaterialIconsFont.CalendarToday}}" Command="{Binding ScheduleModeCommand}" x:Name="Today" />
+        <ToolbarItem x:DataType="vm:TimetableViewModel" IconImageSource="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.CalendarToday}}" Command="{Binding ScheduleModeCommand}" x:Name="Today" />
     </ContentPage.ToolbarItems>
     
     <ContentPage.Content>

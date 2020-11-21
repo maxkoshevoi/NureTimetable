@@ -31,11 +31,7 @@
     <ScrollView>
         <StackLayout Margin="0,20">
             <StackLayout Style="{StaticResource Row}">
-                <Image>
-                    <Image.Source>
-                        <FontImageSource FontFamily="{StaticResource MaterialFontFamily}" Glyph="{x:Static fonts:MaterialIconsFont.Brightness6}" Color="{DynamicResource SecondaryTextColor}" Size="30" />
-                    </Image.Source>
-                </Image>
+                <Image Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.Brightness6}, Color={DynamicResource SecondaryTextColor}}" />
                 <StackLayout VerticalOptions="Center">
                     <Label Text="{LN:Translate Theme}" Style="{DynamicResource ListItemTextStyle}" />
                     <Label Text="{Binding AppThemeName}" FontSize="13" Style="{DynamicResource ListItemDetailTextStyle}" />
@@ -46,11 +42,7 @@
                 </StackLayout.GestureRecognizers>
             </StackLayout>
             <StackLayout Style="{StaticResource Row}">
-                <Image>
-                    <Image.Source>
-                        <FontImageSource FontFamily="{StaticResource MaterialFontFamily}" Glyph="{x:Static fonts:MaterialIconsFont.Web}" Color="{DynamicResource SecondaryTextColor}" Size="30" />
-                    </Image.Source>
-                </Image>
+                <Image Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.Web}, Color={DynamicResource SecondaryTextColor}}" />
                 <StackLayout>
                     <Label Text="{LN:Translate Language}" Style="{DynamicResource ListItemTextStyle}" />
                     <Label Text="{Binding AppLanguageName}" FontSize="13" Style="{DynamicResource ListItemDetailTextStyle}" />
@@ -64,11 +56,7 @@
             <BoxView/>
 
             <StackLayout Style="{StaticResource Row}">
-                <Image>
-                    <Image.Source>
-                        <FontImageSource FontFamily="{StaticResource MaterialFontFamily}" Glyph="{x:Static fonts:MaterialIconsFont.CommentTextMultipleOutline}" Color="{DynamicResource SecondaryTextColor}" Size="30" />
-                    </Image.Source>
-                </Image>
+                <Image Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.CommentTextMultipleOutline}, Color={DynamicResource SecondaryTextColor}}" />
                 <Label Text="{LN:Translate Feedback}" VerticalOptions="Center" Style="{DynamicResource ListItemTextStyle}"/>
             
                 <StackLayout.GestureRecognizers>
@@ -76,11 +64,7 @@
                 </StackLayout.GestureRecognizers>
             </StackLayout>
             <StackLayout Style="{StaticResource Row}">
-                <Image>
-                    <Image.Source>
-                        <FontImageSource FontFamily="{StaticResource MaterialFontFamily}" Glyph="{x:Static fonts:MaterialIconsFont.StarOutline}" Color="{DynamicResource SecondaryTextColor}" Size="30" />
-                    </Image.Source>
-                </Image>
+                <Image Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.StarOutline}, Color={DynamicResource SecondaryTextColor}}" />
                 <Label Text="{LN:Translate RateTheApp}" VerticalOptions="Center" Style="{DynamicResource ListItemTextStyle}"/>
             
                 <StackLayout.GestureRecognizers>
@@ -88,11 +72,7 @@
                 </StackLayout.GestureRecognizers>
             </StackLayout>
             <StackLayout Style="{StaticResource Row}">
-                <Image>
-                    <Image.Source>
-                        <FontImageSource FontFamily="{StaticResource MaterialFontFamily}" Glyph="{x:Static fonts:MaterialIconsFont.Cash}" Color="{DynamicResource SecondaryTextColor}" Size="30" />
-                    </Image.Source>
-                </Image>
+                <Image Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.Cash}, Color={DynamicResource SecondaryTextColor}}" />
                 <Label Text="{LN:Translate Donate}" VerticalOptions="Center" Style="{DynamicResource ListItemTextStyle}"/>
 
                 <StackLayout.GestureRecognizers>
@@ -103,11 +83,7 @@
             <BoxView/>
         
             <StackLayout Style="{StaticResource Row}">
-                <Image>
-                    <Image.Source>
-                        <FontImageSource FontFamily="{StaticResource MaterialFontFamily}" Glyph="{x:Static fonts:MaterialIconsFont.CodeBraces}" Color="{DynamicResource SecondaryTextColor}" Size="30" />
-                    </Image.Source>
-                </Image>
+                <Image Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.CodeBraces}, Color={DynamicResource SecondaryTextColor}}" />
                 <Label Text="{LN:Translate SourceCode}" VerticalOptions="Center" Style="{DynamicResource ListItemTextStyle}"/>
             
                 <StackLayout.GestureRecognizers>
@@ -115,11 +91,7 @@
                 </StackLayout.GestureRecognizers>
             </StackLayout>
             <StackLayout Style="{StaticResource Row}">
-                <Image>
-                    <Image.Source>
-                        <FontImageSource FontFamily="{StaticResource MaterialFontFamily}" Glyph="{x:Static fonts:MaterialIconsFont.BugOutline}" Color="{DynamicResource SecondaryTextColor}" Size="30" />
-                    </Image.Source>
-                </Image>
+                <Image Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.BugOutline}, Color={DynamicResource SecondaryTextColor}}" />
                 <Label Text="{LN:Translate ShowErrors}" VerticalOptions="Center" Style="{DynamicResource ListItemTextStyle}"/>
                 <Switch IsToggled="{Binding IsDebugModeActive}" HorizontalOptions="EndAndExpand" VerticalOptions="Center" />
             

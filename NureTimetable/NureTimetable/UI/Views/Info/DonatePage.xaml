@@ -52,17 +52,17 @@
                         BackgroundColor="{DynamicResource DonateButtonColor}"
                         TextColor="White" 
                         Command="{Binding BuyProductCommand}"
-                        CommandParameter="{x:Static products:InAppProducts.DonateLow}"/>
+                        CommandParameter="{Static products:InAppProducts.DonateLow}"/>
                 <Button Margin="0,10,0,0" Text="{LN:Translate Thank2}"
                         BackgroundColor="{DynamicResource DonateButtonColor}"
                         TextColor="White"
                         Command="{Binding BuyProductCommand}"
-                        CommandParameter="{x:Static products:InAppProducts.DonateMedium}"/>
+                        CommandParameter="{Static products:InAppProducts.DonateMedium}"/>
                 <Button Margin="0,10,0,0" Text="{LN:Translate Thank3}"
                         BackgroundColor="{DynamicResource DonateButtonColor}"
                         TextColor="White"
                         Command="{Binding BuyProductCommand}"
-                        CommandParameter="{x:Static products:InAppProducts.DonateHigh}"/>
+                        CommandParameter="{Static products:InAppProducts.DonateHigh}"/>
             </StackLayout>
         </ScrollView>
     </Grid>

@@ -11,7 +11,7 @@
             Title="{LN:Translate AddingTimetable}">
 
     <TabbedPage.ToolbarItems>
-        <ToolbarItem IconImageSource="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static fonts:MaterialIconsFont.Sync}}" Command="{Binding UpdateCommand}" x:Name="UpdateFromCist" />
+        <ToolbarItem IconImageSource="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.Sync}}" Command="{Binding UpdateCommand}" x:Name="UpdateFromCist" />
     </TabbedPage.ToolbarItems>
 
     <views:AddEntityPage BindingContext="{Binding AddGroupPageViewModel}" />
