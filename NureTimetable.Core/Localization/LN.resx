@@ -410,7 +410,7 @@ To update, click on the button in the upper right corner.</value>
     <value>Statistics:</value>
   </data>
   <data name="LessonName" xml:space="preserve">
-    <value>Name</value>
+    <value>Name:</value>
   </data>
   <data name="LessonInfo" xml:space="preserve">
     <value>Lesson info</value>

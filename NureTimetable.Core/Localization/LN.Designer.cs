@@ -575,7 +575,7 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Name.
+        ///   Looks up a localized string similar to Name:.
         /// </summary>
         public static string LessonName {
             get {

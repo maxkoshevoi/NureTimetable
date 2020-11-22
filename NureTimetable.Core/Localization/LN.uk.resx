@@ -410,7 +410,7 @@
     <value>Статистика:</value>
   </data>
   <data name="LessonName" xml:space="preserve">
-    <value>Назва</value>
+    <value>Назва:</value>
   </data>
   <data name="LessonInfo" xml:space="preserve">
     <value>Інформація про предмет</value>
