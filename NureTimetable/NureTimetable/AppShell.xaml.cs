@@ -58,12 +58,6 @@ namespace NureTimetable.UI.Views
             }
             isFirstNavigation = false;
 
-            // Log currect timetable view mode
-            Analytics.TrackEvent("Timetable view mode", new Dictionary<string, string>
-            {
-                { nameof(SettingsRepository.Settings.TimetableViewMode), SettingsRepository.Settings.TimetableViewMode.ToString() }
-            });
-
             // Processing migrations
             if (!VersionTracking.IsFirstLaunchForCurrentBuild)
             {
