@@ -5,6 +5,7 @@
              xmlns:LN="clr-namespace:NureTimetable.Core.Localization;assembly=NureTimetable.Core"
              xmlns:fonts="clr-namespace:NureTimetable.Models.Consts.Fonts"
              xmlns:touch="clr-namespace:TouchEffect;assembly=TouchEffect"
+             xmlns:essentials="clr-namespace:Xamarin.Essentials;assembly=Xamarin.Essentials"
              x:Class="NureTimetable.UI.Views.MenuPage"
              x:DataType="vm:MenuViewModel"
              Title="{LN:Translate AppName}">
@@ -100,17 +101,11 @@
                 </StackLayout.GestureRecognizers>
             </StackLayout>
 
-            <Label Margin="0,12" FontSize="13" HorizontalOptions="Center" TextColor="Gray">
-                <Label.FormattedText>
-                    <FormattedString>
-                        <FormattedString.Spans>
-                            <Span Text="{LN:Translate Version}" />
-                            <Span Text=" " />
-                            <Span Text="{Binding VersionText}" />
-                        </FormattedString.Spans>
-                    </FormattedString>
-                </Label.FormattedText>
-            </Label>
+            <Label Margin="0,12" 
+                   FontSize="13" 
+                   HorizontalOptions="Center" 
+                   TextColor="Gray"
+                   Text="{Binding ., Source={Static essentials:AppInfo.VersionString}, StringFormat={LN:Translate Version}}"/>
         </StackLayout>
     </ScrollView>
 </ContentPage>

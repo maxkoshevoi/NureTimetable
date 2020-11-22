@@ -1170,7 +1170,7 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Version.
+        ///   Looks up a localized string similar to Version {0}.
         /// </summary>
         public static string Version {
             get {

@@ -489,7 +489,7 @@
     <value>Тема</value>
   </data>
   <data name="Version" xml:space="preserve">
-    <value>Версия</value>
+    <value>Версия {0}</value>
   </data>
   <data name="RestartRequired" xml:space="preserve">
     <value>Необходим перезапуск</value>

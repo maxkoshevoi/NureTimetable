@@ -489,7 +489,7 @@
     <value>Початковий код</value>
   </data>
   <data name="Version" xml:space="preserve">
-    <value>Версія</value>
+    <value>Версія {0}</value>
   </data>
   <data name="RestartRequired" xml:space="preserve">
     <value>Необхідний перезапуск</value>
