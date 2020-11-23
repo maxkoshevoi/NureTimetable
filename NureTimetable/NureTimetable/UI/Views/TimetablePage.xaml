@@ -20,162 +20,160 @@
         <ToolbarItem x:DataType="vm:TimetableViewModel" IconImageSource="{Binding HideSelectedEventsIcon, Converter={converters:ToolbarIconValueConverter}}" Command="{Binding HideSelectedEventsCommand}" />
         <ToolbarItem x:DataType="vm:TimetableViewModel" IconImageSource="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.CalendarToday}}" Command="{Binding ScheduleModeCommand}" x:Name="Today" />
     </ContentPage.ToolbarItems>
-    
-    <ContentPage.Content>
-        <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-            <StackLayout 
-                    x:Name="TimetableLayout" 
-                    AbsoluteLayout.LayoutBounds="0,0,1,1" 
-                    AbsoluteLayout.LayoutFlags="All" 
-                    BackgroundColor="{DynamicResource PageBackgroundColor}" 
-                    IsVisible="{Binding TimetableLayoutIsVisible}">
-                <Label x:Name="TimeLeft" HorizontalOptions="Center" FontSize="20" Margin="0,15,0,0" IsVisible="{Binding TimeLeftIsVisible}" Text="{Binding TimeLeftText}" />
-                <syncfusion:SfSchedule 
-                        x:Name="Timetable"
-                        HeaderHeight="50"
-                        ViewHeaderHeight="50"
-                        FirstDayOfWeek="2"
-                        ShowAppointmentsInline="True"
-                        TimeIntervalHeight="-1"
-                        VerticalOptions="FillAndExpand"
-                        ShowCurrentTimeIndicator="True"
-                        CurrentTimeIndicatorColor="CornflowerBlue"
+
+    <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <StackLayout
+                AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                AbsoluteLayout.LayoutFlags="All" 
+                BackgroundColor="{DynamicResource PageBackgroundColor}" 
+                IsVisible="{Binding TimetableLayoutIsVisible}">
+            <Label HorizontalOptions="Center" FontSize="20" Margin="0,15,0,0" IsVisible="{Binding TimeLeftIsVisible}" Text="{Binding TimeLeftText}" />
+            <syncfusion:SfSchedule
+                    x:Name="Timetable"
+                    HeaderHeight="50"
+                    ViewHeaderHeight="50"
+                    FirstDayOfWeek="2"
+                    ShowAppointmentsInline="True"
+                    TimeIntervalHeight="-1"
+                    VerticalOptions="FillAndExpand"
+                    ShowCurrentTimeIndicator="True"
+                    CurrentTimeIndicatorColor="CornflowerBlue"
+                    BackgroundColor="{DynamicResource PageBackgroundColor}"
+                    TimeInterval="{Binding TimetableTimeInterval}"
+                    MinDisplayDate="{Binding TimetableMinDisplayDate}"
+                    MaxDisplayDate="{Binding TimetableMaxDisplayDate}"
+                    DataSource="{Binding TimetableDataSource}"
+                    IsEnabled="{Binding TimetableIsEnabled}"
+                    ScheduleView="{Binding TimetableScheduleView}"
+                    Locale="{Binding TimetableLocale}"
+                    SelectedDate="{Binding TimetableSelectedDate}"
+                    CellTappedCommand="{Binding TimetableCellTappedCommand}"
+                    VisibleDatesChangedCommand="{Binding TimetableVisibleDatesChangedCommand}">
+                <syncfusion:SfSchedule.Behaviors>
+                    <behaviors:EventToCommandBehavior EventName="MonthInlineAppointmentTapped" Command="{Binding TimetableMonthInlineAppointmentTappedCommand}"/>
+                </syncfusion:SfSchedule.Behaviors>
+                <syncfusion:SfSchedule.HeaderStyle>
+                    <syncfusion:HeaderStyle 
+                        FontSize="10" 
+                        FontAttributes="Bold" 
+                        BackgroundColor="{DynamicResource PageBackgroundColor}" 
+                        TextColor="{DynamicResource PrimaryTextColor}" />
+                </syncfusion:SfSchedule.HeaderStyle>
+                <syncfusion:SfSchedule.ViewHeaderStyle>
+                    <syncfusion:ViewHeaderStyle 
+                        DateFontSize="13" 
+                        DayFontSize="8" 
+                        CurrentDateTextColor="{DynamicResource CurrentDayColor}" 
+                        CurrentDayTextColor="{DynamicResource CurrentDayColor}" 
+                        BackgroundColor="{DynamicResource PageBackgroundColor}" 
+                        DateTextColor="{DynamicResource PrimaryTextColor}" 
+                        DayTextColor="{DynamicResource PrimaryTextColor}" />
+                </syncfusion:SfSchedule.ViewHeaderStyle>
+                <syncfusion:SfSchedule.WeekViewSettings>
+                    <syncfusion:WeekViewSettings 
+                        StartHour="{Binding TimetableStartHour}" 
+                        EndHour="{Binding TimetableEndHour}" 
+                        WorkStartHour="0" 
+                        WorkEndHour="24" 
+                        TimeSlotColor="{DynamicResource PageBackgroundColor}"
+                        TimeSlotBorderColor="{DynamicResource BorderColor}"
+                        VerticalLineColor="{DynamicResource BorderColor}">
+                        <syncfusion:WeekViewSettings.WeekLabelSettings>
+                            <syncfusion:WeekLabelSettings TimeFormat="HH:mm"/>
+                        </syncfusion:WeekViewSettings.WeekLabelSettings>
+                    </syncfusion:WeekViewSettings>
+                </syncfusion:SfSchedule.WeekViewSettings>
+                <syncfusion:SfSchedule.DayViewSettings>
+                    <syncfusion:DayViewSettings 
+                        StartHour="{Binding TimetableStartHour}" 
+                        EndHour="{Binding TimetableEndHour}" 
+                        WorkStartHour="0"
+                        WorkEndHour="24"
+                        TimeSlotColor="{DynamicResource PageBackgroundColor}"
+                        TimeSlotBorderColor="{DynamicResource BorderColor}"
+                        VerticalLineColor="{DynamicResource BorderColor}">
+                        <syncfusion:DayViewSettings.DayLabelSettings>
+                            <syncfusion:DayLabelSettings TimeFormat="HH:mm"/>
+                        </syncfusion:DayViewSettings.DayLabelSettings>
+                    </syncfusion:DayViewSettings>
+                </syncfusion:SfSchedule.DayViewSettings>
+                <syncfusion:SfSchedule.TimelineViewSettings>
+                    <syncfusion:TimelineViewSettings 
+                        StartHour="{Binding TimetableStartHour}" 
+                        EndHour="{Binding TimetableEndHour}"
+                        Color="{DynamicResource PageBackgroundColor}"
+                        BorderColor="{DynamicResource BorderColor}">
+                        <syncfusion:TimelineViewSettings.LabelSettings>
+                            <syncfusion:TimelineLabelSettings TimeFormat="HH:mm"/>
+                        </syncfusion:TimelineViewSettings.LabelSettings>
+                    </syncfusion:TimelineViewSettings>
+                </syncfusion:SfSchedule.TimelineViewSettings>
+                <syncfusion:SfSchedule.MonthViewSettings>
+                    <syncfusion:MonthViewSettings 
+                        AppointmentIndicatorCount="6" 
+                        ShowWeekNumber="True" 
+                        AppointmentDisplayMode="Appointment">
+                        <syncfusion:MonthViewSettings.WeekNumberStyle>
+                            <syncfusion:WeekNumberStyle BackgroundColor="{DynamicResource PageBackgroundColor}"/>
+                        </syncfusion:MonthViewSettings.WeekNumberStyle>
+                        <syncfusion:MonthViewSettings.AgendaViewStyle>
+                            <syncfusion:AgendaViewStyle BackgroundColor="{DynamicResource PageBackgroundColor}"/>
+                        </syncfusion:MonthViewSettings.AgendaViewStyle>
+                    </syncfusion:MonthViewSettings>
+                </syncfusion:SfSchedule.MonthViewSettings>
+                <syncfusion:SfSchedule.MonthCellStyle>
+                    <syncfusion:MonthViewCellStyle 
+                        PreviousMonthBackgroundColor="{DynamicResource PageBackgroundColor}"
+                        PreviousMonthTextColor="{DynamicResource TertiaryTextColor}"
                         BackgroundColor="{DynamicResource PageBackgroundColor}"
-                        TimeInterval="{Binding TimetableTimeInterval}"
-                        MinDisplayDate="{Binding TimetableMinDisplayDate}"
-                        MaxDisplayDate="{Binding TimetableMaxDisplayDate}"
-                        DataSource="{Binding TimetableDataSource}"
-                        IsEnabled="{Binding TimetableIsEnabled}"
-                        ScheduleView="{Binding TimetableScheduleView}"
-                        Locale="{Binding TimetableLocale}"
-                        SelectedDate="{Binding TimetableSelectedDate}"
-                        CellTappedCommand="{Binding TimetableCellTappedCommand}"
-                        VisibleDatesChangedCommand="{Binding TimetableVisibleDatesChangedCommand}">
-                    <syncfusion:SfSchedule.Behaviors>
-                        <behaviors:EventToCommandBehavior EventName="MonthInlineAppointmentTapped" Command="{Binding TimetableMonthInlineAppointmentTappedCommand}"/>
-                    </syncfusion:SfSchedule.Behaviors>
-                    <syncfusion:SfSchedule.HeaderStyle>
-                        <syncfusion:HeaderStyle 
-                            FontSize="10" 
-                            FontAttributes="Bold" 
-                            BackgroundColor="{DynamicResource PageBackgroundColor}" 
-                            TextColor="{DynamicResource PrimaryTextColor}" />
-                    </syncfusion:SfSchedule.HeaderStyle>
-                    <syncfusion:SfSchedule.ViewHeaderStyle>
-                        <syncfusion:ViewHeaderStyle 
-                            DateFontSize="13" 
-                            DayFontSize="8" 
-                            CurrentDateTextColor="{DynamicResource CurrentDayColor}" 
-                            CurrentDayTextColor="{DynamicResource CurrentDayColor}" 
-                            BackgroundColor="{DynamicResource PageBackgroundColor}" 
-                            DateTextColor="{DynamicResource PrimaryTextColor}" 
-                            DayTextColor="{DynamicResource PrimaryTextColor}" />
-                    </syncfusion:SfSchedule.ViewHeaderStyle>
-                    <syncfusion:SfSchedule.WeekViewSettings>
-                        <syncfusion:WeekViewSettings 
-                            StartHour="{Binding TimetableStartHour}" 
-                            EndHour="{Binding TimetableEndHour}" 
-                            WorkStartHour="0" 
-                            WorkEndHour="24" 
-                            TimeSlotColor="{DynamicResource PageBackgroundColor}"
-                            TimeSlotBorderColor="{DynamicResource BorderColor}"
-                            VerticalLineColor="{DynamicResource BorderColor}">
-                            <syncfusion:WeekViewSettings.WeekLabelSettings>
-                                <syncfusion:WeekLabelSettings TimeFormat="HH:mm"/>
-                            </syncfusion:WeekViewSettings.WeekLabelSettings>
-                        </syncfusion:WeekViewSettings>
-                    </syncfusion:SfSchedule.WeekViewSettings>
-                    <syncfusion:SfSchedule.DayViewSettings>
-                        <syncfusion:DayViewSettings 
-                            StartHour="{Binding TimetableStartHour}" 
-                            EndHour="{Binding TimetableEndHour}" 
-                            WorkStartHour="0"
-                            WorkEndHour="24"
-                            TimeSlotColor="{DynamicResource PageBackgroundColor}"
-                            TimeSlotBorderColor="{DynamicResource BorderColor}"
-                            VerticalLineColor="{DynamicResource BorderColor}">
-                            <syncfusion:DayViewSettings.DayLabelSettings>
-                                <syncfusion:DayLabelSettings TimeFormat="HH:mm"/>
-                            </syncfusion:DayViewSettings.DayLabelSettings>
-                        </syncfusion:DayViewSettings>
-                    </syncfusion:SfSchedule.DayViewSettings>
-                    <syncfusion:SfSchedule.TimelineViewSettings>
-                        <syncfusion:TimelineViewSettings 
-                            StartHour="{Binding TimetableStartHour}" 
-                            EndHour="{Binding TimetableEndHour}"
-                            Color="{DynamicResource PageBackgroundColor}"
-                            BorderColor="{DynamicResource BorderColor}">
-                            <syncfusion:TimelineViewSettings.LabelSettings>
-                                <syncfusion:TimelineLabelSettings TimeFormat="HH:mm"/>
-                            </syncfusion:TimelineViewSettings.LabelSettings>
-                        </syncfusion:TimelineViewSettings>
-                    </syncfusion:SfSchedule.TimelineViewSettings>
-                    <syncfusion:SfSchedule.MonthViewSettings>
-                        <syncfusion:MonthViewSettings 
-                            AppointmentIndicatorCount="6" 
-                            ShowWeekNumber="True" 
-                            AppointmentDisplayMode="Appointment">
-                            <syncfusion:MonthViewSettings.WeekNumberStyle>
-                                <syncfusion:WeekNumberStyle BackgroundColor="{DynamicResource PageBackgroundColor}"/>
-                            </syncfusion:MonthViewSettings.WeekNumberStyle>
-                            <syncfusion:MonthViewSettings.AgendaViewStyle>
-                                <syncfusion:AgendaViewStyle BackgroundColor="{DynamicResource PageBackgroundColor}"/>
-                            </syncfusion:MonthViewSettings.AgendaViewStyle>
-                        </syncfusion:MonthViewSettings>
-                    </syncfusion:SfSchedule.MonthViewSettings>
-                    <syncfusion:SfSchedule.MonthCellStyle>
-                        <syncfusion:MonthViewCellStyle 
-                            PreviousMonthBackgroundColor="{DynamicResource PageBackgroundColor}"
-                            PreviousMonthTextColor="{DynamicResource TertiaryTextColor}"
-                            BackgroundColor="{DynamicResource PageBackgroundColor}"
-                            TextColor="{DynamicResource PrimaryTextColor}"
-                            NextMonthBackgroundColor="{DynamicResource PageBackgroundColor}"
-                            NextMonthTextColor="{DynamicResource TertiaryTextColor}"
-                            TodayBackgroundColor="{DynamicResource PageBackgroundColor}"/>
-                    </syncfusion:SfSchedule.MonthCellStyle>
-                    <syncfusion:SfSchedule.AppointmentMapping>
-                        <syncfusion:ScheduleAppointmentMapping
-			                SubjectMapping="DisplayInfo"
-			                StartTimeMapping="Start"
-			                EndTimeMapping="End"
-                            ColorMapping="Color">
-                        </syncfusion:ScheduleAppointmentMapping>
-                    </syncfusion:SfSchedule.AppointmentMapping>
-                    <syncfusion:SfSchedule.AppointmentStyle>
-                        <syncfusion:AppointmentStyle 
-                            BorderColor="{DynamicResource PageBackgroundColor}"
-                            TextColor="{DynamicResource AppointmentTextColor}" />
-                    </syncfusion:SfSchedule.AppointmentStyle>
-                </syncfusion:SfSchedule>
-            </StackLayout>
-            <buttons:SfButton 
-                HorizontalOptions="Center"
+                        TextColor="{DynamicResource PrimaryTextColor}"
+                        NextMonthBackgroundColor="{DynamicResource PageBackgroundColor}"
+                        NextMonthTextColor="{DynamicResource TertiaryTextColor}"
+                        TodayBackgroundColor="{DynamicResource PageBackgroundColor}"/>
+                </syncfusion:SfSchedule.MonthCellStyle>
+                <syncfusion:SfSchedule.AppointmentMapping>
+                    <syncfusion:ScheduleAppointmentMapping
+			            SubjectMapping="DisplayInfo"
+			            StartTimeMapping="Start"
+			            EndTimeMapping="End"
+                        ColorMapping="Color">
+                    </syncfusion:ScheduleAppointmentMapping>
+                </syncfusion:SfSchedule.AppointmentMapping>
+                <syncfusion:SfSchedule.AppointmentStyle>
+                    <syncfusion:AppointmentStyle 
+                        BorderColor="{DynamicResource PageBackgroundColor}"
+                        TextColor="{DynamicResource AppointmentTextColor}" />
+                </syncfusion:SfSchedule.AppointmentStyle>
+            </syncfusion:SfSchedule>
+        </StackLayout>
+        <buttons:SfButton 
+            x:Name="BToday"
+            HorizontalOptions="Center"
+            AbsoluteLayout.LayoutFlags="PositionProportional"
+            AbsoluteLayout.LayoutBounds="1,1,AutoSize,AutoSize"
+            FontFamily="{StaticResource MaterialFontFamily}" 
+            CornerRadius="100"
+            FontSize="20"
+            Margin="20"
+            WidthRequest="47" 
+            HeightRequest="47" 
+            BackgroundColor="{DynamicResource CurrentDayColor}" 
+            TextColor="White"
+            HasShadow="True"
+            Scale="{Binding BTodayScale, Mode=TwoWay}"
+            Command="{Binding BTodayClickedCommand}"
+            Text="{Binding BTodayText}"/>
+        <StackLayout x:Name="NoSourceLayout" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="{Binding NoSourceLayoutIsVisible}">
+            <Label Text="{Binding NoSourceLayoutText}"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand"
+                HorizontalTextAlignment="Center" />
+        </StackLayout>
+        <StackLayout x:Name="ProgressLayout" IsVisible="{Binding ProgressLayoutIsVisible}" Padding="12"
                 AbsoluteLayout.LayoutFlags="PositionProportional"
-                AbsoluteLayout.LayoutBounds="1,1,AutoSize,AutoSize"
-                FontFamily="{StaticResource MaterialFontFamily}" 
-                CornerRadius="100"
-                FontSize="20"
-                Margin="20"
-                WidthRequest="47" 
-                HeightRequest="47" 
-                BackgroundColor="{DynamicResource CurrentDayColor}" 
-                TextColor="White"
-                HasShadow="True"
-                Scale="{Binding BTodayScale, Mode=TwoWay}"
-                Command="{Binding BTodayClickedCommand}"
-                Text="{Binding BTodayText}"/>
-            <StackLayout x:Name="NoSourceLayout" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="{Binding NoSourceLayoutIsVisible}">
-                <Label Text="{Binding NoSourceLayoutText}"
-                    VerticalOptions="CenterAndExpand" 
-                    HorizontalOptions="CenterAndExpand"
-                    HorizontalTextAlignment="Center" />
-            </StackLayout>
-            <StackLayout x:Name="ProgressLayout" IsVisible="{Binding ProgressLayoutIsVisible}" Padding="12"
-                    AbsoluteLayout.LayoutFlags="PositionProportional"
-                    AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
-                <ActivityIndicator IsRunning="True"/>
-                <Label Text="{LN:Translate Wait}" HorizontalOptions="Center" TextColor="{DynamicResource ActivityIndicatorTextColor}"/>
-            </StackLayout>
-        </AbsoluteLayout>
-    </ContentPage.Content>
+                AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
+            <ActivityIndicator IsRunning="True"/>
+            <Label Text="{LN:Translate Wait}" HorizontalOptions="Center" TextColor="{DynamicResource ActivityIndicatorTextColor}"/>
+        </StackLayout>
+    </AbsoluteLayout>
 </ContentPage>
