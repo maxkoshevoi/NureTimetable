@@ -31,20 +31,17 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <StackLayout Grid.Column="0" WidthRequest="10" IsVisible="{Binding IsMultiselectMode, Converter={converters:NegateBooleanConverter}}">
-                                    <Label BackgroundColor="{DynamicResource SelectedEntityColor}" VerticalOptions="FillAndExpand" IsVisible="{Binding IsSelected}" />
+                                <StackLayout WidthRequest="10" IsVisible="{Binding IsMultiselectMode, Converter={converters:NegateBooleanConverter}}">
+                                    <BoxView BackgroundColor="{DynamicResource SelectedEntityColor}" VerticalOptions="FillAndExpand" IsVisible="{Binding IsSelected}" />
                                 </StackLayout>
-                                <StackLayout Grid.Column="0" IsVisible="{Binding IsMultiselectMode}">
-                                    <CheckBox Margin="5,5,5,5" IsChecked="{Binding IsSelected}" VerticalOptions="FillAndExpand" />
+                                <StackLayout IsVisible="{Binding IsMultiselectMode}">
+                                    <CheckBox Margin="5" IsChecked="{Binding IsSelected}" VerticalOptions="FillAndExpand" />
                                 </StackLayout>
-                                <StackLayout Grid.Column="1" Margin="0,5,0,5">
+                                <StackLayout Grid.Column="1" Margin="0,5">
                                     <Label Text="{Binding SavedEntity.Name}" Style="{DynamicResource ListItemTextStyle}" />
                                     <Label Text="{Binding SavedEntity.LastUpdated}" FontSize="13" Style="{DynamicResource ListItemDetailTextStyle}"/>
                                 </StackLayout>
                                 <StackLayout Grid.Column="2" Padding="0,5,10,5" Orientation="Horizontal">
-                                    <StackLayout.GestureRecognizers>
-                                        <TapGestureRecognizer />
-                                    </StackLayout.GestureRecognizers>
                                     <Label Text="{Static fonts:MaterialIconsFont.Refresh}" FontFamily="{StaticResource MaterialFontFamily}" TextColor="{DynamicResource ListIconColor}" FontSize="30" VerticalOptions="CenterAndExpand">
                                         <Label.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding UpdateClickedCommand}" />

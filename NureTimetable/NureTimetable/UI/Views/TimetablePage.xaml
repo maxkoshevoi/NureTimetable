@@ -149,7 +149,6 @@
                 </syncfusion:SfSchedule>
             </StackLayout>
             <buttons:SfButton 
-                x:Name="BToday" 
                 HorizontalOptions="Center"
                 AbsoluteLayout.LayoutFlags="PositionProportional"
                 AbsoluteLayout.LayoutBounds="1,1,AutoSize,AutoSize"
