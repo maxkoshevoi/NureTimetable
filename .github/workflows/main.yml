@@ -5,12 +5,14 @@ on: [push, pull_request]
 jobs: 
   build:
     name: Build and test
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Install dependencies
-        run: nuget restore
+        run: dotnet restore
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v1.0.2
       - name: Build
-        run: dotnet build --configuration Release --no-restore
+        run: msbuild /p:Configuration=Release
       - name: Test
         run: dotnet test --no-restore --verbosity normal
