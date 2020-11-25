@@ -10,5 +10,5 @@ jobs:
     - name: Android
       run: |
         nuget restore
-        cd NureTimetable\NureTimetable.Android
+        cd NureTimetable/NureTimetable.Android
         msbuild NureTimetable.Android.csproj /verbosity:normal /t:Rebuild /p:Configuration=Debug
