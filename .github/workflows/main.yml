@@ -4,11 +4,12 @@ on: [push, pull_request]
 
 jobs: 
   Restore:
+    name: Prepare for build
     runs-on: windows-latest
     steps:
     - name: Checkout
       uses: actions/checkout@v1
-    - name: Restore
+    - name: Restore NuGets
       run: nuget restore
 
   Android-Debug:
@@ -17,6 +18,7 @@ jobs:
     steps:
     - name: Build
       run: |
+        ls
         cd NureTimetable/NureTimetable.Android
         msbuild NureTimetable.Android.csproj /verbosity:normal /t:Rebuild /p:Configuration=Debug
         
@@ -26,5 +28,5 @@ jobs:
     steps:
     - name: Build
       run: |
-        cd NureTimetable/NureTimetable.Android
+        cd NureTimetable.Android
         msbuild NureTimetable.Android.csproj /verbosity:normal /t:Rebuild /p:Configuration=Release
