@@ -5,7 +5,7 @@ on: [push, pull_request]
 jobs: 
   build:
     name: Build and test
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
       - name: Install dependencies
@@ -14,5 +14,17 @@ jobs:
         uses: microsoft/setup-msbuild@v1.0.2
       - name: Build
         run: msbuild /p:Configuration=Release
+      - name: Test
+        run: dotnet test --no-restore --verbosity normal
+        
+  build-ubuntu:
+    name: Build and test - ubuntu
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: dotnet restore
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
       - name: Test
         run: dotnet test --no-restore --verbosity normal
