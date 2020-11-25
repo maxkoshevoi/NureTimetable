@@ -16,9 +16,12 @@ jobs:
     runs-on: windows-latest
     needs: [Restore]
     steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+    - name: Restore NuGets
+      run: nuget restore
     - name: Build
       run: |
-        ls
         cd NureTimetable/NureTimetable.Android
         msbuild NureTimetable.Android.csproj /verbosity:normal /t:Rebuild /p:Configuration=Debug
         
@@ -26,7 +29,9 @@ jobs:
     runs-on: windows-latest
     needs: [Restore]
     steps:
+    - name: Restore NuGets
+      run: nuget restore
     - name: Build
       run: |
-        cd NureTimetable.Android
+        cd NureTimetable/NureTimetable.Android
         msbuild NureTimetable.Android.csproj /verbosity:normal /t:Rebuild /p:Configuration=Release
