@@ -22,7 +22,7 @@ namespace NureTimetable.DAL
     {
         public static bool IsInitialized { get; private set; } = false;
 
-        private static readonly object lockObject = new object();
+        private static readonly object lockObject = new();
         
         public class UniversityEntitiesCistUpdateResult
         {

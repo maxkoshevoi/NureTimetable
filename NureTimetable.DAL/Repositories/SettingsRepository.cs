@@ -41,6 +41,7 @@ namespace NureTimetable.DAL
                     continue;
                 }
 
+                // Update is allowd once per day (day begins at 7 AM)
                 TimeSpan timeBeforeAnotherUpdate;
                 if (savedEntity.LastUpdated.Value.TimeOfDay < Config.CistDailyTimetableUpdateTime)
                 {
