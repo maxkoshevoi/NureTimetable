@@ -3,12 +3,28 @@ name: CI on Push and Pull Request
 on: [push, pull_request]
 
 jobs: 
-  Android:
-    runs-on: macos-latest
+  Restore:
+    runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v1
-    - name: Android
+    - name: Checkout
+      uses: actions/checkout@v1
+    - name: Restore
+      run: nuget restore
+
+  Android-Debug:
+    runs-on: windows-latest
+    needs: [Restore]
+    steps:
+    - name: Build
       run: |
-        nuget restore
         cd NureTimetable/NureTimetable.Android
         msbuild NureTimetable.Android.csproj /verbosity:normal /t:Rebuild /p:Configuration=Debug
+        
+  Android-Release:
+    runs-on: windows-latest
+    needs: [Restore]
+    steps:
+    - name: Build
+      run: |
+        cd NureTimetable/NureTimetable.Android
+        msbuild NureTimetable.Android.csproj /verbosity:normal /t:Rebuild /p:Configuration=Release
