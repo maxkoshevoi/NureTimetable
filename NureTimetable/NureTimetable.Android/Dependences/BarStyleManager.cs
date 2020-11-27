@@ -3,7 +3,6 @@ using Android.OS;
 using Android.Views;
 using NureTimetable.Core.Models.InterplatformCommunication;
 using NureTimetable.Droid.Dependences;
-using Plugin.CurrentActivity;
 using Xamarin.Essentials;
 using NureTimetable.Core.Extensions;
 
@@ -94,7 +93,7 @@ namespace NureTimetable.Droid.Dependences
 
         private Window GetCurrentWindow()
         {
-            Window window = CrossCurrentActivity.Current.Activity.Window;
+            Window window = Platform.CurrentActivity.Window;
             window.ClearFlags(WindowManagerFlags.TranslucentStatus);
             window.AddFlags(WindowManagerFlags.DrawsSystemBarBackgrounds);
             return window;
