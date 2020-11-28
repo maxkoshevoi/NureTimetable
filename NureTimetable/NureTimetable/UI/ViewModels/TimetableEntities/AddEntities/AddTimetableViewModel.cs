@@ -68,9 +68,9 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
                 {
                     message = LN.CannotGetDataFromCist;
                 }
-                else if (updateFromCistResult.IsCistOutOfMemory)
+                else if (updateFromCistResult.IsCistException)
                 {
-                    message = LN.CistOutOfMemory;
+                    message = LN.CistException;
                 }
                 await MainThread.InvokeOnMainThreadAsync(async () =>
                     await Shell.Current.DisplayAlert(LN.UniversityInfoUpdate, message, LN.Ok)

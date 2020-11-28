@@ -449,7 +449,7 @@ Try again later, or try using different WIFI network or mobile internet connecti
   <data name="TimetableIsEmpty" xml:space="preserve">
     <value>Timetable doesn't contain any events</value>
   </data>
-  <data name="CistOutOfMemory" xml:space="preserve">
+  <data name="CistException" xml:space="preserve">
     <value>Too much load on cist.nure.ua. Please try again later.</value>
   </data>
   <data name="UnsavedChangesMessage" xml:space="preserve">

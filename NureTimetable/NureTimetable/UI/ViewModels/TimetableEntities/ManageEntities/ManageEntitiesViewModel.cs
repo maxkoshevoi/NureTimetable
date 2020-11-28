@@ -205,7 +205,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
             
             List<string> success = new(), fail = new();
             bool isNetworkError = false;
-            bool isCistOutOfMemoryError = false;
+            bool isCistError = false;
             for (int i = 0; i < updateTasks.Count; i++)
             {
                 Exception ex = updateTasks[i].Result.Exception;
@@ -220,9 +220,9 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
                 {
                     isNetworkError = true;
                 }
-                else if (ex is CistOutOfMemoryException)
+                else if (ex is CistException)
                 {
-                    isCistOutOfMemoryError = true;
+                    isCistError = true;
                 }
 
                 string errorMessage = ex.Message;
@@ -238,9 +238,9 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
             {
                 result = LN.CannotGetDataFromCist;
             }
-            else if (isCistOutOfMemoryError)
+            else if (isCistError)
             {
-                result = LN.CistOutOfMemory;
+                result = LN.CistException;
             }
             else
             {

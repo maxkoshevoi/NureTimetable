@@ -127,12 +127,14 @@ namespace NureTimetable.UI.Views
                 Analytics.TrackEvent("WebException", properties);
                 return;
             }
-            else if (ex is CistOutOfMemoryException)
+            else if (ex is CistException cistEx)
             {
-                // CistOutOfMemoryException happens for external reasons, and shouldn't be treated as an exception.
+                // CistException happens for external reasons, and shouldn't be treated as an exception.
                 // But just in case it is logged as Event
+                
+                properties.Add("Status", cistEx.Status.ToString());
 
-                Analytics.TrackEvent("CistOutOfMemoryException", properties);
+                Analytics.TrackEvent("CistException", properties);
                 return;
             }
 

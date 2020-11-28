@@ -51,10 +51,10 @@ namespace NureTimetable.DAL
                 || TeachersException is WebException 
                 || RoomsException is WebException;
 
-            public bool IsCistOutOfMemory =>
-                GroupsException is CistOutOfMemoryException
-                || TeachersException is CistOutOfMemoryException
-                || RoomsException is CistOutOfMemoryException;
+            public bool IsCistException =>
+                GroupsException is CistException
+                || TeachersException is CistException
+                || RoomsException is CistException;
         }
 
         #region All Entities Cist
