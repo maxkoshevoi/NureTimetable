@@ -573,33 +573,29 @@ namespace NureTimetable.DAL
             savedEntities ??= new List<Local.SavedEntity>();
 
             // Removing cache from deleted saved entities if needed
-            List<Local.SavedEntity> deletedEntities = GetSaved()
+            GetSaved()
                 .Where(oldEntity => !savedEntities.Exists(entity => entity.ID == oldEntity.ID))
-                .ToList();
-            if (deletedEntities.Count > 0)
-            {
-                deletedEntities.ForEach((de) =>
-                {
-                    try
-                    {
-                        File.Delete(FilePath.SavedTimetable(de.Type, de.ID));
-                    }
-                    catch {}
+                .ToList()
+                .ForEach((de) => 
+                { 
+                    try { File.Delete(FilePath.SavedTimetable(de.Type, de.ID)); } catch { } 
                 });
-            }
+
             // Saving saved entities list
             Serialisation.ToJsonFile(savedEntities, FilePath.SavedEntitiesList);
-            MessagingCenter.Send(Application.Current, MessageTypes.SavedEntitiesChanged, savedEntities);
+            
             // Updating selected entity if needed
             List<Local.SavedEntity> selectedEntities = savedEntities.Intersect(GetSelected()).ToList();
-            if (selectedEntities.Count == 0 && savedEntities.Count > 0)
+            if (selectedEntities.Count == 0 && savedEntities.Any())
             {
-                UpdateSelected(savedEntities[0]);
+                UpdateSelected(savedEntities.First());
             }
             else if(savedEntities.Count == 0)
             {
                 UpdateSelected();
             }
+
+            MessagingCenter.Send(Application.Current, MessageTypes.SavedEntitiesChanged, savedEntities);
         }
         #endregion
 
@@ -633,7 +629,7 @@ namespace NureTimetable.DAL
             selectedEntities ??= new List<Local.SavedEntity>();
 
             List<Local.SavedEntity> currentEntities = GetSelected();
-            if (currentEntities.Count == selectedEntities.Count && !currentEntities.Except(selectedEntities).Any())
+            if (currentEntities.Count == selectedEntities.Count && currentEntities.Except(selectedEntities).Count() == 0)
             {
                 return;
             }

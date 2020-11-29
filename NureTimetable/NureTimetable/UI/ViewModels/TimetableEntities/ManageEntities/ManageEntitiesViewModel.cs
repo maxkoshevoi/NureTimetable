@@ -36,33 +36,36 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
         #region Properties
         public bool IsNoSourceLayoutVisable { get => _isNoSourceLayoutVisable; set => SetProperty(ref _isNoSourceLayoutVisable, value); }
 
-        public bool IsProgressVisable { get => _isProgressVisable; set => SetProperty(ref _isProgressVisable, value); }
-
-        public bool IsEntitiesLayoutEnabled { get => _isEntitiesLayoutEnable;  set => SetProperty(ref _isEntitiesLayoutEnable, value, () => { UpdateAllCommand.ChangeCanExecute();  AddEntityCommand.ChangeCanExecute(); }); }
-
         public bool IsMultiselectMode
         {
             get => _isMultiselectMode;
             set => SetProperty(ref _isMultiselectMode, value, () => Entities?.ForEach(e => e.NotifyChanged(nameof(IsMultiselectMode))));
         }
 
-        public SavedEntityItemViewModel SelectedEntity { get => _selectedEntity; set => SetProperty(ref _selectedEntity, value, SavedEntitySelected); }
-
         public ObservableCollection<SavedEntityItemViewModel> Entities { get => _entities; private set => SetProperty(ref _entities, value); }
 
         public Command UpdateAllCommand { get; }
-
         public Command AddEntityCommand { get; }
-
+        public Command EntitySelectedCommand { get; }
         #endregion
 
         public ManageEntitiesViewModel()
         {
-            UpdateAllCommand = CommandHelper.Create(UpdateAll, () => IsEntitiesLayoutEnabled);
-            AddEntityCommand = CommandHelper.Create(AddEntity, () => IsEntitiesLayoutEnabled);
+            UpdateAllCommand = CommandHelper.Create(UpdateAll, () => Entities.Any() && Entities.All(e => !e.IsUpdating));
+            AddEntityCommand = CommandHelper.Create(AddEntity);
+            EntitySelectedCommand = CommandHelper.Create<SelectedItemChangedEventArgs>(async (args) =>
+            {
+                if (args.SelectedItem is not SavedEntityItemViewModel entity) return;
 
-            IsProgressVisable = false;
-            IsEntitiesLayoutEnabled = true;
+                if (IsMultiselectMode)
+                {
+                    entity.IsSelected = !entity.IsSelected;
+                }
+                else
+                {
+                    await SelectOneAndExit(entity.SavedEntity);
+                }
+            });
 
             UpdateItems();
             MessagingCenter.Subscribe<Application, List<SavedEntity>>(this, MessageTypes.SavedEntitiesChanged, (sender, newSavedEntities) =>
@@ -72,29 +75,10 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
         }
 
         #region Methods
-        public async void SavedEntitySelected()
-        {
-            if (SelectedEntity is null)
-            {
-                return;
-            }
-
-            if (UniversityEntitiesRepository.GetSelected().Count > 1)
-            {
-                SelectedEntity.IsSelected = !SelectedEntity.IsSelected;
-            }
-            else
-            {
-                await SelectOneAndExit(SelectedEntity.SavedEntity);
-            }
-        }
-
         public async Task SelectOneAndExit(SavedEntity savedEntity)
         {
             UniversityEntitiesRepository.UpdateSelected(savedEntity);
             await Shell.Current.GoToAsync("//tabbar/Events");
-            
-            UpdateItems();
         }
 
         public void OnEntitySelectChange(SavedEntityItemViewModel entity)
@@ -123,6 +107,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
                     var otherSavedEntity = Entities.FirstOrDefault();
                     if (otherSavedEntity != null)
                     {
+                        // If user deleted last selected entity, selecting any other saved entity
                         otherSavedEntity.IsSelected = true;
                         currentSelected = UniversityEntitiesRepository.GetSelected();
                     }
@@ -157,12 +142,21 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
 
             List<SavedEntity> selectedEntities = UniversityEntitiesRepository.GetSelected();
             Entities = new ObservableCollection<SavedEntityItemViewModel>(
-                newItems.Select(sg => new SavedEntityItemViewModel(sg, this)
+                newItems.Select(sg =>
                 {
-                    IsSelected = selectedEntities.Any(se => se.ID == sg.ID)
+                    SavedEntityItemViewModel displaysEntity = Entities?.FirstOrDefault(e => e.SavedEntity == sg);
+                    if (displaysEntity is null)
+                    {
+                        displaysEntity = new SavedEntityItemViewModel(sg, this);
+                    }
+                    displaysEntity.SavedEntity.LastUpdated = sg.LastUpdated;
+                    displaysEntity.IsSelected = selectedEntities.Any(se => se.ID == sg.ID);
+
+                    return displaysEntity;
                 })
             );
             IsMultiselectMode = selectedEntities.Count > 1;
+            UpdateAllCommand.ChangeCanExecute();
         }
 
         public Task UpdateTimetable(SavedEntity entity)
@@ -182,9 +176,6 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
                 return;
             }
 
-            IsEntitiesLayoutEnabled = false;
-            IsProgressVisable = true;
-
             Analytics.TrackEvent("Updating timetable", new Dictionary<string, string>
             {
                 { "Count", entitiesAllowed.Count.ToString() },
@@ -192,23 +183,32 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
             });
 
             // Update timetables in background
+            async Task<Exception> UpdateEntity(SavedEntity entity)
+            {
+                SavedEntityItemViewModel savedEntityViewModel = Entities.Where(e => e.SavedEntity == entity).Single();
+                savedEntityViewModel.IsUpdating = true;
+                (_, Exception updateError) = await EventsRepository.GetTimetableFromCist(entity, Config.TimetableFromDate, Config.TimetableToDate);
+                savedEntityViewModel.IsUpdating = false;
+                return updateError;
+            }
+
             const int batchSize = 10;
-            List<Task<(TimetableInfo _, Exception Exception)>> updateTasks = new();
+            List<Task<Exception>> updateTasks = new();
             for (int i = 0; i < entitiesAllowed.Count; i += batchSize)
             {
                 foreach (SavedEntity entity in entitiesAllowed.Skip(i).Take(batchSize))
                 {
-                    updateTasks.Add(EventsRepository.GetTimetableFromCist(entity, Config.TimetableFromDate, Config.TimetableToDate));
+                    updateTasks.Add(UpdateEntity(entity));
                 }
                 await Task.WhenAll(updateTasks);
             }
-            
+
             List<string> success = new(), fail = new();
             bool isNetworkError = false;
             bool isCistError = false;
             for (int i = 0; i < updateTasks.Count; i++)
             {
-                Exception ex = updateTasks[i].Result.Exception;
+                Exception ex = updateTasks[i].Result;
                 SavedEntity entity = entitiesAllowed[i];
                 if (ex is null)
                 {
@@ -233,6 +233,11 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
                 fail.Add($"{entity.Name} ({errorMessage.Trim()})");
             }
 
+            if (success.Count == entitiesAllowed.Count)
+            {
+                return;
+            }
+
             string result = string.Empty;
             if (isNetworkError && fail.Count == entitiesAllowed.Count)
             {
@@ -254,8 +259,6 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
                 }
             }
 
-            IsProgressVisable = false;
-            IsEntitiesLayoutEnabled = true;
             if (await Shell.Current.DisplayAlert(LN.TimetableUpdate, result, LN.ToTimetable, LN.Ok))
             {
                 List<SavedEntity> selected = UniversityEntitiesRepository.GetSelected();

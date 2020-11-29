@@ -23,16 +23,14 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
 
         // TODO: Move this property inside SavedEntity and replace SelectedEntity functionality with it
         private bool isSelected;
-        public bool IsSelected
-        {
-            get => isSelected;
-            set => SetProperty(ref isSelected, value, () => _manageEntitiesViewModel.OnEntitySelectChange(this));
-        }
+        public bool IsSelected { get => isSelected; set => SetProperty(ref isSelected, value, () => _manageEntitiesViewModel.OnEntitySelectChange(this)); }
+
+        private bool isUpdating;
+        public bool IsUpdating { get => isUpdating; set { SetProperty(ref isUpdating, value); _manageEntitiesViewModel.UpdateAllCommand.ChangeCanExecute(); } }
 
         public bool IsMultiselectMode => _manageEntitiesViewModel.IsMultiselectMode;
 
         public ICommand SettingsClickedCommand { get; }
-
         public ICommand UpdateClickedCommand { get; }
         #endregion
 

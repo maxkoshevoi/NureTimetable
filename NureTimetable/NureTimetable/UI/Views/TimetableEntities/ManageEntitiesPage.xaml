@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:behaviors="clr-namespace:NureTimetable.UI.Behaviors;assembly=NureTimetable"
              xmlns:converters="clr-namespace:NureTimetable.UI.Behaviors"
              xmlns:LN="clr-namespace:NureTimetable.Core.Localization;assembly=NureTimetable.Core"
              xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities"
@@ -15,13 +16,17 @@
     </ContentPage.ToolbarItems>
 
     <AbsoluteLayout>
-        <StackLayout IsEnabled="{Binding IsEntitiesLayoutEnabled}" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+        <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
             <ListView x:Name="EntitiesList"
                     ItemTapped="EntitiesList_OnItemTapped"
                     CachingStrategy="RecycleElement"
                     HasUnevenRows="True"
-                    ItemsSource="{Binding Entities}"
-                    SelectedItem="{Binding SelectedEntity}">
+                    ItemsSource="{Binding Entities}">
+
+                <ListView.Behaviors>
+                    <behaviors:EventToCommandBehavior x:DataType="vm:ManageEntitiesViewModel" EventName="ItemSelected" Command="{Binding EntitySelectedCommand}"/>
+                </ListView.Behaviors>
+                
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="vm:SavedEntityItemViewModel">
                         <ViewCell>
@@ -42,28 +47,25 @@
                                     <Label Text="{Binding SavedEntity.LastUpdated}" FontSize="13" Style="{DynamicResource ListItemDetailTextStyle}"/>
                                 </StackLayout>
                                 <StackLayout Grid.Column="2" Padding="0,5,10,5" Orientation="Horizontal">
-                                    <Label Text="{Static fonts:MaterialIconsFont.Refresh}" FontFamily="{StaticResource MaterialFontFamily}" TextColor="{DynamicResource ListIconColor}" FontSize="30" VerticalOptions="CenterAndExpand">
-                                        <Label.GestureRecognizers>
-                                            <TapGestureRecognizer Command="{Binding UpdateClickedCommand}" />
-                                        </Label.GestureRecognizers>
-                                    </Label>
-                                    <Label Text="{Static fonts:MaterialIconsFont.Cog}" Margin="11,0,0,0" FontFamily="{StaticResource MaterialFontFamily}" TextColor="{DynamicResource ListIconColor}" FontSize="30" VerticalOptions="CenterAndExpand">
-                                        <Label.GestureRecognizers>
+                                    <StackLayout VerticalOptions="CenterAndExpand">
+                                        <Image IsVisible="{Binding IsUpdating, Converter={converters:NegateBooleanConverter}}" Source="{FontImageSource Glyph={Static fonts:MaterialIconsFont.Refresh}, FontFamily={StaticResource MaterialFontFamily}, Color={DynamicResource ListIconColor}}">
+                                            <Image.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding UpdateClickedCommand}" />
+                                            </Image.GestureRecognizers>
+                                        </Image>
+                                        <ActivityIndicator IsVisible="{Binding IsUpdating}" Color="{DynamicResource ListIconColor}" IsRunning="True" HeightRequest="30" WidthRequest="30"/>
+                                    </StackLayout>
+                                    <Image VerticalOptions="CenterAndExpand" Margin="11,0,0,0" Source="{FontImageSource Glyph={Static fonts:MaterialIconsFont.Cog}, FontFamily={StaticResource MaterialFontFamily}, Color={DynamicResource ListIconColor}}">
+                                        <Image.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding SettingsClickedCommand}" />
-                                        </Label.GestureRecognizers>
-                                    </Label>
+                                        </Image.GestureRecognizers>
+                                    </Image>
                                 </StackLayout>
                             </Grid>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-        </StackLayout>
-        <StackLayout IsVisible="{Binding IsProgressVisable}" Padding="12"
-                AbsoluteLayout.LayoutFlags="PositionProportional"
-                AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
-            <ActivityIndicator IsRunning="True"/>
-            <Label Text="{LN:Translate Wait}" HorizontalOptions="Center" TextColor="{DynamicResource ActivityIndicatorTextColor}"/>
         </StackLayout>
         <StackLayout IsVisible="{Binding IsNoSourceLayoutVisable}"  AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
             <Label Text="{LN:Translate NoSavedTimetables}"
