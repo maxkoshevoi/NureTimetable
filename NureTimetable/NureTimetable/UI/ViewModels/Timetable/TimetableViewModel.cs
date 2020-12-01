@@ -178,7 +178,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
             });
             UpdateTimetableCommand = CommandHelper.Create(async () => 
             {
-                string responce = await TimetableService.Update(timetableInfoList.Entities.ToList());
+                string responce = await TimetableService.Update(timetableInfoList?.Entities.ToList());
                 if (responce is null)
                     return;
 
