@@ -31,7 +31,14 @@ namespace NureTimetable.UI.Themes
                 return false;
             }
             resources.Clear();
-            resources.Add(theme);
+            try
+            {
+                resources.Add(theme);
+            }
+            catch (Exception ex)
+            {
+                MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
+            }
 
             var statusBarManager = DependencyService.Get<IBarStyleManager>();
             statusBarManager.SetStatusBarColor(ResourceManager.StatusBarColor.ToHex());
