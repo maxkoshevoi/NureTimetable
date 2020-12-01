@@ -556,7 +556,7 @@ namespace NureTimetable.DAL
         #region Saved Entities
         public static List<Local.SavedEntity> GetSaved()
         {
-            List<Local.SavedEntity> loadedEntities = new List<Local.SavedEntity>();
+            List<Local.SavedEntity> loadedEntities = new();
 
             string filePath = FilePath.SavedEntitiesList;
             if (!File.Exists(filePath))
@@ -570,72 +570,36 @@ namespace NureTimetable.DAL
 
         public static void UpdateSaved(List<Local.SavedEntity> savedEntities)
         {
-            savedEntities ??= new List<Local.SavedEntity>();
+            savedEntities ??= new();
 
+            List<Local.SavedEntity> duplicates = savedEntities.GroupBy(e => e).Where(g => g.Count() > 1).Select(g => g.Key).ToList();
+            if (duplicates.Any())
+                throw new InvalidOperationException($"{nameof(savedEntities)} must be unique");
+
+            List<Local.SavedEntity> oldSavedEntities = GetSaved();
             // Removing cache from deleted saved entities if needed
-            GetSaved()
-                .Where(oldEntity => !savedEntities.Exists(entity => entity.ID == oldEntity.ID))
+            oldSavedEntities.Where(oldEntity => !savedEntities.Exists(entity => entity.ID == oldEntity.ID))
                 .ToList()
                 .ForEach((de) => 
                 { 
                     try { File.Delete(FilePath.SavedTimetable(de.Type, de.ID)); } catch { } 
                 });
 
+            if (savedEntities.Any() && !savedEntities.Any(e => e.IsSelected))
+            {
+                // If no entity is selected, selecting first saved entity
+                savedEntities.First().IsSelected = true;
+            }
+
             // Saving saved entities list
             Serialisation.ToJsonFile(savedEntities, FilePath.SavedEntitiesList);
-            
-            // Updating selected entity if needed
-            List<Local.SavedEntity> selectedEntities = savedEntities.Intersect(GetSelected()).ToList();
-            if (selectedEntities.Count == 0 && savedEntities.Any())
-            {
-                UpdateSelected(savedEntities.First());
-            }
-            else if(savedEntities.Count == 0)
-            {
-                UpdateSelected();
-            }
-
             MessagingCenter.Send(Application.Current, MessageTypes.SavedEntitiesChanged, savedEntities);
-        }
-        #endregion
 
-        #region Selected Entity
-        public static List<Local.SavedEntity> GetSelected()
-        {
-            var selectedEntities = new List<Local.SavedEntity>();
-
-            string filePath = FilePath.SelectedEntities;
-            if (!File.Exists(filePath))
+            if (oldSavedEntities.Count(e => e.IsSelected) != savedEntities.Count(e => e.IsSelected)
+                || oldSavedEntities.Where(e => e.IsSelected).Except(savedEntities.Where(e => e.IsSelected)).Any())
             {
-                return selectedEntities;
+                MessagingCenter.Send(Application.Current, MessageTypes.SelectedEntitiesChanged, savedEntities.Where(e => e.IsSelected).ToList());
             }
-
-            selectedEntities = Serialisation.FromJsonFile<List<Local.SavedEntity>>(filePath) ?? selectedEntities;
-            return selectedEntities;
-        }
-
-        public static void UpdateSelected(Local.SavedEntity selectedEntity = null)
-        {
-            List<Local.SavedEntity> entities = new List<Local.SavedEntity>();
-            if (selectedEntity != null)
-            {
-                entities.Add(selectedEntity);
-            }
-            UpdateSelected(entities);
-        }
-
-        public static void UpdateSelected(List<Local.SavedEntity> selectedEntities)
-        {
-            selectedEntities ??= new List<Local.SavedEntity>();
-
-            List<Local.SavedEntity> currentEntities = GetSelected();
-            if (currentEntities.Count == selectedEntities.Count && currentEntities.Except(selectedEntities).Count() == 0)
-            {
-                return;
-            }
-
-            Serialisation.ToJsonFile(selectedEntities, FilePath.SelectedEntities);
-            MessagingCenter.Send(Application.Current, MessageTypes.SelectedEntitiesChanged, selectedEntities);
         }
         #endregion
     }

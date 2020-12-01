@@ -57,13 +57,15 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
             {
                 if (args.SelectedItem is not SavedEntityItemViewModel entity) return;
 
+                SavedEntity savedEntity = entity.SavedEntity;
                 if (IsMultiselectMode)
                 {
-                    entity.IsSelected = !entity.IsSelected;
+                    savedEntity.IsSelected = !savedEntity.IsSelected;
                 }
                 else
                 {
-                    await SelectOneAndExit(entity.SavedEntity);
+                    SelectOne(savedEntity);
+                    await Shell.Current.GoToAsync("//tabbar/Events");
                 }
             });
 
@@ -72,59 +74,74 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
             {
                 UpdateItems(newSavedEntities);
             });
+            MessagingCenter.Subscribe<Application, Entity>(this, MessageTypes.TimetableUpdating, (sender, entity) =>
+            {
+                SavedEntityItemViewModel savedEntity = Entities.SingleOrDefault(e => e.SavedEntity == entity);
+                if (savedEntity is not null)
+                    savedEntity.IsUpdating = true;
+            });
+            MessagingCenter.Subscribe<Application, Entity>(this, MessageTypes.TimetableUpdated, (sender, entity) =>
+            {
+                SavedEntityItemViewModel savedEntity = Entities.SingleOrDefault(e => e.SavedEntity == entity);
+                if (savedEntity is not null)
+                    savedEntity.IsUpdating = false;
+            });
         }
 
         #region Methods
-        public async Task SelectOneAndExit(SavedEntity savedEntity)
+        public void SelectOne(SavedEntity savedEntity)
         {
-            UniversityEntitiesRepository.UpdateSelected(savedEntity);
-            await Shell.Current.GoToAsync("//tabbar/Events");
+            List<SavedEntity> savedEntities = UniversityEntitiesRepository.GetSaved();
+            foreach (SavedEntity e in savedEntities)
+            {
+                e.IsSelected = e == savedEntity;
+            }
+            UniversityEntitiesRepository.UpdateSaved(savedEntities);
+            UpdateItems(savedEntities);
         }
 
-        public void OnEntitySelectChange(SavedEntityItemViewModel entity)
+        public void EntitySelectChanged(SavedEntityItemViewModel entity)
         {
-            List<SavedEntity> currentSelected = UniversityEntitiesRepository.GetSelected();
-            if (currentSelected.Contains(entity.SavedEntity) == entity.IsSelected)
+            List<SavedEntity> currentSaved = UniversityEntitiesRepository.GetSaved();
+            SavedEntity savedEntity = currentSaved.SingleOrDefault(e => e == entity.SavedEntity);
+
+            // Check state is changed
+            if (savedEntity.IsSelected == entity.SavedEntity.IsSelected)
             {
                 return;
             }
+            savedEntity.IsSelected = entity.SavedEntity.IsSelected;
 
-            if (entity.IsSelected)
+            // If deselecting last selected entity
+            if (!savedEntity.IsSelected && !currentSaved.Any(e => e.IsSelected))
             {
-                currentSelected.Add(entity.SavedEntity);
-            }
-            else
-            {
-                if (currentSelected.Count == 1)
+                if (Entities.Contains(entity))
                 {
-                    if (Entities.Contains(entity))
-                    {
-                        // User cannot deselect last selected entity
-                        entity.IsSelected = true;
-                        return;
-                    }
-
-                    var otherSavedEntity = Entities.FirstOrDefault();
-                    if (otherSavedEntity != null)
-                    {
-                        // If user deleted last selected entity, selecting any other saved entity
-                        otherSavedEntity.IsSelected = true;
-                        currentSelected = UniversityEntitiesRepository.GetSelected();
-                    }
+                    // User cannot deselect last selected entity
+                    savedEntity.IsSelected = true;
+                    return;
                 }
-                currentSelected.Remove(entity.SavedEntity);
+
+                var otherSavedEntity = Entities.FirstOrDefault();
+                if (otherSavedEntity != null)
+                {
+                    // If user deleted last selected entity, selecting any other saved entity
+                    otherSavedEntity.SavedEntity.IsSelected = true;
+                    currentSaved = UniversityEntitiesRepository.GetSaved();
+                }
             }
-            UniversityEntitiesRepository.UpdateSelected(currentSelected);
+
+            UniversityEntitiesRepository.UpdateSaved(currentSaved);
 
             // Changing multiselect state
-            IsMultiselectMode = currentSelected.Count > 1;
+            IsMultiselectMode = currentSaved.Count(e => e.IsSelected) > 1;
         }
 
         private async Task UpdateAll()
         {
             if (await Shell.Current.DisplayAlert(LN.TimetableUpdate, LN.UpdateAllTimetables, LN.Yes, LN.Cancel))
             {
-                await UpdateTimetable(Entities?.Select(vm => vm.SavedEntity).ToList());
+                await UpdateTimetable(Entities?.Select(vm => (Entity)vm.SavedEntity).ToList());
             }
         }
 
@@ -140,36 +157,41 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
         {
             IsNoSourceLayoutVisable = (newItems.Count == 0);
 
-            List<SavedEntity> selectedEntities = UniversityEntitiesRepository.GetSelected();
             Entities = new ObservableCollection<SavedEntityItemViewModel>(
                 newItems.Select(sg =>
                 {
-                    SavedEntityItemViewModel displaysEntity = Entities?.FirstOrDefault(e => e.SavedEntity == sg);
+                    SavedEntityItemViewModel displaysEntity = Entities?.SingleOrDefault(e => e.SavedEntity == sg);
                     if (displaysEntity is null)
                     {
                         displaysEntity = new SavedEntityItemViewModel(sg, this);
+                        displaysEntity.SavedEntity.PropertyChanged += (sender, args) =>
+                        {
+                            if (args.PropertyName == nameof(SavedEntity.IsSelected))
+                                EntitySelectChanged(displaysEntity);
+                        };
                     }
-                    displaysEntity.SavedEntity.LastUpdated = sg.LastUpdated;
-                    displaysEntity.IsSelected = selectedEntities.Any(se => se.ID == sg.ID);
 
+                    displaysEntity.SavedEntity.IsSelected = sg.IsSelected;
+                    displaysEntity.SavedEntity.LastUpdated = sg.LastUpdated;
                     return displaysEntity;
                 })
             );
-            IsMultiselectMode = selectedEntities.Count > 1;
+
+            IsMultiselectMode = newItems.Count(i => i.IsSelected) > 1;
             UpdateAllCommand.ChangeCanExecute();
         }
 
-        public Task UpdateTimetable(SavedEntity entity)
-            => UpdateTimetable(new List<SavedEntity>() { entity });
+        public Task UpdateTimetable(Entity entity)
+            => UpdateTimetable(new List<Entity>() { entity });
 
-        private async Task UpdateTimetable(List<SavedEntity> entities)
+        private async Task UpdateTimetable(List<Entity> entities)
         {
             if (entities is null || !entities.Any())
             {
                 return;
             }
 
-            List<SavedEntity> entitiesAllowed = SettingsRepository.CheckCistTimetableUpdateRights(entities);
+            List<Entity> entitiesAllowed = SettingsRepository.CheckCistTimetableUpdateRights(entities);
             if (entitiesAllowed.Count == 0)
             {
                 await Shell.Current.DisplayAlert(LN.TimetableUpdate, LN.TimetableLatest, LN.Ok);
@@ -183,22 +205,13 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
             });
 
             // Update timetables in background
-            async Task<Exception> UpdateEntity(SavedEntity entity)
-            {
-                SavedEntityItemViewModel savedEntityViewModel = Entities.Where(e => e.SavedEntity == entity).Single();
-                savedEntityViewModel.IsUpdating = true;
-                (_, Exception updateError) = await EventsRepository.GetTimetableFromCist(entity, Config.TimetableFromDate, Config.TimetableToDate);
-                savedEntityViewModel.IsUpdating = false;
-                return updateError;
-            }
-
             const int batchSize = 10;
-            List<Task<Exception>> updateTasks = new();
+            List<Task<(TimetableInfo _, Exception Error)>> updateTasks = new();
             for (int i = 0; i < entitiesAllowed.Count; i += batchSize)
             {
-                foreach (SavedEntity entity in entitiesAllowed.Skip(i).Take(batchSize))
+                foreach (Entity entity in entitiesAllowed.Skip(i).Take(batchSize))
                 {
-                    updateTasks.Add(UpdateEntity(entity));
+                    updateTasks.Add(EventsRepository.GetTimetableFromCist(entity, Config.TimetableFromDate, Config.TimetableToDate));
                 }
                 await Task.WhenAll(updateTasks);
             }
@@ -208,8 +221,8 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
             bool isCistError = false;
             for (int i = 0; i < updateTasks.Count; i++)
             {
-                Exception ex = updateTasks[i].Result;
-                SavedEntity entity = entitiesAllowed[i];
+                Exception ex = updateTasks[i].Result.Error;
+                Entity entity = entitiesAllowed[i];
                 if (ex is null)
                 {
                     success.Add(entity.Name);
@@ -261,15 +274,13 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
 
             if (await Shell.Current.DisplayAlert(LN.TimetableUpdate, result, LN.ToTimetable, LN.Ok))
             {
-                List<SavedEntity> selected = UniversityEntitiesRepository.GetSelected();
-                if (entitiesAllowed.Count == 1 && !selected.Contains(entitiesAllowed[0]))
+                SavedEntity firstAllowedEntity = UniversityEntitiesRepository.GetSaved().Single(e => e == entitiesAllowed.First());
+                if (entitiesAllowed.Count == 1 && !firstAllowedEntity.IsSelected)
                 {
-                    await SelectOneAndExit(entitiesAllowed[0]);
+                    SelectOne(firstAllowedEntity);
                 }
-                else
-                {
-                    await Shell.Current.GoToAsync("//tabbar/Events");
-                }
+
+                await Shell.Current.GoToAsync("//tabbar/Events");
             }
         }
         #endregion

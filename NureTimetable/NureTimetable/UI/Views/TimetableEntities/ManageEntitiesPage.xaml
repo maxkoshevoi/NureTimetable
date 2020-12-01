@@ -37,10 +37,10 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
                                 <StackLayout WidthRequest="10" IsVisible="{Binding IsMultiselectMode, Converter={converters:NegateBooleanConverter}}">
-                                    <BoxView BackgroundColor="{DynamicResource SelectedEntityColor}" VerticalOptions="FillAndExpand" IsVisible="{Binding IsSelected}" />
+                                    <BoxView BackgroundColor="{DynamicResource SelectedEntityColor}" VerticalOptions="FillAndExpand" IsVisible="{Binding SavedEntity.IsSelected}" />
                                 </StackLayout>
                                 <StackLayout IsVisible="{Binding IsMultiselectMode}">
-                                    <CheckBox Margin="5" IsChecked="{Binding IsSelected}" VerticalOptions="FillAndExpand" />
+                                    <CheckBox Margin="5" IsChecked="{Binding SavedEntity.IsSelected}" VerticalOptions="FillAndExpand" />
                                 </StackLayout>
                                 <StackLayout Grid.Column="1" Margin="0,5">
                                     <Label Text="{Binding SavedEntity.Name}" Style="{DynamicResource ListItemTextStyle}" />

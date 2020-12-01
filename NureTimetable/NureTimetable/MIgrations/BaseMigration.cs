@@ -1,7 +1,6 @@
 ﻿using NureTimetable.Core.Models.Consts;
 using System;
 using System.Collections.Generic;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace NureTimetable.Migrations
@@ -10,7 +9,7 @@ namespace NureTimetable.Migrations
     {
         public static IReadOnlyCollection<BaseMigration> Migrations => new[] 
         {
-            new CanSelectMultipleEntitiesMigration()
+            new MoveIsSelectInsideSavedEntityMigration()
         };
 
         public abstract bool IsNeedsToBeApplied();

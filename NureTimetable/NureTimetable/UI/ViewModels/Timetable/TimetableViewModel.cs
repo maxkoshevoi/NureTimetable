@@ -129,25 +129,17 @@ namespace NureTimetable.UI.ViewModels.Timetable
             });
             MessagingCenter.Subscribe<Application, List<SavedEntity>>(this, MessageTypes.SelectedEntitiesChanged, (sender, newSelectedEntities) =>
             {
-                UpdateEvents(newSelectedEntities);
+                UpdateEvents(newSelectedEntities.ToList<Entity>());
             });
-            MessagingCenter.Subscribe<Application, SavedEntity>(this, MessageTypes.TimetableUpdated, (sender, entity) =>
+            MessagingCenter.Subscribe<Application, Entity>(this, MessageTypes.TimetableUpdated, (sender, entity) =>
             {
-                List<SavedEntity> selectedEntities = UniversityEntitiesRepository.GetSelected();
-                if (!selectedEntities.Contains(entity))
-                {
-                    return;
-                }
-                UpdateEvents(selectedEntities);
+                if (timetableInfoList.Entities.Any(e => e == entity))
+                   UpdateEvents();
             });
-            MessagingCenter.Subscribe<Application, SavedEntity>(this, MessageTypes.LessonSettingsChanged, (sender, entity) =>
+            MessagingCenter.Subscribe<Application, Entity>(this, MessageTypes.LessonSettingsChanged, (sender, entity) =>
             {
-                List<SavedEntity> selectedEntities = UniversityEntitiesRepository.GetSelected();
-                if (!selectedEntities.Contains(entity))
-                {
-                    return;
-                }
-                UpdateEvents(selectedEntities);
+                if (timetableInfoList.Entities.Any(e => e == entity))
+                    UpdateEvents();
             });
 
             PageAppearingCommand = CommandHelper.Create(PageAppearing);
@@ -205,7 +197,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
             if (isFirstLoad)
             {
                 isFirstLoad = false;
-                await UpdateEventsWithUI();
+                await UpdateEventsWithUI(true);
             }
             else
             {
@@ -297,7 +289,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
             }
         }
 
-        private async Task UpdateEventsWithUI()
+        private async Task UpdateEventsWithUI(bool reloadSavedEntities = false)
         {
             await Task.Run(async () =>
             {
@@ -311,7 +303,15 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 }
                 else
                 {
-                    UpdateEvents(UniversityEntitiesRepository.GetSelected());
+                    if (reloadSavedEntities)
+                    {
+                        List<Entity> selectedEntities = UniversityEntitiesRepository.GetSaved().Where(e => e.IsSelected).ToList<Entity>();
+                        UpdateEvents(selectedEntities);
+                    }
+                    else
+                    {
+                        UpdateEvents();
+                    }
                 }
 
                 ProgressLayoutIsVisible = false;
@@ -319,7 +319,13 @@ namespace NureTimetable.UI.ViewModels.Timetable
             });
         }
 
-        private void UpdateEvents(List<SavedEntity> selectedEntities)
+        /// <summary>
+        /// Updates events for already displayed entities
+        /// </summary>
+        private void UpdateEvents()
+            => UpdateEvents(timetableInfoList?.Entities.ToList());
+
+        private void UpdateEvents(List<Entity> selectedEntities)
         {
             if (selectedEntities is null || !selectedEntities.Any())
             {
@@ -327,19 +333,17 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 TimetableLayoutIsVisible = false;
                 NoSourceLayoutText = LN.NoTimetable;
                 NoSourceLayoutIsVisible = true;
+                timetableInfoList = null;
                 return;
             }
 
             Title = string.Join(", ", selectedEntities.Select(se => se.Name));
 
             var timetableInfos = new List<TimetableInfo>();
-            foreach (SavedEntity entity in selectedEntities)
+            foreach (Entity entity in selectedEntities)
             {
                 TimetableInfo timetableInfo = EventsRepository.GetTimetableLocal(entity);
-                if (timetableInfo != null)
-                {
-                    timetableInfos.Add(timetableInfo);
-                }
+                timetableInfos.Add(timetableInfo ?? new(entity));
             }
             lock (enumeratingEvents)
             {
