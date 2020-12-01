@@ -118,7 +118,6 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 TimetableViewMode.Day => ScheduleView.DayView,
                 TimetableViewMode.Week => ScheduleView.WeekView,
                 TimetableViewMode.Month => ScheduleView.MonthView,
-                TimetableViewMode.Timeline => ScheduleView.TimelineView,
                 _ => TimetableScheduleView
             };
 
@@ -428,7 +427,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
             if (!TimetableLayoutIsVisible)
                 return;
 
-            string displayMode = await Shell.Current.DisplayActionSheet(LN.ChooseDisplayMode, LN.Cancel, null, LN.Day, LN.Week, LN.Timeline, LN.Month);
+            string displayMode = await Shell.Current.DisplayActionSheet(LN.ChooseDisplayMode, LN.Cancel, null, LN.Day, LN.Week, LN.Month);
 
             DateTime? selected = TimetableSelectedDate;
             TimetableSelectedDate = null;
@@ -441,11 +440,6 @@ namespace NureTimetable.UI.ViewModels.Timetable
             {
                 TimetableScheduleView = ScheduleView.WeekView;
                 SettingsRepository.Settings.TimetableViewMode = TimetableViewMode.Week;
-            }
-            else if (displayMode == LN.Timeline)
-            {
-                TimetableScheduleView = ScheduleView.TimelineView;
-                SettingsRepository.Settings.TimetableViewMode = TimetableViewMode.Timeline;
             }
             else if (displayMode == LN.Month)
             {

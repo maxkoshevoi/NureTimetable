@@ -7,9 +7,10 @@ namespace NureTimetable.Migrations
 {
     public abstract class BaseMigration
     {
-        public static IReadOnlyCollection<BaseMigration> Migrations => new[] 
+        public static IReadOnlyCollection<BaseMigration> Migrations => new BaseMigration[] 
         {
-            new MoveIsSelectInsideSavedEntityMigration()
+            new MoveIsSelectInsideSavedEntityMigration(),
+            new RemoveTimelineViewMode()
         };
 
         public abstract bool IsNeedsToBeApplied();

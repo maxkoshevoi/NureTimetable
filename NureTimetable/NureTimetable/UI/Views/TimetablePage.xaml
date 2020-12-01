@@ -99,17 +99,6 @@
                             </syncfusion:DayViewSettings.DayLabelSettings>
                         </syncfusion:DayViewSettings>
                     </syncfusion:SfSchedule.DayViewSettings>
-                    <syncfusion:SfSchedule.TimelineViewSettings>
-                        <syncfusion:TimelineViewSettings 
-                            StartHour="{Binding TimetableStartHour}" 
-                            EndHour="{Binding TimetableEndHour}"
-                            Color="{DynamicResource PageBackgroundColor}"
-                            BorderColor="{DynamicResource BorderColor}">
-                            <syncfusion:TimelineViewSettings.LabelSettings>
-                                <syncfusion:TimelineLabelSettings TimeFormat="HH:mm"/>
-                            </syncfusion:TimelineViewSettings.LabelSettings>
-                        </syncfusion:TimelineViewSettings>
-                    </syncfusion:SfSchedule.TimelineViewSettings>
                     <syncfusion:SfSchedule.MonthViewSettings>
                         <syncfusion:MonthViewSettings 
                             AppointmentIndicatorCount="6" 
