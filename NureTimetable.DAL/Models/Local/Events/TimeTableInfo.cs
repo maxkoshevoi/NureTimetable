@@ -26,7 +26,7 @@ namespace NureTimetable.DAL.Models.Local
         
         public TimetableInfo(Entity entity)
         {
-            Entity = entity;
+            Entity = entity ?? throw new ArgumentNullException(nameof(entity));
         }
         
         public void ApplyLessonSettings()
