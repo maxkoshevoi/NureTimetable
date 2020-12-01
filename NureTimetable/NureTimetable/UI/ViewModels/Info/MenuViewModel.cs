@@ -52,10 +52,7 @@ namespace NureTimetable.UI.ViewModels.Info
             ChangeLanguageCommand = CommandHelper.Create(ChangeLanguage);
 
             UpdateAppThemeName();
-            MessagingCenter.Subscribe<Application, Settings.AppTheme>(Application.Current, MessageTypes.ThemeChanged, (sender, theme) =>
-            {
-                UpdateAppThemeName();
-            });
+            MessagingCenter.Subscribe<Application, Settings.AppTheme>(Application.Current, MessageTypes.ThemeChanged, (sender, theme) => UpdateAppThemeName());
             UpdateAppLanguageName();
         }
 
@@ -107,6 +104,7 @@ namespace NureTimetable.UI.ViewModels.Info
                 return;
             }
             SettingsRepository.Settings.Theme = theme;
+            UpdateAppThemeName();
 
             ThemeHelper.SetAppTheme(theme);
         }
