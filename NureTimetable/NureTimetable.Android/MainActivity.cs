@@ -18,6 +18,7 @@ namespace NureTimetable.Droid
 
             base.OnCreate(savedInstanceState);
 
+            Plugin.CurrentActivity.CrossCurrentActivity.Current.Activity = this;
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             TouchEffect.Android.TouchEffectPreserver.Preserve();
