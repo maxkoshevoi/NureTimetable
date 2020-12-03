@@ -33,11 +33,11 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
         public ICommand BackButtonPressedCommand { get; }
         #endregion
 
-        public ManageLessonsViewModel(SavedEntity savedEntity)
+        public ManageLessonsViewModel(Entity entity)
         {
-            Title = $"{LN.Lessons}: {savedEntity.Name}";
+            Title = $"{LN.Lessons}: {entity.Name}";
 
-            timetable = EventsRepository.GetTimetableLocal(savedEntity);
+            timetable = EventsRepository.GetTimetableLocal(entity);
             if (timetable is null)
             {
                 IsNoSourceLayoutVisable = true;

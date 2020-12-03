@@ -7,6 +7,8 @@ using NureTimetable.Core.Models.Settings;
 using NureTimetable.DAL;
 using NureTimetable.UI.Views;
 using Syncfusion.Licensing;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -46,13 +48,22 @@ namespace NureTimetable
 
         protected override void OnStart()
         {
-#if !DEBUG
-            //Register Microsoft App Center metrics
+            StartAppCenterLogging();
+
+            // Log currect timetable view mode
+            Analytics.TrackEvent("Timetable view mode", new Dictionary<string, string>
+            {
+                { nameof(SettingsRepository.Settings.TimetableViewMode), SettingsRepository.Settings.TimetableViewMode.ToString() }
+            });
+        }
+
+        [Conditional("RELEASE")]
+        private static void StartAppCenterLogging()
+        {
             if (DeviceInfo.DeviceType != DeviceType.Virtual)
             {
                 AppCenter.Start(Keys.MicrosoftAppCenterKey, typeof(Analytics), typeof(Crashes));
             }
-#endif
         }
 
         protected override void OnSleep()

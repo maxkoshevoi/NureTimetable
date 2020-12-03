@@ -6,12 +6,7 @@ namespace NureTimetable.DAL.Models.Local
 {
     public class TimetableInfo : TimetableStatistics
     {
-        private SavedEntity entity = new SavedEntity();
-        public SavedEntity Entity
-        {
-            get => entity;
-            set => entity = value ?? throw new NullReferenceException($"Attempt to set {nameof(Entity)} to null");
-        }
+        public Entity Entity { get; }
         
         public List<Event> Events
         {
@@ -26,12 +21,12 @@ namespace NureTimetable.DAL.Models.Local
             set => lessonsInfo = value ?? throw new NullReferenceException($"Attempt to set {nameof(LessonsInfo)} to null");
         } 
 
-        public TimetableInfo()
+        protected TimetableInfo()
         { }
         
-        public TimetableInfo(SavedEntity entity)
+        public TimetableInfo(Entity entity)
         {
-            Entity = entity;
+            Entity = entity ?? throw new ArgumentNullException(nameof(entity));
         }
         
         public void ApplyLessonSettings()

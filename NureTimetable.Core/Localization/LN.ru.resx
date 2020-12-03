@@ -410,7 +410,7 @@
     <value>Статистика:</value>
   </data>
   <data name="LessonName" xml:space="preserve">
-    <value>Название</value>
+    <value>Название:</value>
   </data>
   <data name="LessonInfo" xml:space="preserve">
     <value>Информация о предмете</value>
@@ -449,7 +449,7 @@
   <data name="TimetableIsEmpty" xml:space="preserve">
     <value>Расписание не содержит ни одного события</value>
   </data>
-  <data name="CistOutOfMemory" xml:space="preserve">
+  <data name="CistException" xml:space="preserve">
     <value>Слишком большая нагрузка на cist.nure.ua. Повторите попытку позже.</value>
   </data>
   <data name="UnsavedChangesMessage" xml:space="preserve">
@@ -489,7 +489,7 @@
     <value>Тема</value>
   </data>
   <data name="Version" xml:space="preserve">
-    <value>Версия</value>
+    <value>Версия {0}</value>
   </data>
   <data name="RestartRequired" xml:space="preserve">
     <value>Необходим перезапуск</value>

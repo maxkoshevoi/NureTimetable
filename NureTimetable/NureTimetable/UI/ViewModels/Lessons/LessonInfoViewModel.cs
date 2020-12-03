@@ -15,7 +15,7 @@ namespace NureTimetable.UI.ViewModels.Lessons
         #region Properties
         public LessonInfo LessonInfo { get; }
 
-        public string Statistics { get; }
+        public string Statistics => GetStatistics();
         #endregion
 
         public LessonInfoViewModel(LessonInfo lessonInfo, TimetableInfo timetableInfo)
@@ -24,11 +24,12 @@ namespace NureTimetable.UI.ViewModels.Lessons
             this.timetableInfo = timetableInfo;
 
             Title = LN.LessonInfo;
-            Statistics = GetStatistics(timetableInfo.Events.Where(e => e.Lesson == lessonInfo.Lesson));
         }
         
-        private string GetStatistics(IEnumerable<Event> events)
+        private string GetStatistics()
         {
+            IEnumerable<Event> events = timetableInfo.Events.Where(e => e.Lesson == LessonInfo.Lesson);
+
             var statForTypes = timetableInfo.EventTypes(LessonInfo.Lesson.ID).OrderBy(et => et.ShortName).Select(et =>
             {
                 var eventsWithType = events.Where(e => e.Type == et).ToList();

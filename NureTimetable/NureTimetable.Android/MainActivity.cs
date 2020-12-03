@@ -3,7 +3,6 @@ using Android.Content;
 using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
-using Plugin.CurrentActivity;
 using Plugin.InAppBilling;
 using Xamarin.Forms.Platform.Android;
 
@@ -19,9 +18,9 @@ namespace NureTimetable.Droid
 
             base.OnCreate(savedInstanceState);
 
+            Plugin.CurrentActivity.CrossCurrentActivity.Current.Activity = this;
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
-            CrossCurrentActivity.Current.Init(this, savedInstanceState);
             TouchEffect.Android.TouchEffectPreserver.Preserve();
             LoadApplication(new App());
         }

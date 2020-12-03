@@ -19,7 +19,7 @@
     </Shell.BackButtonBehavior>
     
     <ContentPage.ToolbarItems>
-        <ToolbarItem x:DataType="vm:ManageLessonsViewModel" IconImageSource="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static fonts:MaterialIconsFont.ContentSave}}" Command="{Binding SaveClickedCommand}" x:Name="Save" />
+        <ToolbarItem x:DataType="vm:ManageLessonsViewModel" IconImageSource="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.ContentSave}}" Command="{Binding SaveClickedCommand}" x:Name="Save" />
     </ContentPage.ToolbarItems>
 
     <AbsoluteLayout>
@@ -31,22 +31,19 @@
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="vm:LessonViewModel">
                         <ViewCell>
-                            <Grid Margin="10,5,10,5">
+                            <Grid Margin="10,5">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
                                 <Label Grid.Column="0" Text="{Binding LessonInfo.Lesson.ShortName}" VerticalTextAlignment="Center" />
                                 <StackLayout Grid.Column="1" Orientation="Horizontal">
-                                    <StackLayout.GestureRecognizers>
-                                        <TapGestureRecognizer />
-                                    </StackLayout.GestureRecognizers>
-                                    <Label Text="{x:Static fonts:MaterialIconsFont.InformationOutline}" FontFamily="{StaticResource MaterialFontFamily}" TextColor="{DynamicResource ListIconColor}" FontSize="26" VerticalOptions="CenterAndExpand">
+                                    <Label Text="{Static fonts:MaterialIconsFont.InformationOutline}" FontFamily="{StaticResource MaterialFontFamily}" TextColor="{DynamicResource ListIconColor}" FontSize="26" VerticalOptions="CenterAndExpand">
                                         <Label.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding InfoClickedCommand}" />
                                         </Label.GestureRecognizers>
                                     </Label>
-                                    <Label Text="{x:Static fonts:MaterialIconsFont.Cog}" Margin="4,0,0,0" FontFamily="{StaticResource MaterialFontFamily}" TextColor="{DynamicResource ListIconColor}" FontSize="26" VerticalOptions="CenterAndExpand">
+                                    <Label Text="{Static fonts:MaterialIconsFont.Cog}" Margin="4,0,0,0" FontFamily="{StaticResource MaterialFontFamily}" TextColor="{DynamicResource ListIconColor}" FontSize="26" VerticalOptions="CenterAndExpand">
                                         <Label.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding SettingsClickedCommand}" />
                                         </Label.GestureRecognizers>

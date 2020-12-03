@@ -1,4 +1,5 @@
 ﻿using Microsoft.AppCenter.Analytics;
+using NureTimetable.BL;
 using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Consts;
@@ -57,6 +58,8 @@ namespace NureTimetable.UI.ViewModels.Timetable
         private bool _progressLayoutIsVisible;
         private string _bTodayText;
         private double _bTodayScale = 0;
+        private bool isTimetableUpdating = false;
+        private List<Entity> updatingTimetables = new();
 
         private readonly ITimetablePageCommands _timetablePage;
         #endregion
@@ -84,6 +87,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
         public bool ProgressLayoutIsVisible { get => _progressLayoutIsVisible; set => SetProperty(ref _progressLayoutIsVisible, value); }
         public string BTodayText { get => _bTodayText; set => SetProperty(ref _bTodayText, value); }
         public double BTodayScale { get => _bTodayScale; set => SetProperty(ref _bTodayScale, value); }
+        public bool IsTimetableUpdating { get => isTimetableUpdating; set => SetProperty(ref isTimetableUpdating, value, () => UpdateTimetableCommand.ChangeCanExecute()); }
 
         public Command PageAppearingCommand { get; }
         public Command PageDisappearingCommand { get; }
@@ -91,8 +95,9 @@ namespace NureTimetable.UI.ViewModels.Timetable
         public Command ScheduleModeCommand { get; }
         public Command TimetableCellTappedCommand { get; }
         public Command TimetableMonthInlineAppointmentTappedCommand { get; }
-        public Command TimetableVisibleDatesChangedCommand { get; private set; }
+        public Command TimetableVisibleDatesChangedCommand { get; }
         public Command BTodayClickedCommand { get; }
+        public Command UpdateTimetableCommand { get; }
         #endregion
 
         public TimetableViewModel(ITimetablePageCommands timetablePage)
@@ -113,7 +118,6 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 TimetableViewMode.Day => ScheduleView.DayView,
                 TimetableViewMode.Week => ScheduleView.WeekView,
                 TimetableViewMode.Month => ScheduleView.MonthView,
-                TimetableViewMode.Timeline => ScheduleView.TimelineView,
                 _ => TimetableScheduleView
             };
 
@@ -129,52 +133,63 @@ namespace NureTimetable.UI.ViewModels.Timetable
             });
             MessagingCenter.Subscribe<Application, List<SavedEntity>>(this, MessageTypes.SelectedEntitiesChanged, (sender, newSelectedEntities) =>
             {
-                UpdateEvents(newSelectedEntities);
+                UpdateEvents(newSelectedEntities.ToList<Entity>());
             });
-            MessagingCenter.Subscribe<Application, SavedEntity>(this, MessageTypes.TimetableUpdated, (sender, entity) =>
+            MessagingCenter.Subscribe<Application, Entity>(this, MessageTypes.TimetableUpdated, (sender, entity) =>
             {
-                List<SavedEntity> selectedEntities = UniversityEntitiesRepository.GetSelected();
-                if (!selectedEntities.Contains(entity))
-                {
-                    return;
-                }
-                UpdateEvents(selectedEntities);
+                if (timetableInfoList.Entities.Contains(entity))
+                    UpdateEvents();
             });
-            MessagingCenter.Subscribe<Application, SavedEntity>(this, MessageTypes.LessonSettingsChanged, (sender, entity) =>
+            MessagingCenter.Subscribe<Application, Entity>(this, MessageTypes.LessonSettingsChanged, (sender, entity) =>
             {
-                List<SavedEntity> selectedEntities = UniversityEntitiesRepository.GetSelected();
-                if (!selectedEntities.Contains(entity))
-                {
+                if (timetableInfoList.Entities.Contains(entity))
+                    UpdateEvents();
+            }); 
+            MessagingCenter.Subscribe<Application, Entity>(this, MessageTypes.TimetableUpdating, (sender, entity) =>
+            {
+                if (!timetableInfoList.Entities.Contains(entity))
                     return;
-                }
-                UpdateEvents(selectedEntities);
+
+                updatingTimetables.Add(entity);
+                IsTimetableUpdating = true;
+            });
+            MessagingCenter.Subscribe<Application, Entity>(this, MessageTypes.TimetableUpdated, (sender, entity) =>
+            {
+                if (!updatingTimetables.Contains(entity))
+                    return;
+
+                updatingTimetables.Remove(entity);
+                if (updatingTimetables.Count == 0)
+                    IsTimetableUpdating = false;
             });
 
             PageAppearingCommand = CommandHelper.Create(PageAppearing);
-            PageDisappearingCommand = CommandHelper.Create(PageDisappearing);
             HideSelectedEventsCommand = CommandHelper.Create(HideSelectedEventsClicked);
             ScheduleModeCommand = CommandHelper.Create(ScheduleModeClicked);
-            TimetableCellTappedCommand = CommandHelper.Create<CellTappedEventArgs>(TimetableCellTapped);
-            TimetableMonthInlineAppointmentTappedCommand = CommandHelper.Create<MonthInlineAppointmentTappedEventArgs>(TimetableMonthInlineAppointmentTapped);
-            TimetableVisibleDatesChangedCommand = CommandHelper.Create<VisibleDatesChangedEventArgs>(TimetableVisibleDatesChanged);
             BTodayClickedCommand = CommandHelper.Create(BTodayClicked);
-        }
-
-        private async Task TimetableVisibleDatesChanged(VisibleDatesChangedEventArgs e)
-        {
-            if (e != null)
+            PageDisappearingCommand = CommandHelper.Create(() => isPageVisible = false);
+            TimetableCellTappedCommand = CommandHelper.Create<CellTappedEventArgs>((e) => DisplayEventDetails((Event)e.Appointment));
+            TimetableMonthInlineAppointmentTappedCommand = CommandHelper.Create<MonthInlineAppointmentTappedEventArgs>((e) => DisplayEventDetails((Event)e.Appointment));
+            TimetableVisibleDatesChangedCommand = CommandHelper.Create<VisibleDatesChangedEventArgs>(async (e) =>
             {
-                visibleDates = e.visibleDates;
-            }
-            await UpdateTodayButton(false);
+                if (e != null)
+                    visibleDates = e.visibleDates;
+                await UpdateTodayButton(false);
+            });
+            UpdateTimetableCommand = CommandHelper.Create(async () => 
+            {
+                string responce = await TimetableService.Update(timetableInfoList?.Entities.ToList());
+                if (responce is null)
+                    return;
+
+                await Shell.Current.DisplayAlert(LN.TimetableUpdate, responce, LN.Ok);
+            }, () => !isTimetableUpdating);
         }
 
         private async Task UpdateTodayButton(bool isForceUpdate)
         {
             if (visibleDates.Count == 0)
-            {
                 return;
-            }
 
             // Updating Today button
             if (visibleDates.Any(d => d.Date == DateTime.Now.Date))
@@ -205,7 +220,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
             if (isFirstLoad)
             {
                 isFirstLoad = false;
-                await UpdateEventsWithUI();
+                await UpdateEventsWithUI(true);
             }
             else
             {
@@ -233,11 +248,6 @@ namespace NureTimetable.UI.ViewModels.Timetable
             }
 
             Device.StartTimer(TimeSpan.FromSeconds(1), () => { UpdateTimeLeft(); return isPageVisible; });
-        }
-
-        private void PageDisappearing()
-        {
-            isPageVisible = false;
         }
 
         private void UpdateTimeLeft()
@@ -297,7 +307,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
             }
         }
 
-        private async Task UpdateEventsWithUI()
+        private async Task UpdateEventsWithUI(bool reloadSavedEntities = false)
         {
             await Task.Run(async () =>
             {
@@ -311,7 +321,15 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 }
                 else
                 {
-                    UpdateEvents(UniversityEntitiesRepository.GetSelected());
+                    if (reloadSavedEntities)
+                    {
+                        List<Entity> selectedEntities = UniversityEntitiesRepository.GetSaved().Where(e => e.IsSelected).ToList<Entity>();
+                        UpdateEvents(selectedEntities);
+                    }
+                    else
+                    {
+                        UpdateEvents();
+                    }
                 }
 
                 ProgressLayoutIsVisible = false;
@@ -319,7 +337,13 @@ namespace NureTimetable.UI.ViewModels.Timetable
             });
         }
 
-        private void UpdateEvents(List<SavedEntity> selectedEntities)
+        /// <summary>
+        /// Updates events for already displayed entities
+        /// </summary>
+        private void UpdateEvents()
+            => UpdateEvents(timetableInfoList?.Entities.ToList());
+
+        private void UpdateEvents(List<Entity> selectedEntities)
         {
             if (selectedEntities is null || !selectedEntities.Any())
             {
@@ -327,19 +351,17 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 TimetableLayoutIsVisible = false;
                 NoSourceLayoutText = LN.NoTimetable;
                 NoSourceLayoutIsVisible = true;
+                timetableInfoList = null;
                 return;
             }
 
             Title = string.Join(", ", selectedEntities.Select(se => se.Name));
 
             var timetableInfos = new List<TimetableInfo>();
-            foreach (SavedEntity entity in selectedEntities)
+            foreach (Entity entity in selectedEntities)
             {
                 TimetableInfo timetableInfo = EventsRepository.GetTimetableLocal(entity);
-                if (timetableInfo != null)
-                {
-                    timetableInfos.Add(timetableInfo);
-                }
+                timetableInfos.Add(timetableInfo ?? new(entity));
             }
             lock (enumeratingEvents)
             {
@@ -403,11 +425,9 @@ namespace NureTimetable.UI.ViewModels.Timetable
         private async Task ScheduleModeClicked()
         {
             if (!TimetableLayoutIsVisible)
-            {
                 return;
-            }
 
-            string displayMode = await Shell.Current.DisplayActionSheet(LN.ChooseDisplayMode, LN.Cancel, null, LN.Day, LN.Week, LN.Timeline, LN.Month);
+            string displayMode = await Shell.Current.DisplayActionSheet(LN.ChooseDisplayMode, LN.Cancel, null, LN.Day, LN.Week, LN.Month);
 
             DateTime? selected = TimetableSelectedDate;
             TimetableSelectedDate = null;
@@ -421,11 +441,6 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 TimetableScheduleView = ScheduleView.WeekView;
                 SettingsRepository.Settings.TimetableViewMode = TimetableViewMode.Week;
             }
-            else if (displayMode == LN.Timeline)
-            {
-                TimetableScheduleView = ScheduleView.TimelineView;
-                SettingsRepository.Settings.TimetableViewMode = TimetableViewMode.Timeline;
-            }
             else if (displayMode == LN.Month)
             {
                 TimetableScheduleView = ScheduleView.MonthView;
@@ -437,16 +452,6 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 TimetableSelectedDate = selected;
                 TimetableSelectedDate = null;
             }
-        }
-
-        private async Task TimetableCellTapped(CellTappedEventArgs e)
-        {
-            await DisplayEventDetails((Event)e.Appointment);
-        }
-
-        private async Task TimetableMonthInlineAppointmentTapped(MonthInlineAppointmentTappedEventArgs e)
-        {
-            await DisplayEventDetails((Event)e.Appointment);
         }
 
         private async Task DisplayEventDetails(Event ev)
@@ -617,9 +622,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
         private async Task HideSelectedEventsClicked()
         {
             if (!TimetableLayoutIsVisible)
-            {
                 return;
-            }
 
             applyHiddingSettings = !applyHiddingSettings;
 

@@ -104,7 +104,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
             SavedEntity newEntity = GetSavedEntity(entity);
 
             List<SavedEntity> savedEntities = UniversityEntitiesRepository.GetSaved();
-            if (savedEntities.Exists(e => e == newEntity))
+            if (savedEntities.Any(e => e == newEntity))
             {
                 await Shell.Current.DisplayAlert(LN.AddingTimetable, string.Format(LN.TimetableAlreadySaved, newEntity.Name), LN.Ok);
                 return;

@@ -1,16 +1,16 @@
 ﻿using NureTimetable.Core.Models.Consts;
 using System;
 using System.Collections.Generic;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace NureTimetable.Migrations
 {
     public abstract class BaseMigration
     {
-        public static IReadOnlyCollection<BaseMigration> Migrations => new[] 
+        public static IReadOnlyCollection<BaseMigration> Migrations => new BaseMigration[] 
         {
-            new CanSelectMultipleEntitiesMigration()
+            new MoveIsSelectInsideSavedEntityMigration(),
+            new RemoveTimelineViewMode()
         };
 
         public abstract bool IsNeedsToBeApplied();

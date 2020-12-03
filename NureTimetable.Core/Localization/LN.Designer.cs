@@ -244,9 +244,9 @@ namespace NureTimetable.Core.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Too much load on cist.nure.ua. Please try again later..
         /// </summary>
-        public static string CistOutOfMemory {
+        public static string CistException {
             get {
-                return ResourceManager.GetString("CistOutOfMemory", resourceCulture);
+                return ResourceManager.GetString("CistException", resourceCulture);
             }
         }
         
@@ -575,7 +575,7 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Name.
+        ///   Looks up a localized string similar to Name:.
         /// </summary>
         public static string LessonName {
             get {
@@ -1170,7 +1170,7 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Version.
+        ///   Looks up a localized string similar to Version {0}.
         /// </summary>
         public static string Version {
             get {

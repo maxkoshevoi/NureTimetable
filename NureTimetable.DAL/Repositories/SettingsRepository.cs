@@ -15,18 +15,18 @@ namespace NureTimetable.DAL
         public static AppSettings Settings { get; } = new AppSettings();
 
         #region Timetable Update Rights
-        public static List<SavedEntity> CheckCistTimetableUpdateRights(List<SavedEntity> entitiesToUpdate)
+        public static List<Entity> CheckCistTimetableUpdateRights(List<Entity> entitiesToUpdate)
         {
-            var allowedEntities = new List<SavedEntity>();
+            var allowedEntities = new List<Entity>();
             if (entitiesToUpdate is null || entitiesToUpdate.Count == 0)
             {
                 return allowedEntities;
             }
 
             List<SavedEntity> savedEntities = UniversityEntitiesRepository.GetSaved();
-            foreach (SavedEntity entity in entitiesToUpdate)
+            foreach (Entity entity in entitiesToUpdate)
             {
-                SavedEntity savedEntity = savedEntities.FirstOrDefault(g => g.ID == entity.ID);
+                SavedEntity savedEntity = savedEntities.SingleOrDefault(e => e == entity);
                 if (savedEntity is null)
                 {
                     // Cannot update timetable for entity that is not saved
@@ -41,6 +41,7 @@ namespace NureTimetable.DAL
                     continue;
                 }
 
+                // Update is allowd once per day (day begins at 7 AM)
                 TimeSpan timeBeforeAnotherUpdate;
                 if (savedEntity.LastUpdated.Value.TimeOfDay < Config.CistDailyTimetableUpdateTime)
                 {

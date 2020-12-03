@@ -10,7 +10,12 @@
 
     <ContentPage.Resources>
         <ResourceDictionary>
-            <Color x:Key="LightTextColor">#999999</Color>
+            <Style TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{DynamicResource DonateButtonColor}"/>
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="Margin" Value="0,10,0,0"/>
+                <Setter Property="Command" Value="{Binding BuyProductCommand}"/>
+            </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -19,15 +24,11 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <StackLayout BackgroundColor="{DynamicResource BigImageBackgroundColor}" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
-            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
-                <ContentView Padding="0,40,0,40" VerticalOptions="FillAndExpand">
-                    <Image Source="coin.png" VerticalOptions="Center" HeightRequest="85" />
-                </ContentView>
-            </StackLayout>
+        <StackLayout BackgroundColor="{DynamicResource BigImageBackgroundColor}" Padding="0,40">
+            <Image Source="coin.png" HeightRequest="85" />
         </StackLayout>
         <ScrollView Grid.Row="1">
-            <StackLayout Orientation="Vertical" Padding="16,40,16,40" Spacing="10">
+            <StackLayout Orientation="Vertical" Padding="16,40" Spacing="10">
                 <Label>
                     <Label.FormattedText>
                         <FormattedString>
@@ -39,30 +40,10 @@
                         </FormattedString>
                     </Label.FormattedText>
                 </Label>
-                <Label>
-                    <Label.FormattedText>
-                        <FormattedString>
-                            <FormattedString.Spans>
-                                <Span Text="{LN:Translate YourContribution}" />
-                            </FormattedString.Spans>
-                        </FormattedString>
-                    </Label.FormattedText>
-                </Label>
-                <Button Margin="0,10,0,0" Text="{LN:Translate Thank}"
-                        BackgroundColor="{DynamicResource DonateButtonColor}"
-                        TextColor="White" 
-                        Command="{Binding BuyProductCommand}"
-                        CommandParameter="{x:Static products:InAppProducts.DonateLow}"/>
-                <Button Margin="0,10,0,0" Text="{LN:Translate Thank2}"
-                        BackgroundColor="{DynamicResource DonateButtonColor}"
-                        TextColor="White"
-                        Command="{Binding BuyProductCommand}"
-                        CommandParameter="{x:Static products:InAppProducts.DonateMedium}"/>
-                <Button Margin="0,10,0,0" Text="{LN:Translate Thank3}"
-                        BackgroundColor="{DynamicResource DonateButtonColor}"
-                        TextColor="White"
-                        Command="{Binding BuyProductCommand}"
-                        CommandParameter="{x:Static products:InAppProducts.DonateHigh}"/>
+                <Label Text="{LN:Translate YourContribution}" />
+                <Button Text="{LN:Translate Thank}" CommandParameter="{Static products:InAppProducts.DonateLow}"/>
+                <Button Text="{LN:Translate Thank2}" CommandParameter="{Static products:InAppProducts.DonateMedium}"/>
+                <Button Text="{LN:Translate Thank3}" CommandParameter="{Static products:InAppProducts.DonateHigh}"/>
             </StackLayout>
         </ScrollView>
     </Grid>

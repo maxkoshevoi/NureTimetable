@@ -1,6 +1,6 @@
 # NureTimetable
 
-[![Build status](https://build.appcenter.ms/v0.1/apps/e6e2b80b-f6bc-4ba7-8fe2-b8d2a45abde7/branches/master/badge)](https://appcenter.ms)
+[![Build status](https://github.com/maxkoshevoi/NureTimetable/workflows/Build/badge.svg?event=push)](https://github.com/maxkoshevoi/NureTimetable/actions)
 [![Chat on telegram](https://img.shields.io/badge/chat-on%20telegram-blue)](https://t.me/nuretimetable_group)
 
 **NureTimetable** is Xamarin Forms application for viewing timetable of groups, teachers and rooms of the Kharkiv National University of Radio Electronics.

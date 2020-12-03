@@ -14,7 +14,11 @@ namespace NureTimetable.DAL.Helpers
             }
             catch (ArgumentException ex) when (json.Contains("ORA-04030"))
             {
-                throw new CistOutOfMemoryException("Cist returned out of memory exception", ex);
+                throw new CistException("Cist returned \"out of process memory\" exception", CistExceptionStatus.OutOfMemory, ex);
+            }
+            catch (ArgumentException ex) when (json.Contains("ORA-01089"))
+            {
+                throw new CistException("Cist returned \"immediate shutdown in progress - no operations permitted\" exception", CistExceptionStatus.ShutdownInProgress, ex);
             }
         }
     }

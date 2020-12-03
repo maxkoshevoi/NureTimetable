@@ -7,6 +7,8 @@ namespace NureTimetable.DAL.Models.Local
     {
         public IReadOnlyList<TimetableInfo> Timetables { get; private set; }
 
+        public IEnumerable<Entity> Entities => Timetables.Select(t => t.Entity);
+
         public IReadOnlyList<Event> Events
         {
             get => events;

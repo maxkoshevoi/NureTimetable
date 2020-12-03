@@ -386,7 +386,7 @@
     <value>Відображати викладачів для цього предмета:</value>
   </data>
   <data name="FinishingUpdateDescription" xml:space="preserve">
-    <value>В новій версії змінилась структура зберігання даних. Застосунжко потрібно сконвертувати дані зі старого формату в новый. Натисніть ОК, щоб завершити оновлення.</value>
+    <value>В новій версії змінилась структура зберігання даних. Застосунку потрібно сконвертувати дані зі старого формату в новий. Натисніть ОК, щоб завершити оновлення.</value>
   </data>
   <data name="FinishingUpdateFail" xml:space="preserve">
     <value>Щось пішло не так</value>
@@ -410,7 +410,7 @@
     <value>Статистика:</value>
   </data>
   <data name="LessonName" xml:space="preserve">
-    <value>Назва</value>
+    <value>Назва:</value>
   </data>
   <data name="LessonInfo" xml:space="preserve">
     <value>Інформація про предмет</value>
@@ -449,8 +449,8 @@
   <data name="TimetableIsEmpty" xml:space="preserve">
     <value>Розклад не містить жодної події</value>
   </data>
-  <data name="CistOutOfMemory" xml:space="preserve">
-    <value>Занадто велике навантаження на cist.nure.ua.Спробуйте,будь ласка,пізніше.</value>
+  <data name="CistException" xml:space="preserve">
+    <value>Занадто велике навантаження на cist.nure.ua. Будь ласка, спробуйте пізніше.</value>
   </data>
   <data name="UnsavedChangesMessage" xml:space="preserve">
     <value>Закрити сторінку не зберігаючи зміни?</value>
@@ -489,7 +489,7 @@
     <value>Початковий код</value>
   </data>
   <data name="Version" xml:space="preserve">
-    <value>Версія</value>
+    <value>Версія {0}</value>
   </data>
   <data name="RestartRequired" xml:space="preserve">
     <value>Необхідний перезапуск</value>

@@ -2,6 +2,7 @@
 {
     public static class MessageTypes
     {
+        public const string TimetableUpdating = nameof(TimetableUpdating);
         public const string TimetableUpdated = nameof(TimetableUpdated);
         public const string UniversityEntitiesUpdated = nameof(UniversityEntitiesUpdated);
         public const string SavedEntitiesChanged = nameof(SavedEntitiesChanged);

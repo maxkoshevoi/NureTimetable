@@ -12,7 +12,6 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 using Cist = NureTimetable.DAL.Models.Cist;
 using Local = NureTimetable.DAL.Models.Local;
@@ -23,7 +22,7 @@ namespace NureTimetable.DAL
     {
         public static bool IsInitialized { get; private set; } = false;
 
-        private static readonly object lockObject = new object();
+        private static readonly object lockObject = new();
         
         public class UniversityEntitiesCistUpdateResult
         {
@@ -52,10 +51,10 @@ namespace NureTimetable.DAL
                 || TeachersException is WebException 
                 || RoomsException is WebException;
 
-            public bool IsCistOutOfMemory =>
-                GroupsException is CistOutOfMemoryException
-                || TeachersException is CistOutOfMemoryException
-                || RoomsException is CistOutOfMemoryException;
+            public bool IsCistException =>
+                GroupsException is CistException
+                || TeachersException is CistException
+                || RoomsException is CistException;
         }
 
         #region All Entities Cist
@@ -339,7 +338,7 @@ namespace NureTimetable.DAL
                     faculties.Add(new Cist.Faculty
                     {
                         Id = facultyId,
-                        ShortName = part.Substring(facultyNameStart, part.IndexOf('<') - facultyNameStart)
+                        ShortName = part[facultyNameStart..part.IndexOf('<')]
                     });
                 }
 
@@ -407,7 +406,7 @@ namespace NureTimetable.DAL
                     faculties.Add(new Cist.Faculty
                     {
                         Id = facId,
-                        ShortName = part.Substring(facNameStart, part.IndexOf('<') - facNameStart),
+                        ShortName = part[facNameStart..part.IndexOf('<')],
                         Departments = await GetDepartmentsForFaculty(facId)
                     });
                 }
@@ -442,7 +441,7 @@ namespace NureTimetable.DAL
                 departments.Add(new Cist.Department
                 {
                     Id = depId,
-                    ShortName = part.Substring(depNameStart, part.IndexOf('<') - depNameStart),
+                    ShortName = part[depNameStart..part.IndexOf('<')],
                     Teachers = await GetTeachersForDepartment(facultyId, depId)
                 });
             }
@@ -557,7 +556,7 @@ namespace NureTimetable.DAL
         #region Saved Entities
         public static List<Local.SavedEntity> GetSaved()
         {
-            List<Local.SavedEntity> loadedEntities = new List<Local.SavedEntity>();
+            List<Local.SavedEntity> loadedEntities = new();
 
             string filePath = FilePath.SavedEntitiesList;
             if (!File.Exists(filePath))
@@ -571,76 +570,36 @@ namespace NureTimetable.DAL
 
         public static void UpdateSaved(List<Local.SavedEntity> savedEntities)
         {
-            savedEntities ??= new List<Local.SavedEntity>();
+            savedEntities ??= new();
 
+            List<Local.SavedEntity> duplicates = savedEntities.GroupBy(e => e).Where(g => g.Count() > 1).Select(g => g.Key).ToList();
+            if (duplicates.Any())
+                throw new InvalidOperationException($"{nameof(savedEntities)} must be unique");
+
+            List<Local.SavedEntity> oldSavedEntities = GetSaved();
             // Removing cache from deleted saved entities if needed
-            List<Local.SavedEntity> deletedEntities = GetSaved()
-                .Where(oldEntity => !savedEntities.Exists(entity => entity.ID == oldEntity.ID))
-                .ToList();
-            if (deletedEntities.Count > 0)
-            {
-                deletedEntities.ForEach((de) =>
-                {
-                    try
-                    {
-                        File.Delete(FilePath.SavedTimetable(de.Type, de.ID));
-                    }
-                    catch {}
+            oldSavedEntities.Where(oldEntity => !savedEntities.Exists(entity => entity.ID == oldEntity.ID))
+                .ToList()
+                .ForEach((de) => 
+                { 
+                    try { File.Delete(FilePath.SavedTimetable(de.Type, de.ID)); } catch { } 
                 });
+
+            if (savedEntities.Any() && !savedEntities.Any(e => e.IsSelected))
+            {
+                // If no entity is selected, selecting first saved entity
+                savedEntities.First().IsSelected = true;
             }
+
             // Saving saved entities list
             Serialisation.ToJsonFile(savedEntities, FilePath.SavedEntitiesList);
             MessagingCenter.Send(Application.Current, MessageTypes.SavedEntitiesChanged, savedEntities);
-            // Updating selected entity if needed
-            List<Local.SavedEntity> selectedEntities = savedEntities.Intersect(GetSelected()).ToList();
-            if (selectedEntities.Count == 0 && savedEntities.Count > 0)
+
+            if (oldSavedEntities.Count(e => e.IsSelected) != savedEntities.Count(e => e.IsSelected)
+                || oldSavedEntities.Where(e => e.IsSelected).Except(savedEntities.Where(e => e.IsSelected)).Any())
             {
-                UpdateSelected(savedEntities[0]);
+                MessagingCenter.Send(Application.Current, MessageTypes.SelectedEntitiesChanged, savedEntities.Where(e => e.IsSelected).ToList());
             }
-            else if(savedEntities.Count == 0)
-            {
-                UpdateSelected();
-            }
-        }
-        #endregion
-
-        #region Selected Entity
-        public static List<Local.SavedEntity> GetSelected()
-        {
-            var selectedEntities = new List<Local.SavedEntity>();
-
-            string filePath = FilePath.SelectedEntities;
-            if (!File.Exists(filePath))
-            {
-                return selectedEntities;
-            }
-
-            selectedEntities = Serialisation.FromJsonFile<List<Local.SavedEntity>>(filePath) ?? selectedEntities;
-            return selectedEntities;
-        }
-
-        public static void UpdateSelected(Local.SavedEntity selectedEntity = null)
-        {
-            List<Local.SavedEntity> entities = new List<Local.SavedEntity>();
-            if (selectedEntity != null)
-            {
-                entities.Add(selectedEntity);
-            }
-            UpdateSelected(entities);
-        }
-
-        public static void UpdateSelected(List<Local.SavedEntity> selectedEntities)
-        {
-            selectedEntities ??= new List<Local.SavedEntity>();
-
-            List<Local.SavedEntity> currentEntities = GetSelected();
-            if (currentEntities.Count == selectedEntities.Count && !currentEntities.Except(selectedEntities).Any())
-            {
-                return;
-            }
-
-            Serialisation.ToJsonFile(selectedEntities, FilePath.SelectedEntities);
-            MessagingCenter.Send(Application.Current, MessageTypes.SelectedEntitiesChanged, selectedEntities);
         }
         #endregion
 

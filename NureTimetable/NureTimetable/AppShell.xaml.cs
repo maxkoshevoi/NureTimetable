@@ -58,12 +58,6 @@ namespace NureTimetable.UI.Views
             }
             isFirstNavigation = false;
 
-            // Log currect timetable view mode
-            Analytics.TrackEvent("Timetable view mode", new Dictionary<string, string>
-            {
-                { nameof(SettingsRepository.Settings.TimetableViewMode), SettingsRepository.Settings.TimetableViewMode.ToString() }
-            });
-
             // Processing migrations
             if (!VersionTracking.IsFirstLaunchForCurrentBuild)
             {
@@ -73,7 +67,8 @@ namespace NureTimetable.UI.Views
             List<BaseMigration> migrationsToApply = BaseMigration.Migrations.Where(m => m.IsNeedsToBeApplied()).ToList();
             if (migrationsToApply.Any())
             {
-                await Shell.Current.DisplayAlert(LN.FinishingUpdateTitle, LN.FinishingUpdateDescription, LN.Ok);
+                // Not Shell.Current.DisplayAlert cause Shell.Current is null here
+                await DisplayAlert(LN.FinishingUpdateTitle, LN.FinishingUpdateDescription, LN.Ok);
                 bool isSuccess = true;
                 foreach (var migration in migrationsToApply)
                 {
@@ -84,7 +79,7 @@ namespace NureTimetable.UI.Views
                 }
                 if (!isSuccess)
                 {
-                    await Shell.Current.DisplayAlert(LN.FinishingUpdateTitle, LN.FinishingUpdateFail, LN.Ok);
+                    await DisplayAlert(LN.FinishingUpdateTitle, LN.FinishingUpdateFail, LN.Ok);
                 }
             }
         }
@@ -133,12 +128,14 @@ namespace NureTimetable.UI.Views
                 Analytics.TrackEvent("WebException", properties);
                 return;
             }
-            else if (ex is CistOutOfMemoryException)
+            else if (ex is CistException cistEx)
             {
-                // CistOutOfMemoryException happens for external reasons, and shouldn't be treated as an exception.
+                // CistException happens for external reasons, and shouldn't be treated as an exception.
                 // But just in case it is logged as Event
+                
+                properties.Add("Status", cistEx.Status.ToString());
 
-                Analytics.TrackEvent("CistOutOfMemoryException", properties);
+                Analytics.TrackEvent("CistException", properties);
                 return;
             }
 

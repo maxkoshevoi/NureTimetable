@@ -1,6 +1,6 @@
 ﻿using NureTimetable.Core.Models.InterplatformCommunication;
 using NureTimetable.Droid.Dependences;
-using Plugin.CurrentActivity;
+using Xamarin.Essentials;
 
 [assembly: Xamarin.Forms.Dependency(typeof(ActivityManager))]
 namespace NureTimetable.Droid.Dependences
@@ -9,7 +9,7 @@ namespace NureTimetable.Droid.Dependences
     {
         public void Recreate()
         {
-            var activity = CrossCurrentActivity.Current.Activity;
+            var activity = Platform.CurrentActivity;
             activity.Recreate();
         }
     }

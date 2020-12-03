@@ -18,8 +18,6 @@ namespace NureTimetable.UI.ViewModels.Info
     public class MenuViewModel : BaseViewModel
     {
         #region Properties
-        public string VersionText { get; }
-        
         public bool IsDebugModeActive
         {
             get => App.IsDebugMode;
@@ -47,7 +45,6 @@ namespace NureTimetable.UI.ViewModels.Info
 
         public MenuViewModel()
         {
-            VersionText = AppInfo.VersionString;
             NavigateUriCommand = CommandHelper.Create<string>(async url => await Launcher.OpenAsync(new Uri(url)));
             ToggleDebugModeCommand = CommandHelper.Create(() => IsDebugModeActive = !IsDebugModeActive);
             OpenDonatePageCommand = CommandHelper.Create(async () => await Navigation.PushAsync(new DonatePage()));
@@ -55,10 +52,7 @@ namespace NureTimetable.UI.ViewModels.Info
             ChangeLanguageCommand = CommandHelper.Create(ChangeLanguage);
 
             UpdateAppThemeName();
-            MessagingCenter.Subscribe<Application, Settings.AppTheme>(Application.Current, MessageTypes.ThemeChanged, (sender, theme) =>
-            {
-                UpdateAppThemeName();
-            });
+            MessagingCenter.Subscribe<Application, Settings.AppTheme>(Application.Current, MessageTypes.ThemeChanged, (sender, theme) => UpdateAppThemeName());
             UpdateAppLanguageName();
         }
 
@@ -110,6 +104,7 @@ namespace NureTimetable.UI.ViewModels.Info
                 return;
             }
             SettingsRepository.Settings.Theme = theme;
+            UpdateAppThemeName();
 
             ThemeHelper.SetAppTheme(theme);
         }

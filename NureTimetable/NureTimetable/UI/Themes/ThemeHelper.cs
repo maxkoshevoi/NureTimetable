@@ -4,7 +4,6 @@ using NureTimetable.Models.Consts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 using Settings = NureTimetable.Core.Models.Settings;
 
@@ -32,7 +31,14 @@ namespace NureTimetable.UI.Themes
                 return false;
             }
             resources.Clear();
-            resources.Add(theme);
+            try
+            {
+                resources.Add(theme);
+            }
+            catch (Exception ex)
+            {
+                MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
+            }
 
             var statusBarManager = DependencyService.Get<IBarStyleManager>();
             statusBarManager.SetStatusBarColor(ResourceManager.StatusBarColor.ToHex());
