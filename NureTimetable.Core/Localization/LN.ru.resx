@@ -494,4 +494,7 @@
   <data name="RestartRequired" xml:space="preserve">
     <value>Необходим перезапуск</value>
   </data>
+  <data name="EnterName" xml:space="preserve">
+    <value>Введите имя...</value>
+  </data>
 </root>
