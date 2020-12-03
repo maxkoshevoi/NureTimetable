@@ -27,9 +27,9 @@ namespace NureTimetable.UI.Views
             ThemeHelper.SetAppTheme(SettingsRepository.Settings.Theme);
             App.Current.RequestedThemeChanged += (_, e) =>
             {
-                if (SettingsRepository.Settings.Theme == Settings.AppTheme.FollowSystem)
+                if (SettingsRepository.Settings.Theme == Settings::AppTheme.FollowSystem)
                 {
-                    ThemeHelper.SetAppTheme((Settings.AppTheme)e.RequestedTheme);
+                    ThemeHelper.SetAppTheme((Settings::AppTheme)e.RequestedTheme);
                 }
             };
 

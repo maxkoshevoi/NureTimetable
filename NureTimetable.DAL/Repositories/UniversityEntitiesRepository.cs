@@ -74,7 +74,7 @@ namespace NureTimetable.DAL
 
         public static bool UpdateLocal()
         {
-            Cist.University university = GetLocal();
+            Cist::University university = GetLocal();
             if (university is null)
             {
                 return false;
@@ -85,7 +85,7 @@ namespace NureTimetable.DAL
 
         public static UniversityEntitiesCistUpdateResult UpdateFromCist()
         {
-            Cist.University university = GetLocal();
+            Cist::University university = GetLocal();
             UniversityEntitiesCistUpdateResult result = UpdateFromCist(ref university);
             Singleton = university;
             return result;
@@ -93,8 +93,8 @@ namespace NureTimetable.DAL
         #endregion
 
         #region Private
-        private static Cist.University _singleton;
-        private static Cist.University Singleton
+        private static Cist::University _singleton;
+        private static Cist::University Singleton
         {
             get => _singleton;
             set
@@ -104,9 +104,9 @@ namespace NureTimetable.DAL
             }
         }
 
-        private static Cist.University Get()
+        private static Cist::University Get()
         {
-            Cist.University university = GetLocal();
+            Cist::University university = GetLocal();
             if (university != null)
             {
                 return university;
@@ -115,9 +115,9 @@ namespace NureTimetable.DAL
             return university;
         }
 
-        private static Cist.University GetLocal()
+        private static Cist::University GetLocal()
         {
-            Cist.University loadedUniversity;
+            Cist::University loadedUniversity;
 
             string filePath = FilePath.UniversityEntities;
             if (!File.Exists(filePath))
@@ -125,18 +125,18 @@ namespace NureTimetable.DAL
                 return null;
             }
             
-            loadedUniversity = Serialisation.FromJsonFile<Cist.University>(filePath);
+            loadedUniversity = Serialisation.FromJsonFile<Cist::University>(filePath);
             return loadedUniversity;
         }
 
-        private static Cist.University GetFromCist()
+        private static Cist::University GetFromCist()
         {
-            Cist.University university = null;
+            Cist::University university = null;
             UpdateFromCist(ref university);
             return university;
         }
 
-        private static UniversityEntitiesCistUpdateResult UpdateFromCist(ref Cist.University university)
+        private static UniversityEntitiesCistUpdateResult UpdateFromCist(ref Cist::University university)
         {
             if (SettingsRepository.CheckCistAllEntitiesUpdateRights() == false)
             {
@@ -162,16 +162,16 @@ namespace NureTimetable.DAL
                 };
             }
 
-            university ??= new Cist.University();
+            university ??= new Cist::University();
             if (!roomsTask.IsFaulted)
             {
                 university.Buildings = roomsTask.Result;
             }
             if (!groupsTask.IsFaulted)
             {
-                foreach (Cist.Faculty faculty in groupsTask.Result)
+                foreach (Cist::Faculty faculty in groupsTask.Result)
                 {
-                    Cist.Faculty oldFaculty = university.Faculties.FirstOrDefault(f => f.Id == faculty.Id);
+                    Cist::Faculty oldFaculty = university.Faculties.FirstOrDefault(f => f.Id == faculty.Id);
                     if (oldFaculty != null)
                     {
                         faculty.Departments = oldFaculty.Departments;
@@ -182,9 +182,9 @@ namespace NureTimetable.DAL
             }
             if (!teachersTask.IsFaulted)
             {
-                foreach (Cist.Faculty faculty in teachersTask.Result)
+                foreach (Cist::Faculty faculty in teachersTask.Result)
                 {
-                    Cist.Faculty oldFaculty = university.Faculties.FirstOrDefault(f => f.Id == faculty.Id);
+                    Cist::Faculty oldFaculty = university.Faculties.FirstOrDefault(f => f.Id == faculty.Id);
                     if (oldFaculty != null)
                     {
                         faculty.Directions = oldFaculty.Directions;
@@ -235,7 +235,7 @@ namespace NureTimetable.DAL
         }
 
         #region From Cist Api
-        private static async Task<List<Cist.Faculty>> GetAllGroupsFromCist()
+        private static async Task<List<Cist::Faculty>> GetAllGroupsFromCist()
         {
             using var client = new HttpClient();
             try
@@ -248,7 +248,7 @@ namespace NureTimetable.DAL
 
                 Uri uri = Urls.CistApiAllGroups;
                 string responseStr = await client.GetStringOrWebExceptionAsync(uri);
-                Cist.University newUniversity = CistHelper.FromJson<Cist.UniversityRootObject>(responseStr).University;
+                Cist::University newUniversity = CistHelper.FromJson<Cist::UniversityRootObject>(responseStr).University;
 
                 return newUniversity.Faculties;
             }
@@ -259,7 +259,7 @@ namespace NureTimetable.DAL
             }
         }
 
-        private static async Task<List<Cist.Faculty>> GetAllTeachersFromCist()
+        private static async Task<List<Cist::Faculty>> GetAllTeachersFromCist()
         {
             using var client = new HttpClient();
             try
@@ -272,7 +272,7 @@ namespace NureTimetable.DAL
 
                 Uri uri = Urls.CistApiAllTeachers;
                 string responseStr = await client.GetStringOrWebExceptionAsync(uri);
-                Cist.University newUniversity = CistHelper.FromJson<Cist.UniversityRootObject>(responseStr).University;
+                Cist::University newUniversity = CistHelper.FromJson<Cist::UniversityRootObject>(responseStr).University;
 
                 return newUniversity.Faculties;
             }
@@ -283,7 +283,7 @@ namespace NureTimetable.DAL
             }
         }
 
-        private static async Task<List<Cist.Building>> GetAllRoomsFromCist()
+        private static async Task<List<Cist::Building>> GetAllRoomsFromCist()
         {
             using var client = new HttpClient();
             try
@@ -297,7 +297,7 @@ namespace NureTimetable.DAL
                 Uri uri = Urls.CistApiAllRooms;
                 string responseStr = await client.GetStringOrWebExceptionAsync(uri);
                 responseStr = responseStr.Replace("\n", "").Replace("[}]", "[]");
-                Cist.University newUniversity = CistHelper.FromJson<Cist.UniversityRootObject>(responseStr).University;
+                Cist::University newUniversity = CistHelper.FromJson<Cist::UniversityRootObject>(responseStr).University;
 
                 return newUniversity.Buildings;
             }
@@ -310,7 +310,7 @@ namespace NureTimetable.DAL
         #endregion
 
         #region From Cist Html
-        private static async Task<List<Cist.Faculty>> GetAllGroupsFromCistHtml()
+        private static async Task<List<Cist::Faculty>> GetAllGroupsFromCistHtml()
         {
             using var client = new HttpClient();
             try
@@ -321,7 +321,7 @@ namespace NureTimetable.DAL
                     { "Hour of the day", DateTime.Now.Hour.ToString() }
                 });
 
-                var faculties = new List<Cist.Faculty>();
+                var faculties = new List<Cist::Faculty>();
 
                 // Getting branches
                 Uri uri = Urls.CistSiteAllGroups(null);
@@ -335,7 +335,7 @@ namespace NureTimetable.DAL
                     }
 
                     int facultyNameStart = part.IndexOf('>') + 1;
-                    faculties.Add(new Cist.Faculty
+                    faculties.Add(new Cist::Faculty
                     {
                         Id = facultyId,
                         ShortName = part[facultyNameStart..part.IndexOf('<')]
@@ -343,9 +343,9 @@ namespace NureTimetable.DAL
                 }
 
                 //Getting groups
-                foreach (Cist.Faculty faculty in faculties)
+                foreach (Cist::Faculty faculty in faculties)
                 {
-                    faculty.Directions = new List<Cist.Direction> { new Cist.Direction() };
+                    faculty.Directions = new List<Cist::Direction> { new Cist::Direction() };
 
                     uri = Urls.CistSiteAllGroups(faculty.Id);
                     string branchGroupsPage = await client.GetStringOrWebExceptionAsync(uri);
@@ -361,7 +361,7 @@ namespace NureTimetable.DAL
                         }
 
                         string groupName = groupInfo[0];
-                        faculty.Directions[0].Groups.Add(new Cist.Group
+                        faculty.Directions[0].Groups.Add(new Cist::Group
                         {
                             Id = groupID,
                             Name = groupName
@@ -378,7 +378,7 @@ namespace NureTimetable.DAL
             }
         }
 
-        private static async Task<List<Cist.Faculty>> GetAllTeachersFromCistHtml()
+        private static async Task<List<Cist::Faculty>> GetAllTeachersFromCistHtml()
         {
             using var client = new HttpClient();
             try
@@ -389,7 +389,7 @@ namespace NureTimetable.DAL
                     { "Hour of the day", DateTime.Now.Hour.ToString() }
                 });
 
-                var faculties = new List<Cist.Faculty>();
+                var faculties = new List<Cist::Faculty>();
 
                 // Getting faculties
                 Uri uri = Urls.CistSiteAllTeachers();
@@ -403,7 +403,7 @@ namespace NureTimetable.DAL
                     }
 
                     int facNameStart = part.IndexOf('>') + 1;
-                    faculties.Add(new Cist.Faculty
+                    faculties.Add(new Cist::Faculty
                     {
                         Id = facId,
                         ShortName = part[facNameStart..part.IndexOf('<')],
@@ -420,9 +420,9 @@ namespace NureTimetable.DAL
             }
         }
 
-        private static async Task<List<Cist.Department>> GetDepartmentsForFaculty(long facultyId)
+        private static async Task<List<Cist::Department>> GetDepartmentsForFaculty(long facultyId)
         {
-            var departments = new List<Cist.Department>();
+            var departments = new List<Cist::Department>();
 
             // Getting departments
             Uri uri = Urls.CistSiteAllTeachers(facultyId);
@@ -438,7 +438,7 @@ namespace NureTimetable.DAL
                 }
 
                 int depNameStart = part.IndexOf('>') + 1;
-                departments.Add(new Cist.Department
+                departments.Add(new Cist::Department
                 {
                     Id = depId,
                     ShortName = part[depNameStart..part.IndexOf('<')],
@@ -449,9 +449,9 @@ namespace NureTimetable.DAL
             return departments;
         }
 
-        private static async Task<List<Cist.Teacher>> GetTeachersForDepartment(long facultyId, long departmentId)
+        private static async Task<List<Cist::Teacher>> GetTeachersForDepartment(long facultyId, long departmentId)
         {
-            var teachers = new List<Cist.Teacher>();
+            var teachers = new List<Cist::Teacher>();
 
             // Getting teachers
             Uri uri = Urls.CistSiteAllTeachers(facultyId, departmentId);
@@ -469,7 +469,7 @@ namespace NureTimetable.DAL
                 }
 
                 string teacherName = teacherInfo[0];
-                teachers.Add(new Cist.Teacher
+                teachers.Add(new Cist::Teacher
                 {
                     Id = teacherID,
                     ShortName = teacherName,
@@ -485,7 +485,7 @@ namespace NureTimetable.DAL
         #endregion
 
         #region All Entities Local
-        public static IEnumerable<Local.Group> GetAllGroups()
+        public static IEnumerable<Local::Group> GetAllGroups()
         {
             if (!IsInitialized)
             {
@@ -496,17 +496,17 @@ namespace NureTimetable.DAL
                 .Directions.SelectMany(dir =>
                     dir.Groups.Select(gr =>
                         {
-                            Local.Group localGroup = MapConfig.Map<Cist.Group, Local.Group>(gr);
-                            localGroup.Faculty = MapConfig.Map<Cist.Faculty, Local.BaseEntity<long>>(fac);
-                            localGroup.Direction = MapConfig.Map<Cist.Direction, Local.BaseEntity<long>>(dir);
+                            Local::Group localGroup = MapConfig.Map<Cist::Group, Local::Group>(gr);
+                            localGroup.Faculty = MapConfig.Map<Cist::Faculty, Local::BaseEntity<long>>(fac);
+                            localGroup.Direction = MapConfig.Map<Cist::Direction, Local::BaseEntity<long>>(dir);
                             return localGroup;
                         })
                         .Concat(dir.Specialities.SelectMany(sp => sp.Groups.Select(gr =>
                         {
-                            Local.Group localGroup = MapConfig.Map<Cist.Group, Local.Group>(gr);
-                            localGroup.Faculty = MapConfig.Map<Cist.Faculty, Local.BaseEntity<long>>(fac);
-                            localGroup.Direction = MapConfig.Map<Cist.Direction, Local.BaseEntity<long>>(dir);
-                            localGroup.Speciality = MapConfig.Map<Cist.Speciality, Local.BaseEntity<long>>(sp);
+                            Local::Group localGroup = MapConfig.Map<Cist::Group, Local::Group>(gr);
+                            localGroup.Faculty = MapConfig.Map<Cist::Faculty, Local::BaseEntity<long>>(fac);
+                            localGroup.Direction = MapConfig.Map<Cist::Direction, Local::BaseEntity<long>>(dir);
+                            localGroup.Speciality = MapConfig.Map<Cist::Speciality, Local::BaseEntity<long>>(sp);
                             return localGroup;
                         })))
                 )
@@ -514,7 +514,7 @@ namespace NureTimetable.DAL
             return groups;
         }
 
-        public static IEnumerable<Local.Teacher> GetAllTeachers()
+        public static IEnumerable<Local::Teacher> GetAllTeachers()
         {
             if (!IsInitialized)
             {
@@ -525,8 +525,8 @@ namespace NureTimetable.DAL
                 .Departments.SelectMany(dep =>
                     dep.Teachers.Select(tr =>
                     {
-                        Local.Teacher localGroup = MapConfig.Map<Cist.Teacher, Local.Teacher>(tr);
-                        localGroup.Department = MapConfig.Map<Cist.Department, Local.BaseEntity<long>>(dep);
+                        Local::Teacher localGroup = MapConfig.Map<Cist::Teacher, Local::Teacher>(tr);
+                        localGroup.Department = MapConfig.Map<Cist::Department, Local::BaseEntity<long>>(dep);
                         return localGroup;
                     })
                 )
@@ -534,7 +534,7 @@ namespace NureTimetable.DAL
             return teachers;
         }
 
-        public static IEnumerable<Local.Room> GetAllRooms()
+        public static IEnumerable<Local::Room> GetAllRooms()
         {
             if (!IsInitialized)
             {
@@ -544,8 +544,8 @@ namespace NureTimetable.DAL
             var rooms = Singleton?.Buildings.SelectMany(bd => bd
                 .Rooms.Select(rm =>
                 {
-                    Local.Room localGroup = MapConfig.Map<Cist.Room, Local.Room>(rm);
-                    localGroup.Building = MapConfig.Map<Cist.Building, Local.BaseEntity<string>>(bd);
+                    Local::Room localGroup = MapConfig.Map<Cist::Room, Local::Room>(rm);
+                    localGroup.Building = MapConfig.Map<Cist::Building, Local::BaseEntity<string>>(bd);
                     return localGroup;
                 })
             ).Distinct();
@@ -554,9 +554,9 @@ namespace NureTimetable.DAL
         #endregion
 
         #region Saved Entities
-        public static List<Local.SavedEntity> GetSaved()
+        public static List<Local::SavedEntity> GetSaved()
         {
-            List<Local.SavedEntity> loadedEntities = new();
+            List<Local::SavedEntity> loadedEntities = new();
 
             string filePath = FilePath.SavedEntitiesList;
             if (!File.Exists(filePath))
@@ -564,19 +564,19 @@ namespace NureTimetable.DAL
                 return loadedEntities;
             }
             
-            loadedEntities = Serialisation.FromJsonFile<List<Local.SavedEntity>>(filePath) ?? loadedEntities;
+            loadedEntities = Serialisation.FromJsonFile<List<Local::SavedEntity>>(filePath) ?? loadedEntities;
             return loadedEntities;
         }
 
-        public static void UpdateSaved(List<Local.SavedEntity> savedEntities)
+        public static void UpdateSaved(List<Local::SavedEntity> savedEntities)
         {
             savedEntities ??= new();
 
-            List<Local.SavedEntity> duplicates = savedEntities.GroupBy(e => e).Where(g => g.Count() > 1).Select(g => g.Key).ToList();
+            List<Local::SavedEntity> duplicates = savedEntities.GroupBy(e => e).Where(g => g.Count() > 1).Select(g => g.Key).ToList();
             if (duplicates.Any())
                 throw new InvalidOperationException($"{nameof(savedEntities)} must be unique");
 
-            List<Local.SavedEntity> oldSavedEntities = GetSaved();
+            List<Local::SavedEntity> oldSavedEntities = GetSaved();
             // Removing cache from deleted saved entities if needed
             oldSavedEntities.Where(oldEntity => !savedEntities.Exists(entity => entity.ID == oldEntity.ID))
                 .ToList()

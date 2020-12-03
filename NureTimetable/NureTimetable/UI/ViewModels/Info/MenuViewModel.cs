@@ -52,7 +52,7 @@ namespace NureTimetable.UI.ViewModels.Info
             ChangeLanguageCommand = CommandHelper.Create(ChangeLanguage);
 
             UpdateAppThemeName();
-            MessagingCenter.Subscribe<Application, Settings.AppTheme>(Application.Current, MessageTypes.ThemeChanged, (sender, theme) => UpdateAppThemeName());
+            MessagingCenter.Subscribe<Application, Settings::AppTheme>(Application.Current, MessageTypes.ThemeChanged, (sender, theme) => UpdateAppThemeName());
             UpdateAppLanguageName();
         }
 
@@ -60,9 +60,9 @@ namespace NureTimetable.UI.ViewModels.Info
         {
             AppThemeName = SettingsRepository.Settings.Theme switch
             {
-                Settings.AppTheme.Light => LN.LightTheme,
-                Settings.AppTheme.Dark => LN.DarkTheme,
-                Settings.AppTheme.FollowSystem => LN.FollowSystem,
+                Settings::AppTheme.Light => LN.LightTheme,
+                Settings::AppTheme.Dark => LN.DarkTheme,
+                Settings::AppTheme.FollowSystem => LN.FollowSystem,
                 _ => throw new InvalidOperationException("Unsuported theme")
             };
         }
@@ -89,14 +89,14 @@ namespace NureTimetable.UI.ViewModels.Info
                 return;
             }
 
-            Settings.AppTheme theme = Settings.AppTheme.FollowSystem;
+            Settings::AppTheme theme = Settings::AppTheme.FollowSystem;
             if (themeStr == LN.LightTheme)
             {
-                theme = Settings.AppTheme.Light;
+                theme = Settings::AppTheme.Light;
             }
             else if (themeStr == LN.DarkTheme)
             {
-                theme = Settings.AppTheme.Dark;
+                theme = Settings::AppTheme.Dark;
             }
 
             if (SettingsRepository.Settings.Theme == theme)

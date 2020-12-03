@@ -11,17 +11,17 @@ namespace NureTimetable.UI.Themes
 {
     public static class ThemeHelper
     {
-        public static bool SetAppTheme(Settings.AppTheme selectedTheme)
+        public static bool SetAppTheme(Settings::AppTheme selectedTheme)
         {
-            if (selectedTheme == Settings.AppTheme.FollowSystem)
+            if (selectedTheme == Settings::AppTheme.FollowSystem)
             {
-                selectedTheme = (Settings.AppTheme)App.Current.RequestedTheme;
+                selectedTheme = (Settings::AppTheme)App.Current.RequestedTheme;
             }
 
             ResourceDictionary theme = selectedTheme switch
             {
-                Settings.AppTheme.Dark => new DarkTheme(),
-                Settings.AppTheme.Light => new LightTheme(),
+                Settings::AppTheme.Dark => new DarkTheme(),
+                Settings::AppTheme.Light => new LightTheme(),
                 _ => throw new InvalidOperationException("Unsupported theme"),
             };
 

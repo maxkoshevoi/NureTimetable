@@ -121,7 +121,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 _ => TimetableScheduleView
             };
 
-            MessagingCenter.Subscribe<Application, Settings.AppTheme>(this, MessageTypes.ThemeChanged, async (sender, newTheme) =>
+            MessagingCenter.Subscribe<Application, Settings::AppTheme>(this, MessageTypes.ThemeChanged, async (sender, newTheme) =>
             {
                 if (timetableInfoList is null)
                 {
@@ -531,19 +531,19 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 }
 
                 // Getting Calendar list
-                IList<Calendars.Calendar> calendars = await CrossCalendars.Current.GetCalendarsAsync();
+                IList<Calendars::Calendar> calendars = await CrossCalendars.Current.GetCalendarsAsync();
                 calendars = calendars
                     .Where(c => c.Name.ToLower() == c.AccountName.ToLower() || c.AccountName.ToLower() == customCalendarName.ToLower())
                     .ToList();
 
                 // Getting our custom calendar
-                Calendars.Calendar customCalendar = calendars
+                Calendars::Calendar customCalendar = calendars
                     .Where(c => c.AccountName.ToLower() == customCalendarName.ToLower())
                     .FirstOrDefault();
                 if (customCalendar is null)
                 {
                     isCustomCalendarExists = false;
-                    customCalendar = new Calendars.Calendar
+                    customCalendar = new Calendars::Calendar
                     {
                         Name = customCalendarName
                     };
@@ -555,7 +555,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 }
 
                 // Getting calendar to add event into
-                Calendars.Calendar targetCalendar = customCalendar;
+                Calendars::Calendar targetCalendar = customCalendar;
                 if (calendars.Count > 1)
                 {
                     string targetCalendarName = await Shell.Current.DisplayActionSheet(
@@ -581,7 +581,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
 
                 // Adding event to calendar
                 string nl = Environment.NewLine;
-                var calendarEvent = new Calendars.CalendarEvent
+                var calendarEvent = new Calendars::CalendarEvent
                 {
                     AllDay = false,
                     Start = ev.StartUtc,
@@ -593,9 +593,9 @@ namespace NureTimetable.UI.ViewModels.Timetable
                     Location = $"KHNURE -\"{ev.RoomName}\"",
                     Reminders = new[] 
                     {
-                        new Calendars.CalendarEventReminder
+                        new Calendars::CalendarEventReminder
                         {
-                            Method = Calendars.CalendarReminderMethod.Alert,
+                            Method = Calendars::CalendarReminderMethod.Alert,
                             TimeBefore = TimeSpan.FromMinutes(30)
                         }
                     }
