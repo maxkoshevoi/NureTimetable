@@ -49,7 +49,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
         private string _hideSelectedEventsIcon = MaterialIconsFont.Filter;
         public string HideSelectedEventsIcon { get => _hideSelectedEventsIcon; set => SetProperty(ref _hideSelectedEventsIcon, value); }
 
-        private List<Entity> updatingTimetables = new();
+        private readonly List<Entity> updatingTimetables = new();
         private bool _isTimetableUpdating = false;
         public bool IsTimetableUpdating { get => _isTimetableUpdating; set => SetProperty(ref _isTimetableUpdating, value, () => UpdateTimetableCommand.ChangeCanExecute()); }
 

@@ -7,7 +7,7 @@ namespace NureTimetable.DAL
     public static class MapConfig
     {
         private static IMapper _config;
-        private static readonly object configLockObj = new object();
+        private static readonly object configLockObj = new();
 
         private static IMapper Config
         {
