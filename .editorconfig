@@ -1,10 +1,22 @@
-﻿[*.cs]
+﻿# Full rule list: https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/code-style-rule-options
+[*.cs]
 
-# IDE0071: Simplify interpolation
-dotnet_diagnostic.IDE0071.severity = warning
+# Indentation preferences
+csharp_indent_case_contents_when_block = false
 
-# IDE0057: Use range operator
-dotnet_diagnostic.IDE0057.severity = warning
+# var preferences
+csharp_style_var_for_built_in_types = false:warning
 
-# IDE0066: Convert switch statement to expression
-dotnet_diagnostic.IDE0066.severity = warning
+# Modifier preferences
+dotnet_style_require_accessibility_modifiers = for_non_interface_members:suggestion
+
+# Expression-level preferences
+csharp_prefer_simple_default_expression = true:warning
+dotnet_style_prefer_simplified_interpolation = true:warning
+csharp_style_prefer_index_operator = true:warning
+csharp_style_prefer_range_operator = true:warning
+
+# Pattern matching preferences
+csharp_style_pattern_matching_over_as_with_null_check = true:warning
+csharp_style_pattern_matching_over_is_with_cast_check = true:warning
+csharp_style_prefer_switch_expression = true:warning
