@@ -11,14 +11,12 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
 {
     public class LessonViewModel : BaseViewModel
     {
-        #region Variables
         private readonly TimetableInfo timetableInfo;
         private readonly ManageLessonsViewModel manageLessonsViewModel;
-        private LessonInfo lessonInfo;
-        #endregion
 
         #region Properties
-        public LessonInfo LessonInfo { get => lessonInfo; set { lessonInfo = value; OnPropertyChanged(nameof(IsChecked)); } }
+        private LessonInfo _lessonInfo;
+        public LessonInfo LessonInfo { get => _lessonInfo; set { _lessonInfo = value; OnPropertyChanged(nameof(IsChecked)); } }
 
         public bool? IsChecked 
         { 
@@ -26,9 +24,7 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
             set
             {
                 if (IsChecked == value)
-                {
                     return;
-                }
 
                 LessonInfo.Settings.Hiding.ShowLesson = value;
                 OnPropertyChanged();

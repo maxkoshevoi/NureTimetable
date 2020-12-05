@@ -1,17 +1,13 @@
-﻿using Microsoft.AppCenter.Analytics;
-using NureTimetable.BL;
+﻿using NureTimetable.BL;
 using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Consts;
-using NureTimetable.Core.Models.Exceptions;
 using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
 using NureTimetable.UI.Helpers;
 using NureTimetable.UI.Views;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
@@ -20,29 +16,18 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
 {
     public class ManageEntitiesViewModel : BaseViewModel
     {
-        #region Variables
-        private bool _isNoSourceLayoutVisable;
-
-        private bool _isEntitiesLayoutEnable;
-
-        private bool _isProgressVisable;
-
-        private bool _isMultiselectMode;
-
-        private SavedEntityItemViewModel _selectedEntity;
-
-        private ObservableCollection<SavedEntityItemViewModel> _entities;
-        #endregion
-
         #region Properties
+        private bool _isNoSourceLayoutVisable;
         public bool IsNoSourceLayoutVisable { get => _isNoSourceLayoutVisable; set => SetProperty(ref _isNoSourceLayoutVisable, value); }
 
+        private bool _isMultiselectMode;
         public bool IsMultiselectMode
         {
             get => _isMultiselectMode;
             set => SetProperty(ref _isMultiselectMode, value, () => Entities?.ForEach(e => e.NotifyChanged(nameof(IsMultiselectMode))));
         }
 
+        private ObservableCollection<SavedEntityItemViewModel> _entities;
         public ObservableCollection<SavedEntityItemViewModel> Entities { get => _entities; private set => SetProperty(ref _entities, value); }
 
         public Command UpdateAllCommand { get; }

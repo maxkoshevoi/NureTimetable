@@ -12,6 +12,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
     {
         #region Properties
         public Command UpdateCommand { get; }
+
         private bool updateCommandEnabled = true;
         public bool UpdateCommandEnabled { get => updateCommandEnabled; set { updateCommandEnabled = value; UpdateCommand.ChangeCanExecute(); } }
 

@@ -6,11 +6,12 @@ namespace NureTimetable.UI.ViewModels.Lessons.LessonSettings
     public class ListViewViewModel<T> : BaseViewModel
     {
         private ObservableCollection<CheckedEntity<T>> _itemSource;
-        private bool _isVisible;
-        private double _heightRequest;
-
         public ObservableCollection<CheckedEntity<T>> ItemsSource { get => _itemSource; internal set => SetProperty(ref _itemSource, value, ItemsSourceChanged); }
+        
+        private bool _isVisible;
         public bool IsVisible { get => _isVisible; set => SetProperty(ref _isVisible, value); }
+        
+        private double _heightRequest;
         public double HeightRequest { get => _heightRequest; set => SetProperty(ref _heightRequest, value); }
 
         private void ItemsSourceChanged()

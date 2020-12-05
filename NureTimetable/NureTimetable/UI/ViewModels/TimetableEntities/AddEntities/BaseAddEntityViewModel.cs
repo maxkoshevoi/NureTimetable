@@ -15,44 +15,45 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
 {
     public abstract class BaseAddEntityViewModel<T> : BaseViewModel
     {
-        #region variables
-
         private protected List<T> _allEntities;
-
-        private protected ObservableCollection<T> _entities;
-
-        private protected bool _progressLayoutIsVisable;
-
-        private protected bool _progressLayoutIsEnable;
-
-        private protected bool _noSourceLayoutIsVisible;
-
-        private protected T _selectedEntity;
-
         private string lastSearchQuery;
 
-        #endregion
-
         #region Properties
-
+        private protected ObservableCollection<T> _entities;
         public ObservableCollection<T> Entities { get => _entities; private protected set => SetProperty(ref _entities, value); }
 
+        private protected bool _progressLayoutIsVisable;
         public bool ProgressLayoutIsVisable
         {
             get => _progressLayoutIsVisable;
             set => SetProperty(ref _progressLayoutIsVisable, value);
         }
 
+        private protected bool _progressLayoutIsEnable;
         public bool ProgressLayoutIsEnable
         {
             get => _progressLayoutIsEnable;
             set => SetProperty(ref _progressLayoutIsEnable, value);
         }
 
+        private protected bool _noSourceLayoutIsVisible;
         public bool NoSourceLayoutIsVisible
         {
             get => _noSourceLayoutIsVisible;
             set => SetProperty(ref _noSourceLayoutIsVisible, value);
+        }
+
+        private protected T _selectedEntity;
+        public T SelectedEntity
+        {
+            get => _selectedEntity;
+            set
+            {
+                if (value != null)
+                    MainThread.BeginInvokeOnMainThread(async () => await EntitySelected(value));
+
+                _selectedEntity = value;
+            }
         }
 
         public ICommand SearchBarTextChangedCommand { get; }
@@ -63,11 +64,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
         {
             SearchBarTextChangedCommand = CommandHelper.Create<string>(SearchBarTextChanged);
 
-            MessagingCenter.Subscribe<Application>(this, MessageTypes.UniversityEntitiesUpdated, async (sender) =>
-            {
-                await UpdateEntities();
-            });
-
+            MessagingCenter.Subscribe<Application>(this, MessageTypes.UniversityEntitiesUpdated, async (sender) => await UpdateEntities());
             MainThread.BeginInvokeOnMainThread(async () => await UpdateEntities());
         }
 
@@ -83,19 +80,6 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
 
         #region Methods
 
-        public T SelectedEntity
-        {
-            get => _selectedEntity;
-            set
-            {
-                if (value != null)
-                {
-                    MainThread.BeginInvokeOnMainThread(async () => await EntitySelected(value));
-                }
-
-                _selectedEntity = value;
-            }
-        }
 
         protected abstract SavedEntity GetSavedEntity(T entity);
 

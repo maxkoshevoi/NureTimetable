@@ -5,23 +5,23 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Xamarin.Forms;
-using Settings = NureTimetable.Core.Models.Settings;
+using AppTheme = NureTimetable.Core.Models.Settings.AppTheme;
 
 namespace NureTimetable.UI.Themes
 {
     public static class ThemeHelper
     {
-        public static bool SetAppTheme(Settings::AppTheme selectedTheme)
+        public static bool SetAppTheme(AppTheme selectedTheme)
         {
-            if (selectedTheme == Settings::AppTheme.FollowSystem)
+            if (selectedTheme == AppTheme.FollowSystem)
             {
-                selectedTheme = (Settings::AppTheme)App.Current.RequestedTheme;
+                selectedTheme = (AppTheme)App.Current.RequestedTheme;
             }
 
             ResourceDictionary theme = selectedTheme switch
             {
-                Settings::AppTheme.Dark => new DarkTheme(),
-                Settings::AppTheme.Light => new LightTheme(),
+                AppTheme.Dark => new DarkTheme(),
+                AppTheme.Light => new LightTheme(),
                 _ => throw new InvalidOperationException("Unsupported theme"),
             };
 

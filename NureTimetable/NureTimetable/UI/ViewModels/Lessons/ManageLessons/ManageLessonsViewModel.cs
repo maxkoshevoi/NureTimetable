@@ -13,19 +13,15 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
 {
     public class ManageLessonsViewModel : BaseViewModel
     {
-        #region Variables
-        private bool _isNoSourceLayoutVisable;
-
         private readonly TimetableInfo timetable;
-
-        private ObservableCollection<LessonViewModel> _lessons;
-        #endregion
 
         #region Properties
         public bool HasUnsavedChanes { get; set; } = false;
 
+        private bool _isNoSourceLayoutVisable;
         public bool IsNoSourceLayoutVisable { get => _isNoSourceLayoutVisable; set => SetProperty(ref _isNoSourceLayoutVisable, value); }
         
+        private ObservableCollection<LessonViewModel> _lessons;
         public ObservableCollection<LessonViewModel> Lessons { get => _lessons; private set => SetProperty(ref _lessons, value); }
 
         public ICommand PageAppearingCommand { get; }
