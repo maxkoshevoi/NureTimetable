@@ -1,35 +1,5 @@
 ﻿[*.cs]
 
-# CA2007: Consider calling ConfigureAwait on the awaited task
-dotnet_diagnostic.CA2007.severity = silent
-
-# CA1031: Do not catch general exception types
-dotnet_diagnostic.CA1031.severity = suggestion
-
-# CA1062: Validate arguments of public methods
-dotnet_diagnostic.CA1062.severity = silent
-
-# CA1822: Mark members as static
-dotnet_diagnostic.CA1822.severity = suggestion
-
-# CA1310: Specify StringComparison for correctness
-dotnet_diagnostic.CA1310.severity = silent
-
-# CA1305: Specify IFormatProvider
-dotnet_diagnostic.CA1305.severity = silent
-
-# CA1716: Identifiers should not match keywords
-dotnet_diagnostic.CA1716.severity = silent
-
-# CA2227: Collection properties should be read only
-dotnet_diagnostic.CA2227.severity = silent
-
-# CA1805: Do not initialize unnecessarily
-dotnet_diagnostic.CA1805.severity = silent
-
-# CA1304: Specify CultureInfo
-dotnet_diagnostic.CA1304.severity = silent
-
 # IDE0071: Simplify interpolation
 dotnet_diagnostic.IDE0071.severity = warning
 
