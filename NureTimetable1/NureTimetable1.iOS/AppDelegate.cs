@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Foundation;
+using TouchEffect.iOS;
 using UIKit;
 
 namespace NureTimetable.iOS
@@ -23,6 +24,7 @@ namespace NureTimetable.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
+            TouchEffectPreserver.Preserve();
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

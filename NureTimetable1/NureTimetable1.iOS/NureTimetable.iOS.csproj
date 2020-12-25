@@ -5,6 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
+    <LangVersion>latest</LangVersion>
     <ProjectGuid>{B1DC1FAD-D343-49CA-A967-147337AC5A99}</ProjectGuid>
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TemplateGuid>{6143fdea-f3c2-4a09-aafa-6e230626515e}</TemplateGuid>
@@ -63,8 +64,14 @@
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Dependences\ActivityManager.cs" />
+    <Compile Include="Dependences\BarStyleManager.cs" />
+    <Compile Include="Dependences\MessageManager.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
+    <None Include="..\..\.editorconfig">
+      <Link>.editorconfig</Link>
+    </None>
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -127,6 +134,10 @@
     <PackageReference Include="Xamarin.Essentials" Version="1.6.0" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\NureTimetable.Core\NureTimetable.Core.csproj">
+      <Project>{7212568b-a874-4ddf-aa58-67a8d57d0f81}</Project>
+      <Name>NureTimetable.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\NureTimetable\NureTimetable\NureTimetable.csproj">
       <Project>{bc352889-a149-44e4-854b-2d7fbcae3aa3}</Project>
       <Name>NureTimetable</Name>

@@ -73,7 +73,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="TouchView" Version="4.1.99" />
     <PackageReference Include="Xamarin.Essentials" Version="1.6.0" />
     <PackageReference Include="Xamarin.Forms" Version="4.8.0.1821" />
   </ItemGroup>
