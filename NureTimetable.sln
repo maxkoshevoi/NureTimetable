@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.29326.143
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NureTimetable.Android", "NureTimetable\NureTimetable.Android\NureTimetable.Android.csproj", "{24CE3C36-16B9-426D-AA0C-5961ECF8D88C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NureTimetable.iOS", "NureTimetable\NureTimetable.iOS\NureTimetable.iOS.csproj", "{B1DC1FAD-D343-49CA-A967-147337AC5A99}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NureTimetable", "NureTimetable\NureTimetable\NureTimetable.csproj", "{BC352889-A149-44E4-854B-2D7FBCAE3AA3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NureTimetable.Core", "NureTimetable.Core\NureTimetable.Core.csproj", "{7212568B-A874-4DDF-AA58-67A8D57D0F81}"
@@ -15,8 +17,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NureTimetable.iOS", "NureTimetable1\NureTimetable1.iOS\NureTimetable.iOS.csproj", "{B1DC1FAD-D343-49CA-A967-147337AC5A99}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
