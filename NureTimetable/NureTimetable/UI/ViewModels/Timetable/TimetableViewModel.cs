@@ -146,9 +146,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
             MessagingCenter.Subscribe<Application, AppTheme>(this, MessageTypes.ThemeChanged, async (sender, newTheme) =>
             {
                 if (timetableInfoList is null)
-                {
                     return;
-                }
 
                 needToUpdateEventsUI = true;
                 await UpdateEventsWithUI();
@@ -182,7 +180,9 @@ namespace NureTimetable.UI.ViewModels.Timetable
 
                 updatingTimetables.Remove(entity);
                 if (updatingTimetables.Count == 0)
+                {
                     IsTimetableUpdating = false;
+                }
             });
 
             PageAppearingCommand = CommandHelper.Create(PageAppearing);
@@ -194,8 +194,10 @@ namespace NureTimetable.UI.ViewModels.Timetable
             TimetableMonthInlineAppointmentTappedCommand = CommandHelper.Create<MonthInlineAppointmentTappedEventArgs>((e) => DisplayEventDetails((Event)e.Appointment));
             TimetableVisibleDatesChangedCommand = CommandHelper.Create<VisibleDatesChangedEventArgs>(async (e) =>
             {
-                if (e != null)
-                    visibleDates = e.visibleDates;
+                if (e is null)
+                    return;
+
+                visibleDates = e.visibleDates;
                 await UpdateTodayButton(false);
             });
             UpdateTimetableCommand = CommandHelper.Create(async () => 
