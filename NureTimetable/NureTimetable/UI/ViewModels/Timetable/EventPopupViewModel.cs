@@ -35,7 +35,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
             AddToCalendarCommand = CommandHelper.Create(AddEventToCalendar);
 
             LessonInfo lessonInfo = timetable.LessonsInfo?.FirstOrDefault(li => li.Lesson == ev.Lesson);
-            Notes = lessonInfo.Notes;
+            Notes = lessonInfo?.Notes;
 
             EventNumber = timetable.Events
                 .Where(e => e.Lesson == ev.Lesson && e.Type == ev.Type && e.Start < ev.Start)
@@ -52,7 +52,6 @@ namespace NureTimetable.UI.ViewModels.Timetable
               $"{string.Format(LN.EventGroups, string.Join(", ", ev.Groups.Select(t => t.Name)))}\n" +
               $"{string.Format(LN.EventDay, ev.Start.ToString("ddd, dd.MM.yy"))}\n" +
               $"{string.Format(LN.EventTime, ev.Start.ToString("HH:mm"), ev.End.ToString("HH:mm"))}";
-
         }
 
         private async Task AddEventToCalendar()

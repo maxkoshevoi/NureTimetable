@@ -28,9 +28,6 @@
         <Style TargetType="Label">
             <Setter Property="TextColor" Value="#333"/>
         </Style>
-        <Style TargetType="Button">
-            
-        </Style>
     </pages:PopupPage.Resources>
     
     <StackLayout BackgroundColor="White" 
