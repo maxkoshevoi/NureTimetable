@@ -1,4 +1,5 @@
 ﻿using NureTimetable.Core.Localization;
+using NureTimetable.Core.Models.Consts;
 using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
 using NureTimetable.UI.Helpers;
@@ -58,10 +59,8 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
 
         private async Task PageAppearing()
         {
-            if (Lessons != null)
-            {
+            if (Lessons is not null)
                 return;
-            }
 
             await Shell.Current.DisplayAlert(LN.LessonsManagement, LN.AtFirstLoadTimetable, LN.Ok);
             await Navigation.PopAsync();
@@ -79,7 +78,14 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
             HasUnsavedChanes = false;
 
             await Shell.Current.DisplayAlert(LN.SavingSettings, string.Format(LN.EntityLessonSettingsSaved, timetable.Entity.Name), LN.Ok);
-            await Navigation.PopAsync();
+            try
+            {
+                await Navigation.PopAsync();
+            }
+            catch (Exception ex)
+            {
+                MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
+            }
         }
 
         private async Task BackButtonPressed()

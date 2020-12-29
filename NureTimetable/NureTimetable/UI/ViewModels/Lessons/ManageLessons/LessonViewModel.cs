@@ -46,9 +46,7 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
             MessagingCenter.Subscribe<LessonSettingsViewModel, LessonInfo>(this, MessageTypes.OneLessonSettingsChanged, (sender, newLessonSettings) =>
             {
                 if (LessonInfo.Lesson != newLessonSettings.Lesson)
-                {
                     return;
-                }
 
                 LessonInfo = newLessonSettings;
                 manageLessonsViewModel.HasUnsavedChanes = true;
