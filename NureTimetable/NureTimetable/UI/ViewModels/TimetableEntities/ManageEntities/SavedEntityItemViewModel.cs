@@ -19,8 +19,8 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
         #region Properties
         public SavedEntity SavedEntity { get; }
 
-        private bool isUpdating;
-        public bool IsUpdating { get => isUpdating; set { SetProperty(ref isUpdating, value); manageEntitiesViewModel.UpdateAllCommand.ChangeCanExecute(); } }
+        private bool _isUpdating;
+        public bool IsUpdating { get => _isUpdating; set { SetProperty(ref _isUpdating, value); manageEntitiesViewModel.UpdateAllCommand.ChangeCanExecute(); } }
 
         public bool IsMultiselectMode => manageEntitiesViewModel.IsMultiselectMode;
 

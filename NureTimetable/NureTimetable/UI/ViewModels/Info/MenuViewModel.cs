@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Essentials;
 using Xamarin.Forms;
-using Settings = NureTimetable.Core.Models.Settings;
+using AppTheme = NureTimetable.Core.Models.Settings.AppTheme;
 
 namespace NureTimetable.UI.ViewModels.Info
 {
@@ -52,7 +52,7 @@ namespace NureTimetable.UI.ViewModels.Info
             ChangeLanguageCommand = CommandHelper.Create(ChangeLanguage);
 
             UpdateAppThemeName();
-            MessagingCenter.Subscribe<Application, Settings.AppTheme>(Application.Current, MessageTypes.ThemeChanged, (sender, theme) => UpdateAppThemeName());
+            MessagingCenter.Subscribe<Application, AppTheme>(Application.Current, MessageTypes.ThemeChanged, (sender, theme) => UpdateAppThemeName());
             UpdateAppLanguageName();
         }
 
@@ -60,9 +60,9 @@ namespace NureTimetable.UI.ViewModels.Info
         {
             AppThemeName = SettingsRepository.Settings.Theme switch
             {
-                Settings.AppTheme.Light => LN.LightTheme,
-                Settings.AppTheme.Dark => LN.DarkTheme,
-                Settings.AppTheme.FollowSystem => LN.FollowSystem,
+                AppTheme.Light => LN.LightTheme,
+                AppTheme.Dark => LN.DarkTheme,
+                AppTheme.FollowSystem => LN.FollowSystem,
                 _ => throw new InvalidOperationException("Unsuported theme")
             };
         }
@@ -89,14 +89,14 @@ namespace NureTimetable.UI.ViewModels.Info
                 return;
             }
 
-            Settings.AppTheme theme = Settings.AppTheme.FollowSystem;
+            AppTheme theme = AppTheme.FollowSystem;
             if (themeStr == LN.LightTheme)
             {
-                theme = Settings.AppTheme.Light;
+                theme = AppTheme.Light;
             }
             else if (themeStr == LN.DarkTheme)
             {
-                theme = Settings.AppTheme.Dark;
+                theme = AppTheme.Dark;
             }
 
             if (SettingsRepository.Settings.Theme == theme)
@@ -113,9 +113,7 @@ namespace NureTimetable.UI.ViewModels.Info
         {
             string languageStr = await Shell.Current.DisplayActionSheet(LN.Language, LN.Cancel, null, LN.FollowSystem, LN.EnglishLanguage, LN.RussianLanguage, LN.UkrainianLanguage);
             if (languageStr is null)
-            {
                 return;
-            }
 
             AppLanguage language = AppLanguage.FollowSystem;
             if (languageStr == LN.EnglishLanguage)

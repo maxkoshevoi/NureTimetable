@@ -503,4 +503,7 @@ Try again later, or try using different WIFI network or mobile internet connecti
   <data name="RestartRequired" xml:space="preserve">
     <value>Restart required</value>
   </data>
+  <data name="EnterName" xml:space="preserve">
+    <value>Enter name...</value>
+  </data>
 </root>

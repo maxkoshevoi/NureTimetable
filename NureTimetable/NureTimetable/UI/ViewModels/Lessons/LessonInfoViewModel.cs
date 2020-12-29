@@ -8,9 +8,7 @@ namespace NureTimetable.UI.ViewModels.Lessons
 {
     public class LessonInfoViewModel : BaseViewModel
     {
-        #region Variables
         private readonly TimetableInfo timetableInfo;
-        #endregion
 
         #region Properties
         public LessonInfo LessonInfo { get; }

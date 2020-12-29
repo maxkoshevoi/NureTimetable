@@ -42,7 +42,10 @@
             <Style TargetType="ActivityIndicator">
                 <Setter Property="Color" Value="#80808080"/>
             </Style>
-
+            <Style TargetType="RefreshView">
+                <Setter Property="RefreshColor" Value="#80808080"/>
+            </Style>
+            
             <Style TargetType="Editor">
                 <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}"/>
             </Style>

@@ -15,44 +15,30 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
 {
     public abstract class BaseAddEntityViewModel<T> : BaseViewModel
     {
-        #region variables
-
         private protected List<T> _allEntities;
-
-        private protected ObservableCollection<T> _entities;
-
-        private protected bool _progressLayoutIsVisable;
-
-        private protected bool _progressLayoutIsEnable;
-
-        private protected bool _noSourceLayoutIsVisible;
-
-        private protected T _selectedEntity;
-
         private string lastSearchQuery;
 
-        #endregion
-
         #region Properties
-
+        private protected ObservableCollection<T> _entities;
         public ObservableCollection<T> Entities { get => _entities; private protected set => SetProperty(ref _entities, value); }
 
-        public bool ProgressLayoutIsVisable
-        {
-            get => _progressLayoutIsVisable;
-            set => SetProperty(ref _progressLayoutIsVisable, value);
-        }
+        private protected bool _isProgressLayoutVisible;
+        public bool IsProgressLayoutVisible { get => _isProgressLayoutVisible; set => SetProperty(ref _isProgressLayoutVisible, value); }
 
-        public bool ProgressLayoutIsEnable
-        {
-            get => _progressLayoutIsEnable;
-            set => SetProperty(ref _progressLayoutIsEnable, value);
-        }
+        private protected bool _isNoSourceLayoutVisible;
+        public bool IsNoSourceLayoutVisible { get => _isNoSourceLayoutVisible; set => SetProperty(ref _isNoSourceLayoutVisible, value); }
 
-        public bool NoSourceLayoutIsVisible
+        private protected T _selectedEntity;
+        public T SelectedEntity
         {
-            get => _noSourceLayoutIsVisible;
-            set => SetProperty(ref _noSourceLayoutIsVisible, value);
+            get => _selectedEntity;
+            set
+            {
+                if (value != null)
+                    MainThread.BeginInvokeOnMainThread(async () => await EntitySelected(value));
+
+                _selectedEntity = value;
+            }
         }
 
         public ICommand SearchBarTextChangedCommand { get; }
@@ -63,11 +49,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
         {
             SearchBarTextChangedCommand = CommandHelper.Create<string>(SearchBarTextChanged);
 
-            MessagingCenter.Subscribe<Application>(this, MessageTypes.UniversityEntitiesUpdated, async (sender) =>
-            {
-                await UpdateEntities();
-            });
-
+            MessagingCenter.Subscribe<Application>(this, MessageTypes.UniversityEntitiesUpdated, async (sender) => await UpdateEntities());
             MainThread.BeginInvokeOnMainThread(async () => await UpdateEntities());
         }
 
@@ -82,20 +64,6 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
         #endregion
 
         #region Methods
-
-        public T SelectedEntity
-        {
-            get => _selectedEntity;
-            set
-            {
-                if (value != null)
-                {
-                    MainThread.BeginInvokeOnMainThread(async () => await EntitySelected(value));
-                }
-
-                _selectedEntity = value;
-            }
-        }
 
         protected abstract SavedEntity GetSavedEntity(T entity);
 
@@ -137,22 +105,20 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
             {
                 updateDataSource ??= Task.Run(UniversityEntitiesRepository.AssureInitialized);
 
-                ProgressLayoutIsVisable = true;
-                ProgressLayoutIsEnable = false;
+                IsProgressLayoutVisible = true;
 
                 await updateDataSource;
                 _allEntities = GetAllEntities();
                 Entities = new ObservableCollection<T>(OrderEntities());
 
-                NoSourceLayoutIsVisible = Entities.Count == 0;
+                IsNoSourceLayoutVisible = Entities.Count == 0;
 
                 if (SearchBarTextChangedCommand.CanExecute(lastSearchQuery))
                 {
                     SearchBarTextChangedCommand.Execute(lastSearchQuery);
                 }
 
-                ProgressLayoutIsVisable = false;
-                ProgressLayoutIsEnable = true;
+                IsProgressLayoutVisible = false;
             });
         }
 

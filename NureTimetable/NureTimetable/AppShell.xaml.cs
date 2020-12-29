@@ -13,7 +13,7 @@ using System.Linq;
 using System.Net;
 using Xamarin.Essentials;
 using Xamarin.Forms;
-using Settings = NureTimetable.Core.Models.Settings;
+using AppTheme = NureTimetable.Core.Models.Settings.AppTheme;
 
 namespace NureTimetable.UI.Views
 {
@@ -27,9 +27,9 @@ namespace NureTimetable.UI.Views
             ThemeHelper.SetAppTheme(SettingsRepository.Settings.Theme);
             App.Current.RequestedThemeChanged += (_, e) =>
             {
-                if (SettingsRepository.Settings.Theme == Settings.AppTheme.FollowSystem)
+                if (SettingsRepository.Settings.Theme == AppTheme.FollowSystem)
                 {
-                    ThemeHelper.SetAppTheme((Settings.AppTheme)e.RequestedTheme);
+                    ThemeHelper.SetAppTheme((AppTheme)e.RequestedTheme);
                 }
             };
 

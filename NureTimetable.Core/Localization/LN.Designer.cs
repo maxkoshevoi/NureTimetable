@@ -341,6 +341,15 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter name....
+        /// </summary>
+        public static string EnterName {
+            get {
+                return ResourceManager.GetString("EnterName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lesson settings for &quot;{0}&quot; saved successfully..
         /// </summary>
         public static string EntityLessonSettingsSaved {

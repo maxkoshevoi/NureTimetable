@@ -10,16 +10,16 @@ namespace NureTimetable.UI.ViewModels.Lessons.LessonSettings
 {
     public class LessonSettingsViewModel : BaseViewModel
     {
-        #region Variables
         bool updatingProgrammatically = false;
-
-        private bool? _showLessonIsChecked = false;
-        #endregion
 
         #region Properties
         public LessonInfo LessonInfo { get; }
+        
+        private bool? _showLessonIsChecked = false;
         public bool? ShowLessonIsChecked { get => _showLessonIsChecked; set => SetProperty(ref _showLessonIsChecked, value); }
+        
         public ListViewViewModel<EventType> LvEventTypes { get; set; }
+        
         public ListViewViewModel<Teacher> LvTeachers { get; set; }
 
         public ICommand ShowLessonStateChangedCommand { get; }
