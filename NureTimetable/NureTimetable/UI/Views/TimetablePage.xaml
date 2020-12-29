@@ -53,6 +53,7 @@
                         VisibleDatesChangedCommand="{Binding TimetableVisibleDatesChangedCommand}">
                     <syncfusion:SfSchedule.Behaviors>
                         <behaviors:EventToCommandBehavior EventName="MonthInlineAppointmentTapped" Command="{Binding TimetableMonthInlineAppointmentTappedCommand}"/>
+                        <behaviors:EventToCommandBehavior EventName="OnMonthInlineLoadedEvent" Command="{Binding TimetableMonthInlineLoadedCommand}"/>
                     </syncfusion:SfSchedule.Behaviors>
                     <syncfusion:SfSchedule.HeaderStyle>
                         <syncfusion:HeaderStyle 
@@ -107,9 +108,6 @@
                             <syncfusion:MonthViewSettings.WeekNumberStyle>
                                 <syncfusion:WeekNumberStyle BackgroundColor="{DynamicResource PageBackgroundColor}"/>
                             </syncfusion:MonthViewSettings.WeekNumberStyle>
-                            <syncfusion:MonthViewSettings.AgendaViewStyle>
-                                <syncfusion:AgendaViewStyle BackgroundColor="{DynamicResource PageBackgroundColor}"/>
-                            </syncfusion:MonthViewSettings.AgendaViewStyle>
                         </syncfusion:MonthViewSettings>
                     </syncfusion:SfSchedule.MonthViewSettings>
                     <syncfusion:SfSchedule.MonthCellStyle>

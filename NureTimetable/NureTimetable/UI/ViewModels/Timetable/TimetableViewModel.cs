@@ -7,6 +7,7 @@ using NureTimetable.Core.Models.InterplatformCommunication;
 using NureTimetable.Core.Models.Settings;
 using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
+using NureTimetable.Models.Consts;
 using NureTimetable.Models.Consts.Fonts;
 using NureTimetable.UI.Helpers;
 using NureTimetable.UI.Views;
@@ -110,6 +111,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
         public Command ScheduleModeCommand { get; }
         public Command TimetableCellTappedCommand { get; }
         public Command TimetableMonthInlineAppointmentTappedCommand { get; }
+        public Command TimetableMonthInlineLoadedCommand { get; }
         public Command TimetableVisibleDatesChangedCommand { get; }
         public Command BTodayClickedCommand { get; }
         public Command UpdateTimetableCommand { get; }
@@ -185,6 +187,14 @@ namespace NureTimetable.UI.ViewModels.Timetable
             PageDisappearingCommand = CommandHelper.Create(() => isPageVisible = false);
             TimetableCellTappedCommand = CommandHelper.Create<CellTappedEventArgs>((e) => DisplayEventDetails((Event)e.Appointment));
             TimetableMonthInlineAppointmentTappedCommand = CommandHelper.Create<MonthInlineAppointmentTappedEventArgs>((e) => DisplayEventDetails((Event)e.Appointment));
+            TimetableMonthInlineLoadedCommand = CommandHelper.Create<MonthInlineLoadedEventArgs>((e) =>
+            {
+                e.monthInlineViewStyle = new()
+                {
+                    BackgroundColor = ResourceManager.PageBackgroundColor,
+                    TimeTextFormat = "HH:mm",
+                };
+            });
             TimetableVisibleDatesChangedCommand = CommandHelper.Create<VisibleDatesChangedEventArgs>(async (e) =>
             {
                 if (e is null)
@@ -427,7 +437,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 }
 
                 TimetableDataSource = timetableInfoList.Events
-                    .Select(ev => new EventViewModel(ev))
+                    .Select(ev => new EventViewModel(ev) { ShowTime = TimetableScheduleView != ScheduleView.MonthView })
                     .ToList();
 
                 UpdateTimeLeft();
@@ -458,12 +468,16 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 TimetableScheduleView = ScheduleView.MonthView;
                 SettingsRepository.Settings.TimetableViewMode = TimetableViewMode.Month;
             }
+            
             if (selected != null)
             {
                 //_timetablePage.TimetableNavigateTo(selected.Value);
                 TimetableSelectedDate = selected;
                 TimetableSelectedDate = null;
             }
+
+            needToUpdateEventsUI = true;
+            UpdateEventsUI();
         }
 
         private async Task DisplayEventDetails(Event ev)

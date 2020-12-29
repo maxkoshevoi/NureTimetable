@@ -19,20 +19,21 @@ namespace NureTimetable.UI.ViewModels.Timetable
             Type = ev.Type;
         }
 
-        public string DisplayInfo
-               => $"{Lesson.ShortName}{Environment.NewLine}{RoomName} {Type.ShortName}{Environment.NewLine}{Start:HH:mm} - {End:HH:mm}";
+        public bool ShowTime { get; set; } = true;
 
-        public Color Color
+        public string DisplayInfo 
         {
             get
             {
-                Color baseColor = ResourceManager.EventColor(Type.EnglishBaseName);
-                //if (End <= DateTime.Now)
-                //{
-                //    baseColor = Color.FromRgb(baseColor.R * 0.9, baseColor.G * 0.9, baseColor.B * 0.9);
-                //}
-                return baseColor;
+                string baseInfo = $"{Lesson.ShortName}{Environment.NewLine}{RoomName} {Type.ShortName}";
+                if (ShowTime)
+                {
+                    baseInfo += $"{Environment.NewLine}{Start:HH:mm} - {End:HH:mm}";
+                }
+                return baseInfo;
             }
         }
+
+        public Color Color => ResourceManager.EventColor(Type.EnglishBaseName);
     }
 }
