@@ -152,6 +152,7 @@
             BackgroundColor="{DynamicResource CurrentDayColor}" 
             TextColor="White"
             HasShadow="True"
+            IsVisible="{Binding IsNoSourceLayoutVisible, Converter={converters:NegateBooleanConverter}}" 
             Scale="{Binding BTodayScale, Mode=TwoWay}"
             Command="{Binding BTodayClickedCommand}"
             Text="{Binding BTodayText}"/>
