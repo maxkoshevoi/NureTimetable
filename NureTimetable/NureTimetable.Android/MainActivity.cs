@@ -19,6 +19,7 @@ namespace NureTimetable.Droid
             base.OnCreate(savedInstanceState);
 
             Plugin.CurrentActivity.CrossCurrentActivity.Current.Activity = this;
+            Rg.Plugins.Popup.Popup.Init(this);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             TouchEffect.Android.TouchEffectPreserver.Preserve();
@@ -35,6 +36,11 @@ namespace NureTimetable.Droid
         {
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+
+        public override void OnBackPressed()
+        {
+            bool isPopupStackEmpty = !Rg.Plugins.Popup.Popup.SendBackPressed(base.OnBackPressed);
         }
     }
 }

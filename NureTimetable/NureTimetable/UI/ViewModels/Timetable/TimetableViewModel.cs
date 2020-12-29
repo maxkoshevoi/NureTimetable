@@ -1,6 +1,4 @@
-﻿using Microsoft.AppCenter.Analytics;
-using NureTimetable.BL;
-using NureTimetable.Core.Extensions;
+﻿using NureTimetable.BL;
 using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Consts;
 using NureTimetable.Core.Models.InterplatformCommunication;
@@ -11,18 +9,15 @@ using NureTimetable.Models.Consts;
 using NureTimetable.Models.Consts.Fonts;
 using NureTimetable.UI.Helpers;
 using NureTimetable.UI.Views;
-using Plugin.Calendars;
-using Plugin.Calendars.Abstractions;
+using Rg.Plugins.Popup.Services;
 using Syncfusion.SfSchedule.XForms;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 using AppTheme = NureTimetable.Core.Models.Settings.AppTheme;
-using Calendar = Plugin.Calendars.Abstractions.Calendar;
 
 namespace NureTimetable.UI.ViewModels.Timetable
 {
@@ -483,166 +478,12 @@ namespace NureTimetable.UI.ViewModels.Timetable
         private async Task DisplayEventDetails(Event ev)
         {
             if (ev is null)
-            {
                 return;
-            }
-            string nl = Environment.NewLine;
 
-            LessonInfo lessonInfo = timetableInfoList.LessonsInfo?.FirstOrDefault(li => li.Lesson == ev.Lesson);
-            string notes = null;
-            if (lessonInfo != null)
+            await PopupNavigation.Instance.PushAsync(new EventPopupPage
             {
-                if (!string.IsNullOrEmpty(lessonInfo.Notes))
-                {
-                    notes = nl + nl + lessonInfo.Notes;
-                }
-            }
-            int eventNumber = timetableInfoList.Events
-                .Where(e => e.Lesson == ev.Lesson && e.Type == ev.Type && e.Start < ev.Start)
-                .DistinctBy(e => e.Start)
-                .Count() + 1;
-            int eventsCount = timetableInfoList.Events
-                .Where(e => e.Lesson == ev.Lesson && e.Type == ev.Type)
-                .DistinctBy(e => e.Start)
-                .Count();
-            bool isAddToCalendar = await Shell.Current.DisplayAlert($"{ev.Lesson.FullName}", string.Format(LN.EventType, ev.Type.FullName + $" ({eventNumber}/{eventsCount})") + nl +
-                string.Format(LN.EventClassroom, ev.RoomName) + nl +
-                string.Format(LN.EventTeachers, string.Join(", ", ev.Teachers.Select(t => t.Name))) + nl +
-                string.Format(LN.EventGroups, string.Join(", ", ev.Groups.Select(t => t.Name))) + nl +
-                string.Format(LN.EventDay, ev.Start.ToString("ddd, dd.MM.yy")) + nl +
-                string.Format(LN.EventTime, ev.Start.ToString("HH:mm"), ev.End.ToString("HH:mm")) +
-                notes, LN.AddToCalendar, LN.Ok);
-
-            if (isAddToCalendar)
-            {
-                IsProgressLayoutVisible = true;
-
-                bool isAdded = await AddEventToCalendar(ev, eventNumber, eventsCount);
-                if (isAdded)
-                {
-                    await Shell.Current.DisplayAlert(LN.AddingToCalendarTitle, LN.AddingEventToCalendarSuccess, LN.Ok);
-                }
-                else
-                {
-                    await Shell.Current.DisplayAlert(LN.AddingToCalendarTitle, LN.AddingEventToCalendarFail, LN.Ok);
-                }
-
-                IsProgressLayoutVisible = false;
-            }
-        }
-
-        private static async Task<bool> AddEventToCalendar(Event ev, int eventNumber, int eventsCount)
-        {
-            PermissionStatus? readStatus = null;
-            PermissionStatus? writeStatus = null;
-            try
-            {
-                const string customCalendarName = "NURE Timetable";
-                bool isCustomCalendarExists = true;
-
-                // Getting permissions
-                readStatus = await Permissions.CheckStatusAsync<Permissions.CalendarRead>();
-                writeStatus = await Permissions.CheckStatusAsync<Permissions.CalendarWrite>();
-                if (readStatus != PermissionStatus.Granted)
-                {
-                    readStatus = await Permissions.RequestAsync<Permissions.CalendarRead>();
-                }
-                if (writeStatus != PermissionStatus.Granted && readStatus == PermissionStatus.Granted)
-                {
-                    writeStatus = await Permissions.RequestAsync<Permissions.CalendarWrite>();
-                }
-                if (readStatus != PermissionStatus.Granted || writeStatus != PermissionStatus.Granted)
-                {
-                    return false;
-                }
-
-                // Getting Calendar list
-                IList<Calendar> calendars = await CrossCalendars.Current.GetCalendarsAsync();
-                calendars = calendars
-                    .Where(c => c.Name.ToLower() == c.AccountName.ToLower() || c.AccountName.ToLower() == customCalendarName.ToLower())
-                    .ToList();
-
-                // Getting our custom calendar
-                Calendar customCalendar = calendars
-                    .Where(c => c.AccountName.ToLower() == customCalendarName.ToLower())
-                    .FirstOrDefault();
-                if (customCalendar is null)
-                {
-                    isCustomCalendarExists = false;
-                    customCalendar = new Calendar
-                    {
-                        Name = customCalendarName
-                    };
-                    calendars.Add(customCalendar);
-                }
-                else if (calendars.Where(c => c.AccountName == customCalendar.AccountName).Count() > 1)
-                {
-                    MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, new IndexOutOfRangeException($"There are {calendars.Where(c => c.AccountName == customCalendar.AccountName).Count()} calendars with AccountName {customCalendar.AccountName}"));
-                }
-
-                // Getting calendar to add event into
-                Calendar targetCalendar = customCalendar;
-                if (calendars.Count > 1)
-                {
-                    string targetCalendarName = await Shell.Current.DisplayActionSheet(
-                        LN.ChooseCalendar,
-                        LN.Cancel,
-                        null,
-                        calendars.Select(c => c.Name).ToArray());
-
-                    if (string.IsNullOrEmpty(targetCalendarName) || targetCalendarName == LN.Cancel)
-                    {
-                        return false;
-                    }
-                    targetCalendar = calendars.First(c => c.Name == targetCalendarName);
-                }
-
-                Analytics.TrackEvent("Add To Calendar", new Dictionary<string, string>
-                {
-                    { "Type", ev.Type.ShortName },
-                    { "Room", ev.RoomName },
-                    { "Groups", string.Join(", ", ev.Groups.Select(t => t.Name)) },
-                    { "Teachers", string.Join(", ", ev.Teachers.Select(t => t.Name)) },
-                });
-
-                // Adding event to calendar
-                string nl = Environment.NewLine;
-                var calendarEvent = new CalendarEvent
-                {
-                    AllDay = false,
-                    Start = ev.StartUtc,
-                    End = ev.EndUtc,
-                    Name = $"{ev.Lesson.ShortName} ({ev.Type.ShortName} {eventNumber}/{eventsCount})",
-                    Description = string.Format(LN.EventClassroom, ev.RoomName) + nl +
-                        string.Format(LN.EventTeachers, string.Join(", ", ev.Teachers.Select(t => t.Name))) + nl +
-                        string.Format(LN.EventGroups, string.Join(", ", ev.Groups.Select(t => t.Name))),
-                    Location = $"KHNURE -\"{ev.RoomName}\"",
-                    Reminders = new[] 
-                    {
-                        new CalendarEventReminder
-                        {
-                            Method = CalendarReminderMethod.Alert,
-                            TimeBefore = TimeSpan.FromMinutes(30)
-                        }
-                    }
-                };
-
-                if (!isCustomCalendarExists && targetCalendar == customCalendar)
-                {
-                    await CrossCalendars.Current.AddOrUpdateCalendarAsync(customCalendar);
-                }
-                await CrossCalendars.Current.AddOrUpdateEventAsync(targetCalendar, calendarEvent);
-            }
-            catch (Exception ex)
-            {
-                ex.Data.Add("Read Status", readStatus?.ToString());
-                ex.Data.Add("Write Status", writeStatus?.ToString());
-                MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
-
-                return false;
-            }
-
-            return true;
+                BindingContext = new EventPopupViewModel(ev, timetableInfoList)
+            });
         }
 
         private async Task HideSelectedEventsClicked()
