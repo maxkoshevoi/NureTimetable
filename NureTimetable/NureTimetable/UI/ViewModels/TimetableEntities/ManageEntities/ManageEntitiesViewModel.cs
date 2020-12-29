@@ -17,8 +17,8 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
     public class ManageEntitiesViewModel : BaseViewModel
     {
         #region Properties
-        private bool _isNoSourceLayoutVisable;
-        public bool IsNoSourceLayoutVisable { get => _isNoSourceLayoutVisable; set => SetProperty(ref _isNoSourceLayoutVisable, value); }
+        private bool _isNoSourceLayoutVisible;
+        public bool IsNoSourceLayoutVisible { get => _isNoSourceLayoutVisible; set => SetProperty(ref _isNoSourceLayoutVisible, value); }
 
         private bool _isMultiselectMode;
         public bool IsMultiselectMode
@@ -141,7 +141,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
 
         private void UpdateItems(List<SavedEntity> newItems)
         {
-            IsNoSourceLayoutVisable = (newItems.Count == 0);
+            IsNoSourceLayoutVisible = (newItems.Count == 0);
 
             Entities = new ObservableCollection<SavedEntityItemViewModel>(
                 newItems.Select(sg =>

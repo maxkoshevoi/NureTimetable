@@ -22,26 +22,11 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
         private protected ObservableCollection<T> _entities;
         public ObservableCollection<T> Entities { get => _entities; private protected set => SetProperty(ref _entities, value); }
 
-        private protected bool _progressLayoutIsVisable;
-        public bool ProgressLayoutIsVisable
-        {
-            get => _progressLayoutIsVisable;
-            set => SetProperty(ref _progressLayoutIsVisable, value);
-        }
+        private protected bool _isProgressLayoutVisible;
+        public bool IsProgressLayoutVisible { get => _isProgressLayoutVisible; set => SetProperty(ref _isProgressLayoutVisible, value); }
 
-        private protected bool _progressLayoutIsEnable;
-        public bool ProgressLayoutIsEnable
-        {
-            get => _progressLayoutIsEnable;
-            set => SetProperty(ref _progressLayoutIsEnable, value);
-        }
-
-        private protected bool _noSourceLayoutIsVisible;
-        public bool NoSourceLayoutIsVisible
-        {
-            get => _noSourceLayoutIsVisible;
-            set => SetProperty(ref _noSourceLayoutIsVisible, value);
-        }
+        private protected bool _isNoSourceLayoutVisible;
+        public bool IsNoSourceLayoutVisible { get => _isNoSourceLayoutVisible; set => SetProperty(ref _isNoSourceLayoutVisible, value); }
 
         private protected T _selectedEntity;
         public T SelectedEntity
@@ -79,7 +64,6 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
         #endregion
 
         #region Methods
-
 
         protected abstract SavedEntity GetSavedEntity(T entity);
 
@@ -121,22 +105,20 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
             {
                 updateDataSource ??= Task.Run(UniversityEntitiesRepository.AssureInitialized);
 
-                ProgressLayoutIsVisable = true;
-                ProgressLayoutIsEnable = false;
+                IsProgressLayoutVisible = true;
 
                 await updateDataSource;
                 _allEntities = GetAllEntities();
                 Entities = new ObservableCollection<T>(OrderEntities());
 
-                NoSourceLayoutIsVisible = Entities.Count == 0;
+                IsNoSourceLayoutVisible = Entities.Count == 0;
 
                 if (SearchBarTextChangedCommand.CanExecute(lastSearchQuery))
                 {
                     SearchBarTextChangedCommand.Execute(lastSearchQuery);
                 }
 
-                ProgressLayoutIsVisable = false;
-                ProgressLayoutIsEnable = true;
+                IsProgressLayoutVisible = false;
             });
         }
 

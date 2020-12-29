@@ -18,8 +18,8 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
         #region Properties
         public bool HasUnsavedChanes { get; set; } = false;
 
-        private bool _isNoSourceLayoutVisable;
-        public bool IsNoSourceLayoutVisable { get => _isNoSourceLayoutVisable; set => SetProperty(ref _isNoSourceLayoutVisable, value); }
+        private bool _isNoSourceLayoutVisible;
+        public bool IsNoSourceLayoutVisible { get => _isNoSourceLayoutVisible; set => SetProperty(ref _isNoSourceLayoutVisible, value); }
         
         private ObservableCollection<LessonViewModel> _lessons;
         public ObservableCollection<LessonViewModel> Lessons { get => _lessons; private set => SetProperty(ref _lessons, value); }
@@ -36,7 +36,7 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
             timetable = EventsRepository.GetTimetableLocal(entity);
             if (timetable is null)
             {
-                IsNoSourceLayoutVisable = true;
+                IsNoSourceLayoutVisible = true;
             }
             else
             {
@@ -48,7 +48,7 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
                         .ThenBy(lesson => lesson.Lesson.ShortName)
                         .Select(lesson => new LessonViewModel(lesson, timetable, this))
                 );
-                IsNoSourceLayoutVisable = Lessons.Count == 0;
+                IsNoSourceLayoutVisible = Lessons.Count == 0;
             }
 
             PageAppearingCommand = CommandHelper.Create(PageAppearing);

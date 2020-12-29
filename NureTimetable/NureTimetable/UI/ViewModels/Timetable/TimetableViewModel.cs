@@ -11,6 +11,7 @@ using NureTimetable.Models.Consts.Fonts;
 using NureTimetable.UI.Helpers;
 using NureTimetable.UI.Views;
 using Plugin.Calendars;
+using Plugin.Calendars.Abstractions;
 using Syncfusion.SfSchedule.XForms;
 using System;
 using System.Collections.Generic;
@@ -19,10 +20,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
-using Calendars = Plugin.Calendars.Abstractions;
 using AppTheme = NureTimetable.Core.Models.Settings.AppTheme;
 using Calendar = Plugin.Calendars.Abstractions.Calendar;
-using Plugin.Calendars.Abstractions;
 
 namespace NureTimetable.UI.ViewModels.Timetable
 {
@@ -62,9 +61,6 @@ namespace NureTimetable.UI.ViewModels.Timetable
         private ScheduleView _timetableScheduleView = ScheduleView.WeekView;
         public ScheduleView TimetableScheduleView { get => _timetableScheduleView; set => SetProperty(ref _timetableScheduleView, value); }
         
-        private bool _timetableIsEnabled = true;
-        public bool TimetableIsEnabled { get => _timetableIsEnabled; set => SetProperty(ref _timetableIsEnabled, value); }
-        
         private string _timetableLocale;
         public string TimetableLocale { get => _timetableLocale; set => SetProperty(ref _timetableLocale, value); }
         
@@ -92,17 +88,14 @@ namespace NureTimetable.UI.ViewModels.Timetable
         public string TimeLeftText { get => _timeLeftText; set => SetProperty(ref _timeLeftText, value); }
 
         // Layouts
-        private bool _timetableLayoutIsVisible = false;
-        public bool TimetableLayoutIsVisible { get => _timetableLayoutIsVisible; set => SetProperty(ref _timetableLayoutIsVisible, value); }
-        
-        private bool _noSourceLayoutIsVisible;
-        public bool NoSourceLayoutIsVisible { get => _noSourceLayoutIsVisible; set => SetProperty(ref _noSourceLayoutIsVisible, value); }
+        private bool _isNoSourceLayoutVisible;
+        public bool IsNoSourceLayoutVisible { get => _isNoSourceLayoutVisible; set => SetProperty(ref _isNoSourceLayoutVisible, value); }
         
         private string _noSourceLayoutText;
         public string NoSourceLayoutText { get => _noSourceLayoutText; set => SetProperty(ref _noSourceLayoutText, value); }
         
-        private bool _progressLayoutIsVisible;
-        public bool ProgressLayoutIsVisible { get => _progressLayoutIsVisible; set => SetProperty(ref _progressLayoutIsVisible, value); }
+        private bool _isProgressLayoutVisible;
+        public bool IsProgressLayoutVisible { get => _isProgressLayoutVisible; set => SetProperty(ref _isProgressLayoutVisible, value); }
         
         // bToday
         private string _bTodayText;
@@ -335,8 +328,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
         {
             await Task.Run(async () =>
             {
-                TimetableIsEnabled = false;
-                ProgressLayoutIsVisible = true;
+                IsProgressLayoutVisible = true;
 
                 if (needToUpdateEventsUI)
                 {
@@ -356,8 +348,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
                     }
                 }
 
-                ProgressLayoutIsVisible = false;
-                TimetableIsEnabled = true;
+                IsProgressLayoutVisible = false;
             });
         }
 
@@ -372,9 +363,8 @@ namespace NureTimetable.UI.ViewModels.Timetable
             if (selectedEntities is null || !selectedEntities.Any())
             {
                 Title = LN.AppName;
-                TimetableLayoutIsVisible = false;
                 NoSourceLayoutText = LN.NoTimetable;
-                NoSourceLayoutIsVisible = true;
+                IsNoSourceLayoutVisible = true;
                 timetableInfoList = null;
                 return;
             }
@@ -392,15 +382,13 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 timetableInfoList = TimetableInfoList.Build(timetableInfos, applyHiddingSettings);
                 if (timetableInfoList.Events.Any())
                 {
-                    NoSourceLayoutIsVisible = false;
-                    TimetableLayoutIsVisible = true;
+                    IsNoSourceLayoutVisible = false;
                     needToUpdateEventsUI = true;
                 }
                 else
                 {
-                    TimetableLayoutIsVisible = false;
                     NoSourceLayoutText = LN.TimetableIsEmpty;
-                    NoSourceLayoutIsVisible = true;
+                    IsNoSourceLayoutVisible = true;
                 }
             }
 
@@ -448,7 +436,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
 
         private async Task ScheduleModeClicked()
         {
-            if (!TimetableLayoutIsVisible)
+            if (IsNoSourceLayoutVisible)
                 return;
 
             string displayMode = await Shell.Current.DisplayActionSheet(LN.ChooseDisplayMode, LN.Cancel, null, LN.Day, LN.Week, LN.Month);
@@ -513,7 +501,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
 
             if (isAddToCalendar)
             {
-                ProgressLayoutIsVisible = true;
+                IsProgressLayoutVisible = true;
 
                 bool isAdded = await AddEventToCalendar(ev, eventNumber, eventsCount);
                 if (isAdded)
@@ -525,7 +513,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
                     await Shell.Current.DisplayAlert(LN.AddingToCalendarTitle, LN.AddingEventToCalendarFail, LN.Ok);
                 }
 
-                ProgressLayoutIsVisible = false;
+                IsProgressLayoutVisible = false;
             }
         }
 
@@ -645,7 +633,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
 
         private async Task HideSelectedEventsClicked()
         {
-            if (!TimetableLayoutIsVisible)
+            if (IsNoSourceLayoutVisible)
                 return;
 
             applyHiddingSettings = !applyHiddingSettings;
