@@ -29,7 +29,7 @@
                      IsVisible="{Binding IsNoSourceLayoutVisible, Converter={converters:NegateBooleanConverter}}" 
                      IsRefreshing="{Binding IsTimetableUpdating}">
             <StackLayout>
-                <Label HorizontalOptions="Center" FontSize="20" Margin="0,15,0,0" IsVisible="{Binding TimeLeftIsVisible}" Text="{Binding TimeLeftText}" />
+                <Label HorizontalOptions="Center" FontSize="20" Margin="0,15,0,0" IsVisible="{Binding IsTimeLeftVisible}" Text="{Binding TimeLeftText}" />
                 <syncfusion:SfSchedule
                         x:Name="Timetable"
                         HeaderHeight="50"

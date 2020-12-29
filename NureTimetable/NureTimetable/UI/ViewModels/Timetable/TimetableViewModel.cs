@@ -81,8 +81,8 @@ namespace NureTimetable.UI.ViewModels.Timetable
 
         // TimeLeft
         private bool lastTimeLeftVisible;
-        private bool _timeLeftIsVisible;
-        public bool TimeLeftIsVisible { get => _timeLeftIsVisible; set => SetProperty(ref _timeLeftIsVisible, value); }
+        private bool _isTimeLeftVisible;
+        public bool IsTimeLeftVisible { get => _isTimeLeftVisible; set => SetProperty(ref _isTimeLeftVisible, value); }
         
         private string _timeLeftText;
         public string TimeLeftText { get => _timeLeftText; set => SetProperty(ref _timeLeftText, value); }
@@ -120,7 +120,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
             this.timetablePage = timetablePage;
 
             Title = LN.AppName;
-            lastTimeLeftVisible = TimeLeftIsVisible;
+            lastTimeLeftVisible = IsTimeLeftVisible;
             // Set custom TimetableLocale only if it is one of supported cultures
             string activeCultureCode = Cultures.SupportedCultures[0].TwoLetterISOLanguageName;
             if (Cultures.SupportedCultures.Any(c => c.TwoLetterISOLanguageName == CultureInfo.CurrentCulture.TwoLetterISOLanguageName))
@@ -271,7 +271,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
         {
             if (timetableInfoList is null || timetableInfoList.EventCount == 0)
             {
-                TimeLeftIsVisible = false;
+                IsTimeLeftVisible = false;
                 return;
             }
 
@@ -307,20 +307,20 @@ namespace NureTimetable.UI.ViewModels.Timetable
             if (string.IsNullOrEmpty(text) || !isPageVisible)
             {
                 TimeLeftText = null;
-                if (string.IsNullOrEmpty(text) && TimeLeftIsVisible)
+                if (string.IsNullOrEmpty(text) && IsTimeLeftVisible)
                 {
-                    TimeLeftIsVisible = false;
+                    IsTimeLeftVisible = false;
                 }
             }
             else
             {
                 TimeLeftText = text;
-                TimeLeftIsVisible = true;
+                IsTimeLeftVisible = true;
             }
 
-            if (TimeLeftIsVisible != lastTimeLeftVisible)
+            if (IsTimeLeftVisible != lastTimeLeftVisible)
             {
-                lastTimeLeftVisible = TimeLeftIsVisible;
+                lastTimeLeftVisible = IsTimeLeftVisible;
             }
         }
 

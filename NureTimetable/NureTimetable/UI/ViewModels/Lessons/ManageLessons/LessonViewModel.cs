@@ -28,7 +28,7 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
 
                 LessonInfo.Settings.Hiding.ShowLesson = value;
                 OnPropertyChanged();
-                manageLessonsViewModel.HasUnsavedChanes = true;
+                manageLessonsViewModel.HasUnsavedChanges = true;
             } 
         }
 
@@ -49,7 +49,7 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
                     return;
 
                 LessonInfo = newLessonSettings;
-                manageLessonsViewModel.HasUnsavedChanes = true;
+                manageLessonsViewModel.HasUnsavedChanges = true;
             });
 
             SettingsClickedCommand = CommandHelper.Create(SettingsClicked);

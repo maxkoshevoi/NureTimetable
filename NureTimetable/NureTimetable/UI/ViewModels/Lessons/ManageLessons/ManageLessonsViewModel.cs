@@ -17,7 +17,7 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
         private readonly TimetableInfo timetable;
 
         #region Properties
-        public bool HasUnsavedChanes { get; set; } = false;
+        public bool HasUnsavedChanges { get; set; } = false;
 
         private bool _isNoSourceLayoutVisible;
         public bool IsNoSourceLayoutVisible { get => _isNoSourceLayoutVisible; set => SetProperty(ref _isNoSourceLayoutVisible, value); }
@@ -75,7 +75,7 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
             }
 
             EventsRepository.UpdateLessonsInfo(timetable.Entity, Lessons.Select(l => l.LessonInfo).ToList());
-            HasUnsavedChanes = false;
+            HasUnsavedChanges = false;
 
             await Shell.Current.DisplayAlert(LN.SavingSettings, string.Format(LN.EntityLessonSettingsSaved, timetable.Entity.Name), LN.Ok);
             try
@@ -91,7 +91,7 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
         private async Task BackButtonPressed()
         {
             bool canClose = true;
-            if (HasUnsavedChanes)
+            if (HasUnsavedChanges)
             {
                 canClose = await Shell.Current.DisplayAlert(LN.UnsavedChangesTitle, LN.UnsavedChangesMessage, LN.Yes, LN.Cancel);
             }
