@@ -7,7 +7,6 @@
     xmlns:LN="clr-namespace:NureTimetable.Core.Localization;assembly=NureTimetable.Core"
     xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels.Timetable"
     xmlns:fonts="clr-namespace:NureTimetable.Models.Consts.Fonts"
-    xmlns:touch="clr-namespace:TouchEffect;assembly=TouchEffect"
     x:Class="NureTimetable.UI.Views.EventPopupPage"
     x:DataType="vm:EventPopupViewModel">
     

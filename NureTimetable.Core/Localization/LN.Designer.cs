@@ -557,6 +557,15 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The application does not have sufficient rights to perform this action.
+        /// </summary>
+        public static string InsufficientRights {
+            get {
+                return ResourceManager.GetString("InsufficientRights", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to is free .
         /// </summary>
         public static string IsFree {

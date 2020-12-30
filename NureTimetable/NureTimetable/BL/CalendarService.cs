@@ -16,65 +16,8 @@ namespace NureTimetable.BL
 {
     public static class CalendarService
     {
-        public static async Task<bool> AddEvent(Event ev, int eventNumber, int eventsCount)
-        {
-            PermissionStatus? readStatus = null;
-            PermissionStatus? writeStatus = null;
-            try
-            {
-                (readStatus, writeStatus) = await RequestPermissions();
-                if (readStatus != PermissionStatus.Granted || writeStatus != PermissionStatus.Granted)
-                {
-                    return false;
-                }
 
-                Calendar targetCalendar = await GetCalendar();
-                if (targetCalendar is null)
-                {
-                    return false;
-                }
-
-                Analytics.TrackEvent("Add To Calendar");
-
-                CalendarEvent calendarEvent = GetCalendarEvent(ev, eventNumber, eventsCount);
-                await CrossCalendars.Current.AddOrUpdateEventAsync(targetCalendar, calendarEvent);
-            }
-            catch (Exception ex)
-            {
-                ex.Data.Add("Read Status", readStatus?.ToString());
-                ex.Data.Add("Write Status", writeStatus?.ToString());
-                MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
-
-                return false;
-            }
-
-            return true;
-        }
-
-        private static CalendarEvent GetCalendarEvent(Event ev, int eventNumber, int eventsCount)
-        {
-            CalendarEvent calendarEvent = new()
-            {
-                Start = ev.StartUtc,
-                End = ev.EndUtc,
-                Name = $"{ev.Lesson.ShortName} ({ev.Type.ShortName} {eventNumber}/{eventsCount})",
-                Description = $"{string.Format(LN.EventClassroom, ev.RoomName)}\n" +
-                    $"{string.Format(LN.EventTeachers, string.Join(", ", ev.Teachers.Select(t => t.Name)))}\n" +
-                    $"{string.Format(LN.EventGroups, string.Join(", ", ev.Groups.Select(t => t.Name)))}\n",
-                Location = $"KHNURE -\"{ev.RoomName}\"",
-                Reminders = new CalendarEventReminder[]
-                {
-                    new()
-                    {
-                        Method = CalendarReminderMethod.Alert,
-                        TimeBefore = TimeSpan.FromMinutes(30)
-                    }
-                }
-            };
-            return calendarEvent;
-        }
-
-        private static async Task<(PermissionStatus read, PermissionStatus write)> RequestPermissions()
+        public static async Task<bool> RequestPermissions()
         {
             PermissionStatus readStatus = await Permissions.CheckStatusAsync<Permissions.CalendarRead>();
             PermissionStatus writeStatus = await Permissions.CheckStatusAsync<Permissions.CalendarWrite>();
@@ -86,12 +29,17 @@ namespace NureTimetable.BL
             {
                 writeStatus = await Permissions.RequestAsync<Permissions.CalendarWrite>();
             }
-            return (readStatus, writeStatus);
+            return readStatus == PermissionStatus.Granted && writeStatus == PermissionStatus.Granted;
         }
 
-        private static async Task<Calendar> GetCalendar()
+        public static async Task<Calendar> GetCalendar()
         {
             const string customCalendarName = "NURE Timetable";
+
+            if (!await RequestPermissions())
+            {
+                return null;
+            }
 
             // Getting Calendar list
             IList<Calendar> calendars = await CrossCalendars.Current.GetCalendarsAsync();
@@ -109,7 +57,8 @@ namespace NureTimetable.BL
                 isCustomCalendarExists = false;
                 customCalendar = new Calendar
                 {
-                    Name = customCalendarName
+                    Name = customCalendarName,
+                    Color = "#56a5de"
                 };
                 calendars.Add(customCalendar);
             }
@@ -141,6 +90,75 @@ namespace NureTimetable.BL
             }
 
             return targetCalendar;
+        }
+
+        public static CalendarEvent GenerateCalendarEvent(Event ev, int eventNumber, int eventsCount)
+        {
+            CalendarEvent calendarEvent = new()
+            {
+                Start = ev.StartUtc,
+                End = ev.EndUtc,
+                Name = $"{ev.Lesson.ShortName} - {ev.Type.ShortName} ({eventNumber}/{eventsCount})",
+                Description = $"{string.Format(LN.EventClassroom, ev.RoomName)}\n" +
+                    $"{string.Format(LN.EventTeachers, string.Join(", ", ev.Teachers.Select(t => t.Name)))}\n" +
+                    $"{string.Format(LN.EventGroups, string.Join(", ", ev.Groups.Select(t => t.Name)))}\n",
+                Location = $"KHNURE -\"{ev.RoomName}\"",
+                Reminders = new CalendarEventReminder[]
+                {
+                    new()
+                    {
+                        Method = CalendarReminderMethod.Alert,
+                        TimeBefore = TimeSpan.FromMinutes(30)
+                    }
+                }
+            };
+            return calendarEvent;
+        }
+
+        public static async Task<bool> AddOrUpdateEvent(Calendar calendar, CalendarEvent calendarEvent)
+        {
+            if (!await RequestPermissions())
+            {
+                return false;
+            }
+
+            Analytics.TrackEvent("Add To Calendar");
+
+            static string GetUniqueNamePart(string n) 
+            {
+                int lastSpace = n.LastIndexOf(" ");
+                return lastSpace > 0 ? n[..lastSpace] : n; 
+            }
+
+            IList<CalendarEvent> events = await CrossCalendars.Current.GetEventsAsync(calendar, calendarEvent.Start, calendarEvent.End);
+            foreach (CalendarEvent existingEvent in events)
+            {
+                if (GetUniqueNamePart(existingEvent.Name) != GetUniqueNamePart(calendarEvent.Name))
+                {
+                    continue;
+                }
+
+                existingEvent.Name = calendarEvent.Name;
+                existingEvent.Description = calendarEvent.Description;
+                existingEvent.Start = calendarEvent.Start;
+                existingEvent.End = calendarEvent.End;
+                existingEvent.Location = calendarEvent.Location;
+                existingEvent.Reminders = calendarEvent.Reminders;
+                calendarEvent = existingEvent;
+                break;
+            }
+
+            try
+            {
+                await CrossCalendars.Current.AddOrUpdateEventAsync(calendar, calendarEvent);
+            }
+            catch (Exception ex)
+            {
+                MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
+                return false;
+            }
+
+            return true;
         }
     }
 }

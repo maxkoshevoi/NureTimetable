@@ -4,7 +4,6 @@ using NureTimetable.Core.Localization;
 using NureTimetable.DAL.Models.Local;
 using NureTimetable.UI.Helpers;
 using Rg.Plugins.Popup.Services;
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -56,10 +55,26 @@ namespace NureTimetable.UI.ViewModels.Timetable
 
         private async Task AddEventToCalendar()
         {
-            bool isAdded = await CalendarService.AddEvent(Event, EventNumber, EventsCount);
+            if (!await CalendarService.RequestPermissions())
+            {
+                await Shell.Current.DisplayAlert(LN.AddingToCalendarTitle, LN.InsufficientRights, LN.Ok);
+                return;
+            }
+
+            var calendar = await CalendarService.GetCalendar();
+            if (calendar is null)
+            {
+                // User didn't choose calendar
+                return;
+            }
+
+            var calendarEvent = CalendarService.GenerateCalendarEvent(Event, EventNumber, EventsCount);
+            bool isAdded = await CalendarService.AddOrUpdateEvent(calendar, calendarEvent);
 
             string message = isAdded ? LN.AddingEventToCalendarSuccess : LN.AddingEventToCalendarFail;
             await Shell.Current.DisplayAlert(LN.AddingToCalendarTitle, message, LN.Ok);
+
+            await PopupNavigation.Instance.PopAsync();
         }
     }
 }

@@ -497,4 +497,7 @@
   <data name="EnterName" xml:space="preserve">
     <value>Введіть ім'я...</value>
   </data>
+  <data name="InsufficientRights" xml:space="preserve">
+    <value>У додатку немає достатніх прав на виконання цієї дії</value>
+  </data>
 </root>
