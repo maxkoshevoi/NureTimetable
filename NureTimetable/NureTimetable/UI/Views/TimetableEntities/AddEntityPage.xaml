@@ -1,18 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:behaviors="clr-namespace:NureTimetable.UI.Behaviors;assembly=NureTimetable"
-             xmlns:converters="clr-namespace:NureTimetable.UI.Behaviors"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              xmlns:LN="clr-namespace:NureTimetable.Core.Localization;assembly=NureTimetable.Core"
              xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels.TimetableEntities"
              x:Class="NureTimetable.UI.Views.AddEntityPage"
              Title="{Binding Title}">
 
     <AbsoluteLayout>
-        <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="{Binding IsNoSourceLayoutVisible, Converter={converters:NegateBooleanConverter}}">
+        <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="{Binding IsNoSourceLayoutVisible, Converter={xct:InvertedBoolConverter}}">
             <SearchBar x:Name="searchbar" HeightRequest="42" Placeholder="{LN:Translate EnterName}" PlaceholderColor="Gray">
                 <SearchBar.Behaviors>
-                    <behaviors:EventToCommandBehavior EventName="TextChanged" Command="{Binding SearchBarTextChangedCommand}" CommandParameter="{Binding Text, Source={x:Reference searchbar}}"/>
+                    <xct:EventToCommandBehavior EventName="TextChanged" Command="{Binding SearchBarTextChangedCommand}" CommandParameter="{Binding Text, Source={x:Reference searchbar}}"/>
                 </SearchBar.Behaviors>
             </SearchBar>
             <ListView ItemsSource="{Binding Entities}"

@@ -9,6 +9,7 @@ using NureTimetable.UI.Views;
 using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using AppTheme = NureTimetable.Core.Models.Settings.AppTheme;
@@ -35,12 +36,11 @@ namespace NureTimetable.UI.ViewModels.Info
         private string appThemeName;
         public string AppThemeName { get => appThemeName; set => SetProperty(ref appThemeName, value); }
 
-        public ICommand NavigateUriCommand { get; }
-        public ICommand ToggleDebugModeCommand { get; }
-        public ICommand OpenAboutPageCommand { get; }
-        public ICommand OpenDonatePageCommand { get; }
-        public ICommand ChangeThemeCommand { get; }
-        public ICommand ChangeLanguageCommand { get; }
+        public IAsyncCommand<string> NavigateUriCommand { get; }
+        public Command ToggleDebugModeCommand { get; }
+        public IAsyncCommand OpenDonatePageCommand { get; }
+        public IAsyncCommand ChangeThemeCommand { get; }
+        public IAsyncCommand ChangeLanguageCommand { get; }
         #endregion
 
         public MenuViewModel()

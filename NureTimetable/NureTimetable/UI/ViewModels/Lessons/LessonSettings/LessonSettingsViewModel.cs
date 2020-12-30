@@ -22,7 +22,7 @@ namespace NureTimetable.UI.ViewModels.Lessons.LessonSettings
         
         public ListViewViewModel<Teacher> LvTeachers { get; set; }
 
-        public ICommand ShowLessonStateChangedCommand { get; }
+        public Command ShowLessonStateChangedCommand { get; }
         #endregion
 
         public LessonSettingsViewModel(LessonInfo lessonInfo, TimetableInfo timetableInfo)

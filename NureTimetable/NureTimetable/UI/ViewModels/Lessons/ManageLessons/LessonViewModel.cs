@@ -4,7 +4,7 @@ using NureTimetable.UI.Helpers;
 using NureTimetable.UI.ViewModels.Lessons.LessonSettings;
 using NureTimetable.UI.Views.Lessons;
 using System.Threading.Tasks;
-using System.Windows.Input;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 
 namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
@@ -32,9 +32,8 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
             } 
         }
 
-        public ICommand SettingsClickedCommand { get; }
-
-        public ICommand InfoClickedCommand { get; }
+        public IAsyncCommand SettingsClickedCommand { get; }
+        public IAsyncCommand InfoClickedCommand { get; }
         #endregion
 
         public LessonViewModel(LessonInfo lessonInfo, TimetableInfo timetableInfo, ManageLessonsViewModel manageLessonsViewModel)

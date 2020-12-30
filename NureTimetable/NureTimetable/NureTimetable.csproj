@@ -15,9 +15,9 @@
     <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.9" />
     <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="18.4.0.32" />
     <PackageReference Include="Syncfusion.Xamarin.SfSchedule" Version="18.4.0.32" />
-    <PackageReference Include="TouchView" Version="4.1.99" />
+    <PackageReference Include="Xamarin.CommunityToolkit" Version="1.0.0-pre6" />
     <PackageReference Include="Xamarin.Essentials" Version="1.6.0" />
-    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1821" />  
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.1829-pre6" />  
   </ItemGroup>
 
   <ItemGroup>

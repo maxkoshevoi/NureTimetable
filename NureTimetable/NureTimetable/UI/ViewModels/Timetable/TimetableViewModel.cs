@@ -1,7 +1,6 @@
 ﻿using NureTimetable.BL;
 using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Consts;
-using NureTimetable.Core.Models.InterplatformCommunication;
 using NureTimetable.Core.Models.Settings;
 using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
@@ -16,6 +15,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Xamarin.CommunityToolkit.Extensions;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 using AppTheme = NureTimetable.Core.Models.Settings.AppTheme;
 
@@ -100,15 +101,15 @@ namespace NureTimetable.UI.ViewModels.Timetable
         private double _bTodayScale = 0;
         public double BTodayScale { get => _bTodayScale; set => SetProperty(ref _bTodayScale, value); }
 
-        public Command PageAppearingCommand { get; }
+        public IAsyncCommand PageAppearingCommand { get; }
         public Command PageDisappearingCommand { get; }
-        public Command HideSelectedEventsCommand { get; }
-        public Command ScheduleModeCommand { get; }
-        public Command TimetableCellTappedCommand { get; }
-        public Command TimetableMonthInlineAppointmentTappedCommand { get; }
-        public Command TimetableMonthInlineLoadedCommand { get; }
-        public Command TimetableVisibleDatesChangedCommand { get; }
-        public Command BTodayClickedCommand { get; }
+        public IAsyncCommand HideSelectedEventsCommand { get; }
+        public IAsyncCommand ScheduleModeCommand { get; }
+        public IAsyncCommand<CellTappedEventArgs> TimetableCellTappedCommand { get; }
+        public IAsyncCommand<MonthInlineAppointmentTappedEventArgs> TimetableMonthInlineAppointmentTappedCommand { get; }
+        public Command<MonthInlineLoadedEventArgs> TimetableMonthInlineLoadedCommand { get; }
+        public IAsyncCommand<VisibleDatesChangedEventArgs> TimetableVisibleDatesChangedCommand { get; }
+        public IAsyncCommand BTodayClickedCommand { get; }
         public Command UpdateTimetableCommand { get; }
         #endregion
 
@@ -180,9 +181,9 @@ namespace NureTimetable.UI.ViewModels.Timetable
             ScheduleModeCommand = CommandHelper.Create(ScheduleModeClicked);
             BTodayClickedCommand = CommandHelper.Create(BTodayClicked);
             PageDisappearingCommand = CommandHelper.Create(() => isPageVisible = false);
-            TimetableCellTappedCommand = CommandHelper.Create<CellTappedEventArgs>((e) => DisplayEventDetails((Event)e.Appointment));
+            TimetableCellTappedCommand = CommandHelper.Create<CellTappedEventArgs>(e => DisplayEventDetails((Event)e.Appointment));
             TimetableMonthInlineAppointmentTappedCommand = CommandHelper.Create<MonthInlineAppointmentTappedEventArgs>((e) => DisplayEventDetails((Event)e.Appointment));
-            TimetableMonthInlineLoadedCommand = CommandHelper.Create<MonthInlineLoadedEventArgs>((e) =>
+            TimetableMonthInlineLoadedCommand = CommandHelper.Create<MonthInlineLoadedEventArgs>(e =>
             {
                 e.monthInlineViewStyle = new()
                 {
@@ -497,7 +498,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 message = LN.AllEventsShown;
             }
             HideSelectedEventsIcon = icon;
-            DependencyService.Get<IMessageManager>().ShortAlert(message);
+            _ = Shell.Current.CurrentPage.DisplayToastAsync(message, 1500);
 
             await UpdateEventsWithUI();
         }

@@ -73,13 +73,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="TouchView" Version="4.1.99" />
+    <PackageReference Include="Xamarin.CommunityToolkit" Version="1.0.0-pre6" />
     <PackageReference Include="Xamarin.Essentials" Version="1.6.0" />
-    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1821" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.1829-pre6" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dependences\ActivityManager.cs" />
-    <Compile Include="Dependences\MessageManager.cs" />
     <Compile Include="Dependences\BarStyleManager.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />

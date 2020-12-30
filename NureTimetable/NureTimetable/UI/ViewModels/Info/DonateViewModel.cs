@@ -1,16 +1,15 @@
 ﻿using NureTimetable.Core.Localization;
 using NureTimetable.UI.Helpers;
+using Plugin.InAppBilling.Abstractions;
 using System.Threading.Tasks;
-using System.Windows.Input;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 
 namespace NureTimetable.UI.ViewModels.Info
 {
     public class DonateViewModel : BaseViewModel
     {
-        #region Properties
-        public ICommand BuyProductCommand { get; }
-        #endregion
+        public IAsyncCommand<string> BuyProductCommand { get; }
 
         public DonateViewModel()
         {
@@ -19,14 +18,8 @@ namespace NureTimetable.UI.ViewModels.Info
         
         public static async Task BuyProduct(string productId)
         {
-            if (await InAppPurchase.Buy(productId, true) != null)
-            {
-                await Shell.Current.DisplayAlert(LN.Purchase, LN.ThanksForYourSupport, LN.Ok);
-            }
-            else
-            {
-                await Shell.Current.DisplayAlert(LN.Purchase, LN.PurchaseFailed, LN.Ok);
-            }
+            InAppBillingPurchase purchaseResult = await InAppPurchase.Buy(productId, true);
+            await Shell.Current.DisplayAlert(LN.Purchase, purchaseResult is null ? LN.PurchaseFailed : LN.ThanksForYourSupport, LN.Ok);
         }
     }
 }

@@ -1,11 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:behaviors="clr-namespace:NureTimetable.UI.Behaviors;assembly=NureTimetable"
-             xmlns:converters="clr-namespace:NureTimetable.UI.Behaviors"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              xmlns:LN="clr-namespace:NureTimetable.Core.Localization;assembly=NureTimetable.Core"
-             xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities"
              xmlns:fonts="clr-namespace:NureTimetable.Models.Consts.Fonts"
+             xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities"
              x:Class="NureTimetable.UI.Views.ManageEntitiesPage"
              x:DataType="vm:ManageEntitiesViewModel"
              Title="{LN:Translate SavedTimetables}">
@@ -16,7 +15,7 @@
     </ContentPage.ToolbarItems>
 
     <AbsoluteLayout>
-        <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All"  IsVisible="{Binding IsNoSourceLayoutVisible, Converter={converters:NegateBooleanConverter}}">
+        <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All"  IsVisible="{Binding IsNoSourceLayoutVisible, Converter={xct:InvertedBoolConverter}}">
             <ListView x:Name="EntitiesList"
                     ItemTapped="EntitiesList_OnItemTapped"
                     CachingStrategy="RecycleElement"
@@ -24,7 +23,7 @@
                     ItemsSource="{Binding Entities}">
 
                 <ListView.Behaviors>
-                    <behaviors:EventToCommandBehavior x:DataType="vm:ManageEntitiesViewModel" EventName="ItemSelected" Command="{Binding EntitySelectedCommand}"/>
+                    <xct:EventToCommandBehavior EventName="ItemSelected" Command="{Binding EntitySelectedCommand}"/>
                 </ListView.Behaviors>
                 
                 <ListView.ItemTemplate>
@@ -36,7 +35,7 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <StackLayout WidthRequest="10" IsVisible="{Binding IsMultiselectMode, Converter={converters:NegateBooleanConverter}}">
+                                <StackLayout WidthRequest="10" IsVisible="{Binding IsMultiselectMode, Converter={xct:InvertedBoolConverter}}">
                                     <BoxView BackgroundColor="{DynamicResource SelectedEntityColor}" VerticalOptions="FillAndExpand" IsVisible="{Binding SavedEntity.IsSelected}" />
                                 </StackLayout>
                                 <StackLayout IsVisible="{Binding IsMultiselectMode}">
@@ -48,7 +47,7 @@
                                 </StackLayout>
                                 <StackLayout Grid.Column="2" Padding="0,5,10,5" Orientation="Horizontal">
                                     <StackLayout VerticalOptions="CenterAndExpand">
-                                        <Image IsVisible="{Binding IsUpdating, Converter={converters:NegateBooleanConverter}}" Source="{FontImageSource Glyph={Static fonts:MaterialIconsFont.Refresh}, FontFamily={StaticResource MaterialFontFamily}, Color={DynamicResource ListIconColor}}">
+                                        <Image IsVisible="{Binding IsUpdating, Converter={xct:InvertedBoolConverter}}" Source="{FontImageSource Glyph={Static fonts:MaterialIconsFont.Refresh}, FontFamily={StaticResource MaterialFontFamily}, Color={DynamicResource ListIconColor}}">
                                             <Image.GestureRecognizers>
                                                 <TapGestureRecognizer Command="{Binding UpdateClickedCommand}" />
                                             </Image.GestureRecognizers>
