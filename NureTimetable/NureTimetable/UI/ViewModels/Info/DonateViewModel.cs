@@ -1,6 +1,6 @@
 ﻿using NureTimetable.Core.Localization;
 using NureTimetable.UI.Helpers;
-using Plugin.InAppBilling.Abstractions;
+using Plugin.InAppBilling;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
@@ -18,8 +18,11 @@ namespace NureTimetable.UI.ViewModels.Info
         
         public static async Task BuyProduct(string productId)
         {
-            InAppBillingPurchase purchaseResult = await InAppPurchase.Buy(productId, true);
-            await Shell.Current.DisplayAlert(LN.Purchase, purchaseResult is null ? LN.PurchaseFailed : LN.ThanksForYourSupport, LN.Ok);
+            InAppBillingPurchase purchase = await InAppPurchase.Buy(productId, true);
+            if (purchase is not null)
+            {
+                await Shell.Current.DisplayAlert(LN.Purchase, LN.ThanksForYourSupport, LN.Ok);
+            }
         }
     }
 }

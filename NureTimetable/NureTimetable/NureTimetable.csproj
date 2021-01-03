@@ -11,7 +11,7 @@
     <PackageReference Include="CClarke.Plugin.Calendars" Version="1.0.14" />
     <PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.0.0" />
     <PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.0.0" />
-    <PackageReference Include="Plugin.InAppBilling" Version="2.0.0" />
+    <PackageReference Include="Plugin.InAppBilling" Version="4.0.2" />
     <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.9" />
     <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="18.4.0.32" />
     <PackageReference Include="Syncfusion.Xamarin.SfSchedule" Version="18.4.0.32" />
