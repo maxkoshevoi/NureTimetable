@@ -1,7 +1,8 @@
 ﻿using NureTimetable.Core.Models.Consts;
 using Plugin.InAppBilling;
-using Plugin.InAppBilling.Abstractions;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -11,28 +12,32 @@ namespace NureTimetable.UI.Helpers
     {
         public static async Task<InAppBillingPurchase> Buy(string productId, bool consume)
         {
+            IInAppBilling billing = CrossInAppBilling.Current;
             try
             {
-                if (!await CrossInAppBilling.Current.ConnectAsync())
+                if (!CrossInAppBilling.IsSupported || !await billing.ConnectAsync())
                 {
-                    // Couldn't connect to billing, could be offline
                     return null;
                 }
 
-                // Try to purchase item
-                InAppBillingPurchase purchase = await CrossInAppBilling.Current.PurchaseAsync(productId, ItemType.InAppPurchase, "apppayload");
+                List<InAppBillingPurchase> existingPurchases = (await billing.GetPurchasesAsync(ItemType.InAppPurchase))
+                    .Where(p => p.ProductId == productId)
+                    .ToList();
+                foreach (var existingPurchase in existingPurchases)
+                {
+                    await ProcessPurchase(billing, existingPurchase, consume);
+                }
+
+                InAppBillingPurchase purchase = await billing.PurchaseAsync(productId, ItemType.InAppPurchase);
                 if (purchase != null && purchase.State == PurchaseState.Purchased)
                 {
-                    // Purchased
-                    if (consume)
-                    {
-                        await Consume(purchase);
-                    }
+                    await ProcessPurchase(billing, purchase, consume);
                     return purchase;
                 }
             }
             catch (InAppBillingPurchaseException billingEx)
             {
+                billingEx.Data.Add(nameof(billingEx.PurchaseError), billingEx.PurchaseError);
                 MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, billingEx);
             }
             catch (Exception ex)
@@ -42,42 +47,29 @@ namespace NureTimetable.UI.Helpers
             finally
             {
                 // Disconnect, it is okay if we never connected, this will never throw an exception
-                await CrossInAppBilling.Current.DisconnectAsync();
+                await billing.DisconnectAsync();
             }
             return null;
         }
 
-        private static async Task<bool> Consume(InAppBillingPurchase purchase)
+        /// <summary>
+        /// Consumes or Acknowledges the purchse based on consume parameter
+        /// </summary>
+        private static async Task ProcessPurchase(IInAppBilling billing, InAppBillingPurchase purchase, bool consume)
         {
-            // Called after we have a successful purchase or later on
-            // if (DeviceInfo.Platform != DevicePlatform.Android)
-            // {
-            //     return true;
-            // }
-
-            try
+            if (consume)
             {
-                if (!await CrossInAppBilling.Current.ConnectAsync())
+                if (purchase.ConsumptionState == ConsumptionState.NoYetConsumed)
                 {
-                    return false;
+                    await billing.ConsumePurchaseAsync(purchase.ProductId, purchase.PurchaseToken);
                 }
+                return;
+            }
 
-                InAppBillingPurchase consumedItem = await CrossInAppBilling.Current.ConsumePurchaseAsync(purchase.ProductId, purchase.PurchaseToken);
-                if (consumedItem != null)
-                {
-                    return true;
-                }
-            }
-            catch (Exception ex)
+            if (purchase.IsAcknowledged == false)
             {
-                MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
+                await billing.AcknowledgePurchaseAsync(purchase.PurchaseToken);
             }
-            finally
-            {
-                // Disconnect, it is okay if we never connected, this will never throw an exception
-                await CrossInAppBilling.Current.DisconnectAsync();
-            }
-            return false;
         }
     }
 }
