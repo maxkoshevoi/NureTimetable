@@ -29,7 +29,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
         private bool isFirstLoad = true;
         private bool isPageVisible = false;
         
-        private TimetableInfoList timetableInfoList = null;
+        private TimetableInfoList timetableInfoList = TimetableInfoList.Empty;
         private List<DateTime> visibleDates = new();
         private bool needToUpdateEventsUI = false;
 
@@ -133,9 +133,16 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 _ => TimetableScheduleView
             };
 
+            MessagingCenter.Subscribe<Application, Entity>(this, MessageTypes.LessonSettingsChanged, EntityChanged);
+            MessagingCenter.Subscribe<Application, Entity>(this, MessageTypes.TimetableUpdated, EntityChanged);
+            void EntityChanged(Application app, Entity entity)
+            {
+                if (timetableInfoList.Entities.Contains(entity))
+                    UpdateEvents();
+            }
             MessagingCenter.Subscribe<Application, AppTheme>(this, MessageTypes.ThemeChanged, async (sender, newTheme) =>
             {
-                if (timetableInfoList is null)
+                if (timetableInfoList.Events.Count == 0)
                     return;
 
                 needToUpdateEventsUI = true;
@@ -143,36 +150,18 @@ namespace NureTimetable.UI.ViewModels.Timetable
             });
             MessagingCenter.Subscribe<Application, List<SavedEntity>>(this, MessageTypes.SelectedEntitiesChanged, (sender, newSelectedEntities) =>
             {
+                IsTimetableUpdating = updatingTimetables.Intersect(newSelectedEntities.Cast<Entity>()).Any();
                 UpdateEvents(newSelectedEntities.ToList<Entity>());
             });
-            MessagingCenter.Subscribe<Application, Entity>(this, MessageTypes.TimetableUpdated, (sender, entity) =>
-            {
-                if (timetableInfoList.Entities.Contains(entity))
-                    UpdateEvents();
-            });
-            MessagingCenter.Subscribe<Application, Entity>(this, MessageTypes.LessonSettingsChanged, (sender, entity) =>
-            {
-                if (timetableInfoList.Entities.Contains(entity))
-                    UpdateEvents();
-            }); 
             MessagingCenter.Subscribe<Application, Entity>(this, MessageTypes.TimetableUpdating, (sender, entity) =>
             {
-                if (!timetableInfoList.Entities.Contains(entity))
-                    return;
-
                 updatingTimetables.Add(entity);
-                IsTimetableUpdating = true;
+                IsTimetableUpdating = updatingTimetables.Contains(entity);
             });
             MessagingCenter.Subscribe<Application, Entity>(this, MessageTypes.TimetableUpdated, (sender, entity) =>
             {
-                if (!updatingTimetables.Contains(entity))
-                    return;
-
                 updatingTimetables.Remove(entity);
-                if (updatingTimetables.Count == 0)
-                {
-                    IsTimetableUpdating = false;
-                }
+                IsTimetableUpdating = updatingTimetables.Contains(entity);
             });
 
             PageAppearingCommand = CommandHelper.Create(PageAppearing);
@@ -200,7 +189,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
             });
             UpdateTimetableCommand = CommandHelper.Create(async () => 
             {
-                string responce = await TimetableService.Update(timetableInfoList?.Entities.ToList());
+                string responce = await TimetableService.Update(timetableInfoList.Entities.ToList());
                 if (responce is null)
                     return;
 
@@ -266,7 +255,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
 
         private void UpdateTimeLeft()
         {
-            if (timetableInfoList is null || timetableInfoList.EventCount == 0)
+            if (timetableInfoList.Events.Count == 0)
             {
                 IsTimeLeftVisible = false;
                 return;
@@ -353,7 +342,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
         /// Updates events for already displayed entities
         /// </summary>
         private void UpdateEvents()
-            => UpdateEvents(timetableInfoList?.Entities.ToList());
+            => UpdateEvents(timetableInfoList.Entities.ToList());
 
         private void UpdateEvents(List<Entity> selectedEntities)
         {
@@ -362,7 +351,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 Title = LN.AppName;
                 NoSourceLayoutText = LN.NoTimetable;
                 IsNoSourceLayoutVisible = true;
-                timetableInfoList = null;
+                timetableInfoList = TimetableInfoList.Empty;
                 return;
             }
 
@@ -379,8 +368,8 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 timetableInfoList = TimetableInfoList.Build(timetableInfos, applyHiddingSettings);
                 if (timetableInfoList.Events.Any())
                 {
-                    IsNoSourceLayoutVisible = false;
                     needToUpdateEventsUI = true;
+                    IsNoSourceLayoutVisible = false;
                 }
                 else
                 {
@@ -407,7 +396,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 }
                 needToUpdateEventsUI = false;
 
-                if (timetableInfoList.EventCount == 0)
+                if (timetableInfoList.Events.Count == 0)
                 {
                     TimetableDataSource = null;
                     return;
