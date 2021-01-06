@@ -14,7 +14,7 @@ namespace NureTimetable.DAL.Models.Local
             set => events = value ?? throw new NullReferenceException($"Attempt to set {nameof(Events)} to null");
         }
 
-        private List<LessonInfo> lessonsInfo = new List<LessonInfo>();
+        private List<LessonInfo> lessonsInfo = new();
         public List<LessonInfo> LessonsInfo
         {
             get => lessonsInfo;
