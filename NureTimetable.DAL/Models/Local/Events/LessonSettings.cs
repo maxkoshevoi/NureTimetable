@@ -4,10 +4,9 @@ namespace NureTimetable.DAL.Models.Local
 {
     public class LessonSettings : INotifyPropertyChanged
     {
-        public bool IsSomeSettingsApplied
-            => Hiding.ShowLesson != true;
+        public bool IsSomeSettingsApplied => Hiding.ShowLesson != true;
 
-        public LessonHidingSettings Hiding { get; } = new LessonHidingSettings();
+        public LessonHidingSettings Hiding { get; } = new();
 
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;

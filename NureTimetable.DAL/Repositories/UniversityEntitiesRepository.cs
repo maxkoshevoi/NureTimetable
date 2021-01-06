@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.AppCenter.Analytics;
+﻿using Microsoft.AppCenter.Analytics;
 using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Models.Consts;
 using NureTimetable.Core.Models.Exceptions;
@@ -211,7 +210,7 @@ namespace NureTimetable.DAL
 
         private static async Task<T> TaskWithFallbacks<T>(params Func<Task<T>>[] tasks)
         {
-            if (tasks.Any() != true)
+            if (tasks.Length == 0)
             {
                 throw new ArgumentException($"{nameof(tasks)} cannot be null or empty");
             }
@@ -222,12 +221,8 @@ namespace NureTimetable.DAL
                 {
                     return await tasks[i]();
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (i < tasks.Length - 1 && ex is not WebException)
                 {
-                    if (ex is WebException || i == tasks.Length - 1)
-                    {
-                        throw;
-                    }
                 }
             }
 
