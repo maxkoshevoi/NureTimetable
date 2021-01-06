@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels.Info"
              xmlns:LN="clr-namespace:NureTimetable.Core.Localization;assembly=NureTimetable.Core"
              xmlns:fonts="clr-namespace:NureTimetable.Models.Consts.Fonts"
-             xmlns:touch="clr-namespace:TouchEffect;assembly=TouchEffect"
              xmlns:essentials="clr-namespace:Xamarin.Essentials;assembly=Xamarin.Essentials"
              x:Class="NureTimetable.UI.Views.MenuPage"
              x:DataType="vm:MenuViewModel"
@@ -15,7 +15,7 @@
             <Style x:Key="Row" TargetType="StackLayout">
                 <Setter Property="Orientation" Value="Horizontal"/>
                 <Setter Property="Padding" Value="20,10"/>
-                <Setter Property="touch:TouchEff.NativeAnimation" Value="True"/>
+                <Setter Property="xct:TouchEffect.NativeAnimation" Value="True"/>
             </Style>
             <Style TargetType="Image">
                 <Setter Property="VerticalOptions" Value="Center"/>

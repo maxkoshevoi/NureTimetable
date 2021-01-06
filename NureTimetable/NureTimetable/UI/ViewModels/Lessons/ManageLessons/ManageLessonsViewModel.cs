@@ -7,7 +7,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Input;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 
 namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
@@ -25,9 +25,9 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
         private ObservableCollection<LessonViewModel> _lessons;
         public ObservableCollection<LessonViewModel> Lessons { get => _lessons; private set => SetProperty(ref _lessons, value); }
 
-        public ICommand PageAppearingCommand { get; }
-        public ICommand SaveClickedCommand { get; }
-        public ICommand BackButtonPressedCommand { get; }
+        public IAsyncCommand PageAppearingCommand { get; }
+        public IAsyncCommand SaveClickedCommand { get; }
+        public IAsyncCommand BackButtonPressedCommand { get; }
         #endregion
 
         public ManageLessonsViewModel(Entity entity)

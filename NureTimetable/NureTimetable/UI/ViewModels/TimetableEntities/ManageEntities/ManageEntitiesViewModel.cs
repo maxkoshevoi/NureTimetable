@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 
@@ -30,14 +31,14 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
         private ObservableCollection<SavedEntityItemViewModel> _entities;
         public ObservableCollection<SavedEntityItemViewModel> Entities { get => _entities; private set => SetProperty(ref _entities, value); }
 
-        public Command UpdateAllCommand { get; }
-        public Command AddEntityCommand { get; }
-        public Command EntitySelectedCommand { get; }
+        public IAsyncCommand UpdateAllCommand { get; }
+        public IAsyncCommand AddEntityCommand { get; }
+        public IAsyncCommand<SelectedItemChangedEventArgs> EntitySelectedCommand { get; }
         #endregion
 
         public ManageEntitiesViewModel()
         {
-            UpdateAllCommand = CommandHelper.Create(UpdateAll, () => Entities.Any() && Entities.All(e => !e.IsUpdating));
+            UpdateAllCommand = CommandHelper.Create(UpdateAll, _ => Entities.Any() && Entities.All(e => !e.IsUpdating));
             AddEntityCommand = CommandHelper.Create(AddEntity);
             EntitySelectedCommand = CommandHelper.Create<SelectedItemChangedEventArgs>(async (args) =>
             {
@@ -164,7 +165,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
             );
 
             IsMultiselectMode = newItems.Count(i => i.IsSelected) > 1;
-            UpdateAllCommand.ChangeCanExecute();
+            UpdateAllCommand.RaiseCanExecuteChanged();
         }
 
         public Task UpdateTimetable(Entity entity)

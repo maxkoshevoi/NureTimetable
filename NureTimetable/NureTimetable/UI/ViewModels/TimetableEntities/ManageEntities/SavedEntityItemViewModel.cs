@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 
 namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
@@ -20,12 +21,12 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
         public SavedEntity SavedEntity { get; }
 
         private bool _isUpdating;
-        public bool IsUpdating { get => _isUpdating; set { SetProperty(ref _isUpdating, value); manageEntitiesViewModel.UpdateAllCommand.ChangeCanExecute(); } }
+        public bool IsUpdating { get => _isUpdating; set { SetProperty(ref _isUpdating, value); manageEntitiesViewModel.UpdateAllCommand.RaiseCanExecuteChanged(); } }
 
         public bool IsMultiselectMode => manageEntitiesViewModel.IsMultiselectMode;
 
-        public ICommand SettingsClickedCommand { get; }
-        public ICommand UpdateClickedCommand { get; }
+        public IAsyncCommand SettingsClickedCommand { get; }
+        public IAsyncCommand UpdateClickedCommand { get; }
         #endregion
 
         public SavedEntityItemViewModel(SavedEntity savedEntity, ManageEntitiesViewModel manageEntitiesViewModel)

@@ -2,16 +2,14 @@
 using NureTimetable.UI.Helpers;
 using Plugin.InAppBilling;
 using System.Threading.Tasks;
-using System.Windows.Input;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 
 namespace NureTimetable.UI.ViewModels.Info
 {
     public class DonateViewModel : BaseViewModel
     {
-        #region Properties
-        public ICommand BuyProductCommand { get; }
-        #endregion
+        public IAsyncCommand<string> BuyProductCommand { get; }
 
         public DonateViewModel()
         {

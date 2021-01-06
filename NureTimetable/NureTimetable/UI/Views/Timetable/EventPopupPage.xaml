@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
     xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
     xmlns:behaviors="clr-namespace:NureTimetable.UI.Behaviors;assembly=NureTimetable"
@@ -35,7 +36,7 @@
         Padding="20">
         <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
             <Label Text="{Binding Event.Lesson.FullName}" FontSize="16" FontAttributes="Bold" />
-            <Image HorizontalOptions="EndAndExpand" Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.CalendarPlus}, Color=Black}">
+            <Image HorizontalOptions="EndAndExpand" Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.CalendarPlus}, Color=Black}" xct:TouchEffect.NativeAnimation="True" xct:TouchEffect.NativeAnimationRadius="15">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding AddToCalendarCommand}" />
                 </Image.GestureRecognizers>

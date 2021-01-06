@@ -6,6 +6,7 @@ using NureTimetable.UI.Helpers;
 using Rg.Plugins.Popup.Services;
 using System.Linq;
 using System.Threading.Tasks;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 
 namespace NureTimetable.UI.ViewModels.Timetable
@@ -22,9 +23,9 @@ namespace NureTimetable.UI.ViewModels.Timetable
 
         public string Notes { get; }
 
-        public Command ClosePopupCommand { get; }
+        public IAsyncCommand ClosePopupCommand { get; }
         
-        public Command AddToCalendarCommand { get; }
+        public IAsyncCommand AddToCalendarCommand { get; }
 
         public EventPopupViewModel(Event ev, TimetableInfoList timetable)
         {

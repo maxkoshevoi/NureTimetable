@@ -3,6 +3,7 @@ using NureTimetable.DAL;
 using NureTimetable.UI.Helpers;
 using System;
 using System.Threading.Tasks;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -11,10 +12,10 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
     public class AddTimetableViewModel : BaseViewModel
     {
         #region Properties
-        public Command UpdateCommand { get; }
+        public IAsyncCommand UpdateCommand { get; }
 
         private bool updateCommandEnabled = true;
-        public bool UpdateCommandEnabled { get => updateCommandEnabled; set { updateCommandEnabled = value; UpdateCommand.ChangeCanExecute(); } }
+        public bool UpdateCommandEnabled { get => updateCommandEnabled; set { updateCommandEnabled = value; UpdateCommand.RaiseCanExecuteChanged(); } }
 
         public AddGroupViewModel AddGroupPageViewModel { get; }
         public AddTeacherViewModel AddTeacherPageViewModel { get; }
@@ -34,7 +35,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
             AddTeacherPageViewModel = new AddTeacherViewModel();
             AddRoomPageViewModel = new AddRoomViewModel();
 
-            UpdateCommand = CommandHelper.Create(UpdateEntities, () => UpdateCommandEnabled);
+            UpdateCommand = CommandHelper.Create(UpdateEntities, _ => UpdateCommandEnabled);
         }
 
         private async Task UpdateEntities()

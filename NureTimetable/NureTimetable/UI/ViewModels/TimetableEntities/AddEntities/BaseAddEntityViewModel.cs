@@ -41,7 +41,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
             }
         }
 
-        public ICommand SearchBarTextChangedCommand { get; }
+        public Command SearchBarTextChangedCommand { get; }
 
         #endregion
 
