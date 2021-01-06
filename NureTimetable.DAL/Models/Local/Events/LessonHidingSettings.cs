@@ -11,8 +11,8 @@ namespace NureTimetable.DAL.Models.Local
         /// </summary>
         public bool? ShowLesson { get; set; } = true;
         
-        public List<long> EventTypesToHide { get; } = new List<long>();
+        public List<long> EventTypesToHide { get; } = new();
         
-        public List<long> TeachersToHide { get; } = new List<long>();
+        public List<long> TeachersToHide { get; } = new();
     }
 }

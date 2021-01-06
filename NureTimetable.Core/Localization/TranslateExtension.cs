@@ -10,8 +10,8 @@ namespace NureTimetable.Core.Localization
     [ContentProperty(nameof(Text))]
     public class TranslateExtension : IMarkupExtension
     {
-        private static readonly Lazy<ResourceManager> resmgr = new(
-            () =>  new ResourceManager(typeof(LN).FullName, typeof(TranslateExtension).GetTypeInfo().Assembly));
+        private static readonly Lazy<ResourceManager> resmgr = new(() => 
+            new ResourceManager(typeof(LN).FullName, typeof(TranslateExtension).GetTypeInfo().Assembly));
 
         public string Text { get; set; }
 

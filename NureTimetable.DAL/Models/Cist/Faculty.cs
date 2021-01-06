@@ -16,10 +16,10 @@ namespace NureTimetable.DAL.Models.Cist
 
         // Used when getting Teachers
         [JsonProperty("departments", NullValueHandling = NullValueHandling.Ignore)]
-        public List<Department> Departments { get; set; } = new List<Department>();
+        public List<Department> Departments { get; set; } = new();
 
         // Used when getting Groups
         [JsonProperty("directions", NullValueHandling = NullValueHandling.Ignore)]
-        public List<Direction> Directions { get; set; } = new List<Direction>();
+        public List<Direction> Directions { get; set; } = new();
     }
 }

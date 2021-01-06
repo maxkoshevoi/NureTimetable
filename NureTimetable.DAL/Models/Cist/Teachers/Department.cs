@@ -15,6 +15,6 @@ namespace NureTimetable.DAL.Models.Cist
         public string FullName { get; set; }
 
         [JsonProperty("teachers")]
-        public List<Teacher> Teachers { get; set; } = new List<Teacher>();
+        public List<Teacher> Teachers { get; set; } = new();
     }
 }

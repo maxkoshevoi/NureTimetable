@@ -8,7 +8,7 @@ namespace NureTimetable.DAL.Models.Local
         
         public string Notes { get; set; }
         
-        private LessonSettings settings = new LessonSettings();
+        private LessonSettings settings = new();
         public LessonSettings Settings
         {
             get => settings;

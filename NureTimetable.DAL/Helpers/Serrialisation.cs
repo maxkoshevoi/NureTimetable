@@ -101,7 +101,7 @@ namespace NureTimetable.DAL.Helpers
 #pragma warning disable CA1812
         internal class SecondEpochConverter : DateTimeConverterBase
         {
-            private static readonly DateTime _epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            private static readonly DateTime _epoch = new(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
             public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
             {
@@ -120,7 +120,7 @@ namespace NureTimetable.DAL.Helpers
 
         internal class StringBoolConverter: JsonConverter
         {
-            private readonly Dictionary<string, bool> replacementValues = new Dictionary<string, bool> { { "1", true }, { "0", false } };
+            private readonly Dictionary<string, bool> replacementValues = new() { { "1", true }, { "0", false } };
 
             public override bool CanConvert(Type t) => t == typeof(bool?) || t == typeof(bool);
 
@@ -151,7 +151,7 @@ namespace NureTimetable.DAL.Helpers
         public static string TryToFixJson(string invalidJsonStr)
         {
             const int notFound = -1;
-            var invalidJson = new StringBuilder(invalidJsonStr);
+            StringBuilder invalidJson = new(invalidJsonStr);
 
             const string stringStart = "\":\"";
             string[] stringEnd =

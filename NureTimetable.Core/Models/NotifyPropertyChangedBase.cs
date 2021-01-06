@@ -30,7 +30,7 @@ namespace NureTimetable.Core.Models
             return true;
         }
 
-        protected void OnPropertyChanged([CallerMemberName] string propName = "")
-            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
+        protected void OnPropertyChanged([CallerMemberName] string propName = "") => 
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
     }
 }

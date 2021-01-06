@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace NureTimetable.Core.Localization
 {
@@ -17,18 +18,18 @@ namespace NureTimetable.Core.Localization
             if (Environment.CurrentDirectory == "_never_POSSIBLE_")
             {
 #pragma warning disable CA1806 // Do not ignore method results
-                new System.Globalization.ChineseLunisolarCalendar();
-                new System.Globalization.HebrewCalendar();
-                new System.Globalization.HijriCalendar();
-                new System.Globalization.JapaneseCalendar();
-                new System.Globalization.JapaneseLunisolarCalendar();
-                new System.Globalization.KoreanCalendar();
-                new System.Globalization.KoreanLunisolarCalendar();
-                new System.Globalization.PersianCalendar();
-                new System.Globalization.TaiwanCalendar();
-                new System.Globalization.TaiwanLunisolarCalendar();
-                new System.Globalization.ThaiBuddhistCalendar();
-                new System.Globalization.UmAlQuraCalendar();
+                new ChineseLunisolarCalendar();
+                new HebrewCalendar();
+                new HijriCalendar();
+                new JapaneseCalendar();
+                new JapaneseLunisolarCalendar();
+                new KoreanCalendar();
+                new KoreanLunisolarCalendar();
+                new PersianCalendar();
+                new TaiwanCalendar();
+                new TaiwanLunisolarCalendar();
+                new ThaiBuddhistCalendar();
+                new UmAlQuraCalendar();
 #pragma warning restore CA1806 // Do not ignore method results
             }
         }

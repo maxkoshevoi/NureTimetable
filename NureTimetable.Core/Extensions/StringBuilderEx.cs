@@ -5,11 +5,11 @@ namespace NureTimetable.Core.Extensions
 {
     public static class StringBuilderEx
     {
-        public static int IndexOf(this StringBuilder sb, string value)
-            => IndexOf(sb, value, 0);
+        public static int IndexOf(this StringBuilder sb, string value) => 
+            IndexOf(sb, value, 0);
 
-        public static int IndexOf(this StringBuilder sb, string value, int startIndex)
-            => IndexOf(sb, value, startIndex, false);
+        public static int IndexOf(this StringBuilder sb, string value, int startIndex) => 
+            IndexOf(sb, value, startIndex, false);
 
         /// <summary>
         /// Returns the index of the start of the contents in a StringBuilder

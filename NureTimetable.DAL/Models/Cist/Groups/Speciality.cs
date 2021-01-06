@@ -15,6 +15,6 @@ namespace NureTimetable.DAL.Models.Cist
         public string FullName { get; set; }
 
         [JsonProperty("groups")]
-        public List<Group> Groups { get; set; } = new List<Group>();
+        public List<Group> Groups { get; set; } = new();
     }
 }

@@ -12,8 +12,8 @@ namespace NureTimetable.DAL.Legacy
     [Obsolete("", true)]
     static class EventsDataStore
     {
-        public static TimetableInfo GetTimetableFromCist(DateTime dateStart, DateTime dateEnd, int groupID)
-            => GetTimetableFromCist(dateStart, dateEnd, new Group { ID = groupID })?.FirstOrDefault();
+        public static TimetableInfo GetTimetableFromCist(DateTime dateStart, DateTime dateEnd, int groupID) => 
+            GetTimetableFromCist(dateStart, dateEnd, new Group { ID = groupID })?.FirstOrDefault();
 
         public static List<TimetableInfo> GetTimetableFromCist(DateTime dateStart, DateTime dateEnd, params Group[] groups)
         {
@@ -116,8 +116,8 @@ namespace NureTimetable.DAL.Legacy
         }
 
         #region Parsers
-        public static List<Event> ParseCistCsvTimetable(string cistCsvDataForOneGroup)
-            => ParseCistCsvTimetable(cistCsvDataForOneGroup, false)?.Values.FirstOrDefault();
+        public static List<Event> ParseCistCsvTimetable(string cistCsvDataForOneGroup) => 
+            ParseCistCsvTimetable(cistCsvDataForOneGroup, false)?.Values.FirstOrDefault();
 
         public static Dictionary<string, List<Event>> ParseCistCsvTimetable(string cistCsvData, bool isManyGroups)
         {
@@ -160,7 +160,7 @@ namespace NureTimetable.DAL.Legacy
                     if (isManyGroups)
                     {
                         groupName = concurrentEventsList[0].Remove(concurrentEventsList[0].IndexOf(' '));
-                        concurrentEventsList[0] = concurrentEventsList[0].Substring(concurrentEventsList[0].IndexOf(" - ") + 3);
+                        concurrentEventsList[0] = concurrentEventsList[0][(concurrentEventsList[0].IndexOf(" - ") + 3)..];
                     }
 
                     foreach (string eventDescriptionStr in concurrentEventsList)
@@ -239,7 +239,7 @@ namespace NureTimetable.DAL.Legacy
                     groupsLessons.Add(searchGroup, new List<LessonInfo>());
                 }
 
-                cistXlsTimetableData = cistXlsTimetableData.Substring(cistXlsTimetableData.IndexOf("\n\n"));
+                cistXlsTimetableData = cistXlsTimetableData[cistXlsTimetableData.IndexOf("\n\n")..];
                 List<string> timetableInfoRaw = cistXlsTimetableData
                     .Split(new string[] { @"ss:Type=""String"">" }, StringSplitOptions.RemoveEmptyEntries)
                     .Skip(1)

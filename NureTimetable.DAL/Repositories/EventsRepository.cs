@@ -40,12 +40,12 @@ namespace NureTimetable.DAL
         }
 
         #region Local
-        public static Local::TimetableInfo GetTimetableLocal(Local::Entity entity)
-            => GetTimetableLocal(new List<Local::Entity>() { entity }).SingleOrDefault();
+        public static Local::TimetableInfo GetTimetableLocal(Local::Entity entity) => 
+            GetTimetableLocal(new List<Local::Entity>() { entity }).SingleOrDefault();
 
         public static List<Local::TimetableInfo> GetTimetableLocal(List<Local::Entity> entities)
         {
-            var timetables = new List<Local::TimetableInfo>();
+            List<Local::TimetableInfo> timetables = new();
             if (entities is null)
             {
                 return timetables;
@@ -86,7 +86,7 @@ namespace NureTimetable.DAL
                 return (null, null);
             }
 
-            using var client = new HttpClient();
+            using HttpClient client = new();
             try
             {
                 MessagingCenter.Send(Application.Current, MessageTypes.TimetableUpdating, entity);
@@ -98,7 +98,7 @@ namespace NureTimetable.DAL
                 });
 
                 // Getting events
-                Local::TimetableInfo timetable = GetTimetableLocal(entity) ?? new Local::TimetableInfo(entity);
+                Local::TimetableInfo timetable = GetTimetableLocal(entity) ?? new(entity);
 
                 Uri uri = Urls.CistApiEntityTimetable(entity.Type, entity.ID, dateStart, dateEnd);
                 string responseStr = await client.GetStringOrWebExceptionAsync(uri);

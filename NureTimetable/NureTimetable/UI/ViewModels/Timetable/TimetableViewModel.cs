@@ -342,8 +342,8 @@ namespace NureTimetable.UI.ViewModels.Timetable
         /// <summary>
         /// Updates events for already displayed entities
         /// </summary>
-        private void UpdateEvents()
-            => UpdateEvents(timetableInfoList.Entities.ToList());
+        private void UpdateEvents() => 
+            UpdateEvents(timetableInfoList.Entities.ToList());
 
         private void UpdateEvents(List<Entity> selectedEntities)
         {
@@ -358,7 +358,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
 
             Title = string.Join(", ", selectedEntities.Select(se => se.Name));
 
-            var timetableInfos = new List<TimetableInfo>();
+            List<TimetableInfo> timetableInfos = new();
             foreach (Entity entity in selectedEntities)
             {
                 TimetableInfo timetableInfo = EventsRepository.GetTimetableLocal(entity);

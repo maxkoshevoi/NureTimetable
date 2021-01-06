@@ -12,12 +12,12 @@ namespace NureTimetable.DAL
 {
     public static class SettingsRepository
     {
-        public static AppSettings Settings { get; } = new AppSettings();
+        public static AppSettings Settings { get; } = new();
 
         #region Timetable Update Rights
         public static List<Entity> CheckCistTimetableUpdateRights(List<Entity> entitiesToUpdate)
         {
-            var allowedEntities = new List<Entity>();
+            List<Entity> allowedEntities = new();
             if (entitiesToUpdate is null || entitiesToUpdate.Count == 0)
             {
                 return allowedEntities;

@@ -17,9 +17,9 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
         private bool updateCommandEnabled = true;
         public bool UpdateCommandEnabled { get => updateCommandEnabled; set { updateCommandEnabled = value; UpdateCommand.RaiseCanExecuteChanged(); } }
 
-        public AddGroupViewModel AddGroupPageViewModel { get; }
-        public AddTeacherViewModel AddTeacherPageViewModel { get; }
-        public AddRoomViewModel AddRoomPageViewModel { get; }
+        public AddGroupViewModel AddGroupPageViewModel { get; } = new();
+        public AddTeacherViewModel AddTeacherPageViewModel { get; } = new();
+        public AddRoomViewModel AddRoomPageViewModel { get; } = new();
         #endregion
 
         public AddTimetableViewModel()
@@ -30,10 +30,6 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
             {
                 Task.Run(UpdateFromCist);
             }
-
-            AddGroupPageViewModel = new AddGroupViewModel();
-            AddTeacherPageViewModel = new AddTeacherViewModel();
-            AddRoomPageViewModel = new AddRoomViewModel();
 
             UpdateCommand = CommandHelper.Create(UpdateEntities, _ => UpdateCommandEnabled);
         }

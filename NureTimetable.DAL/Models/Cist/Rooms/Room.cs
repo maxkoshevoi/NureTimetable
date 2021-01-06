@@ -20,6 +20,6 @@ namespace NureTimetable.DAL.Models.Cist
         public bool? IsHavePower { get; set; }
 
         [JsonProperty("auditory_types")]
-        public List<RoomType> RoomTypes { get; set; } = new List<RoomType>();
+        public List<RoomType> RoomTypes { get; set; } = new();
     }
 }

@@ -91,11 +91,11 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
             lastSearchQuery = searchQuery;
             if (string.IsNullOrEmpty(searchQuery))
             {
-                Entities = new ObservableCollection<T>(OrderEntities());
+                Entities = new(OrderEntities());
             }
             else
             {
-                Entities = new ObservableCollection<T>(SearchEntities(searchQuery.ToLower()));
+                Entities = new(SearchEntities(searchQuery.ToLower()));
             }
         }
 
@@ -109,7 +109,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities
 
                 await updateDataSource;
                 _allEntities = GetAllEntities();
-                Entities = new ObservableCollection<T>(OrderEntities());
+                Entities = new(OrderEntities());
 
                 IsNoSourceLayoutVisible = Entities.Count == 0;
 

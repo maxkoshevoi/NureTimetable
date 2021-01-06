@@ -19,7 +19,7 @@ namespace NureTimetable.DAL.Models.Cist
         [JsonProperty("type")]
         public string EnglishBaseName { get; set; }
 
-        public static readonly EventType UnknownType = new EventType
+        public static readonly EventType UnknownType = new()
         {
             Id = -1,
             BaseTypeId = -1,

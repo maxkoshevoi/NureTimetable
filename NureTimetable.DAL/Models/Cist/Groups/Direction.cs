@@ -15,9 +15,9 @@ namespace NureTimetable.DAL.Models.Cist
         public string FullName { get; set; }
 
         [JsonProperty("groups", NullValueHandling = NullValueHandling.Ignore)]
-        public List<Group> Groups { get; private set; } = new List<Group>();
+        public List<Group> Groups { get; private set; } = new();
 
         [JsonProperty("specialities")]
-        public List<Speciality> Specialities { get; private set; } = new List<Speciality>();
+        public List<Speciality> Specialities { get; private set; } = new();
     }
 }

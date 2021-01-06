@@ -41,7 +41,7 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
             }
             else
             {
-                Lessons = new ObservableCollection<LessonViewModel>
+                Lessons = new
                 (
                     timetable.Lessons()
                         .Select(lesson => timetable.LessonsInfo.FirstOrDefault(li => li.Lesson == lesson) ?? new LessonInfo { Lesson = lesson })

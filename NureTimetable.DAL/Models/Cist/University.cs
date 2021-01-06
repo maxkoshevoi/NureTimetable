@@ -13,10 +13,10 @@ namespace NureTimetable.DAL.Models.Cist
 
         // Used when getting Teachers or Groups
         [JsonProperty("faculties", NullValueHandling = NullValueHandling.Ignore)]
-        public List<Faculty> Faculties { get; set; } = new List<Faculty>();
+        public List<Faculty> Faculties { get; set; } = new();
 
         // Used when getting Rooms
         [JsonProperty("buildings", NullValueHandling = NullValueHandling.Ignore)]
-        public List<Building> Buildings { get; set; } = new List<Building>();
+        public List<Building> Buildings { get; set; } = new();
     }
 }

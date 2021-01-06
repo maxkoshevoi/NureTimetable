@@ -35,15 +35,15 @@ namespace NureTimetable.DAL
                 this.RoomsException = roomsException;
             }
 
-            public Exception GroupsException { get; set; }
-            public Exception TeachersException { get; set; }
-            public Exception RoomsException { get; set; }
+            public Exception GroupsException { get; }
+            public Exception TeachersException { get; }
+            public Exception RoomsException { get; }
 
             public bool IsAllSuccessful =>
                 GroupsException is null && TeachersException is null && RoomsException is null;
 
             public bool IsAllFail =>
-                GroupsException != null && TeachersException != null && RoomsException != null;
+                GroupsException is not null && TeachersException is not null && RoomsException is not null;
 
             public bool IsConnectionIssues =>
                 GroupsException is WebException 
@@ -67,7 +67,7 @@ namespace NureTimetable.DAL
                 {
                     return;
                 }
-                Singleton = Get();
+                Instance = Get();
             }
         }
 
@@ -78,7 +78,7 @@ namespace NureTimetable.DAL
             {
                 return false;
             }
-            Singleton = university;
+            Instance = university;
             return true;
         }
 
@@ -86,20 +86,20 @@ namespace NureTimetable.DAL
         {
             Cist::University university = GetLocal();
             UniversityEntitiesCistUpdateResult result = UpdateFromCist(ref university);
-            Singleton = university;
+            Instance = university;
             return result;
         }
         #endregion
 
         #region Private
-        private static Cist::University _singleton;
-        private static Cist::University Singleton
+        private static Cist::University _instance;
+        private static Cist::University Instance
         {
-            get => _singleton;
+            get => _instance;
             set
             {
                 IsInitialized = true;
-                _singleton = value;
+                _instance = value;
             }
         }
 
@@ -139,29 +139,29 @@ namespace NureTimetable.DAL
         {
             if (SettingsRepository.CheckCistAllEntitiesUpdateRights() == false)
             {
-                return new UniversityEntitiesCistUpdateResult(null, null, null);
+                return new(null, null, null);
             }
 
             var groupsTask = TaskWithFallbacks(GetAllGroupsFromCist, GetAllGroupsFromCistHtml);
             var teachersTask = TaskWithFallbacks(GetAllTeachersFromCist, GetAllTeachersFromCistHtml);
             var roomsTask = GetAllRoomsFromCist();
 
-            var result = new UniversityEntitiesCistUpdateResult();
+            UniversityEntitiesCistUpdateResult result = new();
             try
             {
                 Task.WaitAll(groupsTask, teachersTask, roomsTask);
             }
             catch
             {
-                result = new UniversityEntitiesCistUpdateResult
-                {
-                    GroupsException = groupsTask.Exception?.InnerException,
-                    TeachersException = teachersTask.Exception?.InnerException,
-                    RoomsException = roomsTask.Exception?.InnerException
-                };
+                result = new
+                (
+                    groupsTask.Exception?.InnerException,
+                    teachersTask.Exception?.InnerException,
+                    roomsTask.Exception?.InnerException
+                );
             }
 
-            university ??= new Cist::University();
+            university ??= new();
             if (!roomsTask.IsFaulted)
             {
                 university.Buildings = roomsTask.Result;
@@ -201,7 +201,7 @@ namespace NureTimetable.DAL
                     SettingsRepository.UpdateCistAllEntitiesUpdateTime();
                 }
 
-                Singleton = university;
+                Instance = university;
                 MessagingCenter.Send(Application.Current, MessageTypes.UniversityEntitiesUpdated);
             }
 
@@ -232,7 +232,7 @@ namespace NureTimetable.DAL
         #region From Cist Api
         private static async Task<List<Cist::Faculty>> GetAllGroupsFromCist()
         {
-            using var client = new HttpClient();
+            using HttpClient client = new();
             try
             {
                 Analytics.TrackEvent("Cist request", new Dictionary<string, string>
@@ -256,7 +256,7 @@ namespace NureTimetable.DAL
 
         private static async Task<List<Cist::Faculty>> GetAllTeachersFromCist()
         {
-            using var client = new HttpClient();
+            using HttpClient client = new();
             try
             {
                 Analytics.TrackEvent("Cist request", new Dictionary<string, string>
@@ -280,7 +280,7 @@ namespace NureTimetable.DAL
 
         private static async Task<List<Cist::Building>> GetAllRoomsFromCist()
         {
-            using var client = new HttpClient();
+            using HttpClient client = new();
             try
             {
                 Analytics.TrackEvent("Cist request", new Dictionary<string, string>
@@ -307,7 +307,7 @@ namespace NureTimetable.DAL
         #region From Cist Html
         private static async Task<List<Cist::Faculty>> GetAllGroupsFromCistHtml()
         {
-            using var client = new HttpClient();
+            using HttpClient client = new();
             try
             {
                 Analytics.TrackEvent("Cist request", new Dictionary<string, string>
@@ -316,12 +316,12 @@ namespace NureTimetable.DAL
                     { "Hour of the day", DateTime.Now.Hour.ToString() }
                 });
 
-                var faculties = new List<Cist::Faculty>();
+                List<Cist::Faculty> faculties = new();
 
                 // Getting branches
                 Uri uri = Urls.CistSiteAllGroups(null);
                 string branchesListPage = await client.GetStringOrWebExceptionAsync(uri);
-                foreach (string part in branchesListPage.Split(new string[] { "IAS_Change_Groups(" }, StringSplitOptions.RemoveEmptyEntries).Skip(1))
+                foreach (string part in branchesListPage.Split(new[] { "IAS_Change_Groups(" }, StringSplitOptions.RemoveEmptyEntries).Skip(1))
                 {
                     string branchIdStr = part.Remove(part.IndexOf(')'));
                     if (!int.TryParse(branchIdStr, out int facultyId))
@@ -329,11 +329,10 @@ namespace NureTimetable.DAL
                         continue;
                     }
 
-                    int facultyNameStart = part.IndexOf('>') + 1;
-                    faculties.Add(new Cist::Faculty
+                    faculties.Add(new()
                     {
                         Id = facultyId,
-                        ShortName = part[facultyNameStart..part.IndexOf('<')]
+                        ShortName = part[(part.IndexOf('>') + 1)..part.IndexOf('<')]
                     });
                 }
 
@@ -344,11 +343,11 @@ namespace NureTimetable.DAL
 
                     uri = Urls.CistSiteAllGroups(faculty.Id);
                     string branchGroupsPage = await client.GetStringOrWebExceptionAsync(uri);
-                    foreach (string part in branchGroupsPage.Split(new string[] { "IAS_ADD_Group_in_List(" }, StringSplitOptions.RemoveEmptyEntries).Skip(1))
+                    foreach (string part in branchGroupsPage.Split(new[] { "IAS_ADD_Group_in_List(" }, StringSplitOptions.RemoveEmptyEntries).Skip(1))
                     {
                         string[] groupInfo = part
                             .Remove(part.IndexOf(")\">"))
-                            .Split(new char[] { ',', '\'' }, StringSplitOptions.RemoveEmptyEntries);
+                            .Split(new[] { ',', '\'' }, StringSplitOptions.RemoveEmptyEntries);
 
                         if (groupInfo.Length != 2 || !int.TryParse(groupInfo[1], out int groupID))
                         {
@@ -356,7 +355,7 @@ namespace NureTimetable.DAL
                         }
 
                         string groupName = groupInfo[0];
-                        faculty.Directions[0].Groups.Add(new Cist::Group
+                        faculty.Directions[0].Groups.Add(new()
                         {
                             Id = groupID,
                             Name = groupName
@@ -375,7 +374,7 @@ namespace NureTimetable.DAL
 
         private static async Task<List<Cist::Faculty>> GetAllTeachersFromCistHtml()
         {
-            using var client = new HttpClient();
+            using HttpClient client = new();
             try
             {
                 Analytics.TrackEvent("Cist request", new Dictionary<string, string>
@@ -384,12 +383,12 @@ namespace NureTimetable.DAL
                     { "Hour of the day", DateTime.Now.Hour.ToString() }
                 });
 
-                var faculties = new List<Cist::Faculty>();
+                List<Cist::Faculty> faculties = new();
 
                 // Getting faculties
                 Uri uri = Urls.CistSiteAllTeachers();
                 string facultyListPage = await client.GetStringOrWebExceptionAsync(uri);
-                foreach (string part in facultyListPage.Split(new string[] { "IAS_Change_Kaf(" }, StringSplitOptions.RemoveEmptyEntries).Skip(1))
+                foreach (string part in facultyListPage.Split(new[] { "IAS_Change_Kaf(" }, StringSplitOptions.RemoveEmptyEntries).Skip(1))
                 {
                     string facultyIdStr = part.Remove(part.IndexOf(','));
                     if (!int.TryParse(facultyIdStr, out int facId))
@@ -397,11 +396,10 @@ namespace NureTimetable.DAL
                         continue;
                     }
 
-                    int facNameStart = part.IndexOf('>') + 1;
-                    faculties.Add(new Cist::Faculty
+                    faculties.Add(new()
                     {
                         Id = facId,
-                        ShortName = part[facNameStart..part.IndexOf('<')],
+                        ShortName = part[(part.IndexOf('>') + 1)..part.IndexOf('<')],
                         Departments = await GetDepartmentsForFaculty(facId)
                     });
                 }
@@ -417,14 +415,14 @@ namespace NureTimetable.DAL
 
         private static async Task<List<Cist::Department>> GetDepartmentsForFaculty(long facultyId)
         {
-            var departments = new List<Cist::Department>();
+            List<Cist::Department> departments = new();
 
             // Getting departments
             Uri uri = Urls.CistSiteAllTeachers(facultyId);
-            using var client = new HttpClient();
+            using HttpClient client = new();
             string facultyPage = await client.GetStringOrWebExceptionAsync(uri);
 
-            foreach (string part in facultyPage.Split(new string[] { $"IAS_Change_Kaf({facultyId}," }, StringSplitOptions.RemoveEmptyEntries).Skip(1))
+            foreach (string part in facultyPage.Split(new[] { $"IAS_Change_Kaf({facultyId}," }, StringSplitOptions.RemoveEmptyEntries).Skip(1))
             {
                 string departmentIdStr = part.Remove(part.IndexOf(')'));
                 if (!int.TryParse(departmentIdStr, out int depId) || depId == -1)
@@ -432,11 +430,10 @@ namespace NureTimetable.DAL
                     continue;
                 }
 
-                int depNameStart = part.IndexOf('>') + 1;
-                departments.Add(new Cist::Department
+                departments.Add(new()
                 {
                     Id = depId,
-                    ShortName = part[depNameStart..part.IndexOf('<')],
+                    ShortName = part[(part.IndexOf('>') + 1)..part.IndexOf('<')],
                     Teachers = await GetTeachersForDepartment(facultyId, depId)
                 });
             }
@@ -446,17 +443,17 @@ namespace NureTimetable.DAL
 
         private static async Task<List<Cist::Teacher>> GetTeachersForDepartment(long facultyId, long departmentId)
         {
-            var teachers = new List<Cist::Teacher>();
+            List<Cist::Teacher> teachers = new();
 
             // Getting teachers
             Uri uri = Urls.CistSiteAllTeachers(facultyId, departmentId);
-            using var client = new HttpClient();
+            using HttpClient client = new();
             string branchGroupsPage = await client.GetStringOrWebExceptionAsync(uri);
-            foreach (string part in branchGroupsPage.Split(new string[] { "IAS_ADD_Teach_in_List(" }, StringSplitOptions.RemoveEmptyEntries).Skip(1))
+            foreach (string part in branchGroupsPage.Split(new[] { "IAS_ADD_Teach_in_List(" }, StringSplitOptions.RemoveEmptyEntries).Skip(1))
             {
                 string[] teacherInfo = part
                     .Remove(part.IndexOf(")\">"))
-                    .Split(new char[] { ',', '\'' }, StringSplitOptions.RemoveEmptyEntries);
+                    .Split(new[] { ',', '\'' }, StringSplitOptions.RemoveEmptyEntries);
 
                 if (teacherInfo.Length != 2 || !int.TryParse(teacherInfo[1], out int teacherID))
                 {
@@ -464,7 +461,7 @@ namespace NureTimetable.DAL
                 }
 
                 string teacherName = teacherInfo[0];
-                teachers.Add(new Cist::Teacher
+                teachers.Add(new()
                 {
                     Id = teacherID,
                     ShortName = teacherName,
@@ -483,13 +480,12 @@ namespace NureTimetable.DAL
         public static IEnumerable<Local::Group> GetAllGroups()
         {
             if (!IsInitialized)
-            {
                 throw new InvalidOperationException($"You MUST call {nameof(UniversityEntitiesRepository)}.AssureInitialized(); prior to using it.");
-            }
 
-            var groups = Singleton?.Faculties.SelectMany(fac => fac
-                .Directions.SelectMany(dir =>
-                    dir.Groups.Select(gr =>
+            var groups = Instance?.Faculties
+                .SelectMany(fac => 
+                    fac.Directions.SelectMany(dir =>
+                        dir.Groups.Select(gr =>
                         {
                             Local::Group localGroup = MapConfig.Map<Cist::Group, Local::Group>(gr);
                             localGroup.Faculty = MapConfig.Map<Cist::Faculty, Local::BaseEntity<long>>(fac);
@@ -504,28 +500,27 @@ namespace NureTimetable.DAL
                             localGroup.Speciality = MapConfig.Map<Cist::Speciality, Local::BaseEntity<long>>(sp);
                             return localGroup;
                         })))
-                )
-            ).Distinct();
+                    )
+                ).Distinct();
             return groups;
         }
 
         public static IEnumerable<Local::Teacher> GetAllTeachers()
         {
             if (!IsInitialized)
-            {
                 throw new InvalidOperationException($"You MUST call {nameof(UniversityEntitiesRepository)}.AssureInitialized(); prior to using it.");
-            }
 
-            var teachers = Singleton?.Faculties.SelectMany(fac => fac
-                .Departments.SelectMany(dep =>
-                    dep.Teachers.Select(tr =>
-                    {
-                        Local::Teacher localGroup = MapConfig.Map<Cist::Teacher, Local::Teacher>(tr);
-                        localGroup.Department = MapConfig.Map<Cist::Department, Local::BaseEntity<long>>(dep);
-                        return localGroup;
-                    })
-                )
-            ).Distinct();
+            var teachers = Instance?.Faculties
+                .SelectMany(fac => 
+                    fac.Departments.SelectMany(dep =>
+                        dep.Teachers.Select(tr =>
+                        {
+                            Local::Teacher localGroup = MapConfig.Map<Cist::Teacher, Local::Teacher>(tr);
+                            localGroup.Department = MapConfig.Map<Cist::Department, Local::BaseEntity<long>>(dep);
+                            return localGroup;
+                        })
+                    )
+                ).Distinct();
             return teachers;
         }
 
@@ -536,14 +531,15 @@ namespace NureTimetable.DAL
                 throw new InvalidOperationException($"You MUST call {nameof(UniversityEntitiesRepository)}.AssureInitialized(); prior to using it.");
             }
 
-            var rooms = Singleton?.Buildings.SelectMany(bd => bd
-                .Rooms.Select(rm =>
-                {
-                    Local::Room localGroup = MapConfig.Map<Cist::Room, Local::Room>(rm);
-                    localGroup.Building = MapConfig.Map<Cist::Building, Local::BaseEntity<string>>(bd);
-                    return localGroup;
-                })
-            ).Distinct();
+            var rooms = Instance?.Buildings
+                .SelectMany(bd => 
+                    bd.Rooms.Select(rm =>
+                    {
+                        Local::Room localGroup = MapConfig.Map<Cist::Room, Local::Room>(rm);
+                        localGroup.Building = MapConfig.Map<Cist::Building, Local::BaseEntity<string>>(bd);
+                        return localGroup;
+                    })
+                ).Distinct();
             return rooms;
         }
         #endregion
@@ -569,7 +565,9 @@ namespace NureTimetable.DAL
 
             List<Local::SavedEntity> duplicates = savedEntities.GroupBy(e => e).Where(g => g.Count() > 1).Select(g => g.Key).ToList();
             if (duplicates.Any())
+            {
                 throw new InvalidOperationException($"{nameof(savedEntities)} must be unique");
+            }
 
             List<Local::SavedEntity> oldSavedEntities = GetSaved();
             // Removing cache from deleted saved entities if needed

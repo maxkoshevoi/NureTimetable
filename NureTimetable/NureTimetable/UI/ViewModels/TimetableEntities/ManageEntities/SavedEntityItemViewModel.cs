@@ -45,7 +45,7 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
 
         public async Task SettingsClicked()
         {
-            var actionList = new List<string> { LN.UpdateTimetable, LN.SetUpLessonDisplay, LN.Delete };
+            List<string> actionList = new() { LN.UpdateTimetable, LN.SetUpLessonDisplay, LN.Delete };
             if (!SavedEntity.IsSelected)
             {
                 actionList.Insert(0, LN.SelectOneEntity);

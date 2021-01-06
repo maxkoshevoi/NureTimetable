@@ -87,8 +87,8 @@ namespace NureTimetable.UI.Views
         private static void LogException(Exception ex)
         {
             // Getting exception Data
-            var properties = new Dictionary<string, string>();
-            var attachments = new List<ErrorAttachmentLog>();
+            Dictionary<string, string> properties = new();
+            List<ErrorAttachmentLog> attachments = new();
             foreach (DictionaryEntry de in ex.Data)
             {
                 if (de.Value is ErrorAttachmentLog attachment)

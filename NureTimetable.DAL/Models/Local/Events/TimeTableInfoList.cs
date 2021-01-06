@@ -34,13 +34,13 @@ namespace NureTimetable.DAL.Models.Local
 
         public static TimetableInfoList Build(List<TimetableInfo> timetableInfos, bool applyHiddingSettings)
         {
-            timetableInfos ??= new List<TimetableInfo>();
+            timetableInfos ??= new();
 
             if (applyHiddingSettings)
             {
                 timetableInfos.ForEach(tt => tt.ApplyLessonSettings());
             }
-            var timetableInfoList = new TimetableInfoList
+            TimetableInfoList timetableInfoList = new()
             {
                 Timetables = timetableInfos.AsReadOnly(),
                 Events = timetableInfos.SelectMany(tt => tt.Events)

@@ -137,14 +137,14 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
             await Navigation.PushAsync(new AddTimetablePage());
         }
 
-        private void UpdateItems()
-            => UpdateItems(UniversityEntitiesRepository.GetSaved());
+        private void UpdateItems() => 
+            UpdateItems(UniversityEntitiesRepository.GetSaved());
 
         private void UpdateItems(List<SavedEntity> newItems)
         {
             IsNoSourceLayoutVisible = (newItems.Count == 0);
 
-            Entities = new ObservableCollection<SavedEntityItemViewModel>(
+            Entities = new(
                 newItems.Select(sg =>
                 {
                     SavedEntityItemViewModel displaysEntity = Entities?.SingleOrDefault(e => e.SavedEntity == sg);
@@ -168,8 +168,8 @@ namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
             UpdateAllCommand.RaiseCanExecuteChanged();
         }
 
-        public Task UpdateTimetable(Entity entity)
-            => UpdateTimetable(new List<Entity>() { entity });
+        public Task UpdateTimetable(Entity entity) =>
+            UpdateTimetable(new List<Entity>() { entity });
 
         private async Task UpdateTimetable(List<Entity> entities)
         {

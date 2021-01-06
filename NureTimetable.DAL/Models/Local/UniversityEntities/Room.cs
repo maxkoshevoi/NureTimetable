@@ -8,7 +8,7 @@ namespace NureTimetable.DAL.Models.Local
         public string Name { get; set; }
         public int Floor { get; set; }
         public bool? IsHavePower { get; set; }
-        public List<RoomType> RoomTypes { get; set; } = new List<RoomType>();
+        public List<RoomType> RoomTypes { get; set; } = new();
         public BaseEntity<string> Building { get; set; }
 
         #region Equals
