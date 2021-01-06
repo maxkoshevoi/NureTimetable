@@ -31,7 +31,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
         {
             Event = ev;
 
-            ClosePopupCommand = CommandHelper.Create(async () => await PopupNavigation.Instance.PopAsync());
+            ClosePopupCommand = CommandHelper.Create(ClosePopup);
             AddToCalendarCommand = CommandHelper.Create(AddEventToCalendar);
 
             LessonInfo lessonInfo = timetable.LessonsInfo?.FirstOrDefault(li => li.Lesson == ev.Lesson);
@@ -74,8 +74,16 @@ namespace NureTimetable.UI.ViewModels.Timetable
 
             string message = isAdded ? LN.AddingEventToCalendarSuccess : LN.AddingEventToCalendarFail;
             await Shell.Current.DisplayAlert(LN.AddingToCalendarTitle, message, LN.Ok);
+            
+            await ClosePopup();
+        }
 
-            await PopupNavigation.Instance.PopAsync();
+        private static async Task ClosePopup()
+        {
+            if (PopupNavigation.Instance.PopupStack.Any())
+            {
+                await PopupNavigation.Instance.PopAsync();
+            }
         }
     }
 }
