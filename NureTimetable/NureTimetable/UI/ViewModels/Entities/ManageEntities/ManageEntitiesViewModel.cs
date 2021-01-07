@@ -13,7 +13,7 @@ using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 
-namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
+namespace NureTimetable.UI.ViewModels.Entities.ManageEntities
 {
     public class ManageEntitiesViewModel : BaseViewModel
     {

@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              xmlns:LN="clr-namespace:NureTimetable.Core.Localization;assembly=NureTimetable.Core"
-             xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels.TimetableEntities"
+             xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels.Entities"
              x:Class="NureTimetable.UI.Views.AddEntityPage"
              Title="{Binding Title}">
 

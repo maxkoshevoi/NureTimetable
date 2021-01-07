@@ -11,7 +11,7 @@ using System.Windows.Input;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
-namespace NureTimetable.UI.ViewModels.TimetableEntities
+namespace NureTimetable.UI.ViewModels.Entities
 {
     public abstract class BaseAddEntityViewModel<T> : BaseViewModel
     {

@@ -11,7 +11,7 @@ using System.Windows.Input;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 
-namespace NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities
+namespace NureTimetable.UI.ViewModels.Entities.ManageEntities
 {
     public class SavedEntityItemViewModel : BaseViewModel
     {

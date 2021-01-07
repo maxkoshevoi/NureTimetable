@@ -4,7 +4,7 @@
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              xmlns:LN="clr-namespace:NureTimetable.Core.Localization;assembly=NureTimetable.Core"
              xmlns:fonts="clr-namespace:NureTimetable.Models.Consts.Fonts"
-             xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels.TimetableEntities.ManageEntities"
+             xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels.Entities.ManageEntities"
              x:Class="NureTimetable.UI.Views.ManageEntitiesPage"
              x:DataType="vm:ManageEntitiesViewModel"
              Title="{LN:Translate SavedTimetables}">

@@ -43,13 +43,13 @@
     <Compile Update="UI\Views\Lessons\ManageLessonsPage.xaml.cs">
       <DependentUpon>%(Filename)</DependentUpon>
     </Compile>
-    <Compile Update="UI\Views\TimetableEntities\AddEntityPage.xaml.cs">
+    <Compile Update="UI\Views\Entities\AddEntityPage.xaml.cs">
       <DependentUpon>%(Filename)</DependentUpon>
     </Compile>
-    <Compile Update="UI\Views\TimetableEntities\AddTimetablePage.xaml.cs">
+    <Compile Update="UI\Views\Entities\AddTimetablePage.xaml.cs">
       <DependentUpon>%(Filename)</DependentUpon>
     </Compile>
-    <Compile Update="UI\Views\TimetableEntities\ManageEntitiesPage.xaml.cs">
+    <Compile Update="UI\Views\Entities\ManageEntitiesPage.xaml.cs">
       <DependentUpon>%(Filename)</DependentUpon>
     </Compile>
     <Compile Update="UI\Views\Timetable\EventPopupPage.xaml.cs">

@@ -7,7 +7,7 @@ using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
-namespace NureTimetable.UI.ViewModels.TimetableEntities
+namespace NureTimetable.UI.ViewModels.Entities
 {
     public class AddTimetableViewModel : BaseViewModel
     {

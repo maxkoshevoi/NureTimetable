@@ -4,7 +4,7 @@ using NureTimetable.DAL.Models.Local;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace NureTimetable.UI.ViewModels.TimetableEntities
+namespace NureTimetable.UI.ViewModels.Entities
 {
     public class AddTeacherViewModel : BaseAddEntityViewModel<Teacher>
     {

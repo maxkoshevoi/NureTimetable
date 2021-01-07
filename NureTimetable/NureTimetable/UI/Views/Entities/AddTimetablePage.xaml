@@ -5,7 +5,7 @@
             xmlns:views="clr-namespace:NureTimetable.UI.Views"
             xmlns:LN="clr-namespace:NureTimetable.Core.Localization;assembly=NureTimetable.Core"
             x:Class="NureTimetable.UI.Views.AddTimetablePage"
-            xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels.TimetableEntities"
+            xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels.Entities"
             xmlns:fonts="clr-namespace:NureTimetable.Models.Consts.Fonts"
             x:DataType="vm:AddTimetableViewModel"
             Shell.NavBarHasShadow="False"
