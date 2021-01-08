@@ -79,11 +79,7 @@ namespace NureTimetable.DAL
             }
 
             TimeSpan? timePass = DateTime.Now - GetLastCistAllEntitiesUpdateTime();
-            if (timePass != null && timePass <= Config.CistAllEntitiesUpdateMinInterval)
-            {
-                return false;
-            }
-            return true;
+            return timePass is null || timePass > Config.CistAllEntitiesUpdateMinInterval;
 #pragma warning restore CS0162 // Unreachable code detected
         }
 
@@ -91,11 +87,9 @@ namespace NureTimetable.DAL
         {
             string filePath = FilePath.LastCistAllEntitiesUpdate;
             if (!File.Exists(filePath))
-            {
                 return null;
-            }
 
-            DateTime lastTimetableUpdate = Serialisation.FromJsonFile<DateTime>(filePath);
+            DateTime? lastTimetableUpdate = Serialisation.FromJsonFile<DateTime?>(filePath);
             return lastTimetableUpdate;
         }
 

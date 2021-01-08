@@ -30,14 +30,14 @@ namespace NureTimetable.DAL.Helpers
 
         public static T FromJsonFile<T>(string filePath)
         {
+            if (File.Exists(filePath))
+                return default;
+
             try
             {
-                if (File.Exists(filePath))
-                {
-                    string fileContent = File.ReadAllText(filePath);
-                    T instance = FromJson<T>(fileContent);
-                    return instance;
-                }
+                string fileContent = File.ReadAllText(filePath);
+                T instance = FromJson<T>(fileContent);
+                return instance;
             }
             catch (Exception ex)
             {
@@ -45,8 +45,8 @@ namespace NureTimetable.DAL.Helpers
                 MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
 
                 File.Delete(filePath);
+                return default;
             }
-            return default;
         }
 
         public static string ToJson<T>(T instance)

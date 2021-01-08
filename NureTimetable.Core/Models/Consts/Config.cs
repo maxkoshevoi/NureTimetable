@@ -14,7 +14,7 @@ namespace NureTimetable.Core.Models.Consts
             TimeSpan.FromHours(7);
 
         public static TimeSpan CistAllEntitiesUpdateMinInterval => 
-            TimeSpan.FromHours(24);
+            TimeSpan.FromDays(1);
 
         public static TimeSpan CistLessonsInfoUpdateMinInterval => 
             TimeSpan.FromDays(7);
