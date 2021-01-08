@@ -211,206 +211,163 @@ namespace NureTimetable.DAL
         private static async Task<T> TaskWithFallbacks<T>(params Func<Task<T>>[] tasks)
         {
             if (tasks.Length == 0)
-            {
                 throw new ArgumentException($"{nameof(tasks)} cannot be null or empty");
-            }
 
-            for (int i = 0; i < tasks.Length; i++)
+            int tasksLeft = tasks.Length;
+            while (true)
             {
                 try
                 {
-                    return await tasks[i]();
+                    int currentTaskIndex = tasks.Length - tasksLeft;
+                    tasksLeft--;
+                    return await tasks[currentTaskIndex]();
                 }
-                catch (Exception ex) when (i < tasks.Length - 1 && ex is not WebException)
+                catch (Exception ex) when (tasksLeft > 0 && ex is not WebException)
                 {
+                    MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
                 }
             }
-
-            return default;
         }
 
         #region From Cist Api
         private static async Task<List<Cist::Faculty>> GetAllGroupsFromCist()
         {
+            Analytics.TrackEvent("Cist request", new Dictionary<string, string>
+            {
+                { "Type", "GetAllGroups" },
+                { "Hour of the day", DateTime.Now.Hour.ToString() }
+            });
+
             using HttpClient client = new();
-            try
-            {
-                Analytics.TrackEvent("Cist request", new Dictionary<string, string>
-                {
-                    { "Type", "GetAllGroups" },
-                    { "Hour of the day", DateTime.Now.Hour.ToString() }
-                });
+            string responseStr = await client.GetStringOrWebExceptionAsync(Urls.CistApiAllGroups);
+            Cist::University newUniversity = CistHelper.FromJson<Cist::UniversityRootObject>(responseStr).University;
 
-                Uri uri = Urls.CistApiAllGroups;
-                string responseStr = await client.GetStringOrWebExceptionAsync(uri);
-                Cist::University newUniversity = CistHelper.FromJson<Cist::UniversityRootObject>(responseStr).University;
-
-                return newUniversity.Faculties;
-            }
-            catch (Exception ex)
-            {
-                MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
-                throw;
-            }
+            return newUniversity.Faculties;
         }
 
         private static async Task<List<Cist::Faculty>> GetAllTeachersFromCist()
         {
+            Analytics.TrackEvent("Cist request", new Dictionary<string, string>
+            {
+                { "Type", "GetAllTeachers" },
+                { "Hour of the day", DateTime.Now.Hour.ToString() }
+            });
+
             using HttpClient client = new();
-            try
-            {
-                Analytics.TrackEvent("Cist request", new Dictionary<string, string>
-                {
-                    { "Type", "GetAllTeachers" },
-                    { "Hour of the day", DateTime.Now.Hour.ToString() }
-                });
+            string responseStr = await client.GetStringOrWebExceptionAsync(Urls.CistApiAllTeachers);
+            Cist::University newUniversity = CistHelper.FromJson<Cist::UniversityRootObject>(responseStr).University;
 
-                Uri uri = Urls.CistApiAllTeachers;
-                string responseStr = await client.GetStringOrWebExceptionAsync(uri);
-                Cist::University newUniversity = CistHelper.FromJson<Cist::UniversityRootObject>(responseStr).University;
-
-                return newUniversity.Faculties;
-            }
-            catch (Exception ex)
-            {
-                MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
-                throw;
-            }
+            return newUniversity.Faculties;
         }
 
         private static async Task<List<Cist::Building>> GetAllRoomsFromCist()
         {
+            Analytics.TrackEvent("Cist request", new Dictionary<string, string>
+            {
+                { "Type", "GetAllRooms" },
+                { "Hour of the day", DateTime.Now.Hour.ToString() }
+            });
+
             using HttpClient client = new();
-            try
-            {
-                Analytics.TrackEvent("Cist request", new Dictionary<string, string>
-                {
-                    { "Type", "GetAllRooms" },
-                    { "Hour of the day", DateTime.Now.Hour.ToString() }
-                });
+            string responseStr = await client.GetStringOrWebExceptionAsync(Urls.CistApiAllRooms);
+            responseStr = responseStr.Replace("\n", "").Replace("[}]", "[]");
+            Cist::University newUniversity = CistHelper.FromJson<Cist::UniversityRootObject>(responseStr).University;
 
-                Uri uri = Urls.CistApiAllRooms;
-                string responseStr = await client.GetStringOrWebExceptionAsync(uri);
-                responseStr = responseStr.Replace("\n", "").Replace("[}]", "[]");
-                Cist::University newUniversity = CistHelper.FromJson<Cist::UniversityRootObject>(responseStr).University;
-
-                return newUniversity.Buildings;
-            }
-            catch (Exception ex)
-            {
-                MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
-                throw;
-            }
+            return newUniversity.Buildings;
         }
         #endregion
 
         #region From Cist Html
         private static async Task<List<Cist::Faculty>> GetAllGroupsFromCistHtml()
         {
-            using HttpClient client = new();
-            try
+            Analytics.TrackEvent("Cist request", new Dictionary<string, string>
             {
-                Analytics.TrackEvent("Cist request", new Dictionary<string, string>
+                { "Type", "GetAllGroupsHtml" },
+                { "Hour of the day", DateTime.Now.Hour.ToString() }
+            });
+
+            List<Cist::Faculty> faculties = new();
+            using HttpClient client = new();
+
+            // Getting branches
+            Uri uri = Urls.CistSiteAllGroups(null);
+            string branchesListPage = await client.GetStringOrWebExceptionAsync(uri);
+            foreach (string part in branchesListPage.Split(new[] { "IAS_Change_Groups(" }, StringSplitOptions.RemoveEmptyEntries).Skip(1))
+            {
+                string branchIdStr = part.Remove(part.IndexOf(')'));
+                if (!int.TryParse(branchIdStr, out int facultyId))
                 {
-                    { "Type", "GetAllGroupsHtml" },
-                    { "Hour of the day", DateTime.Now.Hour.ToString() }
+                    continue;
+                }
+
+                faculties.Add(new()
+                {
+                    Id = facultyId,
+                    ShortName = part[(part.IndexOf('>') + 1)..part.IndexOf('<')]
                 });
+            }
 
-                List<Cist::Faculty> faculties = new();
+            //Getting groups
+            foreach (Cist::Faculty faculty in faculties)
+            {
+                faculty.Directions = new List<Cist::Direction> { new Cist::Direction() };
 
-                // Getting branches
-                Uri uri = Urls.CistSiteAllGroups(null);
-                string branchesListPage = await client.GetStringOrWebExceptionAsync(uri);
-                foreach (string part in branchesListPage.Split(new[] { "IAS_Change_Groups(" }, StringSplitOptions.RemoveEmptyEntries).Skip(1))
+                uri = Urls.CistSiteAllGroups(faculty.Id);
+                string branchGroupsPage = await client.GetStringOrWebExceptionAsync(uri);
+                foreach (string part in branchGroupsPage.Split(new[] { "IAS_ADD_Group_in_List(" }, StringSplitOptions.RemoveEmptyEntries).Skip(1))
                 {
-                    string branchIdStr = part.Remove(part.IndexOf(')'));
-                    if (!int.TryParse(branchIdStr, out int facultyId))
+                    string[] groupInfo = part
+                        .Remove(part.IndexOf(")\">"))
+                        .Split(new[] { ',', '\'' }, StringSplitOptions.RemoveEmptyEntries);
+
+                    if (groupInfo.Length != 2 || !int.TryParse(groupInfo[1], out int groupID))
                     {
                         continue;
                     }
 
-                    faculties.Add(new()
+                    string groupName = groupInfo[0];
+                    faculty.Directions[0].Groups.Add(new()
                     {
-                        Id = facultyId,
-                        ShortName = part[(part.IndexOf('>') + 1)..part.IndexOf('<')]
+                        Id = groupID,
+                        Name = groupName
                     });
                 }
-
-                //Getting groups
-                foreach (Cist::Faculty faculty in faculties)
-                {
-                    faculty.Directions = new List<Cist::Direction> { new Cist::Direction() };
-
-                    uri = Urls.CistSiteAllGroups(faculty.Id);
-                    string branchGroupsPage = await client.GetStringOrWebExceptionAsync(uri);
-                    foreach (string part in branchGroupsPage.Split(new[] { "IAS_ADD_Group_in_List(" }, StringSplitOptions.RemoveEmptyEntries).Skip(1))
-                    {
-                        string[] groupInfo = part
-                            .Remove(part.IndexOf(")\">"))
-                            .Split(new[] { ',', '\'' }, StringSplitOptions.RemoveEmptyEntries);
-
-                        if (groupInfo.Length != 2 || !int.TryParse(groupInfo[1], out int groupID))
-                        {
-                            continue;
-                        }
-
-                        string groupName = groupInfo[0];
-                        faculty.Directions[0].Groups.Add(new()
-                        {
-                            Id = groupID,
-                            Name = groupName
-                        });
-                    }
-                }
-
-                return faculties;
             }
-            catch (Exception ex)
-            {
-                MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
-                throw;
-            }
+
+            return faculties;
         }
 
         private static async Task<List<Cist::Faculty>> GetAllTeachersFromCistHtml()
         {
-            using HttpClient client = new();
-            try
+            Analytics.TrackEvent("Cist request", new Dictionary<string, string>
             {
-                Analytics.TrackEvent("Cist request", new Dictionary<string, string>
+                { "Type", "GetAllTeachersHtml" },
+                { "Hour of the day", DateTime.Now.Hour.ToString() }
+            });
+
+            List<Cist::Faculty> faculties = new();
+
+            // Getting faculties
+            using HttpClient client = new();
+            Uri uri = Urls.CistSiteAllTeachers();
+            string facultyListPage = await client.GetStringOrWebExceptionAsync(uri);
+            foreach (string part in facultyListPage.Split(new[] { "IAS_Change_Kaf(" }, StringSplitOptions.RemoveEmptyEntries).Skip(1))
+            {
+                string facultyIdStr = part.Remove(part.IndexOf(','));
+                if (!int.TryParse(facultyIdStr, out int facId))
                 {
-                    { "Type", "GetAllTeachersHtml" },
-                    { "Hour of the day", DateTime.Now.Hour.ToString() }
-                });
-
-                List<Cist::Faculty> faculties = new();
-
-                // Getting faculties
-                Uri uri = Urls.CistSiteAllTeachers();
-                string facultyListPage = await client.GetStringOrWebExceptionAsync(uri);
-                foreach (string part in facultyListPage.Split(new[] { "IAS_Change_Kaf(" }, StringSplitOptions.RemoveEmptyEntries).Skip(1))
-                {
-                    string facultyIdStr = part.Remove(part.IndexOf(','));
-                    if (!int.TryParse(facultyIdStr, out int facId))
-                    {
-                        continue;
-                    }
-
-                    faculties.Add(new()
-                    {
-                        Id = facId,
-                        ShortName = part[(part.IndexOf('>') + 1)..part.IndexOf('<')],
-                        Departments = await GetDepartmentsForFaculty(facId)
-                    });
+                    continue;
                 }
 
-                return faculties;
+                faculties.Add(new()
+                {
+                    Id = facId,
+                    ShortName = part[(part.IndexOf('>') + 1)..part.IndexOf('<')],
+                    Departments = await GetDepartmentsForFaculty(facId)
+                });
             }
-            catch (Exception ex)
-            {
-                MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
-                throw;
-            }
+
+            return faculties;
         }
 
         private static async Task<List<Cist::Department>> GetDepartmentsForFaculty(long facultyId)
@@ -418,8 +375,8 @@ namespace NureTimetable.DAL
             List<Cist::Department> departments = new();
 
             // Getting departments
-            Uri uri = Urls.CistSiteAllTeachers(facultyId);
             using HttpClient client = new();
+            Uri uri = Urls.CistSiteAllTeachers(facultyId);
             string facultyPage = await client.GetStringOrWebExceptionAsync(uri);
 
             foreach (string part in facultyPage.Split(new[] { $"IAS_Change_Kaf({facultyId}," }, StringSplitOptions.RemoveEmptyEntries).Skip(1))
