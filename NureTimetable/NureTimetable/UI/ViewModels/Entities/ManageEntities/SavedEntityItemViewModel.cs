@@ -1,4 +1,5 @@
-﻿using NureTimetable.Core.Localization;
+﻿using NureTimetable.BL;
+using NureTimetable.Core.Localization;
 using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
 using NureTimetable.UI.Helpers;
@@ -7,7 +8,6 @@ using NureTimetable.UI.Views.Lessons;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 
@@ -34,13 +34,8 @@ namespace NureTimetable.UI.ViewModels.Entities.ManageEntities
             SavedEntity = savedEntity;
             this.manageEntitiesViewModel = manageEntitiesViewModel;
 
-            UpdateClickedCommand = CommandHelper.Create(UpdateClicked);
+            UpdateClickedCommand = CommandHelper.Create(() => TimetableService.UpdateAndDisplayResult(SavedEntity));
             SettingsClickedCommand = CommandHelper.Create(SettingsClicked);
-        }
-
-        public Task UpdateClicked()
-        {
-            return manageEntitiesViewModel.UpdateTimetable(SavedEntity);
         }
 
         public async Task SettingsClicked()
@@ -64,7 +59,7 @@ namespace NureTimetable.UI.ViewModels.Entities.ManageEntities
             }
             else if (action == LN.UpdateTimetable)
             {
-                await manageEntitiesViewModel.UpdateTimetable(SavedEntity);
+                await TimetableService.UpdateAndDisplayResult(SavedEntity);
             }
             else if (action == LN.SetUpLessonDisplay)
             {

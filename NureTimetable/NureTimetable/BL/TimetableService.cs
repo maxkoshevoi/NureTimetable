@@ -9,22 +9,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace NureTimetable.BL
 {
     public static class TimetableService
     {
-        public static async Task<string> Update(List<Entity> entities)
+        public static async Task UpdateAndDisplayResult(params Entity[] entities)
         {
-            if (entities is null || !entities.Any())
+            var updateResult = await Update(entities);
+            string response = GetResponseMessageFromUpdateResult(updateResult);
+            
+            if (response is not null)
             {
-                return null;
+                await Shell.Current.DisplayAlert(LN.TimetableUpdate, response, LN.Ok);
             }
+        }
 
-            List<Entity> entitiesAllowed = SettingsRepository.CheckCistTimetableUpdateRights(entities);
+        public static async Task<List<(Entity entity, Exception exception)>> Update(params Entity[] entities)
+        {
+            IReadOnlyList<Entity> entitiesAllowed = SettingsRepository.CheckCistTimetableUpdateRights(entities);
             if (entitiesAllowed.Count == 0)
             {
-                return LN.TimetableLatest;
+                return new();
             }
 
             Analytics.TrackEvent("Updating timetable", new Dictionary<string, string>
@@ -35,23 +42,32 @@ namespace NureTimetable.BL
 
             // Update timetables in background
             const int batchSize = 10;
-            List<Task<(TimetableInfo _, Exception Error)>> updateTasks = new();
+            Dictionary<Entity, Task<(TimetableInfo _, Exception Error)>> updateTasks = new();
             for (int i = 0; i < entitiesAllowed.Count; i += batchSize)
             {
                 foreach (Entity entity in entitiesAllowed.Skip(i).Take(batchSize))
                 {
-                    updateTasks.Add(EventsRepository.GetTimetableFromCist(entity, Config.TimetableFromDate, Config.TimetableToDate));
+                    updateTasks.Add(entity, EventsRepository.GetTimetableFromCist(entity, Config.TimetableFromDate, Config.TimetableToDate));
                 }
-                await Task.WhenAll(updateTasks);
+                await Task.WhenAll(updateTasks.Select(u => u.Value));
+            }
+
+            List<(Entity, Exception)> updateResults = updateTasks.Select(r => (r.Key, r.Value.Result.Error)).ToList();
+            return updateResults;
+        }
+
+        private static string GetResponseMessageFromUpdateResult(List<(Entity entity, Exception exception)> updateResults)
+        {
+            if (updateResults.All(r => r.exception is null))
+            {
+                return null;
             }
 
             List<string> success = new(), fail = new();
             bool isNetworkError = false;
             bool isCistError = false;
-            for (int i = 0; i < updateTasks.Count; i++)
+            foreach (var (entity, ex) in updateResults)
             {
-                Exception ex = updateTasks[i].Result.Error;
-                Entity entity = entitiesAllowed[i];
                 if (ex is null)
                 {
                     success.Add(entity.Name);
@@ -75,13 +91,8 @@ namespace NureTimetable.BL
                 fail.Add($"{entity.Name} ({errorMessage.Trim()})");
             }
 
-            if (success.Count == entitiesAllowed.Count)
-            {
-                return null;
-            }
-
             string result = string.Empty;
-            if (isNetworkError && fail.Count == entitiesAllowed.Count)
+            if (isNetworkError && fail.Count == updateResults.Count)
             {
                 result = LN.CannotGetDataFromCist;
             }
@@ -93,7 +104,7 @@ namespace NureTimetable.BL
             {
                 if (success.Count > 0)
                 {
-                    result += string.Format(LN.TimetableUpdated, string.Join(", ", success) + Environment.NewLine);
+                    result += string.Format(LN.TimetableUpdated, $"{string.Join(", ", success)}\n\n");
                 }
                 if (fail.Count > 0)
                 {

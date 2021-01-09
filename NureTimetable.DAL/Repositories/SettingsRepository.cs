@@ -1,11 +1,8 @@
 ﻿using NureTimetable.Core.Models.Consts;
 using NureTimetable.Core.Models.Settings;
-using NureTimetable.DAL.Helpers;
-using NureTimetable.DAL.Models.Consts;
 using NureTimetable.DAL.Models.Local;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 
 namespace NureTimetable.DAL
@@ -15,13 +12,10 @@ namespace NureTimetable.DAL
         public static AppSettings Settings { get; } = new();
 
         #region Timetable Update Rights
-        public static List<Entity> CheckCistTimetableUpdateRights(List<Entity> entitiesToUpdate)
+        public static IReadOnlyList<Entity> CheckCistTimetableUpdateRights(params Entity[] entitiesToUpdate)
         {
             List<Entity> allowedEntities = new();
-            if (entitiesToUpdate is null || entitiesToUpdate.Count == 0)
-            {
-                return allowedEntities;
-            }
+            entitiesToUpdate ??= Array.Empty<Entity>();
 
             List<SavedEntity> savedEntities = UniversityEntitiesRepository.GetSaved();
             foreach (Entity entity in entitiesToUpdate)

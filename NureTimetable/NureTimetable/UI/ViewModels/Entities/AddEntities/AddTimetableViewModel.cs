@@ -31,7 +31,7 @@ namespace NureTimetable.UI.ViewModels.Entities
                 Task.Run(UpdateFromCist);
             }
 
-            UpdateCommand = CommandHelper.Create(UpdateEntities, _ => UpdateCommandEnabled);
+            UpdateCommand = CommandHelper.Create(UpdateEntities, () => UpdateCommandEnabled);
         }
 
         private async Task UpdateEntities()

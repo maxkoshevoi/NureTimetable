@@ -29,7 +29,7 @@ namespace NureTimetable.DAL
                     throw new ArgumentNullException($"{nameof(dateStart)} and {nameof(dateEnd)} must be set");
                 }
 
-                timetable = (await GetTimetableFromCist(entity, dateStart.Value, dateEnd.Value)).Timetable;
+                (timetable, _) = await GetTimetableFromCist(entity, dateStart.Value, dateEnd.Value);
                 if (timetable != null)
                 {
                     return timetable;
@@ -81,7 +81,7 @@ namespace NureTimetable.DAL
         #region Cist
         public static async Task<(Local::TimetableInfo Timetable, Exception Exception)> GetTimetableFromCist(Local::Entity entity, DateTime dateStart, DateTime dateEnd)
         {
-            if (!SettingsRepository.CheckCistTimetableUpdateRights(new() { entity }).Any())
+            if (!SettingsRepository.CheckCistTimetableUpdateRights(entity).Any())
             {
                 return (null, null);
             }

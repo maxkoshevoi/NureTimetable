@@ -38,11 +38,12 @@ namespace NureTimetable.UI.ViewModels.Entities.ManageEntities
 
         public ManageEntitiesViewModel()
         {
-            UpdateAllCommand = CommandHelper.Create(UpdateAll, _ => Entities.Any() && Entities.All(e => !e.IsUpdating));
-            AddEntityCommand = CommandHelper.Create(AddEntity);
+            UpdateAllCommand = CommandHelper.Create(UpdateAll, () => Entities.Any() && Entities.All(e => !e.IsUpdating));
+            AddEntityCommand = CommandHelper.Create(() => Navigation.PushAsync(new AddTimetablePage()));
             EntitySelectedCommand = CommandHelper.Create<SelectedItemChangedEventArgs>(async (args) =>
             {
-                if (args.SelectedItem is not SavedEntityItemViewModel entity) return;
+                if (args.SelectedItem is not SavedEntityItemViewModel entity) 
+                    return;
 
                 SavedEntity savedEntity = entity.SavedEntity;
                 if (IsMultiselectMode)
@@ -56,11 +57,8 @@ namespace NureTimetable.UI.ViewModels.Entities.ManageEntities
                 }
             });
 
-            UpdateItems();
-            MessagingCenter.Subscribe<Application, List<SavedEntity>>(this, MessageTypes.SavedEntitiesChanged, (sender, newSavedEntities) =>
-            {
-                UpdateItems(newSavedEntities);
-            });
+            UpdateItems(UniversityEntitiesRepository.GetSaved());
+            MessagingCenter.Subscribe<Application, List<SavedEntity>>(this, MessageTypes.SavedEntitiesChanged, (_, newSavedEntities) => UpdateItems(newSavedEntities));
             MessagingCenter.Subscribe<Application, Entity>(this, MessageTypes.TimetableUpdating, (sender, entity) =>
             {
                 SavedEntityItemViewModel savedEntity = Entities.SingleOrDefault(e => e.SavedEntity == entity);
@@ -128,17 +126,9 @@ namespace NureTimetable.UI.ViewModels.Entities.ManageEntities
         {
             if (await Shell.Current.DisplayAlert(LN.TimetableUpdate, LN.UpdateAllTimetables, LN.Yes, LN.Cancel))
             {
-                await UpdateTimetable(Entities?.Select(vm => (Entity)vm.SavedEntity).ToList());
+                await TimetableService.UpdateAndDisplayResult(Entities?.Select(vm => (Entity)vm.SavedEntity).ToArray());
             }
         }
-
-        private async Task AddEntity()
-        {
-            await Navigation.PushAsync(new AddTimetablePage());
-        }
-
-        private void UpdateItems() => 
-            UpdateItems(UniversityEntitiesRepository.GetSaved());
 
         private void UpdateItems(List<SavedEntity> newItems)
         {
@@ -166,18 +156,6 @@ namespace NureTimetable.UI.ViewModels.Entities.ManageEntities
 
             IsMultiselectMode = newItems.Count(i => i.IsSelected) > 1;
             UpdateAllCommand.RaiseCanExecuteChanged();
-        }
-
-        public Task UpdateTimetable(Entity entity) =>
-            UpdateTimetable(new List<Entity>() { entity });
-
-        private async Task UpdateTimetable(List<Entity> entities)
-        {
-            string responce = await TimetableService.Update(entities);
-            if (responce is null)
-                return;
-
-            await Shell.Current.DisplayAlert(LN.TimetableUpdate, responce, LN.Ok);
         }
         #endregion
     }

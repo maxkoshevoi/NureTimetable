@@ -40,7 +40,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
 
         #region Properties
         private TimetableInfoList _timetableInfoList = TimetableInfoList.Empty;
-        private TimetableInfoList TimetableInfoList { get => _timetableInfoList; set { _timetableInfoList = value; UpdateTimetableCommand.ChangeCanExecute(); } }
+        private TimetableInfoList TimetableInfoList { get => _timetableInfoList; set { _timetableInfoList = value; UpdateTimetableCommand.RaiseCanExecuteChanged(); } }
 
         // Toolbar
         private bool applyHiddingSettings = true;
@@ -49,7 +49,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
 
         private readonly List<Entity> updatingTimetables = new();
         private bool _isTimetableUpdating = false;
-        public bool IsTimetableUpdating { get => _isTimetableUpdating; set => SetProperty(ref _isTimetableUpdating, value, () => UpdateTimetableCommand.ChangeCanExecute()); }
+        public bool IsTimetableUpdating { get => _isTimetableUpdating; set => SetProperty(ref _isTimetableUpdating, value, () => UpdateTimetableCommand.RaiseCanExecuteChanged()); }
 
         // Timetable
         public int TimetableTimeInterval => 60;
@@ -116,7 +116,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
         public Command<MonthInlineLoadedEventArgs> TimetableMonthInlineLoadedCommand { get; }
         public IAsyncCommand<VisibleDatesChangedEventArgs> TimetableVisibleDatesChangedCommand { get; }
         public IAsyncCommand BTodayClickedCommand { get; }
-        public Command UpdateTimetableCommand { get; }
+        public IAsyncCommand UpdateTimetableCommand { get; }
         #endregion
 
         public TimetableViewModel(ITimetablePageCommands timetablePage)
@@ -172,8 +172,8 @@ namespace NureTimetable.UI.ViewModels.Timetable
             });
 
             PageAppearingCommand = CommandHelper.Create(PageAppearing);
-            HideSelectedEventsCommand = CommandHelper.Create(HideSelectedEventsClicked, _ => !IsNoSourceLayoutVisible);
-            ScheduleModeCommand = CommandHelper.Create(ScheduleModeClicked, _ => !IsNoSourceLayoutVisible);
+            HideSelectedEventsCommand = CommandHelper.Create(HideSelectedEventsClicked, () => !IsNoSourceLayoutVisible);
+            ScheduleModeCommand = CommandHelper.Create(ScheduleModeClicked, () => !IsNoSourceLayoutVisible);
             BTodayClickedCommand = CommandHelper.Create(BTodayClicked);
             PageDisappearingCommand = CommandHelper.Create(() => isPageVisible = false);
             TimetableCellTappedCommand = CommandHelper.Create<CellTappedEventArgs>(e => DisplayEventDetails((Event)e.Appointment));
@@ -194,14 +194,10 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 visibleDates = e.visibleDates;
                 await UpdateTodayButton(false);
             });
-            UpdateTimetableCommand = CommandHelper.Create(async () => 
-            {
-                string responce = await TimetableService.Update(TimetableInfoList.Entities.ToList());
-                if (responce is null)
-                    return;
-
-                await Shell.Current.DisplayAlert(LN.TimetableUpdate, responce, LN.Ok);
-            }, () => TimetableInfoList.Timetables.Any() && !IsTimetableUpdating);
+            UpdateTimetableCommand = CommandHelper.Create(
+                () => TimetableService.UpdateAndDisplayResult(TimetableInfoList.Entities.ToArray()), 
+                () => TimetableInfoList.Timetables.Any() && !IsTimetableUpdating
+            );
         }
 
         private async Task UpdateTodayButton(bool isForceUpdate)
@@ -430,9 +426,6 @@ namespace NureTimetable.UI.ViewModels.Timetable
 
         private async Task ScheduleModeClicked()
         {
-            if (IsNoSourceLayoutVisible)
-                return;
-
             string displayMode = await Shell.Current.DisplayActionSheet(LN.ChooseDisplayMode, LN.Cancel, null, LN.Day, LN.Week, LN.Month);
 
             DateTime? selected = TimetableSelectedDate;
@@ -477,9 +470,6 @@ namespace NureTimetable.UI.ViewModels.Timetable
 
         private async Task HideSelectedEventsClicked()
         {
-            if (IsNoSourceLayoutVisible)
-                return;
-
             applyHiddingSettings = !applyHiddingSettings;
 
             string message, icon;
@@ -494,9 +484,12 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 message = LN.AllEventsShown;
             }
             HideSelectedEventsIcon = icon;
-            _ = Shell.Current.CurrentPage.DisplayToastAsync(message, 1500);
-
-            await UpdateEventsWithUI();
+            
+            // Displaying toast and updating events at the same time
+            await Task.WhenAll(
+                UpdateEventsWithUI(),
+                Shell.Current.CurrentPage.DisplayToastAsync(message, 1500)
+            );
         }
 
         private async Task BTodayClicked()
