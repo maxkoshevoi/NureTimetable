@@ -58,6 +58,10 @@ namespace NureTimetable.BL
 
         private static string GetResponseMessageFromUpdateResult(List<(Entity entity, Exception exception)> updateResults)
         {
+            if (updateResults.Count == 0)
+            {
+                return LN.TimetableLatest;
+            }
             if (updateResults.All(r => r.exception is null))
             {
                 return null;
