@@ -38,12 +38,12 @@
                                 </Grid.ColumnDefinitions>
                                 <Label Grid.Column="0" Text="{Binding LessonInfo.Lesson.ShortName}" VerticalTextAlignment="Center" />
                                 <StackLayout Grid.Column="1" Orientation="Horizontal" Spacing="8">
-                                    <Image Source="{FontImageSource Glyph={Static fonts:MaterialIconsFont.InformationOutline}, FontFamily={StaticResource MaterialFontFamily}, Color={DynamicResource ListIconColor}}" VerticalOptions="CenterAndExpand" xct:TouchEffect.NativeAnimation="True" xct:TouchEffect.NativeAnimationRadius="15">
+                                    <Image Source="{FontImageSource Glyph={Static fonts:MaterialIconsFont.InformationOutline}, FontFamily={StaticResource MaterialFontFamily}, Color={DynamicResource ListIconColor}}" VerticalOptions="CenterAndExpand">
                                         <Image.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding InfoClickedCommand}" />
                                         </Image.GestureRecognizers>
                                     </Image>
-                                    <Image Source="{FontImageSource Glyph={Static fonts:MaterialIconsFont.Cog}, FontFamily={StaticResource MaterialFontFamily}, Color={DynamicResource ListIconColor}}" VerticalOptions="CenterAndExpand" xct:TouchEffect.NativeAnimation="True" xct:TouchEffect.NativeAnimationRadius="15">
+                                    <Image Source="{FontImageSource Glyph={Static fonts:MaterialIconsFont.Cog}, FontFamily={StaticResource MaterialFontFamily}, Color={DynamicResource ListIconColor}}" VerticalOptions="CenterAndExpand">
                                         <Image.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding SettingsClickedCommand}" />
                                         </Image.GestureRecognizers>
