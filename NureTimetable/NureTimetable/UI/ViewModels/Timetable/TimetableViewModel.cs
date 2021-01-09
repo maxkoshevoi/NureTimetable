@@ -29,8 +29,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
 
         private bool isFirstLoad = true;
         private bool isPageVisible = false;
-        
-        private TimetableInfoList timetableInfoList = TimetableInfoList.Empty;
+
         private List<DateTime> visibleDates = new();
         private bool needToUpdateEventsUI = false;
 
@@ -40,6 +39,9 @@ namespace NureTimetable.UI.ViewModels.Timetable
         #endregion
 
         #region Properties
+        private TimetableInfoList _timetableInfoList = TimetableInfoList.Empty;
+        private TimetableInfoList TimetableInfoList { get => _timetableInfoList; set { _timetableInfoList = value; UpdateTimetableCommand.ChangeCanExecute(); } }
+
         // Toolbar
         private bool applyHiddingSettings = true;
         private string _hideSelectedEventsIcon = MaterialIconsFont.Filter;
@@ -85,12 +87,11 @@ namespace NureTimetable.UI.ViewModels.Timetable
         public string TimeLeftText { get => _timeLeftText; set => SetProperty(ref _timeLeftText, value); }
 
         // Layouts
-        private bool _isNoSourceLayoutVisible = true;
+        private bool _isNoSourceLayoutVisible;
         public bool IsNoSourceLayoutVisible { get => _isNoSourceLayoutVisible; set => SetProperty(ref _isNoSourceLayoutVisible, value, () =>
         {
             HideSelectedEventsCommand.RaiseCanExecuteChanged();
             ScheduleModeCommand.RaiseCanExecuteChanged();
-            UpdateTimetableCommand.ChangeCanExecute();
         }); }
         
         private string _noSourceLayoutText;
@@ -143,12 +144,12 @@ namespace NureTimetable.UI.ViewModels.Timetable
             MessagingCenter.Subscribe<Application, Entity>(this, MessageTypes.TimetableUpdated, EntityChanged);
             void EntityChanged(Application app, Entity entity)
             {
-                if (timetableInfoList.Entities.Contains(entity))
+                if (TimetableInfoList.Entities.Contains(entity))
                     UpdateEvents();
             }
             MessagingCenter.Subscribe<Application, AppTheme>(this, MessageTypes.ThemeChanged, async (sender, newTheme) =>
             {
-                if (timetableInfoList.Events.Count == 0)
+                if (TimetableInfoList.Events.Count == 0)
                     return;
 
                 needToUpdateEventsUI = true;
@@ -195,12 +196,12 @@ namespace NureTimetable.UI.ViewModels.Timetable
             });
             UpdateTimetableCommand = CommandHelper.Create(async () => 
             {
-                string responce = await TimetableService.Update(timetableInfoList.Entities.ToList());
+                string responce = await TimetableService.Update(TimetableInfoList.Entities.ToList());
                 if (responce is null)
                     return;
 
                 await Shell.Current.DisplayAlert(LN.TimetableUpdate, responce, LN.Ok);
-            }, () => timetableInfoList.Timetables.Any() && !IsTimetableUpdating);
+            }, () => TimetableInfoList.Timetables.Any() && !IsTimetableUpdating);
         }
 
         private async Task UpdateTodayButton(bool isForceUpdate)
@@ -262,7 +263,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
 
         private void UpdateTimeLeft()
         {
-            if (timetableInfoList.Events.Count == 0)
+            if (TimetableInfoList.Events.Count == 0)
             {
                 IsTimeLeftVisible = false;
                 return;
@@ -271,7 +272,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
             string text = null;
             lock (enumeratingEvents)
             {
-                Event currentEvent = timetableInfoList.Events.FirstOrDefault(e => e.Start <= DateTime.Now && e.End >= DateTime.Now);
+                Event currentEvent = TimetableInfoList.Events.FirstOrDefault(e => e.Start <= DateTime.Now && e.End >= DateTime.Now);
                 if (currentEvent != null)
                 {
                     text = string.Format(
@@ -282,7 +283,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 }
                 else
                 {
-                    Event nextEvent = timetableInfoList.Events
+                    Event nextEvent = TimetableInfoList.Events
                         .Where(e => e.Start > DateTime.Now)
                         .OrderBy(e => e.Start)
                         .FirstOrDefault();
@@ -349,14 +350,14 @@ namespace NureTimetable.UI.ViewModels.Timetable
         /// Updates events for already displayed entities
         /// </summary>
         private void UpdateEvents() => 
-            UpdateEvents(timetableInfoList.Entities.ToList());
+            UpdateEvents(TimetableInfoList.Entities.ToList());
 
         private void UpdateEvents(List<Entity> selectedEntities)
         {
             if (selectedEntities is null || !selectedEntities.Any())
             {
                 Title = LN.AppName;
-                timetableInfoList = TimetableInfoList.Empty;
+                TimetableInfoList = TimetableInfoList.Empty;
                 NoSourceLayoutText = LN.NoTimetable;
                 IsNoSourceLayoutVisible = true;
                 return;
@@ -372,8 +373,8 @@ namespace NureTimetable.UI.ViewModels.Timetable
             }
             lock (enumeratingEvents)
             {
-                timetableInfoList = TimetableInfoList.Build(timetableInfos, applyHiddingSettings);
-                if (timetableInfoList.Events.Any())
+                TimetableInfoList = TimetableInfoList.Build(timetableInfos, applyHiddingSettings);
+                if (TimetableInfoList.Events.Any())
                 {
                     needToUpdateEventsUI = true;
                     IsNoSourceLayoutVisible = false;
@@ -403,7 +404,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 }
                 needToUpdateEventsUI = false;
 
-                if (timetableInfoList.Events.Count == 0)
+                if (TimetableInfoList.Events.Count == 0)
                 {
                     TimetableDataSource = null;
                     return;
@@ -411,15 +412,15 @@ namespace NureTimetable.UI.ViewModels.Timetable
 
                 lock (enumeratingEvents)
                 {
-                    TimetableMinDisplayDate = timetableInfoList.StartDate();
-                    TimetableMaxDisplayDate = timetableInfoList.EndDate();
+                    TimetableMinDisplayDate = TimetableInfoList.StartDate();
+                    TimetableMaxDisplayDate = TimetableInfoList.EndDate();
 
                     TimetableEndHour = 24;
-                    TimetableStartHour = timetableInfoList.StartTime().Hours;
-                    TimetableEndHour = ((TimetableStartHour * 60d) + TimetableTimeInterval * Math.Ceiling((timetableInfoList.EndTime().TotalMinutes - (TimetableStartHour * 60d)) / TimetableTimeInterval)) / 60d;
+                    TimetableStartHour = TimetableInfoList.StartTime().Hours;
+                    TimetableEndHour = ((TimetableStartHour * 60d) + TimetableTimeInterval * Math.Ceiling((TimetableInfoList.EndTime().TotalMinutes - (TimetableStartHour * 60d)) / TimetableTimeInterval)) / 60d;
                 }
 
-                TimetableDataSource = timetableInfoList.Events
+                TimetableDataSource = TimetableInfoList.Events
                     .Select(ev => new EventViewModel(ev) { ShowTime = TimetableScheduleView != ScheduleView.MonthView })
                     .ToList();
 
@@ -470,7 +471,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
 
             await PopupNavigation.Instance.PushAsync(new EventPopupPage
             {
-                BindingContext = new EventPopupViewModel(ev, timetableInfoList)
+                BindingContext = new EventPopupViewModel(ev, TimetableInfoList)
             });
         }
 

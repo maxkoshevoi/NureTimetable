@@ -1,9 +1,7 @@
 ﻿using Android.App;
-using Android.Content;
 using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
-using Plugin.InAppBilling;
 using Xamarin.Forms.Platform.Android;
 
 namespace NureTimetable.Droid
