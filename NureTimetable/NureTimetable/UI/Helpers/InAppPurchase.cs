@@ -40,6 +40,7 @@ namespace NureTimetable.UI.Helpers
                 billingEx.Data.Add(nameof(billingEx.PurchaseError), billingEx.PurchaseError);
                 MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, billingEx);
             }
+            catch (TaskCanceledException) { }
             catch (Exception ex)
             {
                 MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
