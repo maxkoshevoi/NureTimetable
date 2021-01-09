@@ -30,7 +30,7 @@ namespace NureTimetable.DAL.Helpers
 
         public static T FromJsonFile<T>(string filePath)
         {
-            if (File.Exists(filePath))
+            if (!File.Exists(filePath))
                 return default;
 
             try
@@ -59,12 +59,6 @@ namespace NureTimetable.DAL.Helpers
         {
             try
             {
-                if (typeof(T).IsPrimitive || typeof(T) == typeof(string) || typeof(T) == typeof(DateTime))
-                {
-                    json = json?.Trim('\"');
-                    return (T)Convert.ChangeType(json, typeof(T));
-                }
-
                 if (!IsJson(json))
                 {
                     throw new ArgumentException($"Argument is not a valid json string");

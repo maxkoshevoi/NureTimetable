@@ -1,4 +1,7 @@
-﻿using Xamarin.Essentials;
+﻿using NureTimetable.Core.Extensions;
+using System;
+using System.Globalization;
+using Xamarin.Essentials;
 
 namespace NureTimetable.Core.Models.Settings
 {
@@ -20,6 +23,12 @@ namespace NureTimetable.Core.Models.Settings
         {
             get => (AppLanguage)Preferences.Get(nameof(Language), (int)AppLanguage.FollowSystem);
             set => Preferences.Set(nameof(Language), (int)value);
+        }
+
+        public DateTime? LastCistAllEntitiesUpdate
+        {
+            get => Preferences.Get(nameof(LastCistAllEntitiesUpdate), null).Get<DateTime?>();
+            set => Preferences.Set(nameof(LastCistAllEntitiesUpdate), value?.ToString(CultureInfo.InvariantCulture));
         }
     }
 }

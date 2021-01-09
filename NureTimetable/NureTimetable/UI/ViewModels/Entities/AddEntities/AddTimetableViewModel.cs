@@ -24,7 +24,7 @@ namespace NureTimetable.UI.ViewModels.Entities
 
         public AddTimetableViewModel()
         {
-            TimeSpan? timePass = DateTime.Now - SettingsRepository.GetLastCistAllEntitiesUpdateTime();
+            TimeSpan? timePass = DateTime.Now - SettingsRepository.Settings.LastCistAllEntitiesUpdate;
             bool isNeedReloadFromCist = !UniversityEntitiesRepository.IsInitialized && timePass > TimeSpan.FromDays(25);
             if (isNeedReloadFromCist)
             {

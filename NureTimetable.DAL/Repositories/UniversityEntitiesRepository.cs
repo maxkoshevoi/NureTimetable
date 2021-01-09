@@ -198,7 +198,7 @@ namespace NureTimetable.DAL
                 Serialisation.ToJsonFile(university, FilePath.UniversityEntities);
                 if (result.IsAllSuccessful)
                 {
-                    SettingsRepository.UpdateCistAllEntitiesUpdateTime();
+                    SettingsRepository.Settings.LastCistAllEntitiesUpdate = DateTime.Now;
                 }
 
                 Instance = university;
