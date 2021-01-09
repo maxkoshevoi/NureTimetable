@@ -10,18 +10,8 @@ namespace NureTimetable.DAL.Models.Local
         public EventType Type { get; set; }
         public DateTime StartUtc { get; set; }
         public DateTime EndUtc { get; set; }
-        public DateTime Start
-        {
-            get => StartUtc.Add(TimeZoneInfo.Local.GetUtcOffset(StartUtc));
-            set => StartUtc = value.Add(-TimeZoneInfo.Local.GetUtcOffset(value)); // TODO: Remove setter when all users move to Utc version (1821+)
-        }
-        public DateTime End 
-        {
-            get => EndUtc.Add(TimeZoneInfo.Local.GetUtcOffset(EndUtc));
-            set => EndUtc = value.Add(-TimeZoneInfo.Local.GetUtcOffset(value)); // TODO: Remove setter when all users move to Utc version (1821+)
-        }
-        public bool ShouldSerializeStart() => false;
-        public bool ShouldSerializeEnd() => false;
+        public DateTime Start => StartUtc.Add(TimeZoneInfo.Local.GetUtcOffset(StartUtc));
+        public DateTime End => EndUtc.Add(TimeZoneInfo.Local.GetUtcOffset(EndUtc));
         public string RoomName { get; set; }
         public Lesson Lesson { get; set; }
         public int PairNumber { get; set; }
