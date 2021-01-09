@@ -85,8 +85,13 @@ namespace NureTimetable.UI.ViewModels.Timetable
         public string TimeLeftText { get => _timeLeftText; set => SetProperty(ref _timeLeftText, value); }
 
         // Layouts
-        private bool _isNoSourceLayoutVisible;
-        public bool IsNoSourceLayoutVisible { get => _isNoSourceLayoutVisible; set => SetProperty(ref _isNoSourceLayoutVisible, value); }
+        private bool _isNoSourceLayoutVisible = true;
+        public bool IsNoSourceLayoutVisible { get => _isNoSourceLayoutVisible; set => SetProperty(ref _isNoSourceLayoutVisible, value, () =>
+        {
+            HideSelectedEventsCommand.RaiseCanExecuteChanged();
+            ScheduleModeCommand.RaiseCanExecuteChanged();
+            UpdateTimetableCommand.ChangeCanExecute();
+        }); }
         
         private string _noSourceLayoutText;
         public string NoSourceLayoutText { get => _noSourceLayoutText; set => SetProperty(ref _noSourceLayoutText, value); }
@@ -166,8 +171,8 @@ namespace NureTimetable.UI.ViewModels.Timetable
             });
 
             PageAppearingCommand = CommandHelper.Create(PageAppearing);
-            HideSelectedEventsCommand = CommandHelper.Create(HideSelectedEventsClicked);
-            ScheduleModeCommand = CommandHelper.Create(ScheduleModeClicked);
+            HideSelectedEventsCommand = CommandHelper.Create(HideSelectedEventsClicked, _ => !IsNoSourceLayoutVisible);
+            ScheduleModeCommand = CommandHelper.Create(ScheduleModeClicked, _ => !IsNoSourceLayoutVisible);
             BTodayClickedCommand = CommandHelper.Create(BTodayClicked);
             PageDisappearingCommand = CommandHelper.Create(() => isPageVisible = false);
             TimetableCellTappedCommand = CommandHelper.Create<CellTappedEventArgs>(e => DisplayEventDetails((Event)e.Appointment));
@@ -195,7 +200,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
                     return;
 
                 await Shell.Current.DisplayAlert(LN.TimetableUpdate, responce, LN.Ok);
-            }, () => !_isTimetableUpdating);
+            }, () => timetableInfoList.Timetables.Any() && !IsTimetableUpdating);
         }
 
         private async Task UpdateTodayButton(bool isForceUpdate)
@@ -351,9 +356,9 @@ namespace NureTimetable.UI.ViewModels.Timetable
             if (selectedEntities is null || !selectedEntities.Any())
             {
                 Title = LN.AppName;
+                timetableInfoList = TimetableInfoList.Empty;
                 NoSourceLayoutText = LN.NoTimetable;
                 IsNoSourceLayoutVisible = true;
-                timetableInfoList = TimetableInfoList.Empty;
                 return;
             }
 
