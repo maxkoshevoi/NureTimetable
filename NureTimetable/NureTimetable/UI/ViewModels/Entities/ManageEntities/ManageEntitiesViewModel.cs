@@ -77,7 +77,7 @@ namespace NureTimetable.UI.ViewModels.Entities.ManageEntities
         public void SelectOne(SavedEntity savedEntity)
         {
             List<SavedEntity> savedEntities = UniversityEntitiesRepository.GetSaved();
-            foreach (SavedEntity e in savedEntities)
+            foreach (var e in savedEntities)
             {
                 e.IsSelected = e == savedEntity;
             }

@@ -131,7 +131,7 @@ namespace NureTimetable.BL
             }
 
             IList<CalendarEvent> events = await CrossCalendars.Current.GetEventsAsync(calendar, calendarEvent.Start, calendarEvent.End);
-            foreach (CalendarEvent existingEvent in events)
+            foreach (var existingEvent in events)
             {
                 if (GetUniqueNamePart(existingEvent.Name) != GetUniqueNamePart(calendarEvent.Name))
                 {

@@ -18,7 +18,7 @@ namespace NureTimetable.DAL
             entitiesToUpdate ??= Array.Empty<Entity>();
 
             List<SavedEntity> savedEntities = UniversityEntitiesRepository.GetSaved();
-            foreach (Entity entity in entitiesToUpdate)
+            foreach (var entity in entitiesToUpdate)
             {
                 SavedEntity savedEntity = savedEntities.SingleOrDefault(e => e == entity);
                 if (savedEntity is null)

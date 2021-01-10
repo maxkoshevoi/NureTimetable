@@ -23,13 +23,26 @@ namespace NureTimetable.Core.Extensions
         public static IEnumerable<TSource> DistinctBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
         {
             HashSet<TKey> seenKeys = new();
-            foreach (TSource element in source)
+            foreach (var element in source)
             {
                 if (seenKeys.Add(keySelector(element)))
                 {
                     yield return element;
                 }
             }
+        }
+
+        /// <summary>
+        /// Generates a hash code based on elements of the sequence
+        /// </summary>
+        public static int GetTrueHashCode<T>(this IEnumerable<T> source)
+        {
+            int hash = 0;
+            foreach (var item in source)
+            {
+                hash ^= item.GetHashCode();
+            }
+            return hash;
         }
     }
 }

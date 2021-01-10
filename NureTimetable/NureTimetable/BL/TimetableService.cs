@@ -42,17 +42,17 @@ namespace NureTimetable.BL
 
             // Update timetables in background
             const int batchSize = 10;
-            Dictionary<Entity, Task<(TimetableInfo _, Exception Error)>> updateTasks = new();
+            Dictionary<Entity, Task<(TimetableInfo _, Exception error)>> updateTasks = new();
             for (int i = 0; i < entitiesAllowed.Count; i += batchSize)
             {
-                foreach (Entity entity in entitiesAllowed.Skip(i).Take(batchSize))
+                foreach (var entity in entitiesAllowed.Skip(i).Take(batchSize))
                 {
                     updateTasks.Add(entity, EventsRepository.GetTimetableFromCist(entity, Config.TimetableFromDate, Config.TimetableToDate));
                 }
                 await Task.WhenAll(updateTasks.Select(u => u.Value));
             }
 
-            List<(Entity, Exception)> updateResults = updateTasks.Select(r => (r.Key, r.Value.Result.Error)).ToList();
+            List<(Entity, Exception)> updateResults = updateTasks.Select(r => (r.Key, r.Value.Result.error)).ToList();
             return updateResults;
         }
 

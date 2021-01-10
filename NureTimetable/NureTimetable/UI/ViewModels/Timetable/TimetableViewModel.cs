@@ -362,7 +362,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
             Title = string.Join(", ", selectedEntities.Select(se => se.Name));
 
             List<TimetableInfo> timetableInfos = new();
-            foreach (Entity entity in selectedEntities)
+            foreach (var entity in selectedEntities)
             {
                 TimetableInfo timetableInfo = EventsRepository.GetTimetableLocal(entity);
                 timetableInfos.Add(timetableInfo ?? new(entity));

@@ -29,7 +29,7 @@ namespace NureTimetable.Migrations
                 File.Delete(SelectedEntitiesPath);
 
                 List<SavedEntity> savedEntities = UniversityEntitiesRepository.GetSaved();
-                foreach (SavedEntity entity in selectedEntities)
+                foreach (var entity in selectedEntities)
                 {
                     SavedEntity savedEntity = savedEntities.FirstOrDefault(e => e == entity);
                     if (savedEntities is not null)

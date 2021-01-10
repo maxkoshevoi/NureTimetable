@@ -37,7 +37,7 @@ namespace NureTimetable.DAL.Legacy
                     }
 
                     // Updating events and adding new timetables
-                    foreach (Group group in groupsAllowed)
+                    foreach (var group in groupsAllowed)
                     {
                         var groupEvents = new List<Event>();
                         if (newEvents.Keys.Contains(group.Name))
@@ -66,11 +66,11 @@ namespace NureTimetable.DAL.Legacy
                         Dictionary<string, List<LessonInfo>> groupsLessons = ParseCistXlsLessonInfo(data, groupsLessonInfoAllowed.ToArray());
                         if (groupsLessons != null)
                         {
-                            foreach (Group group in groupsLessonInfoAllowed)
+                            foreach (var group in groupsLessonInfoAllowed)
                             {
                                 TimetableInfo timetable = timetables.First(tt => tt.Group.ID == group.ID);
                                 // Updating lesson info excluding lesson settings
-                                foreach (LessonInfo newLessonInfo in groupsLessons[group.Name])
+                                foreach (var newLessonInfo in groupsLessons[group.Name])
                                 {
                                     LessonInfo oldLessonInfo = timetable.LessonsInfo.FirstOrDefault(li => li.ShortName == newLessonInfo.ShortName);
                                     if (oldLessonInfo is null)
@@ -89,7 +89,7 @@ namespace NureTimetable.DAL.Legacy
 
                     // Updating LastUpdated for saved groups 
                     //List<SavedGroup> AllSavedGroups = GroupsDataStore.GetSaved();
-                    //foreach (SavedGroup group in AllSavedGroups)
+                    //foreach (var group in AllSavedGroups)
                     //{
                     //    if (groupsAllowed.Exists(g => g.ID == group.ID))
                     //    {
@@ -99,7 +99,7 @@ namespace NureTimetable.DAL.Legacy
                     //GroupsDataStore.UpdateSaved(AllSavedGroups);
 
                     // Saving timetables
-                    //foreach (TimetableInfo newTimetable in timetables)
+                    //foreach (var newTimetable in timetables)
                     //{
                     //    UpdateTimetableLocal(newTimetable);
                     //    MessagingCenter.Send(Application.Current, MessageTypes.TimetableUpdated, newTimetable.Group.ID);

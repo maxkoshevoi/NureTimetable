@@ -168,7 +168,7 @@ namespace NureTimetable.DAL
             }
             if (!groupsTask.IsFaulted)
             {
-                foreach (Cist::Faculty faculty in groupsTask.Result)
+                foreach (var faculty in groupsTask.Result)
                 {
                     Cist::Faculty oldFaculty = university.Faculties.FirstOrDefault(f => f.Id == faculty.Id);
                     if (oldFaculty != null)
@@ -181,7 +181,7 @@ namespace NureTimetable.DAL
             }
             if (!teachersTask.IsFaulted)
             {
-                foreach (Cist::Faculty faculty in teachersTask.Result)
+                foreach (var faculty in teachersTask.Result)
                 {
                     Cist::Faculty oldFaculty = university.Faculties.FirstOrDefault(f => f.Id == faculty.Id);
                     if (oldFaculty != null)
@@ -308,7 +308,7 @@ namespace NureTimetable.DAL
             }
 
             //Getting groups
-            foreach (Cist::Faculty faculty in faculties)
+            foreach (var faculty in faculties)
             {
                 faculty.Directions = new List<Cist::Direction> { new Cist::Direction() };
 

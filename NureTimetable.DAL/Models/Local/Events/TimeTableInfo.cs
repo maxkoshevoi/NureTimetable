@@ -31,7 +31,7 @@ namespace NureTimetable.DAL.Models.Local
         
         public void ApplyLessonSettings()
         {
-            foreach (LessonInfo lInfo in LessonsInfo.Where(ls => ls.Settings.IsSomeSettingsApplied))
+            foreach (var lInfo in LessonsInfo.Where(ls => ls.Settings.IsSomeSettingsApplied))
             {
                 // Hidding settings
                 if (lInfo.Settings.Hiding.ShowLesson == false)

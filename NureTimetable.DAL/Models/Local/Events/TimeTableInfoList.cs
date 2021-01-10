@@ -44,11 +44,11 @@ namespace NureTimetable.DAL.Models.Local
             {
                 Timetables = timetableInfos.AsReadOnly(),
                 Events = timetableInfos.SelectMany(tt => tt.Events)
-                    .GroupBy(e => new { e.Type, e.Lesson, e.Start, e.RoomName })
+                    .GroupBy(e => (e.Type, e.Lesson, e.Start, e.RoomName))
                     .Select(group =>
                     {
                         Event combinedEvent = null;
-                        foreach (Event e in group)
+                        foreach (var e in group)
                         {
                             if (combinedEvent is null)
                             {

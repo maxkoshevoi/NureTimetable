@@ -50,7 +50,7 @@ namespace NureTimetable.DAL
             {
                 return timetables;
             }
-            foreach (Local::Entity entity in entities)
+            foreach (var entity in entities)
             {
                 Local::TimetableInfo timetableInfo = Serialisation.FromJsonFile<Local::TimetableInfo>(FilePath.SavedTimetable(entity.Type, entity.ID));
                 if (timetableInfo is null)
@@ -79,14 +79,13 @@ namespace NureTimetable.DAL
         #endregion
 
         #region Cist
-        public static async Task<(Local::TimetableInfo Timetable, Exception Exception)> GetTimetableFromCist(Local::Entity entity, DateTime dateStart, DateTime dateEnd)
+        public static async Task<(Local::TimetableInfo timetable, Exception exception)> GetTimetableFromCist(Local::Entity entity, DateTime dateStart, DateTime dateEnd)
         {
             if (!SettingsRepository.CheckCistTimetableUpdateRights(entity).Any())
             {
                 return (null, null);
             }
 
-            using HttpClient client = new();
             try
             {
                 MessagingCenter.Send(Application.Current, MessageTypes.TimetableUpdating, entity);
@@ -100,6 +99,7 @@ namespace NureTimetable.DAL
                 // Getting events
                 Local::TimetableInfo timetable = GetTimetableLocal(entity) ?? new(entity);
 
+                using HttpClient client = new();
                 Uri uri = Urls.CistApiEntityTimetable(entity.Type, entity.ID, dateStart, dateEnd);
                 string responseStr = await client.GetStringOrWebExceptionAsync(uri);
                 responseStr = responseStr.Replace("&amp;", "&");
@@ -146,7 +146,7 @@ namespace NureTimetable.DAL
 
                 // Updating LastUpdated for saved groups 
                 List<Local::SavedEntity> savedEntities = UniversityEntitiesRepository.GetSaved();
-                foreach (Local::SavedEntity savedEntity in savedEntities.Where(e => e == entity))
+                foreach (var savedEntity in savedEntities.Where(e => e == entity))
                 {
                     savedEntity.LastUpdated = DateTime.Now;
                 }
