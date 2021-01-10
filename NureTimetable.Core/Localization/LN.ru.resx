@@ -117,35 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AppDescription" xml:space="preserve">
-    <value>Это приложение для отображения расписания групп</value>
-  </data>
   <data name="AppName" xml:space="preserve">
     <value>Расписание ХНУРЭ</value>
   </data>
-  <data name="HelpfulLinks" xml:space="preserve">
-    <value>Полезные ссылки</value>
-  </data>
-  <data name="HelpWanted" xml:space="preserve">
-    <value>Если у кого-нибудь с опытом разработки на Xamarin будет желание помочь, вот ссылка на гитхаб: </value>
-  </data>
-  <data name="Institution" xml:space="preserve">
-    <value>ХНУРЭ</value>
-  </data>
-  <data name="NureHomepage" xml:space="preserve">
-    <value>Сайт</value>
-  </data>
-  <data name="NureWebpages" xml:space="preserve">
-    <value>Официальные страницы ХНУРЭ: </value>
-  </data>
   <data name="ShowErrors" xml:space="preserve">
     <value>Показывать все ошибки</value>
-  </data>
-  <data name="StudentNure" xml:space="preserve">
-    <value>Студент ХНУРЭ: </value>
-  </data>
-  <data name="About" xml:space="preserve">
-    <value>О программе</value>
   </data>
   <data name="NoTimetable" xml:space="preserve">
     <value>Добавьте расписание для просмотра.</value>
@@ -173,9 +149,6 @@
   </data>
   <data name="EventTeachers" xml:space="preserve">
     <value>Преподаватели: {0}</value>
-  </data>
-  <data name="EventTeacherNotFound" xml:space="preserve">
-    <value>Преподаватель: не найден</value>
   </data>
   <data name="EventTime" xml:space="preserve">
     <value>Время: {0} - {1}</value>
@@ -210,15 +183,6 @@
   <data name="ThisApp" xml:space="preserve">
     <value>Это приложение </value>
   </data>
-  <data name="Timetable" xml:space="preserve">
-    <value>Расписание</value>
-  </data>
-  <data name="TimetableDisplay" xml:space="preserve">
-    <value>Отображение расписания</value>
-  </data>
-  <data name="TimetableDisplayError" xml:space="preserve">
-    <value>Произошла ошибка при попытке отобразить расписание</value>
-  </data>
   <data name="TimeUntilBreak" xml:space="preserve">
     <value>До перерыва ({0}): {1}</value>
   </data>
@@ -240,14 +204,8 @@
   <data name="Delete" xml:space="preserve">
     <value>Удалить</value>
   </data>
-  <data name="ErrorTryAgainLater" xml:space="preserve">
-    <value>Произошла ошибка. Пожалуйста, попробуйте позже.</value>
-  </data>
   <data name="Ok" xml:space="preserve">
     <value>Ок</value>
-  </data>
-  <data name="Select" xml:space="preserve">
-    <value>Выбрать</value>
   </data>
   <data name="SetUpLessonDisplay" xml:space="preserve">
     <value>Настройки предметов</value>
@@ -257,12 +215,6 @@
   </data>
   <data name="TimetableUpdate" xml:space="preserve">
     <value>Обновление расписания</value>
-  </data>
-  <data name="ToTimetable" xml:space="preserve">
-    <value>К расписанию</value>
-  </data>
-  <data name="UpdateSavedGroupsTimetable" xml:space="preserve">
-    <value>Обновить расписания всех сохранённых групп?</value>
   </data>
   <data name="UpdateTimetable" xml:space="preserve">
     <value>Обновить расписание</value>
@@ -282,9 +234,6 @@
   <data name="Purchase" xml:space="preserve">
     <value>Покупка</value>
   </data>
-  <data name="PurchaseFailed" xml:space="preserve">
-    <value>Что-то пошло не так, покупка не удалась.</value>
-  </data>
   <data name="ThanksForYourSupport" xml:space="preserve">
     <value>Спасибо за вашу поддержку!</value>
   </data>
@@ -297,20 +246,11 @@
   <data name="AllEventsShown" xml:space="preserve">
     <value>Показаны все события</value>
   </data>
-  <data name="AppGroup" xml:space="preserve">
-    <value>Группа приложения</value>
-  </data>
-  <data name="AppNews" xml:space="preserve">
-    <value>Новости приложения</value>
-  </data>
   <data name="ChooseDisplayMode" xml:space="preserve">
     <value>Выберите вид:</value>
   </data>
   <data name="Day" xml:space="preserve">
     <value>День</value>
-  </data>
-  <data name="DebugModeHeader" xml:space="preserve">
-    <value>И, на всякий случай, оставлю здесь вот это.</value>
   </data>
   <data name="ErrorOccurred" xml:space="preserve">
     <value>Произошла ошибка: {0}</value>
@@ -376,9 +316,6 @@
   <data name="UpdateAllTimetables" xml:space="preserve">
     <value>Обновить все сохранённые расписания?</value>
   </data>
-  <data name="UsefulLinks" xml:space="preserve">
-    <value>Полезные ссылки: </value>
-  </data>
   <data name="Week" xml:space="preserve">
     <value>Неделя</value>
   </data>
@@ -393,12 +330,6 @@
   </data>
   <data name="FinishingUpdateTitle" xml:space="preserve">
     <value>Завершение обновления</value>
-  </data>
-  <data name="AddToSelectedEntities" xml:space="preserve">
-    <value>Добавить к выбранным</value>
-  </data>
-  <data name="RemoveFromSelectedEntities" xml:space="preserve">
-    <value>Удалить из выбранных</value>
   </data>
   <data name="SelectOneEntity" xml:space="preserve">
     <value>Выбрать только это</value>
@@ -424,9 +355,6 @@
   <data name="NextEvent" xml:space="preserve">
     <value>Следующая</value>
   </data>
-  <data name="Timeline" xml:space="preserve">
-    <value>Временная линия</value>
-  </data>
   <data name="AddingEventToCalendarFail" xml:space="preserve">
     <value>Не удалось добавить пару в календарь</value>
   </data>
@@ -435,9 +363,6 @@
   </data>
   <data name="AddingToCalendarTitle" xml:space="preserve">
     <value>Добавление в календарь</value>
-  </data>
-  <data name="AddToCalendar" xml:space="preserve">
-    <value>Добавить в календарь</value>
   </data>
   <data name="ChooseCalendar" xml:space="preserve">
     <value>Выберите календарь:</value>
@@ -499,5 +424,14 @@
   </data>
   <data name="InsufficientRights" xml:space="preserve">
     <value>У приложения нет достаточных прав на выполнение этого действия</value>
+  </data>
+  <data name="RussianLanguage" xml:space="preserve">
+    <value>Русский</value>
+  </data>
+  <data name="EnglishLanguage" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="UkrainianLanguage" xml:space="preserve">
+    <value>Українська</value>
   </data>
 </root>

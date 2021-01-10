@@ -494,7 +494,7 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Something went wrong..
+        ///   Looks up a localized string similar to Something went wrong.
         /// </summary>
         public static string FinishingUpdateFail {
             get {

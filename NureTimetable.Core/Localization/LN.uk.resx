@@ -117,35 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AppDescription" xml:space="preserve">
-    <value>Це застосунок для розкладів груп</value>
-  </data>
   <data name="AppName" xml:space="preserve">
     <value>Розклад ХНУРЕ</value>
   </data>
-  <data name="HelpfulLinks" xml:space="preserve">
-    <value>Корисні посилання</value>
-  </data>
-  <data name="HelpWanted" xml:space="preserve">
-    <value>Якщо в когось є досвід розробки на Xamarin та бажання допомогти, ось посилання на гітхаб: </value>
-  </data>
-  <data name="Institution" xml:space="preserve">
-    <value>ХНУРЕ</value>
-  </data>
-  <data name="NureHomepage" xml:space="preserve">
-    <value>Сайт</value>
-  </data>
-  <data name="NureWebpages" xml:space="preserve">
-    <value>Офіційні сторінки ХНУРЕ: </value>
-  </data>
   <data name="ShowErrors" xml:space="preserve">
     <value>Показувати усі помилки</value>
-  </data>
-  <data name="StudentNure" xml:space="preserve">
-    <value>Студент ХНУРЕ: </value>
-  </data>
-  <data name="About" xml:space="preserve">
-    <value>Про программу</value>
   </data>
   <data name="NoTimetable" xml:space="preserve">
     <value>Додайте розклад для перегляду.</value>
@@ -174,9 +150,6 @@
   <data name="EventTeachers" xml:space="preserve">
     <value>Викладачі: {0}</value>
   </data>
-  <data name="EventTeacherNotFound" xml:space="preserve">
-    <value>Викладач(ка): не знайдений(а)</value>
-  </data>
   <data name="EventTime" xml:space="preserve">
     <value>Час: {0} - {1}</value>
   </data>
@@ -187,7 +160,7 @@
     <value>Налаштування предметів для "{0}" успішно збережені.</value>
   </data>
   <data name="IsFree" xml:space="preserve">
-    <value> безкоштовний </value>
+    <value>безкоштовний </value>
   </data>
   <data name="Lessons" xml:space="preserve">
     <value>Предмети</value>
@@ -208,16 +181,7 @@
     <value>Сказати величезне дякую</value>
   </data>
   <data name="ThisApp" xml:space="preserve">
-    <value>Цей застосунок</value>
-  </data>
-  <data name="Timetable" xml:space="preserve">
-    <value>Розклад</value>
-  </data>
-  <data name="TimetableDisplay" xml:space="preserve">
-    <value>Відображення розкладу</value>
-  </data>
-  <data name="TimetableDisplayError" xml:space="preserve">
-    <value>Виникла помилка при спробі відобразити розклад</value>
+    <value>Цей застосунок </value>
   </data>
   <data name="TimeUntilBreak" xml:space="preserve">
     <value>До перерви ({0}): {1}</value>
@@ -240,14 +204,8 @@
   <data name="Delete" xml:space="preserve">
     <value>Видалити</value>
   </data>
-  <data name="ErrorTryAgainLater" xml:space="preserve">
-    <value>Виникла помилка.Будь ласка,спробуйте пізніше.</value>
-  </data>
   <data name="Ok" xml:space="preserve">
     <value>Ок</value>
-  </data>
-  <data name="Select" xml:space="preserve">
-    <value>Вибрати</value>
   </data>
   <data name="SetUpLessonDisplay" xml:space="preserve">
     <value>Налаштування предметів</value>
@@ -257,12 +215,6 @@
   </data>
   <data name="TimetableUpdate" xml:space="preserve">
     <value>Оновлення розкладу</value>
-  </data>
-  <data name="ToTimetable" xml:space="preserve">
-    <value>До розкладу</value>
-  </data>
-  <data name="UpdateSavedGroupsTimetable" xml:space="preserve">
-    <value>Оновити розклад всіх збережених груп?</value>
   </data>
   <data name="UpdateTimetable" xml:space="preserve">
     <value>Оновити розклад</value>
@@ -282,9 +234,6 @@
   <data name="Purchase" xml:space="preserve">
     <value>Покупка</value>
   </data>
-  <data name="PurchaseFailed" xml:space="preserve">
-    <value>Щось пішло не так,покупка не вдалась.</value>
-  </data>
   <data name="ThanksForYourSupport" xml:space="preserve">
     <value>Дякую за вашу підтримку!</value>
   </data>
@@ -297,20 +246,11 @@
   <data name="AllEventsShown" xml:space="preserve">
     <value>Показані всі події</value>
   </data>
-  <data name="AppGroup" xml:space="preserve">
-    <value>Група застосунку</value>
-  </data>
-  <data name="AppNews" xml:space="preserve">
-    <value>Новини застосунку</value>
-  </data>
   <data name="ChooseDisplayMode" xml:space="preserve">
     <value>Виберіть вид:</value>
   </data>
   <data name="Day" xml:space="preserve">
     <value>День</value>
-  </data>
-  <data name="DebugModeHeader" xml:space="preserve">
-    <value>Та про всяк випадок залишу тут ось це.</value>
   </data>
   <data name="ErrorOccurred" xml:space="preserve">
     <value>Виникла помилка: {0}</value>
@@ -376,9 +316,6 @@
   <data name="UpdateAllTimetables" xml:space="preserve">
     <value>Оновити всі збережені розклади?</value>
   </data>
-  <data name="UsefulLinks" xml:space="preserve">
-    <value>Корисні посилання: </value>
-  </data>
   <data name="Week" xml:space="preserve">
     <value>Тиждень</value>
   </data>
@@ -393,12 +330,6 @@
   </data>
   <data name="FinishingUpdateTitle" xml:space="preserve">
     <value>Завершення оновлення</value>
-  </data>
-  <data name="AddToSelectedEntities" xml:space="preserve">
-    <value>Додати до обраних</value>
-  </data>
-  <data name="RemoveFromSelectedEntities" xml:space="preserve">
-    <value>Видалити з обраного</value>
   </data>
   <data name="SelectOneEntity" xml:space="preserve">
     <value>Вибрати тілько це</value>
@@ -424,9 +355,6 @@
   <data name="NextEvent" xml:space="preserve">
     <value>Наступна</value>
   </data>
-  <data name="Timeline" xml:space="preserve">
-    <value>Часова лінія</value>
-  </data>
   <data name="AddingEventToCalendarFail" xml:space="preserve">
     <value>Не вдалось додати пару в календар</value>
   </data>
@@ -435,9 +363,6 @@
   </data>
   <data name="AddingToCalendarTitle" xml:space="preserve">
     <value>Додавання в календар</value>
-  </data>
-  <data name="AddToCalendar" xml:space="preserve">
-    <value>Додати в календар</value>
   </data>
   <data name="ChooseCalendar" xml:space="preserve">
     <value>Оберіть календар:</value>
@@ -499,5 +424,14 @@
   </data>
   <data name="InsufficientRights" xml:space="preserve">
     <value>У додатку немає достатніх прав на виконання цієї дії</value>
+  </data>
+  <data name="RussianLanguage" xml:space="preserve">
+    <value>Русский</value>
+  </data>
+  <data name="EnglishLanguage" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="UkrainianLanguage" xml:space="preserve">
+    <value>Українська</value>
   </data>
 </root>
