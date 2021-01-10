@@ -5,22 +5,15 @@ namespace NureTimetable.Migrations
 {
     class RemoveTimelineViewMode : BaseMigration
     {
-        public override bool IsNeedsToBeApplied()
+        protected override bool IsNeedsToBeAppliedInternal()
         {
-            return HandleException(() =>
-            {
-                return (int)SettingsRepository.Settings.TimetableViewMode == 3;
-            });
-
+            return (int)SettingsRepository.Settings.TimetableViewMode == 3;
         }
 
-        public override bool Apply()
+        protected override bool ApplyInternal()
         {
-            return HandleException(() =>
-            {
-                SettingsRepository.Settings.TimetableViewMode = TimetableViewMode.Week;
-                return true;
-            });
+            SettingsRepository.Settings.TimetableViewMode = TimetableViewMode.Week;
+            return true;
         }
     }
 }

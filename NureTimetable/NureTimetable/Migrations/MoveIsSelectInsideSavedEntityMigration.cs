@@ -12,34 +12,27 @@ namespace NureTimetable.Migrations
     {
         private readonly string SelectedEntitiesPath = Path.Combine(FilePath.LocalStorage, "entities_selected.json");
 
-        public override bool IsNeedsToBeApplied()
+        protected override bool IsNeedsToBeAppliedInternal()
         {
-            return HandleException(() =>
-            {
-                return File.Exists(SelectedEntitiesPath);
-            });
-
+            return File.Exists(SelectedEntitiesPath);
         }
 
-        public override bool Apply()
+        protected override bool ApplyInternal()
         {
-            return HandleException(() =>
-            {
-                var selectedEntities = Serialisation.FromJsonFile<List<SavedEntity>>(SelectedEntitiesPath);
-                File.Delete(SelectedEntitiesPath);
+            var selectedEntities = Serialisation.FromJsonFile<List<SavedEntity>>(SelectedEntitiesPath);
+            File.Delete(SelectedEntitiesPath);
 
-                List<SavedEntity> savedEntities = UniversityEntitiesRepository.GetSaved();
-                foreach (var entity in selectedEntities)
+            List<SavedEntity> savedEntities = UniversityEntitiesRepository.GetSaved();
+            foreach (var entity in selectedEntities)
+            {
+                SavedEntity savedEntity = savedEntities.FirstOrDefault(e => e == entity);
+                if (savedEntities is not null)
                 {
-                    SavedEntity savedEntity = savedEntities.FirstOrDefault(e => e == entity);
-                    if (savedEntities is not null)
-                    {
-                        savedEntity.IsSelected = true;
-                    }
+                    savedEntity.IsSelected = true;
                 }
-                UniversityEntitiesRepository.UpdateSaved(savedEntities);
-                return true;
-            });
+            }
+            UniversityEntitiesRepository.UpdateSaved(savedEntities);
+            return true;
         }
     }
 }

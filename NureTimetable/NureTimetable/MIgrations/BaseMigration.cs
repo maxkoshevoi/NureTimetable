@@ -13,9 +13,15 @@ namespace NureTimetable.Migrations
             new RemoveTimelineViewMode()
         };
 
-        public abstract bool IsNeedsToBeApplied();
+        public bool IsNeedsToBeApplied() =>
+            HandleException(IsNeedsToBeAppliedInternal);
 
-        public abstract bool Apply();
+        public bool Apply() =>
+            HandleException(ApplyInternal);
+
+        protected abstract bool IsNeedsToBeAppliedInternal();
+
+        protected abstract bool ApplyInternal();
 
         protected static bool HandleException(Func<bool> func)
         {
