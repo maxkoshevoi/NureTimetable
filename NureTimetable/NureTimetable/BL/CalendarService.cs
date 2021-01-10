@@ -49,9 +49,7 @@ namespace NureTimetable.BL
 
             // Getting our custom calendar
             bool isCustomCalendarExists = true;
-            Calendar customCalendar = calendars
-                .Where(c => c.AccountName.ToLower() == customCalendarName.ToLower())
-                .FirstOrDefault();
+            Calendar customCalendar = calendars.FirstOrDefault(c => c.AccountName.ToLower() == customCalendarName.ToLower());
             if (customCalendar is null)
             {
                 isCustomCalendarExists = false;
@@ -62,9 +60,9 @@ namespace NureTimetable.BL
                 };
                 calendars.Add(customCalendar);
             }
-            else if (calendars.Where(c => c.AccountName == customCalendar.AccountName).Count() > 1)
+            else if (calendars.Count(c => c.AccountName == customCalendar.AccountName) > 1)
             {
-                MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, new IndexOutOfRangeException($"There are {calendars.Where(c => c.AccountName == customCalendar.AccountName).Count()} calendars with AccountName {customCalendar.AccountName}"));
+                MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, new IndexOutOfRangeException($"There are {calendars.Count(c => c.AccountName == customCalendar.AccountName)} calendars with AccountName {customCalendar.AccountName}"));
             }
 
             // Getting calendar to add event into

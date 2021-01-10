@@ -308,10 +308,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 IsTimeLeftVisible = true;
             }
 
-            if (IsTimeLeftVisible != lastTimeLeftVisible)
-            {
-                lastTimeLeftVisible = IsTimeLeftVisible;
-            }
+            lastTimeLeftVisible = IsTimeLeftVisible;
         }
 
         private async Task UpdateEventsWithUI(bool reloadSavedEntities = false)
@@ -448,7 +445,6 @@ namespace NureTimetable.UI.ViewModels.Timetable
             
             if (selected != null)
             {
-                //_timetablePage.TimetableNavigateTo(selected.Value);
                 TimetableSelectedDate = selected;
                 TimetableSelectedDate = null;
             }

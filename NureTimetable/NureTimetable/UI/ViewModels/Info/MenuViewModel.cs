@@ -8,7 +8,6 @@ using NureTimetable.UI.Themes;
 using NureTimetable.UI.Views;
 using System;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Essentials;
 using Xamarin.Forms;

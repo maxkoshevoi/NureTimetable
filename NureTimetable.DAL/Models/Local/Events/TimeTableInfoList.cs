@@ -21,7 +21,7 @@ namespace NureTimetable.DAL.Models.Local
             {
                 if (Timetables.Count != 1)
                 {
-                    return null;
+                    return new();
                 }
                 return Timetables[0].LessonsInfo;
             }

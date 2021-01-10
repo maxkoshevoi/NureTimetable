@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace NureTimetable.DAL.Helpers
@@ -92,7 +91,6 @@ namespace NureTimetable.DAL.Helpers
         }
 
         #region Converters
-#pragma warning disable CA1812
         internal class SecondEpochConverter : DateTimeConverterBase
         {
             private static readonly DateTime _epoch = new(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
@@ -134,7 +132,6 @@ namespace NureTimetable.DAL.Helpers
                 serializer.Serialize(writer, newValue);
             }
         }
-#pragma warning restore CA1812
         #endregion
 
         #region JsonFixers

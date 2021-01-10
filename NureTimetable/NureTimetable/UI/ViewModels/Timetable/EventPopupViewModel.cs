@@ -34,7 +34,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
             ClosePopupCommand = CommandHelper.Create(ClosePopup);
             AddToCalendarCommand = CommandHelper.Create(AddEventToCalendar);
 
-            LessonInfo lessonInfo = timetable.LessonsInfo?.FirstOrDefault(li => li.Lesson == ev.Lesson);
+            LessonInfo lessonInfo = timetable.LessonsInfo.FirstOrDefault(li => li.Lesson.Equals(ev.Lesson));
             Notes = lessonInfo?.Notes;
 
             EventNumber = timetable.Events

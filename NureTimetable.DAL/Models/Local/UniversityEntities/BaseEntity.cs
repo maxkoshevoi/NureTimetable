@@ -28,14 +28,14 @@ namespace NureTimetable.DAL.Models.Local
             return base.Equals(obj);
         }
 
-        public override int GetHashCode()
-        {
-            return ID.GetHashCode();
-        }
-
         public bool Equals(BaseEntity<T> other)
         {
             return this == other;
+        }
+
+        public override int GetHashCode()
+        {
+            return ID.GetHashCode();
         }
         #endregion
     }

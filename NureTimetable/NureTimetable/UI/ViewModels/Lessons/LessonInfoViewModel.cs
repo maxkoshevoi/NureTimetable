@@ -32,8 +32,8 @@ namespace NureTimetable.UI.ViewModels.Lessons
             {
                 var eventsWithType = events.Where(e => e.Type == et).ToList();
                 return $"{et.ShortName}:\n" +
-                    $"- {LN.EventsTotal} {eventsWithType.Count}, {eventsWithType.Where(e => e.Start > DateTime.Now).Count()} {LN.EventsLeft}\n" +
-                    $"- {LN.NextEvent}: {eventsWithType.Where(e => e.Start > DateTime.Now).FirstOrDefault()?.Start.Date.ToShortDateString() ?? "-" }\n" +
+                    $"- {LN.EventsTotal} {eventsWithType.Count}, {eventsWithType.Count(e => e.Start > DateTime.Now)} {LN.EventsLeft}\n" +
+                    $"- {LN.NextEvent}: {eventsWithType.FirstOrDefault(e => e.Start > DateTime.Now)?.Start.ToShortDateString() ?? "-" }\n" +
                     $"- {LN.Teachers}: {string.Join(", ", eventsWithType.SelectMany(e => e.Teachers).Distinct().Select(t => t.ShortName).OrderBy(tn => tn).DefaultIfEmpty("-"))}";
             });
             return string.Join("\n", statForTypes);
