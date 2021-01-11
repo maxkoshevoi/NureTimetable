@@ -6,7 +6,7 @@
              xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels.Entities.ManageEntities"
              x:Class="NureTimetable.UI.Views.ManageEntitiesPage"
              x:DataType="vm:ManageEntitiesViewModel"
-             Title="{Binding Title.Localized}">
+             Title="{xct:Translate SavedTimetables}">
 
     <ContentPage.ToolbarItems>
         <ToolbarItem x:DataType="vm:ManageEntitiesViewModel" IconImageSource="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.Sync}}" Command="{Binding UpdateAllCommand}" x:Name="UpdateAll" />
