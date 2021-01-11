@@ -38,6 +38,8 @@ namespace NureTimetable.UI.ViewModels.Entities.ManageEntities
 
         public ManageEntitiesViewModel()
         {
+            Title = new(() => LN.SavedTimetables);
+
             UpdateAllCommand = CommandHelper.Create(UpdateAll, () => Entities.Any() && Entities.All(e => !e.IsUpdating));
             AddEntityCommand = CommandHelper.Create(() => Navigation.PushAsync(new AddTimetablePage()));
             EntitySelectedCommand = CommandHelper.Create<SelectedItemChangedEventArgs>(async (args) =>

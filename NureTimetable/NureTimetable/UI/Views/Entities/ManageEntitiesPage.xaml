@@ -2,12 +2,11 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
-             xmlns:LN="clr-namespace:NureTimetable.Core.Localization;assembly=NureTimetable.Core"
              xmlns:fonts="clr-namespace:NureTimetable.Models.Consts.Fonts"
              xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels.Entities.ManageEntities"
              x:Class="NureTimetable.UI.Views.ManageEntitiesPage"
              x:DataType="vm:ManageEntitiesViewModel"
-             Title="{LN:Translate SavedTimetables}">
+             Title="{Binding Title.Localized}">
 
     <ContentPage.ToolbarItems>
         <ToolbarItem x:DataType="vm:ManageEntitiesViewModel" IconImageSource="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.Sync}}" Command="{Binding UpdateAllCommand}" x:Name="UpdateAll" />
@@ -67,7 +66,7 @@
             </ListView>
         </StackLayout>
         <StackLayout IsVisible="{Binding IsNoSourceLayoutVisible}"  AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
-            <Label Text="{LN:Translate NoSavedTimetables}"
+            <Label Text="{xct:Translate NoSavedTimetables}"
                     VerticalOptions="CenterAndExpand" 
                     HorizontalOptions="CenterAndExpand"
                     HorizontalTextAlignment="Center" />

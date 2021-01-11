@@ -10,7 +10,7 @@ namespace NureTimetable.UI.ViewModels.Entities
     {
         public AddRoomViewModel()
         {
-            Title = LN.Rooms;
+            Title = new(() => LN.Rooms);
         }
 
         protected override List<Room> GetAllEntities()

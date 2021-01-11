@@ -10,6 +10,7 @@ using Syncfusion.Licensing;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -37,7 +38,9 @@ namespace NureTimetable
             {
                 culture = new CultureInfo((int)SettingsRepository.Settings.Language);
             }
-            LN.Culture = culture;
+            LocalizationResourceManager.Current.Init(LN.ResourceManager);
+            LocalizationResourceManager.Current.PropertyChanged += (_, _) => LN.Culture = LocalizationResourceManager.Current.CurrentCulture;
+            LocalizationResourceManager.Current.SetCulture(culture);
 
             Bugfix.InitCalendarCrashFix();
             VersionTracking.Track();

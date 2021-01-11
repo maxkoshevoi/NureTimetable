@@ -16,6 +16,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Extensions;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 using AppTheme = NureTimetable.Core.Models.Settings.AppTheme;
@@ -94,8 +95,8 @@ namespace NureTimetable.UI.ViewModels.Timetable
             ScheduleModeCommand.RaiseCanExecuteChanged();
         }); }
         
-        private string _noSourceLayoutText;
-        public string NoSourceLayoutText { get => _noSourceLayoutText; set => SetProperty(ref _noSourceLayoutText, value); }
+        private LocalizedString _noSourceLayoutText;
+        public LocalizedString NoSourceLayoutText { get => _noSourceLayoutText; set => SetProperty(ref _noSourceLayoutText, value); }
         
         private bool _isProgressLayoutVisible;
         public bool IsProgressLayoutVisible { get => _isProgressLayoutVisible; set => SetProperty(ref _isProgressLayoutVisible, value); }
@@ -123,15 +124,12 @@ namespace NureTimetable.UI.ViewModels.Timetable
         {
             this.timetablePage = timetablePage;
 
-            Title = LN.AppName;
+            Title = new(() => LN.AppName);
             lastTimeLeftVisible = IsTimeLeftVisible;
-            // Set custom TimetableLocale only if it is one of supported cultures
-            string activeCultureCode = Cultures.SupportedCultures[0].TwoLetterISOLanguageName;
-            if (Cultures.SupportedCultures.Any(c => c.TwoLetterISOLanguageName == CultureInfo.CurrentCulture.TwoLetterISOLanguageName))
-            {
-                activeCultureCode = LN.Culture.TwoLetterISOLanguageName;
-            }
-            TimetableLocale = activeCultureCode;
+            
+            SetTimetableLocale();
+            LocalizationResourceManager.Current.PropertyChanged += (_, _) => SetTimetableLocale();
+            
             TimetableScheduleView = SettingsRepository.Settings.TimetableViewMode switch
             {
                 TimetableViewMode.Day => ScheduleView.DayView,
@@ -195,9 +193,20 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 await UpdateTodayButton(false);
             });
             UpdateTimetableCommand = CommandHelper.Create(
-                () => TimetableService.UpdateAndDisplayResult(TimetableInfoList.Entities.ToArray()), 
+                () => TimetableService.UpdateAndDisplayResult(TimetableInfoList.Entities.ToArray()),
                 () => TimetableInfoList.Timetables.Any() && !IsTimetableUpdating
             );
+
+            void SetTimetableLocale()
+            {
+                string activeCultureCode = Cultures.SupportedCultures[0].TwoLetterISOLanguageName;
+                if (Cultures.SupportedCultures.Any(c => c.TwoLetterISOLanguageName == CultureInfo.CurrentCulture.TwoLetterISOLanguageName))
+                {
+                    // Set custom TimetableLocale only if it is one of supported cultures
+                    activeCultureCode = LocalizationResourceManager.Current.CurrentCulture.TwoLetterISOLanguageName;
+                }
+                TimetableLocale = activeCultureCode;
+            }
         }
 
         private async Task UpdateTodayButton(bool isForceUpdate)
@@ -349,14 +358,14 @@ namespace NureTimetable.UI.ViewModels.Timetable
         {
             if (selectedEntities is null || !selectedEntities.Any())
             {
-                Title = LN.AppName;
+                Title = new(() => LN.AppName);
                 TimetableInfoList = TimetableInfoList.Empty;
-                NoSourceLayoutText = LN.NoTimetable;
+                NoSourceLayoutText = new(() => LN.NoTimetable);
                 IsNoSourceLayoutVisible = true;
                 return;
             }
 
-            Title = string.Join(", ", selectedEntities.Select(se => se.Name));
+            Title = new(() => string.Join(", ", selectedEntities.Select(se => se.Name)));
 
             List<TimetableInfo> timetableInfos = new();
             foreach (var entity in selectedEntities)
@@ -374,7 +383,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 }
                 else
                 {
-                    NoSourceLayoutText = LN.TimetableIsEmpty;
+                    NoSourceLayoutText = new(() => LN.TimetableIsEmpty);
                     IsNoSourceLayoutVisible = true;
                 }
             }

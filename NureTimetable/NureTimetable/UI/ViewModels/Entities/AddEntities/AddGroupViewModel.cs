@@ -10,7 +10,7 @@ namespace NureTimetable.UI.ViewModels.Entities
     {
         public AddGroupViewModel()
         {
-            Title = LN.Groups;
+            Title = new(() => LN.Groups);
         }
 
         protected override List<Group> GetAllEntities()

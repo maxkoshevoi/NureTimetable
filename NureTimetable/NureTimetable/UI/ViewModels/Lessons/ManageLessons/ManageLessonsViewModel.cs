@@ -32,7 +32,7 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
 
         public ManageLessonsViewModel(Entity entity)
         {
-            Title = $"{LN.Lessons}: {entity.Name}";
+            Title = new(() => $"{LN.Lessons}: {entity.Name}");
 
             timetable = EventsRepository.GetTimetableLocal(entity);
             if (timetable is null)

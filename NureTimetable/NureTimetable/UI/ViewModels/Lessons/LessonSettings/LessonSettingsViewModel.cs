@@ -26,8 +26,6 @@ namespace NureTimetable.UI.ViewModels.Lessons.LessonSettings
 
         public LessonSettingsViewModel(LessonInfo lessonInfo, TimetableInfo timetableInfo)
         {
-            Title = lessonInfo.Lesson.FullName;
-
             LessonInfo = lessonInfo;
             updatingProgrammatically = true;
             ShowLessonIsChecked = lessonInfo.Settings.Hiding.ShowLesson;

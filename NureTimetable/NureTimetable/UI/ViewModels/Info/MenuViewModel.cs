@@ -1,13 +1,14 @@
 ﻿using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Consts;
-using NureTimetable.Core.Models.InterplatformCommunication;
 using NureTimetable.Core.Models.Settings;
 using NureTimetable.DAL;
 using NureTimetable.UI.Helpers;
 using NureTimetable.UI.Themes;
 using NureTimetable.UI.Views;
 using System;
+using System.Globalization;
 using System.Threading.Tasks;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -28,7 +29,8 @@ namespace NureTimetable.UI.ViewModels.Info
             }
         }
 
-        private bool langIsRestartRequired = false;
+        public LocalizedString AppVersion { get; } = new(() => string.Format(LN.Version, AppInfo.VersionString));
+
         private string appLanguageName;
         public string AppLanguageName { get => appLanguageName; set => SetProperty(ref appLanguageName, value); }
 
@@ -52,6 +54,7 @@ namespace NureTimetable.UI.ViewModels.Info
 
             UpdateAppThemeName();
             MessagingCenter.Subscribe<Application, AppTheme>(Application.Current, MessageTypes.ThemeChanged, (sender, theme) => UpdateAppThemeName());
+            
             UpdateAppLanguageName();
         }
 
@@ -68,14 +71,12 @@ namespace NureTimetable.UI.ViewModels.Info
 
         private void UpdateAppLanguageName()
         {
-            string restartReqiredText = langIsRestartRequired ? $" ({LN.RestartRequired})" : string.Empty;
-
             AppLanguageName = SettingsRepository.Settings.Language switch
             {
-                AppLanguage.English => LN.EnglishLanguage + restartReqiredText,
-                AppLanguage.Russian => LN.RussianLanguage + restartReqiredText,
-                AppLanguage.Ukrainian => LN.UkrainianLanguage + restartReqiredText,
-                AppLanguage.FollowSystem => LN.FollowSystem + restartReqiredText,
+                AppLanguage.English => LN.EnglishLanguage,
+                AppLanguage.Russian => LN.RussianLanguage,
+                AppLanguage.Ukrainian => LN.UkrainianLanguage,
+                AppLanguage.FollowSystem => LN.FollowSystem,
                 _ => throw new InvalidOperationException("Unsuported language")
             };
         }
@@ -129,16 +130,12 @@ namespace NureTimetable.UI.ViewModels.Info
             }
 
             if (SettingsRepository.Settings.Language == language)
-            {
                 return;
-            }
-            SettingsRepository.Settings.Language = language;
 
-            langIsRestartRequired = true;
+            SettingsRepository.Settings.Language = language;
+            LocalizationResourceManager.Current.SetCulture(language == AppLanguage.FollowSystem ? CultureInfo.CurrentCulture : new CultureInfo((int)language));
             UpdateAppLanguageName();
-            
-            var activityManager = DependencyService.Get<IActivityManager>();
-            activityManager.Recreate();
+            UpdateAppThemeName();
         }
     }
 }

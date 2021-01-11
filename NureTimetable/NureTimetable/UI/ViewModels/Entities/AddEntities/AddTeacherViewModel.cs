@@ -10,7 +10,7 @@ namespace NureTimetable.UI.ViewModels.Entities
     {
         public AddTeacherViewModel()
         {
-            Title = LN.Teachers;
+            Title = new(() => LN.Teachers);
         }
 
         protected override List<Teacher> GetAllEntities()

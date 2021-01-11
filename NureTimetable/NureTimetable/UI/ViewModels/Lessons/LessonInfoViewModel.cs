@@ -1,8 +1,10 @@
 ﻿using NureTimetable.Core.Localization;
 using NureTimetable.DAL.Models.Local;
+using NureTimetable.UI.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace NureTimetable.UI.ViewModels.Lessons
 {
@@ -13,15 +15,16 @@ namespace NureTimetable.UI.ViewModels.Lessons
         #region Properties
         public LessonInfo LessonInfo { get; }
 
-        public string Statistics => GetStatistics();
+        public LocalizedString Statistics { get; }
         #endregion
 
         public LessonInfoViewModel(LessonInfo lessonInfo, TimetableInfo timetableInfo)
         {
             LessonInfo = lessonInfo;
             this.timetableInfo = timetableInfo;
-
-            Title = LN.LessonInfo;
+            Statistics = new(GetStatistics);
+            
+            LocalizationResourceManager.Current.PropertyChanged += (_, _) => OnPropertyChanged(nameof(Statistics));
         }
         
         private string GetStatistics()
