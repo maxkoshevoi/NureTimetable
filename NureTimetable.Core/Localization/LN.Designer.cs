@@ -61,15 +61,6 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to About.
-        /// </summary>
-        public static string About {
-            get {
-                return ResourceManager.GetString("About", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Unable to add event to calendar.
         /// </summary>
         public static string AddingEventToCalendarFail {
@@ -106,29 +97,11 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add to calendar.
-        /// </summary>
-        public static string AddToCalendar {
-            get {
-                return ResourceManager.GetString("AddToCalendar", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Add to selected.
         /// </summary>
         public static string AddToSelected {
             get {
                 return ResourceManager.GetString("AddToSelected", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add to selected.
-        /// </summary>
-        public static string AddToSelectedEntities {
-            get {
-                return ResourceManager.GetString("AddToSelectedEntities", resourceCulture);
             }
         }
         
@@ -151,38 +124,11 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Application for displaying groups schedule for.
-        /// </summary>
-        public static string AppDescription {
-            get {
-                return ResourceManager.GetString("AppDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to App discussion.
-        /// </summary>
-        public static string AppGroup {
-            get {
-                return ResourceManager.GetString("AppGroup", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to NURE Timetable.
         /// </summary>
         public static string AppName {
             get {
                 return ResourceManager.GetString("AppName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to App news.
-        /// </summary>
-        public static string AppNews {
-            get {
-                return ResourceManager.GetString("AppNews", resourceCulture);
             }
         }
         
@@ -265,15 +211,6 @@ namespace NureTimetable.Core.Localization {
         public static string Day {
             get {
                 return ResourceManager.GetString("Day", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to And just in case, I’ll leave this here..
-        /// </summary>
-        public static string DebugModeHeader {
-            get {
-                return ResourceManager.GetString("DebugModeHeader", resourceCulture);
             }
         }
         
@@ -377,15 +314,6 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error occurred. Please, try again later..
-        /// </summary>
-        public static string ErrorTryAgainLater {
-            get {
-                return ResourceManager.GetString("ErrorTryAgainLater", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Room: {0}.
         /// </summary>
         public static string EventClassroom {
@@ -436,15 +364,6 @@ namespace NureTimetable.Core.Localization {
         public static string EventsTotal {
             get {
                 return ResourceManager.GetString("EventsTotal", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Teacher: not found.
-        /// </summary>
-        public static string EventTeacherNotFound {
-            get {
-                return ResourceManager.GetString("EventTeacherNotFound", resourceCulture);
             }
         }
         
@@ -526,33 +445,6 @@ namespace NureTimetable.Core.Localization {
         public static string Groups {
             get {
                 return ResourceManager.GetString("Groups", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Helpful links.
-        /// </summary>
-        public static string HelpfulLinks {
-            get {
-                return ResourceManager.GetString("HelpfulLinks", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to If you have experience with Xamarin apps development and you are willing to help, submit to: .
-        /// </summary>
-        public static string HelpWanted {
-            get {
-                return ResourceManager.GetString("HelpWanted", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to NURE.
-        /// </summary>
-        public static string Institution {
-            get {
-                return ResourceManager.GetString("Institution", resourceCulture);
             }
         }
         
@@ -702,24 +594,6 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Homepage.
-        /// </summary>
-        public static string NureHomepage {
-            get {
-                return ResourceManager.GetString("NureHomepage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to NURE official web-pages: .
-        /// </summary>
-        public static string NureWebpages {
-            get {
-                return ResourceManager.GetString("NureWebpages", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
         public static string Ok {
@@ -738,29 +612,11 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Something went wrong, purchase failed..
-        /// </summary>
-        public static string PurchaseFailed {
-            get {
-                return ResourceManager.GetString("PurchaseFailed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Rate the app.
         /// </summary>
         public static string RateTheApp {
             get {
                 return ResourceManager.GetString("RateTheApp", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Remove from selected.
-        /// </summary>
-        public static string RemoveFromSelectedEntities {
-            get {
-                return ResourceManager.GetString("RemoveFromSelectedEntities", resourceCulture);
             }
         }
         
@@ -806,15 +662,6 @@ namespace NureTimetable.Core.Localization {
         public static string SavingSettings {
             get {
                 return ResourceManager.GetString("SavingSettings", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Select.
-        /// </summary>
-        public static string Select {
-            get {
-                return ResourceManager.GetString("Select", resourceCulture);
             }
         }
         
@@ -882,15 +729,6 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Student NURE: .
-        /// </summary>
-        public static string StudentNure {
-            get {
-                return ResourceManager.GetString("StudentNure", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Teachers.
         /// </summary>
         public static string Teachers {
@@ -954,47 +792,11 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Timeline.
-        /// </summary>
-        public static string Timeline {
-            get {
-                return ResourceManager.GetString("Timeline", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Timetable.
-        /// </summary>
-        public static string Timetable {
-            get {
-                return ResourceManager.GetString("Timetable", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Timetable &quot;{0}&quot; is already in saved.
         /// </summary>
         public static string TimetableAlreadySaved {
             get {
                 return ResourceManager.GetString("TimetableAlreadySaved", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Timetable display.
-        /// </summary>
-        public static string TimetableDisplay {
-            get {
-                return ResourceManager.GetString("TimetableDisplay", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An error occurred while trying to display timetable.
-        /// </summary>
-        public static string TimetableDisplayError {
-            get {
-                return ResourceManager.GetString("TimetableDisplayError", resourceCulture);
             }
         }
         
@@ -1071,20 +873,20 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to To timetable.
-        /// </summary>
-        public static string ToTimetable {
-            get {
-                return ResourceManager.GetString("ToTimetable", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Українська.
         /// </summary>
         public static string UkrainianLanguage {
             get {
                 return ResourceManager.GetString("UkrainianLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Undo.
+        /// </summary>
+        public static string Undo {
+            get {
+                return ResourceManager.GetString("Undo", resourceCulture);
             }
         }
         
@@ -1161,29 +963,11 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Update saved groups timetable?.
-        /// </summary>
-        public static string UpdateSavedGroupsTimetable {
-            get {
-                return ResourceManager.GetString("UpdateSavedGroupsTimetable", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Update timetable.
         /// </summary>
         public static string UpdateTimetable {
             get {
                 return ResourceManager.GetString("UpdateTimetable", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Useful links: .
-        /// </summary>
-        public static string UsefulLinks {
-            get {
-                return ResourceManager.GetString("UsefulLinks", resourceCulture);
             }
         }
         

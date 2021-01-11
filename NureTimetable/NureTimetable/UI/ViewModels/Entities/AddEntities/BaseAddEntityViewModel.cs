@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -73,14 +74,20 @@ namespace NureTimetable.UI.ViewModels.Entities
             List<SavedEntity> savedEntities = UniversityEntitiesRepository.GetSaved();
             if (savedEntities.Any(e => e == newEntity))
             {
-                await Shell.Current.DisplayAlert(LN.AddingTimetable, string.Format(LN.TimetableAlreadySaved, newEntity.Name), LN.Ok);
+                await Shell.Current.CurrentPage.DisplayToastAsync(string.Format(LN.TimetableAlreadySaved, newEntity.Name));
                 return;
             }
 
             savedEntities.Add(newEntity);
             UniversityEntitiesRepository.UpdateSaved(savedEntities);
 
-            await Shell.Current.DisplayAlert(LN.AddingTimetable, string.Format(LN.TimetableSaved, newEntity.Name), LN.Ok);
+            await Shell.Current.CurrentPage.DisplaySnackBarAsync(string.Format(LN.TimetableSaved, newEntity.Name), LN.Undo, () =>
+            {
+                List<SavedEntity> savedEntities = UniversityEntitiesRepository.GetSaved(); 
+                savedEntities.Remove(newEntity);
+                UniversityEntitiesRepository.UpdateSaved(savedEntities);
+                return Task.CompletedTask;
+            });
         }
 
         protected void SearchBarTextChanged(string searchQuery)

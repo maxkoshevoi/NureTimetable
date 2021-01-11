@@ -434,4 +434,7 @@ Try again later, or try using different WIFI network or mobile internet connecti
   <data name="InsufficientRights" xml:space="preserve">
     <value>The application does not have sufficient rights to perform this action</value>
   </data>
+  <data name="Undo" xml:space="preserve">
+    <value>Undo</value>
+  </data>
 </root>

@@ -434,4 +434,7 @@
   <data name="UkrainianLanguage" xml:space="preserve">
     <value>Українська</value>
   </data>
+  <data name="Undo" xml:space="preserve">
+    <value>Скасувати</value>
+  </data>
 </root>
