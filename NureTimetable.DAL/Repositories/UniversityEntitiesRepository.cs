@@ -222,9 +222,13 @@ namespace NureTimetable.DAL
                     tasksLeft--;
                     return await tasks[currentTaskIndex]();
                 }
-                catch (Exception ex) when (tasksLeft > 0 && ex is not WebException)
-                {
+                catch (Exception ex)
+                { 
                     MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
+                    if (tasksLeft == 0 || ex is WebException)
+                    {
+                        throw;
+                    }
                 }
             }
         }
