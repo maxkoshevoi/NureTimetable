@@ -1,5 +1,6 @@
 ﻿using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Consts;
+using NureTimetable.Core.Models.InterplatformCommunication;
 using NureTimetable.Core.Models.Settings;
 using NureTimetable.DAL;
 using NureTimetable.UI.Helpers;
@@ -30,7 +31,8 @@ namespace NureTimetable.UI.ViewModels.Info
         }
 
         public LocalizedString AppVersion { get; } = new(() => string.Format(LN.Version, AppInfo.VersionString));
-
+        
+        private bool langIsRestartRequired = false;
         private string appLanguageName;
         public string AppLanguageName { get => appLanguageName; set => SetProperty(ref appLanguageName, value); }
 
@@ -71,12 +73,13 @@ namespace NureTimetable.UI.ViewModels.Info
 
         private void UpdateAppLanguageName()
         {
+            string restartReqiredText = langIsRestartRequired ? $" ({LN.RestartRequired})" : string.Empty;
             AppLanguageName = SettingsRepository.Settings.Language switch
             {
-                AppLanguage.English => LN.EnglishLanguage,
-                AppLanguage.Russian => LN.RussianLanguage,
-                AppLanguage.Ukrainian => LN.UkrainianLanguage,
-                AppLanguage.FollowSystem => LN.FollowSystem,
+                AppLanguage.English => LN.EnglishLanguage + restartReqiredText,
+                AppLanguage.Russian => LN.RussianLanguage + restartReqiredText,
+                AppLanguage.Ukrainian => LN.UkrainianLanguage + restartReqiredText,
+                AppLanguage.FollowSystem => LN.FollowSystem + restartReqiredText,
                 _ => throw new InvalidOperationException("Unsuported language")
             };
         }
@@ -133,9 +136,14 @@ namespace NureTimetable.UI.ViewModels.Info
                 return;
 
             SettingsRepository.Settings.Language = language;
+            langIsRestartRequired = true;
             LocalizationResourceManager.Current.SetCulture(language == AppLanguage.FollowSystem ? CultureInfo.CurrentCulture : new CultureInfo((int)language));
             UpdateAppLanguageName();
             UpdateAppThemeName();
+
+            // TODO: Remove when https://github.com/xamarin/XamarinCommunityToolkit/issues/745 is closed
+            var activityManager = DependencyService.Get<IActivityManager>();
+            activityManager.Recreate();
         }
     }
 }
