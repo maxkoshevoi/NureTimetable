@@ -5,29 +5,18 @@ namespace NureTimetable.DAL.Models.Local
     public class Entity : NotifyPropertyChangedBase
     {
         protected Entity()
-        { 
-        }
+        { }
 
-        public Entity(Group group)
-        {
-            ID = group.ID;
-            Name = group.Name;
-            Type = TimetableEntityType.Group;
-        }
+        public Entity(Group group) : this(group.ID, group.Name, TimetableEntityType.Group)
+        { }
 
-        public Entity(Teacher teacher)
-        {
-            ID = teacher.ID;
-            Name = teacher.ShortName;
-            Type = TimetableEntityType.Teacher;
-        }
+        public Entity(Teacher teacher) : this(teacher.ID, teacher.Name, TimetableEntityType.Teacher)
+        { }
 
-        public Entity(Room room)
-        {
-            ID = room.ID;
-            Name = room.Name;
-            Type = TimetableEntityType.Room;
-        }
+        public Entity(Room room) : this(room.ID, room.Name, TimetableEntityType.Room)
+        { }
+
+        public Entity(long id, string name, TimetableEntityType type) => (ID, Name, Type) = (id, name, type);
 
         // public setters needed for deserialization
         public long ID { get; set; }
@@ -35,31 +24,19 @@ namespace NureTimetable.DAL.Models.Local
         public TimetableEntityType Type { get; set; }
 
         #region Equals
-        public static bool operator ==(Entity obj1, Entity obj2)
-        {
-            if (ReferenceEquals(obj1, obj2))
-            {
-                return true;
-            }
-            if (obj1 is null || obj2 is null)
-            {
-                return false;
-            }
-            return obj1.Type == obj2.Type && obj1.ID == obj2.ID;
-        }
-        
-        public static bool operator !=(Entity obj1, Entity obj2)
-        {
-            return !(obj1 == obj2);
-        }
+        public static bool operator ==(Entity obj1, Entity obj2) =>
+            ReferenceEquals(obj1, obj2) || obj1?.Equals(obj2) == true;
+
+        public static bool operator !=(Entity obj1, Entity obj2) =>
+            !(obj1 == obj2);
 
         public override bool Equals(object obj)
         {
             if (obj is Entity entity)
             {
-                return this == entity;
+                return Type == entity.Type && ID == entity.ID;
             }
-            return base.Equals(obj);
+            return false;
         }
 
         public override int GetHashCode()
