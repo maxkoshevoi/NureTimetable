@@ -27,7 +27,7 @@ namespace NureTimetable.Core.Models.Settings
 
         public DateTime? LastCistAllEntitiesUpdate
         {
-            get => Preferences.Get(nameof(LastCistAllEntitiesUpdate), null).Get<DateTime?>();
+            get => TypeConverter.Get<DateTime?>(Preferences.Get(nameof(LastCistAllEntitiesUpdate), null));
             set => Preferences.Set(nameof(LastCistAllEntitiesUpdate), value?.ToString(CultureInfo.InvariantCulture));
         }
     }

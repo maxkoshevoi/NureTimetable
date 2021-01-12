@@ -7,7 +7,7 @@ namespace NureTimetable.Core.Extensions
     /// </summary>
     public static class TypeConverter
     {
-        public static T Get<T>(this object value, bool DefaultIfNull = false)
+        public static T Get<T>(object value, bool DefaultIfNull = false)
         {
             Type type = typeof(T);
             Type underlyingType = Nullable.GetUnderlyingType(type);

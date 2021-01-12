@@ -1,9 +1,12 @@
 ﻿using NureTimetable.BL;
 using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Localization;
+using NureTimetable.DAL.Helpers;
 using NureTimetable.DAL.Models.Local;
 using NureTimetable.UI.Helpers;
+using Plugin.LocalNotification;
 using Rg.Plugins.Popup.Services;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.ObjectModel;
@@ -24,8 +27,10 @@ namespace NureTimetable.UI.ViewModels.Timetable
         public string Notes { get; }
 
         public IAsyncCommand ClosePopupCommand { get; }
-        
+
         public IAsyncCommand AddToCalendarCommand { get; }
+
+        public IAsyncCommand AddNotificationCommand { get; }
 
         public EventPopupViewModel(Event ev, TimetableInfoList timetable)
         {
@@ -33,6 +38,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
 
             ClosePopupCommand = CommandHelper.Create(ClosePopup);
             AddToCalendarCommand = CommandHelper.Create(AddEventToCalendar);
+            AddNotificationCommand = CommandHelper.Create(AddNotification);
 
             LessonInfo lessonInfo = timetable.LessonsInfo.FirstOrDefault(li => li.Lesson.Equals(ev.Lesson));
             Notes = lessonInfo?.Notes;
@@ -52,6 +58,32 @@ namespace NureTimetable.UI.ViewModels.Timetable
               $"{string.Format(LN.EventGroups, string.Join(", ", ev.Groups.Select(t => t.Name)))}\n" +
               $"{string.Format(LN.EventDay, ev.Start.ToString("ddd, dd.MM.yy"))}\n" +
               $"{string.Format(LN.EventTime, ev.Start.ToString("HH:mm"), ev.End.ToString("HH:mm"))}";
+        }
+
+        private async Task AddNotification()
+        {
+            TimeSpan delay = TimeSpan.FromMinutes(10);
+
+            if (Event.Start <= DateTime.Now)
+            {
+                return;
+            }
+
+            var calendarEvent = CalendarService.GenerateCalendarEvent(Event, EventNumber, EventsCount);
+            int notificationId = Event.GetHashCode();
+
+            NotificationCenter.Current.Cancel(notificationId);
+            NotificationRequest notification = new()
+            {
+                NotificationId = notificationId,
+                Title = calendarEvent.Name,
+                Description = calendarEvent.Description,
+                ReturningData = Serialisation.ToJson(Event),
+                NotifyTime = DateTime.Now.Add(Event.Start - DateTime.Now - delay),
+            };
+            NotificationCenter.Current.Show(notification);
+
+            await ClosePopup();
         }
 
         private async Task AddEventToCalendar()

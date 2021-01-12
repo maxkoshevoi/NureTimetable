@@ -34,11 +34,18 @@
         Padding="20">
         <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
             <Label Text="{Binding Event.Lesson.FullName}" FontSize="16" FontAttributes="Bold" />
-            <Image HorizontalOptions="EndAndExpand" Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.CalendarPlus}, Color=Black}">
-                <Image.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding AddToCalendarCommand}" />
-                </Image.GestureRecognizers>
-            </Image>
+            <StackLayout HorizontalOptions="EndAndExpand" Orientation="Horizontal">
+                <Image Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.CalendarPlus}, Color=Black}">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding AddToCalendarCommand}" />
+                    </Image.GestureRecognizers>
+                </Image>
+                <Image Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.BellOutline}, Color=Black}">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding AddNotificationCommand}" />
+                    </Image.GestureRecognizers>
+                </Image>
+            </StackLayout>
         </StackLayout>
         <Label Text="{Binding Details}"/>
         <StackLayout>
