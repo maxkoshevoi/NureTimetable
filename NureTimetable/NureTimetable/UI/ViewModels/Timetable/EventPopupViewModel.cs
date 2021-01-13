@@ -64,11 +64,6 @@ namespace NureTimetable.UI.ViewModels.Timetable
         {
             TimeSpan delay = TimeSpan.FromMinutes(10);
 
-            if (Event.Start <= DateTime.Now)
-            {
-                return;
-            }
-
             var calendarEvent = CalendarService.GenerateCalendarEvent(Event, EventNumber, EventsCount);
             int notificationId = Event.GetHashCode();
 
