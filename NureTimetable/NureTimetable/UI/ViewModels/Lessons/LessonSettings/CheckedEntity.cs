@@ -9,7 +9,7 @@ namespace NureTimetable.UI.ViewModels.Lessons.LessonSettings
         public T Entity { get; }
 
         private bool? _isChecked;
-        public bool? IsChecked { get => _isChecked; set => SetProperty(ref _isChecked, value, _stateChanged); }
+        public bool? IsChecked { get => _isChecked; set => SetProperty(ref _isChecked, value, onChanged: _stateChanged); }
 
         public CheckedEntity(T entity, Action<CheckedEntity<T>> stateChanged = null)
         {

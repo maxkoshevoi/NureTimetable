@@ -25,7 +25,7 @@ namespace NureTimetable.UI.ViewModels.Entities.ManageEntities
         public bool IsMultiselectMode
         {
             get => _isMultiselectMode;
-            set => SetProperty(ref _isMultiselectMode, value, () => Entities?.ForEach(e => e.NotifyChanged(nameof(IsMultiselectMode))));
+            set => SetProperty(ref _isMultiselectMode, value, onChanged: () => Entities?.ForEach(e => e.NotifyChanged(nameof(IsMultiselectMode))));
         }
 
         private ObservableCollection<SavedEntityItemViewModel> _entities;

@@ -1,10 +1,10 @@
-﻿using NureTimetable.Core.Models;
-using NureTimetable.UI.Helpers;
+﻿using NureTimetable.UI.Helpers;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 
 namespace NureTimetable.UI.ViewModels
 {
-    public class BaseViewModel : NotifyPropertyChangedBase
+    public abstract class BaseViewModel : ObservableObject
     {
         private protected INavigation Navigation => Shell.Current.Navigation;
 

@@ -50,7 +50,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
 
         private readonly List<Entity> updatingTimetables = new();
         private bool _isTimetableUpdating = false;
-        public bool IsTimetableUpdating { get => _isTimetableUpdating; set => SetProperty(ref _isTimetableUpdating, value, () => UpdateTimetableCommand.RaiseCanExecuteChanged()); }
+        public bool IsTimetableUpdating { get => _isTimetableUpdating; set => SetProperty(ref _isTimetableUpdating, value, onChanged: () => UpdateTimetableCommand.RaiseCanExecuteChanged()); }
 
         // Timetable
         public int TimetableTimeInterval => 60;
@@ -89,7 +89,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
 
         // Layouts
         private bool _isNoSourceLayoutVisible;
-        public bool IsNoSourceLayoutVisible { get => _isNoSourceLayoutVisible; set => SetProperty(ref _isNoSourceLayoutVisible, value, () =>
+        public bool IsNoSourceLayoutVisible { get => _isNoSourceLayoutVisible; set => SetProperty(ref _isNoSourceLayoutVisible, value, onChanged: () =>
         {
             HideSelectedEventsCommand.RaiseCanExecuteChanged();
             ScheduleModeCommand.RaiseCanExecuteChanged();

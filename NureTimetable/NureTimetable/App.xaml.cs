@@ -38,8 +38,8 @@ namespace NureTimetable
             {
                 culture = new CultureInfo((int)SettingsRepository.Settings.Language);
             }
-            LocalizationResourceManager.Current.Init(LN.ResourceManager);
             LocalizationResourceManager.Current.PropertyChanged += (_, _) => LN.Culture = LocalizationResourceManager.Current.CurrentCulture;
+            LocalizationResourceManager.Current.Init(LN.ResourceManager);
             LocalizationResourceManager.Current.SetCulture(culture);
 
             Bugfix.InitCalendarCrashFix();
