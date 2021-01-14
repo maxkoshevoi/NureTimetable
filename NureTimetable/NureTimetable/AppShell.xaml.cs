@@ -11,6 +11,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using AppTheme = NureTimetable.Core.Models.Settings.AppTheme;
@@ -46,29 +47,16 @@ namespace NureTimetable.UI.Views
             });
         }
 
-        private bool isFirstNavigation = true;
-
-        protected override async void OnNavigating(ShellNavigatingEventArgs args)
+        public static async Task PerformMigrations()
         {
-            base.OnNavigating(args);
-
-            if (!isFirstNavigation)
-            {
-                return;
-            }
-            isFirstNavigation = false;
-
-            // Processing migrations
             if (!VersionTracking.IsFirstLaunchForCurrentBuild)
-            {
                 return;
-            }
 
             List<BaseMigration> migrationsToApply = BaseMigration.Migrations.Where(m => m.IsNeedsToBeApplied()).ToList();
             if (migrationsToApply.Any())
             {
                 // Not Shell.Current.DisplayAlert cause Shell.Current is null here
-                await DisplayAlert(LN.FinishingUpdateTitle, LN.FinishingUpdateDescription, LN.Ok);
+                await App.Current.MainPage.DisplayAlert(LN.FinishingUpdateTitle, LN.FinishingUpdateDescription, LN.Ok);
                 bool isSuccess = true;
                 foreach (var migration in migrationsToApply)
                 {
@@ -77,9 +65,13 @@ namespace NureTimetable.UI.Views
                         isSuccess = false;
                     }
                 }
-                if (!isSuccess)
+                if (isSuccess)
                 {
-                    await DisplayAlert(LN.FinishingUpdateTitle, LN.FinishingUpdateFail, LN.Ok);
+                    App.Current.MainPage = new AppShell();
+                }
+                else
+                {
+                    await App.Current.MainPage.DisplayAlert(LN.FinishingUpdateTitle, LN.FinishingUpdateFail, LN.Ok);
                 }
             }
         }

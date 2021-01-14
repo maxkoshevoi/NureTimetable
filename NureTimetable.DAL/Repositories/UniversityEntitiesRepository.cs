@@ -532,11 +532,11 @@ namespace NureTimetable.DAL
 
             List<Local::SavedEntity> oldSavedEntities = GetSaved();
             // Removing cache from deleted saved entities if needed
-            oldSavedEntities.Where(oldEntity => !savedEntities.Exists(entity => entity.ID == oldEntity.ID))
+            oldSavedEntities.Where(oldEntity => !savedEntities.Exists(entity => entity == oldEntity))
                 .ToList()
                 .ForEach((de) => 
                 { 
-                    try { File.Delete(FilePath.SavedTimetable(de.Type, de.ID)); } catch { } 
+                    try { File.Delete(FilePath.SavedTimetable(de.Entity.Type, de.Entity.ID)); } catch { } 
                 });
 
             if (savedEntities.Any() && !savedEntities.Any(e => e.IsSelected))

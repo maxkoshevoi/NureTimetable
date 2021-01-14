@@ -1,8 +1,6 @@
-﻿using NureTimetable.Core.Models;
-
-namespace NureTimetable.DAL.Models.Local
+﻿namespace NureTimetable.DAL.Models.Local
 {
-    public class Entity : NotifyPropertyChangedBase
+    public class Entity
     {
         protected Entity()
         { }

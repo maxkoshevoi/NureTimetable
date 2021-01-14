@@ -20,7 +20,7 @@ namespace NureTimetable.UI.ViewModels.Entities
 
         protected override SavedEntity GetSavedEntity(Room entity)
         {
-            return new SavedEntity(entity);
+            return new SavedEntity(new Entity(entity));
         }
 
         protected override IOrderedEnumerable<Room> OrderEntities()

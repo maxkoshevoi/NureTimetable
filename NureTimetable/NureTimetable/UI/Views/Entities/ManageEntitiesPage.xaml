@@ -41,7 +41,7 @@
                                     <CheckBox Margin="5" IsChecked="{Binding SavedEntity.IsSelected}" VerticalOptions="FillAndExpand" />
                                 </StackLayout>
                                 <StackLayout Grid.Column="1" Margin="0,5">
-                                    <Label Text="{Binding SavedEntity.Name}" Style="{DynamicResource ListItemTextStyle}" />
+                                    <Label Text="{Binding SavedEntity.Entity.Name}" Style="{DynamicResource ListItemTextStyle}" />
                                     <Label Text="{Binding SavedEntity.LastUpdated}" FontSize="13" Style="{DynamicResource ListItemDetailTextStyle}"/>
                                 </StackLayout>
                                 <StackLayout Grid.Column="2" Padding="0,5,10,5" Orientation="Horizontal" Spacing="17">

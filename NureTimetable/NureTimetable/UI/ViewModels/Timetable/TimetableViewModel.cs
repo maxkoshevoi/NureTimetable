@@ -155,8 +155,8 @@ namespace NureTimetable.UI.ViewModels.Timetable
             });
             MessagingCenter.Subscribe<Application, List<SavedEntity>>(this, MessageTypes.SelectedEntitiesChanged, (sender, newSelectedEntities) =>
             {
-                IsTimetableUpdating = updatingTimetables.Intersect(newSelectedEntities.Cast<Entity>()).Any();
-                UpdateEvents(newSelectedEntities.ToList<Entity>());
+                IsTimetableUpdating = updatingTimetables.Intersect(newSelectedEntities.Select(e => e.Entity)).Any();
+                UpdateEvents(newSelectedEntities.Select(e => e.Entity).ToList());
             });
             MessagingCenter.Subscribe<Application, Entity>(this, MessageTypes.TimetableUpdating, (sender, entity) =>
             {
@@ -243,6 +243,9 @@ namespace NureTimetable.UI.ViewModels.Timetable
             if (isFirstLoad)
             {
                 isFirstLoad = false;
+
+                await AppShell.PerformMigrations();
+
                 await UpdateEventsWithUI(true);
             }
             else
@@ -335,7 +338,10 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 {
                     if (reloadSavedEntities)
                     {
-                        List<Entity> selectedEntities = UniversityEntitiesRepository.GetSaved().Where(e => e.IsSelected).ToList<Entity>();
+                        List<Entity> selectedEntities = UniversityEntitiesRepository.GetSaved()
+                            .Where(e => e.IsSelected)
+                            .Select(e => e.Entity)
+                            .ToList();
                         UpdateEvents(selectedEntities);
                     }
                     else
