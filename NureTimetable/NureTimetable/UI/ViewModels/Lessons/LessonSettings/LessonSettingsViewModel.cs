@@ -1,7 +1,7 @@
-﻿using NureTimetable.Core.Models.Consts;
+﻿using NureTimetable.Core.Extensions;
+using NureTimetable.Core.Models.Consts;
 using NureTimetable.DAL.Models.Local;
 using NureTimetable.UI.Helpers;
-using System.Collections.ObjectModel;
 using System.Linq;
 using Xamarin.Forms;
 
@@ -31,17 +31,17 @@ namespace NureTimetable.UI.ViewModels.Lessons.LessonSettings
             ShowLessonIsChecked = lessonInfo.Settings.Hiding.ShowLesson;
             updatingProgrammatically = false;
 
-            LvEventTypes = new()
+            LvEventTypes = new ListViewViewModel<EventType>()
             {
-                ItemsSource = new ObservableCollection<CheckedEntity<EventType>>(timetableInfo.EventTypes(lessonInfo.Lesson.ID)
+                ItemsSource = { timetableInfo.EventTypes(lessonInfo.Lesson.ID)
                     .Select(et => new CheckedEntity<EventType>(et, EventTypeStateChanged))
-                    .OrderBy(et => et.Entity.ShortName))
+                    .OrderBy(et => et.Entity.ShortName) }
             };
             LvTeachers = new()
             {
-                ItemsSource = new ObservableCollection<CheckedEntity<Teacher>>(timetableInfo.Teachers(lessonInfo.Lesson.ID)
+                ItemsSource = { timetableInfo.Teachers(lessonInfo.Lesson.ID)
                     .Select(t => new CheckedEntity<Teacher>(t, TeacherStateChanged))
-                    .OrderBy(et => et.Entity.ShortName))
+                    .OrderBy(et => et.Entity.ShortName) }
             };
             UpdateEventTypesCheck(true);
 

@@ -4,10 +4,10 @@ using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
 using NureTimetable.UI.Helpers;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Extensions;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -19,8 +19,7 @@ namespace NureTimetable.UI.ViewModels.Entities
         private string lastSearchQuery;
 
         #region Properties
-        private protected ObservableCollection<T> _entities;
-        public ObservableCollection<T> Entities { get => _entities; private protected set => SetProperty(ref _entities, value); }
+        public ObservableRangeCollection<T> Entities { get; } = new();
 
         private protected bool _isProgressLayoutVisible;
         public bool IsProgressLayoutVisible { get => _isProgressLayoutVisible; set => SetProperty(ref _isProgressLayoutVisible, value); }
@@ -97,11 +96,11 @@ namespace NureTimetable.UI.ViewModels.Entities
             lastSearchQuery = searchQuery;
             if (string.IsNullOrEmpty(searchQuery))
             {
-                Entities = new(OrderEntities());
+                Entities.ReplaceRange(OrderEntities());
             }
             else
             {
-                Entities = new(SearchEntities(searchQuery.ToLower()));
+                Entities.ReplaceRange(SearchEntities(searchQuery.ToLower()));
             }
         }
 
@@ -115,7 +114,7 @@ namespace NureTimetable.UI.ViewModels.Entities
 
                 await updateDataSource;
                 _allEntities = GetAllEntities();
-                Entities = new(OrderEntities());
+                Entities.ReplaceRange(OrderEntities());
 
                 IsNoSourceLayoutVisible = Entities.Count == 0;
 

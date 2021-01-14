@@ -4,7 +4,6 @@ using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
 using NureTimetable.UI.Helpers;
 using System;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.ObjectModel;
@@ -21,9 +20,8 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
 
         private bool _isNoSourceLayoutVisible;
         public bool IsNoSourceLayoutVisible { get => _isNoSourceLayoutVisible; set => SetProperty(ref _isNoSourceLayoutVisible, value); }
-        
-        private ObservableCollection<LessonViewModel> _lessons;
-        public ObservableCollection<LessonViewModel> Lessons { get => _lessons; private set => SetProperty(ref _lessons, value); }
+
+        public ObservableRangeCollection<LessonViewModel> Lessons { get; }
 
         public IAsyncCommand PageAppearingCommand { get; }
         public IAsyncCommand SaveClickedCommand { get; }

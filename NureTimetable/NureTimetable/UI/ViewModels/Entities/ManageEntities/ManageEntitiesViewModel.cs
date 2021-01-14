@@ -6,7 +6,6 @@ using NureTimetable.DAL.Models.Local;
 using NureTimetable.UI.Helpers;
 using NureTimetable.UI.Views;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.ObjectModel;
@@ -28,8 +27,7 @@ namespace NureTimetable.UI.ViewModels.Entities.ManageEntities
             set => SetProperty(ref _isMultiselectMode, value, onChanged: () => Entities?.ForEach(e => e.NotifyChanged(nameof(IsMultiselectMode))));
         }
 
-        private ObservableCollection<SavedEntityItemViewModel> _entities;
-        public ObservableCollection<SavedEntityItemViewModel> Entities { get => _entities; private set => SetProperty(ref _entities, value); }
+        public ObservableRangeCollection<SavedEntityItemViewModel> Entities { get; } = new();
 
         public IAsyncCommand UpdateAllCommand { get; }
         public IAsyncCommand AddEntityCommand { get; }
@@ -134,14 +132,14 @@ namespace NureTimetable.UI.ViewModels.Entities.ManageEntities
         {
             IsNoSourceLayoutVisible = (newItems.Count == 0);
 
-            Entities = new(
+            Entities.ReplaceRange(
                 newItems.Select(sg =>
                 {
                     SavedEntityItemViewModel displaysEntity = Entities?.SingleOrDefault(e => e.SavedEntity == sg);
                     if (displaysEntity is null)
                     {
                         displaysEntity = new SavedEntityItemViewModel(sg, this);
-                        displaysEntity.SavedEntity.PropertyChanged += (sender, args) =>
+                        displaysEntity.SavedEntity.PropertyChanged += (_, args) =>
                         {
                             if (args.PropertyName == nameof(SavedEntity.IsSelected))
                                 EntitySelectChanged(displaysEntity);
