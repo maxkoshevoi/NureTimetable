@@ -1,22 +1,36 @@
-﻿using NureTimetable.Core.Models;
-using System;
+﻿using System;
+using System.ComponentModel;
 using Xamarin.CommunityToolkit.Helpers;
+using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace NureTimetable.UI.Helpers
 {
-    public class LocalizedString : NotifyPropertyChangedBase
-    {
-        public LocalizedString(Func<string> generator = null)
-        {
-            Generator = generator;
-            LocalizationResourceManager.Current.PropertyChanged += (_, _) => OnPropertyChanged(nameof(Localized));
-        }
+	public class LocalizedString : ObservableObject
+	{
+        private readonly Func<string> generator;
+        private readonly LocalizationResourceManager localizationManager;
 
-        public Func<string> generator;
-        public Func<string> Generator { get => generator; set => SetProperty(ref generator, value, propertyName: nameof(Localized)); }
+		public LocalizedString(Func<string> generator = null)
+			: this(LocalizationResourceManager.Current, generator)
+		{
+		}
 
-        public string Localized => Generator?.Invoke();
+		public LocalizedString(LocalizationResourceManager localizationManager, Func<string> generator = null)
+		{
+			this.localizationManager = localizationManager;
+			this.generator = generator;
+			localizationManager.PropertyChanged += Invalidate;
+		}
 
-        public static implicit operator LocalizedString(Func<string> func) => new(func);
-    }
+		public string Localized => generator?.Invoke();
+
+		public static implicit operator LocalizedString(Func<string> func) => new(func);
+
+		void Invalidate(object sender, PropertyChangedEventArgs e) =>
+			OnPropertyChanged(null);
+
+		public void Dispose() => localizationManager.PropertyChanged -= Invalidate;
+
+		~LocalizedString() => Dispose();
+	}
 }
