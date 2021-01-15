@@ -34,11 +34,11 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <StackLayout WidthRequest="10" IsVisible="{Binding IsMultiselectMode, Converter={xct:InvertedBoolConverter}}">
+                                <StackLayout WidthRequest="10" IsVisible="{Binding ManageEntitiesViewModel.IsMultiselectMode, Converter={xct:InvertedBoolConverter}}">
                                     <BoxView BackgroundColor="{DynamicResource SelectedEntityColor}" VerticalOptions="FillAndExpand" IsVisible="{Binding SavedEntity.IsSelected}" />
                                 </StackLayout>
-                                <StackLayout IsVisible="{Binding IsMultiselectMode}">
-                                    <CheckBox Margin="5" IsChecked="{Binding SavedEntity.IsSelected}" VerticalOptions="FillAndExpand" />
+                                <StackLayout IsVisible="{Binding ManageEntitiesViewModel.IsMultiselectMode}">
+                                    <CheckBox Margin="5" IsChecked="{Binding SavedEntity.IsSelected, Mode=TwoWay}" VerticalOptions="FillAndExpand" />
                                 </StackLayout>
                                 <StackLayout Grid.Column="1" Margin="0,5">
                                     <Label Text="{Binding SavedEntity.Entity.Name}" Style="{DynamicResource ListItemTextStyle}" />

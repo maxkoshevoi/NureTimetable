@@ -2981,15 +2981,11 @@ namespace NureTimetable.Droid
 			global::Com.Syncfusion.Schedule.Resource.Drawable.arrow_down = global::NureTimetable.Droid.Resource.Drawable.arrow_down;
 			global::Com.Syncfusion.Schedule.Resource.Drawable.arrow_up = global::NureTimetable.Droid.Resource.Drawable.arrow_up;
 			global::Com.Syncfusion.Schedule.Resource.Drawable.Recurrence = global::NureTimetable.Droid.Resource.Drawable.Recurrence;
-			global::Com.Syncfusion.Schedule.Resource.Id.dayView = global::NureTimetable.Droid.Resource.Id.dayView;
-			global::Com.Syncfusion.Schedule.Resource.Id.monthView = global::NureTimetable.Droid.Resource.Id.monthView;
-			global::Com.Syncfusion.Schedule.Resource.Id.weekView = global::NureTimetable.Droid.Resource.Id.weekView;
-			global::Com.Syncfusion.Schedule.Resource.Id.workWeekView = global::NureTimetable.Droid.Resource.Id.workWeekView;
-			global::Com.Syncfusion.Schedule.Resource.String.NoResources = global::NureTimetable.Droid.Resource.String.NoResources;
 			global::Com.Syncfusion.Schedule.Resource.String.NoSelectedDate = global::NureTimetable.Droid.Resource.String.NoSelectedDate;
 			global::Com.Syncfusion.Schedule.Resource.String.No_Appointments = global::NureTimetable.Droid.Resource.String.No_Appointments;
 			global::Com.Syncfusion.Schedule.Resource.String.all_day = global::NureTimetable.Droid.Resource.String.all_day;
 			global::Com.Syncfusion.Schedule.Resource.String.library_name = global::NureTimetable.Droid.Resource.String.library_name;
+			global::Com.Syncfusion.Schedule.Resource.String.NoResources = global::NureTimetable.Droid.Resource.String.NoResources;
 			global::Com.Syncfusion.Schedule.Resource.Styleable.SfSchedule = global::NureTimetable.Droid.Resource.Styleable.SfSchedule;
 			global::Com.Syncfusion.Schedule.Resource.Styleable.SfSchedule_allowAppointmentDrag = global::NureTimetable.Droid.Resource.Styleable.SfSchedule_allowAppointmentDrag;
 			global::Com.Syncfusion.Schedule.Resource.Styleable.SfSchedule_enableNavigation = global::NureTimetable.Droid.Resource.Styleable.SfSchedule_enableNavigation;

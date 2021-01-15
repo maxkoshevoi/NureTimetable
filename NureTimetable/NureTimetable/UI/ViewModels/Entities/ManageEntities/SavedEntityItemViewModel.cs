@@ -15,15 +15,13 @@ namespace NureTimetable.UI.ViewModels.Entities.ManageEntities
 {
     public class SavedEntityItemViewModel : BaseViewModel
     {
-        private readonly ManageEntitiesViewModel manageEntitiesViewModel;
-
         #region Properties
+        public ManageEntitiesViewModel ManageEntitiesViewModel { get; }
+
         public SavedEntity SavedEntity { get; }
 
         private bool _isUpdating;
-        public bool IsUpdating { get => _isUpdating; set { SetProperty(ref _isUpdating, value); manageEntitiesViewModel.UpdateAllCommand.RaiseCanExecuteChanged(); } }
-
-        public bool IsMultiselectMode => manageEntitiesViewModel.IsMultiselectMode;
+        public bool IsUpdating { get => _isUpdating; set { SetProperty(ref _isUpdating, value); ManageEntitiesViewModel.UpdateAllCommand.RaiseCanExecuteChanged(); } }
 
         public IAsyncCommand SettingsClickedCommand { get; }
         public IAsyncCommand UpdateClickedCommand { get; }
@@ -32,7 +30,7 @@ namespace NureTimetable.UI.ViewModels.Entities.ManageEntities
         public SavedEntityItemViewModel(SavedEntity savedEntity, ManageEntitiesViewModel manageEntitiesViewModel)
         {
             SavedEntity = savedEntity;
-            this.manageEntitiesViewModel = manageEntitiesViewModel;
+            ManageEntitiesViewModel = manageEntitiesViewModel;
 
             UpdateClickedCommand = CommandHelper.Create(() => TimetableService.UpdateAndDisplayResult(SavedEntity));
             SettingsClickedCommand = CommandHelper.Create(SettingsClicked);
@@ -50,7 +48,7 @@ namespace NureTimetable.UI.ViewModels.Entities.ManageEntities
             string action = await Shell.Current.DisplayActionSheet(LN.ChooseAction, LN.Cancel, null, actionList.ToArray());
             if (action == LN.SelectOneEntity)
             {
-                manageEntitiesViewModel.SelectOne(SavedEntity);
+                ManageEntitiesViewModel.SelectOne(SavedEntity);
                 await Shell.Current.GoToAsync("//tabbar/Events");
             }
             else if (action == LN.AddToSelected)
@@ -70,16 +68,9 @@ namespace NureTimetable.UI.ViewModels.Entities.ManageEntities
             }
             else if (action == LN.Delete)
             {
-                manageEntitiesViewModel.Entities.Remove(this);
-                UniversityEntitiesRepository.UpdateSaved(manageEntitiesViewModel.Entities.Select(vm => vm.SavedEntity).ToList());
+                ManageEntitiesViewModel.Entities.Remove(this);
+                UniversityEntitiesRepository.UpdateSaved(ManageEntitiesViewModel.Entities.Select(vm => vm.SavedEntity).ToList());
             }
         }
-
-        #region INotifyPropertyChanged
-        public void NotifyChanged(string property)
-        {
-            OnPropertyChanged(property);
-        }
-        #endregion
     }
 }
