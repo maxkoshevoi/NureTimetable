@@ -35,12 +35,12 @@
         <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
             <Label Text="{Binding Event.Lesson.FullName}" FontSize="16" FontAttributes="Bold" />
             <StackLayout HorizontalOptions="EndAndExpand" Orientation="Horizontal">
-                <Image Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.CalendarPlus}, Color=Black}">
+                <Image Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.CalendarPlus}, Color=Black}" xct:TouchEffect.NativeAnimation="True" xct:TouchEffect.NativeAnimationRadius="15">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding AddToCalendarCommand}" />
                     </Image.GestureRecognizers>
                 </Image>
-                <Image Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.BellOutline}, Color=Black}">
+                <Image Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.BellOutline}, Color=Black}" xct:TouchEffect.NativeAnimation="True" xct:TouchEffect.NativeAnimationRadius="15">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding AddNotificationCommand}" />
                     </Image.GestureRecognizers>
