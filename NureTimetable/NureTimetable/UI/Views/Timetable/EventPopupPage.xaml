@@ -40,6 +40,11 @@
                         <TapGestureRecognizer Command="{Binding AddToCalendarCommand}" />
                     </Image.GestureRecognizers>
                 </Image>
+                <Image Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.BellOutline}, Color=Black}" xct:TouchEffect.NativeAnimation="True" xct:TouchEffect.NativeAnimationRadius="15">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding AddNotificationCommand}" />
+                    </Image.GestureRecognizers>
+                </Image>
             </StackLayout>
         </StackLayout>
         <Label Text="{Binding Details}"/>
