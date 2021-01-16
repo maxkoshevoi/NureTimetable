@@ -13,7 +13,7 @@
     <PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.1.0" />
     <PackageReference Include="Plugin.InAppBilling" Version="4.0.2" />
     <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.10" />
-    <PackageReference Include="Shiny.Notifications" Version="1.2.0.1755" />
+    <PackageReference Include="Shiny.Notifications" Version="2.0.0.2434-preview" />
     <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="18.4.0.34" />
     <PackageReference Include="Syncfusion.Xamarin.SfSchedule" Version="18.4.0.34" />
     <PackageReference Include="Xamarin.CommunityToolkit" Version="1.0.1" />

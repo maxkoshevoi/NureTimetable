@@ -86,7 +86,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 //ScheduleDate = DateTimeOffset.UtcNow.Add(Event.Start - DateTime.Now - delay)
                 ScheduleDate = DateTimeOffset.UtcNow.AddSeconds(2)
             };
-            var res = await notificationManager.RequestAccessAndSend(notification);
+            await notificationManager.Send(notification);
 
             await ClosePopup();
         }

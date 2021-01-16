@@ -73,7 +73,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Shiny.Notifications" Version="1.2.0.1755" />
+    <PackageReference Include="Shiny.Notifications" Version="2.0.0.2434-preview" />
     <PackageReference Include="Xamarin.CommunityToolkit" Version="1.0.1" />
     <PackageReference Include="Xamarin.Essentials" Version="1.6.0" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.1874" />
