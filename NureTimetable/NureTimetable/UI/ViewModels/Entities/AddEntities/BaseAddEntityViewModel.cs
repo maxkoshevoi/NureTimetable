@@ -118,9 +118,9 @@ namespace NureTimetable.UI.ViewModels.Entities
 
                 IsNoSourceLayoutVisible = Entities.Count == 0;
 
-                if (SearchBarTextChangedCommand.CanExecute(lastSearchQuery))
+                if (!string.IsNullOrEmpty(lastSearchQuery))
                 {
-                    SearchBarTextChangedCommand.Execute(lastSearchQuery);
+                    SearchBarTextChanged(lastSearchQuery);
                 }
 
                 IsProgressLayoutVisible = false;
