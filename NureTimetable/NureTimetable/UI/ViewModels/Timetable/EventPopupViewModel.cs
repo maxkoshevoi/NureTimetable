@@ -6,6 +6,7 @@ using NureTimetable.UI.Helpers;
 using Rg.Plugins.Popup.Services;
 using System.Linq;
 using System.Threading.Tasks;
+using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 
@@ -72,10 +73,10 @@ namespace NureTimetable.UI.ViewModels.Timetable
             var calendarEvent = CalendarService.GenerateCalendarEvent(Event, EventNumber, EventsCount);
             bool isAdded = await CalendarService.AddOrUpdateEvent(calendar, calendarEvent);
 
-            string message = isAdded ? LN.AddingEventToCalendarSuccess : LN.AddingEventToCalendarFail;
-            await Shell.Current.DisplayAlert(LN.AddingToCalendarTitle, message, LN.Ok);
-            
             await ClosePopup();
+
+            string message = isAdded ? LN.AddingEventToCalendarSuccess : LN.AddingEventToCalendarFail;
+            await Shell.Current.CurrentPage.DisplayToastAsync(message);
         }
 
         private static async Task ClosePopup()

@@ -518,7 +518,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
             }
             if (moveTo != today && visibleDates.Contains(moveTo))
             {
-                await Shell.Current.DisplayAlert(LN.ShowToday, LN.NoTodayTimetable, LN.Ok);
+                await Shell.Current.CurrentPage.DisplayToastAsync(LN.NoTodayTimetable);
                 return;
             }
 

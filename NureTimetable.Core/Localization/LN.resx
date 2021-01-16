@@ -437,4 +437,7 @@ Try again later, or try using different WIFI network or mobile internet connecti
   <data name="Undo" xml:space="preserve">
     <value>Undo</value>
   </data>
+  <data name="PurchaseFailed" xml:space="preserve">
+    <value>Something went wrong, purchase failed.</value>
+  </data>
 </root>

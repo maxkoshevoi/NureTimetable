@@ -437,4 +437,7 @@
   <data name="Undo" xml:space="preserve">
     <value>Отменить</value>
   </data>
+  <data name="PurchaseFailed" xml:space="preserve">
+    <value>Что-то пошло не так, покупка не удалась.</value>
+  </data>
 </root>

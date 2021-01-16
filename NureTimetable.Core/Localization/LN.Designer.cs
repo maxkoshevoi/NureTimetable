@@ -612,6 +612,15 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Something went wrong, purchase failed..
+        /// </summary>
+        public static string PurchaseFailed {
+            get {
+                return ResourceManager.GetString("PurchaseFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Rate the app.
         /// </summary>
         public static string RateTheApp {
