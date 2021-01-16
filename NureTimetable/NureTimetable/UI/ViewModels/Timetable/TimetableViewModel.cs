@@ -41,7 +41,12 @@ namespace NureTimetable.UI.ViewModels.Timetable
 
         #region Properties
         private TimetableInfoList _timetableInfoList = TimetableInfoList.Empty;
-        private TimetableInfoList TimetableInfoList { get => _timetableInfoList; set { _timetableInfoList = value; UpdateTimetableCommand.RaiseCanExecuteChanged(); } }
+        public TimetableInfoList TimetableInfoList { get => _timetableInfoList; set => SetProperty(ref _timetableInfoList, value, onChanged: () =>
+        {
+            HideSelectedEventsCommand.RaiseCanExecuteChanged();
+            ScheduleModeCommand.RaiseCanExecuteChanged();
+            UpdateTimetableCommand.RaiseCanExecuteChanged();
+        }); }
 
         // Toolbar
         private bool applyHiddingSettings = true;
@@ -88,13 +93,6 @@ namespace NureTimetable.UI.ViewModels.Timetable
         public string TimeLeftText { get => _timeLeftText; set => SetProperty(ref _timeLeftText, value); }
 
         // Layouts
-        private bool _isNoSourceLayoutVisible;
-        public bool IsNoSourceLayoutVisible { get => _isNoSourceLayoutVisible; set => SetProperty(ref _isNoSourceLayoutVisible, value, onChanged: () =>
-        {
-            HideSelectedEventsCommand.RaiseCanExecuteChanged();
-            ScheduleModeCommand.RaiseCanExecuteChanged();
-        }); }
-        
         private LocalizedString _noSourceLayoutText;
         public LocalizedString NoSourceLayoutText { get => _noSourceLayoutText; set => SetProperty(ref _noSourceLayoutText, value); }
         
@@ -170,8 +168,8 @@ namespace NureTimetable.UI.ViewModels.Timetable
             });
 
             PageAppearingCommand = CommandHelper.Create(PageAppearing);
-            HideSelectedEventsCommand = CommandHelper.Create(HideSelectedEventsClicked, () => !IsNoSourceLayoutVisible);
-            ScheduleModeCommand = CommandHelper.Create(ScheduleModeClicked, () => !IsNoSourceLayoutVisible);
+            HideSelectedEventsCommand = CommandHelper.Create(HideSelectedEventsClicked, () => TimetableInfoList.Events.Any());
+            ScheduleModeCommand = CommandHelper.Create(ScheduleModeClicked, () => TimetableInfoList.Events.Any());
             BTodayClickedCommand = CommandHelper.Create(BTodayClicked);
             PageDisappearingCommand = CommandHelper.Create(() => isPageVisible = false);
             TimetableCellTappedCommand = CommandHelper.Create<CellTappedEventArgs>(e => DisplayEventDetails((Event)e.Appointment));
@@ -367,7 +365,6 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 Title = new(() => LN.AppName);
                 TimetableInfoList = TimetableInfoList.Empty;
                 NoSourceLayoutText = new(() => LN.NoTimetable);
-                IsNoSourceLayoutVisible = true;
                 return;
             }
 
@@ -385,12 +382,10 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 if (TimetableInfoList.Events.Any())
                 {
                     needToUpdateEventsUI = true;
-                    IsNoSourceLayoutVisible = false;
                 }
                 else
                 {
                     NoSourceLayoutText = new(() => LN.TimetableIsEmpty);
-                    IsNoSourceLayoutVisible = true;
                 }
             }
 

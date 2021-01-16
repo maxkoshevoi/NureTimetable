@@ -14,7 +14,7 @@
     </ContentPage.ToolbarItems>
 
     <AbsoluteLayout>
-        <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All"  IsVisible="{Binding IsNoSourceLayoutVisible, Converter={xct:InvertedBoolConverter}}">
+        <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All"  IsVisible="{Binding Entities, Converter={xct:ListIsNotNullOrEmptyConverter}}">
             <ListView x:Name="EntitiesList"
                     ItemTapped="EntitiesList_OnItemTapped"
                     CachingStrategy="RecycleElement"
@@ -65,7 +65,7 @@
                 </ListView.ItemTemplate>
             </ListView>
         </StackLayout>
-        <StackLayout IsVisible="{Binding IsNoSourceLayoutVisible}"  AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+        <StackLayout IsVisible="{Binding Entities, Converter={xct:ListIsNullOrEmptyConverter}}"  AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
             <Label Text="{xct:Translate NoSavedTimetables}"
                     VerticalOptions="CenterAndExpand" 
                     HorizontalOptions="CenterAndExpand"

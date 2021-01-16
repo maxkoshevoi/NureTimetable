@@ -18,9 +18,6 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
         #region Properties
         public bool HasUnsavedChanges { get; set; } = false;
 
-        private bool _isNoSourceLayoutVisible;
-        public bool IsNoSourceLayoutVisible { get => _isNoSourceLayoutVisible; set => SetProperty(ref _isNoSourceLayoutVisible, value); }
-
         public ObservableRangeCollection<LessonViewModel> Lessons { get; }
 
         public IAsyncCommand PageAppearingCommand { get; }
@@ -33,11 +30,7 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
             Title = new(() => $"{LN.Lessons}: {entity.Name}");
 
             timetable = EventsRepository.GetTimetableLocal(entity);
-            if (timetable is null)
-            {
-                IsNoSourceLayoutVisible = true;
-            }
-            else
+            if (timetable is not null)
             {
                 Lessons = new
                 (
@@ -47,11 +40,10 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
                         .ThenBy(lesson => lesson.Lesson.ShortName)
                         .Select(lesson => new LessonViewModel(lesson, timetable, this))
                 );
-                IsNoSourceLayoutVisible = Lessons.Count == 0;
             }
 
             PageAppearingCommand = CommandHelper.Create(PageAppearing);
-            SaveClickedCommand = CommandHelper.Create(SaveClicked);
+            SaveClickedCommand = CommandHelper.Create(SaveClicked, () => Lessons?.Any() == true);
             BackButtonPressedCommand = CommandHelper.Create(BackButtonPressed);
         }
 

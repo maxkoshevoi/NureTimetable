@@ -22,7 +22,7 @@
     </ContentPage.ToolbarItems>
 
     <AbsoluteLayout>
-        <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="{Binding IsNoSourceLayoutVisible, Converter={xct:InvertedBoolConverter}}">
+        <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="{Binding Lessons, Converter={xct:ListIsNotNullOrEmptyConverter}}">
             <ListView x:Name="LessonsList"
                     ItemsSource="{Binding Lessons}"
                     ItemTapped="Handle_ItemTapped"
@@ -55,7 +55,7 @@
                 </ListView.ItemTemplate>
             </ListView>
         </StackLayout>
-        <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="{Binding IsNoSourceLayoutVisible}">
+        <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="{Binding Lessons, Converter={xct:ListIsNullOrEmptyConverter}}">
             <Label Text="{xct:Translate EmptyLessonsList}"
                     VerticalOptions="CenterAndExpand" 
                     HorizontalOptions="CenterAndExpand" 

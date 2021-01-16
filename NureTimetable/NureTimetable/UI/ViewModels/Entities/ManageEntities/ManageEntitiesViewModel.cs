@@ -18,9 +18,6 @@ namespace NureTimetable.UI.ViewModels.Entities.ManageEntities
     public class ManageEntitiesViewModel : BaseViewModel
     {
         #region Properties
-        private bool _isNoSourceLayoutVisible;
-        public bool IsNoSourceLayoutVisible { get => _isNoSourceLayoutVisible; set => SetProperty(ref _isNoSourceLayoutVisible, value); }
-
         private bool _isMultiselectMode;
         public bool IsMultiselectMode { get => _isMultiselectMode; set => SetProperty(ref _isMultiselectMode, value); }
 
@@ -66,9 +63,11 @@ namespace NureTimetable.UI.ViewModels.Entities.ManageEntities
                 if (savedEntity is not null)
                     savedEntity.IsUpdating = false;
             });
+
+            // ListIsNullOrEmptyConverter needs to know that Entities are updated
+            Entities.CollectionChanged += (_, _) => OnPropertyChanged(nameof(Entities));
         }
 
-        #region Methods
         public void SelectOne(SavedEntity savedEntity)
         {
             List<SavedEntity> savedEntities = UniversityEntitiesRepository.GetSaved();
@@ -77,7 +76,6 @@ namespace NureTimetable.UI.ViewModels.Entities.ManageEntities
                 e.IsSelected = e == savedEntity;
             }
             UniversityEntitiesRepository.UpdateSaved(savedEntities);
-            UpdateItems(savedEntities);
         }
 
         public void EntityChanged(object sender, PropertyChangedEventArgs e)
@@ -120,9 +118,6 @@ namespace NureTimetable.UI.ViewModels.Entities.ManageEntities
             }
 
             UniversityEntitiesRepository.UpdateSaved(currentSaved);
-
-            // Changing multiselect state
-            IsMultiselectMode = currentSaved.Count(e => e.IsSelected) > 1;
         }
 
         private async Task UpdateAll()
@@ -135,15 +130,12 @@ namespace NureTimetable.UI.ViewModels.Entities.ManageEntities
 
         private void UpdateItems(List<SavedEntity> newItems)
         {
-            IsNoSourceLayoutVisible = (newItems.Count == 0);
-
-            Entities.ForEach(se => se.PropertyChanged -= EntityChanged);
-            newItems.ForEach(se => se.PropertyChanged += EntityChanged);
+            Entities.ForEach(se => se.SavedEntity.PropertyChanged -= EntityChanged);
             Entities.ReplaceRange(newItems.Select(se => new SavedEntityItemViewModel(se, this)));
+            Entities.ForEach(se => se.SavedEntity.PropertyChanged += EntityChanged);
 
-            IsMultiselectMode = newItems.Count(i => i.IsSelected) > 1;
+            IsMultiselectMode = Entities.Count(i => i.SavedEntity.IsSelected) > 1;
             UpdateAllCommand.RaiseCanExecuteChanged();
         }
-        #endregion
     }
 }
