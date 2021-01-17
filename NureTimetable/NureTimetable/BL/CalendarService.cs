@@ -48,7 +48,7 @@ namespace NureTimetable.BL
                 return null;
             }
 
-            IList<Calendar> calendars = await GetCalendars();
+            IList<Calendar> calendars = await GetAllCalendars();
 
             Calendar defaultCalendar = calendars.SingleOrDefault(c => c.ExternalID == SettingsRepository.Settings.DefaultCalendarId);
             if (defaultCalendar is not null)
@@ -70,7 +70,7 @@ namespace NureTimetable.BL
             return selectedCalendar;
         }
 
-        public static async Task<IList<Calendar>> GetCalendars()
+        public static async Task<IList<Calendar>> GetAllCalendars()
         {
             if (!await RequestPermissions())
             {

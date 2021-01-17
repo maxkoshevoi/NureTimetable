@@ -160,7 +160,7 @@ namespace NureTimetable.UI.ViewModels.Info
 
             if (requestPermissionIfNeeded || await CalendarService.CheckPermissions())
             {
-                var calendars = await CalendarService.GetCalendars();
+                var calendars = await CalendarService.GetAllCalendars();
                 if (calendars is not null)
                 {
                     newMapping.AddRange(calendars.Select(c => ((Func<string>)(() => c.Name), c.ExternalID)));

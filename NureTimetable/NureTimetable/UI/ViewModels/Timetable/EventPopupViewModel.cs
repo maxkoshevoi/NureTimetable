@@ -72,11 +72,14 @@ namespace NureTimetable.UI.ViewModels.Timetable
 
             var calendarEvent = CalendarService.GenerateCalendarEvent(Event, EventNumber, EventsCount);
             bool isAdded = await CalendarService.AddOrUpdateEvent(calendar, calendarEvent);
+            if (!isAdded)
+            {
+                await Shell.Current.CurrentPage.DisplayAlert(LN.AddingToCalendarTitle, LN.AddingEventToCalendarFail, LN.Ok);
+                return;
+            }
 
+            await Shell.Current.CurrentPage.DisplayToastAsync(LN.AddingEventToCalendarSuccess);
             await ClosePopup();
-
-            string message = isAdded ? LN.AddingEventToCalendarSuccess : LN.AddingEventToCalendarFail;
-            await Shell.Current.CurrentPage.DisplayToastAsync(message);
         }
 
         private static async Task ClosePopup()
