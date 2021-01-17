@@ -36,13 +36,19 @@ namespace NureTimetable.UI.ViewModels.Info
         public LocalizedString AppVersion { get; } = new(() => string.Format(LN.Version, AppInfo.VersionString));
 
         private bool langIsRestartRequired = false;
-        public string AppLanguageName => 
+        public LocalizedString AppLanguageName => new(() =>
             languageMapping.Single(m => m.value == SettingsRepository.Settings.Language).name() + 
-            (langIsRestartRequired ? $" ({LN.RestartRequired})" : string.Empty);
+            (langIsRestartRequired ? $" ({LN.RestartRequired})" : string.Empty));
 
-        public string AppThemeName => themeMapping.Single(m => m.value == SettingsRepository.Settings.Theme).name();
+        public LocalizedString AppThemeName => new(() => themeMapping.Single(m => m.value == SettingsRepository.Settings.Theme).name());
 
-        public string DefaultCalendarName => calendarMapping?.Single(m => m.id == SettingsRepository.Settings.DefaultCalendarId).name() ?? LN.Wait;
+        public LocalizedString DefaultCalendarName => new(() => 
+        {
+            if (calendarMapping is null)
+                return LN.Wait;
+
+            return calendarMapping.SingleOrDefault(m => m.id == SettingsRepository.Settings.DefaultCalendarId).name?.Invoke() ?? LN.InsufficientRights;
+        });
 
         public IAsyncCommand PageAppearingCommand { get; }
         public IAsyncCommand<string> NavigateUriCommand { get; }
@@ -83,17 +89,14 @@ namespace NureTimetable.UI.ViewModels.Info
             ChangeDefaultCalendarCommand = CommandHelper.Create(ChangeDefaultCalendar);
             
             MessagingCenter.Subscribe<Application, AppTheme>(Application.Current, MessageTypes.ThemeChanged, (sender, theme) => OnPropertyChanged(nameof(AppThemeName)));
-            LocalizationResourceManager.Current.PropertyChanged += (_, _) =>
-            {
-                OnPropertyChanged(nameof(AppThemeName));
-                OnPropertyChanged(nameof(AppLanguageName));
-                OnPropertyChanged(nameof(DefaultCalendarName));
-            };
         }
 
         private async Task PageAppearing()
         {
-            await UpdateDefaultCalendarName(false);
+            if (calendarMapping is null)
+            {
+                await UpdateDefaultCalendarMapping(false);
+            }
         }
 
         public async Task ChangeSetting<T>(string name, List<(Func<string> name, T value)> mapping, T currectValue, Action<T> applyNewValue)
@@ -148,9 +151,9 @@ namespace NureTimetable.UI.ViewModels.Info
             );
         }
 
-        private async Task UpdateDefaultCalendarName(bool requestPermissionIfNeeded)
+        private async Task UpdateDefaultCalendarMapping(bool requestPermissionIfNeeded)
         {
-            calendarMapping = new() 
+            List<(Func<string>, string)> newMapping = new() 
             { 
                 (() => LN.AskEveryTime, string.Empty) 
             };
@@ -160,16 +163,17 @@ namespace NureTimetable.UI.ViewModels.Info
                 var calendars = await CalendarService.GetCalendars();
                 if (calendars is not null)
                 {
-                    calendarMapping.AddRange(calendars.Select(c => ((Func<string>)(() => c.Name), c.ExternalID)));
+                    newMapping.AddRange(calendars.Select(c => ((Func<string>)(() => c.Name), c.ExternalID)));
                 }
             }
 
+            calendarMapping = newMapping;
             OnPropertyChanged(nameof(DefaultCalendarName));
         }
 
         public async Task ChangeDefaultCalendar()
         {
-            await UpdateDefaultCalendarName(true);
+            await UpdateDefaultCalendarMapping(true);
             await ChangeSetting
             (
                 LN.DefaultCalendar,

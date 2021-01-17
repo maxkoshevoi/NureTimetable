@@ -37,7 +37,7 @@
                 <Image Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.Brightness6}, Color={DynamicResource SecondaryTextColor}}" />
                 <StackLayout VerticalOptions="Center">
                     <Label Text="{xct:Translate Theme}" Style="{DynamicResource ListItemTextStyle}" />
-                    <Label Text="{Binding AppThemeName}" FontSize="13" Style="{DynamicResource ListItemDetailTextStyle}" />
+                    <Label Text="{Binding AppThemeName.Localized}" FontSize="13" Style="{DynamicResource ListItemDetailTextStyle}" />
                 </StackLayout>
 
                 <StackLayout.GestureRecognizers>
@@ -48,7 +48,7 @@
                 <Image Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.Web}, Color={DynamicResource SecondaryTextColor}}" />
                 <StackLayout>
                     <Label Text="{xct:Translate Language}" Style="{DynamicResource ListItemTextStyle}" />
-                    <Label Text="{Binding AppLanguageName}" FontSize="13" Style="{DynamicResource ListItemDetailTextStyle}" />
+                    <Label Text="{Binding AppLanguageName.Localized}" FontSize="13" Style="{DynamicResource ListItemDetailTextStyle}" />
                 </StackLayout>
 
                 <StackLayout.GestureRecognizers>
@@ -59,7 +59,7 @@
                 <Image Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.CalendarBlank}, Color={DynamicResource SecondaryTextColor}}" />
                 <StackLayout>
                     <Label Text="{xct:Translate DefaultCalendar}" Style="{DynamicResource ListItemTextStyle}" />
-                    <Label Text="{Binding DefaultCalendarName}" FontSize="13" Style="{DynamicResource ListItemDetailTextStyle}" />
+                    <Label Text="{Binding DefaultCalendarName.Localized}" FontSize="13" Style="{DynamicResource ListItemDetailTextStyle}" />
                 </StackLayout>
 
                 <StackLayout.GestureRecognizers>
