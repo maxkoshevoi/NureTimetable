@@ -8,6 +8,10 @@
              x:DataType="vm:MenuViewModel"
              Title="{xct:Translate AppName}">
 
+    <ContentPage.Behaviors>
+        <xct:EventToCommandBehavior x:DataType="vm:MenuViewModel" EventName="Appearing" Command="{Binding PageAppearingCommand}"/>
+    </ContentPage.Behaviors>
+
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="Row" TargetType="StackLayout">
@@ -51,7 +55,18 @@
                     <TapGestureRecognizer Command="{Binding ChangeLanguageCommand}"/>
                 </StackLayout.GestureRecognizers>
             </StackLayout>
-        
+            <StackLayout Style="{StaticResource Row}">
+                <Image Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.CalendarBlank}, Color={DynamicResource SecondaryTextColor}}" />
+                <StackLayout>
+                    <Label Text="{xct:Translate DefaultCalendar}" Style="{DynamicResource ListItemTextStyle}" />
+                    <Label Text="{Binding DefaultCalendarName}" FontSize="13" Style="{DynamicResource ListItemDetailTextStyle}" />
+                </StackLayout>
+
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ChangeDefaultCalendarCommand}"/>
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+
             <BoxView/>
 
             <StackLayout Style="{StaticResource Row}">

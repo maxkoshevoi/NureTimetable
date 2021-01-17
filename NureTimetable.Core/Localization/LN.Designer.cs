@@ -133,6 +133,15 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ask every time.
+        /// </summary>
+        public static string AskEveryTime {
+            get {
+                return ResourceManager.GetString("AskEveryTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to For lessons management, you need to download timetable first..
         /// </summary>
         public static string AtFirstLoadTimetable {
@@ -211,6 +220,15 @@ namespace NureTimetable.Core.Localization {
         public static string Day {
             get {
                 return ResourceManager.GetString("Day", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default calendar.
+        /// </summary>
+        public static string DefaultCalendar {
+            get {
+                return ResourceManager.GetString("DefaultCalendar", resourceCulture);
             }
         }
         

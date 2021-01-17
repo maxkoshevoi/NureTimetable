@@ -440,4 +440,10 @@
   <data name="PurchaseFailed" xml:space="preserve">
     <value>Что-то пошло не так, покупка не удалась.</value>
   </data>
+  <data name="DefaultCalendar" xml:space="preserve">
+    <value>Календарь по умолчанию</value>
+  </data>
+  <data name="AskEveryTime" xml:space="preserve">
+    <value>Спрашивать каждый раз</value>
+  </data>
 </root>

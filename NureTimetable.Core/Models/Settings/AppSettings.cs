@@ -25,6 +25,12 @@ namespace NureTimetable.Core.Models.Settings
             set => Preferences.Set(nameof(Language), (int)value);
         }
 
+        public string DefaultCalendarId
+        {
+            get => Preferences.Get(nameof(DefaultCalendarId), null);
+            set => Preferences.Set(nameof(DefaultCalendarId), value);
+        }
+
         public DateTime? LastCistAllEntitiesUpdate
         {
             get => TypeConverter.Get<DateTime?>(Preferences.Get(nameof(LastCistAllEntitiesUpdate), null));
