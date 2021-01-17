@@ -27,7 +27,7 @@ namespace NureTimetable.Core.Models.Settings
 
         public string DefaultCalendarId
         {
-            get => Preferences.Get(nameof(DefaultCalendarId), null);
+            get => Preferences.Get(nameof(DefaultCalendarId), string.Empty);
             set => Preferences.Set(nameof(DefaultCalendarId), value);
         }
 

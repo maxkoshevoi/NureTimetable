@@ -98,14 +98,9 @@ namespace NureTimetable.UI.ViewModels.Info
 
         public async Task ChangeSetting<T>(string name, List<(Func<string> name, T value)> mapping, T currectValue, Action<T> applyNewValue)
         {
-            string selectedName = await Shell.Current.DisplayActionSheet(name, LN.Cancel, null, mapping.Select(m => m.name() ?? string.Empty).ToArray());
-            if (selectedName is null)
+            string selectedName = await Shell.Current.DisplayActionSheet(name, LN.Cancel, null, mapping.Select(m => m.name()).ToArray());
+            if (selectedName is null || selectedName == LN.Cancel)
                 return;
-
-            if (selectedName == string.Empty)
-            {
-                selectedName = null;
-            }
 
             T selectedValue = mapping.Single(m => m.name() == selectedName).value;
             if (currectValue?.Equals(selectedValue) == true)
@@ -157,7 +152,7 @@ namespace NureTimetable.UI.ViewModels.Info
         {
             calendarMapping = new() 
             { 
-                (() => LN.AskEveryTime, null) 
+                (() => LN.AskEveryTime, string.Empty) 
             };
 
             if (requestPermissionIfNeeded || await CalendarService.CheckPermissions())
