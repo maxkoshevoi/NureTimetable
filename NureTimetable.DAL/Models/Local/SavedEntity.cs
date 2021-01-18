@@ -9,8 +9,10 @@ namespace NureTimetable.DAL.Models.Local
         {
         }
 
-        public SavedEntity(Entity entity) => 
-            Entity = entity;
+        public SavedEntity(Entity entity)
+        {
+            Entity = entity ?? throw new ArgumentNullException(nameof(entity));
+        }
 
         public Entity Entity { get; }
 
