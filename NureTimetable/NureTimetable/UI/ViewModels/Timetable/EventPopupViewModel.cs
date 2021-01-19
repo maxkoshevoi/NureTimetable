@@ -78,8 +78,11 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 return;
             }
 
-            await Shell.Current.CurrentPage.DisplayToastAsync(LN.AddingEventToCalendarSuccess);
-            await ClosePopup();
+            // Displaying toast and closing popup at the same time
+            await Task.WhenAll(
+                Shell.Current.CurrentPage.DisplayToastAsync(LN.AddingEventToCalendarSuccess), 
+                ClosePopup()
+            );
         }
 
         private static async Task ClosePopup()
