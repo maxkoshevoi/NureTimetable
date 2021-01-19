@@ -62,7 +62,7 @@ namespace NureTimetable.BL
             }
 
             string targetCalendarName = await Shell.Current.DisplayActionSheet(LN.ChooseCalendar, LN.Cancel, null, calendars.Select(c => c.Name).ToArray());
-            if (targetCalendarName is null)
+            if (targetCalendarName is null || targetCalendarName == LN.Cancel)
             {
                 return null;
             }
