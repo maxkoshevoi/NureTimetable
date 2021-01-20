@@ -34,7 +34,7 @@ namespace NureTimetable.UI.Views
                 }
             };
 
-            MessagingCenter.Subscribe<Application, Exception>(this, MessageTypes.ExceptionOccurred, (sender, ex) =>
+            MessagingCenter.Subscribe<Application, Exception>(this, MessageTypes.ExceptionOccurred, (_, ex) =>
             {
                 if (App.IsDebugMode)
                 {

@@ -12,6 +12,7 @@ namespace NureTimetable.UI.ViewModels.Entities
     public class AddTimetableViewModel : BaseViewModel
     {
         #region Properties
+        public IAsyncCommand PageAppearingCommand { get; }
         public IAsyncCommand UpdateCommand { get; }
 
         private bool updateCommandEnabled = true;
@@ -31,6 +32,7 @@ namespace NureTimetable.UI.ViewModels.Entities
                 Task.Run(UpdateFromCist);
             }
 
+            PageAppearingCommand = CommandHelper.Create(() => UpdateEntitiesOnAllTabs());
             UpdateCommand = CommandHelper.Create(UpdateEntities, () => UpdateCommandEnabled);
         }
 
@@ -46,16 +48,21 @@ namespace NureTimetable.UI.ViewModels.Entities
             {
                 UpdateCommandEnabled = false;
                 var updateFromCist = Task.Run(UpdateFromCist);
-                await Task.WhenAll(
-                    AddGroupPageViewModel.UpdateEntities(updateFromCist),
-                    AddTeacherPageViewModel.UpdateEntities(updateFromCist),
-                    AddRoomPageViewModel.UpdateEntities(updateFromCist)
-                );
+                await UpdateEntitiesOnAllTabs(updateFromCist);
                 UpdateCommandEnabled = true;
             }
         }
 
-        public static async Task UpdateFromCist()
+        private Task UpdateEntitiesOnAllTabs(Task updateDataSource = null)
+        {
+            return Task.WhenAll(
+                AddGroupPageViewModel.UpdateEntities(updateDataSource),
+                AddTeacherPageViewModel.UpdateEntities(updateDataSource),
+                AddRoomPageViewModel.UpdateEntities(updateDataSource)
+            );
+        }
+
+        private static async Task UpdateFromCist()
         {
             var updateFromCistResult = UniversityEntitiesRepository.UpdateFromCist();
 

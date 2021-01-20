@@ -48,8 +48,7 @@ namespace NureTimetable.UI.ViewModels.Entities
         {
             SearchBarTextChangedCommand = CommandHelper.Create<string>(SearchBarTextChanged);
 
-            MessagingCenter.Subscribe<Application>(this, MessageTypes.UniversityEntitiesUpdated, async (sender) => await UpdateEntities());
-            MainThread.BeginInvokeOnMainThread(async () => await UpdateEntities());
+            MessagingCenter.Subscribe<Application>(this, MessageTypes.UniversityEntitiesUpdated, async _ => await UpdateEntities());
         }
 
         #region Abstract Methods
@@ -108,11 +107,11 @@ namespace NureTimetable.UI.ViewModels.Entities
         {
             await Task.Run(async () =>
             {
-                updateDataSource ??= Task.Run(UniversityEntitiesRepository.AssureInitialized);
-
                 IsProgressLayoutVisible = true;
 
+                updateDataSource ??= Task.Run(UniversityEntitiesRepository.AssureInitialized);
                 await updateDataSource;
+
                 _allEntities = GetAllEntities();
                 Entities.ReplaceRange(OrderEntities());
 

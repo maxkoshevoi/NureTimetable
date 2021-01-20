@@ -165,6 +165,13 @@ namespace NureTimetable.BL
             }
             catch (Exception ex)
             {
+                ex.Data.Add("Calendar.Name", calendar.Name);
+                ex.Data.Add("Calendar.AccountName", calendar.AccountName);
+                ex.Data.Add("Calendar.CanEditCalendar", calendar.CanEditCalendar);
+                ex.Data.Add("Calendar.CanEditEvents", calendar.CanEditEvents);
+                ex.Data.Add("CalendarEvent.Name", calendarEvent.Name);
+                ex.Data.Add("CalendarEvent.Start", calendarEvent.Start);
+                ex.Data.Add("CalendarEvent.End", calendarEvent.End);
                 MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
                 return false;
             }

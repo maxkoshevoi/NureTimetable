@@ -10,6 +10,10 @@
             Shell.NavBarHasShadow="False"
             Title="{xct:Translate AddingTimetable}">
 
+    <TabbedPage.Behaviors>
+        <xct:EventToCommandBehavior x:DataType="vm:AddTimetableViewModel" EventName="Appearing" Command="{Binding PageAppearingCommand}"/>
+    </TabbedPage.Behaviors>
+
     <TabbedPage.ToolbarItems>
         <ToolbarItem IconImageSource="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.Sync}}" Command="{Binding UpdateCommand}" x:Name="UpdateFromCist" />
     </TabbedPage.ToolbarItems>

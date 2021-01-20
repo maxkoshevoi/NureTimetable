@@ -88,7 +88,7 @@ namespace NureTimetable.UI.ViewModels.Info
             ChangeLanguageCommand = CommandHelper.Create(ChangeLanguage);
             ChangeDefaultCalendarCommand = CommandHelper.Create(ChangeDefaultCalendar);
             
-            MessagingCenter.Subscribe<Application, AppTheme>(Application.Current, MessageTypes.ThemeChanged, (sender, theme) => OnPropertyChanged(nameof(AppThemeName)));
+            MessagingCenter.Subscribe<Application, AppTheme>(Application.Current, MessageTypes.ThemeChanged, (_, _) => OnPropertyChanged(nameof(AppThemeName)));
         }
 
         private async Task PageAppearing()
