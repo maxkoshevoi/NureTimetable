@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using static NureTimetable.DAL.UniversityEntitiesRepository;
 
 namespace NureTimetable.UI.ViewModels.Entities
 {
@@ -47,8 +48,9 @@ namespace NureTimetable.UI.ViewModels.Entities
             if (await Shell.Current.DisplayAlert(LN.UniversityInfoUpdate, LN.UniversityInfoUpdateConfirm, LN.Yes, LN.Cancel))
             {
                 UpdateCommandEnabled = false;
-                var updateFromCist = Task.Run(UpdateFromCist);
+                var updateFromCist = Task.Run(UniversityEntitiesRepository.UpdateFromCist);
                 await UpdateEntitiesOnAllTabs(updateFromCist);
+                await DisplayUpdateResult(await updateFromCist);
                 UpdateCommandEnabled = true;
             }
         }
@@ -62,44 +64,44 @@ namespace NureTimetable.UI.ViewModels.Entities
             );
         }
 
-        private static async Task UpdateFromCist()
+        private static async Task DisplayUpdateResult(UniversityEntitiesCistUpdateResult updateResult)
         {
-            var updateFromCistResult = UniversityEntitiesRepository.UpdateFromCist();
-
-            if (updateFromCistResult.IsAllFail)
+            string message;
+            if (updateResult.IsAllFail)
             {
-                string message = LN.UniversityInfoUpdateFail;
-                if (updateFromCistResult.IsConnectionIssues)
+                message = LN.UniversityInfoUpdateFail;
+                if (updateResult.IsConnectionIssues)
                 {
                     message = LN.CannotGetDataFromCist;
                 }
-                else if (updateFromCistResult.IsCistException)
+                else if (updateResult.IsCistException)
                 {
                     message = LN.CistException;
                 }
-                await MainThread.InvokeOnMainThreadAsync(async () =>
-                    await Shell.Current.DisplayAlert(LN.UniversityInfoUpdate, message, LN.Ok)
-                );
             }
-            else if (!updateFromCistResult.IsAllSuccessful)
+            else if (!updateResult.IsAllSuccessful)
             {
                 string failedEntities = Environment.NewLine;
-                if (updateFromCistResult.GroupsException != null)
+                if (updateResult.GroupsException != null)
                 {
                     failedEntities += LN.Groups + Environment.NewLine;
                 }
-                if (updateFromCistResult.TeachersException != null)
+                if (updateResult.TeachersException != null)
                 {
                     failedEntities += LN.Teachers + Environment.NewLine;
                 }
-                if (updateFromCistResult.RoomsException != null)
+                if (updateResult.RoomsException != null)
                 {
                     failedEntities += LN.Rooms + Environment.NewLine;
                 }
-                await MainThread.InvokeOnMainThreadAsync(async () =>
-                    await Shell.Current.DisplayAlert(LN.UniversityInfoUpdate, string.Format(LN.UniversityInfoUpdatePartiallyFail, Environment.NewLine + failedEntities), LN.Ok)
-                );
+                message = string.Format(LN.UniversityInfoUpdatePartiallyFail, Environment.NewLine + failedEntities);
             }
+            else
+            {
+                return;
+            }
+
+            await Shell.Current.DisplayAlert(LN.UniversityInfoUpdate, message, LN.Ok);
         }
     }
 }
