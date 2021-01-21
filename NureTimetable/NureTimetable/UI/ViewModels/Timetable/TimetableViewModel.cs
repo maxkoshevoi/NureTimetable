@@ -112,7 +112,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
         public IAsyncCommand ScheduleModeCommand { get; }
         public IAsyncCommand<CellTappedEventArgs> TimetableCellTappedCommand { get; }
         public IAsyncCommand<MonthInlineAppointmentTappedEventArgs> TimetableMonthInlineAppointmentTappedCommand { get; }
-        public Command<MonthInlineLoadedEventArgs> TimetableMonthInlineLoadedCommand { get; }
+        public Command TimetableMonthInlineLoadedCommand { get; }
         public IAsyncCommand<VisibleDatesChangedEventArgs> TimetableVisibleDatesChangedCommand { get; }
         public IAsyncCommand BTodayClickedCommand { get; }
         public IAsyncCommand UpdateTimetableCommand { get; }
