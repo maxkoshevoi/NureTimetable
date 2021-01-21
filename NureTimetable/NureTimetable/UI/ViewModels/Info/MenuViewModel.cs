@@ -35,10 +35,7 @@ namespace NureTimetable.UI.ViewModels.Info
 
         public LocalizedString AppVersion { get; } = new(() => string.Format(LN.Version, AppInfo.VersionString));
 
-        private bool langIsRestartRequired = false;
-        public LocalizedString AppLanguageName => new(() =>
-            languageMapping.Single(m => m.value == SettingsRepository.Settings.Language).name() + 
-            (langIsRestartRequired ? $" ({LN.RestartRequired})" : string.Empty));
+        public LocalizedString AppLanguageName => new(() => languageMapping.Single(m => m.value == SettingsRepository.Settings.Language).name());
 
         public LocalizedString AppThemeName => new(() => themeMapping.Single(m => m.value == SettingsRepository.Settings.Theme).name());
 
@@ -140,13 +137,8 @@ namespace NureTimetable.UI.ViewModels.Info
                 newLanguage =>
                 {
                     SettingsRepository.Settings.Language = newLanguage;
-
-                    langIsRestartRequired = true;
                     LocalizationResourceManager.Current.SetCulture(newLanguage == AppLanguage.FollowSystem ? CultureInfo.CurrentCulture : new CultureInfo((int)newLanguage));
-
-                    // TODO: Remove when https://github.com/xamarin/XamarinCommunityToolkit/issues/745 is closed
-                    var activityManager = DependencyService.Get<IActivityManager>();
-                    activityManager.Recreate();
+                    OnPropertyChanged(nameof(AppLanguageName));
                 }
             );
         }
