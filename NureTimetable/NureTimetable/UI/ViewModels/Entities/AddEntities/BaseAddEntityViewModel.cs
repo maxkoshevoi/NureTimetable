@@ -4,6 +4,7 @@ using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
 using NureTimetable.UI.Helpers;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Extensions;
@@ -19,7 +20,9 @@ namespace NureTimetable.UI.ViewModels.Entities
         private string lastSearchQuery;
 
         #region Properties
-        public ObservableRangeCollection<T> Entities { get; } = new();
+        // ObservableRangeCollection.ReplaceRange causes ArgumentOutOfRangeException in UpdateEntities from time to time
+        public ObservableCollection<T> entities = new();
+        public ObservableCollection<T> Entities { get => entities; set => SetProperty(ref entities, value); }
 
         private protected bool _isProgressLayoutVisible;
         public bool IsProgressLayoutVisible { get => _isProgressLayoutVisible; set => SetProperty(ref _isProgressLayoutVisible, value); }
@@ -95,11 +98,11 @@ namespace NureTimetable.UI.ViewModels.Entities
             lastSearchQuery = searchQuery;
             if (string.IsNullOrEmpty(searchQuery))
             {
-                Entities.ReplaceRange(OrderEntities());
+                Entities = new(OrderEntities());
             }
             else
             {
-                Entities.ReplaceRange(SearchEntities(searchQuery.ToLower()));
+                Entities = new(SearchEntities(searchQuery.ToLower()));
             }
         }
 
@@ -113,7 +116,7 @@ namespace NureTimetable.UI.ViewModels.Entities
                 await updateDataSource;
 
                 _allEntities = GetAllEntities();
-                Entities.ReplaceRange(OrderEntities());
+                Entities = new(OrderEntities());
 
                 IsNoSourceLayoutVisible = Entities.Count == 0;
 
