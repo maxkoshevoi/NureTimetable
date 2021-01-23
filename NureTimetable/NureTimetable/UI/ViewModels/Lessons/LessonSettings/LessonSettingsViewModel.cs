@@ -45,7 +45,7 @@ namespace NureTimetable.UI.ViewModels.Lessons.LessonSettings
             };
             UpdateEventTypesCheck(true);
 
-            ShowLessonStateChangedCommand = CommandHelper.Create(ShowLessonStateChanged);
+            ShowLessonStateChangedCommand = CommandFactory.Create(ShowLessonStateChanged);
         }
         
         private void EventTypeStateChanged(CheckedEntity<EventType> e)

@@ -30,9 +30,9 @@ namespace NureTimetable.UI.ViewModels.Entities.ManageEntities
 
         public ManageEntitiesViewModel()
         {
-            UpdateAllCommand = CommandHelper.Create(UpdateAll, () => Entities.Any() && Entities.All(e => !e.IsUpdating));
-            AddEntityCommand = CommandHelper.Create(() => Navigation.PushAsync(new AddTimetablePage()));
-            EntitySelectedCommand = CommandHelper.Create<SelectedItemChangedEventArgs>(async args =>
+            UpdateAllCommand = CommandFactory.Create(UpdateAll, () => Entities.Any() && Entities.All(e => !e.IsUpdating));
+            AddEntityCommand = CommandFactory.Create(() => Navigation.PushAsync(new AddTimetablePage()));
+            EntitySelectedCommand = CommandFactory.Create<SelectedItemChangedEventArgs>(async args =>
             {
                 if (args.SelectedItem is not SavedEntityItemViewModel entity) 
                     return;

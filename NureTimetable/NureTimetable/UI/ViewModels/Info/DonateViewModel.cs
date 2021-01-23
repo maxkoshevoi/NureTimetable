@@ -14,7 +14,7 @@ namespace NureTimetable.UI.ViewModels.Info
 
         public DonateViewModel()
         {
-            BuyProductCommand = CommandHelper.Create<string>(BuyProduct);
+            BuyProductCommand = CommandFactory.Create<string>(BuyProduct);
         }
         
         public static async Task BuyProduct(string productId)

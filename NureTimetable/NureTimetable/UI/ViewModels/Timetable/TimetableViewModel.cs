@@ -167,14 +167,14 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 IsTimetableUpdating = updatingTimetables.Contains(entity);
             });
 
-            PageAppearingCommand = CommandHelper.Create(PageAppearing);
-            HideSelectedEventsCommand = CommandHelper.Create(HideSelectedEventsClicked, () => TimetableInfoList.Events.Any());
-            ScheduleModeCommand = CommandHelper.Create(ScheduleModeClicked, () => TimetableInfoList.Events.Any());
-            BTodayClickedCommand = CommandHelper.Create(BTodayClicked);
-            PageDisappearingCommand = CommandHelper.Create(() => isPageVisible = false);
-            TimetableCellTappedCommand = CommandHelper.Create<CellTappedEventArgs>(e => DisplayEventDetails((Event)e.Appointment));
-            TimetableMonthInlineAppointmentTappedCommand = CommandHelper.Create<MonthInlineAppointmentTappedEventArgs>((e) => DisplayEventDetails((Event)e.Appointment));
-            TimetableMonthInlineLoadedCommand = CommandHelper.Create<MonthInlineLoadedEventArgs>(e =>
+            PageAppearingCommand = CommandFactory.Create(PageAppearing);
+            HideSelectedEventsCommand = CommandFactory.Create(HideSelectedEventsClicked, () => TimetableInfoList.Events.Any());
+            ScheduleModeCommand = CommandFactory.Create(ScheduleModeClicked, () => TimetableInfoList.Events.Any());
+            BTodayClickedCommand = CommandFactory.Create(BTodayClicked);
+            PageDisappearingCommand = CommandFactory.Create(() => isPageVisible = false);
+            TimetableCellTappedCommand = CommandFactory.Create<CellTappedEventArgs>(e => DisplayEventDetails((Event)e.Appointment));
+            TimetableMonthInlineAppointmentTappedCommand = CommandFactory.Create<MonthInlineAppointmentTappedEventArgs>((e) => DisplayEventDetails((Event)e.Appointment));
+            TimetableMonthInlineLoadedCommand = CommandFactory.Create<MonthInlineLoadedEventArgs>(e =>
             {
                 e.monthInlineViewStyle = new()
                 {
@@ -182,7 +182,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
                     TimeTextFormat = "HH:mm",
                 };
             });
-            TimetableVisibleDatesChangedCommand = CommandHelper.Create<VisibleDatesChangedEventArgs>(async (e) =>
+            TimetableVisibleDatesChangedCommand = CommandFactory.Create<VisibleDatesChangedEventArgs>(async (e) =>
             {
                 if (e is null)
                     return;
@@ -190,7 +190,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 visibleDates = e.visibleDates;
                 await UpdateTodayButton(false);
             });
-            UpdateTimetableCommand = CommandHelper.Create(
+            UpdateTimetableCommand = CommandFactory.Create(
                 () => TimetableService.UpdateAndDisplayResult(TimetableInfoList.Entities.ToArray()),
                 () => TimetableInfoList.Timetables.Any() && !IsTimetableUpdating
             );

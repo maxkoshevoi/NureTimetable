@@ -42,9 +42,9 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
                 );
             }
 
-            PageAppearingCommand = CommandHelper.Create(PageAppearing);
-            SaveClickedCommand = CommandHelper.Create(SaveClicked, () => Lessons?.Any() == true);
-            BackButtonPressedCommand = CommandHelper.Create(BackButtonPressed);
+            PageAppearingCommand = CommandFactory.Create(PageAppearing);
+            SaveClickedCommand = CommandFactory.Create(SaveClicked, () => Lessons?.Any() == true);
+            BackButtonPressedCommand = CommandFactory.Create(BackButtonPressed);
         }
 
         private async Task PageAppearing()

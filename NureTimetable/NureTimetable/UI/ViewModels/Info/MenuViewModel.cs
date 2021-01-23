@@ -77,13 +77,13 @@ namespace NureTimetable.UI.ViewModels.Info
 
         public MenuViewModel()
         {
-            PageAppearingCommand = CommandHelper.Create(PageAppearing);
-            NavigateUriCommand = CommandHelper.Create<string>(async url => await Launcher.OpenAsync(new Uri(url)));
-            ToggleDebugModeCommand = CommandHelper.Create(() => IsDebugModeActive = !IsDebugModeActive);
-            OpenDonatePageCommand = CommandHelper.Create(async () => await Navigation.PushAsync(new DonatePage()));
-            ChangeThemeCommand = CommandHelper.Create(ChangeTheme);
-            ChangeLanguageCommand = CommandHelper.Create(ChangeLanguage);
-            ChangeDefaultCalendarCommand = CommandHelper.Create(ChangeDefaultCalendar);
+            PageAppearingCommand = CommandFactory.Create(PageAppearing);
+            NavigateUriCommand = CommandFactory.Create<string>(async url => await Launcher.OpenAsync(new Uri(url)));
+            ToggleDebugModeCommand = CommandFactory.Create(() => IsDebugModeActive = !IsDebugModeActive);
+            OpenDonatePageCommand = CommandFactory.Create(async () => await Navigation.PushAsync(new DonatePage()));
+            ChangeThemeCommand = CommandFactory.Create(ChangeTheme);
+            ChangeLanguageCommand = CommandFactory.Create(ChangeLanguage);
+            ChangeDefaultCalendarCommand = CommandFactory.Create(ChangeDefaultCalendar);
             
             MessagingCenter.Subscribe<Application, AppTheme>(Application.Current, MessageTypes.ThemeChanged, (_, _) => OnPropertyChanged(nameof(AppThemeName)));
         }

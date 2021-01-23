@@ -33,8 +33,8 @@ namespace NureTimetable.UI.ViewModels.Entities
                 Task.Run(UpdateFromCist);
             }
 
-            PageAppearingCommand = CommandHelper.Create(() => UpdateEntitiesOnAllTabs());
-            UpdateCommand = CommandHelper.Create(UpdateEntities, () => UpdateCommandEnabled);
+            PageAppearingCommand = CommandFactory.Create(() => UpdateEntitiesOnAllTabs());
+            UpdateCommand = CommandFactory.Create(UpdateEntities, () => UpdateCommandEnabled);
         }
 
         private async Task UpdateEntities()

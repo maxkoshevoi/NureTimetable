@@ -49,7 +49,7 @@ namespace NureTimetable.UI.ViewModels.Entities
 
         protected BaseAddEntityViewModel()
         {
-            SearchBarTextChangedCommand = CommandHelper.Create<string>(SearchBarTextChanged);
+            SearchBarTextChangedCommand = CommandFactory.Create<string>(SearchBarTextChanged);
 
             MessagingCenter.Subscribe<Application>(this, MessageTypes.UniversityEntitiesUpdated, async _ => await UpdateEntities());
         }

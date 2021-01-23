@@ -7,8 +7,7 @@ namespace NureTimetable.UI.Helpers
 {
 	public class LocalizedString : ObservableObject
 	{
-        private readonly Func<string> generator;
-        private readonly LocalizationResourceManager localizationManager;
+		readonly Func<string> generator;
 
 		public LocalizedString(Func<string> generator = null)
 			: this(LocalizationResourceManager.Current, generator)
@@ -17,20 +16,39 @@ namespace NureTimetable.UI.Helpers
 
 		public LocalizedString(LocalizationResourceManager localizationManager, Func<string> generator = null)
 		{
-			this.localizationManager = localizationManager;
 			this.generator = generator;
-			localizationManager.PropertyChanged += Invalidate;
+			localizationManager.WeakSubscribe(this, (t, sender, e) => t.OnPropertyChanged(null));
 		}
 
 		public string Localized => generator?.Invoke();
 
-		public static implicit operator LocalizedString(Func<string> func) => new(func);
+		public static implicit operator LocalizedString(Func<string> func) => new LocalizedString(func);
+	}
 
-		void Invalidate(object sender, PropertyChangedEventArgs e) =>
-			OnPropertyChanged(null);
+	public static class INotifyPropertyChangedEx
+	{
+		public static void WeakSubscribe<T>(this INotifyPropertyChanged target, T subscriber, Action<T, object, EventArgs> action)
+		{
+			_ = target ?? throw new ArgumentNullException(nameof(target));
+			if (subscriber == null || action == null)
+			{
+				return;
+			}
 
-		public void Dispose() => localizationManager.PropertyChanged -= Invalidate;
+			var weakSubscriber = new WeakReference(subscriber, false);
+			target.PropertyChanged += handler;
 
-		~LocalizedString() => Dispose();
+				void handler(object sender, PropertyChangedEventArgs e)
+			{
+				var s = (T)weakSubscriber.Target;
+				if (s == null)
+				{
+					target.PropertyChanged -= handler;
+					return;
+				}
+
+				action(s, sender, e);
+			}
+		}
 	}
 }
