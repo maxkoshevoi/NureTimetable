@@ -5,10 +5,6 @@ namespace NureTimetable.DAL.Models.Local
 {
     public class SavedEntity : ObservableObject
     {
-        protected SavedEntity() 
-        {
-        }
-
         public SavedEntity(Entity entity)
         {
             Entity = entity ?? throw new ArgumentNullException(nameof(entity));

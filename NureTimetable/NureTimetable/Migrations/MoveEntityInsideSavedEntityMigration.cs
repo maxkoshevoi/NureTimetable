@@ -2,6 +2,7 @@
 using NureTimetable.DAL.Helpers;
 using NureTimetable.DAL.Models.Consts;
 using NureTimetable.DAL.Models.Local;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -12,25 +13,34 @@ namespace NureTimetable.Migrations
     {
         protected override bool IsNeedsToBeAppliedInternal()
         {
-            return UniversityEntitiesRepository.GetSaved().Any(e => e.Entity is null);
+            var entities = Serialisation.FromJsonFile<List<Entity>>(FilePath.SavedEntitiesList);
+            return entities.Any() && entities.First().ID > 0;
         }
 
         protected override bool ApplyInternal()
         {
-            var selectedEntities = UniversityEntitiesRepository.GetSaved();
+            List<SavedEntity> updatedSavedEntities = new();
+            var selectedEntities = Serialisation.FromJsonFile<List<SavedEntityWithoutEntity>>(FilePath.SavedEntitiesList);
             var entities = Serialisation.FromJsonFile<List<Entity>>(FilePath.SavedEntitiesList);
 
             for (int i = 0; i < entities.Count; i++)
             {
-                selectedEntities[i] = new(entities[i])
+                updatedSavedEntities.Add(new(entities[i])
                 {
                     IsSelected = selectedEntities[i].IsSelected,
                     LastUpdated = selectedEntities[i].LastUpdated
-                };
+                });
             }
 
-            Serialisation.ToJsonFile(selectedEntities, FilePath.SavedEntitiesList);
+            Serialisation.ToJsonFile(updatedSavedEntities, FilePath.SavedEntitiesList);
             return true;
+        }
+
+        class SavedEntityWithoutEntity
+        {
+            public DateTime? LastUpdated { get; set; }
+
+            public bool IsSelected { get; set; }
         }
     }
 }
