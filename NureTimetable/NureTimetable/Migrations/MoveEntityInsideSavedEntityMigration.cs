@@ -14,7 +14,7 @@ namespace NureTimetable.Migrations
         protected override bool IsNeedsToBeAppliedInternal()
         {
             var entities = Serialisation.FromJsonFile<List<Entity>>(FilePath.SavedEntitiesList);
-            return entities.Any() && entities.First().ID > 0;
+            return entities?.Any() == true && entities.First().ID > 0;
         }
 
         protected override bool ApplyInternal()
