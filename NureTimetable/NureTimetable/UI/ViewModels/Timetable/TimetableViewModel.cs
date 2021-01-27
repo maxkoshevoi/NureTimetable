@@ -93,9 +93,6 @@ namespace NureTimetable.UI.ViewModels.Timetable
         public string TimeLeftText { get => _timeLeftText; set => SetProperty(ref _timeLeftText, value); }
 
         // Layouts
-        private LocalizedString _noSourceLayoutText;
-        public LocalizedString NoSourceLayoutText { get => _noSourceLayoutText; set => SetProperty(ref _noSourceLayoutText, value); }
-        
         private bool _isProgressLayoutVisible;
         public bool IsProgressLayoutVisible { get => _isProgressLayoutVisible; set => SetProperty(ref _isProgressLayoutVisible, value); }
         
@@ -364,7 +361,6 @@ namespace NureTimetable.UI.ViewModels.Timetable
             {
                 Title = new(() => LN.AppName);
                 TimetableInfoList = TimetableInfoList.Empty;
-                NoSourceLayoutText = new(() => LN.NoTimetable);
                 return;
             }
 
@@ -382,10 +378,6 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 if (TimetableInfoList.Events.Any())
                 {
                     needToUpdateEventsUI = true;
-                }
-                else
-                {
-                    NoSourceLayoutText = new(() => LN.TimetableIsEmpty);
                 }
             }
 

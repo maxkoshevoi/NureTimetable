@@ -151,11 +151,14 @@
                 Scale="{Binding BTodayScale, Mode=TwoWay}"
                 Command="{Binding BTodayClickedCommand}"
                 Text="{Binding BTodayText}"/>
-            <StackLayout x:Name="NoSourceLayout" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="{Binding TimetableInfoList.Events, Converter={xct:ListIsNullOrEmptyConverter}}">
-                <Label Text="{Binding NoSourceLayoutText.Localized}"
+            <StackLayout x:Name="NoSourceLayout" 
+                    AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                    AbsoluteLayout.LayoutFlags="All" 
                     VerticalOptions="CenterAndExpand" 
                     HorizontalOptions="CenterAndExpand"
-                    HorizontalTextAlignment="Center" />
+                    IsVisible="{Binding TimetableInfoList.Events, Converter={xct:ListIsNullOrEmptyConverter}}">
+                <Label Text="{xct:Translate NoTimetable}" IsVisible="{Binding TimetableInfoList.Timetables, Converter={xct:ListIsNullOrEmptyConverter}}"/>
+                <Label Text="{xct:Translate TimetableIsEmpty}" IsVisible="{Binding TimetableInfoList.Timetables, Converter={xct:ListIsNotNullOrEmptyConverter}}" />
             </StackLayout>
             <StackLayout IsVisible="{Binding IsProgressLayoutVisible}" Padding="12"
                     AbsoluteLayout.LayoutFlags="PositionProportional"
