@@ -27,9 +27,6 @@ namespace NureTimetable.UI.ViewModels.Entities
         private protected bool _isProgressLayoutVisible;
         public bool IsProgressLayoutVisible { get => _isProgressLayoutVisible; set => SetProperty(ref _isProgressLayoutVisible, value); }
 
-        private protected bool _isNoSourceLayoutVisible;
-        public bool IsNoSourceLayoutVisible { get => _isNoSourceLayoutVisible; set => SetProperty(ref _isNoSourceLayoutVisible, value); }
-
         private protected T _selectedEntity;
         public T SelectedEntity
         {
@@ -106,9 +103,8 @@ namespace NureTimetable.UI.ViewModels.Entities
             }
         }
 
-        public async Task UpdateEntities(Task updateDataSource = null)
-        {
-            await Task.Run(async () =>
+        public Task UpdateEntities(Task updateDataSource = null) =>
+            Task.Run(async () =>
             {
                 IsProgressLayoutVisible = true;
 
@@ -118,8 +114,6 @@ namespace NureTimetable.UI.ViewModels.Entities
                 _allEntities = GetAllEntities();
                 Entities = new(OrderEntities());
 
-                IsNoSourceLayoutVisible = Entities.Count == 0;
-
                 if (!string.IsNullOrEmpty(lastSearchQuery))
                 {
                     SearchBarTextChanged(lastSearchQuery);
@@ -127,7 +121,6 @@ namespace NureTimetable.UI.ViewModels.Entities
 
                 IsProgressLayoutVisible = false;
             });
-        }
 
         #endregion
     }

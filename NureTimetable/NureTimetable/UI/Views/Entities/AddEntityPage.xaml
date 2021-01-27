@@ -26,11 +26,13 @@
                 </ListView.ItemTemplate>
             </ListView>
         </StackLayout>
-        <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="{Binding IsNoSourceLayoutVisible}">
-            <Label Text="{xct:Translate NoUniversityInfo}"
-                    VerticalOptions="CenterAndExpand" 
-                    HorizontalOptions="CenterAndExpand"
-                    HorizontalTextAlignment="Center" />
+        <StackLayout 
+                AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                AbsoluteLayout.LayoutFlags="All" 
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand"
+                IsVisible="{Binding Entities, Converter={xct:ListIsNullOrEmptyConverter}}">
+            <Label Text="{xct:Translate NoUniversityInfo}" HorizontalTextAlignment="Center" IsVisible="{Binding Text, Source={x:Reference searchbar}, Converter={xct:IsNullOrEmptyConverter}}" />
         </StackLayout>
         <StackLayout IsVisible="{Binding IsProgressLayoutVisible}" Padding="12"
                     AbsoluteLayout.LayoutFlags="PositionProportional"
