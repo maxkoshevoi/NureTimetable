@@ -32,6 +32,12 @@ namespace NureTimetable.UI.ViewModels.Entities.ManageEntities
             SavedEntity = savedEntity;
             ManageEntitiesViewModel = manageEntitiesViewModel;
 
+            var existingEntity = manageEntitiesViewModel.Entities.SingleOrDefault(se => se.SavedEntity == savedEntity);
+            if (existingEntity is not null)
+            {
+                IsUpdating = existingEntity.IsUpdating;
+            }
+
             UpdateClickedCommand = CommandFactory.Create(() => TimetableService.UpdateAndDisplayResult(SavedEntity));
             SettingsClickedCommand = CommandFactory.Create(SettingsClicked);
         }

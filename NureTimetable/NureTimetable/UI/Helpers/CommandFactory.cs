@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Reflection;
 using System.Threading.Tasks;
+using Xamarin.CommunityToolkit.Exceptions;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 
 namespace NureTimetable.UI.Helpers
 {
-    public static class CommandFactory
+	public static class CommandFactory
 	{
 		public static Command Create(Action execute, Func<bool> canExecute = null) =>
 			new Command(execute, canExecute ?? (() => true));
@@ -40,28 +42,78 @@ namespace NureTimetable.UI.Helpers
 			bool allowsMultipleExecutions = true) =>
 			new AsyncCommand<TExecute, TCanExecute>(execute, canExecute, onException, continueOnCapturedContext, allowsMultipleExecutions);
 
-		private static Action<object> ConvertExecute<T>(Action<T> execute)
+		//public static IAsyncValueCommand Create(
+		//	Func<ValueTask> execute,
+		//	Func<bool> canExecute = null,
+		//	Action<Exception> onException = null,
+		//	bool continueOnCapturedContext = false,
+		//	bool allowsMultipleExecutions = true) =>
+		//	new AsyncValueCommand(execute, canExecute, onException, continueOnCapturedContext, allowsMultipleExecutions);
+
+		//public static IAsyncValueCommand<TExecute> Create<TExecute>(
+		//	Func<TExecute, ValueTask> execute,
+		//	Func<bool> canExecute = null,
+		//	Action<Exception> onException = null,
+		//	bool continueOnCapturedContext = false,
+		//	bool allowsMultipleExecutions = true) =>
+		//	new AsyncValueCommand<TExecute>(execute, canExecute, onException, continueOnCapturedContext, allowsMultipleExecutions);
+
+		//public static IAsyncValueCommand<TExecute, TCanExecute> Create<TExecute, TCanExecute>(
+		//	Func<TExecute, ValueTask> execute,
+		//	Func<TCanExecute, bool> canExecute = null,
+		//	Action<Exception> onException = null,
+		//	bool continueOnCapturedContext = false,
+		//	bool allowsMultipleExecutions = true) =>
+		//	new AsyncValueCommand<TExecute, TCanExecute>(execute, canExecute, onException, continueOnCapturedContext, allowsMultipleExecutions);
+
+		static Action<object> ConvertExecute<T>(Action<T> execute)
 		{
-			if (execute is null)
+			if (execute == null)
 				return null;
 
-			return e => execute((T)e);
+			return p => Execute(execute, p);
 		}
 
-		private static Func<object, bool> ConvertCanExecute(Func<bool> canExecute)
+		static void Execute<T>(Action<T> execute, object parameter)
 		{
-			if (canExecute is null)
+			switch (parameter)
+			{
+				case T validParameter:
+					execute(validParameter);
+					break;
+
+				case null when !typeof(T).GetTypeInfo().IsValueType:
+					execute((T)parameter);
+					break;
+
+				case null:
+					throw new InvalidCommandParameterException(typeof(T));
+
+				default:
+					throw new InvalidCommandParameterException(typeof(T), parameter.GetType());
+			}
+		}
+
+		static Func<object, bool> ConvertCanExecute(Func<bool> canExecute)
+		{
+			if (canExecute == null)
 				return _ => true;
 
 			return _ => canExecute();
 		}
 
-		private static Func<object, bool> ConvertCanExecute<T>(Func<T, bool> canExecute)
+		static Func<object, bool> ConvertCanExecute<T>(Func<T, bool> canExecute)
 		{
-			if (canExecute is null)
-				return _ => true;
-
-			return e => canExecute((T)e);
+			canExecute ??= _ => true;
+			return p => CanExecute(canExecute, p);
 		}
+
+		static bool CanExecute<T>(Func<T, bool> canExecute, object parameter) => parameter switch
+		{
+			T validParameter => canExecute(validParameter),
+			null when !typeof(T).GetTypeInfo().IsValueType => canExecute((T)parameter),
+			null => throw new InvalidCommandParameterException(typeof(T)),
+			_ => throw new InvalidCommandParameterException(typeof(T), parameter.GetType()),
+		};
 	}
 }

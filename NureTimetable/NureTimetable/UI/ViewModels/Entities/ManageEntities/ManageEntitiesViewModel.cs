@@ -131,7 +131,7 @@ namespace NureTimetable.UI.ViewModels.Entities.ManageEntities
         private void UpdateItems(List<SavedEntity> newItems)
         {
             Entities.ForEach(se => se.SavedEntity.PropertyChanged -= EntityChanged);
-            Entities.ReplaceRange(newItems.Select(se => new SavedEntityItemViewModel(se, this)));
+            Entities.ReplaceRange(newItems.Select(se => new SavedEntityItemViewModel(se, this)).ToArray());
             Entities.ForEach(se => se.SavedEntity.PropertyChanged += EntityChanged);
 
             IsMultiselectMode = Entities.Count(i => i.SavedEntity.IsSelected) > 1;
