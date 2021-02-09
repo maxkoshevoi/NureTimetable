@@ -505,7 +505,8 @@ namespace NureTimetable.UI.ViewModels.Timetable
             }
             if (moveTo != today && visibleDates.Contains(moveTo))
             {
-                await Shell.Current.CurrentPage.DisplayToastAsync(LN.NoTodayTimetable);
+                // TODO: Add AnchorView BToday here when https://github.com/xamarin/XamarinCommunityToolkit/pull/846 is released
+                await Shell.Current.CurrentPage.DisplayToastAsync(LN.TimetableEndReached);
                 return;
             }
 

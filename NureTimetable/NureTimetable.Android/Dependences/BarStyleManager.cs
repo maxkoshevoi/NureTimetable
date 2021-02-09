@@ -22,7 +22,7 @@ namespace NureTimetable.Droid.Dependences
             MainThread.BeginInvokeOnMainThread(() =>
             {
                 var currentWindow = GetCurrentWindow();
-                SetBarAppearance(currentWindow, color == Color.White, null);
+                SetBarAppearance(currentWindow, statusBarLight: color == Color.White);
                 currentWindow.SetStatusBarColor(color);
             });
         }
@@ -38,7 +38,7 @@ namespace NureTimetable.Droid.Dependences
             MainThread.BeginInvokeOnMainThread(() =>
             {
                 var currentWindow = GetCurrentWindow();
-                SetBarAppearance(currentWindow, null, color == Color.White);
+                SetBarAppearance(currentWindow, navigationBarLight: color == Color.White);
                 currentWindow.SetNavigationBarColor(color);
             });
         }

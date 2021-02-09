@@ -593,15 +593,6 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Timetable for today not found.
-        /// </summary>
-        public static string NoTodayTimetable {
-            get {
-                return ResourceManager.GetString("NoTodayTimetable", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to No data.
         ///To update, click on the button in the upper right corner..
         /// </summary>
@@ -824,6 +815,15 @@ namespace NureTimetable.Core.Localization {
         public static string TimetableAlreadySaved {
             get {
                 return ResourceManager.GetString("TimetableAlreadySaved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You&apos;ve reached the end of timetable.
+        /// </summary>
+        public static string TimetableEndReached {
+            get {
+                return ResourceManager.GetString("TimetableEndReached", resourceCulture);
             }
         }
         

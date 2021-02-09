@@ -267,8 +267,8 @@
   <data name="NoSavedTimetables" xml:space="preserve">
     <value>У вас немає жодного збереженого розкладу.</value>
   </data>
-  <data name="NoTodayTimetable" xml:space="preserve">
-    <value>Розклад на поточний день не знайдено</value>
+  <data name="TimetableEndReached" xml:space="preserve">
+    <value>Ви досягли кінця розкладу</value>
   </data>
   <data name="NoUniversityInfo" xml:space="preserve">
     <value>Дані відсутні.

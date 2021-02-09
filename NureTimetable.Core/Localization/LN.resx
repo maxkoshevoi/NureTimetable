@@ -267,8 +267,8 @@
   <data name="NoSavedTimetables" xml:space="preserve">
     <value>You have no saved timetable.</value>
   </data>
-  <data name="NoTodayTimetable" xml:space="preserve">
-    <value>Timetable for today not found</value>
+  <data name="TimetableEndReached" xml:space="preserve">
+    <value>You've reached the end of timetable</value>
   </data>
   <data name="NoUniversityInfo" xml:space="preserve">
     <value>No data.

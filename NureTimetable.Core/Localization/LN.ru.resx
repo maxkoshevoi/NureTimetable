@@ -267,8 +267,8 @@
   <data name="NoSavedTimetables" xml:space="preserve">
     <value>У вас нет ни одного сохранённого расписания.</value>
   </data>
-  <data name="NoTodayTimetable" xml:space="preserve">
-    <value>Расписание на текущий день не найдено</value>
+  <data name="TimetableEndReached" xml:space="preserve">
+    <value>Вы достигли конца расписания</value>
   </data>
   <data name="NoUniversityInfo" xml:space="preserve">
     <value>Данные отсутствуют.
