@@ -20,7 +20,7 @@ namespace NureTimetable.BL
             var updateResult = await Update(entities);
             string response = GetResponseMessageFromUpdateResult(updateResult);
             
-            if (response is not null)
+            if (response != null)
             {
                 await Shell.Current.DisplayAlert(LN.TimetableUpdate, response, LN.Ok);
             }
@@ -62,7 +62,7 @@ namespace NureTimetable.BL
             {
                 return LN.TimetableLatest;
             }
-            if (updateResults.All(r => r.exception is null))
+            if (updateResults.All(r => r.exception == null))
             {
                 return null;
             }
@@ -72,7 +72,7 @@ namespace NureTimetable.BL
             bool isCistError = false;
             foreach (var (entity, ex) in updateResults)
             {
-                if (ex is null)
+                if (ex == null)
                 {
                     success.Add(entity.Name);
                     continue;

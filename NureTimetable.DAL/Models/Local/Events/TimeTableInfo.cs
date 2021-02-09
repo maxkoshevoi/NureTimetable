@@ -38,7 +38,7 @@ namespace NureTimetable.DAL.Models.Local
                 {
                     Events.RemoveAll(ev => ev.Lesson == lInfo.Lesson);
                 }
-                else if (lInfo.Settings.Hiding.ShowLesson is null)
+                else if (lInfo.Settings.Hiding.ShowLesson == null)
                 {
                     Events.RemoveAll(ev => ev.Lesson == lInfo.Lesson && 
                         (lInfo.Settings.Hiding.EventTypesToHide.Contains(ev.Type.ID) || 

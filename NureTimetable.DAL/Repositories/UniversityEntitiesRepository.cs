@@ -40,10 +40,10 @@ namespace NureTimetable.DAL
             public Exception RoomsException { get; }
 
             public bool IsAllSuccessful =>
-                GroupsException is null && TeachersException is null && RoomsException is null;
+                GroupsException == null && TeachersException == null && RoomsException == null;
 
             public bool IsAllFail =>
-                GroupsException is not null && TeachersException is not null && RoomsException is not null;
+                GroupsException != null && TeachersException != null && RoomsException != null;
 
             public bool IsConnectionIssues =>
                 GroupsException is WebException 
@@ -74,7 +74,7 @@ namespace NureTimetable.DAL
         public static bool UpdateLocal()
         {
             Cist::University university = GetLocal();
-            if (university is null)
+            if (university == null)
             {
                 return false;
             }

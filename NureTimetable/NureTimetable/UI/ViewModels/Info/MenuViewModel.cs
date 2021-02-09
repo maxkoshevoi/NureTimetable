@@ -41,7 +41,7 @@ namespace NureTimetable.UI.ViewModels.Info
 
         public LocalizedString DefaultCalendarName => new(() => 
         {
-            if (calendarMapping is null)
+            if (calendarMapping == null)
                 return LN.Wait;
 
             return calendarMapping.SingleOrDefault(m => m.id == SettingsRepository.Settings.DefaultCalendarId).name?.Invoke() ?? LN.InsufficientRights;
@@ -90,7 +90,7 @@ namespace NureTimetable.UI.ViewModels.Info
 
         private async Task PageAppearing()
         {
-            if (calendarMapping is null)
+            if (calendarMapping == null)
             {
                 await UpdateDefaultCalendarMapping(false);
             }
@@ -99,7 +99,7 @@ namespace NureTimetable.UI.ViewModels.Info
         public async Task ChangeSetting<T>(string name, List<(Func<string> name, T value)> mapping, T currectValue, Action<T> applyNewValue)
         {
             string selectedName = await Shell.Current.DisplayActionSheet(name, LN.Cancel, null, mapping.Select(m => m.name()).ToArray());
-            if (selectedName is null || selectedName == LN.Cancel)
+            if (selectedName == null || selectedName == LN.Cancel)
                 return;
 
             T selectedValue = mapping.Single(m => m.name() == selectedName).value;
@@ -153,7 +153,7 @@ namespace NureTimetable.UI.ViewModels.Info
             if (requestPermissionIfNeeded || await CalendarService.CheckPermissions())
             {
                 var calendars = await CalendarService.GetAllCalendars();
-                if (calendars is not null)
+                if (calendars != null)
                 {
                     newMapping.AddRange(calendars.Select(c => ((Func<string>)(() => c.Name), c.ExternalID)));
                 }

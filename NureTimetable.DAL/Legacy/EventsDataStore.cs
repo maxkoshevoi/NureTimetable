@@ -30,7 +30,7 @@ namespace NureTimetable.DAL.Legacy
                     Uri uri = new Uri(Urls.CistGroupTimetableUrl(Urls.CistTimetableFormat.Csv, dateStart, dateEnd, groupsAllowed.Select(g => g.ID).ToArray()));
                     string data = client.DownloadString(uri);
                     Dictionary<string, List<Event>> newEvents = ParseCistCsvTimetable(data, groupsAllowed.Count > 1);
-                    if (newEvents is null)
+                    if (newEvents == null)
                     {
                         // Parsing error
                         return null;
@@ -49,7 +49,7 @@ namespace NureTimetable.DAL.Legacy
                             groupEvents = newEvents.Values.First();
                         }
                         TimetableInfo groupTimetable = timetables.FirstOrDefault(tt => tt.Group.ID == group.ID);
-                        if (groupTimetable is null)
+                        if (groupTimetable == null)
                         {
                             groupTimetable = new TimetableInfo(group);
                             timetables.Add(groupTimetable);
@@ -73,7 +73,7 @@ namespace NureTimetable.DAL.Legacy
                                 foreach (var newLessonInfo in groupsLessons[group.Name])
                                 {
                                     LessonInfo oldLessonInfo = timetable.LessonsInfo.FirstOrDefault(li => li.ShortName == newLessonInfo.ShortName);
-                                    if (oldLessonInfo is null)
+                                    if (oldLessonInfo == null)
                                     {
                                         oldLessonInfo = new LessonInfo();
                                         timetable.LessonsInfo.Add(oldLessonInfo);
@@ -292,7 +292,7 @@ namespace NureTimetable.DAL.Legacy
                             string teacher = $"{eventTypeInfo[4]} {eventTypeInfo[5]}{eventTypeInfo[6]}".TrimEnd(',');
                                 
                             EventTypeInfo eventType = lessonInfo.EventTypesInfo.FirstOrDefault(et => et.Name == type);
-                            if (eventType is null)
+                            if (eventType == null)
                             {
                                 eventType = new EventTypeInfo
                                 {

@@ -30,7 +30,7 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
             Title = new(() => $"{LN.Lessons}: {entity.Name}");
 
             timetable = EventsRepository.GetTimetableLocal(entity);
-            if (timetable is not null)
+            if (timetable != null)
             {
                 Lessons = new
                 (
@@ -49,7 +49,7 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
 
         private async Task PageAppearing()
         {
-            if (Lessons is not null)
+            if (Lessons != null)
                 return;
 
             await Shell.Current.DisplayAlert(LN.LessonsManagement, LN.AtFirstLoadTimetable, LN.Ok);
@@ -58,7 +58,7 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
 
         private async Task SaveClicked()
         {
-            if (Lessons is null)
+            if (Lessons == null)
             {
                 await Shell.Current.DisplayAlert(LN.LessonsManagement, LN.AtFirstLoadTimetable, LN.Ok);
                 return;

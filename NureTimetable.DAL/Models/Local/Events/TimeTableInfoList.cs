@@ -50,7 +50,7 @@ namespace NureTimetable.DAL.Models.Local
                         Event combinedEvent = null;
                         foreach (var e in group)
                         {
-                            if (combinedEvent is null)
+                            if (combinedEvent == null)
                             {
                                 combinedEvent = e;
                                 continue;

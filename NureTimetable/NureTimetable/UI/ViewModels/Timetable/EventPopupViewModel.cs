@@ -64,7 +64,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
             }
 
             var calendar = await CalendarService.GetCalendar();
-            if (calendar is null)
+            if (calendar == null)
             {
                 // User didn't choose calendar
                 return;

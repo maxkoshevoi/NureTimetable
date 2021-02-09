@@ -36,7 +36,7 @@ namespace NureTimetable.Core.Models.Settings
             get 
             {
                 string storedValue = Preferences.Get(nameof(LastCistAllEntitiesUpdate), null);
-                return storedValue is null ? null : DateTime.Parse(storedValue, CultureInfo.InvariantCulture);
+                return storedValue == null ? null : DateTime.Parse(storedValue, CultureInfo.InvariantCulture);
             }
             set => Preferences.Set(nameof(LastCistAllEntitiesUpdate), value?.ToString(CultureInfo.InvariantCulture));
         }

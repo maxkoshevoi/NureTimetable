@@ -181,7 +181,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
             });
             TimetableVisibleDatesChangedCommand = CommandFactory.Create<VisibleDatesChangedEventArgs>(async (e) =>
             {
-                if (e is null)
+                if (e == null)
                     return;
 
                 visibleDates = e.visibleDates;
@@ -357,7 +357,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
 
         private void UpdateEvents(List<Entity> selectedEntities)
         {
-            if (selectedEntities is null || !selectedEntities.Any())
+            if (selectedEntities == null || !selectedEntities.Any())
             {
                 Title = new(() => LN.AppName);
                 TimetableInfoList = TimetableInfoList.Empty;
@@ -457,7 +457,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
 
         private async Task DisplayEventDetails(Event ev)
         {
-            if (ev is null)
+            if (ev == null)
                 return;
 
             await PopupNavigation.Instance.PushAsync(new EventPopupPage

@@ -26,7 +26,7 @@ namespace NureTimetable.UI.Themes
             };
 
             ICollection<ResourceDictionary> resources = Application.Current.Resources.MergedDictionaries;
-            if (resources is null || resources.FirstOrDefault()?.GetType() == theme.GetType())
+            if (resources == null || resources.FirstOrDefault()?.GetType() == theme.GetType())
             {
                 return false;
             }

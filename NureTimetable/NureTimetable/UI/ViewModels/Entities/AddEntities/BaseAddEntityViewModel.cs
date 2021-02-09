@@ -90,7 +90,7 @@ namespace NureTimetable.UI.ViewModels.Entities
 
         protected void SearchBarTextChanged(string searchQuery)
         {
-            if (_allEntities is null) return;
+            if (_allEntities == null) return;
 
             lastSearchQuery = searchQuery;
             if (string.IsNullOrEmpty(searchQuery))

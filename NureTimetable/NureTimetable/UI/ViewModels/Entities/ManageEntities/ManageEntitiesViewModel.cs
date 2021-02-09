@@ -54,13 +54,13 @@ namespace NureTimetable.UI.ViewModels.Entities.ManageEntities
             MessagingCenter.Subscribe<Application, Entity>(this, MessageTypes.TimetableUpdating, (sender, entity) =>
             {
                 SavedEntityItemViewModel savedEntity = Entities.SingleOrDefault(e => e.SavedEntity == entity);
-                if (savedEntity is not null)
+                if (savedEntity != null)
                     savedEntity.IsUpdating = true;
             });
             MessagingCenter.Subscribe<Application, Entity>(this, MessageTypes.TimetableUpdated, (sender, entity) =>
             {
                 SavedEntityItemViewModel savedEntity = Entities.SingleOrDefault(e => e.SavedEntity == entity);
-                if (savedEntity is not null)
+                if (savedEntity != null)
                     savedEntity.IsUpdating = false;
             });
 

@@ -33,7 +33,7 @@ namespace NureTimetable.UI.ViewModels.Entities.ManageEntities
             ManageEntitiesViewModel = manageEntitiesViewModel;
 
             var existingEntity = manageEntitiesViewModel.Entities.SingleOrDefault(se => se.SavedEntity == savedEntity);
-            if (existingEntity is not null)
+            if (existingEntity != null)
             {
                 IsUpdating = existingEntity.IsUpdating;
             }

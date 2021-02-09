@@ -21,13 +21,13 @@ namespace NureTimetable.DAL
             foreach (var entity in entitiesToUpdate)
             {
                 SavedEntity savedEntity = savedEntities.SingleOrDefault(e => e == entity);
-                if (savedEntity is null)
+                if (savedEntity == null)
                 {
                     // Cannot update timetable for entity that is not saved
                     continue;
                 }
 
-                if (savedEntity.LastUpdated is null || (DateTime.Now.TimeOfDay.Hours >= 5 && DateTime.Now.TimeOfDay.Hours < 7))
+                if (savedEntity.LastUpdated == null || (DateTime.Now.TimeOfDay.Hours >= 5 && DateTime.Now.TimeOfDay.Hours < 7))
                 {
                     // Update allowed if never updated before
                     // Unlimited updates between 5 and 7 AM
@@ -61,11 +61,6 @@ namespace NureTimetable.DAL
         #region All Entities Update Rights
         public static bool CheckCistAllEntitiesUpdateRights()
         {
-#if DEBUG
-            return true;
-#endif
-
-#pragma warning disable CS0162 // Unreachable code detected
             if (DateTime.Now.Month == 8 || DateTime.Now.Month == 9)
             {
                 // Unlimited update in August and September
@@ -73,9 +68,17 @@ namespace NureTimetable.DAL
             }
 
             TimeSpan? timePass = DateTime.Now - Settings.LastCistAllEntitiesUpdate;
-            return timePass is null || timePass > Config.CistAllEntitiesUpdateMinInterval;
-#pragma warning restore CS0162 // Unreachable code detected
+            if (timePass == null || timePass > Config.CistAllEntitiesUpdateMinInterval)
+            {
+                return true;
+            }
+
+#if DEBUG
+            return true;
+#else
+            return false;
+#endif
         }
-        #endregion
+#endregion
     }
 }

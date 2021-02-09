@@ -24,7 +24,7 @@ namespace NureTimetable.DAL
             Local::TimetableInfo timetable;
             if (tryUpdate)
             {
-                if (dateStart is null || dateEnd is null)
+                if (dateStart == null || dateEnd == null)
                 {
                     throw new ArgumentNullException($"{nameof(dateStart)} and {nameof(dateEnd)} must be set");
                 }
@@ -46,14 +46,14 @@ namespace NureTimetable.DAL
         public static List<Local::TimetableInfo> GetTimetableLocal(List<Local::Entity> entities)
         {
             List<Local::TimetableInfo> timetables = new();
-            if (entities is null)
+            if (entities == null)
             {
                 return timetables;
             }
             foreach (var entity in entities)
             {
                 Local::TimetableInfo timetableInfo = Serialisation.FromJsonFile<Local::TimetableInfo>(FilePath.SavedTimetable(entity.Type, entity.ID));
-                if (timetableInfo is null)
+                if (timetableInfo == null)
                 {
                     continue;
                 }

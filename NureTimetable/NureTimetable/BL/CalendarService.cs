@@ -51,7 +51,7 @@ namespace NureTimetable.BL
             IList<Calendar> calendars = await GetAllCalendars();
 
             Calendar defaultCalendar = calendars.SingleOrDefault(c => c.ExternalID == SettingsRepository.Settings.DefaultCalendarId);
-            if (defaultCalendar is not null)
+            if (defaultCalendar != null)
             {
                 return defaultCalendar;
             }
@@ -62,7 +62,7 @@ namespace NureTimetable.BL
             }
 
             string targetCalendarName = await Shell.Current.DisplayActionSheet(LN.ChooseCalendar, LN.Cancel, null, calendars.Select(c => c.Name).ToArray());
-            if (targetCalendarName is null || targetCalendarName == LN.Cancel)
+            if (targetCalendarName == null || targetCalendarName == LN.Cancel)
             {
                 return null;
             }
@@ -85,7 +85,7 @@ namespace NureTimetable.BL
 
             // Getting our custom calendar
             Calendar customCalendar = calendars.FirstOrDefault(c => c.AccountName.ToLower() == CustomCalendarName.ToLower());
-            if (customCalendar is null)
+            if (customCalendar == null)
             {
                 customCalendar = new Calendar
                 {

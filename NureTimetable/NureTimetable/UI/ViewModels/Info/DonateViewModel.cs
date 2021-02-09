@@ -20,7 +20,7 @@ namespace NureTimetable.UI.ViewModels.Info
         public static async Task BuyProduct(string productId)
         {
             InAppBillingPurchase purchase = await InAppPurchase.Buy(productId, true);
-            string message = purchase is null ? LN.PurchaseFailed : LN.ThanksForYourSupport;
+            string message = purchase == null ? LN.PurchaseFailed : LN.ThanksForYourSupport;
             await Shell.Current.CurrentPage.DisplayToastAsync(message);
         }
     }
