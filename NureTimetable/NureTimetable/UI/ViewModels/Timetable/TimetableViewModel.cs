@@ -148,10 +148,10 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 needToUpdateEventsUI = true;
                 await UpdateEventsWithUI();
             });
-            MessagingCenter.Subscribe<Application, List<SavedEntity>>(this, MessageTypes.SelectedEntitiesChanged, (sender, newSelectedEntities) =>
+            MessagingCenter.Subscribe<Application, List<SavedEntity>>(this, MessageTypes.SelectedEntitiesChanged, async (sender, newSelectedEntities) =>
             {
                 IsTimetableUpdating = updatingTimetables.Intersect(newSelectedEntities.Select(e => e.Entity)).Any();
-                UpdateEvents(newSelectedEntities.Select(e => e.Entity).ToList());
+                await UpdateEvents(newSelectedEntities.Select(e => e.Entity).ToList());
             });
             MessagingCenter.Subscribe<Application, Entity>(this, MessageTypes.TimetableUpdating, (sender, entity) =>
             {
@@ -318,9 +318,8 @@ namespace NureTimetable.UI.ViewModels.Timetable
             lastTimeLeftVisible = IsTimeLeftVisible;
         }
 
-        private async Task UpdateEventsWithUI(bool reloadSavedEntities = false)
-        {
-            await Task.Run(async () =>
+        private Task UpdateEventsWithUI(bool reloadSavedEntities = false)
+            => Task.Run(async () =>
             {
                 IsProgressLayoutVisible = true;
 
@@ -333,29 +332,28 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 {
                     if (reloadSavedEntities)
                     {
-                        List<Entity> selectedEntities = UniversityEntitiesRepository.GetSaved()
+                        List<Entity> selectedEntities = (await UniversityEntitiesRepository.GetSaved())
                             .Where(e => e.IsSelected)
                             .Select(e => e.Entity)
                             .ToList();
-                        UpdateEvents(selectedEntities);
+                        await UpdateEvents(selectedEntities);
                     }
                     else
                     {
-                        UpdateEvents();
+                        await UpdateEvents();
                     }
                 }
 
                 IsProgressLayoutVisible = false;
             });
-        }
 
         /// <summary>
         /// Updates events for already displayed entities
         /// </summary>
-        private void UpdateEvents() => 
+        private Task UpdateEvents() => 
             UpdateEvents(TimetableInfoList.Entities.ToList());
 
-        private void UpdateEvents(List<Entity> selectedEntities)
+        private async Task UpdateEvents(List<Entity> selectedEntities)
         {
             if (selectedEntities == null || !selectedEntities.Any())
             {
@@ -369,7 +367,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
             List<TimetableInfo> timetableInfos = new();
             foreach (var entity in selectedEntities)
             {
-                TimetableInfo timetableInfo = EventsRepository.GetTimetableLocal(entity);
+                TimetableInfo timetableInfo = await EventsRepository.GetTimetableLocal(entity);
                 timetableInfos.Add(timetableInfo ?? new(entity));
             }
             lock (enumeratingEvents)

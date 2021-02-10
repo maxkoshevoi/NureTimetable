@@ -20,9 +20,13 @@ namespace NureTimetable.UI.ViewModels.Entities.ManageEntities
         #region Properties
         private bool _isMultiselectMode;
         public bool IsMultiselectMode { get => _isMultiselectMode; set => SetProperty(ref _isMultiselectMode, value); }
+        
+        private bool _isProgressLayoutVisible;
+        public bool IsProgressLayoutVisible { get => _isProgressLayoutVisible; set => SetProperty(ref _isProgressLayoutVisible, value); }
 
         public ObservableRangeCollection<SavedEntityItemViewModel> Entities { get; } = new();
 
+        public IAsyncCommand PageAppearingCommand { get; }
         public IAsyncCommand UpdateAllCommand { get; }
         public IAsyncCommand AddEntityCommand { get; }
         public IAsyncCommand<SelectedItemChangedEventArgs> EntitySelectedCommand { get; }
@@ -30,6 +34,7 @@ namespace NureTimetable.UI.ViewModels.Entities.ManageEntities
 
         public ManageEntitiesViewModel()
         {
+            PageAppearingCommand = CommandFactory.Create(PageAppearing);
             UpdateAllCommand = CommandFactory.Create(UpdateAll, () => Entities.Any() && Entities.All(e => !e.IsUpdating));
             AddEntityCommand = CommandFactory.Create(() => Navigation.PushAsync(new AddTimetablePage()));
             EntitySelectedCommand = CommandFactory.Create<SelectedItemChangedEventArgs>(async args =>
@@ -44,12 +49,11 @@ namespace NureTimetable.UI.ViewModels.Entities.ManageEntities
                 }
                 else
                 {
-                    SelectOne(savedEntity);
+                    await SelectOne(savedEntity);
                     await Shell.Current.GoToAsync("//tabbar/Events");
                 }
             });
 
-            UpdateItems(UniversityEntitiesRepository.GetSaved());
             MessagingCenter.Subscribe<Application, List<SavedEntity>>(this, MessageTypes.SavedEntitiesChanged, (_, newSavedEntities) => UpdateItems(newSavedEntities));
             MessagingCenter.Subscribe<Application, Entity>(this, MessageTypes.TimetableUpdating, (sender, entity) =>
             {
@@ -65,17 +69,29 @@ namespace NureTimetable.UI.ViewModels.Entities.ManageEntities
             });
 
             // ListIsNullOrEmptyConverter needs to know that Entities are updated
-            Entities.CollectionChanged += (_, _) => OnPropertyChanged(nameof(Entities));
+            Entities.CollectionChanged += (_, _) =>
+            {
+                UpdateAllCommand.RaiseCanExecuteChanged();
+                OnPropertyChanged(nameof(Entities));
+            };
         }
 
-        public void SelectOne(SavedEntity savedEntity)
+        public async Task PageAppearing()
         {
-            List<SavedEntity> savedEntities = UniversityEntitiesRepository.GetSaved();
+            if (Entities.Count == 0)
+            {
+                UpdateItems(await UniversityEntitiesRepository.GetSaved());
+            }
+        }
+
+        public async Task SelectOne(SavedEntity savedEntity)
+        {
+            List<SavedEntity> savedEntities = await UniversityEntitiesRepository.GetSaved();
             foreach (var e in savedEntities)
             {
                 e.IsSelected = e == savedEntity;
             }
-            UniversityEntitiesRepository.UpdateSaved(savedEntities);
+            await UniversityEntitiesRepository.UpdateSaved(savedEntities);
         }
 
         public void EntityChanged(object sender, PropertyChangedEventArgs e)
@@ -83,12 +99,12 @@ namespace NureTimetable.UI.ViewModels.Entities.ManageEntities
             if (e.PropertyName != nameof(SavedEntity.IsSelected))
                 return;
 
-            EntitySelectChanged(sender as SavedEntity);
+            EntitySelectChanged((SavedEntity)sender).RunSynchronously();
         }
 
-        public void EntitySelectChanged(SavedEntity entity)
+        public async Task EntitySelectChanged(SavedEntity entity)
         {
-            List<SavedEntity> currentSaved = UniversityEntitiesRepository.GetSaved();
+            List<SavedEntity> currentSaved = await UniversityEntitiesRepository.GetSaved();
             SavedEntity savedEntity = currentSaved.SingleOrDefault(e => e == entity);
 
             // Check state is changed
@@ -113,11 +129,11 @@ namespace NureTimetable.UI.ViewModels.Entities.ManageEntities
                 {
                     // If user deleted last selected entity, selecting any other saved entity
                     otherSavedEntity.SavedEntity.IsSelected = true;
-                    currentSaved = UniversityEntitiesRepository.GetSaved();
+                    currentSaved = await UniversityEntitiesRepository.GetSaved();
                 }
             }
 
-            UniversityEntitiesRepository.UpdateSaved(currentSaved);
+            await UniversityEntitiesRepository.UpdateSaved(currentSaved);
         }
 
         private async Task UpdateAll()
@@ -130,12 +146,14 @@ namespace NureTimetable.UI.ViewModels.Entities.ManageEntities
 
         private void UpdateItems(List<SavedEntity> newItems)
         {
+            IsProgressLayoutVisible = true;
+
             Entities.ForEach(se => se.SavedEntity.PropertyChanged -= EntityChanged);
             Entities.ReplaceRange(newItems.Select(se => new SavedEntityItemViewModel(se, this)).ToArray());
             Entities.ForEach(se => se.SavedEntity.PropertyChanged += EntityChanged);
-
+            
             IsMultiselectMode = Entities.Count(i => i.SavedEntity.IsSelected) > 1;
-            UpdateAllCommand.RaiseCanExecuteChanged();
+            IsProgressLayoutVisible = false;
         }
     }
 }

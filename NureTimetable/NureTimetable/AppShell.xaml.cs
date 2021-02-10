@@ -14,6 +14,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using NureTimetable.Core.Extensions;
 using AppTheme = NureTimetable.Core.Models.Settings.AppTheme;
 
 namespace NureTimetable.UI.Views
@@ -52,7 +53,7 @@ namespace NureTimetable.UI.Views
             if (!VersionTracking.IsFirstLaunchForCurrentBuild)
                 return;
 
-            List<BaseMigration> migrationsToApply = BaseMigration.Migrations.Where(m => m.IsNeedsToBeApplied()).ToList();
+            List<BaseMigration> migrationsToApply = await BaseMigration.Migrations.Where(async m => await m.IsNeedsToBeApplied()).ToListAsync();
             if (migrationsToApply.Any())
             {
                 // Not Shell.Current.DisplayAlert cause Shell.Current is null here
@@ -60,7 +61,7 @@ namespace NureTimetable.UI.Views
                 bool isSuccess = true;
                 foreach (var migration in migrationsToApply)
                 {
-                    if (!migration.Apply())
+                    if (!await migration.Apply())
                     {
                         isSuccess = false;
                     }

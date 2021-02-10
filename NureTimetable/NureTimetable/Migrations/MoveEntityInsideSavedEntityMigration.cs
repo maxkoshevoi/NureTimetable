@@ -6,22 +6,23 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace NureTimetable.Migrations
 {
     class MoveEntityInsideSavedEntityMigration : BaseMigration
     {
-        protected override bool IsNeedsToBeAppliedInternal()
+        protected override async Task<bool> IsNeedsToBeAppliedInternal()
         {
-            var entities = Serialisation.FromJsonFile<List<Entity>>(FilePath.SavedEntitiesList);
+            var entities = await Serialisation.FromJsonFile<List<Entity>>(FilePath.SavedEntitiesList);
             return entities?.Any() == true && entities.First().ID > 0;
         }
 
-        protected override bool ApplyInternal()
+        protected override async Task<bool> ApplyInternal()
         {
             List<SavedEntity> updatedSavedEntities = new();
-            var selectedEntities = Serialisation.FromJsonFile<List<SavedEntityWithoutEntity>>(FilePath.SavedEntitiesList);
-            var entities = Serialisation.FromJsonFile<List<Entity>>(FilePath.SavedEntitiesList);
+            var selectedEntities = await Serialisation.FromJsonFile<List<SavedEntityWithoutEntity>>(FilePath.SavedEntitiesList);
+            var entities = await Serialisation.FromJsonFile<List<Entity>>(FilePath.SavedEntitiesList);
 
             for (int i = 0; i < entities.Count; i++)
             {
@@ -32,7 +33,7 @@ namespace NureTimetable.Migrations
                 });
             }
 
-            Serialisation.ToJsonFile(updatedSavedEntities, FilePath.SavedEntitiesList);
+            await Serialisation.ToJsonFile(updatedSavedEntities, FilePath.SavedEntitiesList);
             return true;
         }
 

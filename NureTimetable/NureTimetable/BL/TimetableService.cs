@@ -28,7 +28,7 @@ namespace NureTimetable.BL
 
         public static async Task<List<(Entity entity, Exception exception)>> Update(params Entity[] entities)
         {
-            IReadOnlyList<Entity> entitiesAllowed = SettingsRepository.CheckCistTimetableUpdateRights(entities);
+            IReadOnlyList<Entity> entitiesAllowed = await SettingsRepository.CheckCistTimetableUpdateRights(entities);
             if (entitiesAllowed.Count == 0)
             {
                 return new();

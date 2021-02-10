@@ -69,7 +69,7 @@ namespace NureTimetable.UI.ViewModels.Entities
         {
             SavedEntity newEntity = GetSavedEntity(entity);
 
-            List<SavedEntity> savedEntities = UniversityEntitiesRepository.GetSaved();
+            List<SavedEntity> savedEntities = await UniversityEntitiesRepository.GetSaved();
             if (savedEntities.Any(e => e == newEntity))
             {
                 await Shell.Current.CurrentPage.DisplayToastAsync(string.Format(LN.TimetableAlreadySaved, newEntity.Entity.Name));
@@ -77,14 +77,13 @@ namespace NureTimetable.UI.ViewModels.Entities
             }
 
             savedEntities.Add(newEntity);
-            UniversityEntitiesRepository.UpdateSaved(savedEntities);
+            await UniversityEntitiesRepository.UpdateSaved(savedEntities);
 
-            await Shell.Current.CurrentPage.DisplaySnackBarAsync(string.Format(LN.TimetableSaved, newEntity.Entity.Name), LN.Undo, () =>
+            await Shell.Current.CurrentPage.DisplaySnackBarAsync(string.Format(LN.TimetableSaved, newEntity.Entity.Name), LN.Undo, async () =>
             {
-                List<SavedEntity> savedEntities = UniversityEntitiesRepository.GetSaved(); 
+                List<SavedEntity> savedEntities = await UniversityEntitiesRepository.GetSaved(); 
                 savedEntities.Remove(newEntity);
-                UniversityEntitiesRepository.UpdateSaved(savedEntities);
-                return Task.CompletedTask;
+                await UniversityEntitiesRepository.UpdateSaved(savedEntities);
             });
         }
 

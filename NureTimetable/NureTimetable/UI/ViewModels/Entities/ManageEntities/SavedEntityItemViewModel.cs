@@ -54,7 +54,7 @@ namespace NureTimetable.UI.ViewModels.Entities.ManageEntities
             string action = await Shell.Current.DisplayActionSheet(LN.ChooseAction, LN.Cancel, null, actionList.ToArray());
             if (action == LN.SelectOneEntity)
             {
-                ManageEntitiesViewModel.SelectOne(SavedEntity);
+                await ManageEntitiesViewModel.SelectOne(SavedEntity);
                 await Shell.Current.GoToAsync("//tabbar/Events");
             }
             else if (action == LN.AddToSelected)
@@ -75,7 +75,7 @@ namespace NureTimetable.UI.ViewModels.Entities.ManageEntities
             else if (action == LN.Delete)
             {
                 ManageEntitiesViewModel.Entities.Remove(this);
-                UniversityEntitiesRepository.UpdateSaved(ManageEntitiesViewModel.Entities.Select(vm => vm.SavedEntity).ToList());
+                await UniversityEntitiesRepository.UpdateSaved(ManageEntitiesViewModel.Entities.Select(vm => vm.SavedEntity).ToList());
             }
         }
     }

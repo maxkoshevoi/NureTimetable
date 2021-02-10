@@ -16,34 +16,11 @@ namespace NureTimetable.DAL
 {
     public static class EventsRepository
     {
-        /// <summary>
-        /// Returns events for one entity. Null if error occurs 
-        /// </summary>
-        public static async Task<Local::TimetableInfo> GetEvents(Local::Entity entity, bool tryUpdate = false, DateTime? dateStart = null, DateTime? dateEnd = null)
-        {
-            Local::TimetableInfo timetable;
-            if (tryUpdate)
-            {
-                if (dateStart == null || dateEnd == null)
-                {
-                    throw new ArgumentNullException($"{nameof(dateStart)} and {nameof(dateEnd)} must be set");
-                }
-
-                (timetable, _) = await GetTimetableFromCist(entity, dateStart.Value, dateEnd.Value);
-                if (timetable != null)
-                {
-                    return timetable;
-                }
-            }
-            timetable = GetTimetableLocal(entity);
-            return timetable;
-        }
-
         #region Local
-        public static Local::TimetableInfo GetTimetableLocal(Local::Entity entity) => 
-            GetTimetableLocal(new List<Local::Entity>() { entity }).SingleOrDefault();
+        public static async Task<Local::TimetableInfo> GetTimetableLocal(Local::Entity entity) => 
+            (await GetTimetableLocal(new List<Local::Entity>() { entity })).SingleOrDefault();
 
-        public static List<Local::TimetableInfo> GetTimetableLocal(List<Local::Entity> entities)
+        public static async Task<List<Local::TimetableInfo>> GetTimetableLocal(List<Local::Entity> entities)
         {
             List<Local::TimetableInfo> timetables = new();
             if (entities == null)
@@ -52,7 +29,7 @@ namespace NureTimetable.DAL
             }
             foreach (var entity in entities)
             {
-                Local::TimetableInfo timetableInfo = Serialisation.FromJsonFile<Local::TimetableInfo>(FilePath.SavedTimetable(entity.Type, entity.ID));
+                Local::TimetableInfo timetableInfo = await Serialisation.FromJsonFile<Local::TimetableInfo>(FilePath.SavedTimetable(entity.Type, entity.ID));
                 if (timetableInfo == null)
                 {
                     continue;
@@ -62,17 +39,19 @@ namespace NureTimetable.DAL
             return timetables;
         }
 
-        private static void UpdateTimetableLocal(Local::TimetableInfo newTimetable)
+        private static Task UpdateTimetableLocal(Local::TimetableInfo newTimetable)
         {
-            Serialisation.ToJsonFile(newTimetable, FilePath.SavedTimetable(newTimetable.Entity.Type, newTimetable.Entity.ID));
+            return Serialisation.ToJsonFile(newTimetable, FilePath.SavedTimetable(newTimetable.Entity.Type, newTimetable.Entity.ID));
         }
 
         #region Lesson Info
-        public static void UpdateLessonsInfo(Local::Entity entity, List<Local::LessonInfo> lessonsInfo)
+        public static async Task UpdateLessonsInfo(Local::Entity entity, List<Local::LessonInfo> lessonsInfo)
         {
-            Local::TimetableInfo timetable = GetTimetableLocal(entity);
+            Local::TimetableInfo timetable = await GetTimetableLocal(entity);
+
             timetable.LessonsInfo = lessonsInfo;
-            UpdateTimetableLocal(timetable);
+            
+            await UpdateTimetableLocal(timetable);
             MessagingCenter.Send(Application.Current, MessageTypes.LessonSettingsChanged, entity);
         }
         #endregion
@@ -81,7 +60,7 @@ namespace NureTimetable.DAL
         #region Cist
         public static async Task<(Local::TimetableInfo timetable, Exception exception)> GetTimetableFromCist(Local::Entity entity, DateTime dateStart, DateTime dateEnd)
         {
-            if (!SettingsRepository.CheckCistTimetableUpdateRights(entity).Any())
+            if ((await SettingsRepository.CheckCistTimetableUpdateRights(entity)).Count == 0)
             {
                 return (null, null);
             }
@@ -97,7 +76,7 @@ namespace NureTimetable.DAL
                 });
 
                 // Getting events
-                Local::TimetableInfo timetable = GetTimetableLocal(entity) ?? new(entity);
+                Local::TimetableInfo timetable = await GetTimetableLocal(entity) ?? new(entity);
 
                 using HttpClient client = new();
                 Uri uri = Urls.CistApiEntityTimetable(entity.Type, entity.ID, dateStart, dateEnd);
@@ -142,15 +121,15 @@ namespace NureTimetable.DAL
                     .ToList();
 
                 // Saving timetables
-                UpdateTimetableLocal(timetable);
+                await UpdateTimetableLocal(timetable);
 
                 // Updating LastUpdated for saved groups 
-                List<Local::SavedEntity> savedEntities = UniversityEntitiesRepository.GetSaved();
+                List<Local::SavedEntity> savedEntities = await UniversityEntitiesRepository.GetSaved();
                 foreach (var savedEntity in savedEntities.Where(e => e == entity))
                 {
                     savedEntity.LastUpdated = DateTime.Now;
                 }
-                UniversityEntitiesRepository.UpdateSaved(savedEntities);
+                await UniversityEntitiesRepository.UpdateSaved(savedEntities);
 
                 return (timetable, null);
             }

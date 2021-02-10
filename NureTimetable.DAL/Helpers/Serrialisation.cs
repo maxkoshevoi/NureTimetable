@@ -8,18 +8,19 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace NureTimetable.DAL.Helpers
 {
     public static class Serialisation
     {
-        public static void ToJsonFile<T>(T instance, string filePath)
+        public static async Task ToJsonFile<T>(T instance, string filePath)
         {
             try
             {
                 string json = ToJson(instance);
-                File.WriteAllText(filePath, json);
+                await File.WriteAllTextAsync(filePath, json);
             }
             catch (Exception ex)
             {
@@ -27,14 +28,14 @@ namespace NureTimetable.DAL.Helpers
             }
         }
 
-        public static T FromJsonFile<T>(string filePath)
+        public static async Task<T> FromJsonFile<T>(string filePath)
         {
             if (!File.Exists(filePath))
                 return default;
 
             try
             {
-                string fileContent = File.ReadAllText(filePath);
+                string fileContent = await File.ReadAllTextAsync(filePath);
                 T instance = FromJson<T>(fileContent);
                 return instance;
             }

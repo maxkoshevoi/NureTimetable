@@ -48,7 +48,7 @@ namespace NureTimetable.UI.ViewModels.Entities
             if (await Shell.Current.DisplayAlert(LN.UniversityInfoUpdate, LN.UniversityInfoUpdateConfirm, LN.Yes, LN.Cancel))
             {
                 UpdateCommandEnabled = false;
-                var updateFromCist = Task.Run(UniversityEntitiesRepository.UpdateFromCist);
+                var updateFromCist = UniversityEntitiesRepository.UpdateFromCist();
                 await UpdateEntitiesOnAllTabs(updateFromCist);
                 await DisplayUpdateResult(await updateFromCist);
                 UpdateCommandEnabled = true;

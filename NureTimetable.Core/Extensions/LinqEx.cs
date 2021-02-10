@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace NureTimetable.Core.Extensions
 {
@@ -43,6 +46,17 @@ namespace NureTimetable.Core.Extensions
                 hash ^= item.GetHashCode();
             }
             return hash;
+        }
+
+        public static async IAsyncEnumerable<T> Where<T>(this IEnumerable<T> source, Func<T, Task<bool>> predicate)
+        {
+            foreach (var item in source)
+            {
+                if (await predicate(item))
+                {
+                    yield return item;
+                }
+            }
         }
     }
 }

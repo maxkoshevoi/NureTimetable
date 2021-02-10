@@ -7,7 +7,7 @@
              Title="{Binding Title.Localized}">
 
     <AbsoluteLayout>
-        <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="{Binding IsNoSourceLayoutVisible, Converter={xct:InvertedBoolConverter}}">
+        <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="{Binding Entities, Converter={xct:ListIsNotNullOrEmptyConverter}}">
             <SearchBar x:Name="searchbar" HeightRequest="42" Placeholder="{xct:Translate EnterName}" PlaceholderColor="Gray">
                 <SearchBar.Behaviors>
                     <xct:EventToCommandBehavior EventName="TextChanged" Command="{Binding SearchBarTextChangedCommand}" CommandParameter="{Binding Text, Source={x:Reference searchbar}}"/>

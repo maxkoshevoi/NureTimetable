@@ -4,6 +4,7 @@ using NureTimetable.DAL.Models.Local;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace NureTimetable.DAL
 {
@@ -12,12 +13,12 @@ namespace NureTimetable.DAL
         public static AppSettings Settings { get; } = new();
 
         #region Timetable Update Rights
-        public static IReadOnlyList<Entity> CheckCistTimetableUpdateRights(params Entity[] entitiesToUpdate)
+        public static async Task<IReadOnlyList<Entity>> CheckCistTimetableUpdateRights(params Entity[] entitiesToUpdate)
         {
             List<Entity> allowedEntities = new();
             entitiesToUpdate ??= Array.Empty<Entity>();
 
-            List<SavedEntity> savedEntities = UniversityEntitiesRepository.GetSaved();
+            List<SavedEntity> savedEntities = await UniversityEntitiesRepository.GetSaved();
             foreach (var entity in entitiesToUpdate)
             {
                 SavedEntity savedEntity = savedEntities.SingleOrDefault(e => e == entity);

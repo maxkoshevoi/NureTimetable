@@ -1,6 +1,7 @@
 ﻿using NureTimetable.Core.Models.Consts;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace NureTimetable.Migrations
@@ -13,21 +14,21 @@ namespace NureTimetable.Migrations
             new RemoveTimelineViewMode(),
         };
 
-        public bool IsNeedsToBeApplied() =>
+        public Task<bool> IsNeedsToBeApplied() =>
             HandleException(IsNeedsToBeAppliedInternal);
 
-        public bool Apply() =>
+        public Task<bool> Apply() =>
             HandleException(ApplyInternal);
 
-        protected abstract bool IsNeedsToBeAppliedInternal();
+        protected abstract Task<bool> IsNeedsToBeAppliedInternal();
 
-        protected abstract bool ApplyInternal();
+        protected abstract Task<bool> ApplyInternal();
 
-        protected static bool HandleException(Func<bool> func)
+        protected static async Task<bool> HandleException(Func<Task<bool>> func)
         {
             try
             {
-                return func?.Invoke() ?? false;
+                return await func();
             }
             catch (Exception ex)
             {

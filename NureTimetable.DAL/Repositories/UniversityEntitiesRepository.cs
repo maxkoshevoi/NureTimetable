@@ -12,6 +12,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 using Cist = NureTimetable.DAL.Models.Cist;
 using Local = NureTimetable.DAL.Models.Local;
 
@@ -21,19 +22,24 @@ namespace NureTimetable.DAL
     {
         public static bool IsInitialized { get; private set; } = false;
 
-        private static readonly object lockObject = new();
-        
+        private static readonly object initializing = new();
+
         public class UniversityEntitiesCistUpdateResult
         {
-            public UniversityEntitiesCistUpdateResult()
-            { }
+            public UniversityEntitiesCistUpdateResult(Cist::University updatedUniversity)
+            {
+                this.UpdatedUniversity = updatedUniversity;
+            }
 
-            public UniversityEntitiesCistUpdateResult(Exception groupsException, Exception teachersException, Exception roomsException)
+            public UniversityEntitiesCistUpdateResult(Cist::University updatedUniversity, Exception groupsException, Exception teachersException, Exception roomsException)
+                : this(updatedUniversity)
             {
                 this.GroupsException = groupsException;
                 this.TeachersException = teachersException;
                 this.RoomsException = roomsException;
             }
+
+            public Cist::University UpdatedUniversity { get; }
 
             public Exception GroupsException { get; }
             public Exception TeachersException { get; }
@@ -61,32 +67,21 @@ namespace NureTimetable.DAL
         #region Public
         public static void AssureInitialized()
         {
-            lock (lockObject)
+            lock (initializing)
             {
-                if (IsInitialized)
+                if (!IsInitialized)
                 {
-                    return;
+                    Instance = Get().Result;
                 }
-                Instance = Get();
             }
         }
 
-        public static bool UpdateLocal()
+        public static async Task<UniversityEntitiesCistUpdateResult> UpdateFromCist()
         {
-            Cist::University university = GetLocal();
-            if (university == null)
-            {
-                return false;
-            }
-            Instance = university;
-            return true;
-        }
+            Cist::University university = await GetLocal();
+            var result = await UpdateFromCist(university);
+            Instance = result.UpdatedUniversity;
 
-        public static UniversityEntitiesCistUpdateResult UpdateFromCist()
-        {
-            Cist::University university = GetLocal();
-            UniversityEntitiesCistUpdateResult result = UpdateFromCist(ref university);
-            Instance = university;
             return result;
         }
         #endregion
@@ -98,70 +93,71 @@ namespace NureTimetable.DAL
             get => _instance;
             set
             {
-                IsInitialized = true;
                 _instance = value;
+                IsInitialized = true;
+
+                MessagingCenter.Send(Application.Current, MessageTypes.UniversityEntitiesUpdated);
             }
         }
 
-        private static Cist::University Get()
+        private static async Task<Cist::University> Get()
         {
-            Cist::University university = GetLocal();
-            if (university != null)
+            Cist::University localUniversity = await GetLocal();
+            if (localUniversity != null)
             {
-                return university;
+                return localUniversity;
             }
-            university = GetFromCist();
-            return university;
+
+            var cistResult = await UpdateFromCist(localUniversity);
+            if (!cistResult.IsAllFail)
+            {
+                return cistResult.UpdatedUniversity;
+            }
+
+            return new();
         }
 
-        private static Cist::University GetLocal()
+        private static async Task<Cist::University> GetLocal()
         {
-            Cist::University loadedUniversity;
-
             string filePath = FilePath.UniversityEntities;
             if (!File.Exists(filePath))
             {
                 return null;
             }
-            
-            loadedUniversity = Serialisation.FromJsonFile<Cist::University>(filePath);
+
+            var loadedUniversity = await Serialisation.FromJsonFile<Cist::University>(filePath);
             return loadedUniversity;
         }
 
-        private static Cist::University GetFromCist()
+        private static async Task<UniversityEntitiesCistUpdateResult> UpdateFromCist(Cist::University university)
         {
-            Cist::University university = null;
-            UpdateFromCist(ref university);
-            return university;
-        }
+            university ??= new();
 
-        private static UniversityEntitiesCistUpdateResult UpdateFromCist(ref Cist::University university)
-        {
             if (SettingsRepository.CheckCistAllEntitiesUpdateRights() == false)
             {
-                return new(null, null, null);
+                return new(university);
             }
 
             var groupsTask = TaskWithFallbacks(GetAllGroupsFromCist, GetAllGroupsFromCistHtml);
             var teachersTask = TaskWithFallbacks(GetAllTeachersFromCist, GetAllTeachersFromCistHtml);
             var roomsTask = GetAllRoomsFromCist();
 
-            UniversityEntitiesCistUpdateResult result = new();
+            UniversityEntitiesCistUpdateResult result = new(university);
             try
             {
-                Task.WaitAll(groupsTask, teachersTask, roomsTask);
+                await Task.WhenAll(groupsTask, teachersTask, roomsTask);
             }
             catch
             {
                 result = new
                 (
+                    university,
                     groupsTask.Exception?.InnerException,
                     teachersTask.Exception?.InnerException,
                     roomsTask.Exception?.InnerException
                 );
             }
 
-            university ??= new();
             if (!roomsTask.IsFaulted)
             {
                 university.Buildings = roomsTask.Result;
@@ -195,14 +191,11 @@ namespace NureTimetable.DAL
 
             if (!result.IsAllFail)
             {
-                Serialisation.ToJsonFile(university, FilePath.UniversityEntities);
+                await Serialisation.ToJsonFile(university, FilePath.UniversityEntities);
                 if (result.IsAllSuccessful)
                 {
                     SettingsRepository.Settings.LastCistAllEntitiesUpdate = DateTime.Now;
                 }
-
-                Instance = university;
-                MessagingCenter.Send(Application.Current, MessageTypes.UniversityEntitiesUpdated);
             }
 
             return result;
@@ -441,9 +434,9 @@ namespace NureTimetable.DAL
         public static IEnumerable<Local::Group> GetAllGroups()
         {
             if (!IsInitialized)
-                throw new InvalidOperationException($"You MUST call {nameof(UniversityEntitiesRepository)}.AssureInitialized(); prior to using it.");
+                throw new InvalidOperationException($"You MUST call {nameof(UniversityEntitiesRepository.AssureInitialized)} prior to using it.");
 
-            var groups = Instance?.Faculties
+            var groups = Instance.Faculties
                 .SelectMany(fac => 
                     fac.Directions.SelectMany(dir =>
                         dir.Groups.Select(gr =>
@@ -453,7 +446,8 @@ namespace NureTimetable.DAL
                             localGroup.Direction = MapConfig.Map<Cist::Direction, Local::BaseEntity<long>>(dir);
                             return localGroup;
                         })
-                        .Concat(dir.Specialities.SelectMany(sp => sp.Groups.Select(gr =>
+                        .Concat(dir.Specialities.SelectMany(sp =>
+                        sp.Groups.Select(gr =>
                         {
                             Local::Group localGroup = MapConfig.Map<Cist::Group, Local::Group>(gr);
                             localGroup.Faculty = MapConfig.Map<Cist::Faculty, Local::BaseEntity<long>>(fac);
@@ -469,9 +463,9 @@ namespace NureTimetable.DAL
         public static IEnumerable<Local::Teacher> GetAllTeachers()
         {
             if (!IsInitialized)
-                throw new InvalidOperationException($"You MUST call {nameof(UniversityEntitiesRepository)}.AssureInitialized(); prior to using it.");
+                throw new InvalidOperationException($"You MUST call {nameof(UniversityEntitiesRepository.AssureInitialized)} prior to using it.");
 
-            var teachers = Instance?.Faculties
+            var teachers = Instance.Faculties
                 .SelectMany(fac => 
                     fac.Departments.SelectMany(dep =>
                         dep.Teachers.Select(tr =>
@@ -488,11 +482,9 @@ namespace NureTimetable.DAL
         public static IEnumerable<Local::Room> GetAllRooms()
         {
             if (!IsInitialized)
-            {
-                throw new InvalidOperationException($"You MUST call {nameof(UniversityEntitiesRepository)}.AssureInitialized(); prior to using it.");
-            }
+                throw new InvalidOperationException($"You MUST call {nameof(UniversityEntitiesRepository.AssureInitialized)} prior to using it.");
 
-            var rooms = Instance?.Buildings
+            var rooms = Instance.Buildings
                 .SelectMany(bd => 
                     bd.Rooms.Select(rm =>
                     {
@@ -506,7 +498,7 @@ namespace NureTimetable.DAL
         #endregion
 
         #region Saved Entities
-        public static List<Local::SavedEntity> GetSaved()
+        public static async Task<List<Local::SavedEntity>> GetSaved()
         {
             List<Local::SavedEntity> loadedEntities = new();
 
@@ -516,11 +508,11 @@ namespace NureTimetable.DAL
                 return loadedEntities;
             }
             
-            loadedEntities = Serialisation.FromJsonFile<List<Local::SavedEntity>>(filePath) ?? loadedEntities;
+            loadedEntities = await Serialisation.FromJsonFile<List<Local::SavedEntity>>(filePath) ?? loadedEntities;
             return loadedEntities;
         }
 
-        public static void UpdateSaved(List<Local::SavedEntity> savedEntities)
+        public static async Task UpdateSaved(List<Local::SavedEntity> savedEntities)
         {
             savedEntities ??= new();
 
@@ -530,10 +522,9 @@ namespace NureTimetable.DAL
                 throw new InvalidOperationException($"{nameof(savedEntities)} must be unique");
             }
 
-            List<Local::SavedEntity> oldSavedEntities = GetSaved();
+            List<Local::SavedEntity> oldSavedEntities = await GetSaved();
             // Removing cache from deleted saved entities if needed
             oldSavedEntities.Where(oldEntity => !savedEntities.Exists(entity => entity == oldEntity))
-                .ToList()
                 .ForEach((de) => 
                 { 
                     try { File.Delete(FilePath.SavedTimetable(de.Entity.Type, de.Entity.ID)); } catch { } 
@@ -546,7 +537,7 @@ namespace NureTimetable.DAL
             }
 
             // Saving saved entities list
-            Serialisation.ToJsonFile(savedEntities, FilePath.SavedEntitiesList);
+            await Serialisation.ToJsonFile(savedEntities, FilePath.SavedEntitiesList);
             MessagingCenter.Send(Application.Current, MessageTypes.SavedEntitiesChanged, savedEntities);
 
             if (oldSavedEntities.Count(e => e.IsSelected) != savedEntities.Count(e => e.IsSelected)
