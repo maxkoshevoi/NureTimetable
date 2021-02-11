@@ -26,35 +26,40 @@ namespace NureTimetable.BL
             }
         }
 
-        public static async Task<List<(Entity entity, Exception exception)>> Update(params Entity[] entities)
-        {
-            IReadOnlyList<Entity> entitiesAllowed = await SettingsRepository.CheckCistTimetableUpdateRights(entities);
-            if (entitiesAllowed.Count == 0)
+        public static Task<List<(Entity entity, Exception exception)>> Update(params Entity[] entities) =>
+            Task.Run(async () =>
             {
-                return new();
-            }
-
-            Analytics.TrackEvent("Updating timetable", new Dictionary<string, string>
-            {
-                { "Count", entitiesAllowed.Count.ToString() },
-                { "Hour of the day", DateTime.Now.Hour.ToString() }
-            });
-
-            // Update timetables in background
-            const int batchSize = 10;
-            Dictionary<Entity, Task<(TimetableInfo _, Exception error)>> updateTasks = new();
-            for (int i = 0; i < entitiesAllowed.Count; i += batchSize)
-            {
-                foreach (var entity in entitiesAllowed.Skip(i).Take(batchSize))
+                IReadOnlyList<Entity> entitiesAllowed = await SettingsRepository.CheckCistTimetableUpdateRights(entities);
+                if (entitiesAllowed.Count == 0)
                 {
-                    updateTasks.Add(entity, EventsRepository.GetTimetableFromCist(entity, Config.TimetableFromDate, Config.TimetableToDate));
+                    return new();
                 }
-                await Task.WhenAll(updateTasks.Select(u => u.Value));
-            }
 
-            List<(Entity, Exception)> updateResults = updateTasks.Select(r => (r.Key, r.Value.Result.error)).ToList();
-            return updateResults;
-        }
+                Analytics.TrackEvent("Updating timetable", new Dictionary<string, string>
+                {
+                    { "Count", entitiesAllowed.Count.ToString() },
+                    { "Hour of the day", DateTime.Now.Hour.ToString() }
+                });
+
+                // Update timetables in background
+                const int batchSize = 5;
+                Dictionary<Entity, Task<(TimetableInfo _, Exception error)>> updateTasks = new();
+                for (int i = 0; i < entitiesAllowed.Count;)
+                {
+                    int runningTasks = updateTasks.Count(t => !t.Value.IsCompleted);
+                    int capacity = batchSize - runningTasks;
+                    foreach (var entity in entitiesAllowed.Skip(i).Take(capacity))
+                    {
+                        updateTasks.Add(entity, EventsRepository.GetTimetableFromCist(entity, Config.TimetableFromDate, Config.TimetableToDate));
+                    }
+                    await Task.WhenAny(updateTasks.Select(u => u.Value).Where(t => !t.IsCompleted));
+
+                    i += capacity;
+                }
+
+                List<(Entity, Exception)> updateResults = updateTasks.Select(r => (r.Key, r.Value.Result.error)).ToList();
+                return updateResults;
+            });
 
         private static string GetResponseMessageFromUpdateResult(List<(Entity entity, Exception exception)> updateResults)
         {
