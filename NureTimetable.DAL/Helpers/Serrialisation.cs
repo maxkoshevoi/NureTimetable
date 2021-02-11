@@ -1,6 +1,7 @@
 ﻿using Microsoft.AppCenter.Crashes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using Nito.AsyncEx;
 using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Models.Consts;
 using System;
@@ -8,6 +9,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -15,12 +17,17 @@ namespace NureTimetable.DAL.Helpers
 {
     public static class Serialisation
     {
+        private static AsyncReaderWriterLock fileLock = new();
+
         public static async Task ToJsonFile<T>(T instance, string filePath)
         {
             try
             {
                 string json = ToJson(instance);
-                await File.WriteAllTextAsync(filePath, json);
+                using (var writeLock = fileLock.WriterLock())
+                {
+                    await File.WriteAllTextAsync(filePath, json);
+                }
             }
             catch (Exception ex)
             {
@@ -35,7 +42,11 @@ namespace NureTimetable.DAL.Helpers
 
             try
             {
-                string fileContent = await File.ReadAllTextAsync(filePath);
+                string fileContent;
+                using (var readLock = fileLock.ReaderLock())
+                {
+                    fileContent = await File.ReadAllTextAsync(filePath);
+                }
                 T instance = FromJson<T>(fileContent);
                 return instance;
             }
