@@ -202,6 +202,8 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 }
                 TimetableLocale = activeCultureCode;
             }
+
+            IsProgressLayoutVisible = true;
         }
 
         private async Task UpdateTodayButton(bool isForceUpdate)
