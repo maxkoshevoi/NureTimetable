@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace NureTimetable.UI.ViewModels.Entities.ManageEntities
 {
@@ -74,8 +75,9 @@ namespace NureTimetable.UI.ViewModels.Entities.ManageEntities
             }
             else if (action == LN.Delete)
             {
-                ManageEntitiesViewModel.Entities.Remove(this);
-                await UniversityEntitiesRepository.UpdateSaved(ManageEntitiesViewModel.Entities.Select(vm => vm.SavedEntity).ToList());
+                List<SavedEntity> savedEntities = await UniversityEntitiesRepository.GetSaved();
+                savedEntities.Remove(SavedEntity);
+                await UniversityEntitiesRepository.UpdateSaved(savedEntities);
             }
         }
     }

@@ -106,12 +106,12 @@ namespace NureTimetable.UI.ViewModels.Entities.ManageEntities
             await UniversityEntitiesRepository.UpdateSaved(savedEntities);
         }
 
-        public void EntityChanged(object sender, PropertyChangedEventArgs e)
+        public async void EntityChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName != nameof(SavedEntity.IsSelected))
                 return;
 
-            EntitySelectChanged((SavedEntity)sender).RunSynchronously();
+            await EntitySelectChanged((SavedEntity)sender);
         }
 
         public async Task EntitySelectChanged(SavedEntity entity)
@@ -126,23 +126,11 @@ namespace NureTimetable.UI.ViewModels.Entities.ManageEntities
             }
             savedEntity.IsSelected = entity.IsSelected;
 
-            // If deselecting last selected entity
-            if (!savedEntity.IsSelected && !currentSaved.Any(e => e.IsSelected))
+            // User cannot deselect last selected entity
+            if (!savedEntity.IsSelected && !currentSaved.Any(e => e.IsSelected) && Entities.Any(e => e.SavedEntity == entity))
             {
-                if (Entities.Any(e => e.SavedEntity == entity))
-                {
-                    // User cannot deselect last selected entity
-                    savedEntity.IsSelected = true;
-                    return;
-                }
-
-                var otherSavedEntity = Entities.FirstOrDefault();
-                if (otherSavedEntity != null)
-                {
-                    // If user deleted last selected entity, selecting any other saved entity
-                    otherSavedEntity.SavedEntity.IsSelected = true;
-                    currentSaved = await UniversityEntitiesRepository.GetSaved();
-                }
+                savedEntity.IsSelected = true;
+                return;
             }
 
             await UniversityEntitiesRepository.UpdateSaved(currentSaved);

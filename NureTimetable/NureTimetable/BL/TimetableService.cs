@@ -54,8 +54,15 @@ namespace NureTimetable.BL
                     }
                     await Task.WhenAny(updateTasks.Select(u => u.Value).Where(t => !t.IsCompleted));
 
+                    if (updateTasks.Any(u => u.Value.IsCompleted && u.Value.Result.error is WebException))
+                    {
+                        // Abort updating on network error
+                        break;
+                    }
+
                     i += capacity;
                 }
+                await Task.WhenAll(updateTasks.Select(u => u.Value));
 
                 List<(Entity, Exception)> updateResults = updateTasks.Select(r => (r.Key, r.Value.Result.error)).ToList();
                 return updateResults;
