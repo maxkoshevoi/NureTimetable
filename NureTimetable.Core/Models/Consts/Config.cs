@@ -1,4 +1,5 @@
 ﻿using System;
+using static System.TimeZoneInfo;
 
 namespace NureTimetable.Core.Models.Consts
 {
@@ -20,6 +21,13 @@ namespace NureTimetable.Core.Models.Consts
             TimeSpan.FromDays(7);
 
         public static TimeZoneInfo UkraineTimezone { get; } =
-            TimeZoneInfo.FindSystemTimeZoneById("FLE Standard Time");
+            CreateCustomTimeZone("Ukraine", TimeSpan.FromHours(2), string.Empty, string.Empty, string.Empty, new[]
+            {
+                AdjustmentRule.CreateAdjustmentRule(DateTime.MinValue, DateTime.MaxValue,
+                    TimeSpan.FromHours(1),
+                    TransitionTime.CreateFixedDateRule(DateTime.MinValue.AddHours(3), 3, 28),
+                    TransitionTime.CreateFixedDateRule(DateTime.MinValue.AddHours(4), 10, 31)
+                )
+            });
     }
 }

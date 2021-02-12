@@ -28,7 +28,7 @@ namespace NureTimetable.DAL
                     continue;
                 }
 
-                int hoursInUkraine = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now, Config.UkraineTimezone.Id).Hour;
+                int hoursInUkraine = TimeZoneInfo.ConvertTime(DateTime.Now, Config.UkraineTimezone).Hour;
                 if (savedEntity.LastUpdated == null || (hoursInUkraine >= 5 && hoursInUkraine < 6))
                 {
                     // Update allowed if never updated before
