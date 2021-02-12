@@ -48,7 +48,7 @@ namespace NureTimetable
             MainPage = new AppShell();
         }
 
-        protected override void OnStart()
+        protected override async void OnStart()
         {
             StartAppCenterLogging();
 
@@ -57,6 +57,12 @@ namespace NureTimetable
             {
                 { nameof(SettingsRepository.Settings.TimetableViewMode), SettingsRepository.Settings.TimetableViewMode.ToString() }
             });
+
+            if (await Crashes.HasCrashedInLastSessionAsync())
+            {
+                var report = await Crashes.GetLastSessionCrashReportAsync();
+                await Shell.Current.DisplayAlert(LN.ErrorDetails, report.Exception.ToString(), LN.Ok);
+            }
         }
 
         [Conditional("RELEASE")]

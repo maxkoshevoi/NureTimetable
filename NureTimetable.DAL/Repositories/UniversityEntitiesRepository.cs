@@ -1,4 +1,5 @@
 ﻿using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Models.Consts;
 using NureTimetable.Core.Models.Exceptions;
@@ -519,7 +520,8 @@ namespace NureTimetable.DAL
             List<Local::SavedEntity> duplicates = savedEntities.GroupBy(e => e).Where(g => g.Count() > 1).Select(g => g.Key).ToList();
             if (duplicates.Any())
             {
-                throw new InvalidOperationException($"{nameof(savedEntities)} must be unique");
+                savedEntities = savedEntities.GroupBy(e => e).Select(g => g.Key).ToList();
+                Crashes.TrackError(new InvalidOperationException($"{nameof(savedEntities)} must be unique"));
             }
 
             List<Local::SavedEntity> oldSavedEntities = await GetSaved();
