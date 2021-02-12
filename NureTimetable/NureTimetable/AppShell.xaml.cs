@@ -125,8 +125,11 @@ namespace NureTimetable.UI.Views
             {
                 // CistException happens for external reasons, and shouldn't be treated as an exception.
                 // But just in case it is logged as Event
-                
-                properties.Add("Status", cistEx.Status.ToString());
+
+                if (!properties.ContainsKey("Status"))
+                {
+                    properties.Add("Status", cistEx.Status.ToString());
+                }
 
                 Analytics.TrackEvent("CistException", properties);
                 return;
