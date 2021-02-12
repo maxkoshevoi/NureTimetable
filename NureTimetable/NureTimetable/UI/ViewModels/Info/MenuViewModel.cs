@@ -25,10 +25,10 @@ namespace NureTimetable.UI.ViewModels.Info
         #region Properties
         public bool IsDebugModeActive
         {
-            get => App.IsDebugMode;
+            get => SettingsRepository.Settings.IsDebugMode;
             set
             {
-                App.IsDebugMode = value;
+                SettingsRepository.Settings.IsDebugMode = value;
                 OnPropertyChanged();
             }
         }

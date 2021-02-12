@@ -10,7 +10,7 @@ namespace NureTimetable.DAL
 {
     public static class SettingsRepository
     {
-        public static AppSettings Settings { get; } = new();
+        public static AppSettings Settings { get; } = AppSettings.Instance;
 
         #region Timetable Update Rights
         public static async Task<IReadOnlyList<Entity>> CheckCistTimetableUpdateRights(params Entity[] entitiesToUpdate)

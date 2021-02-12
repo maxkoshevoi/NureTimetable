@@ -7,6 +7,12 @@ namespace NureTimetable.Core.Models.Settings
 {
     public class AppSettings
     {
+        public static AppSettings Instance { get; } = new();
+
+        private AppSettings()
+        {
+        }
+
         public TimetableViewMode TimetableViewMode 
         {
             get => (TimetableViewMode)Preferences.Get(nameof(TimetableViewMode), (int)TimetableViewMode.Week);
@@ -39,6 +45,12 @@ namespace NureTimetable.Core.Models.Settings
                 return storedValue == null ? null : DateTime.Parse(storedValue, CultureInfo.InvariantCulture);
             }
             set => Preferences.Set(nameof(LastCistAllEntitiesUpdate), value?.ToString(CultureInfo.InvariantCulture));
+        }
+
+        public bool IsDebugMode
+        {
+            get => Preferences.Get(nameof(IsDebugMode), false);
+            set => Preferences.Set(nameof(IsDebugMode), value);
         }
     }
 }

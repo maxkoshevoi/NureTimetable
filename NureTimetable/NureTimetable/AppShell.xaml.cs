@@ -37,7 +37,7 @@ namespace NureTimetable.UI.Views
 
             MessagingCenter.Subscribe<Application, Exception>(this, MessageTypes.ExceptionOccurred, (_, ex) =>
             {
-                if (App.IsDebugMode)
+                if (SettingsRepository.Settings.IsDebugMode)
                 {
                     MainThread.BeginInvokeOnMainThread(async () => 
                         await Shell.Current.DisplayAlert(LN.ErrorDetails, ex.ToString(), LN.Ok)

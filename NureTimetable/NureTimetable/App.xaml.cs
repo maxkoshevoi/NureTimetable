@@ -20,13 +20,6 @@ namespace NureTimetable
 {
     public partial class App : Application
     {
-        public static bool IsDebugMode { get; set; }
-#if DEBUG
-            = true;
-#else
-            = false;
-#endif
-
         public App()
         {
             //Register Syncfusion license
@@ -58,10 +51,10 @@ namespace NureTimetable
                 { nameof(SettingsRepository.Settings.TimetableViewMode), SettingsRepository.Settings.TimetableViewMode.ToString() }
             });
 
-            if (await Crashes.HasCrashedInLastSessionAsync())
+            if (SettingsRepository.Settings.IsDebugMode && await Crashes.HasCrashedInLastSessionAsync())
             {
                 var report = await Crashes.GetLastSessionCrashReportAsync();
-                await Shell.Current.DisplayAlert(LN.ErrorDetails, report.Exception.ToString(), LN.Ok);
+                await Shell.Current.DisplayAlert(LN.ErrorDetails, report.StackTrace, LN.Ok);
             }
         }
 
