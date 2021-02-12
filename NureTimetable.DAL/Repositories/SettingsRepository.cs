@@ -28,7 +28,8 @@ namespace NureTimetable.DAL
                     continue;
                 }
 
-                if (savedEntity.LastUpdated == null || (DateTime.Now.TimeOfDay.Hours >= 5 && DateTime.Now.TimeOfDay.Hours < 6))
+                int hoursInUkraine = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now, Config.UkraineTimezone.Id).Hour;
+                if (savedEntity.LastUpdated == null || (hoursInUkraine >= 5 && hoursInUkraine < 6))
                 {
                     // Update allowed if never updated before
                     // Unlimited updates between 5 and 6 AM
