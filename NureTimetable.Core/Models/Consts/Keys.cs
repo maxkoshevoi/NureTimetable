@@ -8,6 +8,7 @@
     {
         public const string SyncfusionLicenseKey = null;
         public const string MicrosoftAppCenterKey = null;
+        public const string MicrosoftAppCenterDebugKey = null; // random guid so that loggs are not sent to AppCenter
         public const string CistApiKey = null;
     }
 }

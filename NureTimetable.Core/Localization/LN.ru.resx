@@ -446,4 +446,7 @@
   <data name="AskEveryTime" xml:space="preserve">
     <value>Спрашивать каждый раз</value>
   </data>
+  <data name="AutoupdateFailed" xml:space="preserve">
+    <value>Ошибка автообновления. Попробуйте обновить расписание вручную.</value>
+  </data>
 </root>

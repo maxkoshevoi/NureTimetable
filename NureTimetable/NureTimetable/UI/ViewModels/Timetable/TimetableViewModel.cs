@@ -30,6 +30,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
 
         private bool isFirstLoad = true;
         private bool isPageVisible = false;
+        private bool mayNeedTimetableUpdate = true;
 
         private List<DateTime> visibleDates = new();
         private bool needToUpdateEventsUI = false;
@@ -135,10 +136,10 @@ namespace NureTimetable.UI.ViewModels.Timetable
 
             MessagingCenter.Subscribe<Application, Entity>(this, MessageTypes.LessonSettingsChanged, EntityChanged);
             MessagingCenter.Subscribe<Application, Entity>(this, MessageTypes.TimetableUpdated, EntityChanged);
-            void EntityChanged(Application app, Entity entity)
+            async void EntityChanged(Application app, Entity entity)
             {
                 if (TimetableInfoList.Entities.Contains(entity))
-                    UpdateEvents();
+                    await UpdateEvents();
             }
             MessagingCenter.Subscribe<Application, AppTheme>(this, MessageTypes.ThemeChanged, async (sender, newTheme) =>
             {
@@ -150,6 +151,9 @@ namespace NureTimetable.UI.ViewModels.Timetable
             });
             MessagingCenter.Subscribe<Application, List<SavedEntity>>(this, MessageTypes.SelectedEntitiesChanged, async (sender, newSelectedEntities) =>
             {
+                mayNeedTimetableUpdate = true;
+                await UpdateTimetableIfNeeded();
+
                 IsTimetableUpdating = updatingTimetables.Intersect(newSelectedEntities.Select(e => e.Entity)).Any();
                 await UpdateEvents(newSelectedEntities.Select(e => e.Entity).ToList());
             });
@@ -206,33 +210,6 @@ namespace NureTimetable.UI.ViewModels.Timetable
             IsProgressLayoutVisible = true;
         }
 
-        private async Task UpdateTodayButton(bool isForceUpdate)
-        {
-            if (visibleDates.Count == 0)
-                return;
-
-            // Updating Today button
-            if (visibleDates.Any(d => d.Date == DateTime.Now.Date))
-            {
-                if (BTodayScale == 1)
-                {
-                    await timetablePage.ScaleTodayButtonTo(0);
-                }
-            }
-            else if (isForceUpdate || (BTodayScale == 0 && visibleDates.Any(d => d.Year > 1)))
-            {
-                if (visibleDates[0].Date > DateTime.Now)
-                {
-                    BTodayText = MaterialIconsFont.ChevronLeft;
-                }
-                else
-                {
-                    BTodayText = MaterialIconsFont.ChevronRight;
-                }
-                await timetablePage.ScaleTodayButtonTo(1);
-            }
-        }
-
         private async Task PageAppearing()
         {
             isPageVisible = true;
@@ -264,6 +241,34 @@ namespace NureTimetable.UI.ViewModels.Timetable
             }
 
             Device.StartTimer(TimeSpan.FromSeconds(1), () => { UpdateTimeLeft(); return isPageVisible; });
+            await UpdateTimetableIfNeeded();
+        }
+
+        private async Task UpdateTodayButton(bool isForceUpdate)
+        {
+            if (visibleDates.Count == 0)
+                return;
+
+            // Updating Today button
+            if (visibleDates.Any(d => d.Date == DateTime.Now.Date))
+            {
+                if (BTodayScale == 1)
+                {
+                    await timetablePage.ScaleTodayButtonTo(0);
+                }
+            }
+            else if (isForceUpdate || (BTodayScale == 0 && visibleDates.Any(d => d.Year > 1)))
+            {
+                if (visibleDates[0].Date > DateTime.Now)
+                {
+                    BTodayText = MaterialIconsFont.ChevronLeft;
+                }
+                else
+                {
+                    BTodayText = MaterialIconsFont.ChevronRight;
+                }
+                await timetablePage.ScaleTodayButtonTo(1);
+            }
         }
 
         private void UpdateTimeLeft()
@@ -420,6 +425,20 @@ namespace NureTimetable.UI.ViewModels.Timetable
                     .ToList();
 
                 UpdateTimeLeft();
+            }
+        }
+
+        private async Task UpdateTimetableIfNeeded()
+        {
+            if (mayNeedTimetableUpdate && isPageVisible)
+            {
+                mayNeedTimetableUpdate = false;
+
+                var updateResult = await TimetableService.Update(TimetableInfoList.Entities.ToArray());
+                if (updateResult.Any(e => e.exception != null))
+                {
+                    await Shell.Current.CurrentPage.DisplayToastAsync(LN.AutoupdateFailed);
+                }
             }
         }
 

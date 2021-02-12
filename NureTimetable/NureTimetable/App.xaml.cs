@@ -10,6 +10,7 @@ using Syncfusion.Licensing;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -43,7 +44,21 @@ namespace NureTimetable
 
         protected override async void OnStart()
         {
-            StartAppCenterLogging();
+            await InitAppCenterLogging();
+        }
+
+        private static async Task InitAppCenterLogging()
+        {
+            bool showCrashLog = true;
+            string key = Keys.MicrosoftAppCenterDebugKey;
+#if RELEASE
+            showCrashLog = SettingsRepository.Settings.IsDebugMode;
+            if (DeviceInfo.DeviceType != DeviceType.Virtual)
+            {
+                key = Keys.MicrosoftAppCenterKey;
+            }
+#endif
+            AppCenter.Start(key, typeof(Analytics), typeof(Crashes));
 
             // Log currect timetable view mode
             Analytics.TrackEvent("Timetable view mode", new Dictionary<string, string>
@@ -51,19 +66,11 @@ namespace NureTimetable
                 { nameof(SettingsRepository.Settings.TimetableViewMode), SettingsRepository.Settings.TimetableViewMode.ToString() }
             });
 
-            if (SettingsRepository.Settings.IsDebugMode && await Crashes.HasCrashedInLastSessionAsync())
+            // Display crash information
+            if (showCrashLog && await Crashes.HasCrashedInLastSessionAsync())
             {
                 var report = await Crashes.GetLastSessionCrashReportAsync();
                 await Shell.Current.DisplayAlert(LN.ErrorDetails, report.StackTrace, LN.Ok);
-            }
-        }
-
-        [Conditional("RELEASE")]
-        private static void StartAppCenterLogging()
-        {
-            if (DeviceInfo.DeviceType != DeviceType.Virtual)
-            {
-                AppCenter.Start(Keys.MicrosoftAppCenterKey, typeof(Analytics), typeof(Crashes));
             }
         }
 

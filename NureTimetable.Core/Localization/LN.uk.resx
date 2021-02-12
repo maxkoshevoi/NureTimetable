@@ -446,4 +446,7 @@
   <data name="AskEveryTime" xml:space="preserve">
     <value>Питати щоразу</value>
   </data>
+  <data name="AutoupdateFailed" xml:space="preserve">
+    <value>Помилка автообновлення. Спробуйте оновити розклад вручну.</value>
+  </data>
 </root>

@@ -446,4 +446,7 @@ Try again later, or try using different WIFI network or mobile internet connecti
   <data name="AskEveryTime" xml:space="preserve">
     <value>Ask every time</value>
   </data>
+  <data name="AutoupdateFailed" xml:space="preserve">
+    <value>Autoupdate failed. Try updating timetable manually.</value>
+  </data>
 </root>

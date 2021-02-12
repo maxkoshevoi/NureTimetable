@@ -51,7 +51,8 @@ namespace NureTimetable.DAL
                     allowedEntities.Add(savedEntity);
                     continue;
                 }
-#if DEBUG
+
+#if UNLIMITED_UPDATES
                 allowedEntities.Add(savedEntity);
 #endif
             }

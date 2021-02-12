@@ -151,6 +151,15 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Autoupdate failed. Try updating timetable manually..
+        /// </summary>
+        public static string AutoupdateFailed {
+            get {
+                return ResourceManager.GetString("AutoupdateFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string Cancel {
