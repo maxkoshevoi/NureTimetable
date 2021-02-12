@@ -68,7 +68,13 @@
                 </ListView.ItemTemplate>
             </ListView>
         </StackLayout>
-        <StackLayout IsVisible="{Binding Entities, Converter={xct:ListIsNullOrEmptyConverter}}"  AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+        <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+            <StackLayout.IsVisible>
+                <MultiBinding Converter="{xct:VariableMultiValueConverter ConditionType=All}">
+                    <Binding Path="Entities" Converter="{xct:ListIsNullOrEmptyConverter}" />
+                    <Binding Path="IsProgressLayoutVisible" Converter="{xct:InvertedBoolConverter}" />
+                </MultiBinding>
+            </StackLayout.IsVisible>
             <Label Text="{xct:Translate NoSavedTimetables}"
                     VerticalOptions="CenterAndExpand" 
                     HorizontalOptions="CenterAndExpand"

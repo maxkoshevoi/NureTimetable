@@ -155,8 +155,13 @@
                     AbsoluteLayout.LayoutBounds="0,0,1,1" 
                     AbsoluteLayout.LayoutFlags="All" 
                     VerticalOptions="CenterAndExpand" 
-                    HorizontalOptions="CenterAndExpand"
-                    IsVisible="{Binding TimetableInfoList.Events, Converter={xct:ListIsNullOrEmptyConverter}}">
+                    HorizontalOptions="CenterAndExpand">
+                <StackLayout.IsVisible>
+                    <MultiBinding Converter="{xct:VariableMultiValueConverter ConditionType=All}">
+                        <Binding Path="TimetableInfoList.Events" Converter="{xct:ListIsNullOrEmptyConverter}" />
+                        <Binding Path="IsProgressLayoutVisible" Converter="{xct:InvertedBoolConverter}" />
+                    </MultiBinding>
+                </StackLayout.IsVisible>
                 <Label Text="{xct:Translate NoTimetable}" IsVisible="{Binding TimetableInfoList.Timetables, Converter={xct:ListIsNullOrEmptyConverter}}"/>
                 <Label Text="{xct:Translate TimetableIsEmpty}" IsVisible="{Binding TimetableInfoList.Timetables, Converter={xct:ListIsNotNullOrEmptyConverter}}" />
             </StackLayout>
