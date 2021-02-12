@@ -28,15 +28,15 @@ namespace NureTimetable.DAL
                     continue;
                 }
 
-                if (savedEntity.LastUpdated == null || (DateTime.Now.TimeOfDay.Hours >= 5 && DateTime.Now.TimeOfDay.Hours < 7))
+                if (savedEntity.LastUpdated == null || (DateTime.Now.TimeOfDay.Hours >= 5 && DateTime.Now.TimeOfDay.Hours < 6))
                 {
                     // Update allowed if never updated before
-                    // Unlimited updates between 5 and 7 AM
+                    // Unlimited updates between 5 and 6 AM
                     allowedEntities.Add(savedEntity);
                     continue;
                 }
 
-                // Update is allowd once per day (day begins at 7 AM)
+                // Update is allowd once per day (day begins at 6 AM)
                 TimeSpan timeBeforeAnotherUpdate;
                 if (savedEntity.LastUpdated.Value.TimeOfDay < Config.CistDailyTimetableUpdateTime)
                 {
