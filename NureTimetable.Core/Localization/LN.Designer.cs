@@ -170,7 +170,7 @@ namespace NureTimetable.Core.Localization {
         
         /// <summary>
         ///   Looks up a localized string similar to Error getting data from cist.nure.ua.
-        ///Try again later, or try using different WIFI network or mobile internet connection..
+        ///Try again later, or try using different WiFi network or mobile internet connection..
         /// </summary>
         public static string CannotGetDataFromCist {
             get {

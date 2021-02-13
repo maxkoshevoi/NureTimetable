@@ -369,7 +369,7 @@
   </data>
   <data name="CannotGetDataFromCist" xml:space="preserve">
     <value>Помилка при отриманні даних з cist.nure.ua.
-Повторіть спробу пізніше, або спробуйте іншу мережу WIFI або мобільний інтернет.</value>
+Повторіть спробу пізніше, або спробуйте іншу мережу WiFi або мобільний інтернет.</value>
   </data>
   <data name="TimetableIsEmpty" xml:space="preserve">
     <value>Розклад не містить жодної події</value>
