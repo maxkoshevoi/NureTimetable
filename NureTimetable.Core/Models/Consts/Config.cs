@@ -23,7 +23,7 @@ namespace NureTimetable.Core.Models.Consts
         public static TimeZoneInfo UkraineTimezone { get; } =
             CreateCustomTimeZone("Ukraine", TimeSpan.FromHours(2), string.Empty, string.Empty, string.Empty, new[]
             {
-                AdjustmentRule.CreateAdjustmentRule(DateTime.MinValue, DateTime.MaxValue,
+                AdjustmentRule.CreateAdjustmentRule(DateTime.MinValue.Date, DateTime.MaxValue.Date,
                     TimeSpan.FromHours(1),
                     TransitionTime.CreateFixedDateRule(DateTime.MinValue.AddHours(3), 3, 28),
                     TransitionTime.CreateFixedDateRule(DateTime.MinValue.AddHours(4), 10, 31)
