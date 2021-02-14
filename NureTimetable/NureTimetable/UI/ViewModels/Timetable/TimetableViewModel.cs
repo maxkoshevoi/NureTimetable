@@ -250,7 +250,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 return;
 
             // Updating Today button
-            if (visibleDates.Any(d => d.Date == DateTime.Now.Date))
+            if (visibleDates.Any(d => d.Date == DateTime.Today))
             {
                 if (BTodayScale == 1)
                 {
@@ -297,7 +297,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
                         .Where(e => e.Start > DateTime.Now)
                         .OrderBy(e => e.Start)
                         .FirstOrDefault();
-                    if (nextEvent != null && nextEvent.Start.Date == DateTime.Now.Date)
+                    if (nextEvent != null && nextEvent.Start.Date == DateTime.Today)
                     {
                         text = string.Format(
                             LN.TimeUntilLesson,
@@ -511,9 +511,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
 
         private async Task BTodayClicked()
         {
-            DateTime today = DateTime.Now.Date;
-
-            DateTime moveTo = today;
+            DateTime moveTo = DateTime.Today;
             if (TimetableMinDisplayDate > moveTo)
             {
                 moveTo = TimetableMinDisplayDate;
@@ -522,7 +520,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
             {
                 moveTo = TimetableMaxDisplayDate;
             }
-            if (moveTo != today && visibleDates.Contains(moveTo))
+            if (moveTo != DateTime.Today && visibleDates.Contains(moveTo))
             {
                 // TODO: Add AnchorView BToday here when https://github.com/xamarin/XamarinCommunityToolkit/pull/846 is released
                 await Shell.Current.CurrentPage.DisplayToastAsync(LN.TimetableEndReached);
