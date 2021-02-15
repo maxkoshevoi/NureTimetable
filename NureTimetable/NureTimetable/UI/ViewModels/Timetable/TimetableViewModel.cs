@@ -30,7 +30,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
 
         private bool isFirstLoad = true;
         private bool isPageVisible = false;
-        private bool mayNeedTimetableUpdate = true;
+        private (Entity[] entities, DateTime updateStart) lastAutoupdateInfo = (Array.Empty<Entity>(), default);
 
         private List<DateTime> visibleDates = new();
         private bool needToUpdateEventsUI = false;
@@ -151,7 +151,6 @@ namespace NureTimetable.UI.ViewModels.Timetable
             });
             MessagingCenter.Subscribe<Application, List<SavedEntity>>(this, MessageTypes.SelectedEntitiesChanged, async (sender, newSelectedEntities) =>
             {
-                mayNeedTimetableUpdate = true;
                 await UpdateTimetableIfNeeded();
 
                 IsTimetableUpdating = updatingTimetables.Intersect(newSelectedEntities.Select(e => e.Entity)).Any();
@@ -430,15 +429,20 @@ namespace NureTimetable.UI.ViewModels.Timetable
 
         private async Task UpdateTimetableIfNeeded()
         {
-            if (mayNeedTimetableUpdate && isPageVisible)
-            {
-                mayNeedTimetableUpdate = false;
+            if (!isPageVisible)
+                return;
 
-                var updateResult = await TimetableService.Update(TimetableInfoList.Entities.ToArray());
-                if (updateResult.Any(e => e.exception != null))
-                {
-                    await Shell.Current.CurrentPage.DisplayToastAsync(LN.AutoupdateFailed);
-                }
+            // Try to update the same entities at most every 15 minutes
+            Entity[] entitiesToUpdate = TimetableInfoList.Entities.ToArray();
+            if (lastAutoupdateInfo.entities.SequenceEqual(entitiesToUpdate) && (DateTime.Now - lastAutoupdateInfo.updateStart).TotalMinutes < 15)
+                return;
+
+            lastAutoupdateInfo = (entitiesToUpdate, DateTime.Now);
+
+            var updateResult = await TimetableService.Update(entitiesToUpdate);
+            if (updateResult.Any(e => e.exception != null))
+            {
+                await Shell.Current.CurrentPage.DisplayToastAsync(LN.AutoupdateFailed);
             }
         }
 
