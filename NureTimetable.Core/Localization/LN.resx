@@ -449,4 +449,16 @@ Try again later, or try using different WiFi network or mobile internet connecti
   <data name="AutoupdateFailed" xml:space="preserve">
     <value>Autoupdate failed. Try updating timetable manually.</value>
   </data>
+  <data name="OtherSettings" xml:space="preserve">
+    <value>Other settings</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="AutoupdateDescription" xml:space="preserve">
+    <value>Automatically update selected timetables</value>
+  </data>
+  <data name="Autoupdate" xml:space="preserve">
+    <value>Autoupdate</value>
+  </data>
 </root>

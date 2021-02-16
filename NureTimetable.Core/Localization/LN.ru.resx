@@ -449,4 +449,16 @@
   <data name="AutoupdateFailed" xml:space="preserve">
     <value>Ошибка автообновления. Попробуйте обновить расписание вручную.</value>
   </data>
+  <data name="OtherSettings" xml:space="preserve">
+    <value>Другие настройки</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="AutoupdateDescription" xml:space="preserve">
+    <value>Автоматически обновлять выбранные расписания</value>
+  </data>
+  <data name="Autoupdate" xml:space="preserve">
+    <value>Автообновление</value>
+  </data>
 </root>

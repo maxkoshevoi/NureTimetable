@@ -449,4 +449,16 @@
   <data name="AutoupdateFailed" xml:space="preserve">
     <value>Помилка автообновлення. Спробуйте оновити розклад вручну.</value>
   </data>
+  <data name="OtherSettings" xml:space="preserve">
+    <value>Інші налаштування</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Налаштування</value>
+  </data>
+  <data name="AutoupdateDescription" xml:space="preserve">
+    <value>Автоматично оновити обрані розклади</value>
+  </data>
+  <data name="Autoupdate" xml:space="preserve">
+    <value>Автооновлення</value>
+  </data>
 </root>

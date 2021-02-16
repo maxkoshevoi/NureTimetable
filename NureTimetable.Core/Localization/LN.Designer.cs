@@ -151,6 +151,24 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Autoupdate.
+        /// </summary>
+        public static string Autoupdate {
+            get {
+                return ResourceManager.GetString("Autoupdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automatically update selected timetables.
+        /// </summary>
+        public static string AutoupdateDescription {
+            get {
+                return ResourceManager.GetString("AutoupdateDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Autoupdate failed. Try updating timetable manually..
         /// </summary>
         public static string AutoupdateFailed {
@@ -621,6 +639,15 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Other settings.
+        /// </summary>
+        public static string OtherSettings {
+            get {
+                return ResourceManager.GetString("OtherSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Purchase.
         /// </summary>
         public static string Purchase {
@@ -707,6 +734,15 @@ namespace NureTimetable.Core.Localization {
         public static string SelectOneEntity {
             get {
                 return ResourceManager.GetString("SelectOneEntity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        public static string Settings {
+            get {
+                return ResourceManager.GetString("Settings", resourceCulture);
             }
         }
         

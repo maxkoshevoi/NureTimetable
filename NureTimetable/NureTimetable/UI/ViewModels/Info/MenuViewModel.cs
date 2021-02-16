@@ -1,21 +1,18 @@
-﻿using NureTimetable.BL;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Threading.Tasks;
 using NureTimetable.Core.Localization;
-using NureTimetable.Core.Models.Consts;
-using NureTimetable.Core.Models.InterplatformCommunication;
 using NureTimetable.Core.Models.Settings;
 using NureTimetable.DAL;
 using NureTimetable.UI.Helpers;
 using NureTimetable.UI.Themes;
 using NureTimetable.UI.Views;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Essentials;
-using Xamarin.Forms;
+using static NureTimetable.UI.ViewModels.Info.SettingsViewModel;
 using AppTheme = NureTimetable.Core.Models.Settings.AppTheme;
 
 namespace NureTimetable.UI.ViewModels.Info
@@ -23,37 +20,17 @@ namespace NureTimetable.UI.ViewModels.Info
     public class MenuViewModel : BaseViewModel
     {
         #region Properties
-        public bool IsDebugModeActive
-        {
-            get => SettingsRepository.Settings.IsDebugMode;
-            set
-            {
-                SettingsRepository.Settings.IsDebugMode = value;
-                OnPropertyChanged();
-            }
-        }
-
         public LocalizedString AppVersion { get; } = new(() => string.Format(LN.Version, AppInfo.VersionString));
 
-        public LocalizedString AppLanguageName => new(() => languageMapping.Single(m => m.value == SettingsRepository.Settings.Language).name());
+        public LocalizedString AppLanguageName { get; }
 
-        public LocalizedString AppThemeName => new(() => themeMapping.Single(m => m.value == SettingsRepository.Settings.Theme).name());
+        public LocalizedString AppThemeName { get; }
 
-        public LocalizedString DefaultCalendarName => new(() => 
-        {
-            if (calendarMapping == null)
-                return LN.Wait;
-
-            return calendarMapping.SingleOrDefault(m => m.id == SettingsRepository.Settings.DefaultCalendarId).name?.Invoke() ?? LN.InsufficientRights;
-        });
-
-        public IAsyncCommand PageAppearingCommand { get; }
         public IAsyncCommand<string> NavigateUriCommand { get; }
-        public Command ToggleDebugModeCommand { get; }
         public IAsyncCommand OpenDonatePageCommand { get; }
         public IAsyncCommand ChangeThemeCommand { get; }
         public IAsyncCommand ChangeLanguageCommand { get; }
-        public IAsyncCommand ChangeDefaultCalendarCommand { get; }
+        public IAsyncCommand OpenSettingsCommand { get; }
         #endregion
 
         #region Setting mappings
@@ -71,49 +48,34 @@ namespace NureTimetable.UI.ViewModels.Info
             (() => LN.LightTheme, AppTheme.Light),
             (() => LN.DarkTheme, AppTheme.Dark),
         };
-
-        List<(Func<string> name, string id)> calendarMapping;
         #endregion
 
         public MenuViewModel()
         {
-            PageAppearingCommand = CommandFactory.Create(PageAppearing);
+            AppLanguageName = new(() => languageMapping.Single(m => m.value == SettingsRepository.Settings.Language).name());
+            AppThemeName = new(() => themeMapping.Single(m => m.value == SettingsRepository.Settings.Theme).name());
+
             NavigateUriCommand = CommandFactory.Create<string>(async url => await Launcher.OpenAsync(new Uri(url)));
-            ToggleDebugModeCommand = CommandFactory.Create(() => IsDebugModeActive = !IsDebugModeActive);
             OpenDonatePageCommand = CommandFactory.Create(async () => await Navigation.PushAsync(new DonatePage()));
             ChangeThemeCommand = CommandFactory.Create(ChangeTheme);
             ChangeLanguageCommand = CommandFactory.Create(ChangeLanguage);
-            ChangeDefaultCalendarCommand = CommandFactory.Create(ChangeDefaultCalendar);
-            
-            MessagingCenter.Subscribe<Application, AppTheme>(Application.Current, MessageTypes.ThemeChanged, (_, _) => OnPropertyChanged(nameof(AppThemeName)));
-        }
+            OpenSettingsCommand = CommandFactory.Create(async () => await Navigation.PushAsync(new SettingsPage()));
 
-        private async Task PageAppearing()
-        {
-            if (calendarMapping == null)
+            SettingsRepository.Settings.WeakSubscribe(this,(t, _, e) =>
             {
-                await UpdateDefaultCalendarMapping(false);
-            }
+                if (e.PropertyName == nameof(SettingsRepository.Settings.Theme))
+                {
+                    OnPropertyChanged(nameof(AppThemeName));
+                }
+                else if (e.PropertyName == nameof(SettingsRepository.Settings.Language))
+                {
+                    OnPropertyChanged(nameof(AppLanguageName));
+                }
+            });
         }
 
-        public async Task ChangeSetting<T>(string name, List<(Func<string> name, T value)> mapping, T currectValue, Action<T> applyNewValue)
-        {
-            string selectedName = await Shell.Current.DisplayActionSheet(name, LN.Cancel, null, mapping.Select(m => m.name()).ToArray());
-            if (selectedName == null || selectedName == LN.Cancel)
-                return;
-
-            T selectedValue = mapping.Single(m => m.name() == selectedName).value;
-            if (currectValue?.Equals(selectedValue) == true)
-            {
-                return;
-            }
-
-            applyNewValue(selectedValue);
-        }
-
-        public Task ChangeTheme()
-        {
-            return ChangeSetting
+        public Task ChangeTheme() =>
+            ChangeSetting
             (
                 LN.Theme,
                 themeMapping,
@@ -122,14 +84,11 @@ namespace NureTimetable.UI.ViewModels.Info
                 {
                     SettingsRepository.Settings.Theme = newTheme;
                     ThemeHelper.SetAppTheme(newTheme);
-                    OnPropertyChanged(nameof(AppThemeName));
                 }
             );
-        }
 
-        public Task ChangeLanguage()
-        {
-            return ChangeSetting
+        public Task ChangeLanguage() =>
+            ChangeSetting
             (
                 LN.Language,
                 languageMapping,
@@ -138,45 +97,7 @@ namespace NureTimetable.UI.ViewModels.Info
                 {
                     SettingsRepository.Settings.Language = newLanguage;
                     LocalizationResourceManager.Current.SetCulture(newLanguage == AppLanguage.FollowSystem ? CultureInfo.CurrentCulture : new CultureInfo((int)newLanguage));
-                    OnPropertyChanged(nameof(AppLanguageName));
                 }
             );
-        }
-
-        private async Task UpdateDefaultCalendarMapping(bool requestPermissionIfNeeded)
-        {
-            List<(Func<string>, string)> newMapping = new() 
-            { 
-                (() => LN.AskEveryTime, string.Empty) 
-            };
-
-            if (requestPermissionIfNeeded || await CalendarService.CheckPermissions())
-            {
-                var calendars = await CalendarService.GetAllCalendars();
-                if (calendars != null)
-                {
-                    newMapping.AddRange(calendars.Select(c => ((Func<string>)(() => c.Name), c.ExternalID)));
-                }
-            }
-
-            calendarMapping = newMapping;
-            OnPropertyChanged(nameof(DefaultCalendarName));
-        }
-
-        public async Task ChangeDefaultCalendar()
-        {
-            await UpdateDefaultCalendarMapping(true);
-            await ChangeSetting
-            (
-                LN.DefaultCalendar,
-                calendarMapping,
-                SettingsRepository.Settings.DefaultCalendarId,
-                newCalendar => 
-                {
-                    SettingsRepository.Settings.DefaultCalendarId = newCalendar;
-                    OnPropertyChanged(nameof(DefaultCalendarName));
-                }
-            );
-        }
     }
 }

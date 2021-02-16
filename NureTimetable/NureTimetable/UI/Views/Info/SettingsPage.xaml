@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels.Info"
+             xmlns:fonts="clr-namespace:NureTimetable.Models.Consts.Fonts"
+             xmlns:dal="clr-namespace:NureTimetable.DAL;assembly=NureTimetable.DAL"
+             x:Class="NureTimetable.UI.Views.SettingsPage"
+             x:DataType="vm:SettingsViewModel"
+             Title="{xct:Translate Settings}">
+
+    <ContentPage.Behaviors>
+        <xct:EventToCommandBehavior x:DataType="vm:SettingsViewModel" EventName="Appearing" Command="{Binding PageAppearingCommand}"/>
+    </ContentPage.Behaviors>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="Row" TargetType="StackLayout">
+                <Setter Property="Orientation" Value="Horizontal"/>
+                <Setter Property="Padding" Value="20,10"/>
+                <Setter Property="xct:TouchEffect.NativeAnimation" Value="True"/>
+            </Style>
+            <Style TargetType="Image">
+                <Setter Property="VerticalOptions" Value="Center"/>
+                <Setter Property="Margin" Value="0,0,10,0"/>
+            </Style>
+            <Style TargetType="BoxView">
+                <Setter Property="HeightRequest" Value="1"/>
+                <Setter Property="Color" Value="{DynamicResource AccentColor}"/>
+                <Setter Property="Margin" Value="25,5"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <StackLayout Margin="0,20">
+            <StackLayout Style="{StaticResource Row}">
+                <Image Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.Update}, Color={DynamicResource SecondaryTextColor}}" />
+                <StackLayout VerticalOptions="Center">
+                    <Label Text="{xct:Translate Autoupdate}" Style="{DynamicResource ListItemTextStyle}" />
+                    <Label Text="{xct:Translate AutoupdateDescription}" FontSize="13" Style="{DynamicResource ListItemDetailTextStyle}"/>
+                </StackLayout>
+                <Switch IsToggled="{Binding Autoupdate, Source={Static dal:SettingsRepository.Settings}}" HorizontalOptions="EndAndExpand" VerticalOptions="Center" />
+
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ToggleAutoupdateCommand}" />
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+            <StackLayout Style="{StaticResource Row}">
+                <Image Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.CalendarBlank}, Color={DynamicResource SecondaryTextColor}}" />
+                <StackLayout>
+                    <Label Text="{xct:Translate DefaultCalendar}" Style="{DynamicResource ListItemTextStyle}" />
+                    <Label Text="{Binding DefaultCalendarName.Localized}" FontSize="13" Style="{DynamicResource ListItemDetailTextStyle}" />
+                </StackLayout>
+
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ChangeDefaultCalendarCommand}"/>
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+            
+            <BoxView/>
+            
+            <StackLayout Style="{StaticResource Row}">
+                <Image Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.BugOutline}, Color={DynamicResource SecondaryTextColor}}" />
+                <Label Text="{xct:Translate ShowErrors}" VerticalOptions="Center" Style="{DynamicResource ListItemTextStyle}"/>
+                <Switch IsToggled="{Binding IsDebugMode, Source={Static dal:SettingsRepository.Settings}}" HorizontalOptions="EndAndExpand" VerticalOptions="Center" />
+
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ToggleDebugModeCommand}" />
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

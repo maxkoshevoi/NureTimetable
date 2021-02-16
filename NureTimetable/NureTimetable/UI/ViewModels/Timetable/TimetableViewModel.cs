@@ -429,7 +429,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
 
         private async Task UpdateTimetableIfNeeded()
         {
-            if (!isPageVisible)
+            if (!SettingsRepository.Settings.Autoupdate || !isPageVisible)
                 return;
 
             // Try to update the same entities at most every 15 minutes

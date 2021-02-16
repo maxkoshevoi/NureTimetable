@@ -32,6 +32,7 @@ namespace NureTimetable
             {
                 culture = new CultureInfo((int)SettingsRepository.Settings.Language);
             }
+            LN.Culture = culture; // TODO: Romove once https://github.com/xamarin/XamarinCommunityToolkit/pull/915 is released
             LocalizationResourceManager.Current.PropertyChanged += (_, _) => LN.Culture = LocalizationResourceManager.Current.CurrentCulture;
             LocalizationResourceManager.Current.Init(LN.ResourceManager, culture);
 
