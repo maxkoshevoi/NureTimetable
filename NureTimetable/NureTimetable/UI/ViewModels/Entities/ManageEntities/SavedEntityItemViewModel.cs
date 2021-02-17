@@ -2,6 +2,7 @@
 using NureTimetable.Core.Localization;
 using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
+using NureTimetable.Models.Consts;
 using NureTimetable.UI.Helpers;
 using NureTimetable.UI.ViewModels.Lessons.ManageLessons;
 using NureTimetable.UI.Views.Lessons;
@@ -56,7 +57,7 @@ namespace NureTimetable.UI.ViewModels.Entities.ManageEntities
             if (action == LN.SelectOneEntity)
             {
                 await ManageEntitiesViewModel.SelectOne(SavedEntity);
-                await Shell.Current.GoToAsync("//tabbar/Events");
+                await Shell.Current.GoToAsync(Route.EventsTab);
             }
             else if (action == LN.AddToSelected)
             {

@@ -2,13 +2,12 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
-             xmlns:fonts="clr-namespace:NureTimetable.Models.Consts.Fonts"
+             xmlns:fonts="clr-namespace:NureTimetable.Models.Consts"
              xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels.Lessons.ManageLessons"
              xmlns:sfb="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
              x:Class="NureTimetable.UI.Views.Lessons.ManageLessonsPage"
              x:DataType="vm:ManageLessonsViewModel"
              Title="{Binding Title.Localized}">
-    
     <ContentPage.Behaviors>
         <xct:EventToCommandBehavior x:DataType="vm:ManageLessonsViewModel" EventName="Appearing" Command="{Binding PageAppearingCommand}"/>
     </ContentPage.Behaviors>

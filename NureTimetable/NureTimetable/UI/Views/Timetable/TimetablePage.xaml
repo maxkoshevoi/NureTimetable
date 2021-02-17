@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
-             xmlns:fonts="clr-namespace:NureTimetable.Models.Consts.Fonts"
+             xmlns:fonts="clr-namespace:NureTimetable.Models.Consts"
              xmlns:converters="clr-namespace:NureTimetable.UI.Behaviors"
              xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels.Timetable"
              xmlns:sfs="clr-namespace:Syncfusion.SfSchedule.XForms;assembly=Syncfusion.SfSchedule.XForms"

@@ -16,6 +16,7 @@ using Xamarin.Essentials;
 using Xamarin.Forms;
 using NureTimetable.Core.Extensions;
 using AppTheme = NureTimetable.Core.Models.Settings.AppTheme;
+using NureTimetable.Models.Consts;
 
 namespace NureTimetable.UI.Views
 {
@@ -46,6 +47,18 @@ namespace NureTimetable.UI.Views
 
                 LogException(ex);
             });
+        }
+
+        protected override bool OnBackButtonPressed()
+        {
+            if (Shell.Current.CurrentItem.CurrentItem.Stack.Count == 1 &&
+                Shell.Current.CurrentState.Location.OriginalString != Route.EventsTab)
+            {
+                Shell.Current.GoToAsync(Route.EventsTab, true);
+                return true;
+            }
+
+            return base.OnBackButtonPressed();
         }
 
         public static async Task PerformMigrations()

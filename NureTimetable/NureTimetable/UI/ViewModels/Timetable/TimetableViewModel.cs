@@ -5,7 +5,6 @@ using NureTimetable.Core.Models.Settings;
 using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
 using NureTimetable.Models.Consts;
-using NureTimetable.Models.Consts.Fonts;
 using NureTimetable.UI.Helpers;
 using NureTimetable.UI.Views;
 using Rg.Plugins.Popup.Services;

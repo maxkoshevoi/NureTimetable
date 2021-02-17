@@ -70,15 +70,7 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
             await EventsRepository.UpdateLessonsInfo(entity, Lessons.Select(l => l.LessonInfo).ToList());
             HasUnsavedChanges = false;
 
-            try
-            {
-                await Navigation.PopAsync();
-            }
-            catch (Exception ex)
-            {
-                MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
-            }
-
+            await Shell.Current.GoToAsync("..", true);
             await Shell.Current.CurrentPage.DisplayToastAsync(string.Format(LN.EntityLessonSettingsSaved, entity.Name));
         }
 
@@ -92,7 +84,7 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
 
             if (canClose)
             {
-                await Navigation.PopAsync();
+                await Shell.Current.GoToAsync("..", true);
             }
         }
     }

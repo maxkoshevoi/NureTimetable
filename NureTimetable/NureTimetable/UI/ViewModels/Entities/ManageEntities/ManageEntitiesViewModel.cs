@@ -3,6 +3,7 @@ using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Consts;
 using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
+using NureTimetable.Models.Consts;
 using NureTimetable.UI.Helpers;
 using NureTimetable.UI.Views;
 using System.Collections.Generic;
@@ -53,7 +54,7 @@ namespace NureTimetable.UI.ViewModels.Entities.ManageEntities
                 else
                 {
                     await SelectOne(savedEntity);
-                    await Shell.Current.GoToAsync("//tabbar/Events");
+                    await Shell.Current.GoToAsync(Route.EventsTab);
                 }
             });
 

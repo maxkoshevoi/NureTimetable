@@ -5,7 +5,7 @@
             xmlns:views="clr-namespace:NureTimetable.UI.Views"
             x:Class="NureTimetable.UI.Views.AddTimetablePage"
             xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels.Entities"
-            xmlns:fonts="clr-namespace:NureTimetable.Models.Consts.Fonts"
+            xmlns:fonts="clr-namespace:NureTimetable.Models.Consts"
             x:DataType="vm:AddTimetableViewModel"
             Shell.NavBarHasShadow="False"
             Title="{xct:Translate AddingTimetable}">
