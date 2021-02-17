@@ -68,7 +68,7 @@
                 </ListView.ItemTemplate>
             </ListView>
         </StackLayout>
-        <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+        <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" Margin="5">
             <StackLayout.IsVisible>
                 <MultiBinding Converter="{xct:VariableMultiValueConverter ConditionType=All}">
                     <Binding Path="Entities" Converter="{xct:ListIsNullOrEmptyConverter}" />

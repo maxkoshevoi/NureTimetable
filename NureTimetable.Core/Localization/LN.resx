@@ -461,4 +461,8 @@ Try again later, or try using different WiFi network or mobile internet connecti
   <data name="Autoupdate" xml:space="preserve">
     <value>Autoupdate</value>
   </data>
+  <data name="EmptyUniversityInfoSearch" xml:space="preserve">
+    <value>Search returned no results.
+To update the list, click on the button in the upper right corner.</value>
+  </data>
 </root>

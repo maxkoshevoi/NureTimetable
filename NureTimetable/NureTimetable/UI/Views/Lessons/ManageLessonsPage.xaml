@@ -55,11 +55,14 @@
                 </ListView.ItemTemplate>
             </ListView>
         </StackLayout>
-        <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="{Binding Lessons, Converter={xct:ListIsNullOrEmptyConverter}}">
+        <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                AbsoluteLayout.LayoutFlags="All" 
+                Margin="5" 
+                IsVisible="{Binding Lessons, Converter={xct:ListIsNullOrEmptyConverter}}">
             <Label Text="{xct:Translate EmptyLessonsList}"
-                    VerticalOptions="CenterAndExpand" 
-                    HorizontalOptions="CenterAndExpand" 
-                    HorizontalTextAlignment="Center" />
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" 
+                HorizontalTextAlignment="Center" />
         </StackLayout>
     </AbsoluteLayout>
 </ContentPage>

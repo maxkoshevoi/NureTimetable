@@ -151,11 +151,11 @@
                 Scale="{Binding BTodayScale, Mode=TwoWay}"
                 Command="{Binding BTodayClickedCommand}"
                 Text="{Binding BTodayText}"/>
-            <StackLayout x:Name="NoSourceLayout" 
-                    AbsoluteLayout.LayoutBounds="0,0,1,1" 
+            <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" 
                     AbsoluteLayout.LayoutFlags="All" 
                     VerticalOptions="CenterAndExpand" 
-                    HorizontalOptions="CenterAndExpand">
+                    HorizontalOptions="CenterAndExpand"
+                    Margin="5">
                 <StackLayout.IsVisible>
                     <MultiBinding Converter="{xct:VariableMultiValueConverter ConditionType=All}">
                         <Binding Path="TimetableInfoList.Events" Converter="{xct:ListIsNullOrEmptyConverter}" />

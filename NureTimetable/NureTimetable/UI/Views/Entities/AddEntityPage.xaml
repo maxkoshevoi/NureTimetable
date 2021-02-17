@@ -7,7 +7,7 @@
              Title="{Binding Title.Localized}">
 
     <AbsoluteLayout>
-        <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="{Binding Entities, Converter={xct:ListIsNotNullOrEmptyConverter}}">
+        <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
             <SearchBar x:Name="searchbar" HeightRequest="42" Placeholder="{xct:Translate EnterName}" PlaceholderColor="Gray">
                 <SearchBar.Behaviors>
                     <xct:EventToCommandBehavior EventName="TextChanged" Command="{Binding SearchBarTextChangedCommand}" CommandParameter="{Binding Text, Source={x:Reference searchbar}}"/>
@@ -30,7 +30,8 @@
                 AbsoluteLayout.LayoutBounds="0,0,1,1" 
                 AbsoluteLayout.LayoutFlags="All" 
                 VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand">
+                HorizontalOptions="CenterAndExpand"
+                Margin="5">
             <StackLayout.IsVisible>
                 <MultiBinding Converter="{xct:VariableMultiValueConverter ConditionType=All}">
                     <Binding Path="Entities" Converter="{xct:ListIsNullOrEmptyConverter}" />
@@ -38,6 +39,7 @@
                 </MultiBinding>
             </StackLayout.IsVisible>
             <Label Text="{xct:Translate NoUniversityInfo}" HorizontalTextAlignment="Center" IsVisible="{Binding Text, Source={x:Reference searchbar}, Converter={xct:IsNullOrEmptyConverter}}" />
+            <Label Text="{xct:Translate EmptyUniversityInfoSearch}" HorizontalTextAlignment="Center" IsVisible="{Binding Text, Source={x:Reference searchbar}, Converter={xct:IsNotNullOrEmptyConverter}}" />
         </StackLayout>
         <StackLayout IsVisible="{Binding IsProgressLayoutVisible}" Padding="12"
                     AbsoluteLayout.LayoutFlags="PositionProportional"

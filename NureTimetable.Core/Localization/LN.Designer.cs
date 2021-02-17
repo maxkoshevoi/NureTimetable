@@ -314,6 +314,16 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Search returned no results.
+        ///To update the list, click on the button in the upper right corner..
+        /// </summary>
+        public static string EmptyUniversityInfoSearch {
+            get {
+                return ResourceManager.GetString("EmptyUniversityInfoSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to English.
         /// </summary>
         public static string EnglishLanguage {

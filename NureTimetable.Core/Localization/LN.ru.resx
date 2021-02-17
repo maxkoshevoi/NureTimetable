@@ -461,4 +461,8 @@
   <data name="Autoupdate" xml:space="preserve">
     <value>Автообновление</value>
   </data>
+  <data name="EmptyUniversityInfoSearch" xml:space="preserve">
+    <value>Поиск не дал результатов.
+Чтобы обновить список, нажмите кнопку в правом верхнем углу.</value>
+  </data>
 </root>
