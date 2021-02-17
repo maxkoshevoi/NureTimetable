@@ -28,8 +28,9 @@ namespace NureTimetable.DAL
                     continue;
                 }
 
-                int hoursInUkraine = TimeZoneInfo.ConvertTime(DateTime.Now, Config.UkraineTimezone).Hour;
-                if (savedEntity.LastUpdated == null || (hoursInUkraine >= 5 && hoursInUkraine < 6))
+                DateTime nowInUkraine = TimeZoneInfo.ConvertTime(DateTime.Now, Config.UkraineTimezone);
+                if (savedEntity.LastUpdated == null || 
+                    (nowInUkraine.TimeOfDay >= Config.CistDailyTimetableUpdateStartTime && nowInUkraine.TimeOfDay < Config.CistDailyTimetableUpdateEndTime))
                 {
                     // Update allowed if never updated before
                     // Unlimited updates between 5 and 6 AM
@@ -38,16 +39,17 @@ namespace NureTimetable.DAL
                 }
 
                 // Update is allowd once per day (day begins at 6 AM)
+                DateTime lastUpdatedInUkraine = TimeZoneInfo.ConvertTime(savedEntity.LastUpdated.Value, Config.UkraineTimezone);
                 TimeSpan timeBeforeAnotherUpdate;
-                if (savedEntity.LastUpdated.Value.TimeOfDay < Config.CistDailyTimetableUpdateTime)
+                if (lastUpdatedInUkraine.TimeOfDay < Config.CistDailyTimetableUpdateEndTime)
                 {
-                    timeBeforeAnotherUpdate = Config.CistDailyTimetableUpdateTime - savedEntity.LastUpdated.Value.TimeOfDay;
+                    timeBeforeAnotherUpdate = Config.CistDailyTimetableUpdateEndTime - lastUpdatedInUkraine.TimeOfDay;
                 }
                 else
                 {
-                    timeBeforeAnotherUpdate = TimeSpan.FromDays(1) - savedEntity.LastUpdated.Value.TimeOfDay + Config.CistDailyTimetableUpdateTime;
+                    timeBeforeAnotherUpdate = TimeSpan.FromDays(1) - lastUpdatedInUkraine.TimeOfDay + Config.CistDailyTimetableUpdateEndTime;
                 }
-                if (DateTime.Now - savedEntity.LastUpdated.Value > timeBeforeAnotherUpdate)
+                if (nowInUkraine - lastUpdatedInUkraine > timeBeforeAnotherUpdate)
                 {
                     allowedEntities.Add(savedEntity);
                     continue;

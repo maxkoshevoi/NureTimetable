@@ -11,8 +11,11 @@ namespace NureTimetable.Core.Models.Consts
         public static DateTime TimetableToDate => 
             DateTime.Now.AddMonths(6);
 
-        public static TimeSpan CistDailyTimetableUpdateTime { get; } =
-            TimeSpan.FromHours(7);
+        public static TimeSpan CistDailyTimetableUpdateStartTime { get; } =
+            TimeSpan.FromHours(5);
+
+        public static TimeSpan CistDailyTimetableUpdateEndTime { get; } =
+            TimeSpan.FromHours(6);
 
         public static TimeSpan CistAllEntitiesUpdateMinInterval { get; } =
             TimeSpan.FromDays(1);
