@@ -441,7 +441,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
             var updateResult = await TimetableService.Update(entitiesToUpdate);
             if (updateResult.Any(e => e.exception != null))
             {
-                await Shell.Current.CurrentPage.DisplayToastAsync(LN.AutoupdateFailed);
+                await Shell.Current.CurrentPage?.DisplayToastAsync(LN.AutoupdateFailed);
             }
         }
 
