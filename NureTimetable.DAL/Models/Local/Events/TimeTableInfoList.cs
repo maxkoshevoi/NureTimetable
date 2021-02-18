@@ -23,7 +23,7 @@ namespace NureTimetable.DAL.Models.Local
                 {
                     return new();
                 }
-                return Timetables[0].LessonsInfo;
+                return Timetables.Single().LessonsInfo;
             }
         }
 

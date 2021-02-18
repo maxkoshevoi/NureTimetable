@@ -26,7 +26,6 @@ namespace NureTimetable.UI.ViewModels.Info
 
         public LocalizedString AppThemeName { get; }
 
-        public IAsyncCommand<string> NavigateUriCommand { get; }
         public IAsyncCommand OpenDonatePageCommand { get; }
         public IAsyncCommand ChangeThemeCommand { get; }
         public IAsyncCommand ChangeLanguageCommand { get; }
@@ -55,7 +54,6 @@ namespace NureTimetable.UI.ViewModels.Info
             AppLanguageName = new(() => languageMapping.Single(m => m.value == SettingsRepository.Settings.Language).name());
             AppThemeName = new(() => themeMapping.Single(m => m.value == SettingsRepository.Settings.Theme).name());
 
-            NavigateUriCommand = CommandFactory.Create<string>(async url => await Launcher.OpenAsync(new Uri(url)));
             OpenDonatePageCommand = CommandFactory.Create(async () => await Navigation.PushAsync(new DonatePage()));
             ChangeThemeCommand = CommandFactory.Create(ChangeTheme);
             ChangeLanguageCommand = CommandFactory.Create(ChangeLanguage);

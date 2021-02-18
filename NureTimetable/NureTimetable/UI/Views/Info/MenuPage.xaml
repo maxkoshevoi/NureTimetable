@@ -4,6 +4,7 @@
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels.Info"
              xmlns:fonts="clr-namespace:NureTimetable.Models.Consts"
+             xmlns:ui="clr-namespace:NureTimetable.UI.Helpers"
              x:Class="NureTimetable.UI.Views.MenuPage"
              x:DataType="vm:MenuViewModel"
              Title="{xct:Translate AppName}">
@@ -67,7 +68,7 @@
                 <Label Text="{xct:Translate Feedback}" VerticalOptions="Center" Style="{DynamicResource ListItemTextStyle}"/>
             
                 <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding NavigateUriCommand}" CommandParameter="https://t.me/nuretimetable_group" />
+                    <TapGestureRecognizer Command="{Static ui:CommonCommands.NavigateUriCommand}" CommandParameter="https://t.me/nuretimetable_group" />
                 </StackLayout.GestureRecognizers>
             </StackLayout>
             <StackLayout Style="{StaticResource Row}">
@@ -75,7 +76,7 @@
                 <Label Text="{xct:Translate RateTheApp}" VerticalOptions="Center" Style="{DynamicResource ListItemTextStyle}"/>
             
                 <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding NavigateUriCommand}" CommandParameter="https://play.google.com/store/apps/details?id=com.whitebox.nuretimetable" />
+                    <TapGestureRecognizer Command="{Static ui:CommonCommands.NavigateUriCommand}" CommandParameter="https://play.google.com/store/apps/details?id=com.whitebox.nuretimetable" />
                 </StackLayout.GestureRecognizers>
             </StackLayout>
             <StackLayout Style="{StaticResource Row}">
@@ -94,7 +95,7 @@
                 <Label Text="{xct:Translate SourceCode}" VerticalOptions="Center" Style="{DynamicResource ListItemTextStyle}"/>
 
                 <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding NavigateUriCommand}" CommandParameter="https://github.com/maxkoshevoi/NureTimetable" />
+                    <TapGestureRecognizer Command="{Static ui:CommonCommands.NavigateUriCommand}" CommandParameter="https://github.com/maxkoshevoi/NureTimetable" />
                 </StackLayout.GestureRecognizers>
             </StackLayout>
 

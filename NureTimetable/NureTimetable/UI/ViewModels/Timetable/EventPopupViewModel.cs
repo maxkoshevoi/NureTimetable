@@ -4,6 +4,7 @@ using NureTimetable.Core.Localization;
 using NureTimetable.DAL.Models.Local;
 using NureTimetable.UI.Helpers;
 using Rg.Plugins.Popup.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;

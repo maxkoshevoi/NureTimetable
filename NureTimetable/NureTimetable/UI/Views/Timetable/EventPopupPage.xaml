@@ -6,6 +6,8 @@
     xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
     xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels.Timetable"
     xmlns:fonts="clr-namespace:NureTimetable.Models.Consts"
+    xmlns:ui="clr-namespace:NureTimetable.UI.Helpers"
+    xmlns:converters="clr-namespace:NureTimetable.UI.Converters"
     x:Class="NureTimetable.UI.Views.EventPopupPage"
     x:DataType="vm:EventPopupViewModel">
     
@@ -43,8 +45,17 @@
             </StackLayout>
         </StackLayout>
         <Label Text="{Binding Details}"/>
-        <StackLayout>
-            <Label Text="{Binding Notes}"/>
+        <StackLayout IsVisible="{Binding Notes, Converter={xct:IsNotNullOrEmptyConverter}}">
+            <Label Text="{Binding Notes}" 
+                   IsVisible="{Binding Notes, Converter={converters:IsNotUriConverter}}" />
+            <Label Text="{Binding Notes}" 
+                   TextColor="Blue" 
+                   TextDecorations="Underline" 
+                   IsVisible="{Binding Notes, Converter={converters:IsUriConverter}}" >
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Static ui:CommonCommands.NavigateUriCommand}" CommandParameter="{Binding Notes}" />
+                </Label.GestureRecognizers>
+            </Label>
         </StackLayout>
     </StackLayout>
 </pages:PopupPage>
