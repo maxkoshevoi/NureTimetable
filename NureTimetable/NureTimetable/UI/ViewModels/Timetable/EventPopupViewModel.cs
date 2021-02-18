@@ -4,6 +4,7 @@ using NureTimetable.Core.Localization;
 using NureTimetable.DAL.Models.Local;
 using NureTimetable.UI.Helpers;
 using Rg.Plugins.Popup.Services;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Extensions;
@@ -50,7 +51,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
             Details = $"{string.Format(LN.EventType, ev.Type.FullName)} ({EventNumber}/{EventsCount})\n" +
               $"{string.Format(LN.EventClassroom, ev.RoomName)}\n" +
               $"{string.Format(LN.EventTeachers, string.Join(", ", ev.Teachers.Select(t => t.Name)))}\n" +
-              $"{string.Format(LN.EventGroups, string.Join(", ", ev.Groups.Select(t => t.Name)))}\n" +
+              $"{string.Format(LN.EventGroups, string.Join(", ", Event.Groups.Select(t => t.Name).GroupBasedOnLastPart("-")))}\n" +
               $"{string.Format(LN.EventDay, ev.Start.ToString("ddd, dd.MM.yy"))}\n" +
               $"{string.Format(LN.EventTime, ev.Start.ToString("HH:mm"), ev.End.ToString("HH:mm"))}";
         }

@@ -58,5 +58,52 @@ namespace NureTimetable.Core.Extensions
                 }
             }
         }
+
+        public static IEnumerable<string> GroupBasedOnLastPart(this IEnumerable<string> collection, string sepparator)
+        {
+            List<string[]> nameParts = collection
+                .OrderBy(n => n)
+                .Select(n => n.Split(sepparator))
+                .ToList();
+
+            if (nameParts.Count == 0)
+            {
+                yield break;
+            }
+
+            List<string> currentGrouping = new();
+            for (int i = 0; i < nameParts.Count; i++)
+            {
+                if (currentGrouping.Count == 0 || AllPartsEqualExceptLast(nameParts[i - 1], nameParts[i]))
+                {
+                    currentGrouping.Add(nameParts[i].Last());
+                    continue;
+                }
+
+                yield return ProcessGrouping(nameParts[i - 1]);
+                currentGrouping.Clear();
+            }
+
+            if (currentGrouping.Any())
+            {
+                yield return ProcessGrouping(nameParts.Last());
+            }
+
+            static bool AllPartsEqualExceptLast(string[] first, string[] second) =>
+                first.Length == second.Length &&
+                first.SkipLast(1).SequenceEqual(second.SkipLast(1));
+
+            string ProcessGrouping(string[] lastGroup)
+            {
+                if (currentGrouping.Count == 1)
+                {
+                    return string.Join(sepparator, lastGroup);
+                }
+                else
+                {
+                    return $"{string.Join(sepparator, lastGroup.SkipLast(1))}-({string.Join(',', currentGrouping)})";
+                }
+            }
+        }
     }
 }

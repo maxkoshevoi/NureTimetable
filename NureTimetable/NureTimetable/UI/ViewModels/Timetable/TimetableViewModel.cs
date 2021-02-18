@@ -1,4 +1,5 @@
 ﻿using NureTimetable.BL;
+using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Consts;
 using NureTimetable.Core.Models.Settings;
@@ -367,7 +368,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
                 return;
             }
 
-            Title = new(() => string.Join(", ", selectedEntities.Select(se => se.Name)));
+            Title = new(() => string.Join(", ", selectedEntities.Select(se => se.Name).GroupBasedOnLastPart("-")));
 
             List<TimetableInfo> timetableInfos = new();
             foreach (var entity in selectedEntities)
