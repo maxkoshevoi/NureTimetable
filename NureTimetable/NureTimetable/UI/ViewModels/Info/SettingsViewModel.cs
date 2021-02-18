@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using NureTimetable.BL;
+﻿using NureTimetable.BL;
 using NureTimetable.Core.Localization;
 using NureTimetable.DAL;
 using NureTimetable.UI.Helpers;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 

@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
-using NureTimetable.Core.Localization;
+﻿using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Settings;
 using NureTimetable.DAL;
 using NureTimetable.UI.Helpers;
-using NureTimetable.UI.Themes;
 using NureTimetable.UI.Views;
-using Xamarin.CommunityToolkit.Helpers;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Essentials;
 using static NureTimetable.UI.ViewModels.Info.SettingsViewModel;
@@ -59,17 +56,11 @@ namespace NureTimetable.UI.ViewModels.Info
             ChangeLanguageCommand = CommandFactory.Create(ChangeLanguage);
             OpenSettingsCommand = CommandFactory.Create(async () => await Navigation.PushAsync(new SettingsPage()));
 
-            SettingsRepository.Settings.WeakSubscribe(this,(t, _, e) =>
+            SettingsRepository.Settings.PropertyChanged += (_, e) =>
             {
                 if (e.PropertyName == nameof(SettingsRepository.Settings.Theme))
-                {
                     OnPropertyChanged(nameof(AppThemeName));
-                }
-                else if (e.PropertyName == nameof(SettingsRepository.Settings.Language))
-                {
-                    OnPropertyChanged(nameof(AppLanguageName));
-                }
-            });
+            };
         }
 
         public Task ChangeTheme() =>
@@ -78,11 +69,7 @@ namespace NureTimetable.UI.ViewModels.Info
                 LN.Theme,
                 themeMapping,
                 SettingsRepository.Settings.Theme,
-                newTheme =>
-                {
-                    SettingsRepository.Settings.Theme = newTheme;
-                    ThemeHelper.SetAppTheme(newTheme);
-                }
+                newTheme => SettingsRepository.Settings.Theme = newTheme
             );
 
         public Task ChangeLanguage() =>
@@ -91,11 +78,7 @@ namespace NureTimetable.UI.ViewModels.Info
                 LN.Language,
                 languageMapping,
                 SettingsRepository.Settings.Language,
-                newLanguage =>
-                {
-                    SettingsRepository.Settings.Language = newLanguage;
-                    LocalizationResourceManager.Current.SetCulture(newLanguage == AppLanguage.FollowSystem ? CultureInfo.CurrentCulture : new CultureInfo((int)newLanguage));
-                }
+                newLanguage => SettingsRepository.Settings.Language = newLanguage
             );
     }
 }

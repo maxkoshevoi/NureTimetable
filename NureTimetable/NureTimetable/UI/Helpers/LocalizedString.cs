@@ -38,7 +38,7 @@ namespace NureTimetable.UI.Helpers
 			var weakSubscriber = new WeakReference(subscriber, false);
 			target.PropertyChanged += handler;
 
-				void handler(object sender, PropertyChangedEventArgs e)
+			void handler(object sender, PropertyChangedEventArgs e)
 			{
 				var s = (T)weakSubscriber.Target;
 				if (s == null)

@@ -4,7 +4,7 @@
             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
             xmlns:views="clr-namespace:NureTimetable.UI.Views"
             xmlns:fonts="clr-namespace:NureTimetable.Models.Consts"
-            x:Class="NureTimetable.UI.Views.AppShell">
+            x:Class="NureTimetable.AppShell">
     
     <Shell.Resources>
         <ResourceDictionary>

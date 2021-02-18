@@ -1,6 +1,9 @@
 ﻿# Full rule list: https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/code-style-rule-options
 [*.cs]
 
+# Organize usings
+dotnet_sort_system_directives_first = false
+
 # Indentation preferences
 csharp_indent_case_contents_when_block = false
 

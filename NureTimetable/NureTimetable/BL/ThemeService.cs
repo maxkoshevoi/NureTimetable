@@ -1,15 +1,16 @@
 ﻿using NureTimetable.Core.Models.Consts;
 using NureTimetable.Core.Models.InterplatformCommunication;
 using NureTimetable.Models.Consts;
+using NureTimetable.UI.Themes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using Xamarin.Forms;
 using AppTheme = NureTimetable.Core.Models.Settings.AppTheme;
 
-namespace NureTimetable.UI.Themes
+namespace NureTimetable.BL
 {
-    public static class ThemeHelper
+    public static class ThemeService
     {
         public static bool SetAppTheme(AppTheme selectedTheme)
         {

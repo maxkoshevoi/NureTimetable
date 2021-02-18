@@ -1,11 +1,13 @@
 ﻿using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
+using NureTimetable.BL;
+using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Consts;
 using NureTimetable.Core.Models.Exceptions;
 using NureTimetable.DAL;
 using NureTimetable.Migrations;
-using NureTimetable.UI.Themes;
+using NureTimetable.Models.Consts;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,39 +16,43 @@ using System.Net;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
-using NureTimetable.Core.Extensions;
 using AppTheme = NureTimetable.Core.Models.Settings.AppTheme;
-using NureTimetable.Models.Consts;
 
-namespace NureTimetable.UI.Views
+namespace NureTimetable
 {
     public partial class AppShell : Shell
     {
         public AppShell()
         {
             InitializeComponent();
-
-            // Adding theme change handler
-            ThemeHelper.SetAppTheme(SettingsRepository.Settings.Theme);
-            App.Current.RequestedThemeChanged += (_, e) =>
-            {
-                if (SettingsRepository.Settings.Theme == AppTheme.FollowSystem)
-                {
-                    ThemeHelper.SetAppTheme((AppTheme)e.RequestedTheme);
-                }
-            };
+            InitTheme();
 
             MessagingCenter.Subscribe<Application, Exception>(this, MessageTypes.ExceptionOccurred, (_, ex) =>
             {
                 if (SettingsRepository.Settings.IsDebugMode)
                 {
-                    MainThread.BeginInvokeOnMainThread(async () => 
+                    MainThread.BeginInvokeOnMainThread(async () =>
                         await Shell.Current.DisplayAlert(LN.ErrorDetails, ex.ToString(), LN.Ok)
                     );
                 }
 
                 LogException(ex);
             });
+        }
+
+        private static void InitTheme()
+        {
+            ThemeService.SetAppTheme(SettingsRepository.Settings.Theme);
+            SettingsRepository.Settings.PropertyChanged += (_, e) =>
+            {
+                if (e.PropertyName == nameof(SettingsRepository.Settings.Theme))
+                    ThemeService.SetAppTheme(SettingsRepository.Settings.Theme);
+            };
+            App.Current.RequestedThemeChanged += (_, e) =>
+            {
+                if (SettingsRepository.Settings.Theme == AppTheme.FollowSystem)
+                    ThemeService.SetAppTheme((AppTheme)e.RequestedTheme);
+            };
         }
 
         protected override bool OnBackButtonPressed()

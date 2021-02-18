@@ -5,10 +5,8 @@ using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Consts;
 using NureTimetable.Core.Models.Settings;
 using NureTimetable.DAL;
-using NureTimetable.UI.Views;
 using Syncfusion.Licensing;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Helpers;
@@ -23,10 +21,17 @@ namespace NureTimetable
     {
         public App()
         {
-            //Register Syncfusion license
             SyncfusionLicenseProvider.RegisterLicense(Keys.SyncfusionLicenseKey);
+            InitLanguage();
+            LinkerPreserve.Cultures();
+            VersionTracking.Track();
 
-            // Set user selected language for the app
+            InitializeComponent();
+            MainPage = new AppShell();
+        }
+
+        private static void InitLanguage()
+        {
             CultureInfo culture = CultureInfo.CurrentCulture;
             if (SettingsRepository.Settings.Language != AppLanguage.FollowSystem)
             {
@@ -35,12 +40,18 @@ namespace NureTimetable
             LN.Culture = culture; // TODO: Romove once https://github.com/xamarin/XamarinCommunityToolkit/pull/915 is released
             LocalizationResourceManager.Current.PropertyChanged += (_, _) => LN.Culture = LocalizationResourceManager.Current.CurrentCulture;
             LocalizationResourceManager.Current.Init(LN.ResourceManager, culture);
-
-            Bugfix.InitCalendarCrashFix();
-            VersionTracking.Track();
-
-            InitializeComponent();
-            MainPage = new AppShell();
+            SettingsRepository.Settings.PropertyChanged += (_, e) =>
+            {
+                if (e.PropertyName == nameof(SettingsRepository.Settings.Language))
+                {
+                    CultureInfo newLanguage = CultureInfo.CurrentCulture;
+                    if (SettingsRepository.Settings.Language != AppLanguage.FollowSystem)
+                    {
+                        newLanguage = new CultureInfo((int)SettingsRepository.Settings.Language);
+                    }
+                    LocalizationResourceManager.Current.SetCulture(newLanguage);
+                }
+            };
         }
 
         protected override async void OnStart()
