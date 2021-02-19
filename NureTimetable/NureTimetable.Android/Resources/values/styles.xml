@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <resources>
-  <style name="MainTheme">
+  <style name="MainTheme" parent="MainTheme.Base">
     <item name="android:windowBackground">@drawable/splash</item>
     <item name="colorPrimary">#FFFFFF</item>
     <item name="colorPrimaryDark">#000000</item>
