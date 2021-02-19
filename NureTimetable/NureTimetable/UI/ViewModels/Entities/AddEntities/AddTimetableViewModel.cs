@@ -47,21 +47,21 @@ namespace NureTimetable.UI.ViewModels
 
             if (await Shell.Current.DisplayAlert(LN.UniversityInfoUpdate, LN.UniversityInfoUpdateConfirm, LN.Yes, LN.Cancel))
             {
-                UpdateCommandEnabled = false;
                 var updateFromCist = UniversityEntitiesRepository.UpdateFromCist();
                 await UpdateEntitiesOnAllTabs(updateFromCist);
                 await DisplayUpdateResult(await updateFromCist);
-                UpdateCommandEnabled = true;
             }
         }
 
-        private Task UpdateEntitiesOnAllTabs(Task updateDataSource = null)
+        private async Task UpdateEntitiesOnAllTabs(Task updateDataSource = null)
         {
-            return Task.WhenAll(
+            UpdateCommandEnabled = false;
+            await Task.WhenAll(
                 AddGroupPageViewModel.UpdateEntities(updateDataSource),
                 AddTeacherPageViewModel.UpdateEntities(updateDataSource),
                 AddRoomPageViewModel.UpdateEntities(updateDataSource)
             );
+            UpdateCommandEnabled = true;
         }
 
         private static async Task DisplayUpdateResult(UniversityEntitiesCistUpdateResult updateResult)
