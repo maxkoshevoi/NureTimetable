@@ -1,7 +1,7 @@
-﻿using NureTimetable.UI.ViewModels.Lessons.ManageLessons;
+﻿using NureTimetable.UI.ViewModels;
 using Xamarin.Forms;
 
-namespace NureTimetable.UI.Views.Lessons
+namespace NureTimetable.UI.Views
 {
     public partial class ManageLessonsPage : ContentPage
     {

@@ -7,6 +7,7 @@ using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
 using NureTimetable.Models.Consts;
 using NureTimetable.UI.Helpers;
+using NureTimetable.UI.ViewModels.Timetable;
 using NureTimetable.UI.Views;
 using Rg.Plugins.Popup.Services;
 using Syncfusion.SfSchedule.XForms;
@@ -21,7 +22,7 @@ using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 using AppTheme = NureTimetable.Core.Models.Settings.AppTheme;
 
-namespace NureTimetable.UI.ViewModels.Timetable
+namespace NureTimetable.UI.ViewModels
 {
     public class TimetableViewModel : BaseViewModel
     {

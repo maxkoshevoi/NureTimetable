@@ -4,9 +4,10 @@
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              xmlns:fonts="clr-namespace:NureTimetable.Models.Consts"
              xmlns:converters="clr-namespace:NureTimetable.UI.Converters"
-             xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels.Timetable"
+             xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels"
              xmlns:sfs="clr-namespace:Syncfusion.SfSchedule.XForms;assembly=Syncfusion.SfSchedule.XForms"
              xmlns:sfb="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             Shell.TabBarIsVisible="True"
              x:Class="NureTimetable.UI.Views.TimetablePage"
              x:DataType="vm:TimetableViewModel"
              Title="{Binding Title.Localized}">

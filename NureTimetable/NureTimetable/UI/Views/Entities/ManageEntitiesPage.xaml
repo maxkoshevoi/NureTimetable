@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              xmlns:fonts="clr-namespace:NureTimetable.Models.Consts"
-             xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels.Entities.ManageEntities"
+             xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels"
+             Shell.TabBarIsVisible="True"
              x:Class="NureTimetable.UI.Views.ManageEntitiesPage"
              x:DataType="vm:ManageEntitiesViewModel"
              Title="{xct:Translate SavedTimetables}">

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Xamarin.CommunityToolkit.Helpers;
 
-namespace NureTimetable.UI.ViewModels.Lessons
+namespace NureTimetable.UI.ViewModels
 {
     public class LessonInfoViewModel : BaseViewModel
     {

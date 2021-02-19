@@ -9,10 +9,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Essentials;
-using static NureTimetable.UI.ViewModels.Info.SettingsViewModel;
+using static NureTimetable.UI.ViewModels.SettingsViewModel;
 using AppTheme = NureTimetable.Core.Models.Settings.AppTheme;
 
-namespace NureTimetable.UI.ViewModels.Info
+namespace NureTimetable.UI.ViewModels
 {
     public class MenuViewModel : BaseViewModel
     {

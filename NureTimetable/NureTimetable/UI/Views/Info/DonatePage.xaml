@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              xmlns:products="clr-namespace:NureTimetable.Core.Models.Consts;assembly=NureTimetable.Core"
-             xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels.Info"
+             xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels"
              x:Class="NureTimetable.UI.Views.DonatePage"
              x:DataType="vm:DonateViewModel"
              Title="{xct:Translate Donate}">

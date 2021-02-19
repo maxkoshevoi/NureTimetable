@@ -16,6 +16,7 @@
             <!--Styles-->
             <Style TargetType="Page" ApplyToDerivedTypes="True">
                 <Setter Property="BackgroundColor" Value="{DynamicResource PageBackgroundColor}" />
+                <Setter Property="Shell.TabBarIsVisible" Value="False" />
             </Style>
             <Style TargetType="TabbedPage" ApplyToDerivedTypes="True">
                 <Setter Property="BarBackgroundColor" Value="{DynamicResource PrimaryColor}" />

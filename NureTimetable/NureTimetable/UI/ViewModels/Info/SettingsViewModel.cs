@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 
-namespace NureTimetable.UI.ViewModels.Info
+namespace NureTimetable.UI.ViewModels
 {
     public class SettingsViewModel : BaseViewModel
     {

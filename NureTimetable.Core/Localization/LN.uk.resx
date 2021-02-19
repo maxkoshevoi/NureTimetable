@@ -465,4 +465,10 @@
     <value>Пошук не дав результатів.
 Щоб оновити список, натисніть кнопку у верхньому правому куті.</value>
   </data>
+  <data name="AddToCalendar" xml:space="preserve">
+    <value>Додати в календар</value>
+  </data>
+  <data name="LessonManagement" xml:space="preserve">
+    <value>Управління предметом</value>
+  </data>
 </root>

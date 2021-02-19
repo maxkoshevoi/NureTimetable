@@ -15,7 +15,7 @@ using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 
-namespace NureTimetable.UI.ViewModels.Entities.ManageEntities
+namespace NureTimetable.UI.ViewModels
 {
     public class ManageEntitiesViewModel : BaseViewModel
     {

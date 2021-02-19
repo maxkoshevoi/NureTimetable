@@ -97,6 +97,15 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add to calendar.
+        /// </summary>
+        public static string AddToCalendar {
+            get {
+                return ResourceManager.GetString("AddToCalendar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add to selected.
         /// </summary>
         public static string AddToSelected {
@@ -536,6 +545,15 @@ namespace NureTimetable.Core.Localization {
         public static string LessonInfo {
             get {
                 return ResourceManager.GetString("LessonInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lesson management.
+        /// </summary>
+        public static string LessonManagement {
+            get {
+                return ResourceManager.GetString("LessonManagement", resourceCulture);
             }
         }
         

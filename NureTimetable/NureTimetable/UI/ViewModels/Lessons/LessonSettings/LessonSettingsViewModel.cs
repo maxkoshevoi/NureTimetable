@@ -1,11 +1,15 @@
 ﻿using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Models.Consts;
+using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
 using NureTimetable.UI.Helpers;
+using NureTimetable.UI.ViewModels.Lessons.LessonSettings;
 using System.Linq;
+using System.Threading.Tasks;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 
-namespace NureTimetable.UI.ViewModels.Lessons.LessonSettings
+namespace NureTimetable.UI.ViewModels
 {
     public class LessonSettingsViewModel : BaseViewModel
     {
@@ -22,9 +26,10 @@ namespace NureTimetable.UI.ViewModels.Lessons.LessonSettings
         public ListViewViewModel<Teacher> LvTeachers { get; set; }
 
         public Command ShowLessonStateChangedCommand { get; }
+        public IAsyncCommand BackButtonPressedCommand { get; }
         #endregion
 
-        public LessonSettingsViewModel(LessonInfo lessonInfo, TimetableInfo timetableInfo)
+        public LessonSettingsViewModel(LessonInfo lessonInfo, TimetableInfo timetableInfo, bool saveOnExit)
         {
             LessonInfo = lessonInfo;
             updatingProgrammatically = true;
@@ -46,6 +51,14 @@ namespace NureTimetable.UI.ViewModels.Lessons.LessonSettings
             UpdateEventTypesCheck(true);
 
             ShowLessonStateChangedCommand = CommandFactory.Create(ShowLessonStateChanged);
+            BackButtonPressedCommand = CommandFactory.Create(async () =>
+            {
+                if (saveOnExit)
+                {
+                    await EventsRepository.UpdateLessonsInfo(timetableInfo.Entity, timetableInfo.LessonsInfo);
+                }
+                await Shell.Current.GoToAsync("..", true);
+            });
         }
         
         private void EventTypeStateChanged(CheckedEntity<EventType> e)

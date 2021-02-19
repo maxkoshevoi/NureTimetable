@@ -8,7 +8,7 @@ using Xamarin.Essentials;
 using Xamarin.Forms;
 using static NureTimetable.DAL.UniversityEntitiesRepository;
 
-namespace NureTimetable.UI.ViewModels.Entities
+namespace NureTimetable.UI.ViewModels
 {
     public class AddTimetableViewModel : BaseViewModel
     {

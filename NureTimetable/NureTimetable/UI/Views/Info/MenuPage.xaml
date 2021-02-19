@@ -2,9 +2,10 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
-             xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels.Info"
+             xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels"
              xmlns:fonts="clr-namespace:NureTimetable.Models.Consts"
              xmlns:ui="clr-namespace:NureTimetable.UI.Helpers"
+             Shell.TabBarIsVisible="True"
              x:Class="NureTimetable.UI.Views.MenuPage"
              x:DataType="vm:MenuViewModel"
              Title="{xct:Translate AppName}">

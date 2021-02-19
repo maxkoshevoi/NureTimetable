@@ -4,8 +4,7 @@ using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
 using NureTimetable.Models.Consts;
 using NureTimetable.UI.Helpers;
-using NureTimetable.UI.ViewModels.Lessons.ManageLessons;
-using NureTimetable.UI.Views.Lessons;
+using NureTimetable.UI.Views;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,7 +12,7 @@ using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 
-namespace NureTimetable.UI.ViewModels.Entities.ManageEntities
+namespace NureTimetable.UI.ViewModels
 {
     public class SavedEntityItemViewModel : BaseViewModel
     {

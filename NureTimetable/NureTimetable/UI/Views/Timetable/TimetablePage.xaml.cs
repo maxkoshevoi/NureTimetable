@@ -1,4 +1,5 @@
-﻿using NureTimetable.UI.ViewModels.Timetable;
+﻿using NureTimetable.UI.ViewModels;
+using NureTimetable.UI.ViewModels.Timetable;
 using System;
 using System.Threading.Tasks;
 using Xamarin.Forms;

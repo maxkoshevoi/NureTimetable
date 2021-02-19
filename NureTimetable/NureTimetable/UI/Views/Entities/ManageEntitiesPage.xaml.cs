@@ -1,4 +1,4 @@
-﻿using NureTimetable.UI.ViewModels.Entities.ManageEntities;
+﻿using NureTimetable.UI.ViewModels;
 using Xamarin.Forms;
 
 namespace NureTimetable.UI.Views

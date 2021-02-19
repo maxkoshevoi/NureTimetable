@@ -465,4 +465,10 @@ Try again later, or try using different WiFi network or mobile internet connecti
     <value>Search returned no results.
 To update the list, click on the button in the upper right corner.</value>
   </data>
+  <data name="AddToCalendar" xml:space="preserve">
+    <value>Add to calendar</value>
+  </data>
+  <data name="LessonManagement" xml:space="preserve">
+    <value>Lesson management</value>
+  </data>
 </root>

@@ -10,7 +10,7 @@ using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 
-namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
+namespace NureTimetable.UI.ViewModels
 {
     public class ManageLessonsViewModel : BaseViewModel
     {
@@ -32,8 +32,8 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
 
             this.entity = entity;
             PageAppearingCommand = CommandFactory.Create(PageAppearing);
-            SaveClickedCommand = CommandFactory.Create(SaveClicked, () => Lessons.Any() == true);
             BackButtonPressedCommand = CommandFactory.Create(BackButtonPressed);
+            SaveClickedCommand = CommandFactory.Create(SaveClicked, () => Lessons.Any());
 
             Lessons.CollectionChanged += (_, _) =>
             {

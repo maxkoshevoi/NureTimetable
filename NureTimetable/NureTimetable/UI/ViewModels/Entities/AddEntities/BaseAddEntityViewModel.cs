@@ -12,7 +12,7 @@ using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
-namespace NureTimetable.UI.ViewModels.Entities
+namespace NureTimetable.UI.ViewModels
 {
     public abstract class BaseAddEntityViewModel<T> : BaseViewModel
     {

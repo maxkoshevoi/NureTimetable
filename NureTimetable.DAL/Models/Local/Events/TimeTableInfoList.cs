@@ -15,17 +15,7 @@ namespace NureTimetable.DAL.Models.Local
             private set => events = value.ToList();
         }
 
-        public List<LessonInfo> LessonsInfo
-        {
-            get
-            {
-                if (Timetables.Count != 1)
-                {
-                    return new();
-                }
-                return Timetables.Single().LessonsInfo;
-            }
-        }
+        public List<LessonInfo> LessonsInfo => Timetables.SingleOrDefault()?.LessonsInfo ?? new();
 
         private TimetableInfoList()
         { }

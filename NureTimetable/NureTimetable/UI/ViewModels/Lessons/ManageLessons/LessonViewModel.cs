@@ -2,12 +2,12 @@
 using NureTimetable.DAL.Models.Local;
 using NureTimetable.UI.Helpers;
 using NureTimetable.UI.ViewModels.Lessons.LessonSettings;
-using NureTimetable.UI.Views.Lessons;
+using NureTimetable.UI.Views;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 
-namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
+namespace NureTimetable.UI.ViewModels
 {
     public class LessonViewModel : BaseViewModel
     {
@@ -55,20 +55,16 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
             InfoClickedCommand = CommandFactory.Create(InfoClicked);
         }
 
-        private async Task SettingsClicked()
-        {
-            await Navigation.PushAsync(new LessonSettingsPage
+        private Task SettingsClicked() => 
+            Navigation.PushAsync(new LessonSettingsPage
             {
-                BindingContext = new LessonSettingsViewModel(LessonInfo, timetableInfo)
+                BindingContext = new LessonSettingsViewModel(LessonInfo, timetableInfo, false)
             });
-        }
 
-        private async Task InfoClicked()
-        {
-            await Navigation.PushAsync(new LessonInfoPage
+        private Task InfoClicked() => 
+            Navigation.PushAsync(new LessonInfoPage
             {
                 BindingContext = new LessonInfoViewModel(LessonInfo, timetableInfo)
             });
-        }
     }
 }

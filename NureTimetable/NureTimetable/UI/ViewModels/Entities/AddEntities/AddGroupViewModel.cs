@@ -4,7 +4,7 @@ using NureTimetable.DAL.Models.Local;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace NureTimetable.UI.ViewModels.Entities
+namespace NureTimetable.UI.ViewModels
 {
     public class AddGroupViewModel : BaseAddEntityViewModel<Group>
     {

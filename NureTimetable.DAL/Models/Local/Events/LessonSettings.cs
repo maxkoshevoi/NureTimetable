@@ -2,12 +2,10 @@
 
 namespace NureTimetable.DAL.Models.Local
 {
-    public class LessonSettings : ObservableObject
+    public class LessonSettings
     {
         public bool IsSomeSettingsApplied => Hiding.ShowLesson != true;
 
         public LessonHidingSettings Hiding { get; } = new();
-
-        public void NotifyChanged() => OnPropertyChanged(nameof(Hiding));
     }
 }
