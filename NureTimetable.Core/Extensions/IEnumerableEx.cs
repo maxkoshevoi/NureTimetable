@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NureTimetable.Core.Extensions
 {
-    public static class LinqEx
+    public static class IEnumerableEx
     {
         /// <summary>
         /// Returns all distinct elements of the given source, where "distinctness"
@@ -74,14 +74,13 @@ namespace NureTimetable.Core.Extensions
             List<string> currentGrouping = new();
             for (int i = 0; i < nameParts.Count; i++)
             {
-                if (currentGrouping.Count == 0 || AllPartsEqualExceptLast(nameParts[i - 1], nameParts[i]))
+                if (currentGrouping.Any() && !AllPartsEqualExceptLast(nameParts[i - 1], nameParts[i]))
                 {
-                    currentGrouping.Add(nameParts[i].Last());
-                    continue;
+                    yield return ProcessGrouping(nameParts[i - 1]);
+                    currentGrouping.Clear();
                 }
 
-                yield return ProcessGrouping(nameParts[i - 1]);
-                currentGrouping.Clear();
+                currentGrouping.Add(nameParts[i].Last());
             }
 
             if (currentGrouping.Any())
@@ -101,6 +100,10 @@ namespace NureTimetable.Core.Extensions
                 }
                 else
                 {
+                    if (currentGrouping.SelectMany(g => g).All(char.IsDigit))
+                    {
+                        currentGrouping = currentGrouping.OrderBy(g => int.Parse(g)).ToList();
+                    }
                     return $"{string.Join(sepparator, lastGroup.SkipLast(1))}-({string.Join(',', currentGrouping)})";
                 }
             }
