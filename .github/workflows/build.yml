@@ -13,7 +13,7 @@ jobs:
     runs-on: windows-latest
     strategy:
       matrix:
-        configuration: ['Debug', 'Release']
+        configuration: ['Debug'] # Release is disable untill msbuild is not 16.8.5+
     steps:
     - uses: actions/checkout@v2
     - name: Install dependencies
