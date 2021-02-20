@@ -2,8 +2,8 @@ name: Build
 
 on:
   workflow_dispatch:
-  #push: push is disabled untill msbuild is updated to 16.8.5+
-  #  branches: [main]
+  push:
+    branches: [main]
   pull_request:
     branches: [main]
 
