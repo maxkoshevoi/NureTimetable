@@ -2,8 +2,8 @@ name: Build
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
+  #push: push is disabled untill msbuild is updated to 16.8.5+
+  #  branches: [main]
   pull_request:
     branches: [main]
 
@@ -13,7 +13,7 @@ jobs:
     runs-on: windows-latest
     strategy:
       matrix:
-        configuration: ['Debug'] # Release is disable untill msbuild is not 16.8.5+
+        configuration: ['Debug', 'Release']
     steps:
     - uses: actions/checkout@v2
     - name: Install dependencies
