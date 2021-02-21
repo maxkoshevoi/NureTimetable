@@ -36,8 +36,11 @@ namespace NureTimetable.UI.ViewModels
         public EventPopupViewModel(Event ev, TimetableInfoList timetables)
         {
             Event = ev;
-            Timetable = timetables.Timetables.SingleOrDefault();
             LessonInfo = timetables.LessonsInfo.FirstOrDefault(li => li.Lesson == ev.Lesson) ?? new() { Lesson = ev.Lesson };
+            if (timetables.Timetables.Count == 1)
+            {
+                Timetable = timetables.Timetables.Single();
+            }
 
             EventNumber = timetables.Events
                 .Where(e => e.Lesson == ev.Lesson && e.Type == ev.Type && e.Start < ev.Start)
