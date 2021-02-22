@@ -169,14 +169,13 @@ namespace NureTimetable.UI.ViewModels
             });
             MessagingCenter.Subscribe<Application, List<SavedEntity>>(this, MessageTypes.SelectedEntitiesChanged, async (_, newSelectedEntities) =>
             {
-                await UpdateTimetableIfNeeded();
-
                 List<Entity> newEntities = newSelectedEntities.Select(e => e.Entity).ToList();
                 lock (updatingTimetables)
                 {
                     IsTimetableUpdating = newEntities.Intersect(updatingTimetables).Any();
                 }
                 await UpdateEvents(newEntities);
+                await UpdateTimetableIfNeeded();
             });
 
             PageAppearingCommand = CommandFactory.Create(PageAppearing);

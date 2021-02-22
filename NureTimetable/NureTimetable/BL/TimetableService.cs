@@ -52,7 +52,10 @@ namespace NureTimetable.BL
                     {
                         updateTasks.Add(entity, EventsRepository.GetTimetableFromCist(entity, Config.TimetableFromDate, Config.TimetableToDate));
                     }
-                    await Task.WhenAny(updateTasks.Select(u => u.Value).Where(t => !t.IsCompleted));
+                    await Task.WhenAny(updateTasks
+                        .Select(u => u.Value)
+                        .Where(t => !t.IsCompleted)
+                        .DefaultIfEmpty(Task.CompletedTask));
 
                     if (updateTasks.Any(u => u.Value.IsCompleted && u.Value.Result.error is WebException))
                     {
