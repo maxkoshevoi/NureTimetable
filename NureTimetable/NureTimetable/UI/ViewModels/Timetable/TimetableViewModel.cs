@@ -1,5 +1,4 @@
-﻿using Microsoft.AppCenter.Crashes;
-using NureTimetable.BL;
+﻿using NureTimetable.BL;
 using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Consts;
@@ -457,14 +456,14 @@ namespace NureTimetable.UI.ViewModels
             {
                 try
                 {
-                    await Shell.Current.CurrentPage.DisplayToastAsync(LN.AutoupdateFailed);
+                    await Shell.Current?.CurrentPage?.DisplayToastAsync(LN.AutoupdateFailed);
                 }
                 catch (Exception ex)
                 {
                     // Temporary try-catch to investigate NullReferenceException here
                     ex.Data.Add("Shell.Current == null", Shell.Current == null);
                     ex.Data.Add("Shell.Current.CurrentPage == null", Shell.Current?.CurrentPage == null);
-                    Crashes.TrackError(ex);
+                    MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
                 }
             }
         }
