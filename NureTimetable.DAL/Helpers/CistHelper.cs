@@ -25,6 +25,10 @@ namespace NureTimetable.DAL.Helpers
             {
                 throw new CistException("Cist returned \"unable to extend temp segment\" exception", CistExceptionStatus.UnableToExtendTempSegment, ex);
             }
+            catch (ArgumentException ex) when (json.Contains("ORA-08103"))
+            {
+                throw new CistException("Cist returned \"object no longer exists\" exception", CistExceptionStatus.ObjectNoLongerExists, ex);
+            }
             catch (ArgumentException ex) when (Regex.IsMatch(json, @"ORA-\d+"))
             {
                 Match match = Regex.Match(json, @"ORA-\d+");

@@ -8,7 +8,8 @@ namespace NureTimetable.Core.Models.Exceptions
         UnknownError = 0,
         OutOfMemory = 04030,
         ShutdownInProgress = 01089,
-        UnableToExtendTempSegment = 01652
+        UnableToExtendTempSegment = 01652,
+        ObjectNoLongerExists = 08103
     }
 
     public class CistException : Exception
