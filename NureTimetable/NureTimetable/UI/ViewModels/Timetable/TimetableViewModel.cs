@@ -136,14 +136,31 @@ namespace NureTimetable.UI.ViewModels
                 _ => TimetableScheduleView
             };
 
-            MessagingCenter.Subscribe<Application, Entity>(this, MessageTypes.LessonSettingsChanged, EntityChanged);
-            MessagingCenter.Subscribe<Application, Entity>(this, MessageTypes.TimetableUpdated, EntityChanged);
-            async void EntityChanged(Application app, Entity entity)
+            MessagingCenter.Subscribe<Application, Entity>(this, MessageTypes.TimetableUpdating, (_, entity) =>
+            {
+                IsTimetableUpdating = TimetableInfoList.Entities.Contains(entity);
+                lock (updatingTimetables)
+                {
+                    updatingTimetables.Add(entity);
+                }
+            });
+            MessagingCenter.Subscribe<Application, Entity>(this, MessageTypes.TimetableUpdated, async (_, entity) =>
+            {
+                lock (updatingTimetables)
+                {
+                    updatingTimetables.Remove(entity);
+                    IsTimetableUpdating = TimetableInfoList.Entities.Intersect(updatingTimetables).Any();
+                }
+
+                if (TimetableInfoList.Entities.Contains(entity) && !IsTimetableUpdating)
+                    await UpdateEvents();
+            });
+            MessagingCenter.Subscribe<Application, Entity>(this, MessageTypes.LessonSettingsChanged, async (_, entity) =>
             {
                 if (TimetableInfoList.Entities.Contains(entity))
                     await UpdateEvents();
-            }
-            MessagingCenter.Subscribe<Application, AppTheme>(this, MessageTypes.ThemeChanged, async (sender, newTheme) =>
+            });
+            MessagingCenter.Subscribe<Application, AppTheme>(this, MessageTypes.ThemeChanged, async (_, newTheme) =>
             {
                 if (TimetableInfoList.Events.Count == 0)
                     return;
@@ -151,22 +168,16 @@ namespace NureTimetable.UI.ViewModels
                 needToUpdateEventsUI = true;
                 await UpdateEventsWithUI();
             });
-            MessagingCenter.Subscribe<Application, List<SavedEntity>>(this, MessageTypes.SelectedEntitiesChanged, async (sender, newSelectedEntities) =>
+            MessagingCenter.Subscribe<Application, List<SavedEntity>>(this, MessageTypes.SelectedEntitiesChanged, async (_, newSelectedEntities) =>
             {
                 await UpdateTimetableIfNeeded();
 
-                IsTimetableUpdating = updatingTimetables.Intersect(newSelectedEntities.Select(e => e.Entity)).Any();
-                await UpdateEvents(newSelectedEntities.Select(e => e.Entity).ToList());
-            });
-            MessagingCenter.Subscribe<Application, Entity>(this, MessageTypes.TimetableUpdating, (sender, entity) =>
-            {
-                updatingTimetables.Add(entity);
-                IsTimetableUpdating = updatingTimetables.Contains(entity);
-            });
-            MessagingCenter.Subscribe<Application, Entity>(this, MessageTypes.TimetableUpdated, (sender, entity) =>
-            {
-                updatingTimetables.Remove(entity);
-                IsTimetableUpdating = updatingTimetables.Contains(entity);
+                List<Entity> newEntities = newSelectedEntities.Select(e => e.Entity).ToList();
+                lock (updatingTimetables)
+                {
+                    IsTimetableUpdating = newEntities.Intersect(updatingTimetables).Any();
+                }
+                await UpdateEvents(newEntities);
             });
 
             PageAppearingCommand = CommandFactory.Create(PageAppearing);
