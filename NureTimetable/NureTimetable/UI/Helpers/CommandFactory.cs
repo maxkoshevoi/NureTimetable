@@ -24,7 +24,7 @@ namespace NureTimetable.UI.Helpers
 			Action<Exception> onException = null,
 			bool continueOnCapturedContext = false,
 			bool allowsMultipleExecutions = true) =>
-			new AsyncCommand(execute, canExecute == null ? null : _ => canExecute(), onException, continueOnCapturedContext, allowsMultipleExecutions);
+			new AsyncCommand(execute, canExecute, onException, continueOnCapturedContext, allowsMultipleExecutions);
 
 		public static IAsyncCommand<TExecute> Create<TExecute>(
 			Func<TExecute, Task> execute,
@@ -32,7 +32,7 @@ namespace NureTimetable.UI.Helpers
 			Action<Exception> onException = null,
 			bool continueOnCapturedContext = false,
 			bool allowsMultipleExecutions = true) =>
-			new AsyncCommand<TExecute>(execute, canExecute == null ? null : _ => canExecute(), onException, continueOnCapturedContext, allowsMultipleExecutions);
+			new AsyncCommand<TExecute>(execute, canExecute, onException, continueOnCapturedContext, allowsMultipleExecutions);
 
 		public static IAsyncCommand<TExecute, TCanExecute> Create<TExecute, TCanExecute>(
 			Func<TExecute, Task> execute,
@@ -41,30 +41,6 @@ namespace NureTimetable.UI.Helpers
 			bool continueOnCapturedContext = false,
 			bool allowsMultipleExecutions = true) =>
 			new AsyncCommand<TExecute, TCanExecute>(execute, canExecute, onException, continueOnCapturedContext, allowsMultipleExecutions);
-
-		//public static IAsyncValueCommand Create(
-		//	Func<ValueTask> execute,
-		//	Func<bool> canExecute = null,
-		//	Action<Exception> onException = null,
-		//	bool continueOnCapturedContext = false,
-		//	bool allowsMultipleExecutions = true) =>
-		//	new AsyncValueCommand(execute, canExecute, onException, continueOnCapturedContext, allowsMultipleExecutions);
-
-		//public static IAsyncValueCommand<TExecute> Create<TExecute>(
-		//	Func<TExecute, ValueTask> execute,
-		//	Func<bool> canExecute = null,
-		//	Action<Exception> onException = null,
-		//	bool continueOnCapturedContext = false,
-		//	bool allowsMultipleExecutions = true) =>
-		//	new AsyncValueCommand<TExecute>(execute, canExecute, onException, continueOnCapturedContext, allowsMultipleExecutions);
-
-		//public static IAsyncValueCommand<TExecute, TCanExecute> Create<TExecute, TCanExecute>(
-		//	Func<TExecute, ValueTask> execute,
-		//	Func<TCanExecute, bool> canExecute = null,
-		//	Action<Exception> onException = null,
-		//	bool continueOnCapturedContext = false,
-		//	bool allowsMultipleExecutions = true) =>
-		//	new AsyncValueCommand<TExecute, TCanExecute>(execute, canExecute, onException, continueOnCapturedContext, allowsMultipleExecutions);
 
 		static Action<object> ConvertExecute<T>(Action<T> execute)
 		{

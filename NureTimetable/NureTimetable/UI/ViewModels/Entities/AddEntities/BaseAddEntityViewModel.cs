@@ -75,14 +75,14 @@ namespace NureTimetable.UI.ViewModels
                 List<SavedEntity> savedEntities = await UniversityEntitiesRepository.GetSaved();
                 if (savedEntities.Any(e => e == newEntity))
                 {
-                    await Shell.Current?.CurrentPage?.DisplayToastAsync(string.Format(LN.TimetableAlreadySaved, newEntity.Entity.Name));
+                    await Shell.Current.CurrentPage.DisplayToastAsync(string.Format(LN.TimetableAlreadySaved, newEntity.Entity.Name));
                     return;
                 }
 
                 savedEntities.Add(newEntity);
                 await UniversityEntitiesRepository.UpdateSaved(savedEntities);
 
-                await Shell.Current?.CurrentPage?.DisplaySnackBarAsync(string.Format(LN.TimetableSaved, newEntity.Entity.Name), LN.Undo, async () =>
+                await Shell.Current.CurrentPage.DisplaySnackBarAsync(string.Format(LN.TimetableSaved, newEntity.Entity.Name), LN.Undo, async () =>
                 {
                     List<SavedEntity> savedEntities = await UniversityEntitiesRepository.GetSaved(); 
                     savedEntities.Remove(newEntity);
@@ -92,8 +92,6 @@ namespace NureTimetable.UI.ViewModels
             catch (Exception ex)
             {
                 // Temporary try-catch to investigate NullReferenceException here
-                ex.Data.Add("Shell.Current == null", Shell.Current == null);
-                ex.Data.Add("Shell.Current.CurrentPage == null", Shell.Current?.CurrentPage == null);
                 MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
             }
         }
