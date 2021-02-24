@@ -24,7 +24,7 @@ namespace NureTimetable.UI.Helpers
 			Action<Exception> onException = null,
 			bool continueOnCapturedContext = false,
 			bool allowsMultipleExecutions = true) =>
-			new AsyncCommand(execute, canExecute, onException, continueOnCapturedContext, allowsMultipleExecutions);
+			new AsyncCommand(execute, canExecute == null ? null : _ => canExecute(), onException, continueOnCapturedContext, allowsMultipleExecutions);
 
 		public static IAsyncCommand<TExecute> Create<TExecute>(
 			Func<TExecute, Task> execute,
@@ -32,7 +32,7 @@ namespace NureTimetable.UI.Helpers
 			Action<Exception> onException = null,
 			bool continueOnCapturedContext = false,
 			bool allowsMultipleExecutions = true) =>
-			new AsyncCommand<TExecute>(execute, canExecute, onException, continueOnCapturedContext, allowsMultipleExecutions);
+			new AsyncCommand<TExecute>(execute, canExecute == null ? null : _ => canExecute(), onException, continueOnCapturedContext, allowsMultipleExecutions);
 
 		public static IAsyncCommand<TExecute, TCanExecute> Create<TExecute, TCanExecute>(
 			Func<TExecute, Task> execute,
