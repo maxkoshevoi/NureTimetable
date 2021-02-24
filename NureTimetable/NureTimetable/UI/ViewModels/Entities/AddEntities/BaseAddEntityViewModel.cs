@@ -1,4 +1,5 @@
-﻿using NureTimetable.Core.Extensions;
+﻿using NureTimetable.Core.BL;
+using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Consts;
 using NureTimetable.DAL;
@@ -69,26 +70,34 @@ namespace NureTimetable.UI.ViewModels
 
         protected async Task EntitySelected(T entity)
         {
-            SavedEntity newEntity = GetSavedEntity(entity);
-            bool isUpdated = await UniversityEntitiesRepository.ModifySaved(savedEntities =>
+            try
             {
-                if (savedEntities.Any(e => e == newEntity))
+                SavedEntity newEntity = GetSavedEntity(entity);
+                bool isUpdated = await UniversityEntitiesRepository.ModifySaved(savedEntities =>
                 {
-                    Shell.Current.CurrentPage.DisplayToastAsync(string.Format(LN.TimetableAlreadySaved, newEntity.Entity.Name)).Forget();
-                    return true;
+                    if (savedEntities.Any(e => e == newEntity))
+                    {
+                        Shell.Current.CurrentPage.DisplayToastAsync(string.Format(LN.TimetableAlreadySaved, newEntity.Entity.Name)).Forget();
+                        return true;
+                    }
+
+                    savedEntities.Add(newEntity);
+                    return false;
+                });
+                if (!isUpdated)
+                {
+                    return;
                 }
 
-                savedEntities.Add(newEntity);
-                return false;
-            });
-            if (!isUpdated)
-            {
-                return;
+                Shell.Current.CurrentPage.DisplaySnackBarAsync(string.Format(LN.TimetableSaved, newEntity.Entity.Name), LN.Undo, 
+                    () => UniversityEntitiesRepository.ModifySaved(savedEntities => !savedEntities.Remove(newEntity))
+                ).Forget();
             }
-
-            Shell.Current.CurrentPage.DisplaySnackBarAsync(string.Format(LN.TimetableSaved, newEntity.Entity.Name), LN.Undo, 
-                () => UniversityEntitiesRepository.ModifySaved(savedEntities => !savedEntities.Remove(newEntity))
-            ).Forget();
+            catch (Exception ex)
+            {
+                // TODO: Remove when DisplayToastAsync is task
+                ExceptionService.LogException(ex);
+            }
         }
 
         protected void SearchBarTextChanged(string searchQuery)

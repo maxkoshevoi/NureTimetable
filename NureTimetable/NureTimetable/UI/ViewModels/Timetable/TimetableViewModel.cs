@@ -1,4 +1,5 @@
 ﻿using NureTimetable.BL;
+using NureTimetable.Core.BL;
 using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Consts;
@@ -454,7 +455,15 @@ namespace NureTimetable.UI.ViewModels
             var updateResult = await TimetableService.Update(entitiesToUpdate);
             if (updateResult.Any(e => e.exception != null))
             {
-                Shell.Current.CurrentPage.DisplayToastAsync(LN.AutoupdateFailed).Forget();
+                try
+                {
+                    Shell.Current.CurrentPage.DisplayToastAsync(LN.AutoupdateFailed).Forget();
+                }
+                catch (Exception ex)
+                {
+                    // TODO: Remove when DisplayToastAsync is task
+                    ExceptionService.LogException(ex);
+                }
             }
         }
 
