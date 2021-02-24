@@ -38,7 +38,8 @@ namespace NureTimetable.UI.Helpers
             }
             catch (InAppBillingPurchaseException billingEx)
             {
-                if (billingEx.PurchaseError != PurchaseError.UserCancelled)
+                if (billingEx.PurchaseError != PurchaseError.UserCancelled &&
+                    billingEx.PurchaseError != PurchaseError.ServiceUnavailable)
                 {
                     billingEx.Data.Add(nameof(billingEx.PurchaseError), billingEx.PurchaseError);
                     ExceptionService.LogException(billingEx);
