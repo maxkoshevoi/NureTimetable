@@ -2,6 +2,7 @@
 using NureTimetable.Core.Localization;
 using NureTimetable.DAL;
 using NureTimetable.UI.Helpers;
+using Plugin.Calendars.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -74,7 +75,7 @@ namespace NureTimetable.UI.ViewModels
 
             if (requestPermissionIfNeeded || await CalendarService.CheckPermissions())
             {
-                var calendars = await CalendarService.GetAllCalendars();
+                IList<Calendar> calendars = await CalendarService.GetAllCalendars();
                 if (calendars != null)
                 {
                     newMapping.AddRange(calendars.Select(c => ((Func<string>)(() => c.Name), c.ExternalID)));

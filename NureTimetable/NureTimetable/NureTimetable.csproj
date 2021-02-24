@@ -11,8 +11,8 @@
     <PackageReference Include="CClarke.Plugin.Calendars" Version="1.0.14" />
     <PackageReference Include="Plugin.InAppBilling" Version="4.0.2" />
     <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.10" />
-    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="18.4.0.43" />
-    <PackageReference Include="Syncfusion.Xamarin.SfSchedule" Version="18.4.0.43" />
+    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="18.4.0.44" />
+    <PackageReference Include="Syncfusion.Xamarin.SfSchedule" Version="18.4.0.44" />
     <PackageReference Include="Xamarin.CommunityToolkit" Version="1.0.3" />
     <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
