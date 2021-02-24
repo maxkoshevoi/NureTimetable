@@ -38,8 +38,11 @@ namespace NureTimetable.UI.Helpers
             }
             catch (InAppBillingPurchaseException billingEx)
             {
-                billingEx.Data.Add(nameof(billingEx.PurchaseError), billingEx.PurchaseError);
-                ExceptionService.LogException(billingEx);
+                if (billingEx.PurchaseError != PurchaseError.UserCancelled)
+                {
+                    billingEx.Data.Add(nameof(billingEx.PurchaseError), billingEx.PurchaseError);
+                    ExceptionService.LogException(billingEx);
+                }
             }
             catch (TaskCanceledException) { }
             catch (Exception ex)
