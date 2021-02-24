@@ -33,14 +33,14 @@ namespace NureTimetable.UI.ViewModels
             SavedEntity = savedEntity;
             ManageEntitiesViewModel = manageEntitiesViewModel;
 
-            var existingEntity = manageEntitiesViewModel.Entities.SingleOrDefault(se => se.SavedEntity == savedEntity);
+            var existingEntity = manageEntitiesViewModel.Entities.Where(se => se.SavedEntity == savedEntity).DefaultIfEmpty().Single();
             if (existingEntity != null)
             {
                 IsUpdating = existingEntity.IsUpdating;
             }
 
-            UpdateClickedCommand = CommandFactory.Create(() => TimetableService.UpdateAndDisplayResult(SavedEntity));
-            SettingsClickedCommand = CommandFactory.Create(SettingsClicked);
+            UpdateClickedCommand = CommandFactory.Create(() => TimetableService.UpdateAndDisplayResult(SavedEntity), allowsMultipleExecutions: false);
+            SettingsClickedCommand = CommandFactory.Create(SettingsClicked, allowsMultipleExecutions: false);
         }
 
         public async Task SettingsClicked()
@@ -75,9 +75,7 @@ namespace NureTimetable.UI.ViewModels
             }
             else if (action == LN.Delete)
             {
-                List<SavedEntity> savedEntities = await UniversityEntitiesRepository.GetSaved();
-                savedEntities.Remove(SavedEntity);
-                await UniversityEntitiesRepository.UpdateSaved(savedEntities);
+                await UniversityEntitiesRepository.ModifySaved(savedEntities => !savedEntities.Remove(SavedEntity));
             }
         }
     }

@@ -4,7 +4,7 @@ using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace NureTimetable.Core.Extensions
 {
-    public static class ObservableRangeCollectionEx
+    public static class ObservableRangeCollectionExtensions
     {
         /// <summary>
         /// To be used in collection initializer

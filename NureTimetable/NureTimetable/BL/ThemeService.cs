@@ -1,4 +1,5 @@
-﻿using NureTimetable.Core.Models.Consts;
+﻿using NureTimetable.Core.BL;
+using NureTimetable.Core.Models.Consts;
 using NureTimetable.Core.Models.InterplatformCommunication;
 using NureTimetable.Models.Consts;
 using NureTimetable.UI.Themes;
@@ -38,7 +39,7 @@ namespace NureTimetable.BL
             }
             catch (Exception ex)
             {
-                MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
+                ExceptionService.LogException(ex);
             }
 
             var statusBarManager = DependencyService.Get<IBarStyleManager>();

@@ -113,7 +113,7 @@ namespace NureTimetable.UI.ViewModels
         public IAsyncCommand<MonthInlineAppointmentTappedEventArgs> TimetableMonthInlineAppointmentTappedCommand { get; }
         public Command TimetableMonthInlineLoadedCommand { get; }
         public IAsyncCommand<VisibleDatesChangedEventArgs> TimetableVisibleDatesChangedCommand { get; }
-        public IAsyncCommand BTodayClickedCommand { get; }
+        public Command BTodayClickedCommand { get; }
         public IAsyncCommand UpdateTimetableCommand { get; }
         #endregion
 
@@ -179,12 +179,12 @@ namespace NureTimetable.UI.ViewModels
             });
 
             PageAppearingCommand = CommandFactory.Create(PageAppearing);
-            HideSelectedEventsCommand = CommandFactory.Create(HideSelectedEventsClicked, () => TimetableInfoList.Events.Any());
+            HideSelectedEventsCommand = CommandFactory.Create(HideSelectedEventsClicked, () => TimetableInfoList.Events.Any(), allowsMultipleExecutions: false);
             ScheduleModeCommand = CommandFactory.Create(ScheduleModeClicked, () => TimetableInfoList.Events.Any());
             BTodayClickedCommand = CommandFactory.Create(BTodayClicked);
             PageDisappearingCommand = CommandFactory.Create(() => isPageVisible = false);
-            TimetableCellTappedCommand = CommandFactory.Create<CellTappedEventArgs>(e => DisplayEventDetails((Event)e.Appointment));
-            TimetableMonthInlineAppointmentTappedCommand = CommandFactory.Create<MonthInlineAppointmentTappedEventArgs>((e) => DisplayEventDetails((Event)e.Appointment));
+            TimetableCellTappedCommand = CommandFactory.Create<CellTappedEventArgs>(e => DisplayEventDetails((Event)e.Appointment), allowsMultipleExecutions: false);
+            TimetableMonthInlineAppointmentTappedCommand = CommandFactory.Create<MonthInlineAppointmentTappedEventArgs>((e) => DisplayEventDetails((Event)e.Appointment), allowsMultipleExecutions: false);
             TimetableMonthInlineLoadedCommand = CommandFactory.Create<MonthInlineLoadedEventArgs>(e =>
             {
                 e.monthInlineViewStyle = new()
@@ -203,7 +203,8 @@ namespace NureTimetable.UI.ViewModels
             });
             UpdateTimetableCommand = CommandFactory.Create(
                 () => TimetableService.UpdateAndDisplayResult(TimetableInfoList.Entities.ToArray()),
-                () => TimetableInfoList.Timetables.Any() && !IsTimetableUpdating
+                () => TimetableInfoList.Timetables.Any() && !IsTimetableUpdating, 
+                allowsMultipleExecutions: false
             );
 
             void SetTimetableLocale()
@@ -453,15 +454,7 @@ namespace NureTimetable.UI.ViewModels
             var updateResult = await TimetableService.Update(entitiesToUpdate);
             if (updateResult.Any(e => e.exception != null))
             {
-                try
-                {
-                    await Shell.Current.CurrentPage.DisplayToastAsync(LN.AutoupdateFailed);
-                }
-                catch (Exception ex)
-                {
-                    // Temporary try-catch to investigate NullReferenceException here
-                    MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
-                }
+                Shell.Current.CurrentPage.DisplayToastAsync(LN.AutoupdateFailed).Forget();
             }
         }
 
@@ -524,15 +517,13 @@ namespace NureTimetable.UI.ViewModels
                 message = LN.AllEventsShown;
             }
             HideSelectedEventsIcon = icon;
-            
-            // Displaying toast and updating events at the same time
-            await Task.WhenAll(
-                UpdateEventsWithUI(),
-                Shell.Current.CurrentPage.DisplayToastAsync(message, 1500)
-            );
+
+            await UpdateEventsWithUI();
+
+            Shell.Current.CurrentPage.DisplayToastAsync(message, 1500).Forget();
         }
 
-        private async Task BTodayClicked()
+        private void BTodayClicked()
         {
             DateTime moveTo = DateTime.Today;
             if (TimetableMinDisplayDate > moveTo)
@@ -546,7 +537,7 @@ namespace NureTimetable.UI.ViewModels
             if (moveTo != DateTime.Today && visibleDates.Contains(moveTo))
             {
                 // TODO: Add AnchorView BToday here when https://github.com/xamarin/XamarinCommunityToolkit/pull/846 is released
-                await Shell.Current.CurrentPage.DisplayToastAsync(LN.TimetableEndReached);
+                Shell.Current.CurrentPage.DisplayToastAsync(LN.TimetableEndReached).Forget();
                 return;
             }
 

@@ -1,4 +1,5 @@
-﻿using NureTimetable.Core.Localization;
+﻿using NureTimetable.Core.Extensions;
+using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Consts;
 using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
@@ -35,7 +36,7 @@ namespace NureTimetable.UI.ViewModels
             set
             {
                 if (value != null)
-                    MainThread.BeginInvokeOnMainThread(async () => await EntitySelected(value));
+                    EntitySelected(value).Forget();
 
                 _selectedEntity = value;
             }
@@ -68,32 +69,26 @@ namespace NureTimetable.UI.ViewModels
 
         protected async Task EntitySelected(T entity)
         {
-            try
+            SavedEntity newEntity = GetSavedEntity(entity);
+            bool isUpdated = await UniversityEntitiesRepository.ModifySaved(savedEntities =>
             {
-                SavedEntity newEntity = GetSavedEntity(entity);
-
-                List<SavedEntity> savedEntities = await UniversityEntitiesRepository.GetSaved();
                 if (savedEntities.Any(e => e == newEntity))
                 {
-                    await Shell.Current.CurrentPage.DisplayToastAsync(string.Format(LN.TimetableAlreadySaved, newEntity.Entity.Name));
-                    return;
+                    Shell.Current.CurrentPage.DisplayToastAsync(string.Format(LN.TimetableAlreadySaved, newEntity.Entity.Name)).Forget();
+                    return true;
                 }
 
                 savedEntities.Add(newEntity);
-                await UniversityEntitiesRepository.UpdateSaved(savedEntities);
-
-                await Shell.Current.CurrentPage.DisplaySnackBarAsync(string.Format(LN.TimetableSaved, newEntity.Entity.Name), LN.Undo, async () =>
-                {
-                    List<SavedEntity> savedEntities = await UniversityEntitiesRepository.GetSaved(); 
-                    savedEntities.Remove(newEntity);
-                    await UniversityEntitiesRepository.UpdateSaved(savedEntities);
-                });
-            }
-            catch (Exception ex)
+                return false;
+            });
+            if (!isUpdated)
             {
-                // Temporary try-catch to investigate NullReferenceException here
-                MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
+                return;
             }
+
+            Shell.Current.CurrentPage.DisplaySnackBarAsync(string.Format(LN.TimetableSaved, newEntity.Entity.Name), LN.Undo, 
+                () => UniversityEntitiesRepository.ModifySaved(savedEntities => !savedEntities.Remove(newEntity))
+            ).Forget();
         }
 
         protected void SearchBarTextChanged(string searchQuery)

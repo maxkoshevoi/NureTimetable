@@ -1,4 +1,5 @@
-﻿using NureTimetable.Core.Localization;
+﻿using NureTimetable.Core.Extensions;
+using NureTimetable.Core.Localization;
 using NureTimetable.UI.Helpers;
 using Plugin.InAppBilling;
 using System.Threading.Tasks;
@@ -14,14 +15,14 @@ namespace NureTimetable.UI.ViewModels
 
         public DonateViewModel()
         {
-            BuyProductCommand = CommandFactory.Create<string>(BuyProduct);
+            BuyProductCommand = CommandFactory.Create<string>(BuyProduct, allowsMultipleExecutions: false);
         }
         
         public static async Task BuyProduct(string productId)
         {
             InAppBillingPurchase purchase = await InAppPurchase.Buy(productId, true);
             string message = purchase == null ? LN.PurchaseFailed : LN.ThanksForYourSupport;
-            await Shell.Current.CurrentPage.DisplayToastAsync(message);
+            Shell.Current.CurrentPage.DisplayToastAsync(message).Forget();
         }
     }
 }

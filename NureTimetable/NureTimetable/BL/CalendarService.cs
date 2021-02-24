@@ -1,4 +1,5 @@
 ﻿using Microsoft.AppCenter.Analytics;
+using NureTimetable.Core.BL;
 using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Consts;
@@ -98,7 +99,7 @@ namespace NureTimetable.BL
             }
             else if (calendars.Count(c => c.AccountName == customCalendar.AccountName) > 1)
             {
-                MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, new IndexOutOfRangeException($"There are {calendars.Count(c => c.AccountName == customCalendar.AccountName)} calendars with AccountName {customCalendar.AccountName}"));
+                ExceptionService.LogException(new IndexOutOfRangeException($"There are {calendars.Count(c => c.AccountName == customCalendar.AccountName)} calendars with AccountName {customCalendar.AccountName}"));
             }
 
             return calendars;
@@ -173,7 +174,7 @@ namespace NureTimetable.BL
                 ex.Data.Add("CalendarEvent.Name", calendarEvent.Name);
                 ex.Data.Add("CalendarEvent.Start", calendarEvent.Start);
                 ex.Data.Add("CalendarEvent.End", calendarEvent.End);
-                MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
+                ExceptionService.LogException(ex);
                 return false;
             }
 

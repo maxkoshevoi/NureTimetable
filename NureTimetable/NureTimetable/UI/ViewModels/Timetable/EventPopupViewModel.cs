@@ -58,7 +58,7 @@ namespace NureTimetable.UI.ViewModels
               $"{string.Format(LN.EventTime, ev.Start.ToString("HH:mm"), ev.End.ToString("HH:mm"))}";
             Notes = LessonInfo.Notes?.Trim();
 
-            OptionsCommand = CommandFactory.Create(ShowOptions);
+            OptionsCommand = CommandFactory.Create(ShowOptions, allowsMultipleExecutions: false);
         }
 
         private async Task ShowOptions()
@@ -123,12 +123,9 @@ namespace NureTimetable.UI.ViewModels
                 await Shell.Current.CurrentPage.DisplayAlert(LN.AddingToCalendarTitle, LN.AddingEventToCalendarFail, LN.Ok);
                 return;
             }
+            Shell.Current.CurrentPage.DisplayToastAsync(LN.AddingEventToCalendarSuccess).Forget();
 
-            // Displaying toast and closing popup at the same time
-            await Task.WhenAll(
-                Shell.Current.CurrentPage.DisplayToastAsync(LN.AddingEventToCalendarSuccess), 
-                ClosePopup()
-            );
+            await ClosePopup();
         }
 
         private static async Task ClosePopup()

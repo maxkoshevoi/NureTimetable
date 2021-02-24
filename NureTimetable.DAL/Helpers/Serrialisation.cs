@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Nito.AsyncEx;
+using NureTimetable.Core.BL;
 using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Models.Consts;
 using System;
@@ -31,7 +32,7 @@ namespace NureTimetable.DAL.Helpers
             }
             catch (Exception ex)
             {
-                MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
+                ExceptionService.LogException(ex);
             }
         }
 
@@ -53,7 +54,7 @@ namespace NureTimetable.DAL.Helpers
             catch (Exception ex)
             {
                 ex.Data.Add("FilePath", filePath);
-                MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
+                ExceptionService.LogException(ex);
 
                 File.Delete(filePath);
                 return default;

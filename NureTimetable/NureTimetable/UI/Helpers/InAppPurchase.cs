@@ -1,4 +1,5 @@
-﻿using NureTimetable.Core.Models.Consts;
+﻿using NureTimetable.Core.BL;
+using NureTimetable.Core.Models.Consts;
 using Plugin.InAppBilling;
 using System;
 using System.Collections.Generic;
@@ -38,12 +39,12 @@ namespace NureTimetable.UI.Helpers
             catch (InAppBillingPurchaseException billingEx)
             {
                 billingEx.Data.Add(nameof(billingEx.PurchaseError), billingEx.PurchaseError);
-                MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, billingEx);
+                ExceptionService.LogException(billingEx);
             }
             catch (TaskCanceledException) { }
             catch (Exception ex)
             {
-                MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
+                ExceptionService.LogException(ex);
             }
             finally
             {

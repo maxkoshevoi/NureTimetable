@@ -1,4 +1,5 @@
-﻿using NureTimetable.Core.Localization;
+﻿using NureTimetable.Core.Extensions;
+using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Consts;
 using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
@@ -33,7 +34,7 @@ namespace NureTimetable.UI.ViewModels
             this.entity = entity;
             PageAppearingCommand = CommandFactory.Create(PageAppearing);
             BackButtonPressedCommand = CommandFactory.Create(BackButtonPressed);
-            SaveClickedCommand = CommandFactory.Create(SaveClicked, () => Lessons.Any());
+            SaveClickedCommand = CommandFactory.Create(SaveClicked, () => Lessons.Any(), allowsMultipleExecutions: false);
 
             Lessons.CollectionChanged += (_, _) =>
             {
@@ -71,7 +72,7 @@ namespace NureTimetable.UI.ViewModels
             HasUnsavedChanges = false;
 
             await Shell.Current.GoToAsync("..", true);
-            await Shell.Current.CurrentPage.DisplayToastAsync(string.Format(LN.EntityLessonSettingsSaved, entity.Name));
+            Shell.Current.CurrentPage.DisplayToastAsync(string.Format(LN.EntityLessonSettingsSaved, entity.Name)).Forget();
         }
 
         private async Task BackButtonPressed()

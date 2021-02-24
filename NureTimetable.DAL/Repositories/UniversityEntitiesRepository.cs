@@ -1,5 +1,7 @@
 ﻿using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
+using Nito.AsyncEx;
+using NureTimetable.Core.BL;
 using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Models.Consts;
 using NureTimetable.Core.Models.Exceptions;
@@ -23,7 +25,8 @@ namespace NureTimetable.DAL
     {
         public static bool IsInitialized { get; private set; } = false;
 
-        private static readonly object initializing = new();
+        private static readonly AsyncLock updatingSavedLock = new();
+        private static readonly object initializingLock = new();
 
         public class UniversityEntitiesCistUpdateResult
         {
@@ -68,7 +71,7 @@ namespace NureTimetable.DAL
         #region Public
         public static void AssureInitialized()
         {
-            lock (initializing)
+            lock (initializingLock)
             {
                 if (!IsInitialized)
                 {
@@ -218,7 +221,7 @@ namespace NureTimetable.DAL
                 }
                 catch (Exception ex)
                 { 
-                    MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
+                    ExceptionService.LogException(ex);
                     if (tasksLeft == 0 || ex is WebException)
                     {
                         throw;
@@ -513,7 +516,31 @@ namespace NureTimetable.DAL
             return loadedEntities;
         }
 
-        public static async Task UpdateSaved(List<Local::SavedEntity> savedEntities)
+        public static Task ModifySaved(Action<List<Local::SavedEntity>> modefier) =>
+            ModifySaved(se =>
+            {
+                modefier(se);
+                return false;
+            });
+
+        /// <param name="modefier">Returns is cancelation requested</param>
+        /// <returns>Is updated</returns>
+        public static async Task<bool> ModifySaved(Func<List<Local::SavedEntity>, bool> modefier)
+        {
+            using var lockHandle = updatingSavedLock.Lock();
+
+            List<Local::SavedEntity> savedEntities = await UniversityEntitiesRepository.GetSaved();
+            bool isCancelationRequested = modefier(savedEntities);
+            if (isCancelationRequested)
+            {
+                return false;
+            }
+
+            await UniversityEntitiesRepository.UpdateSaved(savedEntities);
+            return true;
+        }
+
+        private static async Task UpdateSaved(List<Local::SavedEntity> savedEntities)
         {
             savedEntities ??= new();
 

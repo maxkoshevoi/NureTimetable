@@ -38,7 +38,7 @@ namespace NureTimetable.UI.ViewModels
             });
 
             PageAppearingCommand = CommandFactory.Create(PageAppearing);
-            ChangeDefaultCalendarCommand = CommandFactory.Create(ChangeDefaultCalendar);
+            ChangeDefaultCalendarCommand = CommandFactory.Create(ChangeDefaultCalendar, allowsMultipleExecutions: false);
             ToggleDebugModeCommand = CommandFactory.Create(() => SettingsRepository.Settings.IsDebugMode = !SettingsRepository.Settings.IsDebugMode);
             ToggleAutoupdateCommand = CommandFactory.Create(() => SettingsRepository.Settings.Autoupdate = !SettingsRepository.Settings.Autoupdate);
         }

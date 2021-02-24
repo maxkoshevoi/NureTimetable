@@ -39,8 +39,8 @@ namespace NureTimetable.UI.ViewModels
         public ManageEntitiesViewModel()
         {
             PageAppearingCommand = CommandFactory.Create(PageAppearing);
-            UpdateAllCommand = CommandFactory.Create(UpdateAll, () => { lock (updatingEntities) { return Entities.Any() && Entities.All(e => !e.IsUpdating); }});
-            AddEntityCommand = CommandFactory.Create(() => Navigation.PushAsync(new AddTimetablePage()));
+            UpdateAllCommand = CommandFactory.Create(UpdateAll, () => { lock (updatingEntities) { return Entities.Any() && Entities.All(e => !e.IsUpdating); }}, allowsMultipleExecutions: false);
+            AddEntityCommand = CommandFactory.Create(() => Navigation.PushAsync(new AddTimetablePage()), allowsMultipleExecutions: false);
             EntitySelectedCommand = CommandFactory.Create<SelectedItemChangedEventArgs>(async args =>
             {
                 if (args.SelectedItem is not SavedEntityItemViewModel entity) 
@@ -97,15 +97,14 @@ namespace NureTimetable.UI.ViewModels
             }
         }
 
-        public async Task SelectOne(SavedEntity savedEntity)
-        {
-            List<SavedEntity> savedEntities = await UniversityEntitiesRepository.GetSaved();
-            foreach (var e in savedEntities)
+        public Task SelectOne(SavedEntity savedEntity) => 
+            UniversityEntitiesRepository.ModifySaved(savedEntities =>
             {
-                e.IsSelected = e == savedEntity;
-            }
-            await UniversityEntitiesRepository.UpdateSaved(savedEntities);
-        }
+                foreach (var e in savedEntities)
+                {
+                    e.IsSelected = e == savedEntity;
+                }
+            });
 
         public async void EntityChanged(object sender, PropertyChangedEventArgs e)
         {
@@ -115,27 +114,25 @@ namespace NureTimetable.UI.ViewModels
             await EntitySelectChanged((SavedEntity)sender);
         }
 
-        public async Task EntitySelectChanged(SavedEntity entity)
-        {
-            List<SavedEntity> currentSaved = await UniversityEntitiesRepository.GetSaved();
-            SavedEntity savedEntity = currentSaved.SingleOrDefault(e => e == entity);
-
-            // Check state is changed
-            if (savedEntity.IsSelected == entity.IsSelected)
+        public Task EntitySelectChanged(SavedEntity entity) =>
+            UniversityEntitiesRepository.ModifySaved(currentSaved =>
             {
-                return;
-            }
-            savedEntity.IsSelected = entity.IsSelected;
+                SavedEntity savedEntity = currentSaved.SingleOrDefault(e => e == entity);
 
-            // User cannot deselect last selected entity
-            if (!savedEntity.IsSelected && !currentSaved.Any(e => e.IsSelected) && Entities.Any(e => e.SavedEntity == entity))
-            {
-                savedEntity.IsSelected = true;
-                return;
-            }
+                // Check state is changed
+                if (savedEntity.IsSelected == entity.IsSelected)
+                {
+                    return;
+                }
+                savedEntity.IsSelected = entity.IsSelected;
 
-            await UniversityEntitiesRepository.UpdateSaved(currentSaved);
-        }
+                // User cannot deselect last selected entity
+                if (!savedEntity.IsSelected && !currentSaved.Any(e => e.IsSelected) && Entities.Any(e => e.SavedEntity == entity))
+                {
+                    savedEntity.IsSelected = true;
+                    return;
+                }
+            });
 
         private async Task UpdateAll()
         {

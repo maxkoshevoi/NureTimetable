@@ -1,4 +1,5 @@
-﻿using NureTimetable.Core.Models.Consts;
+﻿using NureTimetable.Core.BL;
+using NureTimetable.Core.Models.Consts;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -32,7 +33,7 @@ namespace NureTimetable.Migrations
             }
             catch (Exception ex)
             {
-                MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
+                ExceptionService.LogException(ex);
             }
             return false;
         }

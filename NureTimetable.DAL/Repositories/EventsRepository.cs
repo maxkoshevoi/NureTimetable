@@ -1,4 +1,6 @@
 ﻿using Microsoft.AppCenter.Analytics;
+using Nito.AsyncEx;
+using NureTimetable.Core.BL;
 using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Models.Consts;
 using NureTimetable.DAL.Helpers;
@@ -123,13 +125,14 @@ namespace NureTimetable.DAL
                 // Saving timetables
                 await UpdateTimetableLocal(timetable);
 
-                // Updating LastUpdated for saved groups 
-                List<Local::SavedEntity> savedEntities = await UniversityEntitiesRepository.GetSaved();
-                foreach (var savedEntity in savedEntities.Where(e => e == entity))
+                // Updating LastUpdated for saved entities
+                await UniversityEntitiesRepository.ModifySaved(savedEntities =>
                 {
-                    savedEntity.LastUpdated = DateTime.Now;
-                }
-                await UniversityEntitiesRepository.UpdateSaved(savedEntities);
+                    foreach (var savedEntity in savedEntities.Where(e => e == entity))
+                    {
+                        savedEntity.LastUpdated = DateTime.Now;
+                    }
+                });
 
                 return (timetable, null);
             }
@@ -138,7 +141,7 @@ namespace NureTimetable.DAL
                 ex.Data.Add("Entity", $"{entity.Type} {entity.Name} ({entity.ID})");
                 ex.Data.Add("From", dateStart.ToString("dd.MM.yyyy"));
                 ex.Data.Add("To", dateEnd.ToString("dd.MM.yyyy"));
-                MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
+                ExceptionService.LogException(ex);
 
                 return (null, ex);
             }

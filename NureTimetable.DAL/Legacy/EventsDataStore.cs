@@ -109,7 +109,7 @@ namespace NureTimetable.DAL.Legacy
                 }
                 catch (Exception)
                 {
-                    //MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
+                    //ExceptionService.LogException(ex);
                 }
             }
             return null;
@@ -212,7 +212,7 @@ namespace NureTimetable.DAL.Legacy
                 }
                 catch (Exception)
                 {
-                    //MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
+                    //ExceptionService.LogException(ex);
                     return null;
                 }
             }
@@ -310,7 +310,7 @@ namespace NureTimetable.DAL.Legacy
             }
             catch (Exception)
             {
-                //MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
+                //ExceptionService.LogException(ex);
                 groupsLessons = null;
             }
             return groupsLessons;

@@ -34,7 +34,7 @@ namespace NureTimetable.UI.ViewModels
             }
 
             PageAppearingCommand = CommandFactory.Create(() => UpdateEntitiesOnAllTabs());
-            UpdateCommand = CommandFactory.Create(UpdateEntities, () => UpdateCommandEnabled);
+            UpdateCommand = CommandFactory.Create(UpdateEntities, () => UpdateCommandEnabled, allowsMultipleExecutions: false);
         }
 
         private async Task UpdateEntities()

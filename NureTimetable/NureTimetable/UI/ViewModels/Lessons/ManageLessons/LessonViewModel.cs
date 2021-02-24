@@ -51,8 +51,8 @@ namespace NureTimetable.UI.ViewModels
                 manageLessonsViewModel.HasUnsavedChanges = true;
             });
 
-            SettingsClickedCommand = CommandFactory.Create(SettingsClicked);
-            InfoClickedCommand = CommandFactory.Create(InfoClicked);
+            SettingsClickedCommand = CommandFactory.Create(SettingsClicked, allowsMultipleExecutions: false);
+            InfoClickedCommand = CommandFactory.Create(InfoClicked, allowsMultipleExecutions: false);
         }
 
         private Task SettingsClicked() => 

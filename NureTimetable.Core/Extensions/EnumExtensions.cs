@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace NureTimetable.Core.Extensions
 {
-    public static class EnumEx
+    public static class EnumExtensions
     {
         public static T AddFlag<T>(this Enum value, T flag)
         {

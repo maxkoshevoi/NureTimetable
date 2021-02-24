@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NureTimetable.Core.Extensions
 {
-    public static class IEnumerableEx
+    public static class IEnumerableExtensions
     {
         /// <summary>
         /// Returns all distinct elements of the given source, where "distinctness"

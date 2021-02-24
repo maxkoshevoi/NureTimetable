@@ -4,7 +4,7 @@ using System.Net;
 
 namespace NureTimetable.Core.Extensions
 {
-    public static class ExceptionEx
+    public static class ExceptionExtensions
     {
         private static readonly WebExceptionStatus[] noInternetStatuses =
         {

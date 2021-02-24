@@ -3,7 +3,7 @@ using System.Text;
 
 namespace NureTimetable.Core.Extensions
 {
-    public static class StringBuilderEx
+    public static class StringBuilderExtensions
     {
         public static int IndexOf(this StringBuilder sb, string value) => 
             IndexOf(sb, value, 0);

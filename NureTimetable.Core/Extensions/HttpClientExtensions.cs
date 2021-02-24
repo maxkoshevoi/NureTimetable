@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace NureTimetable.Core.Extensions
 {
-    public static class HttpClientEx
+    public static class HttpClientExtensions
     {
         public static async Task<string> GetStringOrWebExceptionAsync(this HttpClient httpClient, Uri requestUri)
         {
