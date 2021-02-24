@@ -32,7 +32,7 @@ namespace NureTimetable
             {
                 if (SettingsRepository.Settings.IsDebugMode)
                 {
-                    Shell.Current.DisplayAlert(LN.ErrorDetails, ex.ToString(), LN.Ok).Forget();
+                    MainThread.InvokeOnMainThreadAsync(() => Shell.Current.DisplayAlert(LN.ErrorDetails, ex.ToString(), LN.Ok)).Forget();
                 }
             };
         }
