@@ -49,7 +49,7 @@ namespace NureTimetable
                     {
                         newLanguage = new CultureInfo((int)SettingsRepository.Settings.Language);
                     }
-                    LocalizationResourceManager.Current.SetCulture(newLanguage);
+                    LocalizationResourceManager.Current.CurrentCulture = newLanguage;
                 }
             };
         }
