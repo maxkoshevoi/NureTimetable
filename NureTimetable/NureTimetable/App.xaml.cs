@@ -37,7 +37,6 @@ namespace NureTimetable
             {
                 culture = new CultureInfo((int)SettingsRepository.Settings.Language);
             }
-            LN.Culture = culture; // Remove after update to XCT 1.0.3+
             LocalizationResourceManager.Current.PropertyChanged += (_, _) => LN.Culture = LocalizationResourceManager.Current.CurrentCulture;
             LocalizationResourceManager.Current.Init(LN.ResourceManager, culture);
             SettingsRepository.Settings.PropertyChanged += (_, e) =>
@@ -49,7 +48,7 @@ namespace NureTimetable
                     {
                         newLanguage = new CultureInfo((int)SettingsRepository.Settings.Language);
                     }
-                    LocalizationResourceManager.Current.SetCulture(newLanguage);
+                    LocalizationResourceManager.Current.CurrentCulture = newLanguage;
                 }
             };
         }

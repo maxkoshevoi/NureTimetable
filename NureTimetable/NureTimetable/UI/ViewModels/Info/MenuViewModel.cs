@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Essentials;
 using static NureTimetable.UI.ViewModels.SettingsViewModel;
@@ -51,10 +52,10 @@ namespace NureTimetable.UI.ViewModels
             AppLanguageName = new(() => languageMapping.Single(m => m.value == SettingsRepository.Settings.Language).name());
             AppThemeName = new(() => themeMapping.Single(m => m.value == SettingsRepository.Settings.Theme).name());
 
-            OpenDonatePageCommand = CommandFactory.Create(async () => await Navigation.PushAsync(new DonatePage()), allowsMultipleExecutions: false);
+            OpenDonatePageCommand = CommandFactory.Create((Func<Task>)(async () => await Navigation.PushAsync(new DonatePage())), allowsMultipleExecutions: false);
             ChangeThemeCommand = CommandFactory.Create(ChangeTheme, allowsMultipleExecutions: false);
             ChangeLanguageCommand = CommandFactory.Create(ChangeLanguage, allowsMultipleExecutions: false);
-            OpenSettingsCommand = CommandFactory.Create(async () => await Navigation.PushAsync(new SettingsPage()), allowsMultipleExecutions: false);
+            OpenSettingsCommand = CommandFactory.Create((Func<Task>)(async () => await Navigation.PushAsync(new SettingsPage())), allowsMultipleExecutions: false);
 
             SettingsRepository.Settings.PropertyChanged += (_, e) =>
             {
