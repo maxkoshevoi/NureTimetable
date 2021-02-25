@@ -52,10 +52,10 @@ namespace NureTimetable.UI.ViewModels
             AppLanguageName = new(() => languageMapping.Single(m => m.value == SettingsRepository.Settings.Language).name());
             AppThemeName = new(() => themeMapping.Single(m => m.value == SettingsRepository.Settings.Theme).name());
 
-            OpenDonatePageCommand = CommandFactory.Create((Func<Task>)(async () => await Navigation.PushAsync(new DonatePage())), allowsMultipleExecutions: false);
+            OpenDonatePageCommand = CommandFactory.Create(() => Navigation.PushAsync(new DonatePage()), allowsMultipleExecutions: false);
             ChangeThemeCommand = CommandFactory.Create(ChangeTheme, allowsMultipleExecutions: false);
             ChangeLanguageCommand = CommandFactory.Create(ChangeLanguage, allowsMultipleExecutions: false);
-            OpenSettingsCommand = CommandFactory.Create((Func<Task>)(async () => await Navigation.PushAsync(new SettingsPage())), allowsMultipleExecutions: false);
+            OpenSettingsCommand = CommandFactory.Create(() => Navigation.PushAsync(new SettingsPage()), allowsMultipleExecutions: false);
 
             SettingsRepository.Settings.PropertyChanged += (_, e) =>
             {
