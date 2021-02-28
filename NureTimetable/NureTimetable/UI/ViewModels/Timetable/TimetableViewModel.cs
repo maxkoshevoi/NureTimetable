@@ -459,11 +459,7 @@ namespace NureTimetable.UI.ViewModels
                 {
                     Shell.Current.CurrentPage.DisplayToastAsync(LN.AutoupdateFailed).Forget();
                 }
-                catch (Exception ex)
-                {
-                    // TODO: Remove when DisplayToastAsync is task
-                    ExceptionService.LogException(ex);
-                }
+                catch { } // TODO: Remove when https://github.com/xamarin/XamarinCommunityToolkit/issues/959 is fixed
             }
         }
 
@@ -529,7 +525,11 @@ namespace NureTimetable.UI.ViewModels
 
             await UpdateEventsWithUI();
 
-            Shell.Current.CurrentPage.DisplayToastAsync(message, 1500).Forget();
+            try
+            {
+                Shell.Current.CurrentPage.DisplayToastAsync(message, 1500).Forget();
+            }
+            catch { } // TODO: Remove when https://github.com/xamarin/XamarinCommunityToolkit/issues/959 is fixed
         }
 
         private void BTodayClicked()
@@ -545,8 +545,12 @@ namespace NureTimetable.UI.ViewModels
             }
             if (moveTo != DateTime.Today && visibleDates.Contains(moveTo))
             {
-                // TODO: Add AnchorView BToday here when https://github.com/xamarin/XamarinCommunityToolkit/pull/846 is released
-                Shell.Current.CurrentPage.DisplayToastAsync(LN.TimetableEndReached).Forget();
+                try
+                {
+                    // TODO: Add AnchorView BToday here when https://github.com/xamarin/XamarinCommunityToolkit/pull/846 is released
+                    Shell.Current.CurrentPage.DisplayToastAsync(LN.TimetableEndReached).Forget();
+                }
+                catch { } // TODO: Remove when https://github.com/xamarin/XamarinCommunityToolkit/issues/959 is fixed
                 return;
             }
 

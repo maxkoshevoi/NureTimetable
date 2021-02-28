@@ -22,7 +22,11 @@ namespace NureTimetable.UI.ViewModels
         {
             InAppBillingPurchase purchase = await InAppPurchase.Buy(productId, true);
             string message = purchase == null ? LN.PurchaseFailed : LN.ThanksForYourSupport;
-            Shell.Current.CurrentPage.DisplayToastAsync(message).Forget();
+            try
+            {
+                Shell.Current.CurrentPage.DisplayToastAsync(message).Forget();
+            }
+            catch { } // TODO: Remove when https://github.com/xamarin/XamarinCommunityToolkit/issues/959 is fixed
         }
     }
 }
