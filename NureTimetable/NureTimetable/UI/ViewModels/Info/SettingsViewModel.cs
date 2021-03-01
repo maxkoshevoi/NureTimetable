@@ -73,13 +73,10 @@ namespace NureTimetable.UI.ViewModels
                 (() => LN.AskEveryTime, string.Empty) 
             };
 
-            if (requestPermissionIfNeeded || await CalendarService.CheckPermissions())
+            if (requestPermissionIfNeeded || await CalendarService.CheckPermissionsAsync())
             {
-                IList<Calendar> calendars = await CalendarService.GetAllCalendars();
-                if (calendars != null)
-                {
-                    newMapping.AddRange(calendars.Select(c => ((Func<string>)(() => c.Name), c.ExternalID)));
-                }
+                IList<Calendar> calendars = await CalendarService.GetAllCalendarsAsync();
+                newMapping.AddRange(calendars.Select(c => ((Func<string>)(() => c.Name), c.ExternalID)));
             }
 
             calendarMapping = newMapping;

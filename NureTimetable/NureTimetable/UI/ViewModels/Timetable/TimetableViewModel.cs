@@ -203,7 +203,7 @@ namespace NureTimetable.UI.ViewModels
                 await UpdateTodayButton(false);
             });
             UpdateTimetableCommand = CommandFactory.Create(
-                () => TimetableService.UpdateAndDisplayResult(TimetableInfoList.Entities.ToArray()),
+                () => TimetableService.UpdateAndDisplayResultAsync(TimetableInfoList.Entities.ToArray()),
                 () => TimetableInfoList.Timetables.Any() && !IsTimetableUpdating, 
                 allowsMultipleExecutions: false
             );
@@ -351,7 +351,7 @@ namespace NureTimetable.UI.ViewModels
                 {
                     if (reloadSavedEntities)
                     {
-                        List<Entity> selectedEntities = (await UniversityEntitiesRepository.GetSaved())
+                        List<Entity> selectedEntities = (await UniversityEntitiesRepository.GetSavedAsync())
                             .Where(e => e.IsSelected)
                             .Select(e => e.Entity)
                             .ToList();
@@ -386,7 +386,7 @@ namespace NureTimetable.UI.ViewModels
             List<TimetableInfo> timetableInfos = new();
             foreach (var entity in selectedEntities)
             {
-                TimetableInfo timetableInfo = await EventsRepository.GetTimetableLocal(entity);
+                TimetableInfo timetableInfo = await EventsRepository.GetTimetableLocalAsync(entity);
                 timetableInfos.Add(timetableInfo ?? new(entity));
             }
             lock (enumeratingEvents)
@@ -452,7 +452,7 @@ namespace NureTimetable.UI.ViewModels
 
             lastAutoupdateInfo = (entitiesToUpdate, DateTime.Now);
 
-            var updateResult = await TimetableService.Update(entitiesToUpdate);
+            var updateResult = await TimetableService.UpdateAsync(entitiesToUpdate);
             if (updateResult.Any(e => e.exception != null))
             {
                 try

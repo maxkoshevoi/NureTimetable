@@ -103,13 +103,13 @@ namespace NureTimetable.UI.ViewModels
 
         private async Task AddEventToCalendar()
         {
-            if (!await CalendarService.RequestPermissions())
+            if (!await CalendarService.RequestPermissionsAsync())
             {
                 await Shell.Current.DisplayAlert(LN.AddingToCalendarTitle, LN.InsufficientRights, LN.Ok);
                 return;
             }
 
-            var calendar = await CalendarService.GetCalendar();
+            var calendar = await CalendarService.GetCalendarAsync();
             if (calendar == null)
             {
                 // User didn't choose calendar
@@ -117,7 +117,7 @@ namespace NureTimetable.UI.ViewModels
             }
 
             var calendarEvent = CalendarService.GenerateCalendarEvent(Event, EventNumber, EventsCount);
-            bool isAdded = await CalendarService.AddOrUpdateEvent(calendar, calendarEvent);
+            bool isAdded = await CalendarService.AddOrUpdateEventAsync(calendar, calendarEvent);
             if (!isAdded)
             {
                 await Shell.Current.CurrentPage.DisplayAlert(LN.AddingToCalendarTitle, LN.AddingEventToCalendarFail, LN.Ok);

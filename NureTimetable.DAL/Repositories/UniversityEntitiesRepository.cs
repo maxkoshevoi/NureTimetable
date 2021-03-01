@@ -75,15 +75,15 @@ namespace NureTimetable.DAL
             {
                 if (!IsInitialized)
                 {
-                    Instance = Get().Result;
+                    Instance = GetAsync().Result;
                 }
             }
         }
 
-        public static async Task<UniversityEntitiesCistUpdateResult> UpdateFromCist()
+        public static async Task<UniversityEntitiesCistUpdateResult> UpdateFromCistAsync()
         {
-            Cist::University university = await GetLocal();
-            var result = await UpdateFromCist(university);
+            Cist::University university = await GetLocalAsync();
+            var result = await UpdateFromCistAsync(university);
             Instance = result.UpdatedUniversity;
 
             return result;
@@ -104,15 +104,15 @@ namespace NureTimetable.DAL
             }
         }
 
-        private static async Task<Cist::University> Get()
+        private static async Task<Cist::University> GetAsync()
         {
-            Cist::University localUniversity = await GetLocal();
+            Cist::University localUniversity = await GetLocalAsync();
             if (localUniversity != null)
             {
                 return localUniversity;
             }
 
-            var cistResult = await UpdateFromCist(localUniversity);
+            var cistResult = await UpdateFromCistAsync(localUniversity);
             if (!cistResult.IsAllFail)
             {
                 return cistResult.UpdatedUniversity;
@@ -121,7 +121,7 @@ namespace NureTimetable.DAL
             return new();
         }
 
-        private static async Task<Cist::University> GetLocal()
+        private static async Task<Cist::University> GetLocalAsync()
         {
             string filePath = FilePath.UniversityEntities;
             if (!File.Exists(filePath))
@@ -133,7 +133,7 @@ namespace NureTimetable.DAL
             return loadedUniversity;
         }
 
-        private static async Task<UniversityEntitiesCistUpdateResult> UpdateFromCist(Cist::University university)
+        private static async Task<UniversityEntitiesCistUpdateResult> UpdateFromCistAsync(Cist::University university)
         {
             university ??= new();
 
@@ -142,9 +142,9 @@ namespace NureTimetable.DAL
                 return new(university);
             }
 
-            var groupsTask = TaskWithFallbacks(GetAllGroupsFromCist, GetAllGroupsFromCistHtml);
-            var teachersTask = TaskWithFallbacks(GetAllTeachersFromCist, GetAllTeachersFromCistHtml);
-            var roomsTask = GetAllRoomsFromCist();
+            var groupsTask = TaskWithFallbacks(GetAllGroupsFromCistAsync, GetAllGroupsFromCistHtmlAsync);
+            var teachersTask = TaskWithFallbacks(GetAllTeachersFromCistAsync, GetAllTeachersFromCistHtmlAsync);
+            var roomsTask = GetAllRoomsFromCistAsync();
 
             UniversityEntitiesCistUpdateResult result = new(university);
             try
@@ -231,7 +231,7 @@ namespace NureTimetable.DAL
         }
 
         #region From Cist Api
-        private static async Task<List<Cist::Faculty>> GetAllGroupsFromCist()
+        private static async Task<List<Cist::Faculty>> GetAllGroupsFromCistAsync()
         {
             Analytics.TrackEvent("Cist request", new Dictionary<string, string>
             {
@@ -246,7 +246,7 @@ namespace NureTimetable.DAL
             return newUniversity.Faculties;
         }
 
-        private static async Task<List<Cist::Faculty>> GetAllTeachersFromCist()
+        private static async Task<List<Cist::Faculty>> GetAllTeachersFromCistAsync()
         {
             Analytics.TrackEvent("Cist request", new Dictionary<string, string>
             {
@@ -261,7 +261,7 @@ namespace NureTimetable.DAL
             return newUniversity.Faculties;
         }
 
-        private static async Task<List<Cist::Building>> GetAllRoomsFromCist()
+        private static async Task<List<Cist::Building>> GetAllRoomsFromCistAsync()
         {
             Analytics.TrackEvent("Cist request", new Dictionary<string, string>
             {
@@ -279,7 +279,7 @@ namespace NureTimetable.DAL
         #endregion
 
         #region From Cist Html
-        private static async Task<List<Cist::Faculty>> GetAllGroupsFromCistHtml()
+        private static async Task<List<Cist::Faculty>> GetAllGroupsFromCistHtmlAsync()
         {
             Analytics.TrackEvent("Cist request", new Dictionary<string, string>
             {
@@ -338,7 +338,7 @@ namespace NureTimetable.DAL
             return faculties;
         }
 
-        private static async Task<List<Cist::Faculty>> GetAllTeachersFromCistHtml()
+        private static async Task<List<Cist::Faculty>> GetAllTeachersFromCistHtmlAsync()
         {
             Analytics.TrackEvent("Cist request", new Dictionary<string, string>
             {
@@ -502,7 +502,7 @@ namespace NureTimetable.DAL
         #endregion
 
         #region Saved Entities
-        public static async Task<List<Local::SavedEntity>> GetSaved()
+        public static async Task<List<Local::SavedEntity>> GetSavedAsync()
         {
             List<Local::SavedEntity> loadedEntities = new();
 
@@ -517,7 +517,7 @@ namespace NureTimetable.DAL
         }
 
         public static Task ModifySaved(Action<List<Local::SavedEntity>> modefier) =>
-            ModifySaved(se =>
+            ModifySavedAsync(se =>
             {
                 modefier(se);
                 return false;
@@ -525,22 +525,22 @@ namespace NureTimetable.DAL
 
         /// <param name="modefier">Returns is cancelation requested</param>
         /// <returns>Is updated</returns>
-        public static async Task<bool> ModifySaved(Func<List<Local::SavedEntity>, bool> modefier)
+        public static async Task<bool> ModifySavedAsync(Func<List<Local::SavedEntity>, bool> modefier)
         {
             using var lockHandle = updatingSavedLock.Lock();
 
-            List<Local::SavedEntity> savedEntities = await UniversityEntitiesRepository.GetSaved();
+            List<Local::SavedEntity> savedEntities = await UniversityEntitiesRepository.GetSavedAsync();
             bool isCancelationRequested = modefier(savedEntities);
             if (isCancelationRequested)
             {
                 return false;
             }
 
-            await UniversityEntitiesRepository.UpdateSaved(savedEntities);
+            await UniversityEntitiesRepository.UpdateSavedAsync(savedEntities);
             return true;
         }
 
-        private static async Task UpdateSaved(List<Local::SavedEntity> savedEntities)
+        private static async Task UpdateSavedAsync(List<Local::SavedEntity> savedEntities)
         {
             savedEntities ??= new();
 
@@ -551,7 +551,7 @@ namespace NureTimetable.DAL
                 Crashes.TrackError(new InvalidOperationException($"{nameof(savedEntities)} must be unique"));
             }
 
-            List<Local::SavedEntity> oldSavedEntities = await GetSaved();
+            List<Local::SavedEntity> oldSavedEntities = await GetSavedAsync();
             // Removing cache from deleted saved entities if needed
             oldSavedEntities.Where(oldEntity => !savedEntities.Exists(entity => entity == oldEntity))
                 .ForEach((de) => 

@@ -71,7 +71,7 @@ namespace NureTimetable.UI.ViewModels
         protected async Task EntitySelected(T entity)
         {
             SavedEntity newEntity = GetSavedEntity(entity);
-            bool isUpdated = await UniversityEntitiesRepository.ModifySaved(savedEntities =>
+            bool isUpdated = await UniversityEntitiesRepository.ModifySavedAsync(savedEntities =>
             {
                 if (savedEntities.Any(e => e == newEntity))
                 {
@@ -94,7 +94,7 @@ namespace NureTimetable.UI.ViewModels
             try
             {
                 Shell.Current.CurrentPage.DisplaySnackBarAsync(string.Format(LN.TimetableSaved, newEntity.Entity.Name), LN.Undo, 
-                    () => UniversityEntitiesRepository.ModifySaved(savedEntities => !savedEntities.Remove(newEntity))
+                    () => UniversityEntitiesRepository.ModifySavedAsync(savedEntities => !savedEntities.Remove(newEntity))
                 ).Forget();
             }
             catch { } // TODO: Remove when https://github.com/xamarin/XamarinCommunityToolkit/issues/959 is fixed

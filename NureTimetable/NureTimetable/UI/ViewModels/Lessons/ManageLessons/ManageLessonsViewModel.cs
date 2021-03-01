@@ -48,7 +48,7 @@ namespace NureTimetable.UI.ViewModels
             if (Lessons.Any())
                 return;
 
-            TimetableInfo timetable = await EventsRepository.GetTimetableLocal(entity);
+            TimetableInfo timetable = await EventsRepository.GetTimetableLocalAsync(entity);
             if (timetable == null)
             {
                 await Shell.Current.DisplayAlert(LN.LessonsManagement, LN.AtFirstLoadTimetable, LN.Ok);

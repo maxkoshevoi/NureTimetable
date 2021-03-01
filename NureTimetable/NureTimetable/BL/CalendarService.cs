@@ -21,14 +21,14 @@ namespace NureTimetable.BL
     {
         public const string CustomCalendarName = "NURE Timetable";
 
-        public static async Task<bool> CheckPermissions()
+        public static async Task<bool> CheckPermissionsAsync()
         {
             PermissionStatus readStatus = await Permissions.CheckStatusAsync<Permissions.CalendarRead>();
             PermissionStatus writeStatus = await Permissions.CheckStatusAsync<Permissions.CalendarWrite>();
             return readStatus == PermissionStatus.Granted && writeStatus == PermissionStatus.Granted;
         }
 
-        public static async Task<bool> RequestPermissions()
+        public static async Task<bool> RequestPermissionsAsync()
         {
             PermissionStatus readStatus = await Permissions.CheckStatusAsync<Permissions.CalendarRead>();
             PermissionStatus writeStatus = await Permissions.CheckStatusAsync<Permissions.CalendarWrite>();
@@ -43,14 +43,14 @@ namespace NureTimetable.BL
             return readStatus == PermissionStatus.Granted && writeStatus == PermissionStatus.Granted;
         }
 
-        public static async Task<Calendar> GetCalendar()
+        public static async Task<Calendar> GetCalendarAsync()
         {
-            if (!await RequestPermissions())
+            if (!await RequestPermissionsAsync())
             {
                 return null;
             }
 
-            IList<Calendar> calendars = await GetAllCalendars();
+            IList<Calendar> calendars = await GetAllCalendarsAsync();
 
             Calendar defaultCalendar = calendars.SingleOrDefault(c => c.ExternalID == SettingsRepository.Settings.DefaultCalendarId);
             if (defaultCalendar != null)
@@ -72,11 +72,11 @@ namespace NureTimetable.BL
             return selectedCalendar;
         }
 
-        public static async Task<IList<Calendar>> GetAllCalendars()
+        public static async Task<IList<Calendar>> GetAllCalendarsAsync()
         {
-            if (!await RequestPermissions())
+            if (!await RequestPermissionsAsync())
             {
-                return null;
+                return new List<Calendar>();
             }
 
             // Getting Calendar list
@@ -128,9 +128,9 @@ namespace NureTimetable.BL
             return calendarEvent;
         }
 
-        public static async Task<bool> AddOrUpdateEvent(Calendar calendar, CalendarEvent calendarEvent)
+        public static async Task<bool> AddOrUpdateEventAsync(Calendar calendar, CalendarEvent calendarEvent)
         {
-            if (!await RequestPermissions())
+            if (!await RequestPermissionsAsync())
             {
                 return false;
             }
