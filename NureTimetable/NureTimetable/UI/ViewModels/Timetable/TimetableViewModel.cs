@@ -203,7 +203,7 @@ namespace NureTimetable.UI.ViewModels
                 await UpdateTodayButton(false);
             });
             UpdateTimetableCommand = CommandFactory.Create(
-                () => TimetableService.UpdateAndDisplayResult(TimetableInfoList.Entities.ToArray()),
+                () => TimetableService.UpdateAndDisplayResultAsync(TimetableInfoList.Entities.ToArray()),
                 () => TimetableInfoList.Timetables.Any() && !IsTimetableUpdating, 
                 allowsMultipleExecutions: false
             );
@@ -351,7 +351,7 @@ namespace NureTimetable.UI.ViewModels
                 {
                     if (reloadSavedEntities)
                     {
-                        List<Entity> selectedEntities = (await UniversityEntitiesRepository.GetSaved())
+                        List<Entity> selectedEntities = (await UniversityEntitiesRepository.GetSavedAsync())
                             .Where(e => e.IsSelected)
                             .Select(e => e.Entity)
                             .ToList();
@@ -386,7 +386,7 @@ namespace NureTimetable.UI.ViewModels
             List<TimetableInfo> timetableInfos = new();
             foreach (var entity in selectedEntities)
             {
-                TimetableInfo timetableInfo = await EventsRepository.GetTimetableLocal(entity);
+                TimetableInfo timetableInfo = await EventsRepository.GetTimetableLocalAsync(entity);
                 timetableInfos.Add(timetableInfo ?? new(entity));
             }
             lock (enumeratingEvents)
@@ -452,18 +452,14 @@ namespace NureTimetable.UI.ViewModels
 
             lastAutoupdateInfo = (entitiesToUpdate, DateTime.Now);
 
-            var updateResult = await TimetableService.Update(entitiesToUpdate);
+            var updateResult = await TimetableService.UpdateAsync(entitiesToUpdate);
             if (updateResult.Any(e => e.exception != null))
             {
                 try
                 {
                     Shell.Current.CurrentPage.DisplayToastAsync(LN.AutoupdateFailed).Forget();
                 }
-                catch (Exception ex)
-                {
-                    // TODO: Remove when DisplayToastAsync is task
-                    ExceptionService.LogException(ex);
-                }
+                catch { } // TODO: Remove when https://github.com/xamarin/XamarinCommunityToolkit/issues/959 is fixed
             }
         }
 
@@ -529,7 +525,11 @@ namespace NureTimetable.UI.ViewModels
 
             await UpdateEventsWithUI();
 
-            Shell.Current.CurrentPage.DisplayToastAsync(message, 1500).Forget();
+            try
+            {
+                Shell.Current.CurrentPage.DisplayToastAsync(message, 1500).Forget();
+            }
+            catch { } // TODO: Remove when https://github.com/xamarin/XamarinCommunityToolkit/issues/959 is fixed
         }
 
         private void BTodayClicked()
@@ -545,8 +545,12 @@ namespace NureTimetable.UI.ViewModels
             }
             if (moveTo != DateTime.Today && visibleDates.Contains(moveTo))
             {
-                // TODO: Add AnchorView BToday here when https://github.com/xamarin/XamarinCommunityToolkit/pull/846 is released
-                Shell.Current.CurrentPage.DisplayToastAsync(LN.TimetableEndReached).Forget();
+                try
+                {
+                    // TODO: Add AnchorView BToday here when https://github.com/xamarin/XamarinCommunityToolkit/pull/846 is released
+                    Shell.Current.CurrentPage.DisplayToastAsync(LN.TimetableEndReached).Forget();
+                }
+                catch { } // TODO: Remove when https://github.com/xamarin/XamarinCommunityToolkit/issues/959 is fixed
                 return;
             }
 

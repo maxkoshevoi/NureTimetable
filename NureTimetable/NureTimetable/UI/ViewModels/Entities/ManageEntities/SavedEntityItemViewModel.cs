@@ -39,7 +39,7 @@ namespace NureTimetable.UI.ViewModels
                 IsUpdating = existingEntity.IsUpdating;
             }
 
-            UpdateClickedCommand = CommandFactory.Create(() => TimetableService.UpdateAndDisplayResult(SavedEntity), allowsMultipleExecutions: false);
+            UpdateClickedCommand = CommandFactory.Create(() => TimetableService.UpdateAndDisplayResultAsync(SavedEntity), allowsMultipleExecutions: false);
             SettingsClickedCommand = CommandFactory.Create(SettingsClicked, allowsMultipleExecutions: false);
         }
 
@@ -64,7 +64,7 @@ namespace NureTimetable.UI.ViewModels
             }
             else if (action == LN.UpdateTimetable)
             {
-                await TimetableService.UpdateAndDisplayResult(SavedEntity);
+                await TimetableService.UpdateAndDisplayResultAsync(SavedEntity);
             }
             else if (action == LN.SetUpLessonDisplay)
             {
@@ -75,7 +75,7 @@ namespace NureTimetable.UI.ViewModels
             }
             else if (action == LN.Delete)
             {
-                await UniversityEntitiesRepository.ModifySaved(savedEntities => !savedEntities.Remove(SavedEntity));
+                await UniversityEntitiesRepository.ModifySavedAsync(savedEntities => !savedEntities.Remove(SavedEntity));
             }
         }
     }

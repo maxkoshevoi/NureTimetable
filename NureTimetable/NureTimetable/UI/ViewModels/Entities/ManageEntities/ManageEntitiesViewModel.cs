@@ -92,7 +92,7 @@ namespace NureTimetable.UI.ViewModels
         {
             if (Entities.Count == 0)
             {
-                UpdateItems(await UniversityEntitiesRepository.GetSaved());
+                UpdateItems(await UniversityEntitiesRepository.GetSavedAsync());
                 IsProgressLayoutVisible = false;
             }
         }
@@ -138,7 +138,7 @@ namespace NureTimetable.UI.ViewModels
         {
             if (await Shell.Current.DisplayAlert(LN.TimetableUpdate, LN.UpdateAllTimetables, LN.Yes, LN.Cancel))
             {
-                await TimetableService.UpdateAndDisplayResult(Entities.Select(vm => (Entity)vm.SavedEntity).ToArray());
+                await TimetableService.UpdateAndDisplayResultAsync(Entities.Select(vm => (Entity)vm.SavedEntity).ToArray());
             }
         }
 

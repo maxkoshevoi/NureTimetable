@@ -30,7 +30,7 @@ namespace NureTimetable.UI.ViewModels
             bool isNeedReloadFromCist = !UniversityEntitiesRepository.IsInitialized && timePass > TimeSpan.FromDays(25);
             if (isNeedReloadFromCist)
             {
-                Task.Run(UpdateFromCist);
+                Task.Run(UpdateFromCistAsync);
             }
 
             PageAppearingCommand = CommandFactory.Create(() => UpdateEntitiesOnAllTabs());
@@ -47,7 +47,7 @@ namespace NureTimetable.UI.ViewModels
 
             if (await Shell.Current.DisplayAlert(LN.UniversityInfoUpdate, LN.UniversityInfoUpdateConfirm, LN.Yes, LN.Cancel))
             {
-                var updateFromCist = UniversityEntitiesRepository.UpdateFromCist();
+                var updateFromCist = UniversityEntitiesRepository.UpdateFromCistAsync();
                 await UpdateEntitiesOnAllTabs(updateFromCist);
                 await DisplayUpdateResult(await updateFromCist);
             }

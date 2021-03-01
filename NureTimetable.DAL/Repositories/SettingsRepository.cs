@@ -13,12 +13,12 @@ namespace NureTimetable.DAL
         public static AppSettings Settings { get; } = AppSettings.Instance;
 
         #region Timetable Update Rights
-        public static async Task<IReadOnlyList<Entity>> CheckCistTimetableUpdateRights(params Entity[] entitiesToUpdate)
+        public static async Task<IReadOnlyList<Entity>> CheckCistTimetableUpdateRightsAsync(params Entity[] entitiesToUpdate)
         {
             List<Entity> allowedEntities = new();
             entitiesToUpdate ??= Array.Empty<Entity>();
 
-            List<SavedEntity> savedEntities = await UniversityEntitiesRepository.GetSaved();
+            List<SavedEntity> savedEntities = await UniversityEntitiesRepository.GetSavedAsync();
             foreach (var entity in entitiesToUpdate)
             {
                 SavedEntity savedEntity = savedEntities.SingleOrDefault(e => e == entity);

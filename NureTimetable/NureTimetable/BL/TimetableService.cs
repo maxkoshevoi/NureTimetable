@@ -15,9 +15,9 @@ namespace NureTimetable.BL
 {
     public static class TimetableService
     {
-        public static async Task UpdateAndDisplayResult(params Entity[] entities)
+        public static async Task UpdateAndDisplayResultAsync(params Entity[] entities)
         {
-            var updateResult = await Update(entities);
+            var updateResult = await UpdateAsync(entities);
             string response = GetResponseMessageFromUpdateResult(updateResult);
             
             if (response != null)
@@ -26,10 +26,10 @@ namespace NureTimetable.BL
             }
         }
 
-        public static Task<List<(Entity entity, Exception exception)>> Update(params Entity[] entities) =>
+        public static Task<List<(Entity entity, Exception exception)>> UpdateAsync(params Entity[] entities) =>
             Task.Run(async () =>
             {
-                IReadOnlyList<Entity> entitiesAllowed = await SettingsRepository.CheckCistTimetableUpdateRights(entities);
+                IReadOnlyList<Entity> entitiesAllowed = await SettingsRepository.CheckCistTimetableUpdateRightsAsync(entities);
                 if (entitiesAllowed.Count == 0)
                 {
                     return new();
@@ -50,7 +50,7 @@ namespace NureTimetable.BL
                     int capacity = batchSize - runningTasks;
                     foreach (var entity in entitiesAllowed.Skip(i).Take(capacity))
                     {
-                        updateTasks.Add(entity, EventsRepository.GetTimetableFromCist(entity, Config.TimetableFromDate, Config.TimetableToDate));
+                        updateTasks.Add(entity, EventsRepository.GetTimetableFromCistAsync(entity, Config.TimetableFromDate, Config.TimetableToDate));
                     }
                     await Task.WhenAny(updateTasks
                         .Select(u => u.Value)

@@ -48,7 +48,7 @@ namespace NureTimetable.UI.ViewModels
             if (Lessons.Any())
                 return;
 
-            TimetableInfo timetable = await EventsRepository.GetTimetableLocal(entity);
+            TimetableInfo timetable = await EventsRepository.GetTimetableLocalAsync(entity);
             if (timetable == null)
             {
                 await Shell.Current.DisplayAlert(LN.LessonsManagement, LN.AtFirstLoadTimetable, LN.Ok);
@@ -72,7 +72,11 @@ namespace NureTimetable.UI.ViewModels
             HasUnsavedChanges = false;
 
             await Shell.Current.GoToAsync("..", true);
-            Shell.Current.CurrentPage.DisplayToastAsync(string.Format(LN.EntityLessonSettingsSaved, entity.Name)).Forget();
+            try
+            {
+                Shell.Current.CurrentPage.DisplayToastAsync(string.Format(LN.EntityLessonSettingsSaved, entity.Name)).Forget();
+            }
+            catch { } // TODO: Remove when https://github.com/xamarin/XamarinCommunityToolkit/issues/959 is fixed
         }
 
         private async Task BackButtonPressed()

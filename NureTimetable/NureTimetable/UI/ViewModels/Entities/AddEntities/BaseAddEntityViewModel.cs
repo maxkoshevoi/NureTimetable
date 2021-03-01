@@ -70,34 +70,34 @@ namespace NureTimetable.UI.ViewModels
 
         protected async Task EntitySelected(T entity)
         {
-            try
+            SavedEntity newEntity = GetSavedEntity(entity);
+            bool isUpdated = await UniversityEntitiesRepository.ModifySavedAsync(savedEntities =>
             {
-                SavedEntity newEntity = GetSavedEntity(entity);
-                bool isUpdated = await UniversityEntitiesRepository.ModifySaved(savedEntities =>
+                if (savedEntities.Any(e => e == newEntity))
                 {
-                    if (savedEntities.Any(e => e == newEntity))
+                    try
                     {
                         Shell.Current.CurrentPage.DisplayToastAsync(string.Format(LN.TimetableAlreadySaved, newEntity.Entity.Name)).Forget();
-                        return true;
                     }
-
-                    savedEntities.Add(newEntity);
-                    return false;
-                });
-                if (!isUpdated)
-                {
-                    return;
+                    catch { } // TODO: Remove when https://github.com/xamarin/XamarinCommunityToolkit/issues/959 is fixed
+                    return true;
                 }
 
+                savedEntities.Add(newEntity);
+                return false;
+            });
+            if (!isUpdated)
+            {
+                return;
+            }
+
+            try
+            {
                 Shell.Current.CurrentPage.DisplaySnackBarAsync(string.Format(LN.TimetableSaved, newEntity.Entity.Name), LN.Undo, 
-                    () => UniversityEntitiesRepository.ModifySaved(savedEntities => !savedEntities.Remove(newEntity))
+                    () => UniversityEntitiesRepository.ModifySavedAsync(savedEntities => !savedEntities.Remove(newEntity))
                 ).Forget();
             }
-            catch (Exception ex)
-            {
-                // TODO: Remove when DisplayToastAsync is task
-                ExceptionService.LogException(ex);
-            }
+            catch { } // TODO: Remove when https://github.com/xamarin/XamarinCommunityToolkit/issues/959 is fixed
         }
 
         protected void SearchBarTextChanged(string searchQuery)
