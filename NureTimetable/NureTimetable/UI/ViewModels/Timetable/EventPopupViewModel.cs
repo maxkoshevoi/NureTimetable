@@ -95,7 +95,7 @@ namespace NureTimetable.UI.ViewModels
                     BindingContext = new LessonInfoViewModel(LessonInfo, Timetable)
                 });
             }
-            else if(result == "Add to calendar")
+            else if(result == LN.AddToCalendar)
             {
                 await AddEventToCalendar();
             }
