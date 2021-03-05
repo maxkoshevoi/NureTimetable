@@ -133,23 +133,21 @@
                     </sfs:SfSchedule.AppointmentStyle>
                 </sfs:SfSchedule>
             </StackLayout>
-            <Button
+            <ImageButton
                 x:Name="BToday"
                 HorizontalOptions="Center"
                 AbsoluteLayout.LayoutFlags="PositionProportional"
                 AbsoluteLayout.LayoutBounds="1,1,AutoSize,AutoSize"
-                FontFamily="{StaticResource MaterialFontFamily}" 
                 CornerRadius="100"
-                FontSize="20"
                 Margin="20"
+                Padding="13"
                 WidthRequest="47" 
                 HeightRequest="47" 
                 BackgroundColor="{DynamicResource CurrentDayColor}" 
-                TextColor="White"
                 IsVisible="{Binding TimetableInfoList.Events, Converter={xct:ListIsNotNullOrEmptyConverter}}" 
                 Scale="{Binding BTodayScale, Mode=TwoWay}"
                 Command="{Binding BTodayClickedCommand}"
-                Text="{Binding BTodayText}"/>
+                Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Binding BTodayText}, Color=White}"/>
             <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" 
                     AbsoluteLayout.LayoutFlags="All" 
                     VerticalOptions="CenterAndExpand" 
