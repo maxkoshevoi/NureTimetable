@@ -248,7 +248,14 @@ namespace NureTimetable.UI.ViewModels
                 if (visibleDates.Any())
                 {
                     await Task.Delay(100);
-                    timetablePage.TimetableNavigateTo(visibleDates.First());
+                    try
+                    {
+                        timetablePage.TimetableNavigateTo(visibleDates.First());
+                    }
+                    catch (ObjectDisposedException)
+                    { }
+                    catch (NullReferenceException)
+                    { }
                 }
             }
 

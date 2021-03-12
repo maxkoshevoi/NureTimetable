@@ -58,7 +58,24 @@ namespace NureTimetable.UI.ViewModels
 
         protected abstract IOrderedEnumerable<T> OrderEntities();
 
-        protected abstract IOrderedEnumerable<T> SearchEntities(string searchQuery);
+        protected abstract IOrderedEnumerable<T> SearchEntities(string query);
+
+        protected IOrderedEnumerable<T> SearchEntities(string query, Func<T, string> nameSelector, Func<T, long> idSelector)
+        {
+            query = NormalizeString(query);
+
+            return _allEntities
+                .Where(e => NormalizeString(nameSelector(e)).Contains(query) || idSelector(e).ToString() == query)
+                .OrderBy(e => nameSelector(e));
+
+            static string NormalizeString(string query) => 
+                query.ToLower()
+                .Replace('и', 'і')
+                .Replace('и', 'ї')
+                .Replace('э', 'є')
+                .Replace('\'', '`')
+                .Replace('\'', '"');
+        }
 
         protected abstract List<T> GetAllEntities();
 
@@ -111,7 +128,7 @@ namespace NureTimetable.UI.ViewModels
             }
             else
             {
-                Entities = new(SearchEntities(searchQuery.ToLower()));
+                Entities = new(SearchEntities(searchQuery));
             }
         }
 

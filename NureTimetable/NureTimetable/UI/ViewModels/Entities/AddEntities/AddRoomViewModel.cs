@@ -28,11 +28,7 @@ namespace NureTimetable.UI.ViewModels
             return _allEntities.OrderBy(r => r.Name);
         }
 
-        protected override IOrderedEnumerable<Room> SearchEntities(string searchQuery)
-        {
-            return _allEntities
-                .Where(g => g.Name.ToLower().Contains(searchQuery) || g.Name.ToLower().Contains(searchQuery.Replace('и', 'і')) || g.ID.ToString() == searchQuery)
-                .OrderBy(g => g.Name);
-        }
+        protected override IOrderedEnumerable<Room> SearchEntities(string query) =>
+            SearchEntities(query, r => r.Name, r => r.ID);
     }
 }
