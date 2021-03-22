@@ -2,12 +2,8 @@
 using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Localization;
 using NureTimetable.DAL.Models.Local;
-using NureTimetable.UI.Helpers;
-using NureTimetable.UI.ViewModels.Lessons;
-using NureTimetable.UI.ViewModels.Lessons.LessonSettings;
 using NureTimetable.UI.Views;
 using Rg.Plugins.Popup.Services;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -125,7 +121,7 @@ namespace NureTimetable.UI.ViewModels
             }
             try
             {
-                Shell.Current.CurrentPage.DisplayToastAsync(LN.AddingEventToCalendarSuccess).Forget();
+                Shell.Current.CurrentPage.DisplayToastAsync(LN.AddingEventToCalendarSuccess).Forget(false);
             }
             catch { } // TODO: Remove when https://github.com/xamarin/XamarinCommunityToolkit/issues/959 is fixed
 

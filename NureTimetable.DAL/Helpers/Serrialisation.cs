@@ -4,13 +4,11 @@ using Newtonsoft.Json.Converters;
 using Nito.AsyncEx;
 using NureTimetable.Core.BL;
 using NureTimetable.Core.Extensions;
-using NureTimetable.Core.Models.Consts;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 

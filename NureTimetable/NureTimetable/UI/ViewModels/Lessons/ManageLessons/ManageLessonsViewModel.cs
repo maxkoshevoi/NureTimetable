@@ -1,9 +1,7 @@
 ﻿using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Localization;
-using NureTimetable.Core.Models.Consts;
 using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
-using NureTimetable.UI.Helpers;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -74,7 +72,7 @@ namespace NureTimetable.UI.ViewModels
             await Shell.Current.GoToAsync("..", true);
             try
             {
-                Shell.Current.CurrentPage.DisplayToastAsync(string.Format(LN.EntityLessonSettingsSaved, entity.Name)).Forget();
+                Shell.Current.CurrentPage.DisplayToastAsync(string.Format(LN.EntityLessonSettingsSaved, entity.Name)).Forget(false);
             }
             catch { } // TODO: Remove when https://github.com/xamarin/XamarinCommunityToolkit/issues/959 is fixed
         }

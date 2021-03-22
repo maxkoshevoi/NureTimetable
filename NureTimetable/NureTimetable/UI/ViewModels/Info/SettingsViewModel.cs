@@ -1,7 +1,6 @@
 ﻿using NureTimetable.BL;
 using NureTimetable.Core.Localization;
 using NureTimetable.DAL;
-using NureTimetable.UI.Helpers;
 using Plugin.Calendars.Abstractions;
 using System;
 using System.Collections.Generic;

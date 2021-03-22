@@ -1,5 +1,4 @@
 ﻿using NureTimetable.BL;
-using NureTimetable.Core.BL;
 using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Consts;
@@ -7,7 +6,6 @@ using NureTimetable.Core.Models.Settings;
 using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
 using NureTimetable.Models.Consts;
-using NureTimetable.UI.Helpers;
 using NureTimetable.UI.ViewModels.Timetable;
 using NureTimetable.UI.Views;
 using Rg.Plugins.Popup.Services;
@@ -244,7 +242,7 @@ namespace NureTimetable.UI.ViewModels
                     await UpdateEventsWithUI();
                 }
 
-                // Updaing current date if it's changed
+                // Updating current date if it's changed
                 if (visibleDates.Any())
                 {
                     await Task.Delay(100);
@@ -464,7 +462,7 @@ namespace NureTimetable.UI.ViewModels
             {
                 try
                 {
-                    Shell.Current.CurrentPage.DisplayToastAsync(LN.AutoupdateFailed).Forget();
+                    Shell.Current.CurrentPage.DisplayToastAsync(LN.AutoupdateFailed).Forget(false);
                 }
                 catch { } // TODO: Remove when https://github.com/xamarin/XamarinCommunityToolkit/issues/959 is fixed
             }
@@ -534,7 +532,7 @@ namespace NureTimetable.UI.ViewModels
 
             try
             {
-                Shell.Current.CurrentPage.DisplayToastAsync(message, 1500).Forget();
+                Shell.Current.CurrentPage.DisplayToastAsync(message, 1500).Forget(false);
             }
             catch { } // TODO: Remove when https://github.com/xamarin/XamarinCommunityToolkit/issues/959 is fixed
         }
@@ -555,7 +553,7 @@ namespace NureTimetable.UI.ViewModels
                 try
                 {
                     // TODO: Add AnchorView BToday here when https://github.com/xamarin/XamarinCommunityToolkit/pull/846 is released
-                    Shell.Current.CurrentPage.DisplayToastAsync(LN.TimetableEndReached).Forget();
+                    Shell.Current.CurrentPage.DisplayToastAsync(LN.TimetableEndReached).Forget(false);
                 }
                 catch { } // TODO: Remove when https://github.com/xamarin/XamarinCommunityToolkit/issues/959 is fixed
                 return;

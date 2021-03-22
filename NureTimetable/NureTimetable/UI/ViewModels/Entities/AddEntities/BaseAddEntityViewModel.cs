@@ -1,10 +1,8 @@
-﻿using NureTimetable.Core.BL;
-using NureTimetable.Core.Extensions;
+﻿using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Consts;
 using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
-using NureTimetable.UI.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,7 +10,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.CommunityToolkit.ObjectModel;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace NureTimetable.UI.ViewModels
@@ -94,7 +91,7 @@ namespace NureTimetable.UI.ViewModels
                 {
                     try
                     {
-                        Shell.Current.CurrentPage.DisplayToastAsync(string.Format(LN.TimetableAlreadySaved, newEntity.Entity.Name)).Forget();
+                        Shell.Current.CurrentPage.DisplayToastAsync(string.Format(LN.TimetableAlreadySaved, newEntity.Entity.Name)).Forget(false);
                     }
                     catch { } // TODO: Remove when https://github.com/xamarin/XamarinCommunityToolkit/issues/959 is fixed
                     return true;
@@ -112,7 +109,7 @@ namespace NureTimetable.UI.ViewModels
             {
                 Shell.Current.CurrentPage.DisplaySnackBarAsync(string.Format(LN.TimetableSaved, newEntity.Entity.Name), LN.Undo, 
                     () => UniversityEntitiesRepository.ModifySavedAsync(savedEntities => !savedEntities.Remove(newEntity))
-                ).Forget();
+                ).Forget(false);
             }
             catch { } // TODO: Remove when https://github.com/xamarin/XamarinCommunityToolkit/issues/959 is fixed
         }

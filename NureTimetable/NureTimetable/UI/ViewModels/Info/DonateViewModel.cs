@@ -24,7 +24,7 @@ namespace NureTimetable.UI.ViewModels
             string message = purchase == null ? LN.PurchaseFailed : LN.ThanksForYourSupport;
             try
             {
-                Shell.Current.CurrentPage.DisplayToastAsync(message).Forget();
+                Shell.Current.CurrentPage.DisplayToastAsync(message).Forget(false);
             }
             catch { } // TODO: Remove when https://github.com/xamarin/XamarinCommunityToolkit/issues/959 is fixed
         }

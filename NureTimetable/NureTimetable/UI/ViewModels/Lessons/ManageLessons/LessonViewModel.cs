@@ -1,7 +1,5 @@
 ﻿using NureTimetable.Core.Models.Consts;
 using NureTimetable.DAL.Models.Local;
-using NureTimetable.UI.Helpers;
-using NureTimetable.UI.ViewModels.Lessons.LessonSettings;
 using NureTimetable.UI.Views;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.ObjectModel;

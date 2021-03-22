@@ -3,14 +3,12 @@ using NureTimetable.Core.Localization;
 using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
 using NureTimetable.Models.Consts;
-using NureTimetable.UI.Helpers;
 using NureTimetable.UI.Views;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
-using Xamarin.Forms.Internals;
 
 namespace NureTimetable.UI.ViewModels
 {

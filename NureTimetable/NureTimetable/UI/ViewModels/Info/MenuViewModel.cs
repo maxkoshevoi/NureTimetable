@@ -1,7 +1,6 @@
 ﻿using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Settings;
 using NureTimetable.DAL;
-using NureTimetable.UI.Helpers;
 using NureTimetable.UI.Views;
 using System;
 using System.Collections.Generic;

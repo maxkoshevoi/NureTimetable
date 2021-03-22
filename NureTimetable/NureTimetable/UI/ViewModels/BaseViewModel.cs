@@ -1,5 +1,4 @@
-﻿using NureTimetable.UI.Helpers;
-using Xamarin.CommunityToolkit.Helpers;
+﻿using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 

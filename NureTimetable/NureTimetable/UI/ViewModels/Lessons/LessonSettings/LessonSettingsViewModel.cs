@@ -1,11 +1,8 @@
-﻿using NureTimetable.Core.Extensions;
-using NureTimetable.Core.Models.Consts;
+﻿using NureTimetable.Core.Models.Consts;
 using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
-using NureTimetable.UI.Helpers;
 using NureTimetable.UI.ViewModels.Lessons.LessonSettings;
 using System.Linq;
-using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 

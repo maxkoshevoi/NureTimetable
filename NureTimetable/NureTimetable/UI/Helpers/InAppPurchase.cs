@@ -1,11 +1,9 @@
 ﻿using NureTimetable.Core.BL;
-using NureTimetable.Core.Models.Consts;
 using Plugin.InAppBilling;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Xamarin.Forms;
 
 namespace NureTimetable.UI.Helpers
 {
@@ -59,7 +57,7 @@ namespace NureTimetable.UI.Helpers
         }
 
         /// <summary>
-        /// Consumes or Acknowledges the purchse based on consume parameter
+        /// Consumes or Acknowledges the purchase based on consume parameter
         /// </summary>
         private static async Task ProcessPurchase(IInAppBilling billing, InAppBillingPurchase purchase, bool consume)
         {
