@@ -1,5 +1,4 @@
-﻿using NureTimetable.DAL;
-using NureTimetable.DAL.Helpers;
+﻿using NureTimetable.DAL.Helpers;
 using NureTimetable.DAL.Models.Consts;
 using NureTimetable.DAL.Models.Local;
 using System;
@@ -20,21 +19,29 @@ namespace NureTimetable.Migrations
 
         protected override async Task<bool> ApplyInternal()
         {
-            List<SavedEntity> updatedSavedEntities = new();
-            var selectedEntities = await Serialisation.FromJsonFile<List<SavedEntityWithoutEntity>>(FilePath.SavedEntitiesList);
-            var entities = await Serialisation.FromJsonFile<List<Entity>>(FilePath.SavedEntitiesList);
-
-            for (int i = 0; i < entities.Count; i++)
+            try
             {
-                updatedSavedEntities.Add(new(entities[i])
-                {
-                    IsSelected = selectedEntities[i].IsSelected,
-                    LastUpdated = selectedEntities[i].LastUpdated
-                });
-            }
+                List<SavedEntity> updatedSavedEntities = new();
+                var selectedEntities = await Serialisation.FromJsonFile<List<SavedEntityWithoutEntity>>(FilePath.SavedEntitiesList);
+                var entities = await Serialisation.FromJsonFile<List<Entity>>(FilePath.SavedEntitiesList);
 
-            await Serialisation.ToJsonFile(updatedSavedEntities, FilePath.SavedEntitiesList);
-            return true;
+                for (int i = 0; i < entities.Count; i++)
+                {
+                    updatedSavedEntities.Add(new(entities[i])
+                    {
+                        IsSelected = selectedEntities[i].IsSelected,
+                        LastUpdated = selectedEntities[i].LastUpdated
+                    });
+                }
+
+                await Serialisation.ToJsonFile(updatedSavedEntities, FilePath.SavedEntitiesList);
+                return true;
+            }
+            catch (NullReferenceException)
+            {
+                File.Delete(FilePath.SavedEntitiesList);
+                return false;
+            }
         }
 
         class SavedEntityWithoutEntity
