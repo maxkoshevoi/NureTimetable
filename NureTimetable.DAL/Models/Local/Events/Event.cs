@@ -39,24 +39,14 @@ namespace NureTimetable.DAL.Models.Local
             return false;
         }
 
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                // Choose large primes to avoid hashing collisions
-                const int HashingBase = (int)2166136261;
-                const int HashingMultiplier = 16777619;
-
-                int hash = HashingBase;
-                hash = (hash * HashingMultiplier) ^ Type.GetHashCode();
-                hash = (hash * HashingMultiplier) ^ Start.GetHashCode();
-                hash = (hash * HashingMultiplier) ^ RoomName?.GetHashCode() ?? 0;
-                hash = (hash * HashingMultiplier) ^ Lesson?.GetHashCode() ?? 0;
-                hash = (hash * HashingMultiplier) ^ Teachers?.GetTrueHashCode() ?? 0;
-                hash = (hash * HashingMultiplier) ^ Groups?.GetTrueHashCode() ?? 0;
-                return hash;
-            }
-        }
+        public override int GetHashCode() => 
+            HashCode.Combine(
+                Type,
+                Start,
+                RoomName,
+                Lesson,
+                Teachers,
+                Groups);
         #endregion
     }
 }
