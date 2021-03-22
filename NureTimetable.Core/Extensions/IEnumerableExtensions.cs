@@ -35,19 +35,6 @@ namespace NureTimetable.Core.Extensions
             }
         }
 
-        /// <summary>
-        /// Generates a hash code based on elements of the sequence
-        /// </summary>
-        public static int GetTrueHashCode<T>(this IEnumerable<T> source)
-        {
-            int hash = 0;
-            foreach (var item in source)
-            {
-                hash ^= item.GetHashCode();
-            }
-            return hash;
-        }
-
         public static async IAsyncEnumerable<T> Where<T>(this IEnumerable<T> source, Func<T, Task<bool>> predicate)
         {
             foreach (var item in source)

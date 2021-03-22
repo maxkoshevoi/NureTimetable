@@ -1,4 +1,6 @@
-﻿namespace NureTimetable.DAL.Models.Local
+﻿using System;
+
+namespace NureTimetable.DAL.Models.Local
 {
     public class Entity
     {
@@ -37,10 +39,7 @@
             return false;
         }
 
-        public override int GetHashCode()
-        {
-            return ID.GetHashCode() ^ Type.GetHashCode();
-        }
+        public override int GetHashCode() => HashCode.Combine(ID, Type);
         #endregion
     }
 }

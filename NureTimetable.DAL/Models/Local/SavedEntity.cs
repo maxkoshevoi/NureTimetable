@@ -37,10 +37,7 @@ namespace NureTimetable.DAL.Models.Local
             return false;
         }
 
-        public override int GetHashCode()
-        {
-            return Entity.GetHashCode();
-        }
+        public override int GetHashCode() => Entity.GetHashCode();
         #endregion
     }
 }

@@ -24,10 +24,7 @@
             return false;
         }
 
-        public override int GetHashCode()
-        {
-            return ID.GetHashCode();
-        }
+        public override int GetHashCode() => ID.GetHashCode();
         #endregion
     }
 }
