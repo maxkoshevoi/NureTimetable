@@ -6,7 +6,6 @@
              xmlns:converters="clr-namespace:NureTimetable.UI.Converters"
              xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels"
              xmlns:sfs="clr-namespace:Syncfusion.SfSchedule.XForms;assembly=Syncfusion.SfSchedule.XForms"
-             xmlns:sfb="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
              Shell.TabBarIsVisible="True"
              x:Class="NureTimetable.UI.Views.TimetablePage"
              x:DataType="vm:TimetableViewModel"
@@ -134,7 +133,7 @@
                     </sfs:SfSchedule.AppointmentStyle>
                 </sfs:SfSchedule>
             </StackLayout>
-            <sfb:SfButton 
+            <Button
                 x:Name="BToday"
                 HorizontalOptions="Center"
                 AbsoluteLayout.LayoutFlags="PositionProportional"
@@ -147,7 +146,6 @@
                 HeightRequest="47" 
                 BackgroundColor="{DynamicResource CurrentDayColor}" 
                 TextColor="White"
-                HasShadow="True"
                 IsVisible="{Binding TimetableInfoList.Events, Converter={xct:ListIsNotNullOrEmptyConverter}}" 
                 Scale="{Binding BTodayScale, Mode=TwoWay}"
                 Command="{Binding BTodayClickedCommand}"

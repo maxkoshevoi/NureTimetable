@@ -13,7 +13,7 @@
     <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.10" />
     <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="18.4.0.48" />
     <PackageReference Include="Syncfusion.Xamarin.SfSchedule" Version="18.4.0.48" />
-    <PackageReference Include="Xamarin.CommunityToolkit" Version="1.0.2" />
+    <PackageReference Include="Xamarin.CommunityToolkit" Version="1.1.0" />
     <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
   </ItemGroup>
