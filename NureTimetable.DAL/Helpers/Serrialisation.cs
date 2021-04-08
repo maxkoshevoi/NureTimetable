@@ -23,7 +23,7 @@ namespace NureTimetable.DAL.Helpers
             try
             {
                 string json = ToJson(instance);
-                using (var writeLock = fileLock.WriterLock())
+                using (var writeLock = await fileLock.WriterLockAsync())
                 {
                     await File.WriteAllTextAsync(filePath, json);
                 }
@@ -42,7 +42,7 @@ namespace NureTimetable.DAL.Helpers
             try
             {
                 string fileContent;
-                using (var readLock = fileLock.ReaderLock())
+                using (var readLock = await fileLock.ReaderLockAsync())
                 {
                     fileContent = await File.ReadAllTextAsync(filePath);
                 }
@@ -62,6 +62,11 @@ namespace NureTimetable.DAL.Helpers
         public static string ToJson<T>(T instance)
         {
             string json = JsonConvert.SerializeObject(instance);
+            if (!IsJson(json))
+            {
+                // TODO: Remove "if" if exception never thrown
+                throw new InvalidOperationException($"Json is not a valid json string");
+            }
             return json;
         }
 
