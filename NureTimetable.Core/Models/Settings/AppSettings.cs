@@ -44,6 +44,7 @@ namespace NureTimetable.Core.Models.Settings
             }
         }
 
+        #region Calendar settings
         public string DefaultCalendarId
         {
             get => Preferences.Get(nameof(DefaultCalendarId), string.Empty);
@@ -53,6 +54,17 @@ namespace NureTimetable.Core.Models.Settings
                 SetProperty(ref currentValue, value, onChanged: () => Preferences.Set(nameof(DefaultCalendarId), value));
             }
         }
+
+        public TimeSpan TimeBeforeEventReminder
+        {
+            get => TimeSpan.FromMinutes(Preferences.Get(nameof(TimeBeforeEventReminder), TimeSpan.FromMinutes(30).TotalMinutes));
+            set
+            {
+                var currentValue = TimeBeforeEventReminder;
+                SetProperty(ref currentValue, value, onChanged: () => Preferences.Set(nameof(TimeBeforeEventReminder), value.TotalMinutes));
+            }
+        }
+        #endregion
 
         public DateTime? LastCistAllEntitiesUpdate
         {

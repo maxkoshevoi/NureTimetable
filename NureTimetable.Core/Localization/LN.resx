@@ -471,4 +471,13 @@ To update the list, click on the button in the upper right corner.</value>
   <data name="LessonManagement" xml:space="preserve">
     <value>Lesson management</value>
   </data>
+  <data name="MinutesBefore" xml:space="preserve">
+    <value>{0} minutes before</value>
+  </data>
+  <data name="TimeBeforeEventReminder" xml:space="preserve">
+    <value>Reminder before calendar event</value>
+  </data>
+  <data name="TurnedOff" xml:space="preserve">
+    <value>Turned off</value>
+  </data>
 </root>

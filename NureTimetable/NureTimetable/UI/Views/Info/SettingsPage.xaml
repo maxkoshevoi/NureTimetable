@@ -46,6 +46,9 @@
                     <TapGestureRecognizer Command="{Binding ToggleAutoupdateCommand}" />
                 </StackLayout.GestureRecognizers>
             </StackLayout>
+
+            <BoxView/>
+            
             <StackLayout Style="{StaticResource Row}">
                 <Image Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.CalendarBlank}, Color={DynamicResource SecondaryTextColor}}" />
                 <StackLayout>
@@ -55,6 +58,17 @@
 
                 <StackLayout.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ChangeDefaultCalendarCommand}"/>
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+            <StackLayout Style="{StaticResource Row}">
+                <Image Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.BellAlertOutline}, Color={DynamicResource SecondaryTextColor}}" />
+                <StackLayout>
+                    <Label Text="{xct:Translate TimeBeforeEventReminder}" Style="{DynamicResource ListItemTextStyle}" />
+                    <Label Text="{Binding TimeBeforeEventReminderValue.Localized}" FontSize="13" Style="{DynamicResource ListItemDetailTextStyle}" />
+                </StackLayout>
+
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ChangeTimeBeforeEventReminderCommand}"/>
                 </StackLayout.GestureRecognizers>
             </StackLayout>
             

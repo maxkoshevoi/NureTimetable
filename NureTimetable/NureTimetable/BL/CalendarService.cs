@@ -115,15 +115,18 @@ namespace NureTimetable.BL
                     $"{string.Format(LN.EventTeachers, string.Join(", ", ev.Teachers.Select(t => t.Name)))}\n" +
                     $"{string.Format(LN.EventGroups, string.Join(", ", ev.Groups.Select(t => t.Name).GroupBasedOnLastPart("-")))}\n",
                 Location = $"KHNURE -\"{ev.RoomName}\"",
-                Reminders = new CalendarEventReminder[]
-                {
-                    new()
-                    {
-                        Method = CalendarReminderMethod.Alert,
-                        TimeBefore = TimeSpan.FromMinutes(30)
-                    }
-                }
+                Reminders = new List<CalendarEventReminder>()
             };
+
+            if (SettingsRepository.Settings.TimeBeforeEventReminder != TimeSpan.Zero)
+            {
+                calendarEvent.Reminders.Add(new()
+                {
+                    Method = CalendarReminderMethod.Alert,
+                    TimeBefore = SettingsRepository.Settings.TimeBeforeEventReminder
+                });
+            }
+
             return calendarEvent;
         }
 

@@ -126,7 +126,7 @@
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
-  <!-- Added to provide autoamtic build number of android package -->
+  <!-- Added to provide automatic build number of android package -->
   <Target Name="BeforeBuild">
     <XmlPeek XmlInputPath="Properties\AndroidManifest.xml" Namespaces="&lt;Namespace Prefix='android' Uri='http://schemas.android.com/apk/res/android' /&gt;" Query="manifest/@android:versionCode">
       <Output TaskParameter="Result" ItemName="PeekedVersionCode" />

@@ -603,6 +603,15 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} minutes before.
+        /// </summary>
+        public static string MinutesBefore {
+            get {
+                return ResourceManager.GetString("MinutesBefore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Month.
         /// </summary>
         public static string Month {
@@ -883,6 +892,15 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reminder before calendar event.
+        /// </summary>
+        public static string TimeBeforeEventReminder {
+            get {
+                return ResourceManager.GetString("TimeBeforeEventReminder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Timetable &quot;{0}&quot; is already in saved.
         /// </summary>
         public static string TimetableAlreadySaved {
@@ -969,6 +987,15 @@ namespace NureTimetable.Core.Localization {
         public static string TimeUntilLesson {
             get {
                 return ResourceManager.GetString("TimeUntilLesson", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Turned off.
+        /// </summary>
+        public static string TurnedOff {
+            get {
+                return ResourceManager.GetString("TurnedOff", resourceCulture);
             }
         }
         

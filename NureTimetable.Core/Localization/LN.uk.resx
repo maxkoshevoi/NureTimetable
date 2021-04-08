@@ -471,4 +471,13 @@
   <data name="LessonManagement" xml:space="preserve">
     <value>Управління предметом</value>
   </data>
+  <data name="MinutesBefore" xml:space="preserve">
+    <value>За {0} хвилин</value>
+  </data>
+  <data name="TimeBeforeEventReminder" xml:space="preserve">
+    <value>Повідомлення до пари в календарі</value>
+  </data>
+  <data name="TurnedOff" xml:space="preserve">
+    <value>Виключено</value>
+  </data>
 </root>

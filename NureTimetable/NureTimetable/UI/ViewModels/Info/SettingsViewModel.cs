@@ -16,19 +16,29 @@ namespace NureTimetable.UI.ViewModels
     {
         #region Properties
         public LocalizedString DefaultCalendarName { get; }
+        public LocalizedString TimeBeforeEventReminderValue { get; }
 
         public IAsyncCommand PageAppearingCommand { get; }
         public Command ToggleDebugModeCommand { get; }
         public Command ToggleAutoupdateCommand { get; }
         public IAsyncCommand ChangeDefaultCalendarCommand { get; }
+        public IAsyncCommand ChangeTimeBeforeEventReminderCommand { get; }
         #endregion
 
         #region Setting mappings
         List<(Func<string> name, string id)> calendarMapping;
+        
+        List<(Func<string> name, TimeSpan value)> timeBeforeEventReminderMapping { get; } = new()
+        {
+            (() => LN.TurnedOff, TimeSpan.Zero),
+            (() => string.Format(LN.MinutesBefore, 10), TimeSpan.FromMinutes(10)),
+            (() => string.Format(LN.MinutesBefore, 30), TimeSpan.FromMinutes(30))
+        };
         #endregion
 
         public SettingsViewModel()
         {
+            TimeBeforeEventReminderValue = new(() => timeBeforeEventReminderMapping.Single(m => m.value == SettingsRepository.Settings.TimeBeforeEventReminder).name());
             DefaultCalendarName = new(() =>
             {
                 if (calendarMapping == null)
@@ -39,6 +49,7 @@ namespace NureTimetable.UI.ViewModels
 
             PageAppearingCommand = CommandFactory.Create(PageAppearing);
             ChangeDefaultCalendarCommand = CommandFactory.Create(ChangeDefaultCalendar, allowsMultipleExecutions: false);
+            ChangeTimeBeforeEventReminderCommand = CommandFactory.Create(ChangeTimeBeforeEventReminder, allowsMultipleExecutions: false);
             ToggleDebugModeCommand = CommandFactory.Create(() => SettingsRepository.Settings.IsDebugMode = !SettingsRepository.Settings.IsDebugMode);
             ToggleAutoupdateCommand = CommandFactory.Create(() => SettingsRepository.Settings.Autoupdate = !SettingsRepository.Settings.Autoupdate);
         }
@@ -98,5 +109,19 @@ namespace NureTimetable.UI.ViewModels
                 }
             );
         }
+
+
+        public Task ChangeTimeBeforeEventReminder() => 
+            ChangeSetting
+            (
+                LN.DefaultCalendar,
+                timeBeforeEventReminderMapping,
+                SettingsRepository.Settings.TimeBeforeEventReminder,
+                newTime => 
+                {
+                    SettingsRepository.Settings.TimeBeforeEventReminder = newTime;
+                    OnPropertyChanged(nameof(TimeBeforeEventReminderValue));
+                }
+            );
     }
 }
