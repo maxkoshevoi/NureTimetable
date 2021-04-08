@@ -124,13 +124,10 @@ namespace NureTimetable.DAL
                 // Saving timetables
                 await UpdateTimetableLocalAsync(timetable);
 
-                // Updating LastUpdated for saved entities
+                // Updating LastUpdated for saved entity
                 await UniversityEntitiesRepository.ModifySaved(savedEntities =>
                 {
-                    foreach (var savedEntity in savedEntities.Where(e => e == entity))
-                    {
-                        savedEntity.LastUpdated = DateTime.Now;
-                    }
+                    savedEntities.Single(e => e == entity).LastUpdated = DateTime.Now;
                 });
 
                 return (timetable, null);

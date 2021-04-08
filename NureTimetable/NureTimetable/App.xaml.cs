@@ -71,7 +71,7 @@ namespace NureTimetable
 #endif
             AppCenter.Start(key, typeof(Analytics), typeof(Crashes));
 
-            // Log currect timetable view mode
+            // Log current timetable view mode
             Analytics.TrackEvent("Timetable view mode", new Dictionary<string, string>
             {
                 { nameof(SettingsRepository.Settings.TimetableViewMode), SettingsRepository.Settings.TimetableViewMode.ToString() }

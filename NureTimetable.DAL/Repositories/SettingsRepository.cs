@@ -38,7 +38,7 @@ namespace NureTimetable.DAL
                     continue;
                 }
 
-                // Update is allowd once per day (day begins at 6 AM)
+                // Update is allowed once per day (day begins at 6 AM)
                 DateTime lastUpdatedInUkraine = TimeZoneInfo.ConvertTime(savedEntity.LastUpdated.Value, Config.UkraineTimezone);
                 TimeSpan timeBeforeAnotherUpdate;
                 if (lastUpdatedInUkraine.TimeOfDay < Config.CistDailyTimetableUpdateEndTime)
@@ -55,7 +55,7 @@ namespace NureTimetable.DAL
                     continue;
                 }
 
-#if UNLIMITED_UPDATES
+#if DEBUG
                 allowedEntities.Add(savedEntity);
 #endif
             }
