@@ -2880,43 +2880,43 @@ namespace NureTimetable.Droid
 			global::Rg.Plugins.Popup.Resource.Styleable.View_paddingEnd = global::NureTimetable.Droid.Resource.Styleable.View_paddingEnd;
 			global::Rg.Plugins.Popup.Resource.Styleable.View_paddingStart = global::NureTimetable.Droid.Resource.Styleable.View_paddingStart;
 			global::Rg.Plugins.Popup.Resource.Styleable.View_theme = global::NureTimetable.Droid.Resource.Styleable.View_theme;
-			global::Syncfusion.Buttons.XForms.Android.Resource.Animation.btn_checkbox_indeterminate_to_checked_box_inner_merged_animation = global::NureTimetable.Droid.Resource.Animation.btn_checkbox_indeterminate_to_checked_box_inner_merged_animation;
-			global::Syncfusion.Buttons.XForms.Android.Resource.Animation.btn_checkbox_indeterminate_to_checked_icon_null_animation = global::NureTimetable.Droid.Resource.Animation.btn_checkbox_indeterminate_to_checked_icon_null_animation;
-			global::Syncfusion.Buttons.XForms.Android.Resource.Animation.btn_checkbox_to_checked_box_inner_merged_animation = global::NureTimetable.Droid.Resource.Animation.btn_checkbox_to_checked_box_inner_merged_animation;
-			global::Syncfusion.Buttons.XForms.Android.Resource.Animation.btn_checkbox_to_checked_box_outer_merged_animation = global::NureTimetable.Droid.Resource.Animation.btn_checkbox_to_checked_box_outer_merged_animation;
-			global::Syncfusion.Buttons.XForms.Android.Resource.Animation.btn_checkbox_to_checked_icon_null_animation = global::NureTimetable.Droid.Resource.Animation.btn_checkbox_to_checked_icon_null_animation;
-			global::Syncfusion.Buttons.XForms.Android.Resource.Animation.btn_checkbox_to_indeterminate_from_checked_box_inner_merged_animation = global::NureTimetable.Droid.Resource.Animation.btn_checkbox_to_indeterminate_from_checked_box_inner_merged_animation;
-			global::Syncfusion.Buttons.XForms.Android.Resource.Animation.btn_checkbox_to_indeterminate_from_checked_icon_null_animation = global::NureTimetable.Droid.Resource.Animation.btn_checkbox_to_indeterminate_from_checked_icon_null_animation;
-			global::Syncfusion.Buttons.XForms.Android.Resource.Animation.btn_checkbox_to_indeterminate_from_unchecked_box_inner_merged_animation = global::NureTimetable.Droid.Resource.Animation.btn_checkbox_to_indeterminate_from_unchecked_box_inner_merged_animation;
-			global::Syncfusion.Buttons.XForms.Android.Resource.Animation.btn_checkbox_to_indeterminate_from_unchecked_box_outer_merged_animation = global::NureTimetable.Droid.Resource.Animation.btn_checkbox_to_indeterminate_from_unchecked_box_outer_merged_animation;
-			global::Syncfusion.Buttons.XForms.Android.Resource.Animation.btn_checkbox_to_indeterminate_from_unchecked_icon_null_animation = global::NureTimetable.Droid.Resource.Animation.btn_checkbox_to_indeterminate_from_unchecked_icon_null_animation;
-			global::Syncfusion.Buttons.XForms.Android.Resource.Animation.btn_checkbox_to_unchecked_box_inner_merged_animation = global::NureTimetable.Droid.Resource.Animation.btn_checkbox_to_unchecked_box_inner_merged_animation;
-			global::Syncfusion.Buttons.XForms.Android.Resource.Animation.btn_checkbox_to_unchecked_check_path_merged_animation = global::NureTimetable.Droid.Resource.Animation.btn_checkbox_to_unchecked_check_path_merged_animation;
-			global::Syncfusion.Buttons.XForms.Android.Resource.Animation.btn_checkbox_to_unchecked_from_indeterminate_box_inner_merged_animation = global::NureTimetable.Droid.Resource.Animation.btn_checkbox_to_unchecked_from_indeterminate_box_inner_merged_animation;
-			global::Syncfusion.Buttons.XForms.Android.Resource.Animation.btn_checkbox_to_unchecked_from_indeterminate_check_path_merged_animation = global::NureTimetable.Droid.Resource.Animation.btn_checkbox_to_unchecked_from_indeterminate_check_path_merged_animation;
-			global::Syncfusion.Buttons.XForms.Android.Resource.Animation.btn_checkbox_to_unchecked_from_indeterminate_icon_null_animation = global::NureTimetable.Droid.Resource.Animation.btn_checkbox_to_unchecked_from_indeterminate_icon_null_animation;
-			global::Syncfusion.Buttons.XForms.Android.Resource.Animation.btn_checkbox_to_unchecked_icon_null_animation = global::NureTimetable.Droid.Resource.Animation.btn_checkbox_to_unchecked_icon_null_animation;
+			global::Syncfusion.Buttons.XForms.Android.Resource.Animation.sfcheckbox_indeterminate_checked_inner = global::NureTimetable.Droid.Resource.Animation.sfcheckbox_indeterminate_checked_inner;
+			global::Syncfusion.Buttons.XForms.Android.Resource.Animation.sfcheckbox_indeterminate_checked_null = global::NureTimetable.Droid.Resource.Animation.sfcheckbox_indeterminate_checked_null;
+			global::Syncfusion.Buttons.XForms.Android.Resource.Animation.sfcheckbox_unchecked_inner = global::NureTimetable.Droid.Resource.Animation.sfcheckbox_unchecked_inner;
+			global::Syncfusion.Buttons.XForms.Android.Resource.Animation.sfcheckbox_unchecked_outer = global::NureTimetable.Droid.Resource.Animation.sfcheckbox_unchecked_outer;
+			global::Syncfusion.Buttons.XForms.Android.Resource.Animation.sfcheckbox_unchecked_null = global::NureTimetable.Droid.Resource.Animation.sfcheckbox_unchecked_null;
+			global::Syncfusion.Buttons.XForms.Android.Resource.Animation.sfcheckbox_checked_inner = global::NureTimetable.Droid.Resource.Animation.sfcheckbox_checked_inner;
+			global::Syncfusion.Buttons.XForms.Android.Resource.Animation.sfcheckbox_checked_null = global::NureTimetable.Droid.Resource.Animation.sfcheckbox_checked_null;
+			global::Syncfusion.Buttons.XForms.Android.Resource.Animation.sfcheckbox_unchecked_indeterminate_inner = global::NureTimetable.Droid.Resource.Animation.sfcheckbox_unchecked_indeterminate_inner;
+			global::Syncfusion.Buttons.XForms.Android.Resource.Animation.sfcheckbox_unchecked_indeterminate_outer = global::NureTimetable.Droid.Resource.Animation.sfcheckbox_unchecked_indeterminate_outer;
+			global::Syncfusion.Buttons.XForms.Android.Resource.Animation.sfcheckbox_unchecked_indeterminate_null = global::NureTimetable.Droid.Resource.Animation.sfcheckbox_unchecked_indeterminate_null;
+			global::Syncfusion.Buttons.XForms.Android.Resource.Animation.sfcheckbox_checked_unchecked_inner = global::NureTimetable.Droid.Resource.Animation.sfcheckbox_checked_unchecked_inner;
+			global::Syncfusion.Buttons.XForms.Android.Resource.Animation.sfcheckbox_checked_unchecked_path = global::NureTimetable.Droid.Resource.Animation.sfcheckbox_checked_unchecked_path;
+			global::Syncfusion.Buttons.XForms.Android.Resource.Animation.sfcheckbox_indeterminate_unchecked_inner = global::NureTimetable.Droid.Resource.Animation.sfcheckbox_indeterminate_unchecked_inner;
+			global::Syncfusion.Buttons.XForms.Android.Resource.Animation.sfcheckbox_indeterminate_unchecked_path = global::NureTimetable.Droid.Resource.Animation.sfcheckbox_indeterminate_unchecked_path;
+			global::Syncfusion.Buttons.XForms.Android.Resource.Animation.sfcheckbox_indeterminate_unchecked_null = global::NureTimetable.Droid.Resource.Animation.sfcheckbox_indeterminate_unchecked_null;
+			global::Syncfusion.Buttons.XForms.Android.Resource.Animation.sfcheckbox_checked_unchecked_null = global::NureTimetable.Droid.Resource.Animation.sfcheckbox_checked_unchecked_null;
 			global::Syncfusion.Buttons.XForms.Android.Resource.Attribute.state_indeterminate = global::NureTimetable.Droid.Resource.Attribute.state_indeterminate;
 			global::Syncfusion.Buttons.XForms.Android.Resource.Color.control_checkable_material = global::NureTimetable.Droid.Resource.Color.control_checkable_material;
 			global::Syncfusion.Buttons.XForms.Android.Resource.Dimension.disabledAlpha = global::NureTimetable.Droid.Resource.Dimension.disabledAlpha;
-			global::Syncfusion.Buttons.XForms.Android.Resource.Drawable.btn_checkbox = global::NureTimetable.Droid.Resource.Drawable.btn_checkbox;
-			global::Syncfusion.Buttons.XForms.Android.Resource.Drawable.btn_checkbox_checked = global::NureTimetable.Droid.Resource.Drawable.btn_checkbox_checked;
-			global::Syncfusion.Buttons.XForms.Android.Resource.Drawable.btn_checkbox_checked_to_indeterminate_animation = global::NureTimetable.Droid.Resource.Drawable.btn_checkbox_checked_to_indeterminate_animation;
-			global::Syncfusion.Buttons.XForms.Android.Resource.Drawable.btn_checkbox_checked_to_unchecked_animation = global::NureTimetable.Droid.Resource.Drawable.btn_checkbox_checked_to_unchecked_animation;
-			global::Syncfusion.Buttons.XForms.Android.Resource.Drawable.btn_checkbox_indeterminate = global::NureTimetable.Droid.Resource.Drawable.btn_checkbox_indeterminate;
-			global::Syncfusion.Buttons.XForms.Android.Resource.Drawable.btn_checkbox_indeterminate_to_checked_animation = global::NureTimetable.Droid.Resource.Drawable.btn_checkbox_indeterminate_to_checked_animation;
-			global::Syncfusion.Buttons.XForms.Android.Resource.Drawable.btn_checkbox_indeterminate_to_unchecked_animation = global::NureTimetable.Droid.Resource.Drawable.btn_checkbox_indeterminate_to_unchecked_animation;
-			global::Syncfusion.Buttons.XForms.Android.Resource.Drawable.btn_checkbox_unchecked = global::NureTimetable.Droid.Resource.Drawable.btn_checkbox_unchecked;
-			global::Syncfusion.Buttons.XForms.Android.Resource.Drawable.btn_checkbox_unchecked_to_checked_animation = global::NureTimetable.Droid.Resource.Drawable.btn_checkbox_unchecked_to_checked_animation;
-			global::Syncfusion.Buttons.XForms.Android.Resource.Drawable.btn_checkbox_unchecked_to_indeterminate_animation = global::NureTimetable.Droid.Resource.Drawable.btn_checkbox_unchecked_to_indeterminate_animation;
+			global::Syncfusion.Buttons.XForms.Android.Resource.Drawable.sfcheckbox_animation = global::NureTimetable.Droid.Resource.Drawable.sfcheckbox_animation;
+			global::Syncfusion.Buttons.XForms.Android.Resource.Drawable.sfcheckbox_checked = global::NureTimetable.Droid.Resource.Drawable.sfcheckbox_checked;
+			global::Syncfusion.Buttons.XForms.Android.Resource.Drawable.sfcheckbox_checked_indeterminate = global::NureTimetable.Droid.Resource.Drawable.sfcheckbox_checked_indeterminate;
+			global::Syncfusion.Buttons.XForms.Android.Resource.Drawable.sfcheckbox_checked_unchecked = global::NureTimetable.Droid.Resource.Drawable.sfcheckbox_checked_unchecked;
+			global::Syncfusion.Buttons.XForms.Android.Resource.Drawable.sfcheckbox_indeterminate = global::NureTimetable.Droid.Resource.Drawable.sfcheckbox_indeterminate;
+			global::Syncfusion.Buttons.XForms.Android.Resource.Drawable.sfcheckbox_indeterminate_checked = global::NureTimetable.Droid.Resource.Drawable.sfcheckbox_indeterminate_checked;
+			global::Syncfusion.Buttons.XForms.Android.Resource.Drawable.sfcheckbox_indeterminate_unchecked = global::NureTimetable.Droid.Resource.Drawable.sfcheckbox_indeterminate_unchecked;
+			global::Syncfusion.Buttons.XForms.Android.Resource.Drawable.sfcheckbox_unchecked = global::NureTimetable.Droid.Resource.Drawable.sfcheckbox_unchecked;
+			global::Syncfusion.Buttons.XForms.Android.Resource.Drawable.sfcheckbox_unchecked_checked = global::NureTimetable.Droid.Resource.Drawable.sfcheckbox_unchecked_checked;
+			global::Syncfusion.Buttons.XForms.Android.Resource.Drawable.sfcheckbox_unchecked_indeterminate = global::NureTimetable.Droid.Resource.Drawable.sfcheckbox_unchecked_indeterminate;
 			global::Syncfusion.Buttons.XForms.Android.Resource.Id.@checked = global::NureTimetable.Droid.Resource.Id.@checked;
 			global::Syncfusion.Buttons.XForms.Android.Resource.Id.indeterminate = global::NureTimetable.Droid.Resource.Id.indeterminate;
 			global::Syncfusion.Buttons.XForms.Android.Resource.Id.@unchecked = global::NureTimetable.Droid.Resource.Id.@unchecked;
-			global::Syncfusion.Buttons.XForms.Android.Resource.Interpolator.btn_checkbox_checked_animation_interpolator_0 = global::NureTimetable.Droid.Resource.Interpolator.btn_checkbox_checked_animation_interpolator_0;
-			global::Syncfusion.Buttons.XForms.Android.Resource.Interpolator.btn_checkbox_checked_animation_interpolator_1 = global::NureTimetable.Droid.Resource.Interpolator.btn_checkbox_checked_animation_interpolator_1;
-			global::Syncfusion.Buttons.XForms.Android.Resource.Interpolator.btn_checkbox_indeterminate_animation_interpolator_1 = global::NureTimetable.Droid.Resource.Interpolator.btn_checkbox_indeterminate_animation_interpolator_1;
-			global::Syncfusion.Buttons.XForms.Android.Resource.Interpolator.btn_checkbox_unchecked_animation_interpolator_0 = global::NureTimetable.Droid.Resource.Interpolator.btn_checkbox_unchecked_animation_interpolator_0;
-			global::Syncfusion.Buttons.XForms.Android.Resource.Interpolator.btn_checkbox_unchecked_animation_interpolator_1 = global::NureTimetable.Droid.Resource.Interpolator.btn_checkbox_unchecked_animation_interpolator_1;
+			global::Syncfusion.Buttons.XForms.Android.Resource.Interpolator.sfcheckbox_checked_interpolator0 = global::NureTimetable.Droid.Resource.Interpolator.sfcheckbox_checked_interpolator0;
+			global::Syncfusion.Buttons.XForms.Android.Resource.Interpolator.sfcheckbox_checked_interpolator1 = global::NureTimetable.Droid.Resource.Interpolator.sfcheckbox_checked_interpolator1;
+			global::Syncfusion.Buttons.XForms.Android.Resource.Interpolator.sfcheckbox_indeterminate_interpolator1 = global::NureTimetable.Droid.Resource.Interpolator.sfcheckbox_indeterminate_interpolator1;
+			global::Syncfusion.Buttons.XForms.Android.Resource.Interpolator.sfcheckbox_unchecked_interpolator0 = global::NureTimetable.Droid.Resource.Interpolator.sfcheckbox_unchecked_interpolator0;
+			global::Syncfusion.Buttons.XForms.Android.Resource.Interpolator.sfcheckbox_unchecked_interpolator1 = global::NureTimetable.Droid.Resource.Interpolator.sfcheckbox_unchecked_interpolator1;
 			global::Syncfusion.Buttons.XForms.Android.Resource.Styleable.SfCheckBox = global::NureTimetable.Droid.Resource.Styleable.SfCheckBox;
 			global::Syncfusion.Buttons.XForms.Android.Resource.Styleable.SfCheckBox_checked = global::NureTimetable.Droid.Resource.Styleable.SfCheckBox_checked;
 			global::Syncfusion.Buttons.XForms.Android.Resource.Styleable.SfCheckBox_cornerradius = global::NureTimetable.Droid.Resource.Styleable.SfCheckBox_cornerradius;
@@ -10483,127 +10483,145 @@ namespace NureTimetable.Droid
 			public const int abc_tooltip_exit = 2130771979;
 			
 			// aapt resource value: 0x7F01000C
-			public const int btn_checkbox_indeterminate_to_checked_box_inner_merged_animation = 2130771980;
+			public const int btn_checkbox_to_checked_box_inner_merged_animation = 2130771980;
 			
 			// aapt resource value: 0x7F01000D
-			public const int btn_checkbox_indeterminate_to_checked_box_outer_merged_animation = 2130771981;
+			public const int btn_checkbox_to_checked_box_outer_merged_animation = 2130771981;
 			
 			// aapt resource value: 0x7F01000E
-			public const int btn_checkbox_indeterminate_to_checked_icon_null_animation = 2130771982;
+			public const int btn_checkbox_to_checked_icon_null_animation = 2130771982;
 			
 			// aapt resource value: 0x7F01000F
-			public const int btn_checkbox_to_checked_box_inner_merged_animation = 2130771983;
+			public const int btn_checkbox_to_unchecked_box_inner_merged_animation = 2130771983;
 			
 			// aapt resource value: 0x7F010010
-			public const int btn_checkbox_to_checked_box_outer_merged_animation = 2130771984;
+			public const int btn_checkbox_to_unchecked_check_path_merged_animation = 2130771984;
 			
 			// aapt resource value: 0x7F010011
-			public const int btn_checkbox_to_checked_icon_null_animation = 2130771985;
+			public const int btn_checkbox_to_unchecked_icon_null_animation = 2130771985;
 			
 			// aapt resource value: 0x7F010012
-			public const int btn_checkbox_to_indeterminate_from_checked_box_inner_merged_animation = 2130771986;
+			public const int btn_radio_to_off_mtrl_dot_group_animation = 2130771986;
 			
 			// aapt resource value: 0x7F010013
-			public const int btn_checkbox_to_indeterminate_from_checked_icon_null_animation = 2130771987;
+			public const int btn_radio_to_off_mtrl_ring_outer_animation = 2130771987;
 			
 			// aapt resource value: 0x7F010014
-			public const int btn_checkbox_to_indeterminate_from_unchecked_box_inner_merged_animation = 2130771988;
+			public const int btn_radio_to_off_mtrl_ring_outer_path_animation = 2130771988;
 			
 			// aapt resource value: 0x7F010015
-			public const int btn_checkbox_to_indeterminate_from_unchecked_box_outer_merged_animation = 2130771989;
+			public const int btn_radio_to_on_mtrl_dot_group_animation = 2130771989;
 			
 			// aapt resource value: 0x7F010016
-			public const int btn_checkbox_to_indeterminate_from_unchecked_icon_null_animation = 2130771990;
+			public const int btn_radio_to_on_mtrl_ring_outer_animation = 2130771990;
 			
 			// aapt resource value: 0x7F010017
-			public const int btn_checkbox_to_unchecked_box_inner_merged_animation = 2130771991;
+			public const int btn_radio_to_on_mtrl_ring_outer_path_animation = 2130771991;
 			
 			// aapt resource value: 0x7F010018
-			public const int btn_checkbox_to_unchecked_check_path_merged_animation = 2130771992;
+			public const int design_bottom_sheet_slide_in = 2130771992;
 			
 			// aapt resource value: 0x7F010019
-			public const int btn_checkbox_to_unchecked_from_indeterminate_box_inner_merged_animation = 2130771993;
+			public const int design_bottom_sheet_slide_out = 2130771993;
 			
 			// aapt resource value: 0x7F01001A
-			public const int btn_checkbox_to_unchecked_from_indeterminate_check_path_merged_animation = 2130771994;
+			public const int design_snackbar_in = 2130771994;
 			
 			// aapt resource value: 0x7F01001B
-			public const int btn_checkbox_to_unchecked_from_indeterminate_icon_null_animation = 2130771995;
+			public const int design_snackbar_out = 2130771995;
 			
 			// aapt resource value: 0x7F01001C
-			public const int btn_checkbox_to_unchecked_icon_null_animation = 2130771996;
+			public const int EnterFromLeft = 2130771996;
 			
 			// aapt resource value: 0x7F01001D
-			public const int btn_radio_to_off_mtrl_dot_group_animation = 2130771997;
+			public const int EnterFromRight = 2130771997;
 			
 			// aapt resource value: 0x7F01001E
-			public const int btn_radio_to_off_mtrl_ring_outer_animation = 2130771998;
+			public const int ExitToLeft = 2130771998;
 			
 			// aapt resource value: 0x7F01001F
-			public const int btn_radio_to_off_mtrl_ring_outer_path_animation = 2130771999;
+			public const int ExitToRight = 2130771999;
 			
 			// aapt resource value: 0x7F010020
-			public const int btn_radio_to_on_mtrl_dot_group_animation = 2130772000;
+			public const int fragment_close_enter = 2130772000;
 			
 			// aapt resource value: 0x7F010021
-			public const int btn_radio_to_on_mtrl_ring_outer_animation = 2130772001;
+			public const int fragment_close_exit = 2130772001;
 			
 			// aapt resource value: 0x7F010022
-			public const int btn_radio_to_on_mtrl_ring_outer_path_animation = 2130772002;
+			public const int fragment_fade_enter = 2130772002;
 			
 			// aapt resource value: 0x7F010023
-			public const int design_bottom_sheet_slide_in = 2130772003;
+			public const int fragment_fade_exit = 2130772003;
 			
 			// aapt resource value: 0x7F010024
-			public const int design_bottom_sheet_slide_out = 2130772004;
+			public const int fragment_fast_out_extra_slow_in = 2130772004;
 			
 			// aapt resource value: 0x7F010025
-			public const int design_snackbar_in = 2130772005;
+			public const int fragment_open_enter = 2130772005;
 			
 			// aapt resource value: 0x7F010026
-			public const int design_snackbar_out = 2130772006;
+			public const int fragment_open_exit = 2130772006;
 			
 			// aapt resource value: 0x7F010027
-			public const int EnterFromLeft = 2130772007;
+			public const int mtrl_bottom_sheet_slide_in = 2130772007;
 			
 			// aapt resource value: 0x7F010028
-			public const int EnterFromRight = 2130772008;
+			public const int mtrl_bottom_sheet_slide_out = 2130772008;
 			
 			// aapt resource value: 0x7F010029
-			public const int ExitToLeft = 2130772009;
+			public const int mtrl_card_lowers_interpolator = 2130772009;
 			
 			// aapt resource value: 0x7F01002A
-			public const int ExitToRight = 2130772010;
+			public const int sfcheckbox_checked_inner = 2130772010;
 			
 			// aapt resource value: 0x7F01002B
-			public const int fragment_close_enter = 2130772011;
+			public const int sfcheckbox_checked_null = 2130772011;
 			
 			// aapt resource value: 0x7F01002C
-			public const int fragment_close_exit = 2130772012;
+			public const int sfcheckbox_checked_unchecked_inner = 2130772012;
 			
 			// aapt resource value: 0x7F01002D
-			public const int fragment_fade_enter = 2130772013;
+			public const int sfcheckbox_checked_unchecked_null = 2130772013;
 			
 			// aapt resource value: 0x7F01002E
-			public const int fragment_fade_exit = 2130772014;
+			public const int sfcheckbox_checked_unchecked_path = 2130772014;
 			
 			// aapt resource value: 0x7F01002F
-			public const int fragment_fast_out_extra_slow_in = 2130772015;
+			public const int sfcheckbox_indeterminate_checked_inner = 2130772015;
 			
 			// aapt resource value: 0x7F010030
-			public const int fragment_open_enter = 2130772016;
+			public const int sfcheckbox_indeterminate_checked_null = 2130772016;
 			
 			// aapt resource value: 0x7F010031
-			public const int fragment_open_exit = 2130772017;
+			public const int sfcheckbox_indeterminate_checked_outer = 2130772017;
 			
 			// aapt resource value: 0x7F010032
-			public const int mtrl_bottom_sheet_slide_in = 2130772018;
+			public const int sfcheckbox_indeterminate_unchecked_inner = 2130772018;
 			
 			// aapt resource value: 0x7F010033
-			public const int mtrl_bottom_sheet_slide_out = 2130772019;
+			public const int sfcheckbox_indeterminate_unchecked_null = 2130772019;
 			
 			// aapt resource value: 0x7F010034
-			public const int mtrl_card_lowers_interpolator = 2130772020;
+			public const int sfcheckbox_indeterminate_unchecked_path = 2130772020;
+			
+			// aapt resource value: 0x7F010035
+			public const int sfcheckbox_unchecked_indeterminate_inner = 2130772021;
+			
+			// aapt resource value: 0x7F010036
+			public const int sfcheckbox_unchecked_indeterminate_null = 2130772022;
+			
+			// aapt resource value: 0x7F010037
+			public const int sfcheckbox_unchecked_indeterminate_outer = 2130772023;
+			
+			// aapt resource value: 0x7F010038
+			public const int sfcheckbox_unchecked_inner = 2130772024;
+			
+			// aapt resource value: 0x7F010039
+			public const int sfcheckbox_unchecked_null = 2130772025;
+			
+			// aapt resource value: 0x7F01003A
+			public const int sfcheckbox_unchecked_outer = 2130772026;
 			
 			static Animation()
 			{
@@ -14824,196 +14842,196 @@ namespace NureTimetable.Droid
 			public const int avd_show_password = 2131165309;
 			
 			// aapt resource value: 0x7F07007E
-			public const int btn_checkbox = 2131165310;
+			public const int btn_checkbox_checked_mtrl = 2131165310;
 			
 			// aapt resource value: 0x7F07007F
-			public const int btn_checkbox_checked = 2131165311;
+			public const int btn_checkbox_checked_to_unchecked_mtrl_animation = 2131165311;
 			
 			// aapt resource value: 0x7F070080
-			public const int btn_checkbox_checked_mtrl = 2131165312;
+			public const int btn_checkbox_unchecked_mtrl = 2131165312;
 			
 			// aapt resource value: 0x7F070081
-			public const int btn_checkbox_checked_to_indeterminate_animation = 2131165313;
+			public const int btn_checkbox_unchecked_to_checked_mtrl_animation = 2131165313;
 			
 			// aapt resource value: 0x7F070082
-			public const int btn_checkbox_checked_to_unchecked_animation = 2131165314;
+			public const int btn_radio_off_mtrl = 2131165314;
 			
 			// aapt resource value: 0x7F070083
-			public const int btn_checkbox_checked_to_unchecked_mtrl_animation = 2131165315;
+			public const int btn_radio_off_to_on_mtrl_animation = 2131165315;
 			
 			// aapt resource value: 0x7F070084
-			public const int btn_checkbox_indeterminate = 2131165316;
+			public const int btn_radio_on_mtrl = 2131165316;
 			
 			// aapt resource value: 0x7F070085
-			public const int btn_checkbox_indeterminate_to_checked_animation = 2131165317;
+			public const int btn_radio_on_to_off_mtrl_animation = 2131165317;
 			
 			// aapt resource value: 0x7F070086
-			public const int btn_checkbox_indeterminate_to_unchecked_animation = 2131165318;
+			public const int clear_button_icon = 2131165318;
 			
 			// aapt resource value: 0x7F070087
-			public const int btn_checkbox_unchecked = 2131165319;
+			public const int coin = 2131165319;
 			
 			// aapt resource value: 0x7F070088
-			public const int btn_checkbox_unchecked_mtrl = 2131165320;
+			public const int design_bottom_navigation_item_background = 2131165320;
 			
 			// aapt resource value: 0x7F070089
-			public const int btn_checkbox_unchecked_to_checked_animation = 2131165321;
+			public const int design_fab_background = 2131165321;
 			
 			// aapt resource value: 0x7F07008A
-			public const int btn_checkbox_unchecked_to_checked_mtrl_animation = 2131165322;
+			public const int design_ic_visibility = 2131165322;
 			
 			// aapt resource value: 0x7F07008B
-			public const int btn_checkbox_unchecked_to_indeterminate_animation = 2131165323;
+			public const int design_ic_visibility_off = 2131165323;
 			
 			// aapt resource value: 0x7F07008C
-			public const int btn_radio_off_mtrl = 2131165324;
+			public const int design_password_eye = 2131165324;
 			
 			// aapt resource value: 0x7F07008D
-			public const int btn_radio_off_to_on_mtrl_animation = 2131165325;
-			
-			// aapt resource value: 0x7F07008E
-			public const int btn_radio_on_mtrl = 2131165326;
-			
-			// aapt resource value: 0x7F07008F
-			public const int btn_radio_on_to_off_mtrl_animation = 2131165327;
-			
-			// aapt resource value: 0x7F070090
-			public const int clear_button_icon = 2131165328;
-			
-			// aapt resource value: 0x7F070091
-			public const int coin = 2131165329;
+			public const int design_snackbar_background = 2131165325;
 			
 			// aapt resource value: 0x7F070092
-			public const int design_bottom_navigation_item_background = 2131165330;
+			public const int icon = 2131165330;
 			
-			// aapt resource value: 0x7F070093
-			public const int design_fab_background = 2131165331;
+			// aapt resource value: 0x7F07008E
+			public const int ic_mtrl_checked_circle = 2131165326;
+			
+			// aapt resource value: 0x7F07008F
+			public const int ic_mtrl_chip_checked_black = 2131165327;
+			
+			// aapt resource value: 0x7F070090
+			public const int ic_mtrl_chip_checked_circle = 2131165328;
+			
+			// aapt resource value: 0x7F070091
+			public const int ic_mtrl_chip_close_circle = 2131165329;
 			
 			// aapt resource value: 0x7F070094
-			public const int design_ic_visibility = 2131165332;
+			public const int inputlayout_togglecollapseicon = 2131165332;
 			
 			// aapt resource value: 0x7F070095
-			public const int design_ic_visibility_off = 2131165333;
+			public const int inputlayout_togglevisibleicon = 2131165333;
+			
+			// aapt resource value: 0x7F070093
+			public const int input_layout_drop_down_icon = 2131165331;
 			
 			// aapt resource value: 0x7F070096
-			public const int design_password_eye = 2131165334;
+			public const int material_ic_calendar_black_24dp = 2131165334;
 			
 			// aapt resource value: 0x7F070097
-			public const int design_snackbar_background = 2131165335;
-			
-			// aapt resource value: 0x7F07009C
-			public const int icon = 2131165340;
+			public const int material_ic_clear_black_24dp = 2131165335;
 			
 			// aapt resource value: 0x7F070098
-			public const int ic_mtrl_checked_circle = 2131165336;
+			public const int material_ic_edit_black_24dp = 2131165336;
 			
 			// aapt resource value: 0x7F070099
-			public const int ic_mtrl_chip_checked_black = 2131165337;
+			public const int material_ic_keyboard_arrow_left_black_24dp = 2131165337;
 			
 			// aapt resource value: 0x7F07009A
-			public const int ic_mtrl_chip_checked_circle = 2131165338;
+			public const int material_ic_keyboard_arrow_right_black_24dp = 2131165338;
 			
 			// aapt resource value: 0x7F07009B
-			public const int ic_mtrl_chip_close_circle = 2131165339;
+			public const int material_ic_menu_arrow_down_black_24dp = 2131165339;
 			
-			// aapt resource value: 0x7F07009E
-			public const int inputlayout_togglecollapseicon = 2131165342;
-			
-			// aapt resource value: 0x7F07009F
-			public const int inputlayout_togglevisibleicon = 2131165343;
+			// aapt resource value: 0x7F07009C
+			public const int material_ic_menu_arrow_up_black_24dp = 2131165340;
 			
 			// aapt resource value: 0x7F07009D
-			public const int input_layout_drop_down_icon = 2131165341;
+			public const int mtrl_dialog_background = 2131165341;
+			
+			// aapt resource value: 0x7F07009E
+			public const int mtrl_dropdown_arrow = 2131165342;
+			
+			// aapt resource value: 0x7F07009F
+			public const int mtrl_ic_arrow_drop_down = 2131165343;
 			
 			// aapt resource value: 0x7F0700A0
-			public const int material_ic_calendar_black_24dp = 2131165344;
+			public const int mtrl_ic_arrow_drop_up = 2131165344;
 			
 			// aapt resource value: 0x7F0700A1
-			public const int material_ic_clear_black_24dp = 2131165345;
+			public const int mtrl_ic_cancel = 2131165345;
 			
 			// aapt resource value: 0x7F0700A2
-			public const int material_ic_edit_black_24dp = 2131165346;
+			public const int mtrl_ic_error = 2131165346;
 			
 			// aapt resource value: 0x7F0700A3
-			public const int material_ic_keyboard_arrow_left_black_24dp = 2131165347;
+			public const int mtrl_popupmenu_background = 2131165347;
 			
 			// aapt resource value: 0x7F0700A4
-			public const int material_ic_keyboard_arrow_right_black_24dp = 2131165348;
+			public const int mtrl_popupmenu_background_dark = 2131165348;
 			
 			// aapt resource value: 0x7F0700A5
-			public const int material_ic_menu_arrow_down_black_24dp = 2131165349;
+			public const int mtrl_tabs_default_indicator = 2131165349;
 			
 			// aapt resource value: 0x7F0700A6
-			public const int material_ic_menu_arrow_up_black_24dp = 2131165350;
+			public const int navigation_empty_icon = 2131165350;
 			
 			// aapt resource value: 0x7F0700A7
-			public const int mtrl_dialog_background = 2131165351;
+			public const int notification_action_background = 2131165351;
 			
 			// aapt resource value: 0x7F0700A8
-			public const int mtrl_dropdown_arrow = 2131165352;
+			public const int notification_bg = 2131165352;
 			
 			// aapt resource value: 0x7F0700A9
-			public const int mtrl_ic_arrow_drop_down = 2131165353;
+			public const int notification_bg_low = 2131165353;
 			
 			// aapt resource value: 0x7F0700AA
-			public const int mtrl_ic_arrow_drop_up = 2131165354;
+			public const int notification_bg_low_normal = 2131165354;
 			
 			// aapt resource value: 0x7F0700AB
-			public const int mtrl_ic_cancel = 2131165355;
+			public const int notification_bg_low_pressed = 2131165355;
 			
 			// aapt resource value: 0x7F0700AC
-			public const int mtrl_ic_error = 2131165356;
+			public const int notification_bg_normal = 2131165356;
 			
 			// aapt resource value: 0x7F0700AD
-			public const int mtrl_popupmenu_background = 2131165357;
+			public const int notification_bg_normal_pressed = 2131165357;
 			
 			// aapt resource value: 0x7F0700AE
-			public const int mtrl_popupmenu_background_dark = 2131165358;
+			public const int notification_icon_background = 2131165358;
 			
 			// aapt resource value: 0x7F0700AF
-			public const int mtrl_tabs_default_indicator = 2131165359;
+			public const int notification_template_icon_bg = 2131165359;
 			
 			// aapt resource value: 0x7F0700B0
-			public const int navigation_empty_icon = 2131165360;
+			public const int notification_template_icon_low_bg = 2131165360;
 			
 			// aapt resource value: 0x7F0700B1
-			public const int notification_action_background = 2131165361;
+			public const int notification_tile_bg = 2131165361;
 			
 			// aapt resource value: 0x7F0700B2
-			public const int notification_bg = 2131165362;
+			public const int notify_panel_notification_icon_bg = 2131165362;
 			
 			// aapt resource value: 0x7F0700B3
-			public const int notification_bg_low = 2131165363;
+			public const int Recurrence = 2131165363;
 			
 			// aapt resource value: 0x7F0700B4
-			public const int notification_bg_low_normal = 2131165364;
+			public const int sfcheckbox_animation = 2131165364;
 			
 			// aapt resource value: 0x7F0700B5
-			public const int notification_bg_low_pressed = 2131165365;
+			public const int sfcheckbox_checked = 2131165365;
 			
 			// aapt resource value: 0x7F0700B6
-			public const int notification_bg_normal = 2131165366;
+			public const int sfcheckbox_checked_indeterminate = 2131165366;
 			
 			// aapt resource value: 0x7F0700B7
-			public const int notification_bg_normal_pressed = 2131165367;
+			public const int sfcheckbox_checked_unchecked = 2131165367;
 			
 			// aapt resource value: 0x7F0700B8
-			public const int notification_icon_background = 2131165368;
+			public const int sfcheckbox_indeterminate = 2131165368;
 			
 			// aapt resource value: 0x7F0700B9
-			public const int notification_template_icon_bg = 2131165369;
+			public const int sfcheckbox_indeterminate_checked = 2131165369;
 			
 			// aapt resource value: 0x7F0700BA
-			public const int notification_template_icon_low_bg = 2131165370;
+			public const int sfcheckbox_indeterminate_unchecked = 2131165370;
 			
 			// aapt resource value: 0x7F0700BB
-			public const int notification_tile_bg = 2131165371;
+			public const int sfcheckbox_unchecked = 2131165371;
 			
 			// aapt resource value: 0x7F0700BC
-			public const int notify_panel_notification_icon_bg = 2131165372;
+			public const int sfcheckbox_unchecked_checked = 2131165372;
 			
 			// aapt resource value: 0x7F0700BD
-			public const int Recurrence = 2131165373;
+			public const int sfcheckbox_unchecked_indeterminate = 2131165373;
 			
 			// aapt resource value: 0x7F0700BE
 			public const int splash = 2131165374;
@@ -16102,52 +16120,52 @@ namespace NureTimetable.Droid
 		{
 			
 			// aapt resource value: 0x7F0A0000
-			public const int btn_checkbox_checked_animation_interpolator_0 = 2131361792;
+			public const int btn_checkbox_checked_mtrl_animation_interpolator_0 = 2131361792;
 			
 			// aapt resource value: 0x7F0A0001
-			public const int btn_checkbox_checked_animation_interpolator_1 = 2131361793;
+			public const int btn_checkbox_checked_mtrl_animation_interpolator_1 = 2131361793;
 			
 			// aapt resource value: 0x7F0A0002
-			public const int btn_checkbox_checked_mtrl_animation_interpolator_0 = 2131361794;
+			public const int btn_checkbox_unchecked_mtrl_animation_interpolator_0 = 2131361794;
 			
 			// aapt resource value: 0x7F0A0003
-			public const int btn_checkbox_checked_mtrl_animation_interpolator_1 = 2131361795;
+			public const int btn_checkbox_unchecked_mtrl_animation_interpolator_1 = 2131361795;
 			
 			// aapt resource value: 0x7F0A0004
-			public const int btn_checkbox_indeterminate_animation_interpolator_1 = 2131361796;
+			public const int btn_radio_to_off_mtrl_animation_interpolator_0 = 2131361796;
 			
 			// aapt resource value: 0x7F0A0005
-			public const int btn_checkbox_unchecked_animation_interpolator_0 = 2131361797;
+			public const int btn_radio_to_on_mtrl_animation_interpolator_0 = 2131361797;
 			
 			// aapt resource value: 0x7F0A0006
-			public const int btn_checkbox_unchecked_animation_interpolator_1 = 2131361798;
+			public const int fast_out_slow_in = 2131361798;
 			
 			// aapt resource value: 0x7F0A0007
-			public const int btn_checkbox_unchecked_mtrl_animation_interpolator_0 = 2131361799;
+			public const int mtrl_fast_out_linear_in = 2131361799;
 			
 			// aapt resource value: 0x7F0A0008
-			public const int btn_checkbox_unchecked_mtrl_animation_interpolator_1 = 2131361800;
+			public const int mtrl_fast_out_slow_in = 2131361800;
 			
 			// aapt resource value: 0x7F0A0009
-			public const int btn_radio_to_off_mtrl_animation_interpolator_0 = 2131361801;
+			public const int mtrl_linear = 2131361801;
 			
 			// aapt resource value: 0x7F0A000A
-			public const int btn_radio_to_on_mtrl_animation_interpolator_0 = 2131361802;
+			public const int mtrl_linear_out_slow_in = 2131361802;
 			
 			// aapt resource value: 0x7F0A000B
-			public const int fast_out_slow_in = 2131361803;
+			public const int sfcheckbox_checked_interpolator0 = 2131361803;
 			
 			// aapt resource value: 0x7F0A000C
-			public const int mtrl_fast_out_linear_in = 2131361804;
+			public const int sfcheckbox_checked_interpolator1 = 2131361804;
 			
 			// aapt resource value: 0x7F0A000D
-			public const int mtrl_fast_out_slow_in = 2131361805;
+			public const int sfcheckbox_indeterminate_interpolator1 = 2131361805;
 			
 			// aapt resource value: 0x7F0A000E
-			public const int mtrl_linear = 2131361806;
+			public const int sfcheckbox_unchecked_interpolator0 = 2131361806;
 			
 			// aapt resource value: 0x7F0A000F
-			public const int mtrl_linear_out_slow_in = 2131361807;
+			public const int sfcheckbox_unchecked_interpolator1 = 2131361807;
 			
 			static Interpolator()
 			{
