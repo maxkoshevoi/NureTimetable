@@ -1,6 +1,7 @@
 ﻿using NureTimetable.Core.Models.InterplatformCommunication;
 using NureTimetable.Models.Consts;
 using Rg.Plugins.Popup.Pages;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace NureTimetable.UI.Views
@@ -15,13 +16,15 @@ namespace NureTimetable.UI.Views
             barManager = DependencyService.Get<IBarStyleManager>();
         }
 
-        protected override void OnAppearingAnimationEnd()
+        protected override async void OnAppearingAnimationBegin()
         {
+            await Task.Delay(100);
             barManager.SetNavigationBarColor(Color.White.ToHex());
         }
 
-        protected override void OnDisappearingAnimationBegin()
+        protected override async void OnDisappearingAnimationBegin()
         {
+            await Task.Delay(50);
             barManager.SetNavigationBarColor(ResourceManager.NavigationBarColor.ToHex());
         }
     }
