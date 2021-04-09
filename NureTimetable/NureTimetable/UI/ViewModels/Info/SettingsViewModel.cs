@@ -114,7 +114,7 @@ namespace NureTimetable.UI.ViewModels
         public Task ChangeTimeBeforeEventReminder() => 
             ChangeSetting
             (
-                LN.DefaultCalendar,
+                LN.TimeBeforeEventReminder,
                 timeBeforeEventReminderMapping,
                 SettingsRepository.Settings.TimeBeforeEventReminder,
                 newTime => 
