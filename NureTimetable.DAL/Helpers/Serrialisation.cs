@@ -25,7 +25,7 @@ namespace NureTimetable.DAL.Helpers
                 string json = ToJson(instance);
                 using (var writeLock = await fileLock.WriterLockAsync())
                 {
-                    await File.WriteAllTextAsync(filePath, json);
+                    File.WriteAllText(filePath, json);
                 }
             }
             catch (Exception ex)
@@ -62,11 +62,6 @@ namespace NureTimetable.DAL.Helpers
         public static string ToJson<T>(T instance)
         {
             string json = JsonConvert.SerializeObject(instance);
-            if (!IsJson(json))
-            {
-                // TODO: Remove "if" if exception never thrown
-                throw new InvalidOperationException($"Json is not a valid json string");
-            }
             return json;
         }
 
