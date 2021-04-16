@@ -12,6 +12,7 @@ You can download the latest stable version here: https://play.google.com/store/a
 
 - Day, week and month view
 - Offline viewing and adding timetables
+- Autoupdate of selected timetables
 - Filtering by lessons, event types and teachers
 - Displaying multiple timetables at once
 - Timer before lesson and lesson break
