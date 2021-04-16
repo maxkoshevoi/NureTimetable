@@ -516,7 +516,7 @@ namespace NureTimetable.DAL
             return loadedEntities;
         }
 
-        public static Task ModifySaved(Action<List<Local::SavedEntity>> modefier) =>
+        public static Task ModifySavedAsync(Action<List<Local::SavedEntity>> modefier) =>
             ModifySavedAsync(se =>
             {
                 modefier(se);

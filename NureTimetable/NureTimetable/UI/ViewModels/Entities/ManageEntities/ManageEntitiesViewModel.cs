@@ -96,7 +96,7 @@ namespace NureTimetable.UI.ViewModels
         }
 
         public Task SelectOne(SavedEntity savedEntity) => 
-            UniversityEntitiesRepository.ModifySaved(savedEntities =>
+            UniversityEntitiesRepository.ModifySavedAsync(savedEntities =>
             {
                 foreach (var e in savedEntities)
                 {
@@ -113,7 +113,7 @@ namespace NureTimetable.UI.ViewModels
         }
 
         public Task EntitySelectChanged(SavedEntity entity) =>
-            UniversityEntitiesRepository.ModifySaved(currentSaved =>
+            UniversityEntitiesRepository.ModifySavedAsync(currentSaved =>
             {
                 SavedEntity savedEntity = currentSaved.SingleOrDefault(e => e == entity);
 

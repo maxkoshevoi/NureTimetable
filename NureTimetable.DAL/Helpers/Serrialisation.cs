@@ -25,6 +25,7 @@ namespace NureTimetable.DAL.Helpers
                 string json = ToJson(instance);
                 using (var writeLock = await fileLock.WriterLockAsync())
                 {
+                    // WriteAllTextAsync may not write all data to the file 
                     File.WriteAllText(filePath, json);
                 }
             }
