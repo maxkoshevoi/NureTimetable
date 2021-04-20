@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NureTimetable.UI.Helpers
+namespace NureTimetable.BL
 {
     public static class InAppPurchase
     {
@@ -40,6 +40,7 @@ namespace NureTimetable.UI.Helpers
                     billingEx.PurchaseError != PurchaseError.ServiceUnavailable)
                 {
                     billingEx.Data.Add(nameof(billingEx.PurchaseError), billingEx.PurchaseError);
+                    billingEx.Data.Add("Product Id", productId);
                     ExceptionService.LogException(billingEx);
                 }
             }

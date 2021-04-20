@@ -9,8 +9,7 @@ namespace NureTimetable
         {
             // These classes won't be linked away because of the code,
             // but we also won't have to construct unnecessarily either,
-            // hence the if statement with (hopefully) impossible
-            // runtime condition.
+            // hence the if statement with impossible runtime condition.
             //
             // This is to resolve crash at CultureInfo.CurrentCulture
             // when language is set to Thai. See
