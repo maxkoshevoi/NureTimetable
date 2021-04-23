@@ -23,7 +23,6 @@ namespace NureTimetable
         {
             SyncfusionLicenseProvider.RegisterLicense(Keys.SyncfusionLicenseKey);
             InitLanguage();
-            LinkerPreserve.Cultures();
             VersionTracking.Track();
 
             InitializeComponent();
