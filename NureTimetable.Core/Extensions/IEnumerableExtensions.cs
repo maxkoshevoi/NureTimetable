@@ -46,7 +46,7 @@ namespace NureTimetable.Core.Extensions
             }
         }
 
-        public static IEnumerable<string> GroupBasedOnLastPart(this IEnumerable<string> collection, string sepparator)
+        public static IEnumerable<string> GroupBasedOnLastPart(this IEnumerable<string> collection, string sepparator = "-")
         {
             List<string[]> nameParts = collection
                 .OrderBy(n => n)
@@ -85,14 +85,12 @@ namespace NureTimetable.Core.Extensions
                 {
                     return string.Join(sepparator, lastGroup);
                 }
-                else
+
+                if (currentGrouping.SelectMany(g => g).All(char.IsDigit))
                 {
-                    if (currentGrouping.SelectMany(g => g).All(char.IsDigit))
-                    {
-                        currentGrouping = currentGrouping.OrderBy(g => int.Parse(g)).ToList();
-                    }
-                    return $"{string.Join(sepparator, lastGroup.SkipLast(1))}-({string.Join(',', currentGrouping)})";
+                    currentGrouping = currentGrouping.OrderBy(g => int.Parse(g)).ToList();
                 }
+                return $"{string.Join(sepparator, lastGroup.SkipLast(1))}{sepparator}({string.Join(',', currentGrouping)})";
             }
         }
     }

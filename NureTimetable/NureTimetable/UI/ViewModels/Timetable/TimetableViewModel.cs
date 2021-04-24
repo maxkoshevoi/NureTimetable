@@ -386,7 +386,7 @@ namespace NureTimetable.UI.ViewModels
                 return;
             }
 
-            Title = new(() => string.Join(", ", selectedEntities.Select(se => se.Name).GroupBasedOnLastPart("-")));
+            Title = new(() => string.Join(", ", selectedEntities.Select(se => se.Name).GroupBasedOnLastPart()));
 
             List<TimetableInfo> timetableInfos = new();
             foreach (var entity in selectedEntities)

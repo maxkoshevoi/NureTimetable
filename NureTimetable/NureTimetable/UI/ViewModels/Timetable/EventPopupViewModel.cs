@@ -49,7 +49,7 @@ namespace NureTimetable.UI.ViewModels
             Details = $"{string.Format(LN.EventType, ev.Type.FullName)} ({EventNumber}/{EventsCount})\n" +
               $"{string.Format(LN.EventClassroom, ev.RoomName)}\n" +
               $"{string.Format(LN.EventTeachers, string.Join(", ", ev.Teachers.Select(t => t.Name)))}\n" +
-              $"{string.Format(LN.EventGroups, string.Join(", ", Event.Groups.Select(t => t.Name).GroupBasedOnLastPart("-")))}\n" +
+              $"{string.Format(LN.EventGroups, string.Join(", ", Event.Groups.Select(t => t.Name).GroupBasedOnLastPart()))}\n" +
               $"{string.Format(LN.EventDay, ev.Start.ToString("ddd, dd.MM.yy"))}\n" +
               $"{string.Format(LN.EventTime, ev.Start.ToString("HH:mm"), ev.End.ToString("HH:mm"))}";
             Notes = LessonInfo.Notes?.Trim();

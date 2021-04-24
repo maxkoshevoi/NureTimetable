@@ -113,7 +113,7 @@ namespace NureTimetable.BL
                 Name = $"{ev.Lesson.ShortName} - {ev.Type.ShortName} ({eventNumber}/{eventsCount})",
                 Description = $"{string.Format(LN.EventClassroom, ev.RoomName)}\n" +
                     $"{string.Format(LN.EventTeachers, string.Join(", ", ev.Teachers.Select(t => t.Name)))}\n" +
-                    $"{string.Format(LN.EventGroups, string.Join(", ", ev.Groups.Select(t => t.Name).GroupBasedOnLastPart("-")))}\n",
+                    $"{string.Format(LN.EventGroups, string.Join(", ", ev.Groups.Select(t => t.Name).GroupBasedOnLastPart()))}\n",
                 Location = $"KHNURE -\"{ev.RoomName}\"",
                 Reminders = new List<CalendarEventReminder>()
             };
