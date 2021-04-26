@@ -67,11 +67,11 @@ namespace NureTimetable.UI.ViewModels
         private ScheduleView _timetableScheduleView = ScheduleView.WeekView;
         public ScheduleView TimetableScheduleView { get => _timetableScheduleView; set => SetProperty(ref _timetableScheduleView, value); }
         
-        private string _timetableLocale;
+        private string _timetableLocale = string.Empty;
         public string TimetableLocale { get => _timetableLocale; set => SetProperty(ref _timetableLocale, value); }
         
-        private List<EventViewModel> _timetableDataSource;
-        public List<EventViewModel> TimetableDataSource { get => _timetableDataSource; private set => SetProperty(ref _timetableDataSource, value); }
+        private List<EventViewModel>? _timetableDataSource;
+        public List<EventViewModel>? TimetableDataSource { get => _timetableDataSource; private set => SetProperty(ref _timetableDataSource, value); }
         
         private DateTime _timetableMaxDisplayDate;
         public DateTime TimetableMaxDisplayDate { get => _timetableMaxDisplayDate; set => SetProperty(ref _timetableMaxDisplayDate, value); }
@@ -90,15 +90,15 @@ namespace NureTimetable.UI.ViewModels
         private bool _isTimeLeftVisible;
         public bool IsTimeLeftVisible { get => _isTimeLeftVisible; set => SetProperty(ref _isTimeLeftVisible, value); }
         
-        private string _timeLeftText;
-        public string TimeLeftText { get => _timeLeftText; set => SetProperty(ref _timeLeftText, value); }
+        private string? _timeLeftText;
+        public string? TimeLeftText { get => _timeLeftText; set => SetProperty(ref _timeLeftText, value); }
 
         // Layouts
         private bool _isProgressLayoutVisible;
         public bool IsProgressLayoutVisible { get => _isProgressLayoutVisible; set => SetProperty(ref _isProgressLayoutVisible, value); }
         
         // bToday
-        private string _bTodayText;
+        private string _bTodayText = string.Empty;
         public string BTodayText { get => _bTodayText; set => SetProperty(ref _bTodayText, value); }
         
         private double _bTodayScale = 0;
@@ -182,8 +182,8 @@ namespace NureTimetable.UI.ViewModels
             ScheduleModeCommand = CommandFactory.Create(ScheduleModeClicked, () => TimetableInfoList.Events.Any());
             BTodayClickedCommand = CommandFactory.Create(BTodayClicked);
             PageDisappearingCommand = CommandFactory.Create(() => isPageVisible = false);
-            TimetableCellTappedCommand = CommandFactory.Create<CellTappedEventArgs>(e => DisplayEventDetails((Event)e.Appointment), allowsMultipleExecutions: false);
-            TimetableMonthInlineAppointmentTappedCommand = CommandFactory.Create<MonthInlineAppointmentTappedEventArgs>((e) => DisplayEventDetails((Event)e.Appointment), allowsMultipleExecutions: false);
+            TimetableCellTappedCommand = CommandFactory.Create<CellTappedEventArgs>(e => DisplayEventDetails((Event)e!.Appointment), allowsMultipleExecutions: false);
+            TimetableMonthInlineAppointmentTappedCommand = CommandFactory.Create<MonthInlineAppointmentTappedEventArgs>(e => DisplayEventDetails((Event)e!.Appointment), allowsMultipleExecutions: false);
             TimetableMonthInlineLoadedCommand = CommandFactory.Create<MonthInlineLoadedEventArgs>(e =>
             {
                 e.monthInlineViewStyle = new()
@@ -296,7 +296,7 @@ namespace NureTimetable.UI.ViewModels
                 return;
             }
 
-            string text = null;
+            string? text = null;
             lock (enumeratingEvents)
             {
                 Event currentEvent = TimetableInfoList.Events.FirstOrDefault(e => e.Start <= DateTime.Now && e.End >= DateTime.Now);
@@ -391,7 +391,7 @@ namespace NureTimetable.UI.ViewModels
             List<TimetableInfo> timetableInfos = new();
             foreach (var entity in selectedEntities)
             {
-                TimetableInfo timetableInfo = await EventsRepository.GetTimetableLocalAsync(entity);
+                TimetableInfo? timetableInfo = await EventsRepository.GetTimetableLocalAsync(entity);
                 timetableInfos.Add(timetableInfo ?? new(entity));
             }
             lock (enumeratingEvents)

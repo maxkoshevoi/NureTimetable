@@ -6,10 +6,10 @@ namespace NureTimetable.DAL.Models.Cist
     public class University
     {
         [JsonProperty("short_name")]
-        public string ShortName { get; set; }
+        public string ShortName { get; set; } = string.Empty;
 
         [JsonProperty("full_name")]
-        public string FullName { get; set; }
+        public string FullName { get; set; } = string.Empty;
 
         // Used when getting Teachers or Groups
         [JsonProperty("faculties", NullValueHandling = NullValueHandling.Ignore)]

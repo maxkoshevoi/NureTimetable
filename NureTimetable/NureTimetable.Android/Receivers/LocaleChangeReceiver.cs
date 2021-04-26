@@ -12,7 +12,7 @@ namespace NureTimetable.Droid.Receivers
     [IntentFilter(new[] { Intent.ActionLocaleChanged })]
     public class LocaleChangeReceiver : BroadcastReceiver
     {
-        public override void OnReceive(Context context, Intent intent)
+        public override void OnReceive(Context? context, Intent? intent)
         {
             CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo(Locale.Default.Language);
             if (SettingsRepository.Settings.Language == AppLanguage.FollowSystem)

@@ -17,7 +17,7 @@ namespace NureTimetable.UI.Views
 
         protected override bool OnBackButtonPressed()
         {
-            (BindingContext as LessonSettingsViewModel).BackButtonPressedCommand.Execute(null);
+            (BindingContext as LessonSettingsViewModel)!.BackButtonPressedCommand.Execute(null);
             return true;
         }
     }

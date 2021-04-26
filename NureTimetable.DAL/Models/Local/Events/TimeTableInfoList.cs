@@ -1,18 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace NureTimetable.DAL.Models.Local
 {
     public class TimetableInfoList : TimetableStatistics
     {
-        public IReadOnlyList<TimetableInfo> Timetables { get; private set; }
+        public IReadOnlyList<TimetableInfo> Timetables { get; }
 
         public IEnumerable<Entity> Entities => Timetables.Select(t => t.Entity);
 
         public IReadOnlyList<Event> Events
         {
             get => events;
-            private set => events = value.ToList();
+            init => events = value.ToList();
         }
 
         public List<LessonInfo> LessonsInfo
@@ -27,12 +28,12 @@ namespace NureTimetable.DAL.Models.Local
             }
         }
 
-        private TimetableInfoList()
-        { }
+        private TimetableInfoList(IReadOnlyList<TimetableInfo> timetables, IReadOnlyList<Event> events) =>
+            (Timetables, Events) = (timetables, events);
 
         public static TimetableInfoList Empty { get; } = Build(null, false);
 
-        public static TimetableInfoList Build(List<TimetableInfo> timetableInfos, bool applyHiddingSettings)
+        public static TimetableInfoList Build(List<TimetableInfo>? timetableInfos, bool applyHiddingSettings)
         {
             timetableInfos ??= new();
 
@@ -40,14 +41,14 @@ namespace NureTimetable.DAL.Models.Local
             {
                 timetableInfos.ForEach(tt => tt.ApplyLessonSettings());
             }
-            TimetableInfoList timetableInfoList = new()
-            {
-                Timetables = timetableInfos.AsReadOnly(),
-                Events = timetableInfos.SelectMany(tt => tt.Events)
+            TimetableInfoList timetableInfoList = new
+            (
+                timetables: timetableInfos.AsReadOnly(),
+                events: timetableInfos.SelectMany(tt => tt.Events)
                     .GroupBy(e => (e.Type, e.Lesson, e.Start, e.RoomName))
                     .Select(group =>
                     {
-                        Event combinedEvent = null;
+                        Event? combinedEvent = null;
                         foreach (var e in group)
                         {
                             if (combinedEvent == null)
@@ -59,11 +60,11 @@ namespace NureTimetable.DAL.Models.Local
                             combinedEvent.Groups.AddRange(e.Groups.Except(combinedEvent.Groups));
                             combinedEvent.Teachers.AddRange(e.Teachers.Except(combinedEvent.Teachers));
                         }
-                        return combinedEvent;
+                        return combinedEvent!;
                     })
                     .ToList()
                     .AsReadOnly()
-            };
+            );
             return timetableInfoList;
         }
     }

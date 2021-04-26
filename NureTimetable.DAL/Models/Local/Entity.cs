@@ -1,12 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace NureTimetable.DAL.Models.Local
 {
     public class Entity
     {
-        protected Entity()
-        { }
-
         public Entity(Group group) : this(group.ID, group.Name, TimetableEntityType.Group)
         { }
 
@@ -16,7 +14,9 @@ namespace NureTimetable.DAL.Models.Local
         public Entity(Room room) : this(room.ID, room.Name, TimetableEntityType.Room)
         { }
 
-        public Entity(long id, string name, TimetableEntityType type) => (ID, Name, Type) = (id, name, type);
+        [JsonConstructor]
+        public Entity(long id, string name, TimetableEntityType type) =>
+            (ID, Name, Type) = (id, name, type);
 
         // public setters needed for deserialization
         public long ID { get; set; }
@@ -24,13 +24,13 @@ namespace NureTimetable.DAL.Models.Local
         public TimetableEntityType Type { get; set; }
 
         #region Equals
-        public static bool operator ==(Entity obj1, Entity obj2) =>
+        public static bool operator ==(Entity? obj1, Entity? obj2) =>
             ReferenceEquals(obj1, obj2) || obj1?.Equals(obj2) == true;
 
-        public static bool operator !=(Entity obj1, Entity obj2) =>
+        public static bool operator !=(Entity? obj1, Entity? obj2) =>
             !(obj1 == obj2);
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj is Entity entity)
             {

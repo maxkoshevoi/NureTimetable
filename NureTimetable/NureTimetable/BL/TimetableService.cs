@@ -18,7 +18,7 @@ namespace NureTimetable.BL
         public static async Task UpdateAndDisplayResultAsync(params Entity[] entities)
         {
             var updateResult = await UpdateAsync(entities);
-            string response = GetResponseMessageFromUpdateResult(updateResult);
+            string? response = GetResponseMessageFromUpdateResult(updateResult);
             
             if (response != null)
             {
@@ -26,7 +26,7 @@ namespace NureTimetable.BL
             }
         }
 
-        public static Task<List<(Entity entity, Exception exception)>> UpdateAsync(params Entity[] entities) =>
+        public static Task<List<(Entity entity, Exception? exception)>> UpdateAsync(params Entity[] entities) =>
             Task.Run(async () =>
             {
                 IReadOnlyList<Entity> entitiesAllowed = await SettingsRepository.CheckCistTimetableUpdateRightsAsync(entities);
@@ -43,7 +43,7 @@ namespace NureTimetable.BL
 
                 // Update timetables in background
                 const int batchSize = 5;
-                Dictionary<Entity, Task<(TimetableInfo _, Exception error)>> updateTasks = new();
+                Dictionary<Entity, Task<(TimetableInfo? _, Exception? error)>> updateTasks = new();
                 for (int i = 0; i < entitiesAllowed.Count;)
                 {
                     int runningTasks = updateTasks.Count(t => !t.Value.IsCompleted);
@@ -67,11 +67,11 @@ namespace NureTimetable.BL
                 }
                 await Task.WhenAll(updateTasks.Select(u => u.Value));
 
-                List<(Entity, Exception)> updateResults = updateTasks.Select(r => (r.Key, r.Value.Result.error)).ToList();
+                List<(Entity, Exception?)> updateResults = updateTasks.Select(r => (r.Key, r.Value.Result.error)).ToList();
                 return updateResults;
             });
 
-        private static string GetResponseMessageFromUpdateResult(List<(Entity entity, Exception exception)> updateResults)
+        private static string? GetResponseMessageFromUpdateResult(List<(Entity entity, Exception? exception)> updateResults)
         {
             if (updateResults.Count == 0)
             {

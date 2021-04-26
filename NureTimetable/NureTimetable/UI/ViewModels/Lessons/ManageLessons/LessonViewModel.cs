@@ -36,7 +36,7 @@ namespace NureTimetable.UI.ViewModels
 
         public LessonViewModel(LessonInfo lessonInfo, TimetableInfo timetableInfo, ManageLessonsViewModel manageLessonsViewModel)
         {
-            this.LessonInfo = lessonInfo;
+            this._lessonInfo = lessonInfo;
             this.timetableInfo = timetableInfo;
             this.manageLessonsViewModel = manageLessonsViewModel;
 

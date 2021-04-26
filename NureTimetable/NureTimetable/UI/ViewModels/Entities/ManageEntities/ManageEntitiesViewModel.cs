@@ -41,7 +41,7 @@ namespace NureTimetable.UI.ViewModels
             AddEntityCommand = CommandFactory.Create(() => Navigation.PushAsync(new AddTimetablePage()), allowsMultipleExecutions: false);
             EntitySelectedCommand = CommandFactory.Create<SelectedItemChangedEventArgs>(async args =>
             {
-                if (args.SelectedItem is not SavedEntityItemViewModel entity) 
+                if (args!.SelectedItem is not SavedEntityItemViewModel entity) 
                     return;
 
                 SavedEntity savedEntity = entity.SavedEntity;

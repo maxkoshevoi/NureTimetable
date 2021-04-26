@@ -12,7 +12,7 @@ namespace NureTimetable.Core.BL
     public static class ExceptionService
     {
         public delegate void ExceptionHandler(Exception exception);
-        public static event ExceptionHandler ExceptionLogged;
+        public static event ExceptionHandler? ExceptionLogged;
 
         public static void LogException(Exception ex)
         {

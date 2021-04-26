@@ -7,7 +7,7 @@ namespace NureTimetable.DAL.Models.Local
     public class LessonHidingSettings : BindableObject
     {
         /// <summary>
-        /// if not null, other hidding settings are ignorred
+        /// if not null, other hiding settings are ignored
         /// </summary>
         public bool? ShowLesson { get; set; } = true;
         

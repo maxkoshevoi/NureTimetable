@@ -35,7 +35,7 @@ namespace NureTimetable.DAL.Helpers
             }
         }
 
-        public static async Task<T> FromJsonFile<T>(string filePath)
+        public static async Task<T?> FromJsonFile<T>(string filePath)
         {
             if (!File.Exists(filePath))
                 return default;
@@ -75,7 +75,7 @@ namespace NureTimetable.DAL.Helpers
                     throw new ArgumentException($"Argument is not a valid json string");
                 }
 
-                T instance;
+                T? instance;
                 try
                 {
                     instance = JsonConvert.DeserializeObject<T>(json);
@@ -84,6 +84,11 @@ namespace NureTimetable.DAL.Helpers
                 {
                     json = TryToFixJson(json);
                     instance = JsonConvert.DeserializeObject<T>(json);
+                }
+
+                if (instance == null)
+                {
+                    throw new InvalidOperationException("Deserializer returned null");
                 }
                 return instance;
             }
@@ -107,18 +112,18 @@ namespace NureTimetable.DAL.Helpers
         {
             private static readonly DateTime _epoch = new(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
-            public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+            public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
             {
                 if (reader.TokenType == JsonToken.Null)
                 {
                     return null;
                 }
-                return _epoch.AddSeconds((long)reader.Value);
+                return _epoch.AddSeconds((long)reader.Value!);
             }
 
-            public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+            public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
             {
-                writer.WriteRawValue(((DateTime)value - _epoch).TotalSeconds.ToString());
+                writer.WriteRawValue(((DateTime)value! - _epoch).TotalSeconds.ToString());
             }
         }
 
@@ -128,17 +133,17 @@ namespace NureTimetable.DAL.Helpers
 
             public override bool CanConvert(Type t) => t == typeof(bool?) || t == typeof(bool);
 
-            public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+            public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
             {
-                string key = (string)reader.Value;
-                if (key == null || !replacementValues.ContainsKey(key))
+                string key = (string)reader.Value!;
+                if (!replacementValues.ContainsKey(key))
                 {
                     return null;
                 }
                 return replacementValues[key];
             }
 
-            public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+            public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
             {
                 string newValue = replacementValues.FirstOrDefault(x => x.Value.Equals(value)).Key;
                 serializer.Serialize(writer, newValue);

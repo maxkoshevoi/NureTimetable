@@ -35,7 +35,7 @@ namespace NureTimetable.DAL
                 this.UpdatedUniversity = updatedUniversity;
             }
 
-            public UniversityEntitiesCistUpdateResult(Cist::University updatedUniversity, Exception groupsException, Exception teachersException, Exception roomsException)
+            public UniversityEntitiesCistUpdateResult(Cist::University updatedUniversity, Exception? groupsException, Exception? teachersException, Exception? roomsException)
                 : this(updatedUniversity)
             {
                 this.GroupsException = groupsException;
@@ -45,9 +45,9 @@ namespace NureTimetable.DAL
 
             public Cist::University UpdatedUniversity { get; }
 
-            public Exception GroupsException { get; }
-            public Exception TeachersException { get; }
-            public Exception RoomsException { get; }
+            public Exception? GroupsException { get; }
+            public Exception? TeachersException { get; }
+            public Exception? RoomsException { get; }
 
             public bool IsAllSuccessful =>
                 GroupsException == null && TeachersException == null && RoomsException == null;
@@ -82,7 +82,7 @@ namespace NureTimetable.DAL
 
         public static async Task<UniversityEntitiesCistUpdateResult> UpdateFromCistAsync()
         {
-            Cist::University university = await GetLocalAsync();
+            Cist::University? university = await GetLocalAsync();
             var result = await UpdateFromCistAsync(university);
             Instance = result.UpdatedUniversity;
 
@@ -91,10 +91,10 @@ namespace NureTimetable.DAL
         #endregion
 
         #region Private
-        private static Cist::University _instance;
+        private static Cist::University? _instance;
         private static Cist::University Instance
         {
-            get => _instance;
+            get => _instance ?? throw new InvalidOperationException($"Please call {nameof(UniversityEntitiesRepository.AssureInitialized)} first.");
             set
             {
                 _instance = value;
@@ -106,13 +106,13 @@ namespace NureTimetable.DAL
 
         private static async Task<Cist::University> GetAsync()
         {
-            Cist::University localUniversity = await GetLocalAsync();
+            Cist::University? localUniversity = await GetLocalAsync();
             if (localUniversity != null)
             {
                 return localUniversity;
             }
 
-            var cistResult = await UpdateFromCistAsync(localUniversity);
+            var cistResult = await UpdateFromCistAsync(null);
             if (!cistResult.IsAllFail)
             {
                 return cistResult.UpdatedUniversity;
@@ -121,7 +121,7 @@ namespace NureTimetable.DAL
             return new();
         }
 
-        private static async Task<Cist::University> GetLocalAsync()
+        private static async Task<Cist::University?> GetLocalAsync()
         {
             string filePath = FilePath.UniversityEntities;
             if (!File.Exists(filePath))
@@ -133,7 +133,7 @@ namespace NureTimetable.DAL
             return loadedUniversity;
         }
 
-        private static async Task<UniversityEntitiesCistUpdateResult> UpdateFromCistAsync(Cist::University university)
+        private static async Task<UniversityEntitiesCistUpdateResult> UpdateFromCistAsync(Cist::University? university)
         {
             university ??= new();
 
@@ -437,9 +437,6 @@ namespace NureTimetable.DAL
         #region All Entities Local
         public static IEnumerable<Local::Group> GetAllGroups()
         {
-            if (!IsInitialized)
-                throw new InvalidOperationException($"You MUST call {nameof(UniversityEntitiesRepository.AssureInitialized)} prior to using it.");
-
             var groups = Instance.Faculties
                 .SelectMany(fac => 
                     fac.Directions.SelectMany(dir =>
@@ -466,9 +463,6 @@ namespace NureTimetable.DAL
 
         public static IEnumerable<Local::Teacher> GetAllTeachers()
         {
-            if (!IsInitialized)
-                throw new InvalidOperationException($"You MUST call {nameof(UniversityEntitiesRepository.AssureInitialized)} prior to using it.");
-
             var teachers = Instance.Faculties
                 .SelectMany(fac => 
                     fac.Departments.SelectMany(dep =>
@@ -485,9 +479,6 @@ namespace NureTimetable.DAL
 
         public static IEnumerable<Local::Room> GetAllRooms()
         {
-            if (!IsInitialized)
-                throw new InvalidOperationException($"You MUST call {nameof(UniversityEntitiesRepository.AssureInitialized)} prior to using it.");
-
             var rooms = Instance.Buildings
                 .SelectMany(bd => 
                     bd.Rooms.Select(rm =>

@@ -9,7 +9,7 @@ namespace NureTimetable.BL
 {
     public static class InAppPurchase
     {
-        public static async Task<InAppBillingPurchase> Buy(string productId, bool consume)
+        public static async Task<InAppBillingPurchase?> Buy(string productId, bool consume)
         {
             IInAppBilling billing = CrossInAppBilling.Current;
             try

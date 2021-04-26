@@ -9,10 +9,11 @@ using System.Text;
 
 namespace NureTimetable.DAL.Legacy
 {
+#pragma warning disable CS8600, CS8603, CS8604 // Possible null reference
     [Obsolete("", true)]
     static class EventsDataStore
     {
-        public static TimetableInfo GetTimetableFromCist(DateTime dateStart, DateTime dateEnd, int groupID) => 
+        public static TimetableInfo GetTimetableFromCist(DateTime dateStart, DateTime dateEnd, int groupID) =>
             GetTimetableFromCist(dateStart, dateEnd, new Group { ID = groupID })?.FirstOrDefault();
 
         public static List<TimetableInfo> GetTimetableFromCist(DateTime dateStart, DateTime dateEnd, params Group[] groups)
@@ -268,7 +269,7 @@ namespace NureTimetable.DAL.Legacy
                         List<string> eventTypeInfo = eventTypeInfoRaw.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList();
                         if (eventTypeInfo.Count <= 4)
                         {
-                            // Event type doesn`t have teacher
+                            // Event type doesn't have teacher
                             continue;
                         }
                         
@@ -353,4 +354,5 @@ namespace NureTimetable.DAL.Legacy
         }
         #endregion
     }
+#pragma warning restore CS8600, CS8603, CS8604 // Possible null reference
 }

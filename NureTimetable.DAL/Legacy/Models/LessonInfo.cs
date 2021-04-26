@@ -7,14 +7,9 @@ namespace NureTimetable.DAL.Legacy.Models
     class LessonInfo
     {
         #region Details
-        public string ShortName { get; set; }
-        public string LongName { get; set; }
-        private List<EventTypeInfo> eventTypesInfo = new List<EventTypeInfo>();
-        public List<EventTypeInfo> EventTypesInfo
-        {
-            get => eventTypesInfo;
-            set => eventTypesInfo = value ?? throw new NullReferenceException($"Attemt to set {EventTypesInfo} to null");
-        }
+        public string? ShortName { get; set; }
+        public string? LongName { get; set; }
+        public List<EventTypeInfo> EventTypesInfo { get; set; } = new();
         public DateTime? LastUpdated { get; set; }
         #endregion
         

@@ -42,7 +42,7 @@ namespace NureTimetable.BL
             return readStatus == PermissionStatus.Granted && writeStatus == PermissionStatus.Granted;
         }
 
-        public static async Task<Calendar> GetCalendarAsync()
+        public static async Task<Calendar?> GetCalendarAsync()
         {
             if (!await RequestPermissionsAsync())
             {

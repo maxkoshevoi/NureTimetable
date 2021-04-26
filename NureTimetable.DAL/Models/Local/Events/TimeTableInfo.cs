@@ -11,19 +11,11 @@ namespace NureTimetable.DAL.Models.Local
         public List<Event> Events
         {
             get => events;
-            set => events = value ?? throw new NullReferenceException($"Attempt to set {nameof(Events)} to null");
+            set => events = value;
         }
 
-        private List<LessonInfo> lessonsInfo = new();
-        public List<LessonInfo> LessonsInfo
-        {
-            get => lessonsInfo;
-            set => lessonsInfo = value ?? throw new NullReferenceException($"Attempt to set {nameof(LessonsInfo)} to null");
-        } 
+        public List<LessonInfo> LessonsInfo { get; set; } = new();
 
-        protected TimetableInfo()
-        { }
-        
         public TimetableInfo(Entity entity)
         {
             Entity = entity ?? throw new ArgumentNullException(nameof(entity));
@@ -33,7 +25,7 @@ namespace NureTimetable.DAL.Models.Local
         {
             foreach (var lInfo in LessonsInfo.Where(ls => ls.Settings.IsSomeSettingsApplied))
             {
-                // Hidding settings
+                // Hiding settings
                 if (lInfo.Settings.Hiding.ShowLesson == false)
                 {
                     Events.RemoveAll(ev => ev.Lesson == lInfo.Lesson);

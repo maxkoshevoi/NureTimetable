@@ -17,7 +17,7 @@ namespace NureTimetable.UI.ViewModels
     {
         public Event Event { get; }
         public LessonInfo LessonInfo { get; }
-        public TimetableInfo Timetable { get; }
+        public TimetableInfo? Timetable { get; }
 
         public int EventNumber { get; }
 
@@ -25,14 +25,14 @@ namespace NureTimetable.UI.ViewModels
 
         public string Details { get; }
 
-        public string Notes { get; }
+        public string? Notes { get; }
         
         public IAsyncCommand OptionsCommand { get; }
 
         public EventPopupViewModel(Event ev, TimetableInfoList timetables)
         {
             Event = ev;
-            LessonInfo = timetables.LessonsInfo.FirstOrDefault(li => li.Lesson == ev.Lesson) ?? new() { Lesson = ev.Lesson };
+            LessonInfo = timetables.LessonsInfo.FirstOrDefault(li => li.Lesson == ev.Lesson) ?? new(ev.Lesson);
             if (timetables.Timetables.Count == 1)
             {
                 Timetable = timetables.Timetables.Single();
@@ -80,7 +80,7 @@ namespace NureTimetable.UI.ViewModels
                 await ClosePopup();
                 await Navigation.PushAsync(new LessonSettingsPage
                 {
-                    BindingContext = new LessonSettingsViewModel(LessonInfo, Timetable, true)
+                    BindingContext = new LessonSettingsViewModel(LessonInfo, Timetable!, true)
                 });
             }
             else if (result == LN.LessonInfo)
@@ -88,7 +88,7 @@ namespace NureTimetable.UI.ViewModels
                 await ClosePopup();
                 await Navigation.PushAsync(new LessonInfoPage
                 {
-                    BindingContext = new LessonInfoViewModel(LessonInfo, Timetable)
+                    BindingContext = new LessonInfoViewModel(LessonInfo, Timetable!)
                 });
             }
             else if(result == LN.AddToCalendar)

@@ -5,6 +5,7 @@ using NureTimetable.Core.Models.InterplatformCommunication;
 using NureTimetable.Droid.Dependences;
 using Xamarin.Essentials;
 using NureTimetable.Core.Extensions;
+using System;
 
 [assembly: Xamarin.Forms.Dependency(typeof(BarStyleManager))]
 namespace NureTimetable.Droid.Dependences
@@ -55,7 +56,7 @@ namespace NureTimetable.Droid.Dependences
             }
             else
             {
-                barAppearanceNew = (WindowInsetsControllerAppearance)currentWindow.InsetsController.SystemBarsAppearance;
+                barAppearanceNew = (WindowInsetsControllerAppearance)currentWindow.InsetsController!.SystemBarsAppearance;
             }
 
             if (statusBarLight == true)
@@ -93,7 +94,7 @@ namespace NureTimetable.Droid.Dependences
 
         private Window GetCurrentWindow()
         {
-            Window window = Platform.CurrentActivity.Window;
+            Window window = Platform.CurrentActivity.Window ?? throw new NullReferenceException("window");
             window.ClearFlags(WindowManagerFlags.TranslucentStatus);
             window.AddFlags(WindowManagerFlags.DrawsSystemBarBackgrounds);
             return window;

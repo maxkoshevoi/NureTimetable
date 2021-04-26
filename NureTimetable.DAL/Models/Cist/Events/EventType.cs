@@ -8,24 +8,15 @@ namespace NureTimetable.DAL.Models.Cist
         public long Id { get; set; }
 
         [JsonProperty("short_name")]
-        public string ShortName { get; set; }
+        public string ShortName { get; set; } = string.Empty;
 
         [JsonProperty("full_name")]
-        public string FullName { get; set; }
+        public string FullName { get; set; } = string.Empty;
 
         [JsonProperty("id_base")]
         public long BaseTypeId { get; set; }
 
         [JsonProperty("type")]
-        public string EnglishBaseName { get; set; }
-
-        public static readonly EventType UnknownType = new()
-        {
-            Id = -1,
-            BaseTypeId = -1,
-            ShortName = "-",
-            FullName = "-",
-            EnglishBaseName = "Unknown"
-        };
+        public string EnglishBaseName { get; set; } = string.Empty;
     }
 }

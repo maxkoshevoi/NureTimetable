@@ -51,7 +51,7 @@ namespace NureTimetable.UI.ViewModels
             }
         }
 
-        private async Task UpdateEntitiesOnAllTabs(Task updateDataSource = null)
+        private async Task UpdateEntitiesOnAllTabs(Task? updateDataSource = null)
         {
             UpdateCommandEnabled = false;
             await Task.WhenAll(

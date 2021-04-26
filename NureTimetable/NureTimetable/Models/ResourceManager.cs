@@ -25,7 +25,7 @@ namespace NureTimetable.Models.Consts
 
         public static Color PageBackgroundColor => GetColor();
 
-        private static Color GetColor([CallerMemberName] string resourceName = null)
+        private static Color GetColor([CallerMemberName] string resourceName = "")
         {
             var color = (Color)App.Current.Resources[resourceName];
             return color;

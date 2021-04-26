@@ -5,6 +5,6 @@ namespace NureTimetable.DAL.Models.Cist
     public class UniversityRootObject
     {
         [JsonProperty("university")]
-        public University University { get; set; }
+        public University University { get; set; } = new();
     }
 }

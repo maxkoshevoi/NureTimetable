@@ -19,29 +19,26 @@ namespace NureTimetable.Migrations
 
         protected override async Task<bool> ApplyInternal()
         {
-            try
-            {
-                List<SavedEntity> updatedSavedEntities = new();
-                var selectedEntities = await Serialisation.FromJsonFile<List<SavedEntityWithoutEntity>>(FilePath.SavedEntitiesList);
-                var entities = await Serialisation.FromJsonFile<List<Entity>>(FilePath.SavedEntitiesList);
-
-                for (int i = 0; i < entities.Count; i++)
-                {
-                    updatedSavedEntities.Add(new(entities[i])
-                    {
-                        IsSelected = selectedEntities[i].IsSelected,
-                        LastUpdated = selectedEntities[i].LastUpdated
-                    });
-                }
-
-                await Serialisation.ToJsonFile(updatedSavedEntities, FilePath.SavedEntitiesList);
-                return true;
-            }
-            catch (NullReferenceException)
+            List<SavedEntity> updatedSavedEntities = new();
+            var selectedEntities = await Serialisation.FromJsonFile<List<SavedEntityWithoutEntity>>(FilePath.SavedEntitiesList);
+            var entities = await Serialisation.FromJsonFile<List<Entity>>(FilePath.SavedEntitiesList);
+            if (selectedEntities == null || entities == null)
             {
                 File.Delete(FilePath.SavedEntitiesList);
                 return false;
             }
+
+            for (int i = 0; i < entities.Count; i++)
+            {
+                updatedSavedEntities.Add(new(entities[i])
+                {
+                    IsSelected = selectedEntities[i].IsSelected,
+                    LastUpdated = selectedEntities[i].LastUpdated
+                });
+            }
+
+            await Serialisation.ToJsonFile(updatedSavedEntities, FilePath.SavedEntitiesList);
+            return true;
         }
 
         class SavedEntityWithoutEntity

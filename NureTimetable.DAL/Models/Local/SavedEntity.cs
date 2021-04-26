@@ -22,13 +22,13 @@ namespace NureTimetable.DAL.Models.Local
         public static implicit operator Entity(SavedEntity savedEntity) =>
             savedEntity.Entity;
 
-        public static bool operator ==(SavedEntity obj1, SavedEntity obj2) =>
+        public static bool operator ==(SavedEntity? obj1, SavedEntity? obj2) =>
             ReferenceEquals(obj1, obj2) || obj1?.Equals(obj2) == true;
 
-        public static bool operator !=(SavedEntity obj1, SavedEntity obj2) =>
+        public static bool operator !=(SavedEntity? obj1, SavedEntity? obj2) =>
             !(obj1 == obj2);
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj is SavedEntity savedEntity)
             {

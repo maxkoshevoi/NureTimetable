@@ -26,7 +26,7 @@ namespace NureTimetable.UI.ViewModels
         #endregion
 
         #region Setting mappings
-        List<(Func<string> name, string id)> calendarMapping;
+        List<(Func<string> name, string id)>? calendarMapping;
         
         List<(Func<string> name, TimeSpan value)> timeBeforeEventReminderMapping { get; } = new()
         {
@@ -100,7 +100,7 @@ namespace NureTimetable.UI.ViewModels
             await ChangeSetting
             (
                 LN.DefaultCalendar,
-                calendarMapping,
+                calendarMapping!,
                 SettingsRepository.Settings.DefaultCalendarId,
                 newCalendar => 
                 {

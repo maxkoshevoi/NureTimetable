@@ -16,8 +16,8 @@ namespace NureTimetable.UI.ViewModels
 {
     public abstract class BaseAddEntityViewModel<T> : BaseViewModel
     {
-        private protected List<T> _allEntities;
-        private string lastSearchQuery;
+        private protected List<T> _allEntities = new();
+        private string lastSearchQuery = string.Empty;
 
         #region Properties
         // ObservableRangeCollection.ReplaceRange causes ArgumentOutOfRangeException in UpdateEntities from time to time
@@ -27,8 +27,8 @@ namespace NureTimetable.UI.ViewModels
         private protected bool _isProgressLayoutVisible;
         public bool IsProgressLayoutVisible { get => _isProgressLayoutVisible; set => SetProperty(ref _isProgressLayoutVisible, value); }
 
-        private protected T _selectedEntity;
-        public T SelectedEntity
+        private protected T? _selectedEntity;
+        public T? SelectedEntity
         {
             get => _selectedEntity;
             set
@@ -116,8 +116,6 @@ namespace NureTimetable.UI.ViewModels
 
         protected void SearchBarTextChanged(string searchQuery)
         {
-            if (_allEntities == null) return;
-
             lastSearchQuery = searchQuery;
             if (string.IsNullOrEmpty(searchQuery))
             {
@@ -129,7 +127,7 @@ namespace NureTimetable.UI.ViewModels
             }
         }
 
-        public Task UpdateEntities(Task updateDataSource = null) =>
+        public Task UpdateEntities(Task? updateDataSource = null) =>
             Task.Run(async () =>
             {
                 IsProgressLayoutVisible = true;
@@ -138,12 +136,7 @@ namespace NureTimetable.UI.ViewModels
                 await updateDataSource;
 
                 _allEntities = GetAllEntities();
-                Entities = new(OrderEntities());
-
-                if (!string.IsNullOrEmpty(lastSearchQuery))
-                {
-                    SearchBarTextChanged(lastSearchQuery);
-                }
+                SearchBarTextChanged(lastSearchQuery);
 
                 IsProgressLayoutVisible = false;
             });

@@ -10,7 +10,7 @@ namespace NureTimetable.DAL.Models.Cist
         public long Id { get; set; }
 
         [JsonProperty("short_name")]
-        public string ShortName { get; set; }
+        public string ShortName { get; set; } = string.Empty;
 
         [JsonProperty("floor")]
         public int? Floor { get; set; }
