@@ -4,6 +4,7 @@ using NureTimetable.Core.Models.Exceptions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using Xamarin.Essentials;
 
@@ -40,7 +41,7 @@ namespace NureTimetable.Core.BL
             {
                 if (Connectivity.NetworkAccess == NetworkAccess.None)
                 {
-                    // No internet caused WebException, nothing to log here
+                    // No Internet caused WebException, nothing to log here
                     return;
                 }
 
@@ -71,6 +72,10 @@ namespace NureTimetable.Core.BL
                 }
 
                 Analytics.TrackEvent("CistException", properties);
+                return;
+            }
+            else if (ex is IOException && ex.Message.StartsWith("Disk full."))
+            {
                 return;
             }
 
