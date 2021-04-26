@@ -8,7 +8,7 @@
         public long BaseTypeId { get; set; }
         public string EnglishBaseName { get; set; } = string.Empty;
 
-        public static EventType UnknownType { get; } = new()
+        public static EventType UnknownType => new()
         {
             ID = -1,
             BaseTypeId = -1,
