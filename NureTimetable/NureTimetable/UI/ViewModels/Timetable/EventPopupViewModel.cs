@@ -119,11 +119,7 @@ namespace NureTimetable.UI.ViewModels
                 await Shell.Current.CurrentPage.DisplayAlert(LN.AddingToCalendarTitle, LN.AddingEventToCalendarFail, LN.Ok);
                 return;
             }
-            try
-            {
-                Shell.Current.CurrentPage.DisplayToastAsync(LN.AddingEventToCalendarSuccess).Forget(false);
-            }
-            catch { } // TODO: Remove when https://github.com/xamarin/XamarinCommunityToolkit/issues/959 is fixed
+            Shell.Current.CurrentPage.DisplayToastAsync(LN.AddingEventToCalendarSuccess).Forget();
 
             await ClosePopup();
         }

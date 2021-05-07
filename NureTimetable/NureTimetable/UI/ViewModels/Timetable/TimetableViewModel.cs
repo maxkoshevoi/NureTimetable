@@ -15,7 +15,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
-using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
@@ -460,11 +459,7 @@ namespace NureTimetable.UI.ViewModels
             var updateResult = await TimetableService.UpdateAsync(entitiesToUpdate);
             if (updateResult.Any(e => e.exception != null))
             {
-                try
-                {
-                    Shell.Current.CurrentPage.DisplayToastAsync(LN.AutoupdateFailed).Forget(false);
-                }
-                catch { } // TODO: Remove when https://github.com/xamarin/XamarinCommunityToolkit/issues/959 is fixed
+                timetablePage.DisplayToastAsync(LN.AutoupdateFailed).Forget();
             }
         }
 
@@ -530,11 +525,7 @@ namespace NureTimetable.UI.ViewModels
 
             await UpdateEventsWithUI();
 
-            try
-            {
-                Shell.Current.CurrentPage.DisplayToastAsync(message, 1500).Forget(false);
-            }
-            catch { } // TODO: Remove when https://github.com/xamarin/XamarinCommunityToolkit/issues/959 is fixed
+            timetablePage.DisplayToastAsync(message, 1500).Forget();
         }
 
         private void BTodayClicked()
@@ -550,12 +541,7 @@ namespace NureTimetable.UI.ViewModels
             }
             if (moveTo != DateTime.Today && visibleDates.Contains(moveTo))
             {
-                try
-                {
-                    // TODO: Add AnchorView BToday here when https://github.com/xamarin/XamarinCommunityToolkit/pull/846 is released
-                    Shell.Current.CurrentPage.DisplayToastAsync(LN.TimetableEndReached).Forget(false);
-                }
-                catch { } // TODO: Remove when https://github.com/xamarin/XamarinCommunityToolkit/issues/959 is fixed
+                timetablePage.DisplayToastAsync(LN.TimetableEndReached).Forget();
                 return;
             }
 

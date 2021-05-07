@@ -8,5 +8,7 @@ namespace NureTimetable.UI.Views
         void TimetableNavigateTo(DateTime date);
 
         Task ScaleTodayButtonTo(double scale);
+
+        Task DisplayToastAsync(string message, int durationMilliseconds = 3000);
     }
 }

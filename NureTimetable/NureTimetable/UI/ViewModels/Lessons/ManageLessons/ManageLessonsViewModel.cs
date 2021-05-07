@@ -70,11 +70,7 @@ namespace NureTimetable.UI.ViewModels
             HasUnsavedChanges = false;
 
             await Shell.Current.GoToAsync("..", true);
-            try
-            {
-                Shell.Current.CurrentPage.DisplayToastAsync(string.Format(LN.EntityLessonSettingsSaved, entity.Name)).Forget(false);
-            }
-            catch { } // TODO: Remove when https://github.com/xamarin/XamarinCommunityToolkit/issues/959 is fixed
+            Shell.Current.CurrentPage.DisplayToastAsync(string.Format(LN.EntityLessonSettingsSaved, entity.Name)).Forget();
         }
 
         private async Task BackButtonPressed()

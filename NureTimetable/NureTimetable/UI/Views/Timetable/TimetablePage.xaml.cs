@@ -1,7 +1,9 @@
-﻿using NureTimetable.UI.ViewModels;
+﻿using NureTimetable.Core.Localization;
+using NureTimetable.UI.ViewModels;
 using NureTimetable.UI.ViewModels.Timetable;
 using System;
 using System.Threading.Tasks;
+using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.Forms;
 
 namespace NureTimetable.UI.Views
@@ -14,14 +16,19 @@ namespace NureTimetable.UI.Views
             BindingContext = new TimetableViewModel(this);
         }
 
-        public void TimetableNavigateTo(DateTime date)
-        {
-            Timetable.NavigateTo(date);
-        }
+        public void TimetableNavigateTo(DateTime date) => Timetable.NavigateTo(date);
 
-        public async Task ScaleTodayButtonTo(double scale)
+        public Task ScaleTodayButtonTo(double scale) => BToday.ScaleTo(scale);
+
+        public async Task DisplayToastAsync(string message, int durationMilliseconds = 3000)
         {
-            await BToday.ScaleTo(scale);
+            VisualElement anchor = this;
+            if (BToday.Scale > 0)
+            {
+                anchor = BToday;
+            }
+
+            await anchor.DisplayToastAsync(message);
         }
     }
 }

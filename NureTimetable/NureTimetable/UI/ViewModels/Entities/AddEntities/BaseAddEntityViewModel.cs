@@ -89,11 +89,7 @@ namespace NureTimetable.UI.ViewModels
             {
                 if (savedEntities.Any(e => e == newEntity))
                 {
-                    try
-                    {
-                        Shell.Current.CurrentPage.DisplayToastAsync(string.Format(LN.TimetableAlreadySaved, newEntity.Entity.Name)).Forget(false);
-                    }
-                    catch { } // TODO: Remove when https://github.com/xamarin/XamarinCommunityToolkit/issues/959 is fixed
+                    Shell.Current.CurrentPage.DisplayToastAsync(string.Format(LN.TimetableAlreadySaved, newEntity.Entity.Name)).Forget();
                     return true;
                 }
 

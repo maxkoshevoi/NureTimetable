@@ -45,7 +45,8 @@ namespace NureTimetable.DAL.Helpers
                 string fileContent;
                 using (var readLock = await fileLock.ReaderLockAsync())
                 {
-                    fileContent = await File.ReadAllTextAsync(filePath);
+                    // ReadAllTextAsync may not read all data from the file 
+                    fileContent = File.ReadAllText(filePath);
                 }
                 T instance = FromJson<T>(fileContent);
                 return instance;
