@@ -3,4 +3,5 @@
   <color name="splash_background">#FFFFFF</color>
   <color name="launcher_background">#FFFFFF</color>
   <color name="colorListViewHighlighted">#96BCE3</color>
+  <color name="colorAccent">#78909C</color>
 </resources>

@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <resources>
-  <style name="MainTheme" parent="MainTheme.Base">
+  <style name="MainTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
     <item name="android:windowBackground">@drawable/splash</item>
     <item name="colorPrimary">#FFFFFF</item>
     <item name="colorPrimaryDark">#000000</item>
-    <item name="colorAccent">#78909C</item>
+    <item name="colorAccent">@color/colorAccent</item>
 
     <item name="android:colorPressedHighlight">@color/colorListViewHighlighted</item>
     <item name="android:colorLongPressedHighlight">@color/colorListViewHighlighted</item>
     <item name="android:colorFocusedHighlight">@color/colorListViewHighlighted</item>
     <item name="android:colorActivatedHighlight">@color/colorListViewHighlighted</item>
     <item name="android:activatedBackgroundIndicator">@color/colorListViewHighlighted</item>
+
+    <item name="alertDialogTheme">@style/AlertDialogStyle</item>
+  </style>
+
+  <style name="AlertDialogStyle" parent="Theme.MaterialComponents.DayNight.Dialog">
+    <item name="colorPrimary">@color/colorAccent</item>
   </style>
 </resources>

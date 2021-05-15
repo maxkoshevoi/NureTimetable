@@ -9,8 +9,8 @@
     <PackageReference Include="CClarke.Plugin.Calendars" Version="1.0.14" />
     <PackageReference Include="Plugin.InAppBilling" Version="4.0.2" />
     <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.11" />
-    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="19.1.0.59" />
-    <PackageReference Include="Syncfusion.Xamarin.SfSchedule" Version="19.1.0.59" />
+    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="19.1.0.63" />
+    <PackageReference Include="Syncfusion.Xamarin.SfSchedule" Version="19.1.0.63" />
   </ItemGroup>
 
   <ItemGroup>
