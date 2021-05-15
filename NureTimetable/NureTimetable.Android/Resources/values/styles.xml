@@ -17,5 +17,7 @@
 
   <style name="AlertDialogStyle" parent="Theme.MaterialComponents.DayNight.Dialog">
     <item name="colorPrimary">@color/colorAccent</item>
+    <item name="android:windowMinWidthMajor">@android:dimen/dialog_min_width_major</item>
+    <item name="android:windowMinWidthMinor">@android:dimen/dialog_min_width_minor</item>
   </style>
 </resources>
