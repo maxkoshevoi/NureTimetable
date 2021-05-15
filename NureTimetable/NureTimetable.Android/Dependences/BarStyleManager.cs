@@ -14,34 +14,26 @@ namespace NureTimetable.Droid.Dependences
     {
         public void SetStatusBarColor(string hexColor)
         {
-            if (Build.VERSION.SdkInt < BuildVersionCodes.M)
-            {
-                return;
-            }
-
+            var currentWindow = GetCurrentWindow();
             Color color = Color.ParseColor(hexColor);
-            MainThread.BeginInvokeOnMainThread(() =>
+            currentWindow.SetStatusBarColor(color);
+
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
             {
-                var currentWindow = GetCurrentWindow();
                 SetBarAppearance(currentWindow, statusBarLight: color == Color.White);
-                currentWindow.SetStatusBarColor(color);
-            });
+            }
         }
 
         public void SetNavigationBarColor(string hexColor)
         {
-            if (Build.VERSION.SdkInt < BuildVersionCodes.M)
-            {
-                return;
-            }
-
             Color color = Color.ParseColor(hexColor);
-            MainThread.BeginInvokeOnMainThread(() =>
+            var currentWindow = GetCurrentWindow();
+            currentWindow.SetNavigationBarColor(color);
+
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
             {
-                var currentWindow = GetCurrentWindow();
                 SetBarAppearance(currentWindow, navigationBarLight: color == Color.White);
-                currentWindow.SetNavigationBarColor(color);
-            });
+            }
         }
 
         private static void SetBarAppearance(Window currentWindow, bool? statusBarLight = null, bool? navigationBarLight = null)

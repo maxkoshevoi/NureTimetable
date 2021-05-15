@@ -71,6 +71,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dependences\NightModeManager.cs" />
     <Compile Include="Dependences\ActivityManager.cs" />
     <Compile Include="Dependences\BarStyleManager.cs" />
     <Compile Include="MainActivity.cs" />
@@ -128,6 +129,12 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.11" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values-night\colors.xml">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- Added to provide automatic build number of android package -->

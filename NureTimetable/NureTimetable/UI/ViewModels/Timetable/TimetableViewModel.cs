@@ -157,7 +157,7 @@ namespace NureTimetable.UI.ViewModels
                 if (TimetableInfoList.Entities.Contains(entity))
                     await UpdateEvents();
             });
-            MessagingCenter.Subscribe<Application, AppTheme>(this, MessageTypes.ThemeChanged, async (_, newTheme) =>
+            MessagingCenter.Subscribe<Application, AppTheme>(this, MessageTypes.ThemeChanged, async (_, _) =>
             {
                 if (TimetableInfoList.Events.Count == 0)
                     return;

@@ -39,16 +39,16 @@ namespace NureTimetable
 
         private static void InitTheme()
         {
-            ThemeService.SetAppTheme(SettingsRepository.Settings.Theme);
+            ThemeService.SetAppTheme();
             SettingsRepository.Settings.PropertyChanged += (_, e) =>
             {
                 if (e.PropertyName == nameof(SettingsRepository.Settings.Theme))
-                    ThemeService.SetAppTheme(SettingsRepository.Settings.Theme);
+                    ThemeService.SetAppTheme();
             };
             App.Current.RequestedThemeChanged += (_, e) =>
             {
                 if (SettingsRepository.Settings.Theme == AppTheme.FollowSystem)
-                    ThemeService.SetAppTheme((AppTheme)e.RequestedTheme);
+                    ThemeService.SetAppTheme();
             };
         }
 

@@ -1,6 +1,7 @@
 ﻿using NureTimetable.Core.BL;
 using NureTimetable.Core.Models.Consts;
 using NureTimetable.Core.Models.InterplatformCommunication;
+using NureTimetable.DAL;
 using NureTimetable.Models.Consts;
 using NureTimetable.UI.Themes;
 using System;
@@ -13,7 +14,19 @@ namespace NureTimetable.BL
 {
     public static class ThemeService
     {
-        public static bool SetAppTheme(AppTheme selectedTheme)
+        public static bool SetAppTheme()
+        {
+            AppTheme selectedTheme = SettingsRepository.Settings.Theme;
+
+            UpdateNativeStyle(selectedTheme);
+            UpdateAppStyle(selectedTheme);
+            UpdateBarStyle();
+
+            MessagingCenter.Send(Application.Current, MessageTypes.ThemeChanged, selectedTheme);
+            return true;
+        }
+
+        private static bool UpdateAppStyle(AppTheme selectedTheme)
         {
             if (selectedTheme == AppTheme.FollowSystem)
             {
@@ -28,13 +41,14 @@ namespace NureTimetable.BL
             };
 
             ICollection<ResourceDictionary> resources = Application.Current.Resources.MergedDictionaries;
-            if (resources == null || resources.FirstOrDefault()?.GetType() == theme.GetType())
+            if (resources.FirstOrDefault()?.GetType() == theme.GetType())
             {
                 return false;
             }
-            resources.Clear();
+
             try
             {
+                resources.Clear();
                 resources.Add(theme);
             }
             catch (Exception ex)
@@ -42,12 +56,28 @@ namespace NureTimetable.BL
                 ExceptionService.LogException(ex);
             }
 
+            return true;
+        }
+
+        private static void UpdateBarStyle()
+        {
             var statusBarManager = DependencyService.Get<IBarStyleManager>();
             statusBarManager.SetStatusBarColor(ResourceManager.StatusBarColor.ToHex());
             statusBarManager.SetNavigationBarColor(ResourceManager.NavigationBarColor.ToHex());
+        }
 
-            MessagingCenter.Send(Application.Current, MessageTypes.ThemeChanged, selectedTheme);
-            return true;
+        private static void UpdateNativeStyle(AppTheme selectedTheme)
+        {
+            NightModeStyle style = selectedTheme switch
+            {
+                AppTheme.Dark => NightModeStyle.Yes,
+                AppTheme.Light => NightModeStyle.No,
+                AppTheme.FollowSystem => NightModeStyle.FollowSystem,
+                _ => throw new InvalidOperationException("Unsupported theme"),
+            };
+
+            var nightModeManager = DependencyService.Get<INightModeManager>();
+            nightModeManager.DefaultNightMode = style;
         }
     }
 }
