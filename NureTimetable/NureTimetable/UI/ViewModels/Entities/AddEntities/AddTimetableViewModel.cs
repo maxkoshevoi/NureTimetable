@@ -2,6 +2,7 @@
 using NureTimetable.DAL;
 using System;
 using System.Threading.Tasks;
+using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 using static NureTimetable.DAL.UniversityEntitiesRepository;
@@ -16,6 +17,9 @@ namespace NureTimetable.UI.ViewModels
 
         private bool updateCommandEnabled = true;
         public bool UpdateCommandEnabled { get => updateCommandEnabled; set { updateCommandEnabled = value; UpdateCommand.RaiseCanExecuteChanged(); } }
+
+        private string searchQuery = string.Empty;
+        public string SearchQuery { get => searchQuery; set => SetProperty(ref searchQuery, value, onChanged: () => SearchEntities(value)); }
 
         public AddGroupViewModel AddGroupPageViewModel { get; } = new();
         public AddTeacherViewModel AddTeacherPageViewModel { get; } = new();
@@ -33,6 +37,13 @@ namespace NureTimetable.UI.ViewModels
 
             PageAppearingCommand = CommandFactory.Create(() => UpdateEntitiesOnAllTabs());
             UpdateCommand = CommandFactory.Create(UpdateEntities, () => UpdateCommandEnabled, allowsMultipleExecutions: false);
+        }
+
+        private void SearchEntities(string value)
+        {
+            AddGroupPageViewModel.SearchQueryChanged(value);
+            AddTeacherPageViewModel.SearchQueryChanged(value);
+            AddRoomPageViewModel.SearchQueryChanged(value);
         }
 
         private async Task UpdateEntities()

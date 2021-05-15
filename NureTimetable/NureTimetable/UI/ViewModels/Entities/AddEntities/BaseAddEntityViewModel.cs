@@ -17,7 +17,6 @@ namespace NureTimetable.UI.ViewModels
     public abstract class BaseAddEntityViewModel<T> : BaseViewModel
     {
         private protected List<T> _allEntities = new();
-        private string lastSearchQuery = string.Empty;
 
         #region Properties
         // ObservableRangeCollection.ReplaceRange causes ArgumentOutOfRangeException in UpdateEntities from time to time
@@ -27,27 +26,24 @@ namespace NureTimetable.UI.ViewModels
         private protected bool _isProgressLayoutVisible;
         public bool IsProgressLayoutVisible { get => _isProgressLayoutVisible; set => SetProperty(ref _isProgressLayoutVisible, value); }
 
-        private protected T? _selectedEntity;
+        private string lastSearchQuery = string.Empty;
+        public string LastSearchQuery { get => lastSearchQuery; private set => SetProperty(ref lastSearchQuery, value); }
+
         public T? SelectedEntity
         {
-            get => _selectedEntity;
+            get => default;
             set
             {
                 if (value != null)
+                {
                     EntitySelected(value).Forget();
-
-                _selectedEntity = value;
+                }
             }
         }
-
-        public Command SearchBarTextChangedCommand { get; }
-
         #endregion
 
         protected BaseAddEntityViewModel()
         {
-            SearchBarTextChangedCommand = CommandFactory.Create<string>(SearchBarTextChanged);
-
             MessagingCenter.Subscribe<Application>(this, MessageTypes.UniversityEntitiesUpdated, async _ => await UpdateEntities());
         }
 
@@ -101,18 +97,14 @@ namespace NureTimetable.UI.ViewModels
                 return;
             }
 
-            try
-            {
-                Shell.Current.CurrentPage.DisplaySnackBarAsync(string.Format(LN.TimetableSaved, newEntity.Entity.Name), LN.Undo, 
-                    () => UniversityEntitiesRepository.ModifySavedAsync(savedEntities => !savedEntities.Remove(newEntity))
-                ).Forget(false);
-            }
-            catch { } // TODO: Remove when https://github.com/xamarin/XamarinCommunityToolkit/issues/959 is fixed
+            Shell.Current.CurrentPage.DisplaySnackBarAsync(string.Format(LN.TimetableSaved, newEntity.Entity.Name), LN.Undo, () => 
+                UniversityEntitiesRepository.ModifySavedAsync(savedEntities => !savedEntities.Remove(newEntity))
+            ).Forget();
         }
 
-        protected void SearchBarTextChanged(string searchQuery)
+        public void SearchQueryChanged(string searchQuery)
         {
-            lastSearchQuery = searchQuery;
+            LastSearchQuery = searchQuery;
             if (string.IsNullOrEmpty(searchQuery))
             {
                 Entities = new(OrderEntities());
@@ -132,7 +124,7 @@ namespace NureTimetable.UI.ViewModels
                 await updateDataSource;
 
                 _allEntities = GetAllEntities();
-                SearchBarTextChanged(lastSearchQuery);
+                SearchQueryChanged(LastSearchQuery);
 
                 IsProgressLayoutVisible = false;
             });
