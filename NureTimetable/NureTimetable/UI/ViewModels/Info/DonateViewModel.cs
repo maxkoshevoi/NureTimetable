@@ -1,32 +1,28 @@
-﻿using NureTimetable.Core.Localization;
-using NureTimetable.UI.Helpers;
+﻿using NureTimetable.BL;
+using NureTimetable.Core.Extensions;
+using NureTimetable.Core.Localization;
+using Plugin.InAppBilling;
 using System.Threading.Tasks;
-using System.Windows.Input;
+using Xamarin.CommunityToolkit.Extensions;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 
-namespace NureTimetable.UI.ViewModels.Info
+namespace NureTimetable.UI.ViewModels
 {
     public class DonateViewModel : BaseViewModel
     {
-        #region Properties
-        public ICommand BuyProductCommand { get; }
-        #endregion
+        public IAsyncCommand<string> BuyProductCommand { get; }
 
         public DonateViewModel()
         {
-            BuyProductCommand = CommandHelper.Create<string>(BuyProduct);
+            BuyProductCommand = CommandFactory.Create<string>(p => BuyProduct(p!), allowsMultipleExecutions: false);
         }
         
         public static async Task BuyProduct(string productId)
         {
-            if (await InAppPurchase.Buy(productId, true) != null)
-            {
-                await Shell.Current.DisplayAlert(LN.Purchase, LN.ThanksForYourSupport, LN.Ok);
-            }
-            else
-            {
-                await Shell.Current.DisplayAlert(LN.Purchase, LN.PurchaseFailed, LN.Ok);
-            }
+            InAppBillingPurchase? purchase = await InAppPurchase.Buy(productId, true);
+            string message = purchase == null ? LN.PurchaseFailed : LN.ThanksForYourSupport;
+            Shell.Current.CurrentPage.DisplayToastAsync(message).Forget();
         }
     }
 }

@@ -1,13 +1,19 @@
-﻿using NureTimetable.Core.Models;
+﻿using System;
+using Xamarin.CommunityToolkit.Helpers;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 
 namespace NureTimetable.UI.ViewModels
 {
-    public class BaseViewModel : NotifyPropertyChangedBase
+    public abstract class BaseViewModel : ObservableObject
     {
         private protected INavigation Navigation => Shell.Current.Navigation;
-        
-        string title = string.Empty;
-        public string Title { get => title; set => SetProperty(ref title, value); }
+
+        private LocalizedString? title;
+        public LocalizedString Title 
+        { 
+            get => title ?? throw new NullReferenceException(); 
+            set => SetProperty(ref title, value); 
+        }
     }
 }

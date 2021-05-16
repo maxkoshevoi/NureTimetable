@@ -3,8 +3,9 @@ using NureTimetable.DAL.Models.Local;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Xamarin.CommunityToolkit.Helpers;
 
-namespace NureTimetable.UI.ViewModels.Lessons
+namespace NureTimetable.UI.ViewModels
 {
     public class LessonInfoViewModel : BaseViewModel
     {
@@ -13,15 +14,16 @@ namespace NureTimetable.UI.ViewModels.Lessons
         #region Properties
         public LessonInfo LessonInfo { get; }
 
-        public string Statistics => GetStatistics();
+        public LocalizedString Statistics { get; }
         #endregion
 
         public LessonInfoViewModel(LessonInfo lessonInfo, TimetableInfo timetableInfo)
         {
             LessonInfo = lessonInfo;
             this.timetableInfo = timetableInfo;
-
-            Title = LN.LessonInfo;
+            Statistics = new(GetStatistics);
+            
+            LocalizationResourceManager.Current.PropertyChanged += (_, _) => OnPropertyChanged(nameof(Statistics));
         }
         
         private string GetStatistics()
@@ -32,8 +34,8 @@ namespace NureTimetable.UI.ViewModels.Lessons
             {
                 var eventsWithType = events.Where(e => e.Type == et).ToList();
                 return $"{et.ShortName}:\n" +
-                    $"- {LN.EventsTotal} {eventsWithType.Count}, {eventsWithType.Where(e => e.Start > DateTime.Now).Count()} {LN.EventsLeft}\n" +
-                    $"- {LN.NextEvent}: {eventsWithType.Where(e => e.Start > DateTime.Now).FirstOrDefault()?.Start.Date.ToShortDateString() ?? "-" }\n" +
+                    $"- {LN.EventsTotal} {eventsWithType.Count}, {eventsWithType.Count(e => e.Start > DateTime.Now)} {LN.EventsLeft}\n" +
+                    $"- {LN.NextEvent}: {eventsWithType.FirstOrDefault(e => e.Start > DateTime.Now)?.Start.ToShortDateString() ?? "-" }\n" +
                     $"- {LN.Teachers}: {string.Join(", ", eventsWithType.SelectMany(e => e.Teachers).Distinct().Select(t => t.ShortName).OrderBy(tn => tn).DefaultIfEmpty("-"))}";
             });
             return string.Join("\n", statForTypes);

@@ -1,145 +1,84 @@
 ﻿using NureTimetable.Core.Localization;
-using NureTimetable.Core.Models.Consts;
-using NureTimetable.Core.Models.InterplatformCommunication;
 using NureTimetable.Core.Models.Settings;
 using NureTimetable.DAL;
-using NureTimetable.UI.Helpers;
-using NureTimetable.UI.Themes;
 using NureTimetable.UI.Views;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Input;
+using Xamarin.CommunityToolkit.Helpers;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Essentials;
-using Xamarin.Forms;
+using static NureTimetable.UI.ViewModels.SettingsViewModel;
 using AppTheme = NureTimetable.Core.Models.Settings.AppTheme;
 
-namespace NureTimetable.UI.ViewModels.Info
+namespace NureTimetable.UI.ViewModels
 {
     public class MenuViewModel : BaseViewModel
     {
         #region Properties
-        public bool IsDebugModeActive
+        public LocalizedString AppVersion { get; } = new(() => string.Format(LN.Version, AppInfo.VersionString));
+
+        public LocalizedString AppLanguageName { get; }
+
+        public LocalizedString AppThemeName { get; }
+
+        public IAsyncCommand OpenDonatePageCommand { get; }
+        public IAsyncCommand ChangeThemeCommand { get; }
+        public IAsyncCommand ChangeLanguageCommand { get; }
+        public IAsyncCommand OpenSettingsCommand { get; }
+        #endregion
+
+        #region Setting mappings
+        List<(Func<string> name, AppLanguage value)> languageMapping { get; } = new()
         {
-            get => App.IsDebugMode;
-            set
-            {
-                App.IsDebugMode = value;
-                OnPropertyChanged();
-            }
-        }
+            (() => LN.FollowSystem, AppLanguage.FollowSystem),
+            (() => LN.EnglishLanguage, AppLanguage.English),
+            (() => LN.RussianLanguage, AppLanguage.Russian),
+            (() => LN.UkrainianLanguage, AppLanguage.Ukrainian),
+        };
 
-        private bool langIsRestartRequired = false;
-        private string appLanguageName;
-        public string AppLanguageName { get => appLanguageName; set => SetProperty(ref appLanguageName, value); }
-
-        private string appThemeName;
-        public string AppThemeName { get => appThemeName; set => SetProperty(ref appThemeName, value); }
-
-        public ICommand NavigateUriCommand { get; }
-        public ICommand ToggleDebugModeCommand { get; }
-        public ICommand OpenAboutPageCommand { get; }
-        public ICommand OpenDonatePageCommand { get; }
-        public ICommand ChangeThemeCommand { get; }
-        public ICommand ChangeLanguageCommand { get; }
+        List<(Func<string> name, AppTheme value)> themeMapping { get; } = new()
+        {
+            (() => LN.FollowSystem, AppTheme.FollowSystem),
+            (() => LN.LightTheme, AppTheme.Light),
+            (() => LN.DarkTheme, AppTheme.Dark),
+        };
         #endregion
 
         public MenuViewModel()
         {
-            NavigateUriCommand = CommandHelper.Create<string>(async url => await Launcher.OpenAsync(new Uri(url)));
-            ToggleDebugModeCommand = CommandHelper.Create(() => IsDebugModeActive = !IsDebugModeActive);
-            OpenDonatePageCommand = CommandHelper.Create(async () => await Navigation.PushAsync(new DonatePage()));
-            ChangeThemeCommand = CommandHelper.Create(ChangeTheme);
-            ChangeLanguageCommand = CommandHelper.Create(ChangeLanguage);
+            AppLanguageName = new(() => languageMapping.Single(m => m.value == SettingsRepository.Settings.Language).name());
+            AppThemeName = new(() => themeMapping.Single(m => m.value == SettingsRepository.Settings.Theme).name());
 
-            UpdateAppThemeName();
-            MessagingCenter.Subscribe<Application, AppTheme>(Application.Current, MessageTypes.ThemeChanged, (sender, theme) => UpdateAppThemeName());
-            UpdateAppLanguageName();
-        }
+            OpenDonatePageCommand = CommandFactory.Create(() => Navigation.PushAsync(new DonatePage()), allowsMultipleExecutions: false);
+            ChangeThemeCommand = CommandFactory.Create(ChangeTheme, allowsMultipleExecutions: false);
+            ChangeLanguageCommand = CommandFactory.Create(ChangeLanguage, allowsMultipleExecutions: false);
+            OpenSettingsCommand = CommandFactory.Create(() => Navigation.PushAsync(new SettingsPage()), allowsMultipleExecutions: false);
 
-        private void UpdateAppThemeName()
-        {
-            AppThemeName = SettingsRepository.Settings.Theme switch
+            SettingsRepository.Settings.PropertyChanged += (_, e) =>
             {
-                AppTheme.Light => LN.LightTheme,
-                AppTheme.Dark => LN.DarkTheme,
-                AppTheme.FollowSystem => LN.FollowSystem,
-                _ => throw new InvalidOperationException("Unsuported theme")
+                if (e.PropertyName == nameof(SettingsRepository.Settings.Theme))
+                    OnPropertyChanged(nameof(AppThemeName));
             };
         }
 
-        private void UpdateAppLanguageName()
-        {
-            string restartReqiredText = langIsRestartRequired ? $" ({LN.RestartRequired})" : string.Empty;
+        public Task ChangeTheme() =>
+            ChangeSetting
+            (
+                LN.Theme,
+                themeMapping,
+                SettingsRepository.Settings.Theme,
+                newTheme => SettingsRepository.Settings.Theme = newTheme
+            );
 
-            AppLanguageName = SettingsRepository.Settings.Language switch
-            {
-                AppLanguage.English => LN.EnglishLanguage + restartReqiredText,
-                AppLanguage.Russian => LN.RussianLanguage + restartReqiredText,
-                AppLanguage.Ukrainian => LN.UkrainianLanguage + restartReqiredText,
-                AppLanguage.FollowSystem => LN.FollowSystem + restartReqiredText,
-                _ => throw new InvalidOperationException("Unsuported language")
-            };
-        }
-
-        public async Task ChangeTheme()
-        {
-            string themeStr = await Shell.Current.DisplayActionSheet(LN.Theme, LN.Cancel, null, LN.FollowSystem, LN.LightTheme, LN.DarkTheme);
-            if (themeStr is null)
-            {
-                return;
-            }
-
-            AppTheme theme = AppTheme.FollowSystem;
-            if (themeStr == LN.LightTheme)
-            {
-                theme = AppTheme.Light;
-            }
-            else if (themeStr == LN.DarkTheme)
-            {
-                theme = AppTheme.Dark;
-            }
-
-            if (SettingsRepository.Settings.Theme == theme)
-            {
-                return;
-            }
-            SettingsRepository.Settings.Theme = theme;
-            UpdateAppThemeName();
-
-            ThemeHelper.SetAppTheme(theme);
-        }
-
-        public async Task ChangeLanguage()
-        {
-            string languageStr = await Shell.Current.DisplayActionSheet(LN.Language, LN.Cancel, null, LN.FollowSystem, LN.EnglishLanguage, LN.RussianLanguage, LN.UkrainianLanguage);
-            if (languageStr is null)
-                return;
-
-            AppLanguage language = AppLanguage.FollowSystem;
-            if (languageStr == LN.EnglishLanguage)
-            {
-                language = AppLanguage.English;
-            }
-            else if (languageStr == LN.RussianLanguage)
-            {
-                language = AppLanguage.Russian;
-            }
-            else if (languageStr == LN.UkrainianLanguage)
-            {
-                language = AppLanguage.Ukrainian;
-            }
-
-            if (SettingsRepository.Settings.Language == language)
-            {
-                return;
-            }
-            SettingsRepository.Settings.Language = language;
-
-            langIsRestartRequired = true;
-            UpdateAppLanguageName();
-            
-            var activityManager = DependencyService.Get<IActivityManager>();
-            activityManager.Recreate();
-        }
+        public Task ChangeLanguage() =>
+            ChangeSetting
+            (
+                LN.Language,
+                languageMapping,
+                SettingsRepository.Settings.Language,
+                newLanguage => SettingsRepository.Settings.Language = newLanguage
+            );
     }
 }

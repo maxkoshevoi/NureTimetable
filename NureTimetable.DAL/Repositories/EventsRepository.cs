@@ -1,4 +1,5 @@
 ﻿using Microsoft.AppCenter.Analytics;
+using NureTimetable.Core.BL;
 using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Models.Consts;
 using NureTimetable.DAL.Helpers;
@@ -16,44 +17,21 @@ namespace NureTimetable.DAL
 {
     public static class EventsRepository
     {
-        /// <summary>
-        /// Returns events for one entity. Null if error occurs 
-        /// </summary>
-        public static async Task<Local::TimetableInfo> GetEvents(Local::Entity entity, bool tryUpdate = false, DateTime? dateStart = null, DateTime? dateEnd = null)
-        {
-            Local::TimetableInfo timetable;
-            if (tryUpdate)
-            {
-                if (dateStart is null || dateEnd is null)
-                {
-                    throw new ArgumentNullException($"{nameof(dateStart)} and {nameof(dateEnd)} must be set");
-                }
-
-                timetable = (await GetTimetableFromCist(entity, dateStart.Value, dateEnd.Value)).Timetable;
-                if (timetable != null)
-                {
-                    return timetable;
-                }
-            }
-            timetable = GetTimetableLocal(entity);
-            return timetable;
-        }
-
         #region Local
-        public static Local::TimetableInfo GetTimetableLocal(Local::Entity entity)
-            => GetTimetableLocal(new List<Local::Entity>() { entity }).SingleOrDefault();
+        public static async Task<Local::TimetableInfo?> GetTimetableLocalAsync(Local::Entity entity) => 
+            (await GetTimetableLocal(new List<Local::Entity>() { entity })).SingleOrDefault();
 
-        public static List<Local::TimetableInfo> GetTimetableLocal(List<Local::Entity> entities)
+        public static async Task<List<Local::TimetableInfo>> GetTimetableLocal(List<Local::Entity> entities)
         {
-            var timetables = new List<Local::TimetableInfo>();
-            if (entities is null)
+            List<Local::TimetableInfo> timetables = new();
+            if (entities == null)
             {
                 return timetables;
             }
-            foreach (Local::Entity entity in entities)
+            foreach (var entity in entities)
             {
-                Local::TimetableInfo timetableInfo = Serialisation.FromJsonFile<Local::TimetableInfo>(FilePath.SavedTimetable(entity.Type, entity.ID));
-                if (timetableInfo is null)
+                Local::TimetableInfo? timetableInfo = await Serialisation.FromJsonFile<Local::TimetableInfo>(FilePath.SavedTimetable(entity.Type, entity.ID));
+                if (timetableInfo == null)
                 {
                     continue;
                 }
@@ -62,31 +40,35 @@ namespace NureTimetable.DAL
             return timetables;
         }
 
-        private static void UpdateTimetableLocal(Local::TimetableInfo newTimetable)
+        private static Task UpdateTimetableLocalAsync(Local::TimetableInfo newTimetable)
         {
-            Serialisation.ToJsonFile(newTimetable, FilePath.SavedTimetable(newTimetable.Entity.Type, newTimetable.Entity.ID));
+            return Serialisation.ToJsonFile(newTimetable, FilePath.SavedTimetable(newTimetable.Entity.Type, newTimetable.Entity.ID));
         }
 
         #region Lesson Info
-        public static void UpdateLessonsInfo(Local::Entity entity, List<Local::LessonInfo> lessonsInfo)
+        public static async Task UpdateLessonsInfo(Local::Entity entity, List<Local::LessonInfo> lessonsInfo)
         {
-            Local::TimetableInfo timetable = GetTimetableLocal(entity);
+            Local::TimetableInfo? timetable = await GetTimetableLocalAsync(entity);
+            if (timetable == null)
+            {
+                return;
+            }
+
             timetable.LessonsInfo = lessonsInfo;
-            UpdateTimetableLocal(timetable);
+            await UpdateTimetableLocalAsync(timetable);
             MessagingCenter.Send(Application.Current, MessageTypes.LessonSettingsChanged, entity);
         }
         #endregion
         #endregion
 
         #region Cist
-        public static async Task<(Local::TimetableInfo Timetable, Exception Exception)> GetTimetableFromCist(Local::Entity entity, DateTime dateStart, DateTime dateEnd)
+        public static async Task<(Local::TimetableInfo? timetable, Exception? exception)> GetTimetableFromCistAsync(Local::Entity entity, DateTime dateStart, DateTime dateEnd)
         {
-            if (!SettingsRepository.CheckCistTimetableUpdateRights(new() { entity }).Any())
+            if ((await SettingsRepository.CheckCistTimetableUpdateRightsAsync(entity)).Count == 0)
             {
                 return (null, null);
             }
 
-            using var client = new HttpClient();
             try
             {
                 MessagingCenter.Send(Application.Current, MessageTypes.TimetableUpdating, entity);
@@ -98,8 +80,9 @@ namespace NureTimetable.DAL
                 });
 
                 // Getting events
-                Local::TimetableInfo timetable = GetTimetableLocal(entity) ?? new Local::TimetableInfo(entity);
+                Local::TimetableInfo timetable = await GetTimetableLocalAsync(entity) ?? new(entity);
 
+                using HttpClient client = new();
                 Uri uri = Urls.CistApiEntityTimetable(entity.Type, entity.ID, dateStart, dateEnd);
                 string responseStr = GetHardcodedEventsFromCist();
                 responseStr = responseStr.Replace("&amp;", "&");
@@ -124,9 +107,11 @@ namespace NureTimetable.DAL
                     {
                         Local::Event localEvent = MapConfig.Map<Cist::Event, Local::Event>(ev);
                         localEvent.Lesson = MapConfig.Map<Cist::Lesson, Local::Lesson>(cistTimetable.Lessons.First(l => l.Id == ev.LessonId));
-                        localEvent.Type = MapConfig.Map<Cist::EventType, Local::EventType>(
-                            cistTimetable.EventTypes.FirstOrDefault(et => et.Id == ev.TypeId) ?? Cist::EventType.UnknownType
-                        );
+                        var cistType = cistTimetable.EventTypes.FirstOrDefault(et => et.Id == ev.TypeId);
+                        if (cistType != null)
+                        {
+                            localEvent.Type = MapConfig.Map<Cist::EventType, Local::EventType>(cistType);
+                        }
                         localEvent.Teachers = cistTimetable.Teachers
                             .Where(t => ev.TeacherIds.Contains(t.Id))
                             .DistinctBy(t => t.ShortName.Replace('ї', 'i'))
@@ -142,15 +127,21 @@ namespace NureTimetable.DAL
                     .ToList();
 
                 // Saving timetables
-                UpdateTimetableLocal(timetable);
+                await UpdateTimetableLocalAsync(timetable);
 
-                // Updating LastUpdated for saved groups 
-                List<Local::SavedEntity> savedEntities = UniversityEntitiesRepository.GetSaved();
-                foreach (Local::SavedEntity savedEntity in savedEntities.Where(e => e == entity))
+                // Updating LastUpdated for saved entity
+                await UniversityEntitiesRepository.ModifySavedAsync(savedEntities =>
                 {
+                    var savedEntity = savedEntities.SingleOrDefault(e => e == entity);
+                    if (savedEntity == null)
+                    {
+                        // Saved entity may be deleted while timetable is updating
+                        return true;
+                    }
+
                     savedEntity.LastUpdated = DateTime.Now;
-                }
-                UniversityEntitiesRepository.UpdateSaved(savedEntities);
+                    return false;
+                });
 
                 return (timetable, null);
             }
@@ -159,7 +150,7 @@ namespace NureTimetable.DAL
                 ex.Data.Add("Entity", $"{entity.Type} {entity.Name} ({entity.ID})");
                 ex.Data.Add("From", dateStart.ToString("dd.MM.yyyy"));
                 ex.Data.Add("To", dateEnd.ToString("dd.MM.yyyy"));
-                MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
+                ExceptionService.LogException(ex);
 
                 return (null, ex);
             }

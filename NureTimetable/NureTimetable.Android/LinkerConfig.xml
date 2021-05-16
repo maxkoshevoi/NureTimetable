@@ -1,0 +1,8 @@
+﻿<linker>
+  <assembly fullname="Xamarin.Android.Google.BillingClient">
+    <type fullname="Android.BillingClient.Api.ProxyBillingActivity" />
+  </assembly>
+  <assembly fullname="Xamarin.AndroidX.AppCompat">
+    <type fullname="AndroidX.AppCompat.Widget.FitWindowsLinearLayout" />
+  </assembly>
+</linker>

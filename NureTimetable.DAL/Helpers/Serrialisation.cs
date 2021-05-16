@@ -1,52 +1,64 @@
 ﻿using Microsoft.AppCenter.Crashes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using Nito.AsyncEx;
+using NureTimetable.Core.BL;
 using NureTimetable.Core.Extensions;
-using NureTimetable.Core.Models.Consts;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Xamarin.Essentials;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace NureTimetable.DAL.Helpers
 {
     public static class Serialisation
     {
-        public static void ToJsonFile<T>(T instance, string filePath)
+        private static AsyncReaderWriterLock fileLock = new();
+
+        public static async Task ToJsonFile<T>(T instance, string filePath)
         {
             try
             {
                 string json = ToJson(instance);
-                File.WriteAllText(filePath, json);
-            }
-            catch (Exception ex)
-            {
-                MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
-            }
-        }
-
-        public static T FromJsonFile<T>(string filePath)
-        {
-            try
-            {
-                if (File.Exists(filePath))
+                using (var writeLock = await fileLock.WriterLockAsync())
                 {
-                    string fileContent = File.ReadAllText(filePath);
-                    T instance = FromJson<T>(fileContent);
-                    return instance;
+                    // WriteAllTextAsync may not write all data to the file 
+                    File.WriteAllText(filePath, json);
                 }
             }
             catch (Exception ex)
             {
+                ExceptionService.LogException(ex);
+            }
+        }
+
+        public static async Task<T?> FromJsonFile<T>(string filePath)
+        {
+            if (!File.Exists(filePath))
+                return default;
+
+            try
+            {
+                string fileContent;
+                using (var readLock = await fileLock.ReaderLockAsync())
+                {
+                    // ReadAllTextAsync may not read all data from the file 
+                    fileContent = File.ReadAllText(filePath);
+                }
+                T instance = FromJson<T>(fileContent);
+                return instance;
+            }
+            catch (Exception ex)
+            {
                 ex.Data.Add("FilePath", filePath);
-                MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
+                ExceptionService.LogException(ex);
 
                 File.Delete(filePath);
+                return default;
             }
-            return default;
         }
 
         public static string ToJson<T>(T instance)
@@ -59,18 +71,12 @@ namespace NureTimetable.DAL.Helpers
         {
             try
             {
-                if (typeof(T).IsPrimitive || typeof(T) == typeof(string) || typeof(T) == typeof(DateTime))
-                {
-                    json = json?.Trim('\"');
-                    return (T)Convert.ChangeType(json, typeof(T));
-                }
-
                 if (!IsJson(json))
                 {
                     throw new ArgumentException($"Argument is not a valid json string");
                 }
 
-                T instance;
+                T? instance;
                 try
                 {
                     instance = JsonConvert.DeserializeObject<T>(json);
@@ -79,6 +85,11 @@ namespace NureTimetable.DAL.Helpers
                 {
                     json = TryToFixJson(json);
                     instance = JsonConvert.DeserializeObject<T>(json);
+                }
+
+                if (instance == null)
+                {
+                    throw new InvalidOperationException("Deserializer returned null");
                 }
                 return instance;
             }
@@ -98,49 +109,47 @@ namespace NureTimetable.DAL.Helpers
         }
 
         #region Converters
-#pragma warning disable CA1812
         internal class SecondEpochConverter : DateTimeConverterBase
         {
-            private static readonly DateTime _epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            private static readonly DateTime _epoch = new(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
-            public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+            public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
             {
                 if (reader.TokenType == JsonToken.Null)
                 {
                     return null;
                 }
-                return _epoch.AddSeconds((long)reader.Value);
+                return _epoch.AddSeconds((long)reader.Value!);
             }
 
-            public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+            public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
             {
-                writer.WriteRawValue(((DateTime)value - _epoch).TotalSeconds.ToString());
+                writer.WriteRawValue(((DateTime)value! - _epoch).TotalSeconds.ToString());
             }
         }
 
         internal class StringBoolConverter: JsonConverter
         {
-            private readonly Dictionary<string, bool> replacementValues = new Dictionary<string, bool> { { "1", true }, { "0", false } };
+            private readonly Dictionary<string, bool> replacementValues = new() { { "1", true }, { "0", false } };
 
             public override bool CanConvert(Type t) => t == typeof(bool?) || t == typeof(bool);
 
-            public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+            public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
             {
-                string key = (string)reader.Value;
-                if (key is null || !replacementValues.ContainsKey(key))
+                string key = (string)reader.Value!;
+                if (!replacementValues.ContainsKey(key))
                 {
                     return null;
                 }
                 return replacementValues[key];
             }
 
-            public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+            public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
             {
                 string newValue = replacementValues.FirstOrDefault(x => x.Value.Equals(value)).Key;
                 serializer.Serialize(writer, newValue);
             }
         }
-#pragma warning restore CA1812
         #endregion
 
         #region JsonFixers
@@ -151,7 +160,7 @@ namespace NureTimetable.DAL.Helpers
         public static string TryToFixJson(string invalidJsonStr)
         {
             const int notFound = -1;
-            var invalidJson = new StringBuilder(invalidJsonStr);
+            StringBuilder invalidJson = new(invalidJsonStr);
 
             const string stringStart = "\":\"";
             string[] stringEnd =

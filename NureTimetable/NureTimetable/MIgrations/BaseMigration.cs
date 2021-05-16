@@ -1,7 +1,7 @@
-﻿using NureTimetable.Core.Models.Consts;
+﻿using NureTimetable.Core.BL;
 using System;
 using System.Collections.Generic;
-using Xamarin.Forms;
+using System.Threading.Tasks;
 
 namespace NureTimetable.Migrations
 {
@@ -9,23 +9,29 @@ namespace NureTimetable.Migrations
     {
         public static IReadOnlyCollection<BaseMigration> Migrations => new BaseMigration[] 
         {
-            new MoveIsSelectInsideSavedEntityMigration(),
-            new RemoveTimelineViewMode()
+            new MoveEntityInsideSavedEntityMigration(),
+            new RemoveTimelineViewMode(),
         };
 
-        public abstract bool IsNeedsToBeApplied();
+        public Task<bool> IsNeedsToBeApplied() =>
+            HandleException(IsNeedsToBeAppliedInternal);
 
-        public abstract bool Apply();
+        public Task<bool> Apply() =>
+            HandleException(ApplyInternal);
 
-        protected static bool HandleException(Func<bool> func)
+        protected abstract Task<bool> IsNeedsToBeAppliedInternal();
+
+        protected abstract Task<bool> ApplyInternal();
+
+        protected static async Task<bool> HandleException(Func<Task<bool>> func)
         {
             try
             {
-                return func?.Invoke() ?? false;
+                return await func();
             }
             catch (Exception ex)
             {
-                MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
+                ExceptionService.LogException(ex);
             }
             return false;
         }

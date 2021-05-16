@@ -7,78 +7,48 @@ namespace NureTimetable.DAL.Models.Local
 {
     public class Event
     {
-        public EventType Type { get; set; }
+        public EventType Type { get; set; } = EventType.UnknownType;
         public DateTime StartUtc { get; set; }
         public DateTime EndUtc { get; set; }
-        public DateTime Start
-        {
-            get => StartUtc.Add(TimeZoneInfo.Local.GetUtcOffset(StartUtc));
-            set => StartUtc = value.Add(-TimeZoneInfo.Local.GetUtcOffset(value)); // TODO: Remove setter when all users move to Utc version (1821+)
-        }
-        public DateTime End 
-        {
-            get => EndUtc.Add(TimeZoneInfo.Local.GetUtcOffset(EndUtc));
-            set => EndUtc = value.Add(-TimeZoneInfo.Local.GetUtcOffset(value)); // TODO: Remove setter when all users move to Utc version (1821+)
-        }
-        public bool ShouldSerializeStart() => false;
-        public bool ShouldSerializeEnd() => false;
-        public string RoomName { get; set; }
+        public DateTime Start => StartUtc.Add(TimeZoneInfo.Local.GetUtcOffset(StartUtc));
+        public DateTime End => EndUtc.Add(TimeZoneInfo.Local.GetUtcOffset(EndUtc));
+        public string RoomName { get; set; } = string.Empty;
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public Lesson Lesson { get; set; }
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public int PairNumber { get; set; }
-        public List<Teacher> Teachers { get; set; }
-        public List<Group> Groups { get; set; }
+        public List<Teacher> Teachers { get; set; } = new();
+        public List<Group> Groups { get; set; } = new();
 
         #region Equals
-        public static bool operator ==(Event obj1, Event obj2)
-        {
-            if (ReferenceEquals(obj1, obj2))
-            {
-                return true;
-            }
-            if (obj1 is null || obj2 is null)
-            {
-                return false;
-            }
-            return obj1.Type == obj2.Type && 
-                obj1.Start == obj2.Start && 
-                obj1.RoomName == obj2.RoomName && 
-                obj1.Lesson == obj2.Lesson &&
-                obj1.Teachers.Count == obj2.Teachers.Count && !obj1.Teachers.Except(obj2.Teachers).Any() &&
-                obj1.Groups.Count == obj2.Groups.Count && !obj1.Groups.Except(obj2.Groups).Any();
-        }
+        public static bool operator ==(Event? obj1, Event? obj2) =>
+            ReferenceEquals(obj1, obj2) || obj1?.Equals(obj2) == true;
 
-        public static bool operator !=(Event obj1, Event obj2)
-        {
-            return !(obj1 == obj2);
-        }
+        public static bool operator !=(Event? obj1, Event? obj2) =>
+            !(obj1 == obj2);
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj is Event e)
             {
-                return this == e;
+                return Type.Equals(e.Type) &&
+                    Start == e.Start &&
+                    RoomName == e.RoomName &&
+                    Lesson.Equals(e.Lesson) &&
+                    Teachers.Count == e.Teachers.Count && !Teachers.Except(e.Teachers).Any() &&
+                    Groups.Count == e.Groups.Count && !Groups.Except(e.Groups).Any();
             }
-            return base.Equals(obj);
+            return false;
         }
 
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                // Choose large primes to avoid hashing collisions
-                const int HashingBase = (int)2166136261;
-                const int HashingMultiplier = 16777619;
-
-                int hash = HashingBase;
-                hash = (hash * HashingMultiplier) ^ Type.GetHashCode();
-                hash = (hash * HashingMultiplier) ^ Start.GetHashCode();
-                hash = (hash * HashingMultiplier) ^ RoomName?.GetHashCode() ?? 0;
-                hash = (hash * HashingMultiplier) ^ Lesson?.GetHashCode() ?? 0;
-                hash = (hash * HashingMultiplier) ^ Teachers?.GetTrueHashCode() ?? 0;
-                hash = (hash * HashingMultiplier) ^ Groups?.GetTrueHashCode() ?? 0;
-                return hash;
-            }
-        }
+        public override int GetHashCode() => 
+            HashCode.Combine(
+                Type,
+                Start,
+                RoomName,
+                Lesson,
+                Teachers,
+                Groups);
         #endregion
     }
 }

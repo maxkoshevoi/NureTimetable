@@ -1,26 +1,20 @@
 ﻿using NureTimetable.Core.Models.Settings;
 using NureTimetable.DAL;
+using System.Threading.Tasks;
 
 namespace NureTimetable.Migrations
 {
     class RemoveTimelineViewMode : BaseMigration
     {
-        public override bool IsNeedsToBeApplied()
+        protected override Task<bool> IsNeedsToBeAppliedInternal()
         {
-            return HandleException(() =>
-            {
-                return (int)SettingsRepository.Settings.TimetableViewMode == 3;
-            });
-
+            return Task.FromResult((int)SettingsRepository.Settings.TimetableViewMode == 3);
         }
 
-        public override bool Apply()
+        protected override Task<bool> ApplyInternal()
         {
-            return HandleException(() =>
-            {
-                SettingsRepository.Settings.TimetableViewMode = TimetableViewMode.Week;
-                return true;
-            });
+            SettingsRepository.Settings.TimetableViewMode = TimetableViewMode.Week;
+            return Task.FromResult(true);
         }
     }
 }

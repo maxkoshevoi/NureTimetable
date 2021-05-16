@@ -1,16 +1,16 @@
 ﻿using NureTimetable.Core.Models.Consts;
+using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
-using NureTimetable.UI.Helpers;
-using System.Collections.ObjectModel;
+using NureTimetable.UI.ViewModels.Lessons.LessonSettings;
 using System.Linq;
-using System.Windows.Input;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 
-namespace NureTimetable.UI.ViewModels.Lessons.LessonSettings
+namespace NureTimetable.UI.ViewModels
 {
     public class LessonSettingsViewModel : BaseViewModel
     {
-        bool updatingProgrammatically = false;
+        private bool updatingProgrammatically = false;
 
         #region Properties
         public LessonInfo LessonInfo { get; }
@@ -22,39 +22,40 @@ namespace NureTimetable.UI.ViewModels.Lessons.LessonSettings
         
         public ListViewViewModel<Teacher> LvTeachers { get; set; }
 
-        public ICommand ShowLessonStateChangedCommand { get; }
+        public Command ShowLessonStateChangedCommand { get; }
+        public IAsyncCommand BackButtonPressedCommand { get; }
         #endregion
 
-        public LessonSettingsViewModel(LessonInfo lessonInfo, TimetableInfo timetableInfo)
+        public LessonSettingsViewModel(LessonInfo lessonInfo, TimetableInfo timetableInfo, bool saveOnExit)
         {
-            Title = lessonInfo.Lesson.FullName;
-
             LessonInfo = lessonInfo;
             updatingProgrammatically = true;
             ShowLessonIsChecked = lessonInfo.Settings.Hiding.ShowLesson;
             updatingProgrammatically = false;
 
-            LvEventTypes = new ListViewViewModel<EventType>
+            LvEventTypes = new ListViewViewModel<EventType>()
             {
-                ItemsSource = new ObservableCollection<CheckedEntity<EventType>>(timetableInfo.EventTypes(lessonInfo.Lesson.ID)
-                    .Select(et => new CheckedEntity<EventType>(EventTypeStateChanged)
-                    {
-                        Entity = et
-                    })
-                    .OrderBy(et => et.Entity.ShortName))
+                ItemsSource = { timetableInfo.EventTypes(lessonInfo.Lesson.ID)
+                    .Select(et => new CheckedEntity<EventType>(et, EventTypeStateChanged))
+                    .OrderBy(et => et.Entity.ShortName) }
             };
-            LvTeachers = new ListViewViewModel<Teacher>
+            LvTeachers = new()
             {
-                ItemsSource = new ObservableCollection<CheckedEntity<Teacher>>(timetableInfo.Teachers(lessonInfo.Lesson.ID)
-                    .Select(t => new CheckedEntity<Teacher>(TeacherStateChanged)
-                    {
-                        Entity = t,
-                    })
-                    .OrderBy(et => et.Entity.ShortName))
+                ItemsSource = { timetableInfo.Teachers(lessonInfo.Lesson.ID)
+                    .Select(t => new CheckedEntity<Teacher>(t, TeacherStateChanged))
+                    .OrderBy(et => et.Entity.ShortName) }
             };
             UpdateEventTypesCheck(true);
 
-            ShowLessonStateChangedCommand = CommandHelper.Create(ShowLessonStateChanged);
+            ShowLessonStateChangedCommand = CommandFactory.Create(ShowLessonStateChanged);
+            BackButtonPressedCommand = CommandFactory.Create(async () =>
+            {
+                if (saveOnExit)
+                {
+                    await EventsRepository.UpdateLessonsInfo(timetableInfo.Entity, timetableInfo.LessonsInfo);
+                }
+                await Shell.Current.GoToAsync("..", true);
+            });
         }
         
         private void EventTypeStateChanged(CheckedEntity<EventType> e)

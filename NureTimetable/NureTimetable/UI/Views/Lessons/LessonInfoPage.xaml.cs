@@ -1,6 +1,6 @@
 ﻿using Xamarin.Forms;
 
-namespace NureTimetable.UI.Views.Lessons
+namespace NureTimetable.UI.Views
 {
     public partial class LessonInfoPage : ContentPage
     {

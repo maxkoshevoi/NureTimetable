@@ -5,14 +5,14 @@ namespace NureTimetable.DAL.Legacy.Models
 {
     class Event
     {
-        public string Lesson { get; set; }
-        public string Room { get; set; }
-        public string Type { get; set; }
+        public string? Lesson { get; set; }
+        public string? Room { get; set; }
+        public string? Type { get; set; }
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
 
-        public string DisplayInfo
-            => $"{Lesson}{Environment.NewLine}{Room} {Type}{Environment.NewLine}{Start:HH:mm} - {End:HH:mm}";
+        public string DisplayInfo => 
+            $"{Lesson}{Environment.NewLine}{Room} {Type}{Environment.NewLine}{Start:HH:mm} - {End:HH:mm}";
 
         public Color Color
         {

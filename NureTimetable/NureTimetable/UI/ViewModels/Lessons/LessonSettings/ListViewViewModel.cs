@@ -1,12 +1,11 @@
-﻿using System.Collections.ObjectModel;
-using System.Linq;
+﻿using System.Linq;
+using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace NureTimetable.UI.ViewModels.Lessons.LessonSettings
 {
     public class ListViewViewModel<T> : BaseViewModel
     {
-        private ObservableCollection<CheckedEntity<T>> _itemSource;
-        public ObservableCollection<CheckedEntity<T>> ItemsSource { get => _itemSource; internal set => SetProperty(ref _itemSource, value, ItemsSourceChanged); }
+        public ObservableRangeCollection<CheckedEntity<T>> ItemsSource { get; } = new();
         
         private bool _isVisible;
         public bool IsVisible { get => _isVisible; set => SetProperty(ref _isVisible, value); }
@@ -14,17 +13,13 @@ namespace NureTimetable.UI.ViewModels.Lessons.LessonSettings
         private double _heightRequest;
         public double HeightRequest { get => _heightRequest; set => SetProperty(ref _heightRequest, value); }
 
-        private void ItemsSourceChanged()
+        public ListViewViewModel()
         {
-            if (ItemsSource is null || !ItemsSource.Any())
+            ItemsSource.CollectionChanged += (_, _) =>
             {
-                IsVisible = false;
-            }
-            else
-            {
+                IsVisible = ItemsSource.Any();
                 Resize();
-                IsVisible = true;
-            }
+            };
         }
 
         private void Resize()

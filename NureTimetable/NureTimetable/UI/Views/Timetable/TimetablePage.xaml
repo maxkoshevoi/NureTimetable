@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:fonts="clr-namespace:NureTimetable.Models.Consts"
+             xmlns:converters="clr-namespace:NureTimetable.UI.Converters"
+             xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels"
+             xmlns:sfs="clr-namespace:Syncfusion.SfSchedule.XForms;assembly=Syncfusion.SfSchedule.XForms"
+             Shell.TabBarIsVisible="True"
+             x:Class="NureTimetable.UI.Views.TimetablePage"
+             x:DataType="vm:TimetableViewModel"
+             Title="{Binding Title.Localized}">
+    <ContentPage.Behaviors>
+        <xct:EventToCommandBehavior x:DataType="vm:TimetableViewModel" EventName="Appearing" Command="{Binding PageAppearingCommand}"/>
+        <xct:EventToCommandBehavior x:DataType="vm:TimetableViewModel" EventName="Disappearing" Command="{Binding PageDisappearingCommand}"/>
+    </ContentPage.Behaviors>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:DataType="vm:TimetableViewModel" IconImageSource="{Binding HideSelectedEventsIcon, Converter={converters:ToolbarIconValueConverter}}" Command="{Binding HideSelectedEventsCommand}" />
+        <ToolbarItem x:DataType="vm:TimetableViewModel" IconImageSource="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.CalendarToday}}" Command="{Binding ScheduleModeCommand}" />
+        <ToolbarItem x:DataType="vm:TimetableViewModel" IconImageSource="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.Sync}}" Command="{Binding UpdateTimetableCommand}" />
+    </ContentPage.ToolbarItems>
+
+    <RefreshView IsRefreshing="{Binding IsTimetableUpdating}">
+        <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                    AbsoluteLayout.LayoutFlags="All" 
+                    BackgroundColor="{DynamicResource PageBackgroundColor}" 
+                    IsVisible="{Binding TimetableInfoList.Events, Converter={xct:ListIsNotNullOrEmptyConverter}}">
+                <Label HorizontalOptions="Center" FontSize="20" Margin="0,15,0,0" IsVisible="{Binding IsTimeLeftVisible}" Text="{Binding TimeLeftText}" />
+                <sfs:SfSchedule
+                        x:Name="Timetable"
+                        HeaderHeight="50"
+                        ViewHeaderHeight="50"
+                        FirstDayOfWeek="2"
+                        ShowAppointmentsInline="True"
+                        TimeIntervalHeight="-1"
+                        VerticalOptions="FillAndExpand"
+                        ShowCurrentTimeIndicator="True"
+                        CurrentTimeIndicatorColor="CornflowerBlue"
+                        BackgroundColor="{DynamicResource PageBackgroundColor}"
+                        TimeInterval="{Binding TimetableTimeInterval}"
+                        MinDisplayDate="{Binding TimetableMinDisplayDate}"
+                        MaxDisplayDate="{Binding TimetableMaxDisplayDate}"
+                        DataSource="{Binding TimetableDataSource}"
+                        IsEnabled="{Binding IsProgressLayoutVisible, Converter={xct:InvertedBoolConverter}}"
+                        ScheduleView="{Binding TimetableScheduleView}"
+                        Locale="{Binding TimetableLocale}"
+                        SelectedDate="{Binding TimetableSelectedDate}"
+                        CellTappedCommand="{Binding TimetableCellTappedCommand}"
+                        VisibleDatesChangedCommand="{Binding TimetableVisibleDatesChangedCommand}">
+                    <sfs:SfSchedule.Behaviors>
+                        <xct:EventToCommandBehavior x:DataType="vm:TimetableViewModel" EventName="MonthInlineAppointmentTapped" Command="{Binding TimetableMonthInlineAppointmentTappedCommand}"/>
+                        <xct:EventToCommandBehavior x:DataType="vm:TimetableViewModel" EventName="OnMonthInlineLoadedEvent" Command="{Binding TimetableMonthInlineLoadedCommand}"/>
+                    </sfs:SfSchedule.Behaviors>
+                    <sfs:SfSchedule.HeaderStyle>
+                        <sfs:HeaderStyle 
+                            FontSize="10" 
+                            FontAttributes="Bold" 
+                            BackgroundColor="{DynamicResource PageBackgroundColor}" 
+                            TextColor="{DynamicResource PrimaryTextColor}" />
+                    </sfs:SfSchedule.HeaderStyle>
+                    <sfs:SfSchedule.ViewHeaderStyle>
+                        <sfs:ViewHeaderStyle 
+                            DateFontSize="13" 
+                            DayFontSize="8" 
+                            CurrentDateTextColor="{DynamicResource CurrentDayColor}" 
+                            CurrentDayTextColor="{DynamicResource CurrentDayColor}" 
+                            BackgroundColor="{DynamicResource PageBackgroundColor}" 
+                            DateTextColor="{DynamicResource PrimaryTextColor}" 
+                            DayTextColor="{DynamicResource PrimaryTextColor}" />
+                    </sfs:SfSchedule.ViewHeaderStyle>
+                    <sfs:SfSchedule.WeekViewSettings>
+                        <sfs:WeekViewSettings 
+                            StartHour="{Binding TimetableStartHour}" 
+                            EndHour="{Binding TimetableEndHour}" 
+                            WorkStartHour="0" 
+                            WorkEndHour="24" 
+                            TimeSlotColor="{DynamicResource PageBackgroundColor}"
+                            TimeSlotBorderColor="{DynamicResource BorderColor}"
+                            VerticalLineColor="{DynamicResource BorderColor}">
+                            <sfs:WeekViewSettings.WeekLabelSettings>
+                                <sfs:WeekLabelSettings TimeFormat="HH:mm"/>
+                            </sfs:WeekViewSettings.WeekLabelSettings>
+                        </sfs:WeekViewSettings>
+                    </sfs:SfSchedule.WeekViewSettings>
+                    <sfs:SfSchedule.DayViewSettings>
+                        <sfs:DayViewSettings 
+                            StartHour="{Binding TimetableStartHour}" 
+                            EndHour="{Binding TimetableEndHour}" 
+                            WorkStartHour="0"
+                            WorkEndHour="24"
+                            TimeSlotColor="{DynamicResource PageBackgroundColor}"
+                            TimeSlotBorderColor="{DynamicResource BorderColor}"
+                            VerticalLineColor="{DynamicResource BorderColor}">
+                            <sfs:DayViewSettings.DayLabelSettings>
+                                <sfs:DayLabelSettings TimeFormat="HH:mm"/>
+                            </sfs:DayViewSettings.DayLabelSettings>
+                        </sfs:DayViewSettings>
+                    </sfs:SfSchedule.DayViewSettings>
+                    <sfs:SfSchedule.MonthViewSettings>
+                        <sfs:MonthViewSettings 
+                            AppointmentIndicatorCount="6" 
+                            ShowWeekNumber="True" 
+                            AppointmentDisplayMode="Appointment">
+                            <sfs:MonthViewSettings.WeekNumberStyle>
+                                <sfs:WeekNumberStyle BackgroundColor="{DynamicResource PageBackgroundColor}"/>
+                            </sfs:MonthViewSettings.WeekNumberStyle>
+                        </sfs:MonthViewSettings>
+                    </sfs:SfSchedule.MonthViewSettings>
+                    <sfs:SfSchedule.MonthCellStyle>
+                        <sfs:MonthViewCellStyle 
+                            PreviousMonthBackgroundColor="{DynamicResource PageBackgroundColor}"
+                            PreviousMonthTextColor="{DynamicResource TertiaryTextColor}"
+                            BackgroundColor="{DynamicResource PageBackgroundColor}"
+                            TextColor="{DynamicResource PrimaryTextColor}"
+                            NextMonthBackgroundColor="{DynamicResource PageBackgroundColor}"
+                            NextMonthTextColor="{DynamicResource TertiaryTextColor}"
+                            TodayBackgroundColor="{DynamicResource PageBackgroundColor}"/>
+                    </sfs:SfSchedule.MonthCellStyle>
+                    <sfs:SfSchedule.AppointmentMapping>
+                        <sfs:ScheduleAppointmentMapping
+			                SubjectMapping="DisplayInfo"
+			                StartTimeMapping="Start"
+			                EndTimeMapping="End"
+                            ColorMapping="Color">
+                        </sfs:ScheduleAppointmentMapping>
+                    </sfs:SfSchedule.AppointmentMapping>
+                    <sfs:SfSchedule.AppointmentStyle>
+                        <sfs:AppointmentStyle 
+                            BorderColor="{DynamicResource PageBackgroundColor}"
+                            TextColor="{DynamicResource AppointmentTextColor}" />
+                    </sfs:SfSchedule.AppointmentStyle>
+                </sfs:SfSchedule>
+            </StackLayout>
+            <Button
+                x:Name="BToday"
+                HorizontalOptions="Center"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                AbsoluteLayout.LayoutBounds="1,1,AutoSize,AutoSize"
+                FontFamily="{StaticResource MaterialFontFamily}" 
+                CornerRadius="100"
+                FontSize="20"
+                Margin="20"
+                WidthRequest="47" 
+                HeightRequest="47" 
+                BackgroundColor="{DynamicResource CurrentDayColor}" 
+                TextColor="White"
+                IsVisible="{Binding TimetableInfoList.Events, Converter={xct:ListIsNotNullOrEmptyConverter}}" 
+                Scale="{Binding BTodayScale, Mode=TwoWay}"
+                Command="{Binding BTodayClickedCommand}"
+                Text="{Binding BTodayText}"/>
+            <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                    AbsoluteLayout.LayoutFlags="All" 
+                    VerticalOptions="CenterAndExpand" 
+                    HorizontalOptions="CenterAndExpand"
+                    Margin="5">
+                <StackLayout.IsVisible>
+                    <MultiBinding Converter="{xct:VariableMultiValueConverter ConditionType=All}">
+                        <Binding Path="TimetableInfoList.Events" Converter="{xct:ListIsNullOrEmptyConverter}" />
+                        <Binding Path="IsProgressLayoutVisible" Converter="{xct:InvertedBoolConverter}" />
+                    </MultiBinding>
+                </StackLayout.IsVisible>
+                <Label Text="{xct:Translate NoTimetable}" IsVisible="{Binding TimetableInfoList.Timetables, Converter={xct:ListIsNullOrEmptyConverter}}"/>
+                <Label Text="{xct:Translate TimetableIsEmpty}" IsVisible="{Binding TimetableInfoList.Timetables, Converter={xct:ListIsNotNullOrEmptyConverter}}" />
+            </StackLayout>
+            <StackLayout IsVisible="{Binding IsProgressLayoutVisible}" Padding="12"
+                    AbsoluteLayout.LayoutFlags="PositionProportional"
+                    AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
+                <ActivityIndicator IsRunning="True"/>
+                <Label Text="{xct:Translate Wait}" HorizontalOptions="Center" TextColor="{DynamicResource ActivityIndicatorTextColor}"/>
+            </StackLayout>
+        </AbsoluteLayout>
+    </RefreshView>
+</ContentPage>

@@ -1,21 +1,21 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels.Info"
-             xmlns:LN="clr-namespace:NureTimetable.Core.Localization;assembly=NureTimetable.Core"
-             xmlns:fonts="clr-namespace:NureTimetable.Models.Consts.Fonts"
-             xmlns:touch="clr-namespace:TouchEffect;assembly=TouchEffect"
-             xmlns:essentials="clr-namespace:Xamarin.Essentials;assembly=Xamarin.Essentials"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels"
+             xmlns:fonts="clr-namespace:NureTimetable.Models.Consts"
+             xmlns:ui="clr-namespace:NureTimetable.UI.Helpers"
+             Shell.TabBarIsVisible="True"
              x:Class="NureTimetable.UI.Views.MenuPage"
              x:DataType="vm:MenuViewModel"
-             Title="{LN:Translate AppName}">
+             Title="{xct:Translate AppName}">
 
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="Row" TargetType="StackLayout">
                 <Setter Property="Orientation" Value="Horizontal"/>
                 <Setter Property="Padding" Value="20,10"/>
-                <Setter Property="touch:TouchEff.NativeAnimation" Value="True"/>
+                <Setter Property="xct:TouchEffect.NativeAnimation" Value="True"/>
             </Style>
             <Style TargetType="Image">
                 <Setter Property="VerticalOptions" Value="Center"/>
@@ -34,8 +34,8 @@
             <StackLayout Style="{StaticResource Row}">
                 <Image Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.Brightness6}, Color={DynamicResource SecondaryTextColor}}" />
                 <StackLayout VerticalOptions="Center">
-                    <Label Text="{LN:Translate Theme}" Style="{DynamicResource ListItemTextStyle}" />
-                    <Label Text="{Binding AppThemeName}" FontSize="13" Style="{DynamicResource ListItemDetailTextStyle}" />
+                    <Label Text="{xct:Translate Theme}" Style="{DynamicResource ListItemTextStyle}" />
+                    <Label Text="{Binding AppThemeName.Localized}" FontSize="13" Style="{DynamicResource ListItemDetailTextStyle}" />
                 </StackLayout>
 
                 <StackLayout.GestureRecognizers>
@@ -45,36 +45,44 @@
             <StackLayout Style="{StaticResource Row}">
                 <Image Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.Web}, Color={DynamicResource SecondaryTextColor}}" />
                 <StackLayout>
-                    <Label Text="{LN:Translate Language}" Style="{DynamicResource ListItemTextStyle}" />
-                    <Label Text="{Binding AppLanguageName}" FontSize="13" Style="{DynamicResource ListItemDetailTextStyle}" />
+                    <Label Text="{xct:Translate Language}" Style="{DynamicResource ListItemTextStyle}" />
+                    <Label Text="{Binding AppLanguageName.Localized}" FontSize="13" Style="{DynamicResource ListItemDetailTextStyle}" />
                 </StackLayout>
 
                 <StackLayout.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ChangeLanguageCommand}"/>
                 </StackLayout.GestureRecognizers>
             </StackLayout>
-        
+            <StackLayout Style="{StaticResource Row}">
+                <Image Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.DotsHorizontal}, Color={DynamicResource SecondaryTextColor}}" />
+                <Label Text="{xct:Translate OtherSettings}" Style="{DynamicResource ListItemTextStyle}" />
+
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding OpenSettingsCommand}"/>
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+
             <BoxView/>
 
             <StackLayout Style="{StaticResource Row}">
                 <Image Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.CommentTextMultipleOutline}, Color={DynamicResource SecondaryTextColor}}" />
-                <Label Text="{LN:Translate Feedback}" VerticalOptions="Center" Style="{DynamicResource ListItemTextStyle}"/>
+                <Label Text="{xct:Translate Feedback}" VerticalOptions="Center" Style="{DynamicResource ListItemTextStyle}"/>
             
                 <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding NavigateUriCommand}" CommandParameter="https://t.me/nuretimetable_group" />
+                    <TapGestureRecognizer Command="{Static ui:CommonCommands.NavigateUriCommand}" CommandParameter="https://t.me/nuretimetable_group" />
                 </StackLayout.GestureRecognizers>
             </StackLayout>
             <StackLayout Style="{StaticResource Row}">
                 <Image Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.StarOutline}, Color={DynamicResource SecondaryTextColor}}" />
-                <Label Text="{LN:Translate RateTheApp}" VerticalOptions="Center" Style="{DynamicResource ListItemTextStyle}"/>
+                <Label Text="{xct:Translate RateTheApp}" VerticalOptions="Center" Style="{DynamicResource ListItemTextStyle}"/>
             
                 <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding NavigateUriCommand}" CommandParameter="https://play.google.com/store/apps/details?id=com.whitebox.nuretimetable" />
+                    <TapGestureRecognizer Command="{Static ui:CommonCommands.NavigateUriCommand}" CommandParameter="https://play.google.com/store/apps/details?id=com.whitebox.nuretimetable" />
                 </StackLayout.GestureRecognizers>
             </StackLayout>
             <StackLayout Style="{StaticResource Row}">
                 <Image Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.Cash}, Color={DynamicResource SecondaryTextColor}}" />
-                <Label Text="{LN:Translate Donate}" VerticalOptions="Center" Style="{DynamicResource ListItemTextStyle}"/>
+                <Label Text="{xct:Translate Donate}" VerticalOptions="Center" Style="{DynamicResource ListItemTextStyle}"/>
 
                 <StackLayout.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding OpenDonatePageCommand}"/>
@@ -82,22 +90,13 @@
             </StackLayout>
 
             <BoxView/>
-        
+
             <StackLayout Style="{StaticResource Row}">
                 <Image Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.CodeBraces}, Color={DynamicResource SecondaryTextColor}}" />
-                <Label Text="{LN:Translate SourceCode}" VerticalOptions="Center" Style="{DynamicResource ListItemTextStyle}"/>
-            
+                <Label Text="{xct:Translate SourceCode}" VerticalOptions="Center" Style="{DynamicResource ListItemTextStyle}"/>
+
                 <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding NavigateUriCommand}" CommandParameter="https://github.com/maxkoshevoi/NureTimetable" />
-                </StackLayout.GestureRecognizers>
-            </StackLayout>
-            <StackLayout Style="{StaticResource Row}">
-                <Image Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.BugOutline}, Color={DynamicResource SecondaryTextColor}}" />
-                <Label Text="{LN:Translate ShowErrors}" VerticalOptions="Center" Style="{DynamicResource ListItemTextStyle}"/>
-                <Switch IsToggled="{Binding IsDebugModeActive}" HorizontalOptions="EndAndExpand" VerticalOptions="Center" />
-            
-                <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding ToggleDebugModeCommand}" />
+                    <TapGestureRecognizer Command="{Static ui:CommonCommands.NavigateUriCommand}" CommandParameter="https://github.com/maxkoshevoi/NureTimetable" />
                 </StackLayout.GestureRecognizers>
             </StackLayout>
 
@@ -105,7 +104,7 @@
                    FontSize="13" 
                    HorizontalOptions="Center" 
                    TextColor="Gray"
-                   Text="{Binding ., Source={Static essentials:AppInfo.VersionString}, StringFormat={LN:Translate Version}}"/>
+                   Text="{Binding AppVersion.Localized}"/>
         </StackLayout>
     </ScrollView>
 </ContentPage>

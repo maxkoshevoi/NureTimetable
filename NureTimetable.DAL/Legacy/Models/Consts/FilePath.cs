@@ -3,7 +3,7 @@ using System.IO;
 
 namespace NureTimetable.DAL.Legacy.Models.Consts
 {
-    [Obsolete]
+    [Obsolete("", true)]
     static class FilePath
     {
         public static string LocalStorage =>

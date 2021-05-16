@@ -6,29 +6,19 @@ namespace NureTimetable.DAL
 {
     public static class MapConfig
     {
-        private static IMapper _config;
+        private static IMapper? _instance;
         private static readonly object configLockObj = new();
 
-        private static IMapper Config
-        {
-            get
-            {
-                if (_config is null)
-                {
-                    Init();
-                }
-                return _config;
-            }
-        }
+        private static IMapper Instance => _instance ?? Init();
 
-        public static TDestination Map<TSource, TDestination>(TSource source)
-            => Config.Map<TSource, TDestination>(source);
+        public static TDestination Map<TSource, TDestination>(TSource source) => 
+            Instance.Map<TSource, TDestination>(source);
 
-        private static void Init()
+        private static IMapper Init()
         {
             lock (configLockObj)
             {
-                _config ??= new MapperConfiguration(cfg =>
+                _instance ??= new MapperConfiguration(cfg =>
                 {
                     // UniversityEntitiesRepository
                     cfg.CreateMap<Cist::Group, Local::Group>();
@@ -58,6 +48,8 @@ namespace NureTimetable.DAL
                     cfg.CreateMap<Cist::Lesson, Local::Lesson>();
                 }).CreateMapper();
             }
+
+            return _instance;
         }
     }
 }

@@ -1,13 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:LN="clr-namespace:NureTimetable.Core.Localization;assembly=NureTimetable.Core"
-             xmlns:behaviors="clr-namespace:NureTimetable.UI.Behaviors;assembly=NureTimetable"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels"
              xmlns:syncfusion="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
-             xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels.Lessons.LessonSettings"
-             x:Class="NureTimetable.UI.Views.Lessons.LessonSettingsPage"
+             x:Class="NureTimetable.UI.Views.LessonSettingsPage"
              x:DataType="vm:LessonSettingsViewModel"
-             Title="{Binding Title}">
+             Title="{Binding LessonInfo.Lesson.FullName}">
+
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior Command="{Binding BackButtonPressedCommand}" />
+    </Shell.BackButtonBehavior>
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -34,9 +37,9 @@
     
     <ScrollView>
         <StackLayout>
-            <syncfusion:SfCheckBox Margin="5,15,5,10" IsChecked="{Binding ShowLessonIsChecked}" Text="{LN:Translate DisplayLesson}" >
+            <syncfusion:SfCheckBox Margin="5,15,5,10" IsChecked="{Binding ShowLessonIsChecked}" Text="{xct:Translate DisplayLesson}" >
                 <syncfusion:SfCheckBox.Behaviors>
-                    <behaviors:EventToCommandBehavior EventName="StateChanged" Command="{Binding ShowLessonStateChangedCommand}"/>
+                    <xct:EventToCommandBehavior EventName="StateChanged" Command="{Binding ShowLessonStateChangedCommand}"/>
                 </syncfusion:SfCheckBox.Behaviors>
             </syncfusion:SfCheckBox>
             <ListView BindingContext="{Binding LvEventTypes}"
@@ -44,7 +47,7 @@
                       VerticalOptions="Fill"
                       ItemTapped="ListView_ItemTapped">
                 <ListView.Header>
-                    <Label Text="{LN:Translate DisplayLessonsForTypes}" />
+                    <Label Text="{xct:Translate DisplayLessonsForTypes}" />
                 </ListView.Header>
             </ListView>
             <ListView BindingContext="{Binding LvTeachers}"
@@ -52,11 +55,11 @@
                       VerticalOptions="Fill"
                       ItemTapped="ListView_ItemTapped">
                 <ListView.Header>
-                    <Label Text="{LN:Translate DisplayLessonsForTeachers}" />
+                    <Label Text="{xct:Translate DisplayLessonsForTeachers}" />
                 </ListView.Header>
             </ListView>
             <StackLayout Margin="10">
-                <Label Text="{LN:Translate Notes}" />
+                <Label Text="{xct:Translate Notes}" />
                 <Editor AutoSize="TextChanges" Text="{Binding LessonInfo.Notes}" />
             </StackLayout>
         </StackLayout>

@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels"
+             x:Class="NureTimetable.UI.Views.AddEntityPage"
+             Title="{Binding Title.Localized}">
+
+    <AbsoluteLayout>
+        <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+            <ListView ItemsSource="{Binding Entities}"
+                    SelectedItem="{Binding SelectedEntity}"
+                    ItemTapped="Handle_ItemTapped"
+                    CachingStrategy="RecycleElement">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Label Text="{Binding Name}" Margin="10,0" VerticalOptions="Center" />
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+        <StackLayout 
+                AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                AbsoluteLayout.LayoutFlags="All" 
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand"
+                Margin="5">
+            <StackLayout.IsVisible>
+                <MultiBinding Converter="{xct:VariableMultiValueConverter ConditionType=All}">
+                    <Binding Path="Entities" Converter="{xct:ListIsNullOrEmptyConverter}" />
+                    <Binding Path="IsProgressLayoutVisible" Converter="{xct:InvertedBoolConverter}" />
+                </MultiBinding>
+            </StackLayout.IsVisible>
+            <Label Text="{xct:Translate NoUniversityInfo}" HorizontalTextAlignment="Center" IsVisible="{Binding LastSearchQuery, Converter={xct:IsNullOrEmptyConverter}}" />
+            <Label Text="{xct:Translate EmptyUniversityInfoSearch}" HorizontalTextAlignment="Center" IsVisible="{Binding LastSearchQuery, Converter={xct:IsNotNullOrEmptyConverter}}" />
+        </StackLayout>
+        <StackLayout IsVisible="{Binding IsProgressLayoutVisible}" Padding="12"
+                    AbsoluteLayout.LayoutFlags="PositionProportional"
+                    AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
+            <ActivityIndicator IsRunning="True"/>
+            <Label Text="{xct:Translate Wait}" HorizontalOptions="Center" TextColor="{DynamicResource ActivityIndicatorTextColor}"/>
+        </StackLayout>
+    </AbsoluteLayout>
+</ContentPage>

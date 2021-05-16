@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:LN="clr-namespace:NureTimetable.Core.Localization;assembly=NureTimetable.Core"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              xmlns:products="clr-namespace:NureTimetable.Core.Models.Consts;assembly=NureTimetable.Core"
-             xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels.Info"
+             xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels"
              x:Class="NureTimetable.UI.Views.DonatePage"
              x:DataType="vm:DonateViewModel"
-             Title="{LN:Translate Donate}">
+             Title="{xct:Translate Donate}">
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -33,17 +33,17 @@
                     <Label.FormattedText>
                         <FormattedString>
                             <FormattedString.Spans>
-                                <Span Text="{LN:Translate ThisApp}" />
-                                <Span Text="{LN:Translate IsFree}" FontAttributes="Bold" />
-                                <Span Text="{LN:Translate AndWillAlwaysBe}" />
+                                <Span Text="{xct:Translate ThisApp}" />
+                                <Span Text="{xct:Translate IsFree}" FontAttributes="Bold" />
+                                <Span Text="{xct:Translate AndWillAlwaysBe}" />
                             </FormattedString.Spans>
                         </FormattedString>
                     </Label.FormattedText>
                 </Label>
-                <Label Text="{LN:Translate YourContribution}" />
-                <Button Text="{LN:Translate Thank}" CommandParameter="{Static products:InAppProducts.DonateLow}"/>
-                <Button Text="{LN:Translate Thank2}" CommandParameter="{Static products:InAppProducts.DonateMedium}"/>
-                <Button Text="{LN:Translate Thank3}" CommandParameter="{Static products:InAppProducts.DonateHigh}"/>
+                <Label Text="{xct:Translate YourContribution}" />
+                <Button Text="{xct:Translate Thank}" CommandParameter="{Static products:InAppProducts.DonateLow}"/>
+                <Button Text="{xct:Translate Thank2}" CommandParameter="{Static products:InAppProducts.DonateMedium}"/>
+                <Button Text="{xct:Translate Thank3}" CommandParameter="{Static products:InAppProducts.DonateHigh}"/>
             </StackLayout>
         </ScrollView>
     </Grid>

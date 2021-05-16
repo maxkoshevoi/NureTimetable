@@ -9,11 +9,12 @@ using System.Text;
 
 namespace NureTimetable.DAL.Legacy
 {
+#pragma warning disable CS8600, CS8603, CS8604 // Possible null reference
     [Obsolete("", true)]
     static class EventsDataStore
     {
-        public static TimetableInfo GetTimetableFromCist(DateTime dateStart, DateTime dateEnd, int groupID)
-            => GetTimetableFromCist(dateStart, dateEnd, new Group { ID = groupID })?.FirstOrDefault();
+        public static TimetableInfo GetTimetableFromCist(DateTime dateStart, DateTime dateEnd, int groupID) =>
+            GetTimetableFromCist(dateStart, dateEnd, new Group { ID = groupID })?.FirstOrDefault();
 
         public static List<TimetableInfo> GetTimetableFromCist(DateTime dateStart, DateTime dateEnd, params Group[] groups)
         {
@@ -30,14 +31,14 @@ namespace NureTimetable.DAL.Legacy
                     Uri uri = new Uri(Urls.CistGroupTimetableUrl(Urls.CistTimetableFormat.Csv, dateStart, dateEnd, groupsAllowed.Select(g => g.ID).ToArray()));
                     string data = client.DownloadString(uri);
                     Dictionary<string, List<Event>> newEvents = ParseCistCsvTimetable(data, groupsAllowed.Count > 1);
-                    if (newEvents is null)
+                    if (newEvents == null)
                     {
                         // Parsing error
                         return null;
                     }
 
                     // Updating events and adding new timetables
-                    foreach (Group group in groupsAllowed)
+                    foreach (var group in groupsAllowed)
                     {
                         var groupEvents = new List<Event>();
                         if (newEvents.Keys.Contains(group.Name))
@@ -49,7 +50,7 @@ namespace NureTimetable.DAL.Legacy
                             groupEvents = newEvents.Values.First();
                         }
                         TimetableInfo groupTimetable = timetables.FirstOrDefault(tt => tt.Group.ID == group.ID);
-                        if (groupTimetable is null)
+                        if (groupTimetable == null)
                         {
                             groupTimetable = new TimetableInfo(group);
                             timetables.Add(groupTimetable);
@@ -66,14 +67,14 @@ namespace NureTimetable.DAL.Legacy
                         Dictionary<string, List<LessonInfo>> groupsLessons = ParseCistXlsLessonInfo(data, groupsLessonInfoAllowed.ToArray());
                         if (groupsLessons != null)
                         {
-                            foreach (Group group in groupsLessonInfoAllowed)
+                            foreach (var group in groupsLessonInfoAllowed)
                             {
                                 TimetableInfo timetable = timetables.First(tt => tt.Group.ID == group.ID);
                                 // Updating lesson info excluding lesson settings
-                                foreach (LessonInfo newLessonInfo in groupsLessons[group.Name])
+                                foreach (var newLessonInfo in groupsLessons[group.Name])
                                 {
                                     LessonInfo oldLessonInfo = timetable.LessonsInfo.FirstOrDefault(li => li.ShortName == newLessonInfo.ShortName);
-                                    if (oldLessonInfo is null)
+                                    if (oldLessonInfo == null)
                                     {
                                         oldLessonInfo = new LessonInfo();
                                         timetable.LessonsInfo.Add(oldLessonInfo);
@@ -89,7 +90,7 @@ namespace NureTimetable.DAL.Legacy
 
                     // Updating LastUpdated for saved groups 
                     //List<SavedGroup> AllSavedGroups = GroupsDataStore.GetSaved();
-                    //foreach (SavedGroup group in AllSavedGroups)
+                    //foreach (var group in AllSavedGroups)
                     //{
                     //    if (groupsAllowed.Exists(g => g.ID == group.ID))
                     //    {
@@ -99,7 +100,7 @@ namespace NureTimetable.DAL.Legacy
                     //GroupsDataStore.UpdateSaved(AllSavedGroups);
 
                     // Saving timetables
-                    //foreach (TimetableInfo newTimetable in timetables)
+                    //foreach (var newTimetable in timetables)
                     //{
                     //    UpdateTimetableLocal(newTimetable);
                     //    MessagingCenter.Send(Application.Current, MessageTypes.TimetableUpdated, newTimetable.Group.ID);
@@ -109,15 +110,15 @@ namespace NureTimetable.DAL.Legacy
                 }
                 catch (Exception)
                 {
-                    //MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
+                    //ExceptionService.LogException(ex);
                 }
             }
             return null;
         }
 
         #region Parsers
-        public static List<Event> ParseCistCsvTimetable(string cistCsvDataForOneGroup)
-            => ParseCistCsvTimetable(cistCsvDataForOneGroup, false)?.Values.FirstOrDefault();
+        public static List<Event> ParseCistCsvTimetable(string cistCsvDataForOneGroup) => 
+            ParseCistCsvTimetable(cistCsvDataForOneGroup, false)?.Values.FirstOrDefault();
 
         public static Dictionary<string, List<Event>> ParseCistCsvTimetable(string cistCsvData, bool isManyGroups)
         {
@@ -160,7 +161,7 @@ namespace NureTimetable.DAL.Legacy
                     if (isManyGroups)
                     {
                         groupName = concurrentEventsList[0].Remove(concurrentEventsList[0].IndexOf(' '));
-                        concurrentEventsList[0] = concurrentEventsList[0].Substring(concurrentEventsList[0].IndexOf(" - ") + 3);
+                        concurrentEventsList[0] = concurrentEventsList[0][(concurrentEventsList[0].IndexOf(" - ") + 3)..];
                     }
 
                     foreach (string eventDescriptionStr in concurrentEventsList)
@@ -212,7 +213,7 @@ namespace NureTimetable.DAL.Legacy
                 }
                 catch (Exception)
                 {
-                    //MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
+                    //ExceptionService.LogException(ex);
                     return null;
                 }
             }
@@ -239,7 +240,7 @@ namespace NureTimetable.DAL.Legacy
                     groupsLessons.Add(searchGroup, new List<LessonInfo>());
                 }
 
-                cistXlsTimetableData = cistXlsTimetableData.Substring(cistXlsTimetableData.IndexOf("\n\n"));
+                cistXlsTimetableData = cistXlsTimetableData[cistXlsTimetableData.IndexOf("\n\n")..];
                 List<string> timetableInfoRaw = cistXlsTimetableData
                     .Split(new string[] { @"ss:Type=""String"">" }, StringSplitOptions.RemoveEmptyEntries)
                     .Skip(1)
@@ -268,7 +269,7 @@ namespace NureTimetable.DAL.Legacy
                         List<string> eventTypeInfo = eventTypeInfoRaw.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList();
                         if (eventTypeInfo.Count <= 4)
                         {
-                            // Event type doesn`t have teacher
+                            // Event type doesn't have teacher
                             continue;
                         }
                         
@@ -292,7 +293,7 @@ namespace NureTimetable.DAL.Legacy
                             string teacher = $"{eventTypeInfo[4]} {eventTypeInfo[5]}{eventTypeInfo[6]}".TrimEnd(',');
                                 
                             EventTypeInfo eventType = lessonInfo.EventTypesInfo.FirstOrDefault(et => et.Name == type);
-                            if (eventType is null)
+                            if (eventType == null)
                             {
                                 eventType = new EventTypeInfo
                                 {
@@ -310,7 +311,7 @@ namespace NureTimetable.DAL.Legacy
             }
             catch (Exception)
             {
-                //MessagingCenter.Send(Application.Current, MessageTypes.ExceptionOccurred, ex);
+                //ExceptionService.LogException(ex);
                 groupsLessons = null;
             }
             return groupsLessons;
@@ -353,4 +354,5 @@ namespace NureTimetable.DAL.Legacy
         }
         #endregion
     }
+#pragma warning restore CS8600, CS8603, CS8604 // Possible null reference
 }

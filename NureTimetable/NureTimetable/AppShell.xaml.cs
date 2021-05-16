@@ -1,146 +1,96 @@
 ﻿using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
+using NureTimetable.BL;
+using NureTimetable.Core.BL;
+using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Consts;
 using NureTimetable.Core.Models.Exceptions;
 using NureTimetable.DAL;
 using NureTimetable.Migrations;
-using NureTimetable.UI.Themes;
+using NureTimetable.Models.Consts;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using AppTheme = NureTimetable.Core.Models.Settings.AppTheme;
 
-namespace NureTimetable.UI.Views
+namespace NureTimetable
 {
     public partial class AppShell : Shell
     {
         public AppShell()
         {
             InitializeComponent();
+            InitTheme();
 
-            // Adding theme change handler
-            ThemeHelper.SetAppTheme(SettingsRepository.Settings.Theme);
+            ExceptionService.ExceptionLogged += ex =>
+            {
+                if (SettingsRepository.Settings.IsDebugMode)
+                {
+                    MainThread.BeginInvokeOnMainThread(() => Shell.Current.DisplayAlert(LN.ErrorDetails, ex.ToString(), LN.Ok));
+                }
+            };
+        }
+
+        private static void InitTheme()
+        {
+            ThemeService.SetAppTheme();
+            SettingsRepository.Settings.PropertyChanged += (_, e) =>
+            {
+                if (e.PropertyName == nameof(SettingsRepository.Settings.Theme))
+                    ThemeService.SetAppTheme();
+            };
             App.Current.RequestedThemeChanged += (_, e) =>
             {
                 if (SettingsRepository.Settings.Theme == AppTheme.FollowSystem)
-                {
-                    ThemeHelper.SetAppTheme((AppTheme)e.RequestedTheme);
-                }
+                    ThemeService.SetAppTheme();
             };
-
-            MessagingCenter.Subscribe<Application, Exception>(this, MessageTypes.ExceptionOccurred, (sender, ex) =>
-            {
-                if (App.IsDebugMode)
-                {
-                    MainThread.BeginInvokeOnMainThread(async () => 
-                        await Shell.Current.DisplayAlert(LN.ErrorDetails, ex.ToString(), LN.Ok)
-                    );
-                }
-
-                LogException(ex);
-            });
         }
 
-        private bool isFirstNavigation = true;
-
-        protected override async void OnNavigating(ShellNavigatingEventArgs args)
+        protected override bool OnBackButtonPressed()
         {
-            base.OnNavigating(args);
-
-            if (!isFirstNavigation)
+            if (Shell.Current.CurrentItem.CurrentItem.Stack.Count == 1 &&
+                Shell.Current.CurrentState.Location.OriginalString != Route.EventsTab)
             {
-                return;
+                Shell.Current.GoToAsync(Route.EventsTab, true);
+                return true;
             }
-            isFirstNavigation = false;
 
-            // Processing migrations
+            return base.OnBackButtonPressed();
+        }
+
+        public static async Task PerformMigrations()
+        {
             if (!VersionTracking.IsFirstLaunchForCurrentBuild)
-            {
                 return;
-            }
 
-            List<BaseMigration> migrationsToApply = BaseMigration.Migrations.Where(m => m.IsNeedsToBeApplied()).ToList();
+            List<BaseMigration> migrationsToApply = await BaseMigration.Migrations.Where(async m => await m.IsNeedsToBeApplied()).ToListAsync();
             if (migrationsToApply.Any())
             {
                 // Not Shell.Current.DisplayAlert cause Shell.Current is null here
-                await DisplayAlert(LN.FinishingUpdateTitle, LN.FinishingUpdateDescription, LN.Ok);
+                await App.Current.MainPage.DisplayAlert(LN.FinishingUpdateTitle, LN.FinishingUpdateDescription, LN.Ok);
                 bool isSuccess = true;
                 foreach (var migration in migrationsToApply)
                 {
-                    if (!migration.Apply())
+                    if (!await migration.Apply())
                     {
                         isSuccess = false;
                     }
                 }
-                if (!isSuccess)
+                if (isSuccess)
                 {
-                    await DisplayAlert(LN.FinishingUpdateTitle, LN.FinishingUpdateFail, LN.Ok);
+                    App.Current.MainPage = new AppShell();
+                }
+                else
+                {
+                    await App.Current.MainPage.DisplayAlert(LN.FinishingUpdateTitle, LN.FinishingUpdateFail, LN.Ok);
                 }
             }
-        }
-
-        private static void LogException(Exception ex)
-        {
-            // Getting exception Data
-            var properties = new Dictionary<string, string>();
-            var attachments = new List<ErrorAttachmentLog>();
-            foreach (DictionaryEntry de in ex.Data)
-            {
-                if (de.Value is ErrorAttachmentLog attachment)
-                {
-                    attachments.Add(attachment);
-                    continue;
-                }
-                properties.Add(de.Key.ToString(), de.Value.ToString());
-            }
-            if (ex.InnerException != null)
-            {
-                attachments.Add(ErrorAttachmentLog.AttachmentWithText(ex.InnerException.ToString(), "InnerException.txt"));
-            }
-
-            // Special cases for certain exception types
-            if (ex is WebException webEx)
-            {
-                if (Connectivity.NetworkAccess == NetworkAccess.None)
-                {
-                    // No internet caused WebException, nothing to log here
-                    return;
-                }
-
-                // WebException happens for external reasons, and shouldn't be treated as an exception.
-                // But just in case it is logged as Event
-
-                if (webEx.Status != 0 && webEx.Status != WebExceptionStatus.UnknownError)
-                {
-                    properties.Add("Status", webEx.Status.ToString());
-                }
-                if (webEx.InnerException != null)
-                {
-                    properties.Add("InnerException", webEx.InnerException.GetType().FullName);
-                }
-                properties.Add("Message", ex.Message);
-
-                Analytics.TrackEvent("WebException", properties);
-                return;
-            }
-            else if (ex is CistException cistEx)
-            {
-                // CistException happens for external reasons, and shouldn't be treated as an exception.
-                // But just in case it is logged as Event
-                
-                properties.Add("Status", cistEx.Status.ToString());
-
-                Analytics.TrackEvent("CistException", properties);
-                return;
-            }
-
-            // Logging exception
-            Crashes.TrackError(ex, properties, attachments.ToArray());
         }
     }
 }

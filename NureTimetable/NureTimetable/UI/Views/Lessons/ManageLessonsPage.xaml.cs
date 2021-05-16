@@ -1,7 +1,7 @@
-﻿using NureTimetable.UI.ViewModels.Lessons.ManageLessons;
+﻿using NureTimetable.UI.ViewModels;
 using Xamarin.Forms;
 
-namespace NureTimetable.UI.Views.Lessons
+namespace NureTimetable.UI.Views
 {
     public partial class ManageLessonsPage : ContentPage
     {
@@ -17,7 +17,7 @@ namespace NureTimetable.UI.Views.Lessons
 
         protected override bool OnBackButtonPressed()
         {
-            (BindingContext as ManageLessonsViewModel).BackButtonPressedCommand.Execute(null);
+            (BindingContext as ManageLessonsViewModel)!.BackButtonPressedCommand.Execute(null);
             return true;
         }
     }

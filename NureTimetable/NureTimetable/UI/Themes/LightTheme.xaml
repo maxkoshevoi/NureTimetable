@@ -11,7 +11,7 @@
 
     <Color x:Key="StatusBarColor">#1976D2</Color>
     <Color x:Key="PageBackgroundColor">White</Color>
-    <Color x:Key="NavigationBarColor">Black</Color>
+    <Color x:Key="NavigationBarColor">#1976D2</Color>
 
     <Color x:Key="PrimaryTextColor">Black</Color>
     <Color x:Key="SecondaryTextColor">#4a4a4a</Color>

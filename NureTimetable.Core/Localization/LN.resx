@@ -117,35 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AppDescription" xml:space="preserve">
-    <value>Application for displaying groups schedule for</value>
-  </data>
   <data name="AppName" xml:space="preserve">
     <value>NURE Timetable</value>
   </data>
-  <data name="HelpfulLinks" xml:space="preserve">
-    <value>Helpful links</value>
-  </data>
-  <data name="HelpWanted" xml:space="preserve">
-    <value>If you have experience with Xamarin apps development and you are willing to help, submit to: </value>
-  </data>
-  <data name="Institution" xml:space="preserve">
-    <value>NURE</value>
-  </data>
-  <data name="NureHomepage" xml:space="preserve">
-    <value>Homepage</value>
-  </data>
-  <data name="NureWebpages" xml:space="preserve">
-    <value>NURE official web-pages: </value>
-  </data>
   <data name="ShowErrors" xml:space="preserve">
     <value>Show all errors</value>
-  </data>
-  <data name="StudentNure" xml:space="preserve">
-    <value>Student NURE: </value>
-  </data>
-  <data name="About" xml:space="preserve">
-    <value>About</value>
   </data>
   <data name="NoTimetable" xml:space="preserve">
     <value>Select timetable to display.</value>
@@ -173,9 +149,6 @@
   </data>
   <data name="EventTeachers" xml:space="preserve">
     <value>Teachers: {0}</value>
-  </data>
-  <data name="EventTeacherNotFound" xml:space="preserve">
-    <value>Teacher: not found</value>
   </data>
   <data name="EventTime" xml:space="preserve">
     <value>Time: {0} - {1}</value>
@@ -210,15 +183,6 @@
   <data name="ThisApp" xml:space="preserve">
     <value>This app </value>
   </data>
-  <data name="Timetable" xml:space="preserve">
-    <value>Timetable</value>
-  </data>
-  <data name="TimetableDisplay" xml:space="preserve">
-    <value>Timetable display</value>
-  </data>
-  <data name="TimetableDisplayError" xml:space="preserve">
-    <value>An error occurred while trying to display timetable</value>
-  </data>
   <data name="TimeUntilBreak" xml:space="preserve">
     <value>Until break ({0}): {1}</value>
   </data>
@@ -240,14 +204,8 @@
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
-  <data name="ErrorTryAgainLater" xml:space="preserve">
-    <value>Error occurred. Please, try again later.</value>
-  </data>
   <data name="Ok" xml:space="preserve">
     <value>Ok</value>
-  </data>
-  <data name="Select" xml:space="preserve">
-    <value>Select</value>
   </data>
   <data name="SetUpLessonDisplay" xml:space="preserve">
     <value>Lesson settings</value>
@@ -257,12 +215,6 @@
   </data>
   <data name="TimetableUpdate" xml:space="preserve">
     <value>Timetable update</value>
-  </data>
-  <data name="ToTimetable" xml:space="preserve">
-    <value>To timetable</value>
-  </data>
-  <data name="UpdateSavedGroupsTimetable" xml:space="preserve">
-    <value>Update saved groups timetable?</value>
   </data>
   <data name="UpdateTimetable" xml:space="preserve">
     <value>Update timetable</value>
@@ -282,9 +234,6 @@
   <data name="Purchase" xml:space="preserve">
     <value>Purchase</value>
   </data>
-  <data name="PurchaseFailed" xml:space="preserve">
-    <value>Something went wrong, purchase failed.</value>
-  </data>
   <data name="ThanksForYourSupport" xml:space="preserve">
     <value>Thanks for your support!</value>
   </data>
@@ -297,20 +246,11 @@
   <data name="AllEventsShown" xml:space="preserve">
     <value>All events are shown</value>
   </data>
-  <data name="AppGroup" xml:space="preserve">
-    <value>App discussion</value>
-  </data>
-  <data name="AppNews" xml:space="preserve">
-    <value>App news</value>
-  </data>
   <data name="ChooseDisplayMode" xml:space="preserve">
     <value>Choose display mode:</value>
   </data>
   <data name="Day" xml:space="preserve">
     <value>Day</value>
-  </data>
-  <data name="DebugModeHeader" xml:space="preserve">
-    <value>And just in case, I’ll leave this here.</value>
   </data>
   <data name="ErrorOccurred" xml:space="preserve">
     <value>An error occurred: {0}</value>
@@ -327,8 +267,8 @@
   <data name="NoSavedTimetables" xml:space="preserve">
     <value>You have no saved timetable.</value>
   </data>
-  <data name="NoTodayTimetable" xml:space="preserve">
-    <value>Timetable for today not found</value>
+  <data name="TimetableEndReached" xml:space="preserve">
+    <value>You've reached the end of timetable</value>
   </data>
   <data name="NoUniversityInfo" xml:space="preserve">
     <value>No data.
@@ -376,9 +316,6 @@ To update, click on the button in the upper right corner.</value>
   <data name="UpdateAllTimetables" xml:space="preserve">
     <value>Update all saved timetables?</value>
   </data>
-  <data name="UsefulLinks" xml:space="preserve">
-    <value>Useful links: </value>
-  </data>
   <data name="Week" xml:space="preserve">
     <value>Week</value>
   </data>
@@ -389,16 +326,10 @@ To update, click on the button in the upper right corner.</value>
     <value>In the new version, the data storage structure has changed. An application needs to convert data from the old format to the new one. Click OK to complete the upgrade.</value>
   </data>
   <data name="FinishingUpdateFail" xml:space="preserve">
-    <value>Something went wrong.</value>
+    <value>Something went wrong</value>
   </data>
   <data name="FinishingUpdateTitle" xml:space="preserve">
     <value>Finishing update</value>
-  </data>
-  <data name="AddToSelectedEntities" xml:space="preserve">
-    <value>Add to selected</value>
-  </data>
-  <data name="RemoveFromSelectedEntities" xml:space="preserve">
-    <value>Remove from selected</value>
   </data>
   <data name="SelectOneEntity" xml:space="preserve">
     <value>Select only this one</value>
@@ -424,9 +355,6 @@ To update, click on the button in the upper right corner.</value>
   <data name="NextEvent" xml:space="preserve">
     <value>Next</value>
   </data>
-  <data name="Timeline" xml:space="preserve">
-    <value>Timeline</value>
-  </data>
   <data name="AddingEventToCalendarFail" xml:space="preserve">
     <value>Unable to add event to calendar</value>
   </data>
@@ -436,15 +364,12 @@ To update, click on the button in the upper right corner.</value>
   <data name="AddingToCalendarTitle" xml:space="preserve">
     <value>Adding to calendar</value>
   </data>
-  <data name="AddToCalendar" xml:space="preserve">
-    <value>Add to calendar</value>
-  </data>
   <data name="ChooseCalendar" xml:space="preserve">
     <value>Choose calendar:</value>
   </data>
   <data name="CannotGetDataFromCist" xml:space="preserve">
     <value>Error getting data from cist.nure.ua.
-Try again later, or try using different WIFI network or mobile internet connection.</value>
+Try again later, or try using different WiFi network or mobile internet connection.</value>
   </data>
   <data name="TimetableIsEmpty" xml:space="preserve">
     <value>Timetable doesn't contain any events</value>
@@ -505,5 +430,54 @@ Try again later, or try using different WIFI network or mobile internet connecti
   </data>
   <data name="EnterName" xml:space="preserve">
     <value>Enter name...</value>
+  </data>
+  <data name="InsufficientRights" xml:space="preserve">
+    <value>The application does not have sufficient rights to perform this action</value>
+  </data>
+  <data name="Undo" xml:space="preserve">
+    <value>Undo</value>
+  </data>
+  <data name="PurchaseFailed" xml:space="preserve">
+    <value>Something went wrong, purchase failed.</value>
+  </data>
+  <data name="DefaultCalendar" xml:space="preserve">
+    <value>Default calendar</value>
+  </data>
+  <data name="AskEveryTime" xml:space="preserve">
+    <value>Ask every time</value>
+  </data>
+  <data name="AutoupdateFailed" xml:space="preserve">
+    <value>Autoupdate failed. Try updating timetable manually.</value>
+  </data>
+  <data name="OtherSettings" xml:space="preserve">
+    <value>Other settings</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="AutoupdateDescription" xml:space="preserve">
+    <value>Automatically update selected timetables</value>
+  </data>
+  <data name="Autoupdate" xml:space="preserve">
+    <value>Autoupdate</value>
+  </data>
+  <data name="EmptyUniversityInfoSearch" xml:space="preserve">
+    <value>Search returned no results.
+To update the list, click on the button in the upper right corner.</value>
+  </data>
+  <data name="AddToCalendar" xml:space="preserve">
+    <value>Add to calendar</value>
+  </data>
+  <data name="LessonManagement" xml:space="preserve">
+    <value>Lesson management</value>
+  </data>
+  <data name="MinutesBefore" xml:space="preserve">
+    <value>{0} minutes before</value>
+  </data>
+  <data name="TimeBeforeEventReminder" xml:space="preserve">
+    <value>Reminder before calendar event</value>
+  </data>
+  <data name="TurnedOff" xml:space="preserve">
+    <value>Turned off</value>
   </data>
 </root>

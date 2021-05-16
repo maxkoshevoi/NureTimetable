@@ -20,10 +20,8 @@
     <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
     <AndroidUseAapt2>true</AndroidUseAapt2>
     <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
-    <LangVersion>latest</LangVersion>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
     <AndroidKeyStore>false</AndroidKeyStore>
+    <AndroidLinkSkip>NureTimetable;NureTimetable.DAL;NureTimetable.Core</AndroidLinkSkip>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -54,7 +52,7 @@
     <MandroidI18n>Other</MandroidI18n>
     <BundleAssemblies>false</BundleAssemblies>
     <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
-    <AndroidLinkMode>SdkOnly</AndroidLinkMode>
+    <AndroidLinkMode>Full</AndroidLinkMode>
     <AotAssemblies>true</AotAssemblies>
     <EnableLLVM>true</EnableLLVM>
     <AndroidExplicitCrunch>True</AndroidExplicitCrunch>
@@ -73,15 +71,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="TouchView" Version="4.1.99" />
-    <PackageReference Include="Xamarin.Essentials" Version="1.6.0" />
-    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1821" />
-  </ItemGroup>
-  <ItemGroup>
+    <Compile Include="Dependences\NightModeManager.cs" />
     <Compile Include="Dependences\ActivityManager.cs" />
-    <Compile Include="Dependences\MessageManager.cs" />
     <Compile Include="Dependences\BarStyleManager.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="Receivers\LocaleChangeReceiver.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -112,6 +106,10 @@
       <Project>{7212568B-A874-4DDF-AA58-67A8D57D0F81}</Project>
       <Name>NureTimetable.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\NureTimetable.DAL\NureTimetable.DAL.csproj">
+      <Project>{F54449F5-4F83-432F-AAB5-B7F624EA1F67}</Project>
+      <Name>NureTimetable.DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NureTimetable\NureTimetable.csproj">
       <Project>{57541829-2393-4531-84C0-69621D810152}</Project>
       <Name>NureTimetable</Name>
@@ -127,12 +125,19 @@
     <AndroidResource Include="Resources\drawable\splash.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\xml\network_security_config.xml">
+    <LinkDescription Include="LinkerConfig.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.11" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values-night\colors.xml">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
-  <!-- Added to provide autoamtic build number of android package -->
+  <!-- Added to provide automatic build number of android package -->
   <Target Name="BeforeBuild">
     <XmlPeek XmlInputPath="Properties\AndroidManifest.xml" Namespaces="&lt;Namespace Prefix='android' Uri='http://schemas.android.com/apk/res/android' /&gt;" Query="manifest/@android:versionCode">
       <Output TaskParameter="Result" ItemName="PeekedVersionCode" />

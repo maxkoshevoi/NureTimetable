@@ -1,6 +1,9 @@
 ﻿# Full rule list: https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/code-style-rule-options
 [*.cs]
 
+# Organize usings
+dotnet_sort_system_directives_first = false
+
 # Indentation preferences
 csharp_indent_case_contents_when_block = false
 
@@ -12,6 +15,8 @@ dotnet_style_require_accessibility_modifiers = for_non_interface_members:suggest
 
 # Expression-level preferences
 csharp_prefer_simple_default_expression = true:warning
+dotnet_style_prefer_auto_properties = true:warning
+dotnet_style_prefer_compound_assignment = true:warning
 dotnet_style_prefer_simplified_interpolation = true:warning
 csharp_style_prefer_index_operator = true:warning
 csharp_style_prefer_range_operator = true:warning

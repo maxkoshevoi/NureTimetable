@@ -4,15 +4,15 @@ namespace NureTimetable.DAL.Models.Local
 {
     public class LessonInfo
     {
-        public Lesson Lesson { get; set; }
-        
-        public string Notes { get; set; }
-        
-        private LessonSettings settings = new LessonSettings();
-        public LessonSettings Settings
+        public LessonInfo(Lesson lesson)
         {
-            get => settings;
-            set => settings = value ?? throw new NullReferenceException($"Attempt to set {nameof(Settings)} to null");
+            Lesson = lesson;
         }
+
+        public Lesson Lesson { get; }
+
+        public string? Notes { get; set; }
+
+        public LessonSettings Settings { get; set; } = new();
     }
 }

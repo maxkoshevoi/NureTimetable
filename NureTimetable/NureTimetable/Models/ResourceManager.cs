@@ -23,7 +23,9 @@ namespace NureTimetable.Models.Consts
 
         public static Color NavigationBarColor => GetColor();
 
-        private static Color GetColor([CallerMemberName] string resourceName = null)
+        public static Color PageBackgroundColor => GetColor();
+
+        private static Color GetColor([CallerMemberName] string resourceName = "")
         {
             var color = (Color)App.Current.Resources[resourceName];
             return color;

@@ -1,13 +1,11 @@
 ﻿using NureTimetable.Core.Models.Consts;
 using NureTimetable.DAL.Models.Local;
-using NureTimetable.UI.Helpers;
-using NureTimetable.UI.ViewModels.Lessons.LessonSettings;
-using NureTimetable.UI.Views.Lessons;
+using NureTimetable.UI.Views;
 using System.Threading.Tasks;
-using System.Windows.Input;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 
-namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
+namespace NureTimetable.UI.ViewModels
 {
     public class LessonViewModel : BaseViewModel
     {
@@ -28,50 +26,43 @@ namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
 
                 LessonInfo.Settings.Hiding.ShowLesson = value;
                 OnPropertyChanged();
-                manageLessonsViewModel.HasUnsavedChanes = true;
+                manageLessonsViewModel.HasUnsavedChanges = true;
             } 
         }
 
-        public ICommand SettingsClickedCommand { get; }
-
-        public ICommand InfoClickedCommand { get; }
+        public IAsyncCommand SettingsClickedCommand { get; }
+        public IAsyncCommand InfoClickedCommand { get; }
         #endregion
 
         public LessonViewModel(LessonInfo lessonInfo, TimetableInfo timetableInfo, ManageLessonsViewModel manageLessonsViewModel)
         {
-            this.LessonInfo = lessonInfo;
+            this._lessonInfo = lessonInfo;
             this.timetableInfo = timetableInfo;
             this.manageLessonsViewModel = manageLessonsViewModel;
 
             MessagingCenter.Subscribe<LessonSettingsViewModel, LessonInfo>(this, MessageTypes.OneLessonSettingsChanged, (sender, newLessonSettings) =>
             {
                 if (LessonInfo.Lesson != newLessonSettings.Lesson)
-                {
                     return;
-                }
 
                 LessonInfo = newLessonSettings;
-                manageLessonsViewModel.HasUnsavedChanes = true;
+                manageLessonsViewModel.HasUnsavedChanges = true;
             });
 
-            SettingsClickedCommand = CommandHelper.Create(SettingsClicked);
-            InfoClickedCommand = CommandHelper.Create(InfoClicked);
+            SettingsClickedCommand = CommandFactory.Create(SettingsClicked, allowsMultipleExecutions: false);
+            InfoClickedCommand = CommandFactory.Create(InfoClicked, allowsMultipleExecutions: false);
         }
 
-        private async Task SettingsClicked()
-        {
-            await Navigation.PushAsync(new LessonSettingsPage
+        private Task SettingsClicked() => 
+            Navigation.PushAsync(new LessonSettingsPage
             {
-                BindingContext = new LessonSettingsViewModel(LessonInfo, timetableInfo)
+                BindingContext = new LessonSettingsViewModel(LessonInfo, timetableInfo, false)
             });
-        }
 
-        private async Task InfoClicked()
-        {
-            await Navigation.PushAsync(new LessonInfoPage
+        private Task InfoClicked() => 
+            Navigation.PushAsync(new LessonInfoPage
             {
                 BindingContext = new LessonInfoViewModel(LessonInfo, timetableInfo)
             });
-        }
     }
 }

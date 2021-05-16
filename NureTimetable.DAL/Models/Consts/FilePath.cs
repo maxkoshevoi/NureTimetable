@@ -18,9 +18,6 @@ namespace NureTimetable.DAL.Models.Consts
 
         public static string UniversityEntities =>
             Path.Combine(LocalStorage, "university_entities.json");
-
-        public static string LastCistAllEntitiesUpdate =>
-            Path.Combine(LocalStorage, "last_all_entities_update.json");
         #endregion
     }
 }

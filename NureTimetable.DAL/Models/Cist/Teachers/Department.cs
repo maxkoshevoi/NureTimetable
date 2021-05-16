@@ -9,12 +9,12 @@ namespace NureTimetable.DAL.Models.Cist
         public long Id { get; set; }
 
         [JsonProperty("short_name")]
-        public string ShortName { get; set; }
+        public string ShortName { get; set; } = string.Empty;
 
         [JsonProperty("full_name")]
-        public string FullName { get; set; }
+        public string FullName { get; set; } = string.Empty;
 
         [JsonProperty("teachers")]
-        public List<Teacher> Teachers { get; set; } = new List<Teacher>();
+        public List<Teacher> Teachers { get; set; } = new();
     }
 }

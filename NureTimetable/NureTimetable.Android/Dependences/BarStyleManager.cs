@@ -5,6 +5,7 @@ using NureTimetable.Core.Models.InterplatformCommunication;
 using NureTimetable.Droid.Dependences;
 using Xamarin.Essentials;
 using NureTimetable.Core.Extensions;
+using System;
 
 [assembly: Xamarin.Forms.Dependency(typeof(BarStyleManager))]
 namespace NureTimetable.Droid.Dependences
@@ -13,34 +14,26 @@ namespace NureTimetable.Droid.Dependences
     {
         public void SetStatusBarColor(string hexColor)
         {
-            if (Build.VERSION.SdkInt < BuildVersionCodes.M)
-            {
-                return;
-            }
-
+            var currentWindow = GetCurrentWindow();
             Color color = Color.ParseColor(hexColor);
-            MainThread.BeginInvokeOnMainThread(() =>
+            currentWindow.SetStatusBarColor(color);
+
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
             {
-                var currentWindow = GetCurrentWindow();
-                SetBarAppearance(currentWindow, color == Color.White, null);
-                currentWindow.SetStatusBarColor(color);
-            });
+                SetBarAppearance(currentWindow, statusBarLight: color == Color.White);
+            }
         }
 
         public void SetNavigationBarColor(string hexColor)
         {
-            if (Build.VERSION.SdkInt < BuildVersionCodes.M)
-            {
-                return;
-            }
-
             Color color = Color.ParseColor(hexColor);
-            MainThread.BeginInvokeOnMainThread(() =>
+            var currentWindow = GetCurrentWindow();
+            currentWindow.SetNavigationBarColor(color);
+
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
             {
-                var currentWindow = GetCurrentWindow();
-                SetBarAppearance(currentWindow, null, color == Color.White);
-                currentWindow.SetNavigationBarColor(color);
-            });
+                SetBarAppearance(currentWindow, navigationBarLight: color == Color.White);
+            }
         }
 
         private static void SetBarAppearance(Window currentWindow, bool? statusBarLight = null, bool? navigationBarLight = null)
@@ -55,7 +48,7 @@ namespace NureTimetable.Droid.Dependences
             }
             else
             {
-                barAppearanceNew = (WindowInsetsControllerAppearance)currentWindow.InsetsController.SystemBarsAppearance;
+                barAppearanceNew = (WindowInsetsControllerAppearance)currentWindow.InsetsController!.SystemBarsAppearance;
             }
 
             if (statusBarLight == true)
@@ -93,7 +86,7 @@ namespace NureTimetable.Droid.Dependences
 
         private Window GetCurrentWindow()
         {
-            Window window = Platform.CurrentActivity.Window;
+            Window window = Platform.CurrentActivity.Window ?? throw new NullReferenceException("window");
             window.ClearFlags(WindowManagerFlags.TranslucentStatus);
             window.AddFlags(WindowManagerFlags.DrawsSystemBarBackgrounds);
             return window;

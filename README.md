@@ -1,6 +1,6 @@
 # NureTimetable
 
-[![Build status](https://github.com/maxkoshevoi/NureTimetable/workflows/Build/badge.svg?event=push)](https://github.com/maxkoshevoi/NureTimetable/actions)
+[![Build status](https://github.com/maxkoshevoi/NureTimetable/actions/workflows/build.yml/badge.svg?event=push)](https://github.com/maxkoshevoi/NureTimetable/actions/workflows/build.yml)
 [![Chat on telegram](https://img.shields.io/badge/chat-on%20telegram-blue)](https://t.me/nuretimetable_group)
 
 **NureTimetable** is Xamarin Forms application for viewing timetable of groups, teachers and rooms of the Kharkiv National University of Radio Electronics.
@@ -10,8 +10,9 @@ You can download the latest stable version here: https://play.google.com/store/a
 
 ## Features
 
-- Day, week, timeline and month view
+- Day, week and month view
 - Offline viewing and adding timetables
+- Autoupdate of selected timetables
 - Filtering by lessons, event types and teachers
 - Displaying multiple timetables at once
 - Timer before lesson and lesson break

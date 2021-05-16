@@ -1,98 +1,89 @@
-﻿using NureTimetable.Core.Localization;
+﻿using NureTimetable.Core.Extensions;
+using NureTimetable.Core.Localization;
 using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
-using NureTimetable.UI.Helpers;
 using System;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Input;
+using Xamarin.CommunityToolkit.Extensions;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 
-namespace NureTimetable.UI.ViewModels.Lessons.ManageLessons
+namespace NureTimetable.UI.ViewModels
 {
     public class ManageLessonsViewModel : BaseViewModel
     {
-        private readonly TimetableInfo timetable;
+        private Entity entity;
 
         #region Properties
-        public bool HasUnsavedChanes { get; set; } = false;
+        public bool HasUnsavedChanges { get; set; } = false;
 
-        private bool _isNoSourceLayoutVisible;
-        public bool IsNoSourceLayoutVisible { get => _isNoSourceLayoutVisible; set => SetProperty(ref _isNoSourceLayoutVisible, value); }
-        
-        private ObservableCollection<LessonViewModel> _lessons;
-        public ObservableCollection<LessonViewModel> Lessons { get => _lessons; private set => SetProperty(ref _lessons, value); }
+        public ObservableRangeCollection<LessonViewModel> Lessons { get; } = new();
 
-        public ICommand PageAppearingCommand { get; }
-        public ICommand SaveClickedCommand { get; }
-        public ICommand BackButtonPressedCommand { get; }
+        public IAsyncCommand PageAppearingCommand { get; }
+        public IAsyncCommand SaveClickedCommand { get; }
+        public IAsyncCommand BackButtonPressedCommand { get; }
         #endregion
 
         public ManageLessonsViewModel(Entity entity)
         {
-            Title = $"{LN.Lessons}: {entity.Name}";
+            Title = new(() => $"{LN.Lessons}: {entity.Name}");
 
-            timetable = EventsRepository.GetTimetableLocal(entity);
-            if (timetable is null)
-            {
-                IsNoSourceLayoutVisible = true;
-            }
-            else
-            {
-                Lessons = new ObservableCollection<LessonViewModel>
-                (
-                    timetable.Lessons()
-                        .Select(lesson => timetable.LessonsInfo.FirstOrDefault(li => li.Lesson == lesson) ?? new LessonInfo { Lesson = lesson })
-                        .OrderBy(lesson => !timetable.Events.Where(e => e.Start >= DateTime.Now).Any(e => e.Lesson == lesson.Lesson))
-                        .ThenBy(lesson => lesson.Lesson.ShortName)
-                        .Select(lesson => new LessonViewModel(lesson, timetable, this))
-                );
-                IsNoSourceLayoutVisible = Lessons.Count == 0;
-            }
+            this.entity = entity;
+            PageAppearingCommand = CommandFactory.Create(PageAppearing);
+            BackButtonPressedCommand = CommandFactory.Create(BackButtonPressed);
+            SaveClickedCommand = CommandFactory.Create(SaveClicked, () => Lessons.Any(), allowsMultipleExecutions: false);
 
-            PageAppearingCommand = CommandHelper.Create(PageAppearing);
-            SaveClickedCommand = CommandHelper.Create(SaveClicked);
-            BackButtonPressedCommand = CommandHelper.Create(BackButtonPressed);
+            Lessons.CollectionChanged += (_, _) =>
+            {
+                SaveClickedCommand.RaiseCanExecuteChanged();
+                OnPropertyChanged(nameof(Lessons));
+            };
         }
 
         private async Task PageAppearing()
         {
-            if (Lessons != null)
+            if (Lessons.Any())
+                return;
+
+            TimetableInfo? timetable = await EventsRepository.GetTimetableLocalAsync(entity);
+            if (timetable == null)
             {
+                await Shell.Current.DisplayAlert(LN.LessonsManagement, LN.AtFirstLoadTimetable, LN.Ok);
+                await Navigation.PopAsync();
                 return;
             }
-
-            await Shell.Current.DisplayAlert(LN.LessonsManagement, LN.AtFirstLoadTimetable, LN.Ok);
-            await Navigation.PopAsync();
+            
+            Lessons.ReplaceRange
+            (
+                timetable.Lessons()
+                    .Select(lesson => timetable.LessonsInfo.FirstOrDefault(li => li.Lesson == lesson) ?? new LessonInfo(lesson))
+                    .Where(lesson => timetable.Events.Where(e => e.Start >= DateTime.Today).Any(e => e.Lesson == lesson.Lesson))
+                    .OrderBy(lesson => lesson.Lesson.ShortName)
+                    .Select(lesson => new LessonViewModel(lesson, timetable, this))
+            );
         }
 
         private async Task SaveClicked()
         {
-            if (Lessons is null)
-            {
-                await Shell.Current.DisplayAlert(LN.LessonsManagement, LN.AtFirstLoadTimetable, LN.Ok);
-                return;
-            }
+            await EventsRepository.UpdateLessonsInfo(entity, Lessons.Select(l => l.LessonInfo).ToList());
+            HasUnsavedChanges = false;
 
-            EventsRepository.UpdateLessonsInfo(timetable.Entity, Lessons.Select(l => l.LessonInfo).ToList());
-            HasUnsavedChanes = false;
-
-            await Shell.Current.DisplayAlert(LN.SavingSettings, string.Format(LN.EntityLessonSettingsSaved, timetable.Entity.Name), LN.Ok);
-            await Navigation.PopAsync();
+            await Shell.Current.GoToAsync("..", true);
+            Shell.Current.CurrentPage.DisplayToastAsync(string.Format(LN.EntityLessonSettingsSaved, entity.Name)).Forget();
         }
 
         private async Task BackButtonPressed()
         {
             bool canClose = true;
-            if (HasUnsavedChanes)
+            if (HasUnsavedChanges)
             {
                 canClose = await Shell.Current.DisplayAlert(LN.UnsavedChangesTitle, LN.UnsavedChangesMessage, LN.Yes, LN.Cancel);
             }
 
             if (canClose)
             {
-                await Navigation.PopAsync();
+                await Shell.Current.GoToAsync("..", true);
             }
         }
     }

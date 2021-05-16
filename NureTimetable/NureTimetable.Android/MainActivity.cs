@@ -1,9 +1,7 @@
 ﻿using Android.App;
-using Android.Content;
 using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
-using Plugin.InAppBilling;
 using Xamarin.Forms.Platform.Android;
 
 namespace NureTimetable.Droid
@@ -18,23 +16,21 @@ namespace NureTimetable.Droid
 
             base.OnCreate(savedInstanceState);
 
-            Plugin.CurrentActivity.CrossCurrentActivity.Current.Activity = this;
+            Rg.Plugins.Popup.Popup.Init(this);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
-            TouchEffect.Android.TouchEffectPreserver.Preserve();
             LoadApplication(new App());
-        }
-
-        protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
-        {
-            base.OnActivityResult(requestCode, resultCode, data);
-            InAppBillingImplementation.HandleActivityResult(requestCode, resultCode, data);
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
         {
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+
+        public override void OnBackPressed()
+        {
+            bool isPopupStackEmpty = !Rg.Plugins.Popup.Popup.SendBackPressed(base.OnBackPressed);
         }
     }
 }
