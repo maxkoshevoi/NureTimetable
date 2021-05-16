@@ -231,7 +231,7 @@ namespace NureTimetable.DAL
         }
 
         #region From Cist Api
-        private static async Task<List<Cist::Faculty>> GetAllGroupsFromCistAsync()
+        private static Task<List<Cist::Faculty>> GetAllGroupsFromCistAsync()
         {
             Analytics.TrackEvent("Cist request", new Dictionary<string, string>
             {
@@ -239,11 +239,10 @@ namespace NureTimetable.DAL
                 { "Hour of the day", DateTime.Now.Hour.ToString() }
             });
 
-            using HttpClient client = new();
             string responseStr = GetHardcodedGroupsFromCist();
             Cist::University newUniversity = CistHelper.FromJson<Cist::UniversityRootObject>(responseStr).University;
 
-            return newUniversity.Faculties;
+            return Task.FromResult(newUniversity.Faculties);
         }
 
         private static async Task<List<Cist::Faculty>> GetAllTeachersFromCistAsync()
