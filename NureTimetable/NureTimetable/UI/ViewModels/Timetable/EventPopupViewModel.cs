@@ -18,6 +18,7 @@ namespace NureTimetable.UI.ViewModels
         public Event Event { get; }
         public LessonInfo LessonInfo { get; }
         public TimetableInfo? Timetable { get; }
+        public ITimetablePageCommands TimetablePage { get; }
 
         public int EventNumber { get; }
 
@@ -29,9 +30,10 @@ namespace NureTimetable.UI.ViewModels
         
         public IAsyncCommand OptionsCommand { get; }
 
-        public EventPopupViewModel(Event ev, TimetableInfoList timetables)
+        public EventPopupViewModel(Event ev, TimetableInfoList timetables, ITimetablePageCommands timetablePage)
         {
             Event = ev;
+            TimetablePage = timetablePage;
             LessonInfo = timetables.LessonsInfo.FirstOrDefault(li => li.Lesson == ev.Lesson) ?? new(ev.Lesson);
             if (timetables.Timetables.Count == 1)
             {
@@ -119,7 +121,7 @@ namespace NureTimetable.UI.ViewModels
                 await Shell.Current.CurrentPage.DisplayAlert(LN.AddingToCalendarTitle, LN.AddingEventToCalendarFail, LN.Ok);
                 return;
             }
-            Shell.Current.CurrentPage.DisplayToastAsync(LN.AddingEventToCalendarSuccess).Forget();
+            TimetablePage.DisplayToastAsync(LN.AddingEventToCalendarSuccess).Forget();
 
             await ClosePopup();
         }

@@ -502,7 +502,7 @@ namespace NureTimetable.UI.ViewModels
 
             await PopupNavigation.Instance.PushAsync(new EventPopupPage
             {
-                BindingContext = new EventPopupViewModel(ev, TimetableInfoList)
+                BindingContext = new EventPopupViewModel(ev, TimetableInfoList, timetablePage)
             });
         }
 
