@@ -87,11 +87,7 @@ namespace NureTimetable.DAL.Helpers
                     instance = JsonConvert.DeserializeObject<T>(json);
                 }
 
-                if (instance == null)
-                {
-                    throw new InvalidOperationException("Deserializer returned null");
-                }
-                return instance;
+                return instance ?? throw new InvalidOperationException("Deserializer returned null");
             }
             catch (Exception ex)
             {
@@ -136,8 +132,8 @@ namespace NureTimetable.DAL.Helpers
 
             public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
             {
-                string key = (string)reader.Value!;
-                if (!replacementValues.ContainsKey(key))
+                string? key = (string?)reader.Value;
+                if (key == null || !replacementValues.ContainsKey(key))
                 {
                     return null;
                 }
@@ -146,7 +142,7 @@ namespace NureTimetable.DAL.Helpers
 
             public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
             {
-                string newValue = replacementValues.FirstOrDefault(x => x.Value.Equals(value)).Key;
+                string? newValue = replacementValues.FirstOrDefault(x => x.Value.Equals(value)).Key;
                 serializer.Serialize(writer, newValue);
             }
         }
