@@ -20,7 +20,6 @@ namespace NureTimetable.BL
 
             UpdateNativeStyle(selectedTheme);
             UpdateAppStyle(selectedTheme);
-            UpdateBarStyle();
 
             MessagingCenter.Send(Application.Current, MessageTypes.ThemeChanged, selectedTheme);
             return true;
@@ -57,13 +56,6 @@ namespace NureTimetable.BL
             }
 
             return true;
-        }
-
-        private static void UpdateBarStyle()
-        {
-            var statusBarManager = DependencyService.Get<IBarStyleManager>();
-            statusBarManager.SetStatusBarColor(ResourceManager.StatusBarColor.ToHex());
-            statusBarManager.SetNavigationBarColor(ResourceManager.NavigationBarColor.ToHex());
         }
 
         private static void UpdateNativeStyle(AppTheme selectedTheme)

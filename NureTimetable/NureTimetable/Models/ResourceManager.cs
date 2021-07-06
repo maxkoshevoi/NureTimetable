@@ -1,4 +1,5 @@
 ﻿using System.Runtime.CompilerServices;
+using Xamarin.CommunityToolkit.PlatformConfiguration.AndroidSpecific;
 using Xamarin.Forms;
 
 namespace NureTimetable.Models.Consts
@@ -23,12 +24,16 @@ namespace NureTimetable.Models.Consts
 
         public static Color NavigationBarColor => GetColor();
 
+        public static NavigationBarStyle NavigationBarStyle => Get<NavigationBarStyle>();
+
         public static Color PageBackgroundColor => GetColor();
 
-        private static Color GetColor([CallerMemberName] string resourceName = "")
+        private static Color GetColor([CallerMemberName] string resourceName = "") => Get<Color>(resourceName);
+
+        private static T Get<T>([CallerMemberName] string resourceName = "")
         {
-            var color = (Color)App.Current.Resources[resourceName];
-            return color;
+            var value = (T)App.Current.Resources[resourceName];
+            return value;
         }
     }
 }

@@ -4,20 +4,19 @@ using NureTimetable.Core.Models.Settings;
 using NureTimetable.Models.Consts;
 using Rg.Plugins.Popup.Pages;
 using System.Threading.Tasks;
+using Xamarin.CommunityToolkit.PlatformConfiguration.AndroidSpecific;
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration;
 
 namespace NureTimetable.UI.Views
 {
     public partial class EventPopupPage : PopupPage
     {
-        readonly IBarStyleManager barManager;
-
         public EventPopupPage()
         {
             InitializeComponent();
-            barManager = DependencyService.Get<IBarStyleManager>();
 
-            MessagingCenter.Subscribe<Application, AppTheme>(this, MessageTypes.ThemeChanged, (_, _) => 
+            MessagingCenter.Subscribe<Application, AppTheme>(this, MessageTypes.ThemeChanged, (_, _) =>
                 SetCustomNavigationBar());
         }
 
@@ -32,9 +31,15 @@ namespace NureTimetable.UI.Views
             MessagingCenter.Unsubscribe<Application, AppTheme>(this, MessageTypes.ThemeChanged);
 
             await Task.Delay(50);
-            barManager.SetNavigationBarColor(ResourceManager.NavigationBarColor.ToHex());
+            
+            On<Android>().SetNavigationBarColor(ResourceManager.NavigationBarColor);
+            On<Android>().SetNavigationBarStyle(ResourceManager.NavigationBarStyle);
         }
 
-        private void SetCustomNavigationBar() => barManager.SetNavigationBarColor(Color.White.ToHex());
+        private void SetCustomNavigationBar()
+        {
+            On<Android>().SetNavigationBarColor(Color.White);
+            On<Android>().SetNavigationBarStyle(NavigationBarStyle.DarkContent);
+        }
     }
 }

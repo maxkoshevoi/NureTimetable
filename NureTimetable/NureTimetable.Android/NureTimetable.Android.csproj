@@ -72,8 +72,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dependences\NightModeManager.cs" />
-    <Compile Include="Dependences\ActivityManager.cs" />
-    <Compile Include="Dependences\BarStyleManager.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Receivers\LocaleChangeReceiver.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
@@ -128,7 +126,7 @@
     <LinkDescription Include="LinkerConfig.xml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.11" />
+    <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.12" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values-night\colors.xml">

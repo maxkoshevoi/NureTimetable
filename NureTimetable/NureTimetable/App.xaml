@@ -2,6 +2,8 @@
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:syncfusion="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             xmlns:droid="clr-namespace:Xamarin.CommunityToolkit.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.CommunityToolkit"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              x:Class="NureTimetable.App">
     <Application.Resources>
         <ResourceDictionary>
@@ -17,6 +19,10 @@
             <Style TargetType="Page" ApplyToDerivedTypes="True">
                 <Setter Property="BackgroundColor" Value="{DynamicResource PageBackgroundColor}" />
                 <Setter Property="Shell.TabBarIsVisible" Value="False" />
+                <Setter Property="xct:StatusBarEffect.Color" Value="{DynamicResource StatusBarColor}" />
+                <Setter Property="xct:StatusBarEffect.Style" Value="{DynamicResource StatusBarStyle}" />
+                <Setter Property="droid:NavigationBarEffect.Color" Value="{DynamicResource NavigationBarColor}" />
+                <Setter Property="droid:NavigationBarEffect.Style" Value="{DynamicResource NavigationBarStyle}" />
             </Style>
             <Style TargetType="TabbedPage" ApplyToDerivedTypes="True">
                 <Setter Property="BarBackgroundColor" Value="{DynamicResource PrimaryColor}" />
