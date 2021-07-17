@@ -1,14 +1,8 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{24CE3C36-16B9-426D-AA0C-5961ECF8D88C}</ProjectGuid>
-    <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <TemplateGuid>{9AA2D3C6-3393-45F1-8E7C-5A9901728795}</TemplateGuid>
-    <OutputType>Library</OutputType>
-    <RootNamespace>NureTimetable.Droid</RootNamespace>
-    <AssemblyName>NureTimetable.Android</AssemblyName>
+    <TargetFramework>net6.0-android</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <Copyright>Copyright © Maksym Koshovyi 2019</Copyright>
     <AndroidApplication>True</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <AndroidResgenClass>Resource</AndroidResgenClass>
@@ -16,7 +10,6 @@
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
     <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v11.0</TargetFrameworkVersion>
     <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
     <AndroidUseAapt2>true</AndroidUseAapt2>
     <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
@@ -24,13 +17,6 @@
     <AndroidLinkSkip>NureTimetable;NureTimetable.DAL;NureTimetable.Core</AndroidLinkSkip>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>portable</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
     <AndroidLinkMode>None</AndroidLinkMode>
     <EmbedAssembliesIntoApk>false</EmbedAssembliesIntoApk>
     <AotAssemblies>false</AotAssemblies>
@@ -40,12 +26,6 @@
     <BundleAssemblies>false</BundleAssemblies>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugSymbols>false</DebugSymbols>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release</OutputPath>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
     <AndroidManagedSymbols>true</AndroidManagedSymbols>
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
     <AndroidSupportedAbis>armeabi-v7a;x86;x86_64;arm64-v8a</AndroidSupportedAbis>
@@ -64,63 +44,9 @@
     <AndroidPackageFormat>aab</AndroidPackageFormat>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Mono.Android" />
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Dependences\NightModeManager.cs" />
-    <Compile Include="MainActivity.cs" />
-    <Compile Include="Receivers\LocaleChangeReceiver.cs" />
-    <Compile Include="Resources\Resource.designer.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\materialdesignicons-webfont.ttf" />
-    <None Include="..\..\.editorconfig">
-      <Link>.editorconfig</Link>
-    </None>
-    <None Include="Resources\AboutResources.txt" />
-    <None Include="Assets\AboutAssets.txt" />
-    <None Include="Properties\AndroidManifest.xml">
-      <SubType>Designer</SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\layout\Tabbar.axml" />
-    <AndroidResource Include="Resources\layout\Toolbar.axml" />
-    <AndroidResource Include="Resources\values\styles.xml" />
-    <AndroidResource Include="Resources\values\colors.xml" />
-    <AndroidResource Include="Resources\mipmap-hdpi\icon.png" />
-    <AndroidResource Include="Resources\mipmap-mdpi\icon.png" />
-    <AndroidResource Include="Resources\mipmap-xhdpi\icon.png" />
-    <AndroidResource Include="Resources\mipmap-xxhdpi\icon.png" />
-    <AndroidResource Include="Resources\mipmap-xxxhdpi\icon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\NureTimetable.Core\NureTimetable.Core.csproj">
-      <Project>{7212568B-A874-4DDF-AA58-67A8D57D0F81}</Project>
-      <Name>NureTimetable.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\NureTimetable.DAL\NureTimetable.DAL.csproj">
-      <Project>{F54449F5-4F83-432F-AAB5-B7F624EA1F67}</Project>
-      <Name>NureTimetable.DAL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NureTimetable\NureTimetable.csproj">
-      <Project>{57541829-2393-4531-84C0-69621D810152}</Project>
-      <Name>NureTimetable</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\coin.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\icon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\splash.xml" />
+    <ProjectReference Include="..\..\NureTimetable.Core\NureTimetable.Core.csproj" />
+    <ProjectReference Include="..\..\NureTimetable.DAL\NureTimetable.DAL.csproj" />
+    <ProjectReference Include="..\NureTimetable\NureTimetable.csproj" />
   </ItemGroup>
   <ItemGroup>
     <LinkDescription Include="LinkerConfig.xml" />
@@ -128,13 +54,6 @@
   <ItemGroup>
     <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.12" />
   </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\values-night\colors.xml">
-      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
-      <SubType>Designer</SubType>
-    </AndroidResource>
-  </ItemGroup>
-  <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- Added to provide automatic build number of android package -->
   <Target Name="BeforeBuild">
     <XmlPeek XmlInputPath="Properties\AndroidManifest.xml" Namespaces="&lt;Namespace Prefix='android' Uri='http://schemas.android.com/apk/res/android' /&gt;" Query="manifest/@android:versionCode">
