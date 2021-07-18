@@ -4,7 +4,7 @@ using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Consts;
 using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
-using NureTimetable.Models.Consts;
+using NureTimetable.Models.UI.Consts;
 using NureTimetable.UI.Views;
 using System.Collections.Generic;
 using System.ComponentModel;

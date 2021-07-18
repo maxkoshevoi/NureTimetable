@@ -2,6 +2,7 @@
 using Microsoft.Maui.Hosting;
 using Microsoft.Maui.Controls.Hosting;
 using Microsoft.Maui.LifecycleEvents;
+using Rg.Plugins.Popup;
 
 namespace NureTimetable
 {
@@ -18,7 +19,7 @@ namespace NureTimetable
 #if ANDROID
 					lifecycle.AddAndroid(d => {
 						d.OnBackPressed(activity => {
-							// bool isPopupStackEmpty = !Rg.Plugins.Popup.Popup.SendBackPressed(base.OnBackPressed);
+							bool isPopupStackEmpty = !Popup.SendBackPressed(activity.OnBackPressed);
 						});
 					});
 #endif

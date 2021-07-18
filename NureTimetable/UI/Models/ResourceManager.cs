@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using Xamarin.CommunityToolkit.PlatformConfiguration.AndroidSpecific;
 
-namespace NureTimetable.Models.Consts
+namespace NureTimetable.Models.UI.Consts
 {
     public static class ResourceManager
     {

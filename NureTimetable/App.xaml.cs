@@ -10,6 +10,7 @@ using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Consts;
 using NureTimetable.Core.Models.Settings;
 using NureTimetable.DAL;
+using Rg.Plugins.Popup;
 using Syncfusion.Licensing;
 using System.Collections.Generic;
 using System.Globalization;
@@ -32,6 +33,7 @@ namespace NureTimetable
 
         protected override Window CreateWindow(IActivationState activationState)
         {
+            Popup.Init(activationState);
             Forms.Init(activationState);
 
             return new Window(new AppShell());

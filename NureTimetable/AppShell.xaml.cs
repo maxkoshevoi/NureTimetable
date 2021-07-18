@@ -10,7 +10,7 @@ using NureTimetable.Core.Models.Consts;
 using NureTimetable.Core.Models.Exceptions;
 using NureTimetable.DAL;
 using NureTimetable.Migrations;
-using NureTimetable.Models.Consts;
+using NureTimetable.Models.UI.Consts;
 using System;
 using System.Collections;
 using System.Collections.Generic;

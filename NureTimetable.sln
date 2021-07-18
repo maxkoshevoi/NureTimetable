@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31512.422
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NureTimetable", "NureTimetable\NureTimetable\NureTimetable.csproj", "{BC352889-A149-44E4-854B-2D7FBCAE3AA3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NureTimetable", "NureTimetable\NureTimetable.csproj", "{BC352889-A149-44E4-854B-2D7FBCAE3AA3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NureTimetable.Core", "NureTimetable.Core\NureTimetable.Core.csproj", "{7212568B-A874-4DDF-AA58-67A8D57D0F81}"
 EndProject

@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace NureTimetable.Models.Consts
+namespace NureTimetable.Models.UI.Consts
 {
     /// <summary>
     /// Full icon list: https://cdn.materialdesignicons.com/5.4.55/
