@@ -21,7 +21,7 @@ namespace NureTimetable.DAL
             List<SavedEntity> savedEntities = await UniversityEntitiesRepository.GetSavedAsync();
             foreach (var entity in entitiesToUpdate)
             {
-                SavedEntity savedEntity = savedEntities.SingleOrDefault(e => e == entity);
+                SavedEntity? savedEntity = savedEntities.SingleOrDefault(e => e == entity);
                 if (savedEntity == null)
                 {
                     // Cannot update timetable for entity that is not saved

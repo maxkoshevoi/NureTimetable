@@ -18,7 +18,7 @@ namespace NureTimetable.DAL.Models.Local
         public bool Equals(BaseEntity<T> other) => 
             this == other;
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj is BaseEntity<T> baseEntity)
             {

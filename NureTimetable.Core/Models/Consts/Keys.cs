@@ -17,8 +17,8 @@ namespace NureTimetable.Core.Models.Consts
         private static JObject? GetConfiguration(string filePath)
         {
             Assembly assembly = Assembly.GetExecutingAssembly();
-            string assemblyName = assembly.GetName().Name;
-            using Stream fileStream = assembly.GetManifestResourceStream($"{assemblyName}.{filePath}");
+            string? assemblyName = assembly.GetName().Name;
+            using Stream? fileStream = assembly.GetManifestResourceStream($"{assemblyName}.{filePath}");
             if (fileStream == null)
             {
                 return null;

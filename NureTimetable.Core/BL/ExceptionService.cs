@@ -20,7 +20,7 @@ namespace NureTimetable.Core.BL
             ExceptionLogged?.Invoke(ex);
 
             // Getting exception Data
-            Dictionary<string, string> properties = new();
+            Dictionary<string, string?> properties = new();
             List<ErrorAttachmentLog> attachments = new();
             foreach (DictionaryEntry de in ex.Data)
             {
@@ -29,7 +29,7 @@ namespace NureTimetable.Core.BL
                     attachments.Add(attachment);
                     continue;
                 }
-                properties.Add(de.Key.ToString(), de.Value.ToString());
+                properties.Add(de.Key.ToString()!, de.Value?.ToString());
             }
             if (ex.InnerException != null)
             {
