@@ -1,6 +1,5 @@
 ﻿using AndroidX.AppCompat.App;
 using NureTimetable.Core.Models.InterplatformCommunication;
-using NureTimetable.Droid.Dependences;
 using NureTimetable.Platforms.Android.Dependences;
 
 [assembly: Xamarin.Forms.Dependency(typeof(NightModeManager))]

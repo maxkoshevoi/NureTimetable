@@ -1,7 +1,7 @@
-﻿using NureTimetable.DAL.Models.Local;
-using NureTimetable.Models.Consts;
+﻿using Microsoft.Maui.Graphics;
+using NureTimetable.DAL.Models.Local;
+using NureTimetable.UI.Models.Consts;
 using System;
-using Xamarin.Forms;
 
 namespace NureTimetable.UI.ViewModels.Timetable
 {

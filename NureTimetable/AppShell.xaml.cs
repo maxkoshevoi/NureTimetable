@@ -1,21 +1,14 @@
-﻿using Microsoft.AppCenter.Analytics;
-using Microsoft.AppCenter.Crashes;
-using Microsoft.Maui.Controls;
+﻿using Microsoft.Maui.Controls;
 using Microsoft.Maui.Essentials;
 using NureTimetable.BL;
 using NureTimetable.Core.BL;
 using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Localization;
-using NureTimetable.Core.Models.Consts;
-using NureTimetable.Core.Models.Exceptions;
 using NureTimetable.DAL;
 using NureTimetable.Migrations;
-using NureTimetable.Models.UI.Consts;
-using System;
-using System.Collections;
+using NureTimetable.UI.Models.Consts;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 using AppTheme = NureTimetable.Core.Models.Settings.AppTheme;
 

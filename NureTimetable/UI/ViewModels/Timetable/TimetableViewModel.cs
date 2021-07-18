@@ -6,7 +6,7 @@ using NureTimetable.Core.Models.Consts;
 using NureTimetable.Core.Models.Settings;
 using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
-using NureTimetable.Models.Consts;
+using NureTimetable.UI.Models.Consts;
 using NureTimetable.UI.ViewModels.Timetable;
 using NureTimetable.UI.Views;
 using Rg.Plugins.Popup.Services;

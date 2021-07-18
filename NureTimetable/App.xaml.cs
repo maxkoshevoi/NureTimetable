@@ -33,7 +33,7 @@ namespace NureTimetable
 
         protected override Window CreateWindow(IActivationState activationState)
         {
-            Popup.Init(activationState);
+            // Popup.Init(activationState);
             Forms.Init(activationState);
 
             return new Window(new AppShell());

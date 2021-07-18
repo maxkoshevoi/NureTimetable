@@ -1,4 +1,4 @@
-﻿namespace NureTimetable.Models.UI.Consts
+﻿namespace NureTimetable.UI.Models.Consts
 {
     public static class Route
     {

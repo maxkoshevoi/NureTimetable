@@ -1,8 +1,7 @@
 ﻿using Microsoft.Maui.Graphics;
 using System.Runtime.CompilerServices;
-using Xamarin.CommunityToolkit.PlatformConfiguration.AndroidSpecific;
 
-namespace NureTimetable.Models.UI.Consts
+namespace NureTimetable.UI.Models.Consts
 {
     public static class ResourceManager
     {
@@ -24,7 +23,7 @@ namespace NureTimetable.Models.UI.Consts
 
         public static Color NavigationBarColor => GetColor();
 
-        public static NavigationBarStyle NavigationBarStyle => Get<NavigationBarStyle>();
+        // public static NavigationBarStyle NavigationBarStyle => Get<NavigationBarStyle>();
 
         public static Color PageBackgroundColor => GetColor();
 

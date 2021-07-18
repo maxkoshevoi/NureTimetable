@@ -1,4 +1,5 @@
-﻿using NureTimetable.Core.Models.Consts;
+﻿using Microsoft.Maui.Controls;
+using NureTimetable.Core.Models.Consts;
 using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
 using NureTimetable.UI.ViewModels.Lessons.LessonSettings;
