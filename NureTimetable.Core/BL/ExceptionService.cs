@@ -39,7 +39,7 @@ namespace NureTimetable.Core.BL
             // Special cases for certain exception types
             if (ex is WebException webEx)
             {
-                if (Connectivity.NetworkAccess == NetworkAccess.None)
+                if (Connectivity.NetworkAccess == Microsoft.Maui.Essentials.NetworkAccess.None)
                 {
                     // No Internet caused WebException, nothing to log here
                     return;

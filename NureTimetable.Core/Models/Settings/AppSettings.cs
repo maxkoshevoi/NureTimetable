@@ -49,7 +49,7 @@ namespace NureTimetable.Core.Models.Settings
             get => Preferences.Get(nameof(DefaultCalendarId), string.Empty);
             set
             {
-                var currentValue = DefaultCalendarId;
+                string currentValue = DefaultCalendarId;
                 SetProperty(ref currentValue, value, onChanged: () => Preferences.Set(nameof(DefaultCalendarId), value));
             }
         }
@@ -84,7 +84,7 @@ namespace NureTimetable.Core.Models.Settings
             get => Preferences.Get(nameof(IsDebugMode), false);
             set
             {
-                var currentValue = IsDebugMode;
+                bool currentValue = IsDebugMode;
                 SetProperty(ref currentValue, value, onChanged: () => Preferences.Set(nameof(IsDebugMode), value));
             }
         }
@@ -94,7 +94,7 @@ namespace NureTimetable.Core.Models.Settings
             get => Preferences.Get(nameof(Autoupdate), true);
             set
             {
-                var currentValue = Autoupdate;
+                bool currentValue = Autoupdate;
                 SetProperty(ref currentValue, value, onChanged: () => Preferences.Set(nameof(Autoupdate), value));
             }
         }
