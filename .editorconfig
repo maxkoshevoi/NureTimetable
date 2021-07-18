@@ -8,7 +8,7 @@ dotnet_sort_system_directives_first = false
 csharp_indent_case_contents_when_block = false
 
 # var preferences
-csharp_style_var_for_built_in_types = false:warning
+csharp_style_var_for_built_in_types =false:suggestion
 
 # Modifier preferences
 dotnet_style_require_accessibility_modifiers = for_non_interface_members:suggestion
