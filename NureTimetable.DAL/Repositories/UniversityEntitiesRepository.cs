@@ -170,7 +170,7 @@ namespace NureTimetable.DAL
             {
                 foreach (var faculty in groupsTask.Result)
                 {
-                    Cist::Faculty oldFaculty = university.Faculties.FirstOrDefault(f => f.Id == faculty.Id);
+                    Cist::Faculty? oldFaculty = university.Faculties.FirstOrDefault(f => f.Id == faculty.Id);
                     if (oldFaculty != null)
                     {
                         faculty.Departments = oldFaculty.Departments;
@@ -183,7 +183,7 @@ namespace NureTimetable.DAL
             {
                 foreach (var faculty in teachersTask.Result)
                 {
-                    Cist::Faculty oldFaculty = university.Faculties.FirstOrDefault(f => f.Id == faculty.Id);
+                    Cist::Faculty? oldFaculty = university.Faculties.FirstOrDefault(f => f.Id == faculty.Id);
                     if (oldFaculty != null)
                     {
                         faculty.Directions = oldFaculty.Directions;

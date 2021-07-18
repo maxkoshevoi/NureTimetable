@@ -8,13 +8,6 @@ namespace NureTimetable.DAL.Legacy.Models
 
         public List<string> Teachers { get; } = new();
 
-        public override string ToString()
-        {
-            if (!string.IsNullOrEmpty(Name))
-            {
-                return $"{Name} - {string.Join(", ", Teachers)}";
-            }
-            return base.ToString();
-        }
+        public override string ToString() => $"{Name} - {string.Join(", ", Teachers)}";
     }
 }
