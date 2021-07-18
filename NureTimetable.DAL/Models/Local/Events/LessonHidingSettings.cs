@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Xamarin.Forms;
+﻿using Microsoft.Maui.Controls;
+using System.Collections.Generic;
 
 namespace NureTimetable.DAL.Models.Local
 {

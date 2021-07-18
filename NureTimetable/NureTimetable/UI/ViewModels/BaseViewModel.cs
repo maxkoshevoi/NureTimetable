@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Microsoft.Maui.Controls;
+using System;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.ObjectModel;
-using Xamarin.Forms;
 
 namespace NureTimetable.UI.ViewModels
 {

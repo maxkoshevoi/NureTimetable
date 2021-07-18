@@ -7,7 +7,6 @@ using NureTimetable.UI.Themes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Xamarin.Forms;
 using AppTheme = NureTimetable.Core.Models.Settings.AppTheme;
 
 namespace NureTimetable.BL

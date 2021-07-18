@@ -1,5 +1,7 @@
 ﻿using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Controls.Internals;
 using Nito.AsyncEx;
 using NureTimetable.Core.BL;
 using NureTimetable.Core.Extensions;
@@ -14,8 +16,6 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Xamarin.Forms;
-using Xamarin.Forms.Internals;
 using Cist = NureTimetable.DAL.Models.Cist;
 using Local = NureTimetable.DAL.Models.Local;
 

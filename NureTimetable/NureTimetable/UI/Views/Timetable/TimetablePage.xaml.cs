@@ -1,10 +1,10 @@
-﻿using NureTimetable.Core.Localization;
+﻿using Microsoft.Maui.Controls;
+using NureTimetable.Core.Localization;
 using NureTimetable.UI.ViewModels;
 using NureTimetable.UI.ViewModels.Timetable;
 using System;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Extensions;
-using Xamarin.Forms;
 
 namespace NureTimetable.UI.Views
 {

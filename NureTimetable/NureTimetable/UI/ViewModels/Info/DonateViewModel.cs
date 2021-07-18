@@ -5,7 +5,6 @@ using Plugin.InAppBilling;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.CommunityToolkit.ObjectModel;
-using Xamarin.Forms;
 
 namespace NureTimetable.UI.ViewModels
 {

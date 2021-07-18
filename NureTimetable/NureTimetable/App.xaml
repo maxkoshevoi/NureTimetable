@@ -7,15 +7,6 @@
              x:Class="NureTimetable.App">
     <Application.Resources>
         <ResourceDictionary>
-
-            <!--Fonts-->
-            <OnPlatform x:Key="MaterialFontFamily" x:TypeArguments="x:String">
-                <On Platform="iOS" Value="Material Design Icons" />
-                <On Platform="Android" Value="materialdesignicons-webfont.ttf#Material Design Icons" />
-                <On Platform="UWP" Value="Assets/Fonts/materialdesignicons-webfont.ttf#Material Design Icons" />
-            </OnPlatform>
-
-            <!--Styles-->
             <Style TargetType="Page" ApplyToDerivedTypes="True">
                 <Setter Property="BackgroundColor" Value="{DynamicResource PageBackgroundColor}" />
                 <Setter Property="Shell.TabBarIsVisible" Value="False" />

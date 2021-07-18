@@ -1,12 +1,12 @@
 ﻿using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
+using Microsoft.Maui.Essentials;
 using NureTimetable.Core.Models.Exceptions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
-using Xamarin.Essentials;
 
 namespace NureTimetable.Core.BL
 {

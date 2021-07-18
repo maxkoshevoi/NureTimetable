@@ -1,6 +1,6 @@
-﻿using System.Runtime.CompilerServices;
+﻿using Microsoft.Maui.Graphics;
+using System.Runtime.CompilerServices;
 using Xamarin.CommunityToolkit.PlatformConfiguration.AndroidSpecific;
-using Xamarin.Forms;
 
 namespace NureTimetable.Models.Consts
 {

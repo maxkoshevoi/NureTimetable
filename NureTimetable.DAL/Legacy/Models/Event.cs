@@ -1,5 +1,5 @@
-﻿using System;
-using Xamarin.Forms;
+﻿using Microsoft.Maui.Graphics;
+using System;
 
 namespace NureTimetable.DAL.Legacy.Models
 {
@@ -24,7 +24,7 @@ namespace NureTimetable.DAL.Legacy.Models
                 //    baseColor = Color.FromRgb(baseColor.R * 0.9, baseColor.G * 0.9, baseColor.B * 0.9);
                 //}
                 //return baseColor;
-                return Color.DeepSkyBlue;
+                return Colors.DeepSkyBlue;
             }
         }
     }

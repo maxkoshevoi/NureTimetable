@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Microsoft.Maui.Controls;
+using Microsoft.Maui.Controls.Xaml;
+using System;
 using System.Globalization;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace NureTimetable.UI.Converters
 {

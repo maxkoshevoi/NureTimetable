@@ -1,12 +1,12 @@
-﻿using NureTimetable.Core.Models.Consts;
+﻿using Microsoft.Maui.Controls;
+using Microsoft.Maui.Graphics;
+using NureTimetable.Core.Models.Consts;
 using NureTimetable.Core.Models.InterplatformCommunication;
 using NureTimetable.Core.Models.Settings;
 using NureTimetable.Models.Consts;
 using Rg.Plugins.Popup.Pages;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.PlatformConfiguration.AndroidSpecific;
-using Xamarin.Forms;
-using Xamarin.Forms.PlatformConfiguration;
 
 namespace NureTimetable.UI.Views
 {
@@ -38,7 +38,7 @@ namespace NureTimetable.UI.Views
 
         private void SetCustomNavigationBar()
         {
-            On<Android>().SetNavigationBarColor(Color.White);
+            On<Android>().SetNavigationBarColor(Colors.White);
             On<Android>().SetNavigationBarStyle(NavigationBarStyle.DarkContent);
         }
     }

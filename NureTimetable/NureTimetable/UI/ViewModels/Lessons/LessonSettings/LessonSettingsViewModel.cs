@@ -4,7 +4,6 @@ using NureTimetable.DAL.Models.Local;
 using NureTimetable.UI.ViewModels.Lessons.LessonSettings;
 using System.Linq;
 using Xamarin.CommunityToolkit.ObjectModel;
-using Xamarin.Forms;
 
 namespace NureTimetable.UI.ViewModels
 {

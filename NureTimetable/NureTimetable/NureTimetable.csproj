@@ -1,10 +1,28 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFramework>net6.0-android</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <SingleProject>true</SingleProject>
+    <UseMaui>true</UseMaui>
+    
+    <ApplicationId>com.whitebox.nuretimetable</ApplicationId>
+    <ApplicationTitle>Nure Timetable</ApplicationTitle>
+    <ApplicationVersion>1.7.3665</ApplicationVersion>
+    <AndroidVersionCode>1003665</AndroidVersionCode>  
+  
     <Authors>Maksym Koshovyi</Authors>
+    <Copyright>Copyright © Maksym Koshovyi 2019</Copyright>
   </PropertyGroup>
-
+  
+  <ItemGroup>
+    <MauiSplashScreen Include="Resources\AppIcons\icon.png" Color="#512BD4" />
+    <MauiImage Include="Resources\AppIcons\icon.png" IsAppIcon="true" />
+    <MauiImage Include="Resources\Images\*" />
+    <MauiFont Include="Resources\Fonts\*" />
+  </ItemGroup>
+  
+    
   <ItemGroup>
     <PackageReference Include="CClarke.Plugin.Calendars" Version="1.0.14" />
     <PackageReference Include="Plugin.InAppBilling" Version="4.0.2" />
@@ -14,6 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\NureTimetable.Core\NureTimetable.Core.csproj" />
     <ProjectReference Include="..\..\NureTimetable.DAL\NureTimetable.DAL.csproj" />
   </ItemGroup>
 

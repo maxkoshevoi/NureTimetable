@@ -1,6 +1,11 @@
 ﻿using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Xaml;
+using Microsoft.Maui.Essentials;
 using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Consts;
 using NureTimetable.Core.Models.Settings;
@@ -10,9 +15,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Helpers;
-using Xamarin.Essentials;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace NureTimetable
@@ -26,7 +28,13 @@ namespace NureTimetable
             VersionTracking.Track();
 
             InitializeComponent();
-            MainPage = new AppShell();
+        }
+
+        protected override Window CreateWindow(IActivationState activationState)
+        {
+            Forms.Init(activationState);
+
+            return new Window(new AppShell());
         }
 
         private static void InitLanguage()
@@ -82,14 +90,6 @@ namespace NureTimetable
                 var report = await Crashes.GetLastSessionCrashReportAsync();
                 await Shell.Current.DisplayAlert(LN.ErrorDetails, report.StackTrace, LN.Ok);
             }
-        }
-
-        protected override void OnSleep()
-        {
-        }
-
-        protected override void OnResume()
-        {
         }
     }
 }

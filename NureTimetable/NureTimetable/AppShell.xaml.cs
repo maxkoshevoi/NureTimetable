@@ -1,5 +1,7 @@
 ﻿using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Essentials;
 using NureTimetable.BL;
 using NureTimetable.Core.BL;
 using NureTimetable.Core.Extensions;
@@ -15,8 +17,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using Xamarin.Essentials;
-using Xamarin.Forms;
 using AppTheme = NureTimetable.Core.Models.Settings.AppTheme;
 
 namespace NureTimetable

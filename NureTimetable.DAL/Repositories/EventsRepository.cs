@@ -1,4 +1,5 @@
 ﻿using Microsoft.AppCenter.Analytics;
+using Microsoft.Maui.Controls;
 using NureTimetable.Core.BL;
 using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Models.Consts;
@@ -9,7 +10,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Xamarin.Forms;
 using Cist = NureTimetable.DAL.Models.Cist;
 using Local = NureTimetable.DAL.Models.Local;
 

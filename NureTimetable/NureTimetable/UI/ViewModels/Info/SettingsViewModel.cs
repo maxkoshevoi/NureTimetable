@@ -1,4 +1,5 @@
-﻿using NureTimetable.BL;
+﻿using Microsoft.Maui.Controls;
+using NureTimetable.BL;
 using NureTimetable.Core.Localization;
 using NureTimetable.DAL;
 using Plugin.Calendars.Abstractions;
@@ -8,7 +9,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.ObjectModel;
-using Xamarin.Forms;
 
 namespace NureTimetable.UI.ViewModels
 {

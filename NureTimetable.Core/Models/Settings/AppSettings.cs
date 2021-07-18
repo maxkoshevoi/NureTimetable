@@ -1,8 +1,7 @@
-﻿using NureTimetable.Core.Extensions;
+﻿using Microsoft.Maui.Essentials;
 using System;
 using System.Globalization;
 using Xamarin.CommunityToolkit.ObjectModel;
-using Xamarin.Essentials;
 
 namespace NureTimetable.Core.Models.Settings
 {
