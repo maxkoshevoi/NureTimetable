@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0-android</TargetFramework>
+    <TargetFramework>net6.0-android30</TargetFramework>
     <OutputType>Exe</OutputType>
     <SingleProject>true</SingleProject>
     <UseMaui>true</UseMaui>
@@ -10,6 +10,7 @@
     <ApplicationTitle>Nure Timetable</ApplicationTitle>
     <ApplicationVersion>1.7.3665</ApplicationVersion>
     <AndroidVersionCode>1003665</AndroidVersionCode>  
+    <MinimumPlatformVersion>21.0</MinimumPlatformVersion>
   
     <Authors>Maksym Koshovyi</Authors>
     <Copyright>Copyright © Maksym Koshovyi 2019</Copyright>
