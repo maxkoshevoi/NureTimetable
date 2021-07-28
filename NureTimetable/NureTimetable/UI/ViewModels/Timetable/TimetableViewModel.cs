@@ -298,7 +298,7 @@ namespace NureTimetable.UI.ViewModels
             string? text = null;
             lock (enumeratingEvents)
             {
-                Event currentEvent = TimetableInfoList.Events.FirstOrDefault(e => e.Start <= DateTime.Now && e.End >= DateTime.Now);
+                Event? currentEvent = TimetableInfoList.Events.FirstOrDefault(e => e.Start <= DateTime.Now && e.End >= DateTime.Now);
                 if (currentEvent != null)
                 {
                     text = string.Format(
@@ -309,7 +309,7 @@ namespace NureTimetable.UI.ViewModels
                 }
                 else
                 {
-                    Event nextEvent = TimetableInfoList.Events
+                    Event? nextEvent = TimetableInfoList.Events
                         .Where(e => e.Start > DateTime.Now)
                         .OrderBy(e => e.Start)
                         .FirstOrDefault();
