@@ -3,12 +3,9 @@
   <PropertyGroup>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-  </PropertyGroup>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Maui.Essentials" Version="6.0.100-preview.5.794" />
-    <PackageReference Include="Microsoft.Maui.Controls" Version="6.0.100-preview.5.794" />
-  </ItemGroup>
+    <UseMaui>true</UseMaui>
+  </PropertyGroup>
   
 </Project>
