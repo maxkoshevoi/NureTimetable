@@ -13,7 +13,7 @@ namespace NureTimetable.UI.ViewModels
 {
     public class ManageLessonsViewModel : BaseViewModel
     {
-        private Entity entity;
+        private readonly Entity entity;
 
         #region Properties
         public bool HasUnsavedChanges { get; set; } = false;

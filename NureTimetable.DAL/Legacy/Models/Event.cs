@@ -3,7 +3,7 @@ using System;
 
 namespace NureTimetable.DAL.Legacy.Models
 {
-    class Event
+    internal class Event
     {
         public string? Lesson { get; set; }
         public string? Room { get; set; }

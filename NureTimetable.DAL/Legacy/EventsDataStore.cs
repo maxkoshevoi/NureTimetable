@@ -11,7 +11,7 @@ namespace NureTimetable.DAL.Legacy
 {
 #pragma warning disable CS8600, CS8603, CS8604 // Possible null reference
     [Obsolete("", true)]
-    static class EventsDataStore
+    internal static class EventsDataStore
     {
         public static TimetableInfo GetTimetableFromCist(DateTime dateStart, DateTime dateEnd, int groupID) =>
             GetTimetableFromCist(dateStart, dateEnd, new Group { ID = groupID })?.FirstOrDefault();
@@ -25,10 +25,10 @@ namespace NureTimetable.DAL.Legacy
                 client.Encoding = Encoding.GetEncoding("Windows-1251");
                 try
                 {
-                    List<TimetableInfo> timetables = new List<TimetableInfo>(); //GetTimetableLocal(groupsAllowed.ToArray());
+                    List<TimetableInfo> timetables = new(); //GetTimetableLocal(groupsAllowed.ToArray());
 
                     // Getting events
-                    Uri uri = new Uri(Urls.CistGroupTimetableUrl(Urls.CistTimetableFormat.Csv, dateStart, dateEnd, groupsAllowed.Select(g => g.ID).ToArray()));
+                    Uri uri = new(Urls.CistGroupTimetableUrl(Urls.CistTimetableFormat.Csv, dateStart, dateEnd, groupsAllowed.Select(g => g.ID).ToArray()));
                     string data = client.DownloadString(uri);
                     Dictionary<string, List<Event>> newEvents = ParseCistCsvTimetable(data, groupsAllowed.Count > 1);
                     if (newEvents == null)
@@ -192,7 +192,7 @@ namespace NureTimetable.DAL.Legacy
                             eventDescription.RemoveAt(3);
                         }
 
-                        Event ev = new Event
+                        Event ev = new()
                         {
                             Lesson = eventDescription[0],
                             Type = eventDescription[1],
