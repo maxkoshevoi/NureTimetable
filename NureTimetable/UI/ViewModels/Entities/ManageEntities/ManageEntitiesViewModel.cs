@@ -61,7 +61,7 @@ namespace NureTimetable.UI.ViewModels
             {
                 lock (updatingEntities)
                 {
-                    SavedEntityItemViewModel savedEntity = Entities.SingleOrDefault(e => e.SavedEntity == entity);
+                    SavedEntityItemViewModel? savedEntity = Entities.SingleOrDefault(e => e.SavedEntity == entity);
                     if (savedEntity != null)
                         savedEntity.IsUpdating = true;
                 }
@@ -70,7 +70,7 @@ namespace NureTimetable.UI.ViewModels
             {
                 lock (updatingEntities)
                 {
-                    SavedEntityItemViewModel savedEntity = Entities.SingleOrDefault(e => e.SavedEntity == entity);
+                    SavedEntityItemViewModel? savedEntity = Entities.SingleOrDefault(e => e.SavedEntity == entity);
                     if (savedEntity != null)
                         savedEntity.IsUpdating = false;
                 }
@@ -104,18 +104,18 @@ namespace NureTimetable.UI.ViewModels
                 }
             });
 
-        public async void EntityChanged(object sender, PropertyChangedEventArgs e)
+        public async void EntityChanged(object? sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName != nameof(SavedEntity.IsSelected))
                 return;
 
-            await EntitySelectChanged((SavedEntity)sender);
+            await EntitySelectChanged((SavedEntity)sender!);
         }
 
         public Task EntitySelectChanged(SavedEntity entity) =>
             UniversityEntitiesRepository.ModifySavedAsync(currentSaved =>
             {
-                SavedEntity savedEntity = currentSaved.SingleOrDefault(e => e == entity);
+                SavedEntity savedEntity = currentSaved.Single(e => e == entity);
 
                 // Check state is changed
                 if (savedEntity.IsSelected == entity.IsSelected)
