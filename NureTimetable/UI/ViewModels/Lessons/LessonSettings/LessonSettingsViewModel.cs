@@ -127,13 +127,13 @@ namespace NureTimetable.UI.ViewModels
         /// <returns>true = all, false = none, null = some</returns>
         private bool? IsShowEvents()
         {
-            if (LessonInfo.Settings.Hiding.EventTypesToHide.Count == 0 && 
-                LessonInfo.Settings.Hiding.TeachersToHide.Count == 0)
+            if (LessonInfo.Settings.Hiding.EventTypesToHide.None() && 
+                LessonInfo.Settings.Hiding.TeachersToHide.None())
             {
                 return true;
             }
-            else if ((LvEventTypes.ItemsSource.Count > 0 && LessonInfo.Settings.Hiding.EventTypesToHide.Count == LvEventTypes.ItemsSource.Count) ||
-                (LvTeachers.ItemsSource.Count > 0 && LessonInfo.Settings.Hiding.TeachersToHide.Count == LvTeachers.ItemsSource.Count))
+            else if ((LvEventTypes.ItemsSource.Any() && LessonInfo.Settings.Hiding.EventTypesToHide.Count == LvEventTypes.ItemsSource.Count) ||
+                (LvTeachers.ItemsSource.Any() && LessonInfo.Settings.Hiding.TeachersToHide.Count == LvTeachers.ItemsSource.Count))
             {
                 return false;
             }

@@ -60,7 +60,7 @@ namespace NureTimetable.DAL.Legacy
 
                     // Updating lesson info if needed
                     List<Group> groupsLessonInfoAllowed = groupsAllowed; //SettingsDataStore.CheckCistLessonsInfoUpdateRights(groupsAllowed.ToArray());
-                    if (groupsLessonInfoAllowed.Count > 0)
+                    if (groupsLessonInfoAllowed.Any())
                     {
                         uri = new Uri(Urls.CistGroupTimetableUrl(Urls.CistTimetableFormat.Xls, DateTime.Now, dateEnd, groupsLessonInfoAllowed.Select(g => g.ID).ToArray()));
                         data = client.DownloadString(uri);

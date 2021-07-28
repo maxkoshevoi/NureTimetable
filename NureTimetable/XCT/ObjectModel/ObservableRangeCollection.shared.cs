@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Linq;
 
 #nullable enable
 
@@ -104,7 +105,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 				}
 			}
 
-			if (changedItems.Count == 0)
+			if (changedItems.None())
 				return;
 
 			RaiseChangeNotificationEvents(
@@ -127,13 +128,13 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 
 			CheckReentrancy();
 
-			var previouslyEmpty = Items.Count == 0;
+			var previouslyEmpty = Items.None();
 
 			Items.Clear();
 
 			AddArrangeCore(collection);
 
-			var currentlyEmpty = Items.Count == 0;
+			var currentlyEmpty = Items.None();
 
 			if (previouslyEmpty && currentlyEmpty)
 				return;

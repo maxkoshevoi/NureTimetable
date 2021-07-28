@@ -64,7 +64,7 @@ namespace NureTimetable.DAL
         #region Cist
         public static async Task<(Local::TimetableInfo? timetable, Exception? exception)> GetTimetableFromCistAsync(Local::Entity entity, DateTime dateStart, DateTime dateEnd)
         {
-            if ((await SettingsRepository.CheckCistTimetableUpdateRightsAsync(entity)).Count == 0)
+            if ((await SettingsRepository.CheckCistTimetableUpdateRightsAsync(entity)).None())
             {
                 return (null, null);
             }
@@ -90,7 +90,7 @@ namespace NureTimetable.DAL
                 Cist::Timetable cistTimetable = CistHelper.FromJson<Cist::Timetable>(responseStr);
 
                 // Check for valid results
-                if (timetable.Events.Count != 0 && cistTimetable.Events.Count == 0)
+                if (timetable.Events.Any() && cistTimetable.Events.None())
                 {
                     Analytics.TrackEvent("Received timetable is empty", new Dictionary<string, string>
                     {

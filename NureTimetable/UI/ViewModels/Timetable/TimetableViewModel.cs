@@ -159,7 +159,7 @@ namespace NureTimetable.UI.ViewModels
             });
             MessagingCenter.Subscribe<Application, AppTheme>(this, MessageTypes.ThemeChanged, async (_, _) =>
             {
-                if (TimetableInfoList.Events.Count == 0)
+                if (TimetableInfoList.Events.None())
                     return;
 
                 needToUpdateEventsUI = true;
@@ -262,7 +262,7 @@ namespace NureTimetable.UI.ViewModels
 
         private async Task UpdateTodayButton(bool isForceUpdate)
         {
-            if (visibleDates.Count == 0)
+            if (visibleDates.None())
                 return;
 
             // Updating Today button
@@ -289,7 +289,7 @@ namespace NureTimetable.UI.ViewModels
 
         private void UpdateTimeLeft()
         {
-            if (TimetableInfoList.Events.Count == 0)
+            if (TimetableInfoList.Events.None())
             {
                 IsTimeLeftVisible = false;
                 return;
@@ -420,7 +420,7 @@ namespace NureTimetable.UI.ViewModels
                 }
                 needToUpdateEventsUI = false;
 
-                if (TimetableInfoList.Events.Count == 0)
+                if (TimetableInfoList.Events.None())
                 {
                     TimetableDataSource = null;
                     return;

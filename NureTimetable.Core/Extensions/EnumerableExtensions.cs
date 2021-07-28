@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace NureTimetable.Core.Extensions
+namespace System.Linq
 {
-    public static class IEnumerableExtensions
+    public static class EnumerableExtensions
     {
         public static async IAsyncEnumerable<T> Where<T>(this IEnumerable<T> source, Func<T, Task<bool>> predicate)
         {
@@ -19,6 +16,16 @@ namespace NureTimetable.Core.Extensions
             }
         }
 
+        /// <summary>
+        /// Determines whether a sequence is empty.
+        /// </summary>
+        public static bool None<T>(this IEnumerable<T> source) => !source.Any();
+
+        /// <summary>
+        /// Determines whether no element of a sequence satisfies a condition.
+        /// </summary>
+        public static bool None<T>(this IEnumerable<T> source, Func<T, bool> predicate) => !source.Any(predicate);
+
         public static IEnumerable<string> GroupBasedOnLastPart(this IEnumerable<string> collection, string sepparator = "-")
         {
             List<string[]> nameParts = collection
@@ -26,7 +33,7 @@ namespace NureTimetable.Core.Extensions
                 .Select(n => n.Split(sepparator))
                 .ToList();
 
-            if (nameParts.Count == 0)
+            if (nameParts.None())
             {
                 yield break;
             }

@@ -88,7 +88,7 @@ namespace NureTimetable.UI.ViewModels
 
         public async Task PageAppearing()
         {
-            if (Entities.Count == 0)
+            if (Entities.None())
             {
                 UpdateItems(await UniversityEntitiesRepository.GetSavedAsync());
                 IsProgressLayoutVisible = false;
@@ -125,7 +125,7 @@ namespace NureTimetable.UI.ViewModels
                 savedEntity.IsSelected = entity.IsSelected;
 
                 // User cannot deselect last selected entity
-                if (!savedEntity.IsSelected && !currentSaved.Any(e => e.IsSelected) && Entities.Any(e => e.SavedEntity == entity))
+                if (!savedEntity.IsSelected && currentSaved.None(e => e.IsSelected) && Entities.Any(e => e.SavedEntity == entity))
                 {
                     savedEntity.IsSelected = true;
                     return;

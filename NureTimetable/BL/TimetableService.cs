@@ -29,7 +29,7 @@ namespace NureTimetable.BL
             Task.Run(async () =>
             {
                 IReadOnlyList<Entity> entitiesAllowed = await SettingsRepository.CheckCistTimetableUpdateRightsAsync(entities);
-                if (entitiesAllowed.Count == 0)
+                if (entitiesAllowed.None())
                 {
                     return new();
                 }
@@ -72,7 +72,7 @@ namespace NureTimetable.BL
 
         private static string? GetResponseMessageFromUpdateResult(List<(Entity entity, Exception? exception)> updateResults)
         {
-            if (updateResults.Count == 0)
+            if (updateResults.None())
             {
                 return LN.TimetableLatest;
             }
@@ -120,11 +120,11 @@ namespace NureTimetable.BL
             }
             else
             {
-                if (success.Count > 0)
+                if (success.Any())
                 {
                     result += string.Format(LN.TimetableUpdated, $"{string.Join(", ", success)}\n\n");
                 }
-                if (fail.Count > 0)
+                if (fail.Any())
                 {
                     result += string.Format(LN.ErrorOccurred, string.Join(", ", fail));
                 }

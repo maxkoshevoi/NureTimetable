@@ -551,7 +551,7 @@ namespace NureTimetable.DAL
                     try { File.Delete(FilePath.SavedTimetable(de.Entity.Type, de.Entity.ID)); } catch { } 
                 });
 
-            if (savedEntities.Any() && !savedEntities.Any(e => e.IsSelected))
+            if (savedEntities.Any() && savedEntities.None(e => e.IsSelected))
             {
                 // If no entity is selected, selecting first saved entity
                 savedEntities.First().IsSelected = true;
