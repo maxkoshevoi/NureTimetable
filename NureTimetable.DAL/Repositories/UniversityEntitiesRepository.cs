@@ -545,6 +545,7 @@ namespace NureTimetable.DAL
             List<Local::SavedEntity> oldSavedEntities = await GetSavedAsync();
             // Removing cache from deleted saved entities if needed
             oldSavedEntities.Where(oldEntity => !savedEntities.Exists(entity => entity == oldEntity))
+                .ToList()
                 .ForEach((de) => 
                 { 
                     try { File.Delete(FilePath.SavedTimetable(de.Entity.Type, de.Entity.ID)); } catch { } 
