@@ -1,12 +1,15 @@
 ﻿using Microsoft.Maui;
-using Microsoft.Maui.Hosting;
 using Microsoft.Maui.Controls.Hosting;
+using Microsoft.Maui.Controls.Xaml;
+using Microsoft.Maui.Hosting;
 using Microsoft.Maui.LifecycleEvents;
 using Rg.Plugins.Popup;
 
+[assembly: XamlCompilation(XamlCompilationOptions.Compile)]
+
 namespace NureTimetable
 {
-	public class Startup : IStartup
+    public class Startup : IStartup
 	{
 		public void Configure(IAppHostBuilder appBuilder)
 		{

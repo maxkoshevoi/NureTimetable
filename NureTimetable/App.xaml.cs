@@ -4,20 +4,17 @@ using Microsoft.AppCenter.Crashes;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Controls.Compatibility;
-using Microsoft.Maui.Controls.Xaml;
 using Microsoft.Maui.Essentials;
 using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Consts;
 using NureTimetable.Core.Models.Settings;
 using NureTimetable.DAL;
-using Rg.Plugins.Popup;
 using Syncfusion.Licensing;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Helpers;
 
-[assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace NureTimetable
 {
     public partial class App : Application
