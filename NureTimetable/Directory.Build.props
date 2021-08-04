@@ -1,0 +1,23 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <ApplicationVersion>1.7.3665</ApplicationVersion>
+    <AndroidVersionCode>1003665</AndroidVersionCode>
+  </PropertyGroup>
+
+  <Target Name="UpdateVersion" BeforeTargets="BeforeBuild">
+    <PropertyGroup>
+      <OldBuildNumber>$(AndroidVersionCode)</OldBuildNumber>
+      <NewBuildNumber>$([MSBuild]::Add($(OldBuildNumber), 1))</NewBuildNumber>
+      <RealNewBuildNumber>$([MSBuild]::Subtract($(NewBuildNumber), 1000000))</RealNewBuildNumber>
+      <OldVersion>$(ApplicationVersion)</OldVersion>
+      <NewVersion>$(OldVersion.Remove($(OldVersion.LastIndexOf('.')))).$(RealNewBuildNumber)</NewVersion>
+      <AndroidVersionCode>$(NewBuildNumber)</AndroidVersionCode>
+      <ApplicationVersion>$(NewVersion)</ApplicationVersion>
+    </PropertyGroup>
+    <XmlPoke XmlInputPath="$(MSBuildThisFile)" Query="/Project/PropertyGroup/AndroidVersionCode" Value="$(AndroidVersionCode)" />
+    <XmlPoke XmlInputPath="$(MSBuildThisFile)" Query="/Project/PropertyGroup/ApplicationVersion" Value="$(ApplicationVersion)" />
+    <Message Importance="High" Text="Build number: $(ApplicationVersion)" />
+  </Target>
+  
+</Project>
