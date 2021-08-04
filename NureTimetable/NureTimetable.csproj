@@ -9,12 +9,27 @@
     <ApplicationId>com.whitebox.nuretimetable</ApplicationId>
     <ApplicationTitle>Nure Timetable</ApplicationTitle>
     <ApplicationVersion>1.7.3665</ApplicationVersion>
-    <AndroidVersionCode>1003665</AndroidVersionCode>  
+    <AndroidVersionCode>1003665</AndroidVersionCode>
     <MinimumPlatformVersion>21.0</MinimumPlatformVersion>
   
     <Authors>Maksym Koshovyi</Authors>
     <Copyright>Copyright © Maksym Koshovyi 2019</Copyright>
   </PropertyGroup>
+
+  <Target Name="UpdateVersion" BeforeTargets="BeforeBuild">
+    <PropertyGroup>
+      <OldBuildNumber>$(AndroidVersionCode)</OldBuildNumber>
+      <NewBuildNumber>$([MSBuild]::Add($(OldBuildNumber), 1))</NewBuildNumber>
+      <RealNewBuildNumber>$([MSBuild]::Subtract($(NewBuildNumber), 1000000))</RealNewBuildNumber>
+      <OldVersion>$(ApplicationVersion)</OldVersion>
+      <NewVersion>$(OldVersion.Remove($(OldVersion.LastIndexOf('.')))).$(RealNewBuildNumber)</NewVersion>
+      <AndroidVersionCode>$(NewBuildNumber)</AndroidVersionCode>
+      <ApplicationVersion>$(NewVersion)</ApplicationVersion>
+    </PropertyGroup>
+    <XmlPoke XmlInputPath="$(MSBuildProjectFile)" Query="/Project/PropertyGroup/AndroidVersionCode" Value="$(AndroidVersionCode)" />
+    <XmlPoke XmlInputPath="$(MSBuildProjectFile)" Query="/Project/PropertyGroup/ApplicationVersion" Value="$(ApplicationVersion)" />
+    <Message Importance="High" Text="Build number: $(ApplicationVersion)" />
+  </Target>
   
   <ItemGroup>
     <MauiSplashScreen Include="Resources\AppIcons\icon.png" Color="#512BD4" />
@@ -23,7 +38,6 @@
     <MauiFont Include="Resources\Fonts\*" />
   </ItemGroup>
   
-    
   <ItemGroup>
     <PackageReference Include="CClarke.Plugin.Calendars" Version="1.0.14" />
     <PackageReference Include="Plugin.InAppBilling" Version="4.0.2" />
