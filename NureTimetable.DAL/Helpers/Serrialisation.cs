@@ -3,14 +3,11 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Nito.AsyncEx;
 using NureTimetable.Core.BL;
-using NureTimetable.Core.Extensions;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Xamarin.Forms;
 
 namespace NureTimetable.DAL.Helpers
 {
@@ -83,17 +80,27 @@ namespace NureTimetable.DAL.Helpers
                 }
                 catch (JsonReaderException)
                 {
+                    string badJson = json;
                     json = JsonFixers.TryFix(json);
                     instance = JsonConvert.DeserializeObject<T>(json);
+                    
+                    InvalidOperationException ex = new("Fixed invalid JSON");
+                    EnrichException(badJson, ex);
+                    ExceptionService.LogException(ex);
                 }
 
                 return instance ?? throw new InvalidOperationException("Deserializer returned null");
             }
             catch (Exception ex)
             {
+                EnrichException(json, ex);
+                throw;
+            }
+
+            static void EnrichException(string json, Exception ex)
+            {
                 ex.Data.Add("Type", typeof(T).FullName);
                 ex.Data.Add("Json", ErrorAttachmentLog.AttachmentWithText(json, "Json.json"));
-                throw;
             }
         }
 

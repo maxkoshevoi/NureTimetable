@@ -1,5 +1,6 @@
 ﻿using NureTimetable.Core.Extensions;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
@@ -7,6 +8,7 @@ namespace NureTimetable.DAL.Helpers
 {
     public static class JsonFixers
     {
+        private const int notFound = -1;
         private const string stringStart = "\":\"";
         private static readonly string[] stringEnd =
         {
@@ -28,14 +30,21 @@ namespace NureTimetable.DAL.Helpers
             ":]",
             ":}"
         };
+        private static readonly (char Open, char Close)[] brackets =
+        {
+            ('[', ']'),
+            ('{', '}'),
+        };
+        private static readonly char[] allBrackets = brackets.SelectMany(b => new[] { b.Open, b.Close }).ToArray();
+        private static readonly Stack<char> openBarckets = new();
 
         /// <summary>
         /// 1. Escapes double quotes in json property values
         /// 2. Replaces ":," with ":null,"
+        /// 3. Adds missing closing brackets
         /// </summary>
         public static string TryFix(string invalidJsonStr)
         {
-            const int notFound = -1;
             StringBuilder invalidJson = new(invalidJsonStr);
 
             // Unify string start
@@ -48,13 +57,14 @@ namespace NureTimetable.DAL.Helpers
             if (startIndex != notFound)
             {
                 string newJson = invalidJson.ToString(0, startIndex);
-                newJson = FixNonStringJson(newJson);
+                newJson = JsonFixers.FixNonStringJson(newJson);
                 ReplaceStringPart(invalidJson, 0, startIndex, newJson);
             }
 
+            int endIndex = 0;
             while (startIndex != notFound)
             {
-                int endIndex = stringEnd
+                endIndex = stringEnd
                     .Select(end => invalidJson.IndexOf(end, startIndex + stringStart.Length + 1))
                     .Where(index => index != notFound)
                     .DefaultIfEmpty(notFound)
@@ -80,21 +90,38 @@ namespace NureTimetable.DAL.Helpers
                 if (startIndex != notFound)
                 {
                     int nonStringLength = startIndex - endIndex;
-                    string newJson = invalidJson.ToString(endIndex, nonStringLength);
-                    newJson = FixNonStringJson(newJson);
-                    ReplaceStringPart(invalidJson, endIndex, nonStringLength, newJson);
+                    FixNonStringJson(invalidJson, endIndex, nonStringLength);
 
                     startIndex = invalidJson.IndexOf(stringStart, lastStartIndex + 1);
                 }
             }
 
-            return invalidJson.ToString();
-        }
+            if (endIndex < invalidJson.Length)
+            {
+                int nonStringLength = invalidJson.Length - endIndex;
+                FixNonStringJson(invalidJson, endIndex, nonStringLength);
+            }
 
-        private static void ReplaceStringPart(StringBuilder stringToModify, int partStart, int partLength, string newString)
-        {
-            stringToModify.Remove(partStart, partLength);
-            stringToModify.Insert(partStart, newString);
+            if (openBarckets.Any())
+            {
+                invalidJson.Append(new string(openBarckets.Select(ob => brackets.First(b => b.Open == ob).Close).ToArray()));
+                openBarckets.Clear();
+            }
+
+            return invalidJson.ToString();
+
+            static void FixNonStringJson(StringBuilder invalidJson, int endIndex, int nonStringLength)
+            {
+                string newJson = invalidJson.ToString(endIndex, nonStringLength);
+                newJson = JsonFixers.FixNonStringJson(newJson);
+                ReplaceStringPart(invalidJson, endIndex, nonStringLength, newJson);
+            }
+
+            static void ReplaceStringPart(StringBuilder stringToModify, int partStart, int partLength, string newString)
+            {
+                stringToModify.Remove(partStart, partLength);
+                stringToModify.Insert(partStart, newString);
+            }
         }
 
         private static string FixNonStringJson(string newJson)
@@ -104,6 +131,30 @@ namespace NureTimetable.DAL.Helpers
 
             // Add null values instead of empty ones
             newJson = noValue.Aggregate(newJson, (res, nv) => res.Replace(nv, nv.Insert(1, "null")));
+
+            // Add missing closing brackets
+            int startIndex = newJson.IndexOfAny(allBrackets);
+            while (startIndex != notFound)
+            {
+                char bracket = newJson[startIndex];
+
+                if (brackets.Select(b => b.Open).Contains(bracket))
+                {
+                    openBarckets.Push(bracket);
+                }
+                else
+                {
+                    char lastOpenBracket = openBarckets.Pop();
+
+                    char expectedBracket = brackets.First(b => b.Open == lastOpenBracket).Close;
+                    if (expectedBracket != bracket)
+                    {
+                        newJson = newJson.Insert(startIndex, expectedBracket.ToString());
+                    }
+                }
+
+                startIndex = newJson.IndexOfAny(allBrackets, startIndex + 1);
+            }
 
             return newJson;
         }
