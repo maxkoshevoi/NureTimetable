@@ -1,9 +1,6 @@
 ﻿using NureTimetable.DAL.Legacy.Models;
 using NureTimetable.DAL.Legacy.Models.Consts;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Net;
 using System.Text;
 
@@ -117,7 +114,7 @@ namespace NureTimetable.DAL.Legacy
         }
 
         #region Parsers
-        public static List<Event> ParseCistCsvTimetable(string cistCsvDataForOneGroup) => 
+        public static List<Event> ParseCistCsvTimetable(string cistCsvDataForOneGroup) =>
             ParseCistCsvTimetable(cistCsvDataForOneGroup, false)?.Values.FirstOrDefault();
 
         public static Dictionary<string, List<Event>> ParseCistCsvTimetable(string cistCsvData, bool isManyGroups)
@@ -227,7 +224,7 @@ namespace NureTimetable.DAL.Legacy
             {
                 return groupsLessons;
             }
-            
+
             try
             {
                 // Setting default values
@@ -272,7 +269,7 @@ namespace NureTimetable.DAL.Legacy
                             // Event type doesn't have teacher
                             continue;
                         }
-                        
+
                         // Checking for groups with spaces
                         while (!eventTypeInfo[3].EndsWith(",") && eventTypeInfo.Count > 3)
                         {
@@ -291,7 +288,7 @@ namespace NureTimetable.DAL.Legacy
 
                             string type = eventTypeInfo[0];
                             string teacher = $"{eventTypeInfo[4]} {eventTypeInfo[5]}{eventTypeInfo[6]}".TrimEnd(',');
-                                
+
                             EventTypeInfo eventType = lessonInfo.EventTypesInfo.FirstOrDefault(et => et.Name == type);
                             if (eventType == null)
                             {

@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace NureTimetable.DAL.Models.Local
+﻿namespace NureTimetable.DAL.Models.Local
 {
     public class TimetableInfo : TimetableStatistics
     {
         public Entity Entity { get; }
-        
+
         public List<Event> Events
         {
             get => events;
@@ -20,7 +16,7 @@ namespace NureTimetable.DAL.Models.Local
         {
             Entity = entity ?? throw new ArgumentNullException(nameof(entity));
         }
-        
+
         public void ApplyLessonSettings()
         {
             foreach (var lInfo in LessonsInfo.Where(ls => ls.Settings.IsSomeSettingsApplied))
@@ -32,8 +28,8 @@ namespace NureTimetable.DAL.Models.Local
                 }
                 else if (lInfo.Settings.Hiding.ShowLesson == null)
                 {
-                    Events.RemoveAll(ev => ev.Lesson == lInfo.Lesson && 
-                        (lInfo.Settings.Hiding.EventTypesToHide.Contains(ev.Type.ID) || 
+                    Events.RemoveAll(ev => ev.Lesson == lInfo.Lesson &&
+                        (lInfo.Settings.Hiding.EventTypesToHide.Contains(ev.Type.ID) ||
                         lInfo.Settings.Hiding.TeachersToHide.Intersect(ev.Teachers.Select(t => t.ID)).Any())
                     );
                 }

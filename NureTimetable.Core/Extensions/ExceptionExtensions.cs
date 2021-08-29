@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Net;
+﻿using System.Net;
 
 namespace NureTimetable.Core.Extensions
 {
@@ -8,7 +6,7 @@ namespace NureTimetable.Core.Extensions
     {
         private static readonly WebExceptionStatus[] noInternetStatuses =
         {
-            WebExceptionStatus.NameResolutionFailure, 
+            WebExceptionStatus.NameResolutionFailure,
             WebExceptionStatus.ConnectFailure
         };
 

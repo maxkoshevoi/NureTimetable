@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace NureTimetable.DAL.Legacy.Models
+﻿namespace NureTimetable.DAL.Legacy.Models
 {
     class LessonInfo
     {

@@ -1,7 +1,4 @@
-﻿using System;
-using System.IO;
-
-namespace NureTimetable.DAL.Legacy.Models.Consts
+﻿namespace NureTimetable.DAL.Legacy.Models.Consts
 {
     [Obsolete("", true)]
     static class FilePath
@@ -11,7 +8,7 @@ namespace NureTimetable.DAL.Legacy.Models.Consts
 
         public static string SavedTimetable(int groupID) =>
             Path.Combine(LocalStorage, $"timetable_{groupID}.json");
-        
+
         #region Groups
         public static string SavedGroupsList =>
             Path.Combine(LocalStorage, "groups_saved.json");

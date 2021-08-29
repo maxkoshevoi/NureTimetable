@@ -9,10 +9,10 @@
         public BaseEntity<long>? Speciality { get; set; }
 
         #region Equals
-        public static bool operator ==(Group? obj1, Group? obj2) => 
+        public static bool operator ==(Group? obj1, Group? obj2) =>
             ReferenceEquals(obj1, obj2) || obj1?.Equals(obj2) == true;
 
-        public static bool operator !=(Group? obj1, Group? obj2) => 
+        public static bool operator !=(Group? obj1, Group? obj2) =>
             !(obj1 == obj2);
 
         public override bool Equals(object? obj)

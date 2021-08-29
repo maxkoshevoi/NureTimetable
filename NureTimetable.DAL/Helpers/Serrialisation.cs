@@ -4,12 +4,7 @@ using Newtonsoft.Json.Converters;
 using Nito.AsyncEx;
 using NureTimetable.Core.BL;
 using NureTimetable.Core.Extensions;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace NureTimetable.DAL.Helpers
 {
@@ -123,7 +118,7 @@ namespace NureTimetable.DAL.Helpers
             }
         }
 
-        internal class StringBoolConverter: JsonConverter
+        internal class StringBoolConverter : JsonConverter
         {
             private readonly Dictionary<string, bool> replacementValues = new() { { "1", true }, { "0", false } };
 
@@ -238,7 +233,7 @@ namespace NureTimetable.DAL.Helpers
             newJson = nonEssentialCharacters.Aggregate(newJson, (res, ch) => res.Replace(ch, string.Empty));
 
             // Add null values instead of empty ones
-            string[] noValue = 
+            string[] noValue =
             {
                 ":,",
                 ":]",

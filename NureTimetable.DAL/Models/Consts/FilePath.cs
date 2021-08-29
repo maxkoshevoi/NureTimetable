@@ -1,6 +1,4 @@
 ﻿using NureTimetable.DAL.Models.Local;
-using System;
-using System.IO;
 
 namespace NureTimetable.DAL.Models.Consts
 {
@@ -11,7 +9,7 @@ namespace NureTimetable.DAL.Models.Consts
 
         public static string SavedTimetable(TimetableEntityType type, long entityId) =>
             Path.Combine(LocalStorage, $"timetable_{(int)type}_{entityId}.json");
-        
+
         #region Groups
         public static string SavedEntitiesList =>
             Path.Combine(LocalStorage, "entities_saved.json");

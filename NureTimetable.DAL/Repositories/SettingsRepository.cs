@@ -1,10 +1,6 @@
 ﻿using NureTimetable.Core.Models.Consts;
 using NureTimetable.Core.Models.Settings;
 using NureTimetable.DAL.Models.Local;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace NureTimetable.DAL
 {
@@ -29,7 +25,7 @@ namespace NureTimetable.DAL
                 }
 
                 DateTime nowInUkraine = TimeZoneInfo.ConvertTime(DateTime.Now, Config.UkraineTimezone);
-                if (savedEntity.LastUpdated == null || 
+                if (savedEntity.LastUpdated == null ||
                     (nowInUkraine.TimeOfDay >= Config.CistDailyTimetableUpdateStartTime && nowInUkraine.TimeOfDay < Config.CistDailyTimetableUpdateEndTime))
                 {
                     // Update allowed if never updated before
@@ -84,6 +80,6 @@ namespace NureTimetable.DAL
             return false;
 #endif
         }
-#endregion
+        #endregion
     }
 }

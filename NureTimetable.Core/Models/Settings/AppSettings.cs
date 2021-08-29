@@ -1,5 +1,4 @@
 ﻿using Microsoft.Maui.Essentials;
-using System;
 using System.Globalization;
 using Xamarin.CommunityToolkit.ObjectModel;
 
@@ -13,13 +12,13 @@ namespace NureTimetable.Core.Models.Settings
         {
         }
 
-        public TimetableViewMode TimetableViewMode 
+        public TimetableViewMode TimetableViewMode
         {
             get => (TimetableViewMode)Preferences.Get(nameof(TimetableViewMode), (int)TimetableViewMode.Week);
-            set 
-            { 
-                var currentValue = TimetableViewMode; 
-                SetProperty(ref currentValue, value, onChanged: () => Preferences.Set(nameof(TimetableViewMode), (int)value)); 
+            set
+            {
+                var currentValue = TimetableViewMode;
+                SetProperty(ref currentValue, value, onChanged: () => Preferences.Set(nameof(TimetableViewMode), (int)value));
             }
         }
 
@@ -67,7 +66,7 @@ namespace NureTimetable.Core.Models.Settings
 
         public DateTime? LastCistAllEntitiesUpdate
         {
-            get 
+            get
             {
                 string storedValue = Preferences.Get(nameof(LastCistAllEntitiesUpdate), null);
                 return storedValue == null ? null : DateTime.Parse(storedValue, CultureInfo.InvariantCulture);

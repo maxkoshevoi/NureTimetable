@@ -1,14 +1,13 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 
 namespace NureTimetable.Core.Extensions
 {
     public static class StringBuilderExtensions
     {
-        public static int IndexOf(this StringBuilder sb, string value) => 
+        public static int IndexOf(this StringBuilder sb, string value) =>
             IndexOf(sb, value, 0);
 
-        public static int IndexOf(this StringBuilder sb, string value, int startIndex) => 
+        public static int IndexOf(this StringBuilder sb, string value, int startIndex) =>
             IndexOf(sb, value, startIndex, false);
 
         /// <summary>

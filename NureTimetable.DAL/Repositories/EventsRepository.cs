@@ -5,11 +5,6 @@ using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Models.Consts;
 using NureTimetable.DAL.Helpers;
 using NureTimetable.DAL.Models.Consts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
 using Cist = NureTimetable.DAL.Models.Cist;
 using Local = NureTimetable.DAL.Models.Local;
 
@@ -18,7 +13,7 @@ namespace NureTimetable.DAL
     public static class EventsRepository
     {
         #region Local
-        public static async Task<Local::TimetableInfo?> GetTimetableLocalAsync(Local::Entity entity) => 
+        public static async Task<Local::TimetableInfo?> GetTimetableLocalAsync(Local::Entity entity) =>
             (await GetTimetableLocal(new List<Local::Entity>() { entity })).SingleOrDefault();
 
         public static async Task<List<Local::TimetableInfo>> GetTimetableLocal(List<Local::Entity> entities)

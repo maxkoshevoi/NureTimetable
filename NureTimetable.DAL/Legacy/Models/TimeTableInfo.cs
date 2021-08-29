@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace NureTimetable.DAL.Legacy.Models
+﻿namespace NureTimetable.DAL.Legacy.Models
 {
     class TimetableInfo
     {
@@ -11,7 +8,7 @@ namespace NureTimetable.DAL.Legacy.Models
 
         public TimetableInfo()
         { }
-        
+
         public TimetableInfo(Group group)
         {
             Group = group;

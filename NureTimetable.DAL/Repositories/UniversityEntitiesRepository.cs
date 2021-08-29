@@ -1,7 +1,6 @@
 ﻿using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using Microsoft.Maui.Controls;
-using Microsoft.Maui.Controls.Internals;
 using Nito.AsyncEx;
 using NureTimetable.Core.BL;
 using NureTimetable.Core.Extensions;
@@ -9,13 +8,7 @@ using NureTimetable.Core.Models.Consts;
 using NureTimetable.Core.Models.Exceptions;
 using NureTimetable.DAL.Helpers;
 using NureTimetable.DAL.Models.Consts;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
 using Cist = NureTimetable.DAL.Models.Cist;
 using Local = NureTimetable.DAL.Models.Local;
 
@@ -56,8 +49,8 @@ namespace NureTimetable.DAL
                 GroupsException != null && TeachersException != null && RoomsException != null;
 
             public bool IsConnectionIssues =>
-                GroupsException is WebException 
-                || TeachersException is WebException 
+                GroupsException is WebException
+                || TeachersException is WebException
                 || RoomsException is WebException;
 
             public bool IsCistException =>
@@ -220,7 +213,7 @@ namespace NureTimetable.DAL
                     return await tasks[currentTaskIndex]();
                 }
                 catch (Exception ex)
-                { 
+                {
                     ExceptionService.LogException(ex);
                     if (tasksLeft == 0 || ex is WebException)
                     {
@@ -438,7 +431,7 @@ namespace NureTimetable.DAL
         public static IEnumerable<Local::Group> GetAllGroups()
         {
             var groups = Instance.Faculties
-                .SelectMany(fac => 
+                .SelectMany(fac =>
                     fac.Directions.SelectMany(dir =>
                         dir.Groups.Select(gr =>
                         {
@@ -464,7 +457,7 @@ namespace NureTimetable.DAL
         public static IEnumerable<Local::Teacher> GetAllTeachers()
         {
             var teachers = Instance.Faculties
-                .SelectMany(fac => 
+                .SelectMany(fac =>
                     fac.Departments.SelectMany(dep =>
                         dep.Teachers.Select(tr =>
                         {
@@ -480,7 +473,7 @@ namespace NureTimetable.DAL
         public static IEnumerable<Local::Room> GetAllRooms()
         {
             var rooms = Instance.Buildings
-                .SelectMany(bd => 
+                .SelectMany(bd =>
                     bd.Rooms.Select(rm =>
                     {
                         Local::Room localGroup = MapConfig.Map<Cist::Room, Local::Room>(rm);
@@ -502,7 +495,7 @@ namespace NureTimetable.DAL
             {
                 return loadedEntities;
             }
-            
+
             loadedEntities = await Serialisation.FromJsonFile<List<Local::SavedEntity>>(filePath) ?? loadedEntities;
             return loadedEntities;
         }
@@ -546,9 +539,9 @@ namespace NureTimetable.DAL
             // Removing cache from deleted saved entities if needed
             oldSavedEntities.Where(oldEntity => !savedEntities.Exists(entity => entity == oldEntity))
                 .ToList()
-                .ForEach((de) => 
-                { 
-                    try { File.Delete(FilePath.SavedTimetable(de.Entity.Type, de.Entity.ID)); } catch { } 
+                .ForEach((de) =>
+                {
+                    try { File.Delete(FilePath.SavedTimetable(de.Entity.Type, de.Entity.ID)); } catch { }
                 });
 
             if (savedEntities.Any() && savedEntities.None(e => e.IsSelected))

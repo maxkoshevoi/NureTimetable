@@ -1,6 +1,4 @@
-﻿using Xamarin.CommunityToolkit.ObjectModel;
-
-namespace NureTimetable.DAL.Models.Local
+﻿namespace NureTimetable.DAL.Models.Local
 {
     public class LessonSettings
     {

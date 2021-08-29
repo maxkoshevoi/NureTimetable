@@ -1,9 +1,4 @@
-﻿using NureTimetable.Core.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace NureTimetable.DAL.Models.Local
+﻿namespace NureTimetable.DAL.Models.Local
 {
     public class Event
     {
@@ -41,7 +36,7 @@ namespace NureTimetable.DAL.Models.Local
             return false;
         }
 
-        public override int GetHashCode() => 
+        public override int GetHashCode() =>
             HashCode.Combine(
                 Type,
                 Start,
