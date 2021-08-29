@@ -6,10 +6,7 @@ using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
 using NureTimetable.UI.Models.Consts;
 using NureTimetable.UI.Views;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms.Internals;
 
@@ -37,11 +34,11 @@ namespace NureTimetable.UI.ViewModels
         public ManageEntitiesViewModel()
         {
             PageAppearingCommand = CommandFactory.Create(PageAppearing);
-            UpdateAllCommand = CommandFactory.Create(UpdateAll, () => { lock (updatingEntities) { return Entities.Any() && Entities.All(e => !e.IsUpdating); }}, allowsMultipleExecutions: false);
+            UpdateAllCommand = CommandFactory.Create(UpdateAll, () => { lock (updatingEntities) { return Entities.Any() && Entities.All(e => !e.IsUpdating); } }, allowsMultipleExecutions: false);
             AddEntityCommand = CommandFactory.Create(() => Navigation.PushAsync(new AddTimetablePage()), allowsMultipleExecutions: false);
             EntitySelectedCommand = CommandFactory.Create<SelectedItemChangedEventArgs>(async args =>
             {
-                if (args!.SelectedItem is not SavedEntityItemViewModel entity) 
+                if (args!.SelectedItem is not SavedEntityItemViewModel entity)
                     return;
 
                 SavedEntity savedEntity = entity.SavedEntity;
@@ -75,7 +72,7 @@ namespace NureTimetable.UI.ViewModels
                         savedEntity.IsUpdating = false;
                 }
             });
-            
+
             // ListIsNullOrEmptyConverter needs to know that Entities are updated
             Entities.CollectionChanged += (_, _) =>
             {
@@ -95,7 +92,7 @@ namespace NureTimetable.UI.ViewModels
             }
         }
 
-        public Task SelectOne(SavedEntity savedEntity) => 
+        public Task SelectOne(SavedEntity savedEntity) =>
             UniversityEntitiesRepository.ModifySavedAsync(savedEntities =>
             {
                 foreach (var e in savedEntities)
@@ -147,7 +144,7 @@ namespace NureTimetable.UI.ViewModels
                 Entities.ForEach(se => se.SavedEntity.PropertyChanged -= EntityChanged);
                 Entities.ReplaceRange(newItems.Select(se => new SavedEntityItemViewModel(se, this)).ToArray());
                 Entities.ForEach(se => se.SavedEntity.PropertyChanged += EntityChanged);
-            
+
                 IsMultiselectMode = Entities.Count(i => i.SavedEntity.IsSelected) > 1;
             }
         }

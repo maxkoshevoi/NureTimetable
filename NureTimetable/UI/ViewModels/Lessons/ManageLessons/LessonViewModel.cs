@@ -2,7 +2,6 @@
 using NureTimetable.Core.Models.Consts;
 using NureTimetable.DAL.Models.Local;
 using NureTimetable.UI.Views;
-using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace NureTimetable.UI.ViewModels
@@ -16,8 +15,8 @@ namespace NureTimetable.UI.ViewModels
         private LessonInfo _lessonInfo;
         public LessonInfo LessonInfo { get => _lessonInfo; set { _lessonInfo = value; OnPropertyChanged(nameof(IsChecked)); } }
 
-        public bool? IsChecked 
-        { 
+        public bool? IsChecked
+        {
             get => LessonInfo.Settings.Hiding.ShowLesson;
             set
             {
@@ -27,7 +26,7 @@ namespace NureTimetable.UI.ViewModels
                 LessonInfo.Settings.Hiding.ShowLesson = value;
                 OnPropertyChanged();
                 manageLessonsViewModel.HasUnsavedChanges = true;
-            } 
+            }
         }
 
         public IAsyncCommand SettingsClickedCommand { get; }
@@ -53,13 +52,13 @@ namespace NureTimetable.UI.ViewModels
             InfoClickedCommand = CommandFactory.Create(InfoClicked, allowsMultipleExecutions: false);
         }
 
-        private Task SettingsClicked() => 
+        private Task SettingsClicked() =>
             Navigation.PushAsync(new LessonSettingsPage
             {
                 BindingContext = new LessonSettingsViewModel(LessonInfo, timetableInfo, false)
             });
 
-        private Task InfoClicked() => 
+        private Task InfoClicked() =>
             Navigation.PushAsync(new LessonInfoPage
             {
                 BindingContext = new LessonInfoViewModel(LessonInfo, timetableInfo)

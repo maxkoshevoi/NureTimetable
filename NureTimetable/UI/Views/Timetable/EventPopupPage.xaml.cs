@@ -1,11 +1,7 @@
 ﻿using Microsoft.Maui.Controls;
-using Microsoft.Maui.Graphics;
 using NureTimetable.Core.Models.Consts;
 using NureTimetable.Core.Models.Settings;
-using NureTimetable.UI.Models.Consts;
 using Rg.Plugins.Popup.Pages;
-using System.Threading.Tasks;
-using XFP = Microsoft.Maui.Controls.PlatformConfiguration;
 
 namespace NureTimetable.UI.Views
 {
@@ -30,7 +26,7 @@ namespace NureTimetable.UI.Views
             MessagingCenter.Unsubscribe<Application, AppTheme>(this, MessageTypes.ThemeChanged);
 
             await Task.Delay(50);
-            
+
             //On<XFP.Android>().SetNavigationBarColor(ResourceManager.NavigationBarColor);
             //On<XFP.Android>().SetNavigationBarStyle(ResourceManager.NavigationBarStyle);
         }

@@ -1,8 +1,6 @@
 ﻿using NureTimetable.Core.Localization;
 using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace NureTimetable.UI.ViewModels
 {

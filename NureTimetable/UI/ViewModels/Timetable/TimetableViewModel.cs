@@ -11,11 +11,7 @@ using NureTimetable.UI.ViewModels.Timetable;
 using NureTimetable.UI.Views;
 using Rg.Plugins.Popup.Services;
 using Syncfusion.SfSchedule.XForms;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.ObjectModel;
 using AppTheme = NureTimetable.Core.Models.Settings.AppTheme;
@@ -41,12 +37,15 @@ namespace NureTimetable.UI.ViewModels
 
         #region Properties
         private TimetableInfoList _timetableInfoList = TimetableInfoList.Empty;
-        public TimetableInfoList TimetableInfoList { get => _timetableInfoList; set => SetProperty(ref _timetableInfoList, value, onChanged: () =>
+        public TimetableInfoList TimetableInfoList
         {
-            HideSelectedEventsCommand.RaiseCanExecuteChanged();
-            ScheduleModeCommand.RaiseCanExecuteChanged();
-            UpdateTimetableCommand.RaiseCanExecuteChanged();
-        }); }
+            get => _timetableInfoList; set => SetProperty(ref _timetableInfoList, value, onChanged: () =>
+{
+    HideSelectedEventsCommand.RaiseCanExecuteChanged();
+    ScheduleModeCommand.RaiseCanExecuteChanged();
+    UpdateTimetableCommand.RaiseCanExecuteChanged();
+});
+        }
 
         // Toolbar
         private bool applyHiddingSettings = true;
@@ -62,25 +61,25 @@ namespace NureTimetable.UI.ViewModels
 
         private DateTime? _timetableSelectedDate;
         public DateTime? TimetableSelectedDate { get => _timetableSelectedDate; set => SetProperty(ref _timetableSelectedDate, value); }
-        
+
         private ScheduleView _timetableScheduleView = ScheduleView.WeekView;
         public ScheduleView TimetableScheduleView { get => _timetableScheduleView; set => SetProperty(ref _timetableScheduleView, value); }
-        
+
         private string _timetableLocale = string.Empty;
         public string TimetableLocale { get => _timetableLocale; set => SetProperty(ref _timetableLocale, value); }
-        
+
         private List<EventViewModel>? _timetableDataSource;
         public List<EventViewModel>? TimetableDataSource { get => _timetableDataSource; private set => SetProperty(ref _timetableDataSource, value); }
-        
+
         private DateTime _timetableMaxDisplayDate;
         public DateTime TimetableMaxDisplayDate { get => _timetableMaxDisplayDate; set => SetProperty(ref _timetableMaxDisplayDate, value); }
-        
+
         private DateTime _timetableMinDisplayDate;
         public DateTime TimetableMinDisplayDate { get => _timetableMinDisplayDate; set => SetProperty(ref _timetableMinDisplayDate, value); }
-        
+
         private double _timetableStartHour = 0;
         public double TimetableStartHour { get => _timetableStartHour; set => SetProperty(ref _timetableStartHour, value); }
-        
+
         private double _timetableEndHour = 24;
         public double TimetableEndHour { get => _timetableEndHour; set => SetProperty(ref _timetableEndHour, value); }
 
@@ -88,18 +87,18 @@ namespace NureTimetable.UI.ViewModels
         private bool lastTimeLeftVisible;
         private bool _isTimeLeftVisible;
         public bool IsTimeLeftVisible { get => _isTimeLeftVisible; set => SetProperty(ref _isTimeLeftVisible, value); }
-        
+
         private string? _timeLeftText;
         public string? TimeLeftText { get => _timeLeftText; set => SetProperty(ref _timeLeftText, value); }
 
         // Layouts
         private bool _isProgressLayoutVisible;
         public bool IsProgressLayoutVisible { get => _isProgressLayoutVisible; set => SetProperty(ref _isProgressLayoutVisible, value); }
-        
+
         // bToday
         private string _bTodayText = string.Empty;
         public string BTodayText { get => _bTodayText; set => SetProperty(ref _bTodayText, value); }
-        
+
         private double _bTodayScale = 0;
         public double BTodayScale { get => _bTodayScale; set => SetProperty(ref _bTodayScale, value); }
 
@@ -121,10 +120,10 @@ namespace NureTimetable.UI.ViewModels
 
             Title = new(() => LN.AppName);
             lastTimeLeftVisible = IsTimeLeftVisible;
-            
+
             SetTimetableLocale();
             LocalizationResourceManager.Current.PropertyChanged += (_, _) => SetTimetableLocale();
-            
+
             TimetableScheduleView = SettingsRepository.Settings.TimetableViewMode switch
             {
                 TimetableViewMode.Day => ScheduleView.DayView,
@@ -201,7 +200,7 @@ namespace NureTimetable.UI.ViewModels
             });
             UpdateTimetableCommand = CommandFactory.Create(
                 () => TimetableService.UpdateAndDisplayResultAsync(TimetableInfoList.Entities.ToArray()),
-                () => TimetableInfoList.Timetables.Any() && !IsTimetableUpdating, 
+                () => TimetableInfoList.Timetables.Any() && !IsTimetableUpdating,
                 allowsMultipleExecutions: false
             );
 
@@ -235,7 +234,7 @@ namespace NureTimetable.UI.ViewModels
             {
                 UpdateTimeLeft();
                 await UpdateTodayButton(true);
-                
+
                 if (needToUpdateEventsUI)
                 {
                     await UpdateEventsWithUI();
@@ -373,7 +372,7 @@ namespace NureTimetable.UI.ViewModels
         /// <summary>
         /// Updates events for already displayed entities
         /// </summary>
-        private Task UpdateEvents() => 
+        private Task UpdateEvents() =>
             UpdateEvents(TimetableInfoList.Entities.ToList());
 
         private async Task UpdateEvents(List<Entity> selectedEntities)
@@ -484,7 +483,7 @@ namespace NureTimetable.UI.ViewModels
                 TimetableScheduleView = ScheduleView.MonthView;
                 SettingsRepository.Settings.TimetableViewMode = TimetableViewMode.Month;
             }
-            
+
             if (selected != null)
             {
                 TimetableSelectedDate = selected;

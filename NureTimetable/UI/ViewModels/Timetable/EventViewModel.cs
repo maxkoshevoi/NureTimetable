@@ -1,7 +1,6 @@
 ﻿using Microsoft.Maui.Graphics;
 using NureTimetable.DAL.Models.Local;
 using NureTimetable.UI.Models.Consts;
-using System;
 
 namespace NureTimetable.UI.ViewModels.Timetable
 {
@@ -21,7 +20,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
 
         public bool ShowTime { get; set; } = true;
 
-        public string DisplayInfo 
+        public string DisplayInfo
         {
             get
             {

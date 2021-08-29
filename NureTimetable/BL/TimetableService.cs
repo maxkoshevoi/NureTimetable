@@ -5,11 +5,7 @@ using NureTimetable.Core.Models.Consts;
 using NureTimetable.Core.Models.Exceptions;
 using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 
 namespace NureTimetable.BL
 {
@@ -19,7 +15,7 @@ namespace NureTimetable.BL
         {
             var updateResult = await UpdateAsync(entities);
             string? response = GetResponseMessageFromUpdateResult(updateResult);
-            
+
             if (response != null)
             {
                 await Shell.Current.DisplayAlert(LN.TimetableUpdate, response, LN.Ok);

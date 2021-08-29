@@ -7,10 +7,6 @@ using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
 using Plugin.Calendars;
 using Plugin.Calendars.Abstractions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Calendar = Plugin.Calendars.Abstractions.Calendar;
 
 namespace NureTimetable.BL

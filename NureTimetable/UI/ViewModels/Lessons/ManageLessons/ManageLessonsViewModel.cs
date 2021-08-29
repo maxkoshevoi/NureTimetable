@@ -3,10 +3,6 @@ using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Localization;
 using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace NureTimetable.UI.ViewModels
@@ -53,7 +49,7 @@ namespace NureTimetable.UI.ViewModels
                 await Navigation.PopAsync();
                 return;
             }
-            
+
             Lessons.ReplaceRange
             (
                 timetable.Lessons()

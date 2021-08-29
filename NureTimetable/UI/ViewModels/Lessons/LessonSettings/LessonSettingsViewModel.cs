@@ -3,7 +3,6 @@ using NureTimetable.Core.Models.Consts;
 using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
 using NureTimetable.UI.ViewModels.Lessons.LessonSettings;
-using System.Linq;
 using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace NureTimetable.UI.ViewModels
@@ -14,12 +13,12 @@ namespace NureTimetable.UI.ViewModels
 
         #region Properties
         public LessonInfo LessonInfo { get; }
-        
+
         private bool? _showLessonIsChecked = false;
         public bool? ShowLessonIsChecked { get => _showLessonIsChecked; set => SetProperty(ref _showLessonIsChecked, value); }
-        
+
         public ListViewViewModel<EventType> LvEventTypes { get; set; }
-        
+
         public ListViewViewModel<Teacher> LvTeachers { get; set; }
 
         public Command ShowLessonStateChangedCommand { get; }
@@ -57,7 +56,7 @@ namespace NureTimetable.UI.ViewModels
                 await Shell.Current.GoToAsync("..", true);
             });
         }
-        
+
         private void EventTypeStateChanged(CheckedEntity<EventType> e)
         {
             LessonInfo.Settings.Hiding.EventTypesToHide.RemoveAll(id => id == e.Entity.ID);
@@ -127,7 +126,7 @@ namespace NureTimetable.UI.ViewModels
         /// <returns>true = all, false = none, null = some</returns>
         private bool? IsShowEvents()
         {
-            if (LessonInfo.Settings.Hiding.EventTypesToHide.None() && 
+            if (LessonInfo.Settings.Hiding.EventTypesToHide.None() &&
                 LessonInfo.Settings.Hiding.TeachersToHide.None())
             {
                 return true;

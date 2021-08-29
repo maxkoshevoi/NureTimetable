@@ -2,8 +2,6 @@
 using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Localization;
 using Plugin.InAppBilling;
-using System.Threading.Tasks;
-using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace NureTimetable.UI.ViewModels
@@ -16,7 +14,7 @@ namespace NureTimetable.UI.ViewModels
         {
             BuyProductCommand = CommandFactory.Create<string>(p => BuyProduct(p!), allowsMultipleExecutions: false);
         }
-        
+
         public static async Task BuyProduct(string productId)
         {
             InAppBillingPurchase? purchase = await InAppPurchase.Buy(productId, true);

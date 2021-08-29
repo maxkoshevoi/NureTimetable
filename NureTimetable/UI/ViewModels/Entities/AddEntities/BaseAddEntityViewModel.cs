@@ -4,13 +4,7 @@ using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Consts;
 using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
-using Xamarin.CommunityToolkit.Extensions;
-using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace NureTimetable.UI.ViewModels
 {
@@ -61,7 +55,7 @@ namespace NureTimetable.UI.ViewModels
                 .Where(e => NormalizeString(nameSelector(e)).Contains(query) || idSelector(e).ToString() == query)
                 .OrderBy(e => nameSelector(e));
 
-            static string NormalizeString(string query) => 
+            static string NormalizeString(string query) =>
                 query.ToLower()
                 .Replace('и', 'і')
                 .Replace('и', 'ї')
@@ -97,7 +91,7 @@ namespace NureTimetable.UI.ViewModels
                 return;
             }
 
-            Shell.Current.CurrentPage.DisplaySnackBarAsync(string.Format(LN.TimetableSaved, newEntity.Entity.Name), LN.Undo, () => 
+            Shell.Current.CurrentPage.DisplaySnackBarAsync(string.Format(LN.TimetableSaved, newEntity.Entity.Name), LN.Undo, () =>
                 UniversityEntitiesRepository.ModifySavedAsync(savedEntities => !savedEntities.Remove(newEntity))
             ).Forget();
         }

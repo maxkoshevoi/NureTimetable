@@ -1,5 +1,4 @@
 ﻿using Microsoft.Maui.Essentials;
-using System;
 using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace NureTimetable.UI.Helpers

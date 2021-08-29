@@ -5,10 +5,6 @@ using NureTimetable.Core.Localization;
 using NureTimetable.DAL.Models.Local;
 using NureTimetable.UI.Views;
 using Rg.Plugins.Popup.Services;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace NureTimetable.UI.ViewModels
@@ -27,7 +23,7 @@ namespace NureTimetable.UI.ViewModels
         public string Details { get; }
 
         public string? Notes { get; }
-        
+
         public IAsyncCommand OptionsCommand { get; }
 
         public EventPopupViewModel(Event ev, TimetableInfoList timetables, ITimetablePageCommands timetablePage)
@@ -71,7 +67,7 @@ namespace NureTimetable.UI.ViewModels
                 options.Add(LN.LessonInfo);
             }
 
-            string result = await Shell.Current.DisplayActionSheet(LN.ChooseAction , LN.Cancel, null, options.ToArray());
+            string result = await Shell.Current.DisplayActionSheet(LN.ChooseAction, LN.Cancel, null, options.ToArray());
             if (result == null || result == LN.Cancel)
             {
                 return;
@@ -93,7 +89,7 @@ namespace NureTimetable.UI.ViewModels
                     BindingContext = new LessonInfoViewModel(LessonInfo, Timetable!)
                 });
             }
-            else if(result == LN.AddToCalendar)
+            else if (result == LN.AddToCalendar)
             {
                 await AddEventToCalendar();
             }

@@ -1,13 +1,10 @@
 ﻿using NureTimetable.Core.BL;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace NureTimetable.Migrations
 {
     public abstract class BaseMigration
     {
-        public static IReadOnlyCollection<BaseMigration> Migrations => new BaseMigration[] 
+        public static IReadOnlyCollection<BaseMigration> Migrations => new BaseMigration[]
         {
             new MoveEntityInsideSavedEntityMigration(),
             new RemoveTimelineViewMode(),

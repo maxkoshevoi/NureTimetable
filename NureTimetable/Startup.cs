@@ -10,23 +10,27 @@ using Rg.Plugins.Popup;
 namespace NureTimetable
 {
     public class Startup : IStartup
-	{
-		public void Configure(IAppHostBuilder appBuilder)
-		{
-			appBuilder
-				.UseMauiApp<App>()
-				.ConfigureFonts(fonts => {
-					fonts.AddFont("materialdesignicons-webfont.ttf", "Material Design Icons");
-				})
-				.ConfigureLifecycleEvents(lifecycle => {
+    {
+        public void Configure(IAppHostBuilder appBuilder)
+        {
+            appBuilder
+                .UseMauiApp<App>()
+                .ConfigureFonts(fonts =>
+                {
+                    fonts.AddFont("materialdesignicons-webfont.ttf", "Material Design Icons");
+                })
+                .ConfigureLifecycleEvents(lifecycle =>
+                {
 #if ANDROID
-					lifecycle.AddAndroid(d => {
-						d.OnBackPressed(activity => {
-							bool isPopupStackEmpty = !Popup.SendBackPressed(activity.OnBackPressed);
-						});
-					});
+                    lifecycle.AddAndroid(d =>
+                    {
+                        d.OnBackPressed(activity =>
+                        {
+                            bool isPopupStackEmpty = !Popup.SendBackPressed(activity.OnBackPressed);
+                        });
+                    });
 #endif
-				});
-		}
-	}
+                });
+        }
+    }
 }

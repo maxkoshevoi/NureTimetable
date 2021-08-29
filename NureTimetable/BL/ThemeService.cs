@@ -4,9 +4,6 @@ using NureTimetable.Core.Models.Consts;
 using NureTimetable.Core.Models.InterplatformCommunication;
 using NureTimetable.DAL;
 using NureTimetable.UI.Themes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using AppTheme = NureTimetable.Core.Models.Settings.AppTheme;
 
 namespace NureTimetable.BL

@@ -1,5 +1,4 @@
 ﻿using Microsoft.Maui.Controls;
-using System;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.ObjectModel;
 
@@ -10,10 +9,10 @@ namespace NureTimetable.UI.ViewModels
         private protected INavigation Navigation => Shell.Current.Navigation;
 
         private LocalizedString? title;
-        public LocalizedString Title 
-        { 
-            get => title ?? throw new NullReferenceException(); 
-            set => SetProperty(ref title, value); 
+        public LocalizedString Title
+        {
+            get => title ?? throw new NullReferenceException();
+            set => SetProperty(ref title, value);
         }
     }
 }

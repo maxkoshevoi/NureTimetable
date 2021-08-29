@@ -3,10 +3,6 @@ using NureTimetable.BL;
 using NureTimetable.Core.Localization;
 using NureTimetable.DAL;
 using Plugin.Calendars.Abstractions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.ObjectModel;
 
@@ -27,7 +23,7 @@ namespace NureTimetable.UI.ViewModels
 
         #region Setting mappings
         List<(Func<string> name, string id)>? calendarMapping;
-        
+
         List<(Func<string> name, TimeSpan value)> timeBeforeEventReminderMapping { get; } = new()
         {
             (() => LN.TurnedOff, TimeSpan.Zero),
@@ -79,9 +75,9 @@ namespace NureTimetable.UI.ViewModels
 
         private async Task UpdateDefaultCalendarMapping(bool requestPermissionIfNeeded)
         {
-            List<(Func<string>, string)> newMapping = new() 
-            { 
-                (() => LN.AskEveryTime, string.Empty) 
+            List<(Func<string>, string)> newMapping = new()
+            {
+                (() => LN.AskEveryTime, string.Empty)
             };
 
             if (requestPermissionIfNeeded || await CalendarService.CheckPermissionsAsync())
@@ -102,7 +98,7 @@ namespace NureTimetable.UI.ViewModels
                 LN.DefaultCalendar,
                 calendarMapping!,
                 SettingsRepository.Settings.DefaultCalendarId,
-                newCalendar => 
+                newCalendar =>
                 {
                     SettingsRepository.Settings.DefaultCalendarId = newCalendar;
                     OnPropertyChanged(nameof(DefaultCalendarName));
@@ -111,13 +107,13 @@ namespace NureTimetable.UI.ViewModels
         }
 
 
-        public Task ChangeTimeBeforeEventReminder() => 
+        public Task ChangeTimeBeforeEventReminder() =>
             ChangeSetting
             (
                 LN.TimeBeforeEventReminder,
                 timeBeforeEventReminderMapping,
                 SettingsRepository.Settings.TimeBeforeEventReminder,
-                newTime => 
+                newTime =>
                 {
                     SettingsRepository.Settings.TimeBeforeEventReminder = newTime;
                     OnPropertyChanged(nameof(TimeBeforeEventReminderValue));

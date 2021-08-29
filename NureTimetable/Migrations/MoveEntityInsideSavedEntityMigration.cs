@@ -1,11 +1,6 @@
 ﻿using NureTimetable.DAL.Helpers;
 using NureTimetable.DAL.Models.Consts;
 using NureTimetable.DAL.Models.Local;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace NureTimetable.Migrations
 {

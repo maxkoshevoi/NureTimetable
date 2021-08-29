@@ -10,9 +10,7 @@ using NureTimetable.Core.Models.Consts;
 using NureTimetable.Core.Models.Settings;
 using NureTimetable.DAL;
 using Syncfusion.Licensing;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Helpers;
 
 namespace NureTimetable

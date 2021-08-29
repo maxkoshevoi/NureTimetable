@@ -1,11 +1,10 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 
 namespace NureTimetable
 {
     public static class LinkerPreserve
     {
-        [Obsolete("Don't call this method. It's only needed for linker." ,true)]
+        [Obsolete("Don't call this method. It's only needed for linker.", true)]
         public static void Cultures()
         {
             // These classes won't be linked away because of the code.
