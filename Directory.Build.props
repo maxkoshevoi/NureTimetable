@@ -9,5 +9,9 @@
     <UseMaui>true</UseMaui>
     <!--<UseMauiEssentials>true</UseMauiEssentials>-->
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Xamarin.CommunityToolkit.MauiCompat" Version="1.3.0-alpha2" />
+  </ItemGroup>
   
 </Project>
