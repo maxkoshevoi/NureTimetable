@@ -1,5 +1,6 @@
 ﻿using Microsoft.Maui.Controls;
 using NureTimetable.UI.ViewModels;
+using Xamarin.CommunityToolkit.Extensions;
 
 namespace NureTimetable.UI.Views
 {

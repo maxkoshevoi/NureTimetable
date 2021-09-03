@@ -3,7 +3,6 @@ using Microsoft.Maui.Controls.Hosting;
 using Microsoft.Maui.Controls.Xaml;
 using Microsoft.Maui.Hosting;
 using Microsoft.Maui.LifecycleEvents;
-using Rg.Plugins.Popup;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 
@@ -26,7 +25,7 @@ namespace NureTimetable
                     {
                         d.OnBackPressed(activity =>
                         {
-                            bool isPopupStackEmpty = !Popup.SendBackPressed(activity.OnBackPressed);
+                            //bool isPopupStackEmpty = !Popup.SendBackPressed(activity.OnBackPressed);
                         });
                     });
 #endif

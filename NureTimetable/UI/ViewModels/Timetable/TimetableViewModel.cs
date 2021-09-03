@@ -40,11 +40,11 @@ namespace NureTimetable.UI.ViewModels
         public TimetableInfoList TimetableInfoList
         {
             get => _timetableInfoList; set => SetProperty(ref _timetableInfoList, value, onChanged: () =>
-{
-    HideSelectedEventsCommand.RaiseCanExecuteChanged();
-    ScheduleModeCommand.RaiseCanExecuteChanged();
-    UpdateTimetableCommand.RaiseCanExecuteChanged();
-});
+            {
+                HideSelectedEventsCommand.RaiseCanExecuteChanged();
+                ScheduleModeCommand.RaiseCanExecuteChanged();
+                UpdateTimetableCommand.RaiseCanExecuteChanged();
+            });
         }
 
         // Toolbar
