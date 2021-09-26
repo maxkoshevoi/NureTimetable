@@ -3,12 +3,15 @@
   <PropertyGroup>
     <TargetFramework>net6.0-android</TargetFramework>
     <OutputType>Exe</OutputType>
-    <SingleProject>true</SingleProject>
     <UseMaui>true</UseMaui>
+    <SingleProject>true</SingleProject>
+    <UseInterpreter Condition="'$(Configuration)' == 'Debug'">True</UseInterpreter><!-- Required for C# Hot Reload -->
     
     <ApplicationId>com.whitebox.nuretimetable</ApplicationId>
     <ApplicationTitle>Nure Timetable</ApplicationTitle>
     <MinimumPlatformVersion>21.0</MinimumPlatformVersion>
+    <ApplicationVersion>1.0</ApplicationVersion>
+    <AndroidVersionCode>1</AndroidVersionCode>
   
     <Authors>Maksym Koshovyi</Authors>
     <Copyright>Copyright © Maksym Koshovyi 2019</Copyright>
@@ -29,45 +32,6 @@
   <ItemGroup>
     <ProjectReference Include="..\NureTimetable.Core\NureTimetable.Core.csproj" />
     <ProjectReference Include="..\NureTimetable.DAL\NureTimetable.DAL.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="AppShell.xaml.cs">
-      <DependentUpon>AppShell.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="UI\Views\Info\DonatePage.xaml.cs">
-      <DependentUpon>%(Filename)</DependentUpon>
-    </Compile>
-    <Compile Update="UI\Views\Info\SettingsPage.xaml.cs">
-      <DependentUpon>SettingsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="UI\Views\Info\MenuPage.xaml.cs">
-      <DependentUpon>MenuPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="UI\Views\Lessons\LessonInfoPage.xaml.cs">
-      <DependentUpon>%(Filename)</DependentUpon>
-    </Compile>
-    <Compile Update="UI\Views\Lessons\LessonSettingsPage.xaml.cs">
-      <DependentUpon>%(Filename)</DependentUpon>
-    </Compile>
-    <Compile Update="UI\Views\Lessons\ManageLessonsPage.xaml.cs">
-      <DependentUpon>%(Filename)</DependentUpon>
-    </Compile>
-    <Compile Update="UI\Views\Entities\AddEntityPage.xaml.cs">
-      <DependentUpon>%(Filename)</DependentUpon>
-    </Compile>
-    <Compile Update="UI\Views\Entities\AddTimetablePage.xaml.cs">
-      <DependentUpon>%(Filename)</DependentUpon>
-    </Compile>
-    <Compile Update="UI\Views\Entities\ManageEntitiesPage.xaml.cs">
-      <DependentUpon>%(Filename)</DependentUpon>
-    </Compile>
-    <Compile Update="UI\Views\Timetable\EventPopupPage.xaml.cs">
-      <DependentUpon>EventPopupPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="UI\Views\Timetable\TimetablePage.xaml.cs">
-      <DependentUpon>%(Filename)</DependentUpon>
-    </Compile>
   </ItemGroup>
 
   <ItemGroup>

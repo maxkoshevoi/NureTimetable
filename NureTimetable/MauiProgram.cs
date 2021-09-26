@@ -1,22 +1,20 @@
 ﻿using Microsoft.Maui;
 using Microsoft.Maui.Controls.Hosting;
-using Microsoft.Maui.Controls.Xaml;
 using Microsoft.Maui.Hosting;
 using Microsoft.Maui.LifecycleEvents;
 
-[assembly: XamlCompilation(XamlCompilationOptions.Compile)]
-
 namespace NureTimetable
 {
-    public class Startup : IStartup
+    public static class MauiProgram
     {
-        public void Configure(IAppHostBuilder appBuilder)
+        public static MauiApp CreateMauiApp()
         {
-            appBuilder
+            var builder = MauiApp.CreateBuilder();
+            builder
                 .UseMauiApp<App>()
                 .ConfigureFonts(fonts =>
                 {
-                    fonts.AddFont("materialdesignicons-webfont.ttf", "Material Design Icons");
+                    fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 })
                 .ConfigureLifecycleEvents(lifecycle =>
                 {
@@ -30,6 +28,8 @@ namespace NureTimetable
                     });
 #endif
                 });
+
+            return builder.Build();
         }
     }
 }
