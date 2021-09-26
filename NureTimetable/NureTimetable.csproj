@@ -22,7 +22,7 @@
   </ItemGroup>
   
   <ItemGroup>
-    <PackageReference Include="CClarke.Plugin.Calendars" Version="1.0.14" />
+    <PackageReference Include="CClarke.Plugin.Calendars" Version="1.1.0" />
     <PackageReference Include="Plugin.InAppBilling" Version="4.0.2" />
   </ItemGroup>
 
@@ -81,4 +81,5 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
+
 </Project>

@@ -22,7 +22,7 @@ namespace NureTimetable.UI.ViewModels
         #endregion
 
         #region Setting mappings
-        List<(Func<string> name, string id)>? calendarMapping;
+        List<(Func<string?> name, string id)>? calendarMapping;
 
         List<(Func<string> name, TimeSpan value)> timeBeforeEventReminderMapping { get; } = new()
         {
@@ -75,7 +75,7 @@ namespace NureTimetable.UI.ViewModels
 
         private async Task UpdateDefaultCalendarMapping(bool requestPermissionIfNeeded)
         {
-            List<(Func<string>, string)> newMapping = new()
+            List<(Func<string?>, string)> newMapping = new()
             {
                 (() => LN.AskEveryTime, string.Empty)
             };
@@ -83,7 +83,9 @@ namespace NureTimetable.UI.ViewModels
             if (requestPermissionIfNeeded || await CalendarService.CheckPermissionsAsync())
             {
                 IList<Calendar> calendars = await CalendarService.GetAllCalendarsAsync();
-                newMapping.AddRange(calendars.Select(c => ((Func<string>)(() => c.Name), c.ExternalID)));
+                newMapping.AddRange(calendars.Select(c => (
+                    (Func<string?>)(() => c.Name),
+                    c.ExternalID ?? throw new NullReferenceException(nameof(Calendar.ExternalID)))));
             }
 
             calendarMapping = newMapping;

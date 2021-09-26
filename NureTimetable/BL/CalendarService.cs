@@ -76,11 +76,12 @@ namespace NureTimetable.BL
             // Getting Calendar list
             IList<Calendar> calendars = await CrossCalendars.Current.GetCalendarsAsync();
             calendars = calendars
-                .Where(c => c.Name.ToLower() == c.AccountName.ToLower() || c.AccountName.ToLower() == CustomCalendarName.ToLower())
+                .Where(c => string.Equals(c.Name, c.AccountName, StringComparison.OrdinalIgnoreCase) 
+                         || string.Equals(c.AccountName, CustomCalendarName, StringComparison.OrdinalIgnoreCase))
                 .ToList();
 
             // Getting our custom calendar
-            Calendar? customCalendar = calendars.FirstOrDefault(c => c.AccountName.ToLower() == CustomCalendarName.ToLower());
+            Calendar? customCalendar = calendars.FirstOrDefault(c => string.Equals(c.AccountName, CustomCalendarName, StringComparison.OrdinalIgnoreCase));
             if (customCalendar == null)
             {
                 customCalendar = new Calendar
@@ -134,10 +135,10 @@ namespace NureTimetable.BL
 
             Analytics.TrackEvent("Add To Calendar");
 
-            static string GetUniqueNamePart(string n)
+            static string? GetUniqueNamePart(string? n)
             {
-                int lastSpace = n.LastIndexOf(" ");
-                return lastSpace > 0 ? n[..lastSpace] : n;
+                int lastSpace = n?.LastIndexOf(" ") ?? 0;
+                return lastSpace > 0 ? n![..lastSpace] : n;
             }
 
             IList<CalendarEvent> events = await CrossCalendars.Current.GetEventsAsync(calendar, calendarEvent.Start, calendarEvent.End);
