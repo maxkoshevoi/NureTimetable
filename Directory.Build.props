@@ -14,5 +14,9 @@
   <ItemGroup>
     <PackageReference Include="Xamarin.CommunityToolkit.MauiCompat" Version="1.3.0-alpha2" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Microsoft.Maui.Controls.Application" Alias="Application"/>
+  </ItemGroup>
   
 </Project>
