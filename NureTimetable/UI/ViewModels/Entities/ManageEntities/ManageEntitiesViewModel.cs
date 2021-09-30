@@ -8,7 +8,6 @@ using NureTimetable.UI.Models.Consts;
 using NureTimetable.UI.Views;
 using System.ComponentModel;
 using Xamarin.CommunityToolkit.ObjectModel;
-using Xamarin.Forms.Internals;
 
 namespace NureTimetable.UI.ViewModels
 {
@@ -92,14 +91,13 @@ namespace NureTimetable.UI.ViewModels
             }
         }
 
-        public Task SelectOne(SavedEntity savedEntity) =>
-            UniversityEntitiesRepository.ModifySavedAsync(savedEntities =>
+        public Task SelectOne(SavedEntity savedEntity) => UniversityEntitiesRepository.ModifySavedAsync(savedEntities =>
+        {
+            foreach (var e in savedEntities)
             {
-                foreach (var e in savedEntities)
-                {
-                    e.IsSelected = e == savedEntity;
-                }
-            });
+                e.IsSelected = e == savedEntity;
+            }
+        });
 
         public async void EntityChanged(object? sender, PropertyChangedEventArgs e)
         {
@@ -141,9 +139,9 @@ namespace NureTimetable.UI.ViewModels
         {
             lock (updatingEntities)
             {
-                Entities.ForEach(se => se.SavedEntity.PropertyChanged -= EntityChanged);
+                Entities.ToList().ForEach(se => se.SavedEntity.PropertyChanged -= EntityChanged);
                 Entities.ReplaceRange(newItems.Select(se => new SavedEntityItemViewModel(se, this)).ToArray());
-                Entities.ForEach(se => se.SavedEntity.PropertyChanged += EntityChanged);
+                Entities.ToList().ForEach(se => se.SavedEntity.PropertyChanged += EntityChanged);
 
                 IsMultiselectMode = Entities.Count(i => i.SavedEntity.IsSelected) > 1;
             }

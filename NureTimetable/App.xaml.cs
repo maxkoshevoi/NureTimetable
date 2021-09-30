@@ -1,15 +1,12 @@
 ﻿using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
-using Microsoft.Maui;
 using Microsoft.Maui.Controls;
-using Microsoft.Maui.Controls.Compatibility;
 using Microsoft.Maui.Essentials;
 using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Consts;
 using NureTimetable.Core.Models.Settings;
 using NureTimetable.DAL;
-using Syncfusion.Licensing;
 using System.Globalization;
 using Xamarin.CommunityToolkit.Helpers;
 
@@ -19,19 +16,12 @@ namespace NureTimetable
     {
         public App()
         {
-            SyncfusionLicenseProvider.RegisterLicense(Keys.SyncfusionLicenseKey);
+            //SyncfusionLicenseProvider.RegisterLicense(Keys.SyncfusionLicenseKey);
             InitLanguage();
             VersionTracking.Track();
 
             InitializeComponent();
-        }
-
-        protected override Window CreateWindow(IActivationState activationState)
-        {
-            // Popup.Init(activationState);
-            Forms.Init(activationState);
-
-            return new Window(new AppShell());
+            MainPage = new AppShell();
         }
 
         private static void InitLanguage()

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0-android</TargetFramework>
+    <TargetFramework>net6.0-android31</TargetFramework>
     <OutputType>Exe</OutputType>
     <UseMaui>true</UseMaui>
     <SingleProject>true</SingleProject>
@@ -10,8 +10,6 @@
     <ApplicationId>com.whitebox.nuretimetable</ApplicationId>
     <ApplicationTitle>Nure Timetable</ApplicationTitle>
     <MinimumPlatformVersion>21.0</MinimumPlatformVersion>
-    <ApplicationVersion>1.0</ApplicationVersion>
-    <AndroidVersionCode>1</AndroidVersionCode>
   
     <Authors>Maksym Koshovyi</Authors>
     <Copyright>Copyright © Maksym Koshovyi 2019</Copyright>
