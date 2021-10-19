@@ -105,7 +105,7 @@ namespace NureTimetable.BL
             return calendars;
         }
 
-        public static CalendarEvent GenerateCalendarEvent(Event ev, int eventNumber, int eventsCount)
+        public static CalendarEvent GenerateCalendarEvent(Event ev, int eventNumber, int eventsCount, string? notes)
         {
             CalendarEvent calendarEvent = new()
             {
@@ -118,6 +118,11 @@ namespace NureTimetable.BL
                 Location = $"KHNURE -\"{ev.RoomName}\"",
                 Reminders = new List<CalendarEventReminder>()
             };
+
+            if (notes != null)
+            {
+                calendarEvent.Description += $"\n{notes}\n";
+            }
 
             if (SettingsRepository.Settings.TimeBeforeEventReminder != null)
             {

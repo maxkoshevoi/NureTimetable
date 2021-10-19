@@ -7,7 +7,6 @@ using Rg.Plugins.Popup.Services;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 
@@ -114,7 +113,7 @@ namespace NureTimetable.UI.ViewModels
                 return;
             }
 
-            var calendarEvent = CalendarService.GenerateCalendarEvent(Event, EventNumber, EventsCount);
+            var calendarEvent = CalendarService.GenerateCalendarEvent(Event, EventNumber, EventsCount, Notes);
             bool isAdded = await CalendarService.AddOrUpdateEventAsync(calendar, calendarEvent);
             if (!isAdded)
             {

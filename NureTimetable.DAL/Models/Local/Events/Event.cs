@@ -13,9 +13,7 @@ namespace NureTimetable.DAL.Models.Local
         public DateTime Start => StartUtc.Add(TimeZoneInfo.Local.GetUtcOffset(StartUtc));
         public DateTime End => EndUtc.Add(TimeZoneInfo.Local.GetUtcOffset(EndUtc));
         public string RoomName { get; set; } = string.Empty;
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-        public Lesson Lesson { get; set; }
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        public Lesson Lesson { get; set; } = null!;
         public int PairNumber { get; set; }
         public List<Teacher> Teachers { get; set; } = new();
         public List<Group> Groups { get; set; } = new();

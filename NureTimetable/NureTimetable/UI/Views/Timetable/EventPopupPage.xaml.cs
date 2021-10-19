@@ -1,5 +1,4 @@
 ﻿using NureTimetable.Core.Models.Consts;
-using NureTimetable.Core.Models.InterplatformCommunication;
 using NureTimetable.Core.Models.Settings;
 using NureTimetable.Models.Consts;
 using Rg.Plugins.Popup.Pages;
