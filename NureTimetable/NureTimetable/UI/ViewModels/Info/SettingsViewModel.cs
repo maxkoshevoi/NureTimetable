@@ -28,9 +28,10 @@ namespace NureTimetable.UI.ViewModels
         #region Setting mappings
         List<(Func<string?> name, string id)>? calendarMapping;
         
-        List<(Func<string> name, TimeSpan value)> timeBeforeEventReminderMapping { get; } = new()
+        List<(Func<string> name, TimeSpan? value)> timeBeforeEventReminderMapping { get; } = new()
         {
-            (() => LN.TurnedOff, TimeSpan.Zero),
+            (() => LN.TurnedOff, null),
+            (() => string.Format(LN.MinutesBefore, 0), TimeSpan.Zero),
             (() => string.Format(LN.MinutesBefore, 10), TimeSpan.FromMinutes(10)),
             (() => string.Format(LN.MinutesBefore, 30), TimeSpan.FromMinutes(30))
         };

@@ -119,12 +119,12 @@ namespace NureTimetable.BL
                 Reminders = new List<CalendarEventReminder>()
             };
 
-            if (SettingsRepository.Settings.TimeBeforeEventReminder != TimeSpan.Zero)
+            if (SettingsRepository.Settings.TimeBeforeEventReminder != null)
             {
                 calendarEvent.Reminders.Add(new()
                 {
                     Method = CalendarReminderMethod.Alert,
-                    TimeBefore = SettingsRepository.Settings.TimeBeforeEventReminder
+                    TimeBefore = SettingsRepository.Settings.TimeBeforeEventReminder.Value
                 });
             }
 

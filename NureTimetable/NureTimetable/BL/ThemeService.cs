@@ -2,7 +2,6 @@
 using NureTimetable.Core.Models.Consts;
 using NureTimetable.Core.Models.InterplatformCommunication;
 using NureTimetable.DAL;
-using NureTimetable.Models.Consts;
 using NureTimetable.UI.Themes;
 using System;
 using System.Collections.Generic;

@@ -1,5 +1,4 @@
-﻿using NureTimetable.Core.Extensions;
-using System;
+﻿using System;
 using System.Globalization;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Essentials;
@@ -55,13 +54,17 @@ namespace NureTimetable.Core.Models.Settings
             }
         }
 
-        public TimeSpan TimeBeforeEventReminder
+        public TimeSpan? TimeBeforeEventReminder
         {
-            get => TimeSpan.FromMinutes(Preferences.Get(nameof(TimeBeforeEventReminder), TimeSpan.FromMinutes(30).TotalMinutes));
+            get
+            {
+                var currentValue = Preferences.Get(nameof(TimeBeforeEventReminder), TimeSpan.FromMinutes(30).TotalMinutes);
+                return currentValue < 0 ? null : TimeSpan.FromMinutes(currentValue);
+            }
             set
             {
                 var currentValue = TimeBeforeEventReminder;
-                SetProperty(ref currentValue, value, onChanged: () => Preferences.Set(nameof(TimeBeforeEventReminder), value.TotalMinutes));
+                SetProperty(ref currentValue, value, onChanged: () => Preferences.Set(nameof(TimeBeforeEventReminder), value?.TotalMinutes ?? -1));
             }
         }
         #endregion
