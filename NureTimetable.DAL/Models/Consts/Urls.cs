@@ -31,5 +31,7 @@ namespace NureTimetable.DAL.Models.Consts
 
         public static Uri CistSiteEmptyTimetable => 
             new($"https://cist.nure.ua/ias/app/tt/f?p=778:201:3666577568788626:::201:P201_FIRST_DATE,P201_LAST_DATE,P201_GROUP,P201_POTOK:01.01.1000,01.01.1000,0,0:");
+
+        public static Uri DlNure => new("https://dl.nure.ua");
     }
 }
