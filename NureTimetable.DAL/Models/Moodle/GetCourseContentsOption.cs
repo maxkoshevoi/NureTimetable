@@ -5,40 +5,40 @@ public enum GetCourseContentsOption
     /// <summary>
     /// (bool) Do not return modules, return only the sections structure
     /// </summary>
-    excludemodules,
+    ExcludeModules,
 
     /// <summary>
     /// (bool) Do not return module contents (i.e: files inside a resource)
     /// </summary>
-    excludecontents,
+    ExcludeContents,
 
     /// <summary>
     /// (bool) Return stealth modules for students in a special section (with id -1)
     /// </summary>
-    includestealthmodules,
+    IncludeStealthModules,
 
     /// <summary>
     /// (int) Return only this section
     /// </summary>
-    sectionid,
+    SectionId,
 
     /// <summary>
     /// (int) Return only this section with number (order)
     /// </summary>
-    sectionnumber,
+    SectionNumber,
 
     /// <summary>
     /// (int) Return only this module information (among the whole sections structure)
     /// </summary>
-    cmid,
+    CMId,
 
     /// <summary>
     /// (string) Return only modules with this name "label, forum, etc..."
     /// </summary>
-    modname,
+    ModName,
 
     /// <summary>
-    /// (int) Return only the module with this id (to be used with modname
+    /// (int) Return only the module with this id (to be used with modname)
     /// </summary>
-    modid
+    ModId
 }

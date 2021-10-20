@@ -92,16 +92,19 @@ public class MoodleRepository
 
     public async Task<List<CourseSection>> GetCourseContents(int courseId, Dictionary<GetCourseContentsOption, object>? Options = null)
     {
-        var response = await SetFunction("core_course_get_contents")
-            .SetQueryParams(new
+        Options ??= new();
+
+        var arguments = Options
+            .SelectMany((item, index) => new KeyValuePair<string, object>[]
             {
-                courseid = courseId,
-                options = Options?.Select(i => new 
-                {
-                    name = i.Key.ToString(),
-                    value = i.Value.ToString()
-                })
+                new($"options[{index}][name]", item.Key.ToString().ToLowerInvariant()),
+                new($"options[{index}][value]", item.Value.ToString())
             })
+            .ToList();
+        arguments.Add(new("courseid", courseId));
+
+        var response = await SetFunction("core_course_get_contents")
+            .SetQueryParams(arguments)
             .GetJsonAsync<List<CourseSection>>();
         return response;
     }
