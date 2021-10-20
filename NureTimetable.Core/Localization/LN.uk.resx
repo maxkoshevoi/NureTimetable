@@ -478,6 +478,15 @@
     <value>Повідомлення до пари в календарі</value>
   </data>
   <data name="TurnedOff" xml:space="preserve">
-    <value>Виключено</value>
+    <value>Вимкнено</value>
+  </data>
+  <data name="DlNureIntegration" xml:space="preserve">
+    <value>Інтеграція з DL Nure</value>
+  </data>
+  <data name="DlNureLoggedIn" xml:space="preserve">
+    <value>Ви увійшли як {0} ({1})</value>
+  </data>
+  <data name="DlNureSignedOut" xml:space="preserve">
+    <value>Вимкнена</value>
   </data>
 </root>

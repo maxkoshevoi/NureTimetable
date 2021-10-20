@@ -73,7 +73,21 @@
             </StackLayout>
             
             <BoxView/>
-            
+
+            <StackLayout Style="{StaticResource Row}">
+                <Image Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.Connection}, Color={DynamicResource SecondaryTextColor}}" />
+                <StackLayout>
+                    <Label Text="{xct:Translate DlNureIntegration}" Style="{DynamicResource ListItemTextStyle}" />
+                    <Label Text="{Binding DlNureAccount.Localized}" FontSize="13" Style="{DynamicResource ListItemDetailTextStyle}" />
+                </StackLayout>
+
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding DlNureIntegrationCommand}"/>
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+
+            <BoxView/>
+
             <StackLayout Style="{StaticResource Row}">
                 <Image Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.BugOutline}, Color={DynamicResource SecondaryTextColor}}" />
                 <Label Text="{xct:Translate ShowErrors}" VerticalOptions="Center" Style="{DynamicResource ListItemTextStyle}"/>

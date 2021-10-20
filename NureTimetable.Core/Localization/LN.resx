@@ -480,4 +480,13 @@ To update the list, click on the button in the upper right corner.</value>
   <data name="TurnedOff" xml:space="preserve">
     <value>Turned off</value>
   </data>
+  <data name="DlNureIntegration" xml:space="preserve">
+    <value>DL Nure Integration</value>
+  </data>
+  <data name="DlNureLoggedIn" xml:space="preserve">
+    <value>Logged in as {0} ({1})</value>
+  </data>
+  <data name="DlNureSignedOut" xml:space="preserve">
+    <value>Turned off</value>
+  </data>
 </root>

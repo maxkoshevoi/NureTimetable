@@ -1,5 +1,8 @@
 ﻿using NureTimetable.BL;
 using NureTimetable.Core.Localization;
+using NureTimetable.DAL.Moodle;
+using NureTimetable.DAL.Moodle.Models;
+using NureTimetable.DAL.Moodle.Models.Auth;
 using NureTimetable.DAL.Settings;
 using Plugin.Calendars.Abstractions;
 using System;
@@ -17,12 +20,14 @@ namespace NureTimetable.UI.ViewModels
         #region Properties
         public LocalizedString DefaultCalendarName { get; }
         public LocalizedString TimeBeforeEventReminderValue { get; }
+        public LocalizedString DlNureAccount { get; }
 
         public IAsyncCommand PageAppearingCommand { get; }
         public Command ToggleDebugModeCommand { get; }
         public Command ToggleAutoupdateCommand { get; }
         public IAsyncCommand ChangeDefaultCalendarCommand { get; }
         public IAsyncCommand ChangeTimeBeforeEventReminderCommand { get; }
+        public IAsyncCommand DlNureIntegrationCommand { get; }
         #endregion
 
         #region Setting mappings
@@ -47,12 +52,19 @@ namespace NureTimetable.UI.ViewModels
 
                 return calendarMapping.SingleOrDefault(m => m.id == SettingsRepository.Settings.DefaultCalendarId).name?.Invoke() ?? LN.InsufficientRights;
             });
+            DlNureAccount = new(() => LN.DlNureSignedOut);
 
             PageAppearingCommand = CommandFactory.Create(PageAppearing);
             ChangeDefaultCalendarCommand = CommandFactory.Create(ChangeDefaultCalendar, allowsMultipleExecutions: false);
             ChangeTimeBeforeEventReminderCommand = CommandFactory.Create(ChangeTimeBeforeEventReminder, allowsMultipleExecutions: false);
             ToggleDebugModeCommand = CommandFactory.Create(() => SettingsRepository.Settings.IsDebugMode = !SettingsRepository.Settings.IsDebugMode);
             ToggleAutoupdateCommand = CommandFactory.Create(() => SettingsRepository.Settings.Autoupdate = !SettingsRepository.Settings.Autoupdate);
+            DlNureIntegrationCommand = CommandFactory.Create(async () =>
+            {
+                MoodleRepository repository = new();
+                await repository.AuthenticateAsync("someuser@nure.ua", "password", ServiceType.moodle_mobile_app);
+                await repository.GetCourseContents(10485, new() { { GetCourseContentsOption.ModName, "attendance" } });
+            });
         }
 
         private async Task PageAppearing()

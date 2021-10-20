@@ -480,4 +480,13 @@
   <data name="TurnedOff" xml:space="preserve">
     <value>Выключено</value>
   </data>
+  <data name="DlNureIntegration" xml:space="preserve">
+    <value>Интеграция с DL Nure</value>
+  </data>
+  <data name="DlNureLoggedIn" xml:space="preserve">
+    <value>Вы вошли как {0} ({1})</value>
+  </data>
+  <data name="DlNureSignedOut" xml:space="preserve">
+    <value>Отключена</value>
+  </data>
 </root>
