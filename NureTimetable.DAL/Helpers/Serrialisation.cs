@@ -153,6 +153,25 @@ namespace NureTimetable.DAL.Helpers
                 serializer.Serialize(writer, newValue);
             }
         }
+
+        internal class SecondTimeSpanConverter : JsonConverter
+        {
+            public override bool CanConvert(Type objectType) => objectType == typeof(TimeSpan) || objectType == typeof(TimeSpan?);
+
+            public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
+            {
+                if (reader.TokenType == JsonToken.Null)
+                {
+                    return null;
+                }
+                return TimeSpan.FromSeconds((long)reader.Value!);
+            }
+
+            public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
+            {
+                writer.WriteRawValue(((TimeSpan)value!).TotalSeconds.ToString());
+            }
+        }
         #endregion
     }
 }
