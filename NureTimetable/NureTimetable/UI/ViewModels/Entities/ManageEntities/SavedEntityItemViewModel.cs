@@ -1,7 +1,7 @@
 ﻿using NureTimetable.BL;
 using NureTimetable.Core.Localization;
-using NureTimetable.DAL;
-using NureTimetable.DAL.Models.Local;
+using NureTimetable.DAL.Cist;
+using NureTimetable.DAL.Models;
 using NureTimetable.Models.Consts;
 using NureTimetable.UI.Views;
 using System.Collections.Generic;

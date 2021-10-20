@@ -2,8 +2,8 @@
 using NureTimetable.Core.BL;
 using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Localization;
-using NureTimetable.DAL;
-using NureTimetable.DAL.Models.Local;
+using NureTimetable.DAL.Models;
+using NureTimetable.DAL.Settings;
 using Plugin.Calendars;
 using Plugin.Calendars.Abstractions;
 using System;

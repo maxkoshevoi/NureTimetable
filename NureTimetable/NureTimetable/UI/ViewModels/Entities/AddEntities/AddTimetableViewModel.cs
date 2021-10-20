@@ -1,11 +1,11 @@
 ﻿using NureTimetable.Core.Localization;
-using NureTimetable.DAL;
+using NureTimetable.DAL.Cist;
+using NureTimetable.DAL.Settings;
 using System;
 using System.Threading.Tasks;
-using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
-using static NureTimetable.DAL.UniversityEntitiesRepository;
+using static NureTimetable.DAL.Cist.UniversityEntitiesRepository;
 
 namespace NureTimetable.UI.ViewModels
 {

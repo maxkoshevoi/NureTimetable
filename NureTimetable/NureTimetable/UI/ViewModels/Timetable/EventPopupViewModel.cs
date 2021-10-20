@@ -1,7 +1,7 @@
 ﻿using NureTimetable.BL;
 using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Localization;
-using NureTimetable.DAL.Models.Local;
+using NureTimetable.DAL.Models;
 using NureTimetable.UI.Views;
 using Rg.Plugins.Popup.Services;
 using System.Collections.Generic;

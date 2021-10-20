@@ -1,6 +1,6 @@
-﻿using NureTimetable.DAL.Helpers;
-using NureTimetable.DAL.Models.Consts;
-using NureTimetable.DAL.Models.Local;
+﻿using NureTimetable.DAL;
+using NureTimetable.DAL.Consts;
+using NureTimetable.DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -41,7 +41,7 @@ namespace NureTimetable.Migrations
             return true;
         }
 
-        class SavedEntityWithoutEntity
+        private class SavedEntityWithoutEntity
         {
             public DateTime? LastUpdated { get; set; }
 

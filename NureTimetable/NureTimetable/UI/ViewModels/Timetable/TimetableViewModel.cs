@@ -2,9 +2,10 @@
 using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Consts;
-using NureTimetable.Core.Models.Settings;
-using NureTimetable.DAL;
-using NureTimetable.DAL.Models.Local;
+using NureTimetable.DAL.Cist;
+using NureTimetable.DAL.Models;
+using NureTimetable.DAL.Settings;
+using NureTimetable.DAL.Settings.Models;
 using NureTimetable.Models.Consts;
 using NureTimetable.UI.ViewModels.Timetable;
 using NureTimetable.UI.Views;
@@ -18,7 +19,7 @@ using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
-using AppTheme = NureTimetable.Core.Models.Settings.AppTheme;
+using AppTheme = NureTimetable.DAL.Settings.Models.AppTheme;
 
 namespace NureTimetable.UI.ViewModels
 {

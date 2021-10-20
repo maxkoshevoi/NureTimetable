@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using Cist = NureTimetable.DAL.Models.Cist;
-using Local = NureTimetable.DAL.Models.Local;
+using Cist = NureTimetable.DAL.Cist.Models;
+using Local = NureTimetable.DAL.Models;
 
 namespace NureTimetable.DAL
 {

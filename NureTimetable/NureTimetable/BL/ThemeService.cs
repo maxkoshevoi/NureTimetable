@@ -1,13 +1,13 @@
 ﻿using NureTimetable.Core.BL;
 using NureTimetable.Core.Models.Consts;
 using NureTimetable.Core.Models.InterplatformCommunication;
-using NureTimetable.DAL;
+using NureTimetable.DAL.Settings;
 using NureTimetable.UI.Themes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using Xamarin.Forms;
-using AppTheme = NureTimetable.Core.Models.Settings.AppTheme;
+using AppTheme = NureTimetable.DAL.Settings.Models.AppTheme;
 
 namespace NureTimetable.BL
 {

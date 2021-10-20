@@ -2,7 +2,7 @@
 using NureTimetable.Core.BL;
 using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Localization;
-using NureTimetable.DAL;
+using NureTimetable.DAL.Settings;
 using NureTimetable.Migrations;
 using NureTimetable.Models.Consts;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
-using AppTheme = NureTimetable.Core.Models.Settings.AppTheme;
+using AppTheme = NureTimetable.DAL.Settings.Models.AppTheme;
 
 namespace NureTimetable
 {

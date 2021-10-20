@@ -1,6 +1,6 @@
 ﻿using NureTimetable.Core.Models.Consts;
-using NureTimetable.DAL;
-using NureTimetable.DAL.Models.Local;
+using NureTimetable.DAL.Cist;
+using NureTimetable.DAL.Models;
 using NureTimetable.UI.ViewModels.Lessons.LessonSettings;
 using System.Linq;
 using Xamarin.CommunityToolkit.ObjectModel;

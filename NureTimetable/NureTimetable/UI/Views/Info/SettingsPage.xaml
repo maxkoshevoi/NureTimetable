@@ -4,7 +4,7 @@
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels"
              xmlns:fonts="clr-namespace:NureTimetable.Models.Consts"
-             xmlns:dal="clr-namespace:NureTimetable.DAL;assembly=NureTimetable.DAL"
+             xmlns:dal="clr-namespace:NureTimetable.DAL.Settings;assembly=NureTimetable.DAL"
              x:Class="NureTimetable.UI.Views.SettingsPage"
              x:DataType="vm:SettingsViewModel"
              Title="{xct:Translate Settings}">

@@ -2,8 +2,9 @@
 using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Consts;
 using NureTimetable.Core.Models.Exceptions;
-using NureTimetable.DAL;
-using NureTimetable.DAL.Models.Local;
+using NureTimetable.DAL.Cist;
+using NureTimetable.DAL.Models;
+using NureTimetable.DAL.Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;

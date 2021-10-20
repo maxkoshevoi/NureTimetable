@@ -1,7 +1,7 @@
 ﻿using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Localization;
-using NureTimetable.DAL;
-using NureTimetable.DAL.Models.Local;
+using NureTimetable.DAL.Cist;
+using NureTimetable.DAL.Models;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
