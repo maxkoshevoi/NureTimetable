@@ -42,6 +42,9 @@ namespace NureTimetable.DAL.Models
 
         public TimeSpan EndTime() =>
             events.Max(e => e.End.TimeOfDay);
+
+        public Event? CurrentEvent() =>
+            events.FirstOrDefault(e => e.Start <= DateTime.Now && e.End >= DateTime.Now);
         #endregion
     }
 }

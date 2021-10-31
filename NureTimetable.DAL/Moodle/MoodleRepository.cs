@@ -20,7 +20,16 @@ public class MoodleRepository
     private readonly Uri baseUrl;
     private Uri baseWebServiceUrl;
 
-    public MoodleUser? User { get; set; }
+    private MoodleUser? _user;
+    public MoodleUser? User 
+    { 
+        get => _user; 
+        set
+        {
+            _user = value;
+            baseWebServiceUrl = baseWebServiceUrl.SetQueryParam("wstoken", User?.Token).ToUri();
+        }
+    }
 
     public MoodleRepository()
     {
@@ -49,8 +58,6 @@ public class MoodleRepository
 
         async Task UpdateUserInfoAsync(string token)
         {
-            baseWebServiceUrl = baseWebServiceUrl.SetQueryParam("wstoken", token).ToUri();
-
             User = new MoodleUser(username, password, token);
             var siteInfo = await GetSiteInfoAsync();
             User = User with
@@ -84,7 +91,7 @@ public class MoodleRepository
     /// Get the list of courses where a user is enrolled in.
     /// </summary>
     /// <param name="userId">null = current user.</param>
-    /// <param name="returnUserCount"> Include count of enrolled users for each course? This can add several seconds to the response time if a user is on several large courses, so set this to false if the value will not be used to improve performance.</param>
+    /// <param name="returnUserCount">Include count of enrolled users for each course? This can add several seconds to the response time if a user is on several large courses, so set this to false if the value will not be used to improve performance.</param>
     public async Task<List<FullCourse>> GetEnrolledCourses(int? userId = null, bool returnUserCount = false)
     {
         var query = SetFunction("core_enrol_get_users_courses")
@@ -118,18 +125,22 @@ public class MoodleRepository
     /// <exception cref="InvalidOperationException"></exception>
     private async Task<T> ExecuteActionAsync<T>(Url url, bool allowAnonymous = false)
     {
-        if (!allowAnonymous && User == null)
+        if (!allowAnonymous && !url.QueryParams.Contains("wstoken"))
         {
-            throw new InvalidOperationException($"Call {nameof(AuthenticateAsync)} before making this request.");
+            throw new InvalidOperationException($"Call {nameof(AuthenticateAsync)} or set {User} before making this request.");
         }
 
         string result = await url.GetStringAsync();
 
-        var errorResult = Serialisation.FromJson<ErrorResult>(result);
-        if (errorResult.Error != null && errorResult.ErrorCode != null)
+        try
         {
-            throw new InvalidOperationException(errorResult.Error.Replace("<br />", Environment.NewLine));
+            var errorResult = Serialisation.FromJson<ErrorResult>(result);
+            if (errorResult.ErrorCode != null && errorResult.ErrorMessage != null)
+            {
+                throw new InvalidOperationException(errorResult.ErrorMessage.Replace("<br />", Environment.NewLine));
+            }
         }
+        catch { }
 
         return Serialisation.FromJson<T>(result);
     }
