@@ -2,8 +2,6 @@
 <resources>
   <style name="MainTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
     <item name="android:windowBackground">@drawable/splash</item>
-    <item name="android:statusBarColor">@color/splash_background</item>
-    <item name="android:navigationBarColor">@color/splash_background</item>
     
     <item name="colorPrimary">@android:color/white</item>
     <item name="colorPrimaryDark">@android:color/black</item>

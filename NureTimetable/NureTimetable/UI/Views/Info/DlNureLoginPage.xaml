@@ -23,9 +23,9 @@
                 <Label Text="{xct:Translate DlNureIntegrationDescription}" />
             </Frame>
             <StackLayout Spacing="10" IsVisible="{Binding DlNureUser, Source={Static dal:SettingsRepository.Settings}, Converter={xct:IsNullOrEmptyConverter}}">
-                <Entry Text="{Binding Login}" Placeholder="{xct:Translate DlNureEmail}" TextTransform="Lowercase" Keyboard="Email" />
-                <Entry Text="{Binding Password}" IsPassword="True" Placeholder="{xct:Translate Password}" />
-                <Button Text="Login" Command="{Binding LoginCommand}" BackgroundColor="{DynamicResource GreenButtonColor}" />
+                <Entry Text="{Binding Login}" Placeholder="{xct:Translate DlNureEmail}" TextTransform="Lowercase" Keyboard="Email" ClearButtonVisibility="WhileEditing" />
+                <Entry Text="{Binding Password}" IsPassword="True" Placeholder="{xct:Translate Password}" ClearButtonVisibility="WhileEditing" />
+                <Button Text="Login" Command="{Binding LoginCommand}" BackgroundColor="{DynamicResource GreenButtonColor}" IsEnabled="{Binding Login, Converter={xct:IsNotNullOrEmptyConverter}}" />
             </StackLayout>
             <StackLayout Spacing="10" IsVisible="{Binding DlNureUser, Source={Static dal:SettingsRepository.Settings}, Converter={xct:IsNotNullOrEmptyConverter}}">
                 <Label Text="{Binding LoggedInAs.Localized}" />

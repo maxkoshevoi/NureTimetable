@@ -45,6 +45,11 @@ namespace NureTimetable.DAL.Models
 
         public Event? CurrentEvent() =>
             events.FirstOrDefault(e => e.Start <= DateTime.Now && e.End >= DateTime.Now);
+
+        public Event? NextEvent() => events
+            .Where(e => e.Start > DateTime.Now)
+            .OrderBy(e => e.Start)
+            .FirstOrDefault();
         #endregion
     }
 }

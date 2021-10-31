@@ -4,6 +4,7 @@
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              xmlns:fonts="clr-namespace:NureTimetable.Models.Consts"
              xmlns:converters="clr-namespace:NureTimetable.UI.Converters"
+             xmlns:dal="clr-namespace:NureTimetable.DAL.Settings;assembly=NureTimetable.DAL"
              xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels"
              xmlns:sfs="clr-namespace:Syncfusion.SfSchedule.XForms;assembly=Syncfusion.SfSchedule.XForms"
              Shell.TabBarIsVisible="True"
@@ -33,7 +34,7 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <Label Grid.Column="0" HorizontalOptions="Center" FontSize="20" Text="{Binding TimeLeftText}" />
-                    <Image Grid.Column="1" IsVisible="{Binding IsDlNureIntegrationEnabled}" Margin="0,0,10,0" xct:TouchEffect.Command="{Binding AttendanceClickCommand}" Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.BadgeAccountAlertOutline}, Color={DynamicResource ListIconColor}}" xct:TouchEffect.NativeAnimation="True" xct:TouchEffect.NativeAnimationRadius="15" />
+                    <Image Grid.Column="1" Margin="0,0,10,0" IsVisible="{Binding DlNureUser, Source={Static dal:SettingsRepository.Settings}, Converter={xct:IsNotNullOrEmptyConverter}}" xct:TouchEffect.Command="{Binding AttendanceClickCommand}" Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.BadgeAccountAlertOutline}, Color={DynamicResource ListIconColor}}" xct:TouchEffect.NativeAnimation="True" xct:TouchEffect.NativeAnimationRadius="15" />
                 </Grid>
                 <sfs:SfSchedule
                         x:Name="Timetable"

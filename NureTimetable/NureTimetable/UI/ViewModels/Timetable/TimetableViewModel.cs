@@ -61,8 +61,6 @@ namespace NureTimetable.UI.ViewModels
         private bool _isTimetableUpdating = false;
         public bool IsTimetableUpdating { get => _isTimetableUpdating; set => SetProperty(ref _isTimetableUpdating, value, onChanged: () => UpdateTimetableCommand.RaiseCanExecuteChanged()); }
 
-        public bool IsDlNureIntegrationEnabled => SettingsRepository.Settings.DlNureUser != null;
-
         // Timetable
         public int TimetableTimeInterval => 60;
 
@@ -140,11 +138,6 @@ namespace NureTimetable.UI.ViewModels
                 _ => TimetableScheduleView
             };
 
-            SettingsRepository.Settings.PropertyChanged += (_, args) =>
-            {
-                if (args.PropertyName == nameof(SettingsRepository.Settings.DlNureUser))
-                    OnPropertyChanged(nameof(IsDlNureIntegrationEnabled));
-            };
             MessagingCenter.Subscribe<Application, Entity>(this, MessageTypes.TimetableUpdating, (_, entity) =>
             {
                 IsTimetableUpdating = TimetableInfoList.Entities.Contains(entity);
@@ -322,10 +315,7 @@ namespace NureTimetable.UI.ViewModels
                 }
                 else
                 {
-                    Event? nextEvent = TimetableInfoList.Events
-                        .Where(e => e.Start > DateTime.Now)
-                        .OrderBy(e => e.Start)
-                        .FirstOrDefault();
+                    Event? nextEvent = TimetableInfoList.NextEvent();
                     if (nextEvent != null && nextEvent.Start.Date == DateTime.Today)
                     {
                         text = string.Format(
@@ -563,9 +553,10 @@ namespace NureTimetable.UI.ViewModels
 
         private async Task OpenAttendancePage()
         {
-            var currentEvent = TimetableInfoList.CurrentEvent();
+            var currentEvent = TimetableInfoList.CurrentEvent() ?? TimetableInfoList.NextEvent();
             if (currentEvent == null)
             {
+                await App.Current.MainPage.DisplayAlert(LN.SomethingWentWrong, "Unable to find any event", LN.Ok);
                 return;
             }
 
@@ -577,7 +568,10 @@ namespace NureTimetable.UI.ViewModels
                 return;
             }
 
-            CourseModule? attendance = (await moodle.GetCourseContents(currentLesson.Id, new() { { GetCourseContentsOption.ModName, "attendance" } })).FirstOrDefault()?.Modules.FirstOrDefault();
+            CourseModule? attendance = (await moodle.GetCourseContents(currentLesson.Id, new() { { GetCourseContentsOption.ModName, "attendance" } }))
+                .FirstOrDefault()?
+                .Modules
+                .FirstOrDefault();
             if (attendance == null)
             {
                 await App.Current.MainPage.DisplayAlert(LN.SomethingWentWrong, "Current lesson doesn't have an attendance module", LN.Ok);
