@@ -33,6 +33,7 @@ namespace NureTimetable.DAL
             }
         }
 
+        /// <returns>default(T) if file doesn't exist</returns>
         public static async Task<T?> FromJsonFile<T>(string filePath)
         {
             if (!File.Exists(filePath))

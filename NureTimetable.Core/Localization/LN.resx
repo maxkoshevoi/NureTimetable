@@ -325,7 +325,7 @@ To update, click on the button in the upper right corner.</value>
   <data name="FinishingUpdateDescription" xml:space="preserve">
     <value>In the new version, the data storage structure has changed. An application needs to convert data from the old format to the new one. Click OK to complete the upgrade.</value>
   </data>
-  <data name="FinishingUpdateFail" xml:space="preserve">
+  <data name="SomethingWentWrong" xml:space="preserve">
     <value>Something went wrong</value>
   </data>
   <data name="FinishingUpdateTitle" xml:space="preserve">
@@ -484,9 +484,25 @@ To update the list, click on the button in the upper right corner.</value>
     <value>DL Nure Integration</value>
   </data>
   <data name="DlNureLoggedIn" xml:space="preserve">
-    <value>Logged in as {0} ({1})</value>
+    <value>Logged in as: {0} ({1})</value>
   </data>
   <data name="DlNureSignedOut" xml:space="preserve">
     <value>Turned off</value>
+  </data>
+  <data name="LoggedInAs" xml:space="preserve">
+    <value>Logged in as: {0} ({1})</value>
+  </data>
+  <data name="DlNureIntegrationDescription" xml:space="preserve">
+    <value>DL Nure integration enables:
+- Attendance management for ongoing event
+- Automatic lesson filtering
+
+Credentials are stored locally.</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="DlNureEmail" xml:space="preserve">
+    <value>@nure.ua email</value>
   </data>
 </root>

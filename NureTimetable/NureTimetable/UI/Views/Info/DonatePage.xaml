@@ -11,7 +11,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style TargetType="Button">
-                <Setter Property="BackgroundColor" Value="{DynamicResource DonateButtonColor}"/>
+                <Setter Property="BackgroundColor" Value="{DynamicResource GreenButtonColor}"/>
                 <Setter Property="TextColor" Value="White"/>
                 <Setter Property="Margin" Value="0,10,0,0"/>
                 <Setter Property="Command" Value="{Binding BuyProductCommand}"/>

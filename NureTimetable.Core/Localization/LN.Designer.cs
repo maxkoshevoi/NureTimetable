@@ -305,6 +305,15 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to @nure.ua email.
+        /// </summary>
+        public static string DlNureEmail {
+            get {
+                return ResourceManager.GetString("DlNureEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to DL Nure Integration.
         /// </summary>
         public static string DlNureIntegration {
@@ -314,7 +323,20 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Logged in as {0} ({1}).
+        ///   Looks up a localized string similar to DL Nure integration enables:
+        ///- Attendance management for ongoing event
+        ///- Automatic lesson filtering
+        ///
+        ///Credentials are stored locally..
+        /// </summary>
+        public static string DlNureIntegrationDescription {
+            get {
+                return ResourceManager.GetString("DlNureIntegrationDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logged in as: {0} ({1}).
         /// </summary>
         public static string DlNureLoggedIn {
             get {
@@ -504,15 +526,6 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Something went wrong.
-        /// </summary>
-        public static string FinishingUpdateFail {
-            get {
-                return ResourceManager.GetString("FinishingUpdateFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Finishing update.
         /// </summary>
         public static string FinishingUpdateTitle {
@@ -621,6 +634,15 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Logged in as: {0} ({1}).
+        /// </summary>
+        public static string LoggedInAs {
+            get {
+                return ResourceManager.GetString("LoggedInAs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Menu.
         /// </summary>
         public static string Menu {
@@ -708,6 +730,15 @@ namespace NureTimetable.Core.Localization {
         public static string OtherSettings {
             get {
                 return ResourceManager.GetString("OtherSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password.
+        /// </summary>
+        public static string Password {
+            get {
+                return ResourceManager.GetString("Password", resourceCulture);
             }
         }
         
@@ -834,6 +865,15 @@ namespace NureTimetable.Core.Localization {
         public static string ShowToday {
             get {
                 return ResourceManager.GetString("ShowToday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Something went wrong.
+        /// </summary>
+        public static string SomethingWentWrong {
+            get {
+                return ResourceManager.GetString("SomethingWentWrong", resourceCulture);
             }
         }
         

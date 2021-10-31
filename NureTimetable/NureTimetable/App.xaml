@@ -56,6 +56,10 @@
             <Style TargetType="Editor">
                 <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}"/>
             </Style>
+
+            <Style TargetType="Frame">
+                <Setter Property="BackgroundColor" Value="{DynamicResource PageBackgroundColor}"/>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -325,7 +325,7 @@
   <data name="FinishingUpdateDescription" xml:space="preserve">
     <value>В новой версии поменялась структура хранения данных. Приложению нужно сконвертировать данные из старого формата, в новый. Нажмите ОК, чтобы завершить обновление.</value>
   </data>
-  <data name="FinishingUpdateFail" xml:space="preserve">
+  <data name="SomethingWentWrong" xml:space="preserve">
     <value>Что-то пошло не так</value>
   </data>
   <data name="FinishingUpdateTitle" xml:space="preserve">
@@ -484,9 +484,25 @@
     <value>Интеграция с DL Nure</value>
   </data>
   <data name="DlNureLoggedIn" xml:space="preserve">
-    <value>Вы вошли как {0} ({1})</value>
+    <value>Вы вошли как: {0} ({1})</value>
   </data>
   <data name="DlNureSignedOut" xml:space="preserve">
     <value>Отключена</value>
+  </data>
+  <data name="LoggedInAs" xml:space="preserve">
+    <value>Вы вошли как: {0} ({1})</value>
+  </data>
+  <data name="DlNureIntegrationDescription" xml:space="preserve">
+    <value>Интеграция DL Nure позволяет:
+- Управление посещаемостью для текущей пары
+- Автоматическая фильтрация уроков
+
+Учетные данные хранятся локально.</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="DlNureEmail" xml:space="preserve">
+    <value>@nure.ua электронная почта</value>
   </data>
 </root>

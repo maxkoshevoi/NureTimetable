@@ -1,4 +1,4 @@
-﻿namespace NureTimetable.DAL.Moodle.Models;
+﻿namespace NureTimetable.DAL.Moodle.Models.Courses;
 
 public enum GetCourseContentsOption
 {

@@ -12,7 +12,6 @@ namespace NureTimetable.DAL.Settings
     {
         public static AppSettings Settings { get; } = AppSettings.Instance;
 
-        #region Timetable Update Rights
         public static async Task<IReadOnlyList<Entity>> CheckCistTimetableUpdateRightsAsync(params Entity[] entitiesToUpdate)
         {
             List<Entity> allowedEntities = new();
@@ -61,9 +60,7 @@ namespace NureTimetable.DAL.Settings
             }
             return allowedEntities;
         }
-        #endregion
 
-        #region All Entities Update Rights
         public static bool CheckCistAllEntitiesUpdateRights()
         {
             if (DateTime.Now.Month == 8 || DateTime.Now.Month == 9)
@@ -84,6 +81,5 @@ namespace NureTimetable.DAL.Settings
             return false;
 #endif
         }
-        #endregion
     }
 }

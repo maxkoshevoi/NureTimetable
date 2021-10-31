@@ -1,4 +1,6 @@
-﻿using NureTimetable.DAL.Settings.Models;
+﻿using NureTimetable.DAL.Consts;
+using NureTimetable.DAL.Moodle.Models.Auth;
+using NureTimetable.DAL.Settings.Models;
 using System;
 using System.Globalization;
 using Xamarin.CommunityToolkit.ObjectModel;
@@ -102,6 +104,16 @@ namespace NureTimetable.DAL.Settings
             {
                 bool currentValue = Autoupdate;
                 SetProperty(ref currentValue, value, onChanged: () => Preferences.Set(nameof(Autoupdate), value));
+            }
+        }
+
+        public MoodleUser? DlNureUser
+        {
+            get => Serialisation.FromJsonFile<MoodleUser?>(FilePath.MoodleUser).GetAwaiter().GetResult();
+            set
+            {
+                MoodleUser? currentValue = DlNureUser;
+                SetProperty(ref currentValue, value, onChanged: () => Serialisation.ToJsonFile(value, FilePath.MoodleUser).GetAwaiter().GetResult());
             }
         }
     }

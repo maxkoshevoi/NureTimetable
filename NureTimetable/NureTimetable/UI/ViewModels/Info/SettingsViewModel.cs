@@ -4,6 +4,8 @@ using NureTimetable.DAL.Moodle;
 using NureTimetable.DAL.Moodle.Models;
 using NureTimetable.DAL.Moodle.Models.Auth;
 using NureTimetable.DAL.Settings;
+using NureTimetable.UI.Views;
+using NureTimetable.UI.Views.Info;
 using Plugin.Calendars.Abstractions;
 using System;
 using System.Collections.Generic;
@@ -52,19 +54,23 @@ namespace NureTimetable.UI.ViewModels
 
                 return calendarMapping.SingleOrDefault(m => m.id == SettingsRepository.Settings.DefaultCalendarId).name?.Invoke() ?? LN.InsufficientRights;
             });
-            DlNureAccount = new(() => LN.DlNureSignedOut);
+            DlNureAccount = new(() => 
+                SettingsRepository.Settings.DlNureUser == null ?
+                    LN.DlNureSignedOut :
+                    string.Format(LN.LoggedInAs, SettingsRepository.Settings.DlNureUser.FullName, SettingsRepository.Settings.DlNureUser.Id));
 
             PageAppearingCommand = CommandFactory.Create(PageAppearing);
             ChangeDefaultCalendarCommand = CommandFactory.Create(ChangeDefaultCalendar, allowsMultipleExecutions: false);
             ChangeTimeBeforeEventReminderCommand = CommandFactory.Create(ChangeTimeBeforeEventReminder, allowsMultipleExecutions: false);
             ToggleDebugModeCommand = CommandFactory.Create(() => SettingsRepository.Settings.IsDebugMode = !SettingsRepository.Settings.IsDebugMode);
             ToggleAutoupdateCommand = CommandFactory.Create(() => SettingsRepository.Settings.Autoupdate = !SettingsRepository.Settings.Autoupdate);
-            DlNureIntegrationCommand = CommandFactory.Create(async () =>
+            DlNureIntegrationCommand = CommandFactory.Create(() => Navigation.PushAsync(new DlNureLogin()), allowsMultipleExecutions: false);
+
+            SettingsRepository.Settings.PropertyChanged += (_, args) =>
             {
-                MoodleRepository repository = new();
-                await repository.AuthenticateAsync("someuser@nure.ua", "password", ServiceType.moodle_mobile_app);
-                await repository.GetCourseContents(10485, new() { { GetCourseContentsOption.ModName, "attendance" } });
-            });
+                if (args.PropertyName == nameof(SettingsRepository.Settings.DlNureUser))
+                    OnPropertyChanged(nameof(DlNureAccount));
+            };
         }
 
         private async Task PageAppearing()
@@ -125,18 +131,16 @@ namespace NureTimetable.UI.ViewModels
             );
         }
 
-
-        public Task ChangeTimeBeforeEventReminder() => 
-            ChangeSetting
-            (
-                LN.TimeBeforeEventReminder,
-                timeBeforeEventReminderMapping,
-                SettingsRepository.Settings.TimeBeforeEventReminder,
-                newTime => 
-                {
-                    SettingsRepository.Settings.TimeBeforeEventReminder = newTime;
-                    OnPropertyChanged(nameof(TimeBeforeEventReminderValue));
-                }
-            );
+        public Task ChangeTimeBeforeEventReminder() => ChangeSetting
+        (
+            LN.TimeBeforeEventReminder,
+            timeBeforeEventReminderMapping,
+            SettingsRepository.Settings.TimeBeforeEventReminder,
+            newTime => 
+            {
+                SettingsRepository.Settings.TimeBeforeEventReminder = newTime;
+                OnPropertyChanged(nameof(TimeBeforeEventReminderValue));
+            }
+        );
     }
 }

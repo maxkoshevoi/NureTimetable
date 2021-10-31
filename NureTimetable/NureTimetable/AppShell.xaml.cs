@@ -81,7 +81,7 @@ namespace NureTimetable
                 }
                 else
                 {
-                    await App.Current.MainPage.DisplayAlert(LN.FinishingUpdateTitle, LN.FinishingUpdateFail, LN.Ok);
+                    await App.Current.MainPage.DisplayAlert(LN.FinishingUpdateTitle, LN.SomethingWentWrong, LN.Ok);
                 }
             }
         }

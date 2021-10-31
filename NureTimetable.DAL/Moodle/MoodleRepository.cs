@@ -6,8 +6,10 @@ using NureTimetable.DAL.Moodle.Models.Auth;
 using NureTimetable.DAL.Moodle.Models.Calendar;
 using NureTimetable.DAL.Moodle.Models.Courses;
 using NureTimetable.DAL.Moodle.Models.WebService;
+using NureTimetable.DAL.Settings;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -18,17 +20,19 @@ public class MoodleRepository
     private readonly Uri baseUrl;
     private Uri baseWebServiceUrl;
 
-    public MoodleUser? User = null;
+    public MoodleUser? User { get; set; }
 
     public MoodleRepository()
     {
         baseUrl = Urls.DlNure.SetQueryParam("moodlewsrestformat", "json").ToUri();
         baseWebServiceUrl = baseUrl.AppendPathSegment("webservice/rest/server.php").ToUri();
+
+        User = SettingsRepository.Settings.DlNureUser;
     }
 
-    public void AuthenticateAsync(MoodleUser user) => User = user;
-
-    public async Task AuthenticateAsync(string username, string password, ServiceType? service = null)
+    [MemberNotNull(nameof(User))]
+#pragma warning disable CS8774 // Member must have a non-null value when exiting. It'll be set, trust me
+    public async Task<MoodleUser> AuthenticateAsync(string username, string password, ServiceType? service = null)
     {
         var url = baseUrl
             .AppendPathSegment("login/token.php")
@@ -41,6 +45,7 @@ public class MoodleRepository
         var response = await ExecuteActionAsync<TokenResponse>(url, true);
 
         await UpdateUserInfoAsync(response.Token);
+        return User!;
 
         async Task UpdateUserInfoAsync(string token)
         {
@@ -55,6 +60,7 @@ public class MoodleRepository
             };
         }
     }
+#pragma warning restore CS8774 // Member must have a non-null value when exiting.
 
     /// <summary>
     /// Return some site info / user info / list web service functions.
@@ -109,20 +115,22 @@ public class MoodleRepository
 
     private Url SetFunction(string name) => baseWebServiceUrl.SetQueryParam("wsfunction", name);
 
-    private Task<T> ExecuteActionAsync<T>(Url url, bool allowAnonymous = false)
+    /// <exception cref="InvalidOperationException"></exception>
+    private async Task<T> ExecuteActionAsync<T>(Url url, bool allowAnonymous = false)
     {
         if (!allowAnonymous && User == null)
         {
             throw new InvalidOperationException($"Call {nameof(AuthenticateAsync)} before making this request.");
         }
 
-        dynamic response = url.GetJsonAsync();
+        string result = await url.GetStringAsync();
 
-        if (response.error != null && response.errorcode != null)
+        var errorResult = Serialisation.FromJson<ErrorResult>(result);
+        if (errorResult.Error != null && errorResult.ErrorCode != null)
         {
-            throw new InvalidOperationException(response.error);
+            throw new InvalidOperationException(errorResult.Error.Replace("<br />", Environment.NewLine));
         }
 
-        return response.ToObject<T>();
+        return Serialisation.FromJson<T>(result);
     }
 }
