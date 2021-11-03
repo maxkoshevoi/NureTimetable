@@ -86,7 +86,7 @@ namespace NureTimetable.DAL
                     json = JsonFixers.TryFix(json);
                     instance = JsonConvert.DeserializeObject<T>(json);
 
-                    InvalidOperationException ex = new("Fixed invalid JSON");
+                    InvalidOperationException ex = new("Fixed invalid Json");
                     EnrichException(badJson, ex);
                     ExceptionService.LogException(ex);
                 }
