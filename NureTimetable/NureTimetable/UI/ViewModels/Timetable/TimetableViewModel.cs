@@ -560,11 +560,14 @@ namespace NureTimetable.UI.ViewModels
                 return;
             }
 
+            string normalizedFullName = currentEvent.Lesson.FullName.Normalize();
             MoodleRepository moodle = new();
-            var currentLesson = (await moodle.GetEnrolledCourses()).SingleOrDefault(c => c.ShortName.Contains($":{currentEvent.Lesson.ShortName}:"));
+            var currentLesson = (await moodle.GetEnrolledCourses()).SingleOrDefault(c => 
+                c.ShortName.Contains($":{currentEvent.Lesson.ShortName}:") 
+                || normalizedFullName.StartsWith(c.FullName.Normalize()));
             if (currentLesson == null)
             {
-                await App.Current.MainPage.DisplayAlert(LN.SomethingWentWrong, "Unable to find current lesson", LN.Ok);
+                await App.Current.MainPage.DisplayAlert(LN.SomethingWentWrong, "Unable to find lesson", LN.Ok);
                 return;
             }
 
@@ -574,7 +577,7 @@ namespace NureTimetable.UI.ViewModels
                 .FirstOrDefault();
             if (attendance == null)
             {
-                await App.Current.MainPage.DisplayAlert(LN.SomethingWentWrong, "Current lesson doesn't have an attendance module", LN.Ok);
+                await App.Current.MainPage.DisplayAlert(LN.SomethingWentWrong, "Lesson doesn't have an attendance module", LN.Ok);
                 return;
             }
 

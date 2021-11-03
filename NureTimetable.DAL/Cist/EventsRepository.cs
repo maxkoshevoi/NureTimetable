@@ -104,7 +104,8 @@ namespace NureTimetable.DAL.Cist
                 }
 
                 // Updating timetable information
-                timetable.Events = cistTimetable.Events.Select(ev =>
+                timetable.Events = cistTimetable.Events
+                    .Select(ev =>
                     {
                         Local::Event localEvent = MapConfig.Map<Cist::Event, Local::Event>(ev);
                         localEvent.Lesson = MapConfig.Map<Cist::Lesson, Local::Lesson>(cistTimetable.Lessons.First(l => l.Id == ev.LessonId));
