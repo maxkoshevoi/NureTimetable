@@ -556,18 +556,15 @@ namespace NureTimetable.UI.ViewModels
             var currentEvent = TimetableInfoList.CurrentEvent() ?? TimetableInfoList.NextEvent();
             if (currentEvent == null)
             {
-                await App.Current.MainPage.DisplayAlert(LN.SomethingWentWrong, "Unable to find any event", LN.Ok);
+                await Shell.Current.DisplayAlert(LN.SomethingWentWrong, "Unable to find any event", LN.Ok);
                 return;
             }
 
-            string normalizedFullName = currentEvent.Lesson.FullName.Normalize();
             MoodleRepository moodle = new();
-            var currentLesson = (await moodle.GetEnrolledCourses()).SingleOrDefault(c => 
-                c.ShortName.Contains($":{currentEvent.Lesson.ShortName}:") 
-                || normalizedFullName.StartsWith(c.FullName.Normalize()));
+            var currentLesson = await GetMoodleCourse(moodle, currentEvent.Lesson);
             if (currentLesson == null)
             {
-                await App.Current.MainPage.DisplayAlert(LN.SomethingWentWrong, "Unable to find lesson", LN.Ok);
+                await Shell.Current.DisplayAlert(LN.SomethingWentWrong, "Unable to find lesson", LN.Ok);
                 return;
             }
 
@@ -577,11 +574,23 @@ namespace NureTimetable.UI.ViewModels
                 .FirstOrDefault();
             if (attendance == null)
             {
-                await App.Current.MainPage.DisplayAlert(LN.SomethingWentWrong, "Lesson doesn't have an attendance module", LN.Ok);
+                await Shell.Current.DisplayAlert(LN.SomethingWentWrong, "Lesson doesn't have an attendance module", LN.Ok);
                 return;
             }
 
             await Launcher.OpenAsync(new Uri(attendance.Url));
+
+            static async Task<FullCourse?> GetMoodleCourse(MoodleRepository moodle, Lesson lesson)
+            {
+                List<FullCourse> courses = await moodle.GetEnrolledCourses();
+
+                string normalizedFullName = lesson.FullName.Normalize();
+                FullCourse? course = courses.SingleOrDefault(c => 
+                    c.ShortName.Contains($":{lesson.ShortName}:")
+                    || normalizedFullName.StartsWith(c.FullName.Normalize()));
+
+                return course;
+            }
         }
     }
 }

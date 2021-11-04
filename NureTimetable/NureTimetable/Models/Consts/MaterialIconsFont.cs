@@ -2,11 +2,11 @@
 
 namespace NureTimetable.Models.Consts
 {
-    /// <summary>
-    /// Full icon list: https://cdn.materialdesignicons.com/5.4.55/
-    /// Font download link: https://codeload.github.com/Templarian/MaterialDesign-Webfont/zip/master
-    /// </summary>
-    public static class MaterialIconsFont
+	/// <summary>
+	/// Full icon list: https://pictogrammers.github.io/@mdi/font/5.4.55
+	/// Font download link: https://codeload.github.com/Templarian/MaterialDesign-Webfont/zip/master
+	/// </summary>
+	public static class MaterialIconsFont
 	{
 		public const string VectorSquare = "\U000f0001";
 		public const string AccessPointNetwork = "\U000f0002";

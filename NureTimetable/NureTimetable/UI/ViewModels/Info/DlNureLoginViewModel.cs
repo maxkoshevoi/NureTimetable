@@ -50,7 +50,7 @@ public class DlNureLoginViewModel : BaseViewModel
         }
         catch (Exception ex)
         {
-            await App.Current.MainPage.DisplayAlert(LN.SomethingWentWrong, ex.Message, LN.Ok);
+            await Shell.Current.DisplayAlert(LN.SomethingWentWrong, ex.Message, LN.Ok);
         }
     }
 

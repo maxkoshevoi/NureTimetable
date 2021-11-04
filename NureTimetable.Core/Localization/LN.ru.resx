@@ -505,4 +505,10 @@
   <data name="DlNureEmail" xml:space="preserve">
     <value>@nure.ua электронная почта</value>
   </data>
+  <data name="SyncDlNureLessonsTitle" xml:space="preserve">
+    <value>Автофильтрация</value>
+  </data>
+  <data name="SyncDlNureLessonsMessage" xml:space="preserve">
+    <value>Скрыть уроки, которых нет на dl.nure.ua?</value>
+  </data>
 </root>

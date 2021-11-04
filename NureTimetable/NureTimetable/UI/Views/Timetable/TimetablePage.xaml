@@ -34,7 +34,13 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <Label Grid.Column="0" HorizontalOptions="Center" FontSize="20" Text="{Binding TimeLeftText}" />
-                    <Image Grid.Column="1" Margin="0,0,10,0" IsVisible="{Binding DlNureUser, Source={Static dal:SettingsRepository.Settings}, Converter={xct:IsNotNullOrEmptyConverter}}" xct:TouchEffect.Command="{Binding AttendanceClickCommand}" Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.BadgeAccountAlertOutline}, Color={DynamicResource ListIconColor}}" xct:TouchEffect.NativeAnimation="True" xct:TouchEffect.NativeAnimationRadius="15" />
+                    <Image Grid.Column="1" 
+                           Margin="0,0,10,0" 
+                           IsVisible="{Binding DlNureUser, Source={Static dal:SettingsRepository.Settings}, Converter={xct:IsNotNullOrEmptyConverter}}" 
+                           xct:TouchEffect.Command="{Binding AttendanceClickCommand}" 
+                           Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.BadgeAccountAlertOutline}, Color={DynamicResource ListIconColor}}" 
+                           xct:TouchEffect.NativeAnimation="True" 
+                           xct:TouchEffect.NativeAnimationRadius="15" />
                 </Grid>
                 <sfs:SfSchedule
                         x:Name="Timetable"

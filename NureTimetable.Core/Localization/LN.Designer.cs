@@ -896,6 +896,24 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hide lessons that are not present on dl.nure.ua?.
+        /// </summary>
+        public static string SyncDlNureLessonsMessage {
+            get {
+                return ResourceManager.GetString("SyncDlNureLessonsMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Autofiltration.
+        /// </summary>
+        public static string SyncDlNureLessonsTitle {
+            get {
+                return ResourceManager.GetString("SyncDlNureLessonsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Teachers.
         /// </summary>
         public static string Teachers {

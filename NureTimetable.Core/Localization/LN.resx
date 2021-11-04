@@ -505,4 +505,10 @@ Credentials are stored locally.</value>
   <data name="DlNureEmail" xml:space="preserve">
     <value>@nure.ua email</value>
   </data>
+  <data name="SyncDlNureLessonsTitle" xml:space="preserve">
+    <value>Autofiltration</value>
+  </data>
+  <data name="SyncDlNureLessonsMessage" xml:space="preserve">
+    <value>Hide lessons that are not present on dl.nure.ua?</value>
+  </data>
 </root>
