@@ -98,8 +98,7 @@ namespace NureTimetable.UI.ViewModels
 
             static async Task<List<Lesson>> GetEnrolledLessonsAsync(IEnumerable<Lesson> lessons)
             {
-                MoodleRepository moodle = new();
-                List<FullCourse> courses = await moodle.GetEnrolledCourses();
+                List<FullCourse> courses = await new MoodleRepository().GetEnrolledCourses();
 
                 List<Lesson> matchedLessons = lessons
                     .Where(l => courses.SingleOrDefault(c => 

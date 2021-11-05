@@ -91,7 +91,8 @@ namespace NureTimetable.DAL
                     ExceptionService.LogException(ex);
                 }
 
-                return instance ?? throw new InvalidOperationException("Deserializer returned null");
+                // If T is nullable, instance can be null
+                return instance!;
             }
             catch (Exception ex)
             {
@@ -109,8 +110,9 @@ namespace NureTimetable.DAL
         private static bool IsJson(string json)
         {
             json = json.Trim(' ', '\t', '\r', '\n');
-            return (json.StartsWith("{") || json.StartsWith("["))
-                && (json.EndsWith("}") || json.EndsWith("]"));
+            return json == "null" 
+                || ((json.StartsWith("{") || json.StartsWith("["))
+                   && (json.EndsWith("}") || json.EndsWith("]")));
         }
 
         #region Converters
