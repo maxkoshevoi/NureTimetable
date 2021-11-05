@@ -1,4 +1,5 @@
 ﻿using NureTimetable.BL;
+using NureTimetable.BL.Extensions;
 using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Consts;
@@ -583,11 +584,7 @@ namespace NureTimetable.UI.ViewModels
             static async Task<FullCourse?> GetMoodleCourse(MoodleRepository moodle, Lesson lesson)
             {
                 List<FullCourse> courses = await moodle.GetEnrolledCourses();
-
-                string simplifiedFullName = lesson.FullName.Simplify();
-                FullCourse? course = courses.SingleOrDefault(c => 
-                    c.ShortName.Contains($":{lesson.ShortName}:")
-                    || simplifiedFullName.StartsWith(c.FullName.Simplify()));
+                FullCourse? course = courses.Find(lesson).OrderByDescending(c => c.LastAccess).FirstOrDefault();
 
                 return course;
             }

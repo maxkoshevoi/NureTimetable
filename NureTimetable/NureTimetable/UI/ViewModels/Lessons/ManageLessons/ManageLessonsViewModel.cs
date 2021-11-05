@@ -1,4 +1,5 @@
-﻿using NureTimetable.Core.Extensions;
+﻿using NureTimetable.BL.Extensions;
+using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Localization;
 using NureTimetable.DAL.Cist;
 using NureTimetable.DAL.Models;
@@ -99,12 +100,7 @@ namespace NureTimetable.UI.ViewModels
             static async Task<List<Lesson>> GetEnrolledLessonsAsync(IEnumerable<Lesson> lessons)
             {
                 List<FullCourse> courses = await new MoodleRepository().GetEnrolledCourses();
-
-                List<Lesson> matchedLessons = lessons
-                    .Where(l => courses.SingleOrDefault(c => 
-                        c.ShortName.Contains($":{l.ShortName}:")
-                        || l.FullName.Simplify().StartsWith(c.FullName.Simplify())) != null)
-                    .ToList();
+                List<Lesson> matchedLessons = lessons.Where(l => courses.Find(l).Any()).ToList();
 
                 return matchedLessons;
             }
