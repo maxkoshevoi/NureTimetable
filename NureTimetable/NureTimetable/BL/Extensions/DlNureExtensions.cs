@@ -23,19 +23,19 @@ public static class DlNureExtensions
             if (ongoingCourses.Any())
             {
                 matchedCourses = ongoingCourses;
-            }
 
-            if (matchedCourses.Count > 1)
-            {
-                InvalidOperationException ex = new("Found multiple moodle courses")
+                if (matchedCourses.Count > 1)
                 {
-                    Data = { { "Lesson", $"{lesson.FullName} ({lesson.ShortName})" }}
-                };
-                for (int i = 0; i < matchedCourses.Count; i++)
-                {
-                    ex.Data.Add($"Course {i}", $"{matchedCourses[i].FullName} ({matchedCourses[i].ShortName})");
+                    InvalidOperationException ex = new("Found multiple moodle courses")
+                    {
+                        Data = { { "Lesson", $"{lesson.FullName} ({lesson.ShortName})" }}
+                    };
+                    for (int i = 0; i < matchedCourses.Count; i++)
+                    {
+                        ex.Data.Add($"Course {i}", $"{matchedCourses[i].FullName} ({matchedCourses[i].ShortName})");
+                    }
+                    ExceptionService.LogException(ex);
                 }
-                ExceptionService.LogException(ex);
             }
         }
 

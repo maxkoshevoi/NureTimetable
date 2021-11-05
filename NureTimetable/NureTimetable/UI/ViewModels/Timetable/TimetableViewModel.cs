@@ -584,7 +584,7 @@ namespace NureTimetable.UI.ViewModels
             static async Task<FullCourse?> GetMoodleCourse(MoodleRepository moodle, Lesson lesson)
             {
                 List<FullCourse> courses = await moodle.GetEnrolledCourses();
-                FullCourse? course = courses.Find(lesson).OrderByDescending(c => c.LastAccess).FirstOrDefault();
+                FullCourse? course = courses.Find(lesson).FirstOrDefault();
 
                 return course;
             }
