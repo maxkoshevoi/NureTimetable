@@ -5,7 +5,7 @@
         /// <summary>
         /// Unifies all characters that are used interchangeably.
         /// </summary>
-        public static string Normalize(this string str) => str
+        public static string Simplify(this string str) => str
             .ToLower()
             .Replace('і', 'и')
             .Replace('ї', 'и')

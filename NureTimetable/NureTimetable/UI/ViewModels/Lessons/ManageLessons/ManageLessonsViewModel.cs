@@ -103,7 +103,7 @@ namespace NureTimetable.UI.ViewModels
                 List<Lesson> matchedLessons = lessons
                     .Where(l => courses.SingleOrDefault(c => 
                         c.ShortName.Contains($":{l.ShortName}:")
-                        || l.FullName.Normalize().StartsWith(c.FullName.Normalize())) != null)
+                        || l.FullName.Simplify().StartsWith(c.FullName.Simplify())) != null)
                     .ToList();
 
                 return matchedLessons;

@@ -54,10 +54,10 @@ namespace NureTimetable.UI.ViewModels
 
         protected IOrderedEnumerable<T> SearchEntities(string query, Func<T, string> nameSelector, Func<T, long> idSelector)
         {
-            query = query.Normalize();
+            query = query.Simplify();
 
             return _allEntities
-                .Where(e => nameSelector(e).Normalize().Contains(query) || idSelector(e).ToString() == query)
+                .Where(e => nameSelector(e).Simplify().Contains(query) || idSelector(e).ToString() == query)
                 .OrderBy(e => nameSelector(e));
         }
 

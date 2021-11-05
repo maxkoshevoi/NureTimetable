@@ -584,10 +584,10 @@ namespace NureTimetable.UI.ViewModels
             {
                 List<FullCourse> courses = await moodle.GetEnrolledCourses();
 
-                string normalizedFullName = lesson.FullName.Normalize();
+                string simplifiedFullName = lesson.FullName.Simplify();
                 FullCourse? course = courses.SingleOrDefault(c => 
                     c.ShortName.Contains($":{lesson.ShortName}:")
-                    || normalizedFullName.StartsWith(c.FullName.Normalize()));
+                    || simplifiedFullName.StartsWith(c.FullName.Simplify()));
 
                 return course;
             }
