@@ -20,5 +20,7 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 17
+    - name: Install workload
+      run: dotnet workload install maui-android
     - name: Build
       run: dotnet build -c ${{ matrix.configuration }}
