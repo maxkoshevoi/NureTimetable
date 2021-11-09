@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0-android31</TargetFramework>
+    <TargetFramework>net6.0-android</TargetFramework>
     <OutputType>Exe</OutputType>
     <UseMaui>true</UseMaui>
     <SingleProject>true</SingleProject>
@@ -9,15 +9,15 @@
     
     <ApplicationId>com.whitebox.nuretimetable</ApplicationId>
     <ApplicationTitle>Nure Timetable</ApplicationTitle>
-    <MinimumPlatformVersion>21.0</MinimumPlatformVersion>
+	<SupportedOSPlatformVersion>21.0</SupportedOSPlatformVersion>
   
     <Authors>Maksym Koshovyi</Authors>
     <Copyright>Copyright © Maksym Koshovyi 2019</Copyright>
   </PropertyGroup>
   
   <ItemGroup>
+	<MauiIcon Include="Resources\AppIcons\icon.png" />
     <MauiSplashScreen Include="Resources\AppIcons\icon.png" Color="#512BD4" />
-    <MauiImage Include="Resources\AppIcons\icon.png" IsAppIcon="true" />
     <MauiImage Include="Resources\Images\*" />
     <MauiFont Include="Resources\Fonts\*" />
   </ItemGroup>

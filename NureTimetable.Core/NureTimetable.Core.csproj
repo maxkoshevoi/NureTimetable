@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0-android31</TargetFramework>
+    <TargetFramework>net6.0-android</TargetFramework>
     <UserSecretsId>6a6a87a4-a3c4-4556-84ff-04d9dbbeb430</UserSecretsId>
   </PropertyGroup>
 
