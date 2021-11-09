@@ -25,6 +25,6 @@ jobs:
     - name: Setup Java SDK
       uses: actions/setup-java@v1
       with:
-        java-version: 11
+        java-version: 17
     - name: Build
       run: dotnet build -c ${{ matrix.configuration }}
