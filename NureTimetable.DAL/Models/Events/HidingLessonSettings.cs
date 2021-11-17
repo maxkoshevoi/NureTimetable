@@ -4,7 +4,7 @@ using Xamarin.Forms;
 namespace NureTimetable.DAL.Models
 {
     // BindableObject needed for nullable types to bind properly
-    public class LessonHidingSettings : BindableObject
+    public class HidingLessonSettings : BindableObject
     {
         /// <summary>
         /// if not null, other hiding settings are ignored

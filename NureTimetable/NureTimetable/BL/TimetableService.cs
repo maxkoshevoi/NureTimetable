@@ -27,50 +27,49 @@ namespace NureTimetable.BL
             }
         }
 
-        public static Task<List<(Entity entity, Exception? exception)>> UpdateAsync(params Entity[] entities) =>
-            Task.Run(async () =>
+        public static Task<List<(Entity entity, Exception? exception)>> UpdateAsync(params Entity[] entities) => Task.Run(async () =>
+        {
+            IReadOnlyList<Entity> entitiesAllowed = await SettingsRepository.CheckCistTimetableUpdateRightsAsync(entities);
+            if (entitiesAllowed.Count == 0)
             {
-                IReadOnlyList<Entity> entitiesAllowed = await SettingsRepository.CheckCistTimetableUpdateRightsAsync(entities);
-                if (entitiesAllowed.Count == 0)
-                {
-                    return new();
-                }
+                return new();
+            }
 
-                Analytics.TrackEvent("Updating timetable", new Dictionary<string, string>
-                {
-                    { "Count", entitiesAllowed.Count.ToString() },
-                    { "Hour of the day", DateTime.Now.Hour.ToString() }
-                });
-
-                // Update timetables in background
-                const int batchSize = 5;
-                Dictionary<Entity, Task<(TimetableInfo? _, Exception? error)>> updateTasks = new();
-                for (int i = 0; i < entitiesAllowed.Count;)
-                {
-                    int runningTasks = updateTasks.Count(t => !t.Value.IsCompleted);
-                    int capacity = batchSize - runningTasks;
-                    foreach (var entity in entitiesAllowed.Skip(i).Take(capacity))
-                    {
-                        updateTasks.Add(entity, EventsRepository.GetTimetableFromCistAsync(entity, Config.TimetableFromDate, Config.TimetableToDate));
-                    }
-                    await Task.WhenAny(updateTasks
-                        .Select(u => u.Value)
-                        .Where(t => !t.IsCompleted)
-                        .DefaultIfEmpty(Task.CompletedTask));
-
-                    if (updateTasks.Any(u => u.Value.IsCompleted && u.Value.Result.error is WebException))
-                    {
-                        // Abort updating on network error
-                        break;
-                    }
-
-                    i += capacity;
-                }
-                await Task.WhenAll(updateTasks.Select(u => u.Value));
-
-                List<(Entity, Exception?)> updateResults = updateTasks.Select(r => (r.Key, r.Value.Result.error)).ToList();
-                return updateResults;
+            Analytics.TrackEvent("Updating timetable", new Dictionary<string, string>
+            {
+                { "Count", entitiesAllowed.Count.ToString() },
+                { "Hour of the day", DateTime.Now.Hour.ToString() }
             });
+
+            // Update timetables in background
+            const int batchSize = 5;
+            Dictionary<Entity, Task<(TimetableInfo? _, Exception? error)>> updateTasks = new();
+            for (int i = 0; i < entitiesAllowed.Count;)
+            {
+                int runningTasks = updateTasks.Count(t => !t.Value.IsCompleted);
+                int capacity = batchSize - runningTasks;
+                foreach (var entity in entitiesAllowed.Skip(i).Take(capacity))
+                {
+                    updateTasks.Add(entity, EventsRepository.GetTimetableFromCistAsync(entity, Config.TimetableFromDate, Config.TimetableToDate));
+                }
+                await Task.WhenAny(updateTasks
+                    .Select(u => u.Value)
+                    .Where(t => !t.IsCompleted)
+                    .DefaultIfEmpty(Task.CompletedTask));
+
+                if (updateTasks.Any(u => u.Value.IsCompleted && u.Value.Result.error is WebException))
+                {
+                    // Abort updating on network error
+                    break;
+                }
+
+                i += capacity;
+            }
+            await Task.WhenAll(updateTasks.Select(u => u.Value));
+
+            List<(Entity, Exception?)> updateResults = updateTasks.Select(r => (r.Key, r.Value.Result.error)).ToList();
+            return updateResults;
+        });
 
         private static string? GetResponseMessageFromUpdateResult(List<(Entity entity, Exception? exception)> updateResults)
         {

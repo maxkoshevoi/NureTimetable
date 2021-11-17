@@ -4,6 +4,6 @@
     {
         public bool IsSomeSettingsApplied => Hiding.ShowLesson != true;
 
-        public LessonHidingSettings Hiding { get; } = new();
+        public HidingLessonSettings Hiding { get; } = new();
     }
 }
