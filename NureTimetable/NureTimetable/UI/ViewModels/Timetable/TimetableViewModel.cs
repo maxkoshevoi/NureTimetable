@@ -579,7 +579,7 @@ namespace NureTimetable.UI.ViewModels
                 return;
             }
 
-            await Launcher.OpenAsync(new Uri(attendance.Url));
+            await Browser.OpenAsync(attendance.Url);
 
             static async Task<FullCourse?> GetMoodleCourse(MoodleRepository moodle, Lesson lesson)
             {
