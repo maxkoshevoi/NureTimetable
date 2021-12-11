@@ -18,7 +18,7 @@
     
     <ContentPage.ToolbarItems>
         <ToolbarItem x:DataType="vm:ManageLessonsViewModel" IconImageSource="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.AccountSearch}}" Command="{Binding SyncDlNureClickedCommand}" />
-        <ToolbarItem x:DataType="vm:ManageLessonsViewModel" IconImageSource="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.ContentSave}}" Command="{Binding SaveClickedCommand}" x:Name="Save" />
+        <ToolbarItem x:DataType="vm:ManageLessonsViewModel" IconImageSource="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.ContentSave}}" Command="{Binding SaveClickedCommand}" />
     </ContentPage.ToolbarItems>
 
     <AbsoluteLayout>
