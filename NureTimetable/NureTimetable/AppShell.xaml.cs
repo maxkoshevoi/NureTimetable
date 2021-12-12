@@ -1,4 +1,5 @@
-﻿using NureTimetable.BL;
+﻿using Microsoft.AppCenter.Analytics;
+using NureTimetable.BL;
 using NureTimetable.Core.BL;
 using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Localization;
@@ -20,6 +21,7 @@ namespace NureTimetable
         {
             InitializeComponent();
             InitTheme();
+            InitSettingsAnalytics();
 
             ExceptionService.ExceptionLogged += ex =>
             {
@@ -27,6 +29,21 @@ namespace NureTimetable
                 {
                     MainThread.BeginInvokeOnMainThread(() => Shell.Current.DisplayAlert(LN.ErrorDetails, ex.ToString(), LN.Ok));
                 }
+            };
+        }
+
+        private static void InitSettingsAnalytics()
+        {
+            SettingsRepository.Settings.PropertyChanged += (_, e) =>
+            {
+                Analytics.TrackEvent($"Setting changed: {e.PropertyName}", new Dictionary<string, string>
+                {
+                    { "New Value", SettingsRepository.Settings
+                        .GetType()
+                        .GetProperty(e.PropertyName)
+                        .GetValue(SettingsRepository.Settings)
+                        .ToString() }
+                });
             };
         }
 
@@ -62,7 +79,7 @@ namespace NureTimetable
             if (!VersionTracking.IsFirstLaunchForCurrentBuild)
                 return;
 
-            List<BaseMigration> migrationsToApply = await BaseMigration.Migrations.Where(async m => await m.IsNeedsToBeApplied()).ToListAsync();
+            List<BaseMigration> migrationsToApply = await BaseMigration.Migrations.Where(m => m.IsNeedsToBeApplied()).ToListAsync();
             if (migrationsToApply.Any())
             {
                 // Not Shell.Current.DisplayAlert cause Shell.Current is null here
