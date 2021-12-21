@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System;
-using static NureTimetable.DAL.Serialisation;
 
 namespace NureTimetable.DAL.Moodle.Models.Courses;
 
@@ -19,11 +19,11 @@ public record Course
     public int SummaryFormat { get; set; }
 
     [JsonProperty("startdate")]
-    [JsonConverter(typeof(SecondEpochConverter))]
+    [JsonConverter(typeof(UnixDateTimeConverter))]
     public DateTime StartDateUtc { get; set; }
 
     [JsonProperty("enddate")]
-    [JsonConverter(typeof(SecondEpochConverter))]
+    [JsonConverter(typeof(UnixDateTimeConverter))]
     public DateTime EndDateUtc { get; set; }
 
     [JsonProperty("visible")]

@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
-using static NureTimetable.DAL.Serialisation;
 
 namespace NureTimetable.DAL.Moodle.Models.Courses;
 
@@ -29,7 +29,7 @@ public record FullCourse : Course
 
     public int Marker { get; set; }
 
-    [JsonConverter(typeof(SecondEpochConverter))]
+    [JsonConverter(typeof(UnixDateTimeConverter))]
     public DateTime? LastAccess { get; set; }
 
     public List<Overviewfile> Overviewfiles { get; set; } = new();
@@ -44,7 +44,7 @@ public record FullCourse : Course
 
         public string FileUrl { get; set; } = string.Empty;
 
-        [JsonConverter(typeof(SecondEpochConverter))]
+        [JsonConverter(typeof(UnixDateTimeConverter))]
         public DateTime TimeModified { get; set; }
 
         public string MimeType { get; set; } = string.Empty;

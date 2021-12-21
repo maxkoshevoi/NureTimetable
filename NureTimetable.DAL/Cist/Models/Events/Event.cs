@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
-using static NureTimetable.DAL.Serialisation;
 
 namespace NureTimetable.DAL.Cist.Models
 {
@@ -11,11 +11,11 @@ namespace NureTimetable.DAL.Cist.Models
         public long LessonId { get; set; }
 
         [JsonProperty("start_time")]
-        [JsonConverter(typeof(SecondEpochConverter))]
+        [JsonConverter(typeof(UnixDateTimeConverter))]
         public DateTime StartTime { get; set; }
 
         [JsonProperty("end_time")]
-        [JsonConverter(typeof(SecondEpochConverter))]
+        [JsonConverter(typeof(UnixDateTimeConverter))]
         public DateTime EndTime { get; set; }
 
         [JsonProperty("type")]

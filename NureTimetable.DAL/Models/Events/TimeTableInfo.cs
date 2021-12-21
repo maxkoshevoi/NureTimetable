@@ -14,6 +14,9 @@ namespace NureTimetable.DAL.Models
             set => events = value;
         }
 
+        /// <summary>
+        /// Gets all available lesson infos (some lessons might not have one).
+        /// </summary>
         public List<LessonInfo> LessonsInfo { get; set; } = new();
 
         public TimetableInfo(Entity entity)

@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using NureTimetable.DAL.Moodle.Models.Courses;
 using System;
 using static NureTimetable.DAL.Serialisation;
@@ -38,7 +39,7 @@ public record Event
     public string EventType { get; set; } = string.Empty;
 
     [JsonProperty("timestart")]
-    [JsonConverter(typeof(SecondEpochConverter))]
+    [JsonConverter(typeof(UnixDateTimeConverter))]
     public DateTime StartUtc { get; set; }
 
     [JsonProperty("timeduration")]
@@ -46,7 +47,7 @@ public record Event
     public TimeSpan Duration { get; set; }
 
     [JsonProperty("timesort")]
-    [JsonConverter(typeof(SecondEpochConverter))]
+    [JsonConverter(typeof(UnixDateTimeConverter))]
     public DateTime SortUtc { get; set; }
 
     public int TimeUserMidnight { get; set; }
@@ -54,7 +55,7 @@ public record Event
     public int Visible { get; set; }
 
     [JsonProperty("timemodified")]
-    [JsonConverter(typeof(SecondEpochConverter))]
+    [JsonConverter(typeof(UnixDateTimeConverter))]
     public DateTime ModifiedUtc { get; set; }
 
     public EventIcon Icon { get; set; } = null!;

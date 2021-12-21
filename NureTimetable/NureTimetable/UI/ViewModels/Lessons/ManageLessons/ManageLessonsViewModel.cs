@@ -64,10 +64,10 @@ namespace NureTimetable.UI.ViewModels
             Lessons.ReplaceRange
             (
                 timetable.Lessons()
-                    .Select(lesson => timetable.LessonsInfo.FirstOrDefault(li => li.Lesson == lesson) ?? new LessonInfo(lesson))
-                    .Where(lesson => timetable.Events.Where(e => e.Start >= DateTime.Today).Any(e => e.Lesson == lesson.Lesson))
-                    .OrderBy(lesson => lesson.Lesson.ShortName)
-                    .Select(lesson => new LessonViewModel(lesson, timetable, this))
+                    .Select(lesson => timetable.GetAndAddLessonsInfo(lesson))
+                    .Where(lessonInfo => timetable.Events.Where(e => e.Start >= DateTime.Today).Any(e => e.Lesson == lessonInfo.Lesson))
+                    .OrderBy(lessonInfo => lessonInfo.Lesson.ShortName)
+                    .Select(lessonInfo => new LessonViewModel(lessonInfo, timetable, this))
             );
         }
 

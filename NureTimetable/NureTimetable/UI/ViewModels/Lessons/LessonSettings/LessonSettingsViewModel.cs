@@ -26,7 +26,7 @@ namespace NureTimetable.UI.ViewModels
         public IAsyncCommand BackButtonPressedCommand { get; }
         #endregion
 
-        public LessonSettingsViewModel(LessonInfo lessonInfo, TimetableInfo timetableInfo, bool saveOnExit)
+        public LessonSettingsViewModel(LessonInfo lessonInfo, TimetableInfo timetable, bool saveOnExit)
         {
             LessonInfo = lessonInfo;
             updatingProgrammatically = true;
@@ -35,13 +35,13 @@ namespace NureTimetable.UI.ViewModels
 
             LvEventTypes = new ListViewViewModel<EventType>()
             {
-                ItemsSource = { timetableInfo.EventTypes(lessonInfo.Lesson.ID)
+                ItemsSource = { timetable.EventTypes(lessonInfo.Lesson.ID)
                     .Select(et => new CheckedEntity<EventType>(et, EventTypeStateChanged))
                     .OrderBy(et => et.Entity.ShortName) }
             };
             LvTeachers = new()
             {
-                ItemsSource = { timetableInfo.Teachers(lessonInfo.Lesson.ID)
+                ItemsSource = { timetable.Teachers(lessonInfo.Lesson.ID)
                     .Select(t => new CheckedEntity<Teacher>(t, TeacherStateChanged))
                     .OrderBy(et => et.Entity.ShortName) }
             };
@@ -52,7 +52,7 @@ namespace NureTimetable.UI.ViewModels
             {
                 if (saveOnExit)
                 {
-                    await EventsRepository.UpdateLessonsInfo(timetableInfo.Entity, timetableInfo.LessonsInfo);
+                    await EventsRepository.UpdateLessonsInfo(timetable.Entity, timetable.LessonsInfo);
                 }
                 await Shell.Current.GoToAsync("..", true);
             });

@@ -116,25 +116,6 @@ namespace NureTimetable.DAL
         }
 
         #region Converters
-        internal class SecondEpochConverter : DateTimeConverterBase
-        {
-            private static readonly DateTime _epoch = new(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-
-            public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
-            {
-                if (reader.TokenType == JsonToken.Null)
-                {
-                    return null;
-                }
-                return _epoch.AddSeconds((long)reader.Value!);
-            }
-
-            public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
-            {
-                writer.WriteRawValue(((DateTime)value! - _epoch).TotalSeconds.ToString());
-            }
-        }
-
         internal class StringBoolConverter : JsonConverter
         {
             private readonly Dictionary<string, bool> replacementValues = new() { { "1", true }, { "0", false } };
