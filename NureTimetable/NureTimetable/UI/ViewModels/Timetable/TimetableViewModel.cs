@@ -1,12 +1,9 @@
 ﻿using NureTimetable.BL;
-using NureTimetable.BL.Extensions;
 using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Consts;
 using NureTimetable.DAL.Cist;
 using NureTimetable.DAL.Models;
-using NureTimetable.DAL.Moodle;
-using NureTimetable.DAL.Moodle.Models.Courses;
 using NureTimetable.DAL.Settings;
 using NureTimetable.DAL.Settings.Models;
 using NureTimetable.Models.Consts;
@@ -561,33 +558,14 @@ namespace NureTimetable.UI.ViewModels
                 return;
             }
 
-            MoodleRepository moodle = new();
-            var currentLesson = await GetMoodleCourse(moodle, currentEvent.Lesson);
-            if (currentLesson == null)
+            var currentTimetable = TimetableInfoList.Timetables.Count == 1 ? TimetableInfoList.Timetables.Single() : null;
+            var attendanceUrl = await DlNureService.GetAttendanceUrlAsync(currentEvent.Lesson, currentTimetable);
+            if (attendanceUrl == null)
             {
-                await Shell.Current.DisplayAlert(LN.SomethingWentWrong, "Unable to find lesson", LN.Ok);
                 return;
             }
 
-            CourseModule? attendance = (await moodle.GetCourseContents(currentLesson.Id, new() { { GetCourseContentsOption.ModName, "attendance" } }))
-                .FirstOrDefault()?
-                .Modules
-                .FirstOrDefault();
-            if (attendance == null)
-            {
-                await Shell.Current.DisplayAlert(LN.SomethingWentWrong, "Lesson doesn't have an attendance module", LN.Ok);
-                return;
-            }
-
-            await Browser.OpenAsync(attendance.Url);
-
-            static async Task<FullCourse?> GetMoodleCourse(MoodleRepository moodle, Lesson lesson)
-            {
-                List<FullCourse> courses = await moodle.GetEnrolledCourses();
-                FullCourse? course = courses.Find(lesson).FirstOrDefault();
-
-                return course;
-            }
+            await Browser.OpenAsync(attendanceUrl);
         }
     }
 }

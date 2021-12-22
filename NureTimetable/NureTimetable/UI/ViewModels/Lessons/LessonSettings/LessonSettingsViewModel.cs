@@ -52,7 +52,7 @@ namespace NureTimetable.UI.ViewModels
             {
                 if (saveOnExit)
                 {
-                    await EventsRepository.UpdateLessonsInfo(timetable.Entity, timetable.LessonsInfo);
+                    await EventsRepository.UpdateLessonsInfo(timetable);
                 }
                 await Shell.Current.GoToAsync("..", true);
             });

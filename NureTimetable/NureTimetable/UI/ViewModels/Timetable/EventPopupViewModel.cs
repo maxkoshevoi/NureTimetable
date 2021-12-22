@@ -33,10 +33,14 @@ namespace NureTimetable.UI.ViewModels
         {
             Event = ev;
             TimetablePage = timetablePage;
-            LessonInfo = timetables.LessonsInfo.FirstOrDefault(li => li.Lesson == ev.Lesson) ?? new(ev.Lesson);
             if (timetables.Timetables.Count == 1)
             {
                 Timetable = timetables.Timetables.Single();
+                LessonInfo = Timetable.GetAndAddLessonsInfo(ev.Lesson);
+            }
+            else
+            {
+                LessonInfo = new(ev.Lesson);
             }
 
             EventNumber = timetables.Events

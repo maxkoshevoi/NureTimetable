@@ -47,16 +47,18 @@ namespace NureTimetable.DAL.Cist
         }
 
         #region Lesson Info
+        public static Task UpdateLessonsInfo(Local::TimetableInfo timetable) => UpdateLessonsInfo(timetable.Entity, timetable.LessonsInfo);
+
         public static async Task UpdateLessonsInfo(Local::Entity entity, List<Local::LessonInfo> lessonsInfo)
         {
-            Local::TimetableInfo? timetable = await GetTimetableLocalAsync(entity);
-            if (timetable == null)
+            Local::TimetableInfo? upToDateTimetable = await GetTimetableLocalAsync(entity);
+            if (upToDateTimetable == null)
             {
                 return;
             }
 
-            timetable.LessonsInfo = lessonsInfo;
-            await UpdateTimetableLocalAsync(timetable);
+            upToDateTimetable.LessonsInfo = lessonsInfo;
+            await UpdateTimetableLocalAsync(upToDateTimetable);
             MessagingCenter.Send(Application.Current, MessageTypes.LessonSettingsChanged, entity);
         }
         #endregion

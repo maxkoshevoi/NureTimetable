@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NureTimetable.DAL.Cist.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -22,6 +23,18 @@ namespace NureTimetable.DAL.Models
         public TimetableInfo(Entity entity)
         {
             Entity = entity ?? throw new ArgumentNullException(nameof(entity));
+        }
+
+        public LessonInfo GetAndAddLessonsInfo(Lesson lesson)
+        {
+            var lessonInfo = LessonsInfo.SingleOrDefault(i => i.Lesson == lesson);
+            if (lessonInfo == null)
+            {
+                lessonInfo = new(lesson);
+                LessonsInfo.Add(lessonInfo);
+            }
+
+            return lessonInfo;
         }
 
         public void ApplyLessonSettings()

@@ -15,21 +15,6 @@ namespace NureTimetable.DAL.Models
             init => events = value.ToList();
         }
 
-        /// <summary>
-        /// Gets all available lesson infos (some lessons might not have one).
-        /// </summary>
-        public List<LessonInfo> LessonsInfo
-        {
-            get
-            {
-                if (Timetables.Count == 1)
-                {
-                    return Timetables.Single().LessonsInfo;
-                }
-                return new();
-            }
-        }
-
         private TimetableInfoList(IReadOnlyList<TimetableInfo> timetables, IReadOnlyList<Event> events) =>
             (Timetables, Events) = (timetables, events);
 

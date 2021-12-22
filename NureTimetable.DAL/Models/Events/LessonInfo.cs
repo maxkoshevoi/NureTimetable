@@ -13,6 +13,8 @@ namespace NureTimetable.DAL.Models
 
         public string? Notes { get; set; }
 
+        public DlNureLessonInfo DlNureInfo { get; set; } = new();
+
         public LessonSettings Settings { get; set; } = new();
     }
 }
