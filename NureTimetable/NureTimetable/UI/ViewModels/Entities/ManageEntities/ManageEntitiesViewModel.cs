@@ -1,4 +1,5 @@
 ﻿using NureTimetable.BL;
+using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Consts;
 using NureTimetable.DAL.Cist;
@@ -125,7 +126,7 @@ namespace NureTimetable.UI.ViewModels
                 savedEntity.IsSelected = entity.IsSelected;
 
                 // User cannot deselect last selected entity
-                if (!savedEntity.IsSelected && !currentSaved.Any(e => e.IsSelected) && Entities.Any(e => e.SavedEntity == entity))
+                if (!savedEntity.IsSelected && currentSaved.None(e => e.IsSelected) && Entities.Any(e => e.SavedEntity == entity))
                 {
                     savedEntity.IsSelected = true;
                     return;

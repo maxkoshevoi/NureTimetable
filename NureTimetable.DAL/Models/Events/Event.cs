@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NureTimetable.Core.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -32,8 +33,8 @@ namespace NureTimetable.DAL.Models
                     Start == e.Start &&
                     RoomName == e.RoomName &&
                     Lesson.Equals(e.Lesson) &&
-                    Teachers.Count == e.Teachers.Count && !Teachers.Except(e.Teachers).Any() &&
-                    Groups.Count == e.Groups.Count && !Groups.Except(e.Groups).Any();
+                    Teachers.Count == e.Teachers.Count && Teachers.Except(e.Teachers).None() &&
+                    Groups.Count == e.Groups.Count && Groups.Except(e.Groups).None();
             }
             return false;
         }

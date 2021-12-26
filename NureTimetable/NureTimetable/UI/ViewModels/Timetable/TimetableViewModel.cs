@@ -379,7 +379,7 @@ namespace NureTimetable.UI.ViewModels
 
         private async Task UpdateEvents(List<Entity> selectedEntities)
         {
-            if (selectedEntities == null || !selectedEntities.Any())
+            if (selectedEntities == null || selectedEntities.None())
             {
                 Title = new(() => LN.AppName);
                 TimetableInfoList = TimetableInfoList.Empty;

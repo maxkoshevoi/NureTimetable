@@ -1,13 +1,22 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace NureTimetable.Core.Extensions
 {
-    public static class IEnumerableExtensions
+    public static class EnumerableExtensions
     {
+        /// <summary>
+        /// Determines whether a sequence is empty.
+        /// </summary>
+        public static bool None<T>(this IEnumerable<T> source) => !source.Any();
+
+        /// <summary>
+        /// Determines whether no element of a sequence satisfies a condition.
+        /// </summary>
+        public static bool None<T>(this IEnumerable<T> source, Func<T, bool> predicate) => !source.Any(predicate);
+
         /// <summary>
         /// Returns all distinct elements of the given source, where "distinctness"
         /// is determined via a projection and the default equality comparer for the projected type.
