@@ -1,6 +1,7 @@
 ﻿using Flurl;
 using Flurl.Http;
 using Newtonsoft.Json;
+using NureTimetable.Core.Extensions;
 using NureTimetable.DAL.Moodle.Consts;
 using NureTimetable.DAL.Moodle.Models;
 using NureTimetable.DAL.Moodle.Models.Auth;
@@ -131,7 +132,7 @@ public class MoodleRepository
             throw new InvalidOperationException($"Call {nameof(AuthenticateAsync)} or set {nameof(User)} before making this request.");
         }
 
-        string result = await url.GetStringAsync();
+        string result = await url.ToUri().GetStringOrWebExceptionAsync();
 
         try
         {

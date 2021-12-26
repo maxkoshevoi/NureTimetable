@@ -8,7 +8,6 @@ using NureTimetable.DAL.Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Cist = NureTimetable.DAL.Cist.Models;
@@ -85,9 +84,8 @@ namespace NureTimetable.DAL.Cist
                 // Getting events
                 Local::TimetableInfo timetable = await GetTimetableLocalAsync(entity) ?? new(entity);
 
-                using HttpClient client = new();
                 Uri uri = Urls.CistApiEntityTimetable(entity.Type, entity.ID, dateStart, dateEnd);
-                string responseStr = await client.GetStringOrWebExceptionAsync(uri);
+                string responseStr = await uri.GetStringOrWebExceptionAsync();
                 responseStr = responseStr.Replace("&amp;", "&");
                 responseStr = responseStr.Replace("\"events\":[\n]}]", "\"events\": []");
                 Cist::Timetable cistTimetable = CistHelper.FromJson<Cist::Timetable>(responseStr);

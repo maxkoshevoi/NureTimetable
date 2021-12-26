@@ -13,7 +13,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
@@ -240,8 +239,7 @@ namespace NureTimetable.DAL.Cist
                 { "Hour of the day", DateTime.Now.Hour.ToString() }
             });
 
-            using HttpClient client = new();
-            string responseStr = await client.GetStringOrWebExceptionAsync(Urls.CistApiAllGroups);
+            string responseStr = await Urls.CistApiAllGroups.GetStringOrWebExceptionAsync();
             Cist::University newUniversity = CistHelper.FromJson<Cist::UniversityRootObject>(responseStr).University;
 
             return newUniversity.Faculties;
@@ -255,8 +253,7 @@ namespace NureTimetable.DAL.Cist
                 { "Hour of the day", DateTime.Now.Hour.ToString() }
             });
 
-            using HttpClient client = new();
-            string responseStr = await client.GetStringOrWebExceptionAsync(Urls.CistApiAllTeachers);
+            string responseStr = await Urls.CistApiAllTeachers.GetStringOrWebExceptionAsync();
             Cist::University newUniversity = CistHelper.FromJson<Cist::UniversityRootObject>(responseStr).University;
 
             return newUniversity.Faculties;
@@ -270,8 +267,7 @@ namespace NureTimetable.DAL.Cist
                 { "Hour of the day", DateTime.Now.Hour.ToString() }
             });
 
-            using HttpClient client = new();
-            string responseStr = await client.GetStringOrWebExceptionAsync(Urls.CistApiAllRooms);
+            string responseStr = await Urls.CistApiAllRooms.GetStringOrWebExceptionAsync();
             responseStr = responseStr.Replace("\n", "").Replace("[}]", "[]");
             Cist::University newUniversity = CistHelper.FromJson<Cist::UniversityRootObject>(responseStr).University;
 
@@ -289,11 +285,10 @@ namespace NureTimetable.DAL.Cist
             });
 
             List<Cist::Faculty> faculties = new();
-            using HttpClient client = new();
 
             // Getting branches
             Uri uri = Urls.CistSiteAllGroups(null);
-            string branchesListPage = await client.GetStringOrWebExceptionAsync(uri);
+            string branchesListPage = await uri.GetStringOrWebExceptionAsync();
             foreach (string part in branchesListPage.Split(new[] { "IAS_Change_Groups(" }, StringSplitOptions.RemoveEmptyEntries).Skip(1))
             {
                 string branchIdStr = part.Remove(part.IndexOf(')'));
@@ -315,7 +310,7 @@ namespace NureTimetable.DAL.Cist
                 faculty.Directions = new List<Cist::Direction> { new Cist::Direction() };
 
                 uri = Urls.CistSiteAllGroups(faculty.Id);
-                string branchGroupsPage = await client.GetStringOrWebExceptionAsync(uri);
+                string branchGroupsPage = await uri.GetStringOrWebExceptionAsync();
                 foreach (string part in branchGroupsPage.Split(new[] { "IAS_ADD_Group_in_List(" }, StringSplitOptions.RemoveEmptyEntries).Skip(1))
                 {
                     string[] groupInfo = part
@@ -350,9 +345,7 @@ namespace NureTimetable.DAL.Cist
             List<Cist::Faculty> faculties = new();
 
             // Getting faculties
-            using HttpClient client = new();
-            Uri uri = Urls.CistSiteAllTeachers();
-            string facultyListPage = await client.GetStringOrWebExceptionAsync(uri);
+            string facultyListPage = await Urls.CistSiteAllTeachers().GetStringOrWebExceptionAsync();
             foreach (string part in facultyListPage.Split(new[] { "IAS_Change_Kaf(" }, StringSplitOptions.RemoveEmptyEntries).Skip(1))
             {
                 string facultyIdStr = part.Remove(part.IndexOf(','));
@@ -377,9 +370,7 @@ namespace NureTimetable.DAL.Cist
             List<Cist::Department> departments = new();
 
             // Getting departments
-            using HttpClient client = new();
-            Uri uri = Urls.CistSiteAllTeachers(facultyId);
-            string facultyPage = await client.GetStringOrWebExceptionAsync(uri);
+            string facultyPage = await Urls.CistSiteAllTeachers(facultyId).GetStringOrWebExceptionAsync();
 
             foreach (string part in facultyPage.Split(new[] { $"IAS_Change_Kaf({facultyId}," }, StringSplitOptions.RemoveEmptyEntries).Skip(1))
             {
@@ -406,8 +397,7 @@ namespace NureTimetable.DAL.Cist
 
             // Getting teachers
             Uri uri = Urls.CistSiteAllTeachers(facultyId, departmentId);
-            using HttpClient client = new();
-            string branchGroupsPage = await client.GetStringOrWebExceptionAsync(uri);
+            string branchGroupsPage = await uri.GetStringOrWebExceptionAsync();
             foreach (string part in branchGroupsPage.Split(new[] { "IAS_ADD_Teach_in_List(" }, StringSplitOptions.RemoveEmptyEntries).Skip(1))
             {
                 string[] teacherInfo = part
