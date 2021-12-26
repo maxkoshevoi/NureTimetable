@@ -1,13 +1,10 @@
-﻿using NureTimetable.BL.Extensions;
+﻿using NureTimetable.BL;
 using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Localization;
 using NureTimetable.DAL.Cist;
 using NureTimetable.DAL.Models;
-using NureTimetable.DAL.Moodle;
-using NureTimetable.DAL.Moodle.Models.Courses;
 using NureTimetable.DAL.Settings;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Extensions;
@@ -88,21 +85,16 @@ namespace NureTimetable.UI.ViewModels
                 return;
             }
 
-            List<Lesson> enrolledLessons = await GetEnrolledLessonsAsync(Lessons.Select(l => l.LessonInfo.Lesson));
+            TimetableInfo? timetable = await EventsRepository.GetTimetableLocalAsync(entity);
+            var lessonInfos = await DlNureService.UpdateLessonIdsAsync(timetable!);
+
             foreach (var lesson in Lessons)
             {
-                if (!enrolledLessons.Contains(lesson.LessonInfo.Lesson))
+                var lessonInfo = lessonInfos.FirstOrDefault(li => li.Lesson == lesson.LessonInfo.Lesson);
+                if (lessonInfo?.DlNureInfo.LessonId == null)
                 {
                     lesson.IsChecked = false;
                 }
-            }
-
-            static async Task<List<Lesson>> GetEnrolledLessonsAsync(IEnumerable<Lesson> lessons)
-            {
-                List<FullCourse> courses = await new MoodleRepository().GetEnrolledCourses();
-                List<Lesson> matchedLessons = lessons.Where(l => courses.Find(l).Any()).ToList();
-
-                return matchedLessons;
             }
         }
 

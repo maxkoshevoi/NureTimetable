@@ -15,10 +15,11 @@ namespace NureTimetable.BL;
 
 public static class DlNureService
 {
+    /// <param name="timetable">Used to save results</param>
     public static async ValueTask<Url?> GetAttendanceUrlAsync(Lesson lesson, TimetableInfo? timetable = null)
     {
-        var lessonInfo = timetable?.GetAndAddLessonsInfo(lesson) ?? new(lesson);
-        if (lessonInfo.DlNureInfo.AttendanceUrl != null)
+        var lessonInfo = timetable?.GetAndAddLessonsInfo(lesson);
+        if (lessonInfo?.DlNureInfo.AttendanceUrl != null)
         {
             return lessonInfo.DlNureInfo.AttendanceUrl;
         }
@@ -41,36 +42,57 @@ public static class DlNureService
             return null;
         }
 
-        lessonInfo.DlNureInfo.AttendanceUrl = new Uri(attendance.Url);
+        Uri attendanceUrl = new(attendance.Url);
         if (timetable != null)
         {
+            lessonInfo!.DlNureInfo.AttendanceUrl = attendanceUrl;
             await EventsRepository.UpdateLessonsInfo(timetable);
         }
 
-        return lessonInfo.DlNureInfo.AttendanceUrl;
+        return attendanceUrl;
     }
 
+    /// <param name="timetable">Used to save results</param>
     public static async ValueTask<int?> GetLessonIdAsync(Lesson lesson, TimetableInfo? timetable = null)
     {
-        var lessonInfo = timetable?.GetAndAddLessonsInfo(lesson) ?? new(lesson);
-        if (lessonInfo.DlNureInfo.LessonId != null)
+        if (timetable == null)
         {
-            return lessonInfo.DlNureInfo.LessonId;
+            List<FullCourse> courses = await new MoodleRepository().GetEnrolledCourses();
+            FullCourse? course = courses.Find(lesson).FirstOrDefault();
+            return course?.Id;
+        }
+        else
+        {
+            var lessonInfos = await UpdateLessonIdsAsync(timetable);
+            return lessonInfos.FirstOrDefault(li => li.Lesson == lesson)?.DlNureInfo.LessonId;
+        }
+    }
+
+    public static async Task<List<LessonInfo>> UpdateLessonIdsAsync(TimetableInfo timetable)
+    {
+        List<Lesson> lessons = timetable.Lessons().ToList();
+        bool areAllIdsPresent = lessons
+            .Select(l => timetable.GetAndAddLessonsInfo(l))
+            .All(li => li.DlNureInfo.LessonId != null);
+        if (areAllIdsPresent)
+        {
+            return timetable.LessonsInfo;
         }
 
         List<FullCourse> courses = await new MoodleRepository().GetEnrolledCourses();
-        FullCourse? course = courses.Find(lesson).FirstOrDefault();
-        if (course == null)
+        foreach (var lesson in lessons)
         {
-            return null;
+            var lessonInfo = timetable.GetAndAddLessonsInfo(lesson);
+            if (lessonInfo.DlNureInfo.LessonId != null)
+            {
+                continue;
+            }
+
+            lessonInfo.DlNureInfo.LessonId = courses.Find(lesson).FirstOrDefault()?.Id;
         }
 
-        lessonInfo.DlNureInfo.LessonId = course.Id;
-        if (timetable != null)
-        {
-            await EventsRepository.UpdateLessonsInfo(timetable);
-        }
+        await EventsRepository.UpdateLessonsInfo(timetable);
 
-        return lessonInfo.DlNureInfo.LessonId;
+        return timetable.LessonsInfo;
     }
 }
