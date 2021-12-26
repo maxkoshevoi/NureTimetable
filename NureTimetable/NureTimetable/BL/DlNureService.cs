@@ -1,6 +1,6 @@
 ﻿using Flurl;
-using NureTimetable.BL.Extensions;
 using NureTimetable.Core.BL;
+using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Localization;
 using NureTimetable.DAL.Cist;
 using NureTimetable.DAL.Models;
@@ -130,5 +130,38 @@ public static class DlNureService
             ExceptionService.LogException(ex);
             return timetable.LessonsInfo;
         }
+    }
+
+
+    private static List<FullCourse> Find(this IEnumerable<FullCourse> courses, Lesson lesson)
+    {
+        string simplifiedFullName = lesson.FullName.Simplify();
+        List<FullCourse> matchedCourses = courses
+            .Where(c => c.ShortName.Contains($":{lesson.ShortName}:") || simplifiedFullName.StartsWith(c.FullName.Simplify()))
+            .ToList();
+
+        if (matchedCourses.Count > 1)
+        {
+            List<FullCourse> ongoingCourses = matchedCourses.Where(c => c.StartDateUtc <= DateTime.UtcNow && c.EndDateUtc > DateTime.UtcNow).ToList();
+            if (ongoingCourses.Any())
+            {
+                matchedCourses = ongoingCourses;
+
+                if (matchedCourses.Count > 1)
+                {
+                    InvalidOperationException ex = new("Found multiple moodle courses")
+                    {
+                        Data = { { "Lesson", $"{lesson.FullName} ({lesson.ShortName})" } }
+                    };
+                    for (int i = 0; i < matchedCourses.Count; i++)
+                    {
+                        ex.Data.Add($"Course {i}", $"{matchedCourses[i].FullName} ({matchedCourses[i].ShortName})");
+                    }
+                    ExceptionService.LogException(ex);
+                }
+            }
+        }
+
+        return matchedCourses;
     }
 }
