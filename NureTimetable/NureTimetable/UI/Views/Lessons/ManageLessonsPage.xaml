@@ -26,7 +26,8 @@
             <ListView x:Name="LessonsList"
                     ItemsSource="{Binding Lessons}"
                     ItemTapped="Handle_ItemTapped"
-                    CachingStrategy="RecycleElement">
+                    CachingStrategy="RecycleElement"
+                    HasUnevenRows="True">
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="vm:LessonViewModel">
                         <ViewCell>
@@ -35,7 +36,15 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <Label Grid.Column="0" Text="{Binding LessonInfo.Lesson.ShortName}" VerticalTextAlignment="Center" />
+                                <StackLayout Grid.Column="0" Margin="0,5" Opacity="{Binding HasUpcomingEvents, Converter={xct:BoolToObjectConverter TrueObject=1, FalseObject=0.5}}">
+                                    <Label LineBreakMode="TailTruncation" Style="{DynamicResource ListItemTextStyle}">
+                                        <MultiBinding StringFormat="{}{0} ({1})">
+                                            <Binding Path="LessonInfo.Lesson.ShortName" />
+                                            <Binding Path="MainTeacherNames" />
+                                        </MultiBinding>
+                                    </Label>
+                                    <Label Text="{Binding LessonInfo.Lesson.FullName}" LineBreakMode="TailTruncation" FontSize="13" Style="{DynamicResource ListItemDetailTextStyle}" />
+                                </StackLayout>
                                 <StackLayout Grid.Column="1" Orientation="Horizontal" Spacing="8">
                                     <Image xct:TouchEffect.Command="{Binding InfoClickedCommand}" Source="{FontImageSource Glyph={Static fonts:MaterialIconsFont.InformationOutline}, FontFamily={StaticResource MaterialFontFamily}, Color={DynamicResource ListIconColor}}" VerticalOptions="CenterAndExpand" xct:TouchEffect.NativeAnimation="True" xct:TouchEffect.NativeAnimationRadius="15" />
                                     <Image xct:TouchEffect.Command="{Binding SettingsClickedCommand}" Source="{FontImageSource Glyph={Static fonts:MaterialIconsFont.Cog}, FontFamily={StaticResource MaterialFontFamily}, Color={DynamicResource ListIconColor}}" VerticalOptions="CenterAndExpand" xct:TouchEffect.NativeAnimation="True" xct:TouchEffect.NativeAnimationRadius="15" />

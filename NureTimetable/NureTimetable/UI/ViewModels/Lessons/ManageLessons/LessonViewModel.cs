@@ -1,6 +1,7 @@
 ﻿using NureTimetable.Core.Models.Consts;
 using NureTimetable.DAL.Models;
 using NureTimetable.UI.Views;
+using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
@@ -15,6 +16,10 @@ namespace NureTimetable.UI.ViewModels
         #region Properties
         private LessonInfo _lessonInfo;
         public LessonInfo LessonInfo { get => _lessonInfo; set { _lessonInfo = value; OnPropertyChanged(nameof(IsChecked)); } }
+
+        public bool HasUpcomingEvents { get; }
+
+        public string MainTeacherNames { get; } = "-";
 
         public bool? IsChecked 
         { 
@@ -34,9 +39,18 @@ namespace NureTimetable.UI.ViewModels
         public IAsyncCommand InfoClickedCommand { get; }
         #endregion
 
-        public LessonViewModel(LessonInfo lessonInfo, TimetableInfo timetableInfo, ManageLessonsViewModel manageLessonsViewModel)
+        public LessonViewModel(LessonInfo lessonInfo, bool hasUpcomingEvents, TimetableInfo timetableInfo, ManageLessonsViewModel manageLessonsViewModel)
         {
             this._lessonInfo = lessonInfo;
+            this.HasUpcomingEvents = hasUpcomingEvents;
+            var mainTeachers = timetableInfo
+                .Events.FirstOrDefault(e => e.Lesson == LessonInfo.Lesson && e.Type.EnglishBaseName == "lecture")?
+                .Teachers.Select(t => t.ShortName);
+            if (mainTeachers != null)
+            {
+                this.MainTeacherNames = string.Join(", ", mainTeachers);
+            }
+
             this.timetableInfo = timetableInfo;
             this.manageLessonsViewModel = manageLessonsViewModel;
 

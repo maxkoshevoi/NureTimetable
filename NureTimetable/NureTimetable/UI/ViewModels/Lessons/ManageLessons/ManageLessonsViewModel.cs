@@ -62,9 +62,9 @@ namespace NureTimetable.UI.ViewModels
             (
                 timetable.Lessons()
                     .Select(lesson => timetable.GetAndAddLessonsInfo(lesson))
-                    .Where(lessonInfo => timetable.Events.Where(e => e.Start >= DateTime.Today).Any(e => e.Lesson == lessonInfo.Lesson))
-                    .OrderBy(lessonInfo => lessonInfo.Lesson.ShortName)
-                    .Select(lessonInfo => new LessonViewModel(lessonInfo, timetable, this))
+                    .Select(lessonInfo => (lessonInfo, hasUpcomingEvents: timetable.Events.Where(e => e.Start >= DateTime.Today).Any(e => e.Lesson == lessonInfo.Lesson)))
+                    .OrderByDescending(model => model.hasUpcomingEvents).ThenBy(model => model.lessonInfo.Lesson.ShortName)
+                    .Select(model => new LessonViewModel(model.lessonInfo, model.hasUpcomingEvents, timetable, this))
             );
         }
 
