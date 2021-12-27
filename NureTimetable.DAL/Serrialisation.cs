@@ -129,7 +129,7 @@ namespace NureTimetable.DAL
 
             public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
             {
-                writer.WriteRawValue(((DateTime)value! - DateTime.UnixEpoch).TotalSeconds.ToString());
+                throw new NotImplementedException();
             }
         }
 
