@@ -116,6 +116,23 @@ namespace NureTimetable.DAL
         }
 
         #region Converters
+        internal class UnixDateTimeConverter : DateTimeConverterBase
+        {
+            public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
+            {
+                if (reader.TokenType == JsonToken.Null)
+                {
+                    return null;
+                }
+                return DateTime.UnixEpoch.AddSeconds((long)reader.Value!);
+            }
+
+            public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
+            {
+                writer.WriteRawValue(((DateTime)value! - DateTime.UnixEpoch).TotalSeconds.ToString());
+            }
+        }
+
         internal class StringBoolConverter : JsonConverter
         {
             private readonly Dictionary<string, bool> replacementValues = new() { { "1", true }, { "0", false } };
