@@ -5,7 +5,4 @@
   <assembly fullname="Xamarin.AndroidX.AppCompat">
     <type fullname="AndroidX.AppCompat.Widget.FitWindowsLinearLayout" />
   </assembly>
-  <assembly fullname="Newtonsoft.Json">
-    <type fullname="Newtonsoft.Json.Converters.UnixDateTimeConverter" />
-  </assembly>
 </linker>
