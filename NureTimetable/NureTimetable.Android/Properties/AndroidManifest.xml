@@ -4,8 +4,7 @@
   <uses-permission android:name="android.permission.WRITE_CALENDAR" />
   <uses-permission android:name="android.permission.READ_CALENDAR" />
   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-  <application android:label="Nure Timetable" android:icon="@mipmap/icon">
-  </application>
+  <application android:label="Nure Timetable" android:icon="@mipmap/icon"></application>
   <queries>
     <intent>
       <action android:name="android.intent.action.VIEW" />

@@ -132,7 +132,6 @@ public static class DlNureService
         }
     }
 
-
     private static List<FullCourse> Find(this IEnumerable<FullCourse> courses, Lesson lesson)
     {
         string simplifiedFullName = lesson.FullName.Simplify();
