@@ -1,10 +1,12 @@
-﻿using NureTimetable.BL;
+﻿using Microsoft.AppCenter.Analytics;
+using NureTimetable.BL;
 using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Localization;
 using NureTimetable.DAL.Cist;
 using NureTimetable.DAL.Models;
 using NureTimetable.DAL.Settings;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Extensions;
@@ -84,6 +86,8 @@ namespace NureTimetable.UI.ViewModels
             {
                 return;
             }
+
+            Analytics.TrackEvent("Moodle: Sync lessons");
 
             TimetableInfo? timetable = await EventsRepository.GetTimetableLocalAsync(entity);
             var lessonInfos = await DlNureService.UpdateLessonIdsAsync(timetable!);

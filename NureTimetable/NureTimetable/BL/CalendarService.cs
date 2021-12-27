@@ -143,7 +143,7 @@ namespace NureTimetable.BL
                 return false;
             }
 
-            Analytics.TrackEvent("Add To Calendar");
+            Analytics.TrackEvent("Add to calendar");
 
             static string? GetUniqueNamePart(string? n)
             {

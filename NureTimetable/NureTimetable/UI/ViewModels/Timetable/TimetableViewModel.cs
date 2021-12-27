@@ -1,4 +1,5 @@
-﻿using NureTimetable.BL;
+﻿using Microsoft.AppCenter.Analytics;
+using NureTimetable.BL;
 using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Consts;
@@ -551,6 +552,8 @@ namespace NureTimetable.UI.ViewModels
 
         private async Task OpenAttendancePage()
         {
+            Analytics.TrackEvent("Moodle: Open attendance");
+
             var currentEvent = TimetableInfoList.CurrentEvent() ?? TimetableInfoList.NextEvent();
             if (currentEvent == null)
             {
