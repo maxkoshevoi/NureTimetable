@@ -34,14 +34,24 @@ namespace NureTimetable
 
         private static void InitSettingsAnalytics()
         {
+            string[] excludeFromLogging = 
+            { 
+                nameof(AppSettings.LastCistAllEntitiesUpdate)
+            };
+
             SettingsRepository.Settings.PropertyChanged += (_, e) =>
             {
-                Analytics.TrackEvent($"Setting changed: {e.PropertyName}", new Dictionary<string, string>
+                if (excludeFromLogging.Contains(e.PropertyName))
+                {
+                    return;
+                }
+
+                Analytics.TrackEvent($"Setting changed: {e.PropertyName}", new Dictionary<string, string?>
                 {
                     { "New Value", SettingsRepository.Settings
                         .GetType()
-                        .GetProperty(e.PropertyName)
-                        .GetValue(SettingsRepository.Settings)
+                        .GetProperty(e.PropertyName)?
+                        .GetValue(SettingsRepository.Settings)?
                         .ToString() }
                 });
             };
