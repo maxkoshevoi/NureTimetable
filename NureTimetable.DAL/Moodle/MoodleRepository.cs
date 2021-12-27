@@ -1,5 +1,6 @@
 ﻿using Flurl;
 using Flurl.Http;
+using Microsoft.AppCenter.Analytics;
 using Newtonsoft.Json;
 using NureTimetable.Core.Extensions;
 using NureTimetable.DAL.Moodle.Consts;
@@ -13,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace NureTimetable.DAL.Moodle;
@@ -125,8 +127,14 @@ public class MoodleRepository
     private Url SetFunction(string name) => baseWebServiceUrl.SetQueryParam("wsfunction", name);
 
     /// <exception cref="InvalidOperationException"></exception>
-    private async Task<T> ExecuteActionAsync<T>(Url url, bool allowAnonymous = false)
+    private async Task<T> ExecuteActionAsync<T>(Url url, bool allowAnonymous = false, [CallerMemberName] string method = "")
     {
+        Analytics.TrackEvent("Moodle request", new Dictionary<string, string>
+        {
+            { "Type", "GetTimetable" },
+            { "Subtype", method }
+        });
+
         if (!allowAnonymous && !url.QueryParams.Contains("wstoken"))
         {
             throw new InvalidOperationException($"Call {nameof(AuthenticateAsync)} or set {nameof(User)} before making this request.");

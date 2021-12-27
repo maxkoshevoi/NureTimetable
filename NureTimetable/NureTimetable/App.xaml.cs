@@ -24,6 +24,9 @@ namespace NureTimetable
             SyncfusionLicenseProvider.RegisterLicense(Keys.SyncfusionLicenseKey);
             InitLanguage();
             VersionTracking.Track();
+#if DEBUG
+            SettingsRepository.Settings.IsDebugMode = true;
+#endif
 
             InitializeComponent();
             MainPage = new AppShell();
