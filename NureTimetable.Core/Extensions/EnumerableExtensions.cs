@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,6 +17,17 @@ namespace NureTimetable.Core.Extensions
         /// Determines whether no element of a sequence satisfies a condition.
         /// </summary>
         public static bool None<T>(this IEnumerable<T> source, Func<T, bool> predicate) => !source.Any(predicate);
+
+        public static bool TryAdd(this IDictionary dictionary, object key, object value)
+        {
+            if (dictionary.Contains(key))
+            {
+                return false;
+            }
+
+            dictionary.Add(key, value);
+            return true;
+        }
 
         /// <summary>
         /// Returns all distinct elements of the given source, where "distinctness"

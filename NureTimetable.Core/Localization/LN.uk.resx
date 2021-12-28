@@ -511,4 +511,7 @@
   <data name="SyncDlNureLessonsMessage" xml:space="preserve">
     <value>Приховати уроки, яких немає на dl.nure.ua?</value>
   </data>
+  <data name="DlNureLessonId" xml:space="preserve">
+    <value>Id предмета на DL Nure:</value>
+  </data>
 </root>

@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Nito.AsyncEx;
 using NureTimetable.Core.BL;
+using NureTimetable.Core.Extensions;
 using NureTimetable.DAL.Cist;
 using System;
 using System.Collections.Generic;
@@ -102,8 +103,8 @@ namespace NureTimetable.DAL
 
             static void EnrichException(string json, Exception ex)
             {
-                ex.Data.Add("Type", typeof(T).FullName);
-                ex.Data.Add("Json", ErrorAttachmentLog.AttachmentWithText(json, "Json.json"));
+                ex.Data.TryAdd("Type", typeof(T).FullName);
+                ex.Data.TryAdd("Json", ErrorAttachmentLog.AttachmentWithText(json, "Json.json"));
             }
         }
 

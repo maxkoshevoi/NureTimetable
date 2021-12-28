@@ -336,6 +336,15 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to DL Nure lesson Id:.
+        /// </summary>
+        public static string DlNureLessonId {
+            get {
+                return ResourceManager.GetString("DlNureLessonId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Logged in as: {0} ({1}).
         /// </summary>
         public static string DlNureLoggedIn {
