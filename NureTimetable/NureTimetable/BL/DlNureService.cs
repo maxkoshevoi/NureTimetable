@@ -10,28 +10,26 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Xamarin.Forms;
 
 namespace NureTimetable.BL;
 
 public static class DlNureService
 {
     /// <param name="timetable">Used to save results</param>
-    public static async ValueTask<Url?> GetAttendanceUrlAsync(Lesson lesson, TimetableInfo? timetable = null)
+    public static async ValueTask<(Url? attendanceUrl, string? errorMessage)> GetAttendanceUrlAsync(Lesson lesson, TimetableInfo? timetable = null)
     {
         try
         {
             var lessonInfo = timetable?.GetAndAddLessonsInfo(lesson);
             if (lessonInfo?.DlNureInfo.AttendanceUrl != null)
             {
-                return lessonInfo.DlNureInfo.AttendanceUrl;
+                return (lessonInfo.DlNureInfo.AttendanceUrl, null);
             }
 
             int? lessonId = await GetLessonIdAsync(lesson, timetable);
             if (lessonId == null)
             {
-                await Shell.Current.DisplayAlert(LN.SomethingWentWrong, LN.LessonNotFound, LN.Ok);
-                return null;
+                return (null, LN.LessonNotFound);
             }
 
             CourseModule? attendance = (await new MoodleRepository()
@@ -41,8 +39,7 @@ public static class DlNureService
                 .FirstOrDefault();
             if (attendance == null)
             {
-                await Shell.Current.DisplayAlert(LN.SomethingWentWrong, LN.NoAttendanceModule, LN.Ok);
-                return null;
+                return (null, LN.NoAttendanceModule);
             }
 
             Uri attendanceUrl = new(attendance.Url);
@@ -52,13 +49,13 @@ public static class DlNureService
                 await EventsRepository.UpdateLessonsInfo(timetable);
             }
 
-            return attendanceUrl;
+            return (attendanceUrl, null);
         }
         catch (Exception ex)
         {
             EnrichException(ex, timetable?.Entity, lesson);
             ExceptionService.LogException(ex);
-            return null;
+            return (null, ex.Message);
         }
     }
 

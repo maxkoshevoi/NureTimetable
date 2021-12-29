@@ -503,7 +503,7 @@
     <value>Пароль</value>
   </data>
   <data name="DlNureEmail" xml:space="preserve">
-    <value>Електронна адреса @nure.ua</value>
+    <value>@nure.ua електронна адреса</value>
   </data>
   <data name="SyncDlNureLessonsTitle" xml:space="preserve">
     <value>Автофільтрація</value>
@@ -518,10 +518,14 @@
     <value>На початку події</value>
   </data>
   <data name="LessonNotFound" xml:space="preserve">
-    <value>Не вдалося знайти урок</value>
+    <value>Не вдалося знайти предмет. Можливо, у вас немає до нього доступу. 
+Спробуйте додати id предмету вручну на сторінці «Управління предметом».</value>
   </data>
   <data name="NoAttendanceModule" xml:space="preserve">
     <value>Урок немає модуля відвідування</value>
+  </data>
+  <data name="OpenAttendance" xml:space="preserve">
+    <value>Відкрити сторінку відвідуваності</value>
   </data>
   <data name="NoUpcomingEvent" xml:space="preserve">
     <value>Не вдалося знайти пару</value>

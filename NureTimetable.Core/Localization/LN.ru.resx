@@ -518,10 +518,14 @@
     <value>В начале пары</value>
   </data>
   <data name="LessonNotFound" xml:space="preserve">
-    <value>Не удалось найти предмет</value>
+    <value>Не удалось найти предмет. Возможно, у вас нет к нему доступа. 
+Попробуйте добавить id предмета вручную на странице «Управление предметом».</value>
   </data>
   <data name="NoAttendanceModule" xml:space="preserve">
     <value>У урока нет модуля посещаемости</value>
+  </data>
+  <data name="OpenAttendance" xml:space="preserve">
+    <value>Открыть страницу посещаемости</value>
   </data>
   <data name="NoUpcomingEvent" xml:space="preserve">
     <value>Не удалось найти пару</value>

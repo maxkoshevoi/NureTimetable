@@ -625,7 +625,8 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unable to find lesson.
+        ///   Looks up a localized string similar to Unable to find lesson. It&apos;s possible, you don&apos;t have access to it. 
+        ///Try adding lesson id manually on &quot;Lesson management&quot; page..
         /// </summary>
         public static string LessonNotFound {
             get {
@@ -766,6 +767,15 @@ namespace NureTimetable.Core.Localization {
         public static string Ok {
             get {
                 return ResourceManager.GetString("Ok", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open attendance page.
+        /// </summary>
+        public static string OpenAttendance {
+            get {
+                return ResourceManager.GetString("OpenAttendance", resourceCulture);
             }
         }
         

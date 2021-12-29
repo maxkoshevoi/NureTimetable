@@ -565,9 +565,10 @@ namespace NureTimetable.UI.ViewModels
             }
 
             var currentTimetable = TimetableInfoList.Timetables.Count == 1 ? TimetableInfoList.Timetables.Single() : null;
-            var attendanceUrl = await DlNureService.GetAttendanceUrlAsync(currentEvent.Lesson, currentTimetable);
+            var (attendanceUrl, errorMessage) = await DlNureService.GetAttendanceUrlAsync(currentEvent.Lesson, currentTimetable);
             if (attendanceUrl == null)
             {
+                await Shell.Current.DisplayAlert(LN.SomethingWentWrong, errorMessage!, LN.Ok);
                 return;
             }
 
