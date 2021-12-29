@@ -30,7 +30,7 @@ public static class DlNureService
             int? lessonId = await GetLessonIdAsync(lesson, timetable);
             if (lessonId == null)
             {
-                await Shell.Current.DisplayAlert(LN.SomethingWentWrong, "Unable to find lesson", LN.Ok);
+                await Shell.Current.DisplayAlert(LN.SomethingWentWrong, LN.LessonNotFound, LN.Ok);
                 return null;
             }
 
@@ -41,7 +41,7 @@ public static class DlNureService
                 .FirstOrDefault();
             if (attendance == null)
             {
-                await Shell.Current.DisplayAlert(LN.SomethingWentWrong, "Lesson doesn't have an attendance module", LN.Ok);
+                await Shell.Current.DisplayAlert(LN.SomethingWentWrong, LN.NoAttendanceModule, LN.Ok);
                 return null;
             }
 
@@ -56,11 +56,7 @@ public static class DlNureService
         }
         catch (Exception ex)
         {
-            ex.Data.Add("Lesson", $"{lesson.FullName} ({lesson.ShortName} - {lesson.ID})");
-            if (timetable != null)
-            {
-                ex.Data.Add("Entity", $"{timetable.Entity.Type} {timetable.Entity.Name} ({timetable.Entity.ID})");
-            }
+            EnrichException(ex, timetable?.Entity, lesson);
             ExceptionService.LogException(ex);
             return null;
         }
@@ -85,11 +81,7 @@ public static class DlNureService
         }
         catch (Exception ex)
         {
-            ex.Data.Add("Lesson", $"{lesson.FullName} ({lesson.ShortName} - {lesson.ID})");
-            if (timetable != null)
-            {
-                ex.Data.Add("Entity", $"{timetable.Entity.Type} {timetable.Entity.Name} ({timetable.Entity.ID})");
-            }
+            EnrichException(ex, timetable?.Entity, lesson);
             ExceptionService.LogException(ex);
             return null;
         }
@@ -126,9 +118,21 @@ public static class DlNureService
         }
         catch (Exception ex)
         {
-            ex.Data.Add("Entity", $"{timetable.Entity.Type} {timetable.Entity.Name} ({timetable.Entity.ID})");
+            EnrichException(ex, timetable.Entity);
             ExceptionService.LogException(ex);
             return timetable.LessonsInfo;
+        }
+    }
+
+    private static void EnrichException(Exception ex, Entity? entity = null, Lesson? lesson = null)
+    {
+        if (lesson != null)
+        {
+            ex.Data.Add("Lesson", $"{lesson.FullName} ({lesson.ShortName} - {lesson.ID})");
+        }
+        if (entity != null)
+        {
+            ex.Data.Add("Entity", $"{entity.Type} {entity.Name} ({entity.ID})");
         }
     }
 

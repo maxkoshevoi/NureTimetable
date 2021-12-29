@@ -560,7 +560,7 @@ namespace NureTimetable.UI.ViewModels
             var currentEvent = TimetableInfoList.CurrentEvent() ?? TimetableInfoList.NextEvent();
             if (currentEvent == null)
             {
-                await Shell.Current.DisplayAlert(LN.SomethingWentWrong, "Unable to find any event", LN.Ok);
+                await Shell.Current.DisplayAlert(LN.SomethingWentWrong, LN.NoUpcomingEvent, LN.Ok);
                 return;
             }
 

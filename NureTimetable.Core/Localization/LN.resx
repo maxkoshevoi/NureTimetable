@@ -517,4 +517,13 @@ Credentials are stored locally.</value>
   <data name="AtTimeOfEvent" xml:space="preserve">
     <value>At time of event</value>
   </data>
+  <data name="LessonNotFound" xml:space="preserve">
+    <value>Unable to find lesson</value>
+  </data>
+  <data name="NoAttendanceModule" xml:space="preserve">
+    <value>Lesson doesn't have an attendance module</value>
+  </data>
+  <data name="NoUpcomingEvent" xml:space="preserve">
+    <value>Unable to find an event</value>
+  </data>
 </root>

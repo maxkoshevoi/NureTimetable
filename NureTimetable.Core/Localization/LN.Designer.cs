@@ -625,6 +625,15 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to find lesson.
+        /// </summary>
+        public static string LessonNotFound {
+            get {
+                return ResourceManager.GetString("LessonNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lessons.
         /// </summary>
         public static string Lessons {
@@ -697,6 +706,15 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lesson doesn&apos;t have an attendance module.
+        /// </summary>
+        public static string NoAttendanceModule {
+            get {
+                return ResourceManager.GetString("NoAttendanceModule", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You have no saved timetable..
         /// </summary>
         public static string NoSavedTimetables {
@@ -730,6 +748,15 @@ namespace NureTimetable.Core.Localization {
         public static string NoUniversityInfo {
             get {
                 return ResourceManager.GetString("NoUniversityInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to find an event.
+        /// </summary>
+        public static string NoUpcomingEvent {
+            get {
+                return ResourceManager.GetString("NoUpcomingEvent", resourceCulture);
             }
         }
         

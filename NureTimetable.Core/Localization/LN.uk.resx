@@ -517,4 +517,13 @@
   <data name="AtTimeOfEvent" xml:space="preserve">
     <value>На початку події</value>
   </data>
+  <data name="LessonNotFound" xml:space="preserve">
+    <value>Не вдалося знайти урок</value>
+  </data>
+  <data name="NoAttendanceModule" xml:space="preserve">
+    <value>Урок немає модуля відвідування</value>
+  </data>
+  <data name="NoUpcomingEvent" xml:space="preserve">
+    <value>Не вдалося знайти пару</value>
+  </data>
 </root>
