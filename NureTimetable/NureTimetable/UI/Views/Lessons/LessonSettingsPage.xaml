@@ -15,16 +15,17 @@
 
     <ContentPage.Resources>
         <ResourceDictionary>
-            <Style TargetType="ListView">
-                <Setter Property="ItemsSource" Value="{Binding ItemsSource}"/>
+            <Style TargetType="FlexLayout">
                 <Setter Property="IsVisible" Value="{Binding IsVisible}"/>
-                <Setter Property="HeightRequest" Value="{Binding HeightRequest}"/>
-                <Setter Property="Margin" Value="10,0"/>
-                <Setter Property="ItemTemplate">
+                <Setter Property="Direction" Value="Column"/>
+                <Setter Property="VerticalOptions" Value="Fill"/>
+                <Setter Property="Margin" Value="5,0"/>
+                <Setter Property="BindableLayout.ItemsSource" Value="{Binding ItemsSource}"/>
+                <Setter Property="BindableLayout.ItemTemplate">
                     <DataTemplate>
-                        <ViewCell>
-                            <syncfusion:SfCheckBox Style="{StaticResource EntityCheckbox}" />
-                        </ViewCell>
+                        <StackLayout>
+                            <syncfusion:SfCheckBox Style="{StaticResource EntityCheckbox}"  />
+                        </StackLayout>
                     </DataTemplate>
                 </Setter>
             </Style>
@@ -37,36 +38,34 @@
     </ContentPage.Resources>
     
     <ScrollView>
-        <StackLayout>
-            <syncfusion:SfCheckBox Margin="5,15,5,10" IsChecked="{Binding ShowLessonIsChecked}" Text="{xct:Translate DisplayLesson}" >
+        <StackLayout Margin="10">
+            
+            <syncfusion:SfCheckBox IsChecked="{Binding ShowLessonIsChecked}" Text="{xct:Translate DisplayLesson}">
                 <syncfusion:SfCheckBox.Behaviors>
                     <xct:EventToCommandBehavior EventName="StateChanged" Command="{Binding ShowLessonStateChangedCommand}"/>
                 </syncfusion:SfCheckBox.Behaviors>
             </syncfusion:SfCheckBox>
-            <ListView BindingContext="{Binding LvEventTypes}"
-                      x:DataType="{x:Null}"
-                      VerticalOptions="Fill"
-                      ItemTapped="ListView_ItemTapped">
-                <ListView.Header>
-                    <Label Text="{xct:Translate DisplayLessonsForTypes}" />
-                </ListView.Header>
-            </ListView>
-            <ListView BindingContext="{Binding LvTeachers}"
-                      x:DataType="{x:Null}"
-                      VerticalOptions="Fill"
-                      ItemTapped="ListView_ItemTapped">
-                <ListView.Header>
-                    <Label Text="{xct:Translate DisplayLessonsForTeachers}" />
-                </ListView.Header>
-            </ListView>
-            <StackLayout Margin="10">
+
+            <StackLayout BindingContext="{Binding LvEventTypes}">
+                <Label Text="{xct:Translate DisplayLessonsForTypes}" />
+                <FlexLayout />
+            </StackLayout>
+
+            <StackLayout BindingContext="{Binding LvTeachers}">
+                <Label Text="{xct:Translate DisplayLessonsForTeachers}" />
+                <FlexLayout />
+            </StackLayout>
+            
+            <StackLayout>
                 <Label Text="{xct:Translate Notes}" />
                 <Editor AutoSize="TextChanges" Text="{Binding LessonInfo.Notes}" />
             </StackLayout>
-            <StackLayout Margin="10" IsVisible="{Binding DlNureUser, Source={Static dal:SettingsRepository.Settings}, Converter={xct:IsNotNullOrEmptyConverter}}">
+            
+            <StackLayout IsVisible="{Binding DlNureUser, Source={Static dal:SettingsRepository.Settings}, Converter={xct:IsNotNullOrEmptyConverter}}">
                 <Label Text="{xct:Translate DlNureLessonId}" />
                 <Editor Keyboard="Numeric" Text="{Binding LessonInfo.DlNureInfo.LessonId}" />
             </StackLayout>
+            
         </StackLayout>
     </ScrollView>
 </ContentPage>

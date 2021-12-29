@@ -8,10 +8,5 @@ namespace NureTimetable.UI.Views
         {
             InitializeComponent();
         }
-
-        void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
-        {
-            ((ListView)sender).SelectedItem = null;
-        }
     }
 }

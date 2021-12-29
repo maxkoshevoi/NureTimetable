@@ -8,33 +8,25 @@
 
     <AbsoluteLayout>
         <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
-            <ListView ItemsSource="{Binding Entities}"
-                    SelectedItem="{Binding SelectedEntity}"
-                    ItemTapped="Handle_ItemTapped"
-                    CachingStrategy="RecycleElement">
-                <ListView.ItemTemplate>
+            <CollectionView ItemsSource="{Binding Entities}" SelectedItem="{Binding SelectedEntity}">
+
+                <CollectionView.EmptyView>
+                    <StackLayout 
+                        IsVisible="{Binding IsProgressLayoutVisible, Converter={xct:InvertedBoolConverter}}"
+                        VerticalOptions="CenterAndExpand" 
+                        HorizontalOptions="CenterAndExpand"
+                        Margin="5">
+                        <Label Text="{xct:Translate NoUniversityInfo}" HorizontalTextAlignment="Center" IsVisible="{Binding LastSearchQuery, Converter={xct:IsNullOrEmptyConverter}}" />
+                        <Label Text="{xct:Translate EmptyUniversityInfoSearch}" HorizontalTextAlignment="Center" IsVisible="{Binding LastSearchQuery, Converter={xct:IsNotNullOrEmptyConverter}}" />
+                    </StackLayout>
+                </CollectionView.EmptyView>
+
+                <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell>
-                            <Label Text="{Binding Name}" Margin="10,0" VerticalOptions="Center" />
-                        </ViewCell>
+                        <Label Text="{Binding Name}" Padding="10" VerticalOptions="Center" xct:TouchEffect.NativeAnimation="True" />
                     </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </StackLayout>
-        <StackLayout 
-                AbsoluteLayout.LayoutBounds="0,0,1,1" 
-                AbsoluteLayout.LayoutFlags="All" 
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand"
-                Margin="5">
-            <StackLayout.IsVisible>
-                <MultiBinding Converter="{xct:VariableMultiValueConverter ConditionType=All}">
-                    <Binding Path="Entities" Converter="{xct:ListIsNullOrEmptyConverter}" />
-                    <Binding Path="IsProgressLayoutVisible" Converter="{xct:InvertedBoolConverter}" />
-                </MultiBinding>
-            </StackLayout.IsVisible>
-            <Label Text="{xct:Translate NoUniversityInfo}" HorizontalTextAlignment="Center" IsVisible="{Binding LastSearchQuery, Converter={xct:IsNullOrEmptyConverter}}" />
-            <Label Text="{xct:Translate EmptyUniversityInfoSearch}" HorizontalTextAlignment="Center" IsVisible="{Binding LastSearchQuery, Converter={xct:IsNotNullOrEmptyConverter}}" />
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </StackLayout>
         <StackLayout IsVisible="{Binding IsProgressLayoutVisible}" Padding="12"
                     AbsoluteLayout.LayoutFlags="PositionProportional"
