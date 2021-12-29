@@ -160,6 +160,15 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to At time of event.
+        /// </summary>
+        public static string AtTimeOfEvent {
+            get {
+                return ResourceManager.GetString("AtTimeOfEvent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Autoupdate.
         /// </summary>
         public static string Autoupdate {

@@ -38,7 +38,7 @@ namespace NureTimetable.UI.ViewModels
         List<(Func<string> name, TimeSpan? value)> timeBeforeEventReminderMapping { get; } = new()
         {
             (() => LN.TurnedOff, null),
-            (() => string.Format(LN.MinutesBefore, 0), TimeSpan.Zero),
+            (() => LN.AtTimeOfEvent, TimeSpan.Zero),
             (() => string.Format(LN.MinutesBefore, 10), TimeSpan.FromMinutes(10)),
             (() => string.Format(LN.MinutesBefore, 30), TimeSpan.FromMinutes(30))
         };

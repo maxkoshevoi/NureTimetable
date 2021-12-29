@@ -514,4 +514,7 @@ Credentials are stored locally.</value>
   <data name="DlNureLessonId" xml:space="preserve">
     <value>DL Nure lesson Id:</value>
   </data>
+  <data name="AtTimeOfEvent" xml:space="preserve">
+    <value>At time of event</value>
+  </data>
 </root>

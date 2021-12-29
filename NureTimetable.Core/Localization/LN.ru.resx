@@ -514,4 +514,7 @@
   <data name="DlNureLessonId" xml:space="preserve">
     <value>Id предмета на DL Nure:</value>
   </data>
+  <data name="AtTimeOfEvent" xml:space="preserve">
+    <value>В начале пары</value>
+  </data>
 </root>
