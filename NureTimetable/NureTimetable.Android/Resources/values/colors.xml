@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <color name="splash_background">@android:color/white</color>
+  <color name="colorListViewHighlighted">#96BCE3</color>
   <color name="colorAccent">#78909C</color>
 </resources>

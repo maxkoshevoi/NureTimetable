@@ -32,7 +32,7 @@ namespace NureTimetable.UI.ViewModels
         public IAsyncCommand PageAppearingCommand { get; }
         public IAsyncCommand UpdateAllCommand { get; }
         public IAsyncCommand AddEntityCommand { get; }
-        public IAsyncCommand<SelectionChangedEventArgs> EntitySelectedCommand { get; }
+        public IAsyncCommand<SelectedItemChangedEventArgs> EntitySelectedCommand { get; }
         #endregion
 
         public ManageEntitiesViewModel()
@@ -40,9 +40,9 @@ namespace NureTimetable.UI.ViewModels
             PageAppearingCommand = CommandFactory.Create(PageAppearing);
             UpdateAllCommand = CommandFactory.Create(UpdateAll, () => { lock (updatingEntities) { return Entities.Any() && Entities.All(e => !e.IsUpdating); }}, allowsMultipleExecutions: false);
             AddEntityCommand = CommandFactory.Create(() => Navigation.PushAsync(new AddTimetablePage()), allowsMultipleExecutions: false);
-            EntitySelectedCommand = CommandFactory.Create<SelectionChangedEventArgs>(async args =>
+            EntitySelectedCommand = CommandFactory.Create<SelectedItemChangedEventArgs>(async args =>
             {
-                if (args!.CurrentSelection.Single() is not SavedEntityItemViewModel entity) 
+                if (args!.SelectedItem is not SavedEntityItemViewModel entity) 
                     return;
 
                 SavedEntity savedEntity = entity.SavedEntity;

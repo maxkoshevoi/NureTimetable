@@ -10,6 +10,12 @@
     <item name="android:statusBarColor">@color/splash_background</item>
     <item name="android:navigationBarColor">@color/splash_background</item>
 
+    <item name="android:colorPressedHighlight">@color/colorListViewHighlighted</item>
+    <item name="android:colorLongPressedHighlight">@color/colorListViewHighlighted</item>
+    <item name="android:colorFocusedHighlight">@color/colorListViewHighlighted</item>
+    <item name="android:colorActivatedHighlight">@color/colorListViewHighlighted</item>
+    <item name="android:activatedBackgroundIndicator">@color/colorListViewHighlighted</item>
+
     <item name="alertDialogTheme">@style/AlertDialogStyle</item>
   </style>
 

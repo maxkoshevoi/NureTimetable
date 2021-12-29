@@ -18,52 +18,60 @@
     </ContentPage.ToolbarItems>
 
     <AbsoluteLayout>
-        <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
-            <CollectionView x:Name="EntitiesList" ItemsSource="{Binding Entities}" SelectionChanged="EntitiesList_SelectionChanged">
+        <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All"  IsVisible="{Binding Entities, Converter={xct:ListIsNotNullOrEmptyConverter}}">
+            <ListView x:Name="EntitiesList"
+                    ItemTapped="EntitiesList_OnItemTapped"
+                    CachingStrategy="RecycleElement"
+                    HasUnevenRows="True"
+                    ItemsSource="{Binding Entities}">
 
-                <CollectionView.Behaviors>
-                    <xct:EventToCommandBehavior EventName="SelectionChanged" Command="{Binding EntitySelectedCommand}"/>
-                </CollectionView.Behaviors>
-
-                <CollectionView.EmptyView>
-                    <Label Text="{xct:Translate NoSavedTimetables}"
-                        IsVisible="{Binding IsProgressLayoutVisible, Converter={xct:InvertedBoolConverter}}"
-                        VerticalOptions="CenterAndExpand" 
-                        HorizontalOptions="CenterAndExpand"
-                        HorizontalTextAlignment="Center" />
-                </CollectionView.EmptyView>
-
-                <CollectionView.ItemTemplate>
+                <ListView.Behaviors>
+                    <xct:EventToCommandBehavior EventName="ItemSelected" Command="{Binding EntitySelectedCommand}"/>
+                </ListView.Behaviors>
+                
+                <ListView.ItemTemplate>
                     <DataTemplate x:DataType="vm:SavedEntityItemViewModel">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <StackLayout Grid.Column="0">
+                        <ViewCell>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
                                 <StackLayout WidthRequest="10" IsVisible="{Binding ManageEntitiesViewModel.IsMultiselectMode, Converter={xct:InvertedBoolConverter}}">
                                     <BoxView BackgroundColor="{DynamicResource SelectedEntityColor}" VerticalOptions="FillAndExpand" IsVisible="{Binding SavedEntity.IsSelected}" />
                                 </StackLayout>
                                 <StackLayout IsVisible="{Binding ManageEntitiesViewModel.IsMultiselectMode}">
                                     <CheckBox Margin="5" IsChecked="{Binding SavedEntity.IsSelected, Mode=TwoWay}" VerticalOptions="FillAndExpand" />
                                 </StackLayout>
-                            </StackLayout>
-                            <StackLayout Grid.Column="1" Margin="0,5" xct:TouchEffect.NativeAnimation="True">
-                                <Label Text="{Binding SavedEntity.Entity.Name}" Style="{DynamicResource ListItemTextStyle}" />
-                                <Label Text="{Binding SavedEntity.LastUpdated}" FontSize="13" Style="{DynamicResource ListItemDetailTextStyle}"/>
-                            </StackLayout>
-                            <StackLayout Grid.Column="2" Padding="0,5,10,5" Orientation="Horizontal" Spacing="17">
-                                <StackLayout VerticalOptions="CenterAndExpand">
-                                    <Image xct:TouchEffect.Command="{Binding UpdateClickedCommand}" IsVisible="{Binding IsUpdating, Converter={xct:InvertedBoolConverter}}" Source="{FontImageSource Glyph={Static fonts:MaterialIconsFont.Refresh}, FontFamily={StaticResource MaterialFontFamily}, Color={DynamicResource ListIconColor}}" xct:TouchEffect.NativeAnimation="True" xct:TouchEffect.NativeAnimationRadius="15" />
-                                    <ActivityIndicator IsVisible="{Binding IsUpdating}" Color="{DynamicResource ListIconColor}" IsRunning="True" HeightRequest="30" WidthRequest="30"/>
+                                <StackLayout Grid.Column="1" Margin="0,5">
+                                    <Label Text="{Binding SavedEntity.Entity.Name}" Style="{DynamicResource ListItemTextStyle}" />
+                                    <Label Text="{Binding SavedEntity.LastUpdated}" FontSize="13" Style="{DynamicResource ListItemDetailTextStyle}"/>
                                 </StackLayout>
-                                <Image xct:TouchEffect.Command="{Binding SettingsClickedCommand}" VerticalOptions="CenterAndExpand" Source="{FontImageSource Glyph={Static fonts:MaterialIconsFont.Cog}, FontFamily={StaticResource MaterialFontFamily}, Color={DynamicResource ListIconColor}}" xct:TouchEffect.NativeAnimation="True" xct:TouchEffect.NativeAnimationRadius="15" />
-                            </StackLayout>
-                        </Grid>
+                                <StackLayout Grid.Column="2" Padding="0,5,10,5" Orientation="Horizontal" Spacing="17">
+                                    <StackLayout VerticalOptions="CenterAndExpand">
+                                        <Image xct:TouchEffect.Command="{Binding UpdateClickedCommand}" IsVisible="{Binding IsUpdating, Converter={xct:InvertedBoolConverter}}" Source="{FontImageSource Glyph={Static fonts:MaterialIconsFont.Refresh}, FontFamily={StaticResource MaterialFontFamily}, Color={DynamicResource ListIconColor}}" xct:TouchEffect.NativeAnimation="True" xct:TouchEffect.NativeAnimationRadius="15" />
+                                        <ActivityIndicator IsVisible="{Binding IsUpdating}" Color="{DynamicResource ListIconColor}" IsRunning="True" HeightRequest="30" WidthRequest="30"/>
+                                    </StackLayout>
+                                    <Image xct:TouchEffect.Command="{Binding SettingsClickedCommand}" VerticalOptions="CenterAndExpand" Source="{FontImageSource Glyph={Static fonts:MaterialIconsFont.Cog}, FontFamily={StaticResource MaterialFontFamily}, Color={DynamicResource ListIconColor}}" xct:TouchEffect.NativeAnimation="True" xct:TouchEffect.NativeAnimationRadius="15" />
+                                </StackLayout>
+                            </Grid>
+                        </ViewCell>
                     </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+        <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" Margin="5">
+            <StackLayout.IsVisible>
+                <MultiBinding Converter="{xct:VariableMultiValueConverter ConditionType=All}">
+                    <Binding Path="Entities" Converter="{xct:ListIsNullOrEmptyConverter}" />
+                    <Binding Path="IsProgressLayoutVisible" Converter="{xct:InvertedBoolConverter}" />
+                </MultiBinding>
+            </StackLayout.IsVisible>
+            <Label Text="{xct:Translate NoSavedTimetables}"
+                    VerticalOptions="CenterAndExpand" 
+                    HorizontalOptions="CenterAndExpand"
+                    HorizontalTextAlignment="Center" />
         </StackLayout>
         <StackLayout IsVisible="{Binding IsProgressLayoutVisible}" Padding="12"
                     AbsoluteLayout.LayoutFlags="PositionProportional"

@@ -16,11 +16,11 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style TargetType="FlexLayout">
-                <Setter Property="IsVisible" Value="{Binding IsVisible}"/>
+                <Setter Property="IsVisible" Value="{Binding ., Converter={xct:ListIsNotNullOrEmptyConverter}}"/>
                 <Setter Property="Direction" Value="Column"/>
                 <Setter Property="VerticalOptions" Value="Fill"/>
                 <Setter Property="Margin" Value="5,0"/>
-                <Setter Property="BindableLayout.ItemsSource" Value="{Binding ItemsSource}"/>
+                <Setter Property="BindableLayout.ItemsSource" Value="{Binding .}"/>
                 <Setter Property="BindableLayout.ItemTemplate">
                     <DataTemplate>
                         <StackLayout>

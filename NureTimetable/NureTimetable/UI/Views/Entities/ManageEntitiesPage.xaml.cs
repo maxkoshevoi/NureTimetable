@@ -10,10 +10,10 @@ namespace NureTimetable.UI.Views
             InitializeComponent();
             BindingContext = new ManageEntitiesViewModel();
         }
-
-        private void EntitiesList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        
+        private void EntitiesList_OnItemTapped(object sender, ItemTappedEventArgs e)
         {
-
+            ((ListView)sender).SelectedItem = null;
         }
     }
 }
