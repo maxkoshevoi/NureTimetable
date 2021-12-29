@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using NureTimetable.DAL.Moodle.Models.Courses;
 using System;
 using static NureTimetable.DAL.Serialisation;
