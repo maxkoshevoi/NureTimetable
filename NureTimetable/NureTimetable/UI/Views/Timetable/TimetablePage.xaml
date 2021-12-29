@@ -38,6 +38,7 @@
                            Margin="0,0,10,0" 
                            IsVisible="{Binding DlNureUser, Source={Static dal:SettingsRepository.Settings}, Converter={xct:IsNotNullOrEmptyConverter}}" 
                            xct:TouchEffect.Command="{Binding AttendanceClickCommand}" 
+                           Opacity="{Binding AttendanceOpacity}"
                            Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.BadgeAccountAlertOutline}, Color={DynamicResource ListIconColor}}" 
                            xct:TouchEffect.NativeAnimation="True" 
                            xct:TouchEffect.NativeAnimationRadius="15" />

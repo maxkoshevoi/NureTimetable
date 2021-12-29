@@ -95,6 +95,8 @@ namespace NureTimetable.UI.ViewModels
         private string? _timeLeftText;
         public string? TimeLeftText { get => _timeLeftText; set => SetProperty(ref _timeLeftText, value); }
 
+        public double AttendanceOpacity => AttendanceClickCommand.CanExecute(null) ? 1 : 0.5;
+
         // Layouts
         private bool _isProgressLayoutVisible;
         public bool IsProgressLayoutVisible { get => _isProgressLayoutVisible; set => SetProperty(ref _isProgressLayoutVisible, value); }
@@ -209,6 +211,7 @@ namespace NureTimetable.UI.ViewModels
                 allowsMultipleExecutions: false
             );
             AttendanceClickCommand = CommandFactory.Create(OpenAttendancePage, allowsMultipleExecutions: false);
+            AttendanceClickCommand.CanExecuteChanged += (_, args) => OnPropertyChanged(nameof(AttendanceOpacity));
 
             IsProgressLayoutVisible = true;
 
