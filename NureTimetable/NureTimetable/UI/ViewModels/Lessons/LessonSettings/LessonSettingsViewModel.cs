@@ -1,7 +1,9 @@
-﻿using NureTimetable.Core.Models.Consts;
+﻿using NureTimetable.Core.Extensions;
+using NureTimetable.Core.Models.Consts;
 using NureTimetable.DAL.Cist;
 using NureTimetable.DAL.Models;
 using NureTimetable.UI.ViewModels.Lessons.LessonSettings;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
@@ -18,9 +20,9 @@ namespace NureTimetable.UI.ViewModels
         private bool? _showLessonIsChecked = false;
         public bool? ShowLessonIsChecked { get => _showLessonIsChecked; set => SetProperty(ref _showLessonIsChecked, value); }
         
-        public ListViewViewModel<EventType> LvEventTypes { get; set; }
+        public ObservableCollection<CheckedEntity<EventType>> LvEventTypes { get; set; }
         
-        public ListViewViewModel<Teacher> LvTeachers { get; set; }
+        public ObservableCollection<CheckedEntity<Teacher>> LvTeachers { get; set; }
 
         public Command ShowLessonStateChangedCommand { get; }
         public IAsyncCommand BackButtonPressedCommand { get; }
@@ -33,18 +35,18 @@ namespace NureTimetable.UI.ViewModels
             ShowLessonIsChecked = lessonInfo.Settings.Hiding.ShowLesson;
             updatingProgrammatically = false;
 
-            LvEventTypes = new ListViewViewModel<EventType>()
-            {
-                ItemsSource = { timetable.EventTypes(lessonInfo.Lesson.ID)
+            LvEventTypes = new
+            (
+                timetable.EventTypes(lessonInfo.Lesson.ID)
                     .Select(et => new CheckedEntity<EventType>(et, EventTypeStateChanged))
-                    .OrderBy(et => et.Entity.ShortName) }
-            };
-            LvTeachers = new()
-            {
-                ItemsSource = { timetable.Teachers(lessonInfo.Lesson.ID)
+                    .OrderBy(et => et.Entity.ShortName)
+            );
+            LvTeachers = new 
+            (
+                timetable.Teachers(lessonInfo.Lesson.ID)
                     .Select(t => new CheckedEntity<Teacher>(t, TeacherStateChanged))
-                    .OrderBy(et => et.Entity.ShortName) }
-            };
+                    .OrderBy(et => et.Entity.ShortName)
+            );
             UpdateEventTypesCheck(true);
 
             ShowLessonStateChangedCommand = CommandFactory.Create(ShowLessonStateChanged);
@@ -92,22 +94,22 @@ namespace NureTimetable.UI.ViewModels
             updatingProgrammatically = true;
             if (LessonInfo.Settings.Hiding.ShowLesson != null)
             {
-                foreach (var eventType in LvEventTypes.ItemsSource)
+                foreach (var eventType in LvEventTypes)
                 {
                     eventType.IsChecked = (bool)LessonInfo.Settings.Hiding.ShowLesson;
                 }
-                foreach (var teacher in LvTeachers.ItemsSource)
+                foreach (var teacher in LvTeachers)
                 {
                     teacher.IsChecked = (bool)LessonInfo.Settings.Hiding.ShowLesson;
                 }
             }
             else
             {
-                foreach (var eventType in LvEventTypes.ItemsSource)
+                foreach (var eventType in LvEventTypes)
                 {
                     eventType.IsChecked = !LessonInfo.Settings.Hiding.EventTypesToHide.Contains(eventType.Entity.ID);
                 }
-                foreach (var teacher in LvTeachers.ItemsSource)
+                foreach (var teacher in LvTeachers)
                 {
                     teacher.IsChecked = !LessonInfo.Settings.Hiding.TeachersToHide.Contains(teacher.Entity.ID);
                 }
@@ -127,13 +129,13 @@ namespace NureTimetable.UI.ViewModels
         /// <returns>true = all, false = none, null = some</returns>
         private bool? IsShowEvents()
         {
-            if (LessonInfo.Settings.Hiding.EventTypesToHide.Count == 0 && 
-                LessonInfo.Settings.Hiding.TeachersToHide.Count == 0)
+            if (LessonInfo.Settings.Hiding.EventTypesToHide.None() && 
+                LessonInfo.Settings.Hiding.TeachersToHide.None())
             {
                 return true;
             }
-            else if ((LvEventTypes.ItemsSource.Count > 0 && LessonInfo.Settings.Hiding.EventTypesToHide.Count == LvEventTypes.ItemsSource.Count) ||
-                (LvTeachers.ItemsSource.Count > 0 && LessonInfo.Settings.Hiding.TeachersToHide.Count == LvTeachers.ItemsSource.Count))
+            else if ((LvEventTypes.Any() && LessonInfo.Settings.Hiding.EventTypesToHide.Count == LvEventTypes.Count) ||
+                (LvTeachers.Any() && LessonInfo.Settings.Hiding.TeachersToHide.Count == LvTeachers.Count))
             {
                 return false;
             }
