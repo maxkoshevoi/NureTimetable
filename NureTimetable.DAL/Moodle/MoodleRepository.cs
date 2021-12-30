@@ -131,8 +131,7 @@ public class MoodleRepository
     {
         Analytics.TrackEvent("Moodle request", new Dictionary<string, string>
         {
-            { "Type", "GetTimetable" },
-            { "Subtype", method }
+            { "Type", method }
         });
 
         if (!allowAnonymous && !url.QueryParams.Contains("wstoken"))
