@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
+using static NureTimetable.DAL.Serialisation;
 
 namespace NureTimetable.DAL.Cist.Models
 {
