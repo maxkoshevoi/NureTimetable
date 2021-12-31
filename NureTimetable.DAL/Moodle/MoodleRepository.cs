@@ -85,7 +85,7 @@ public class MoodleRepository
     /// <summary>
     /// Fetch the upcoming view data for a calendar.
     /// </summary>
-    public async Task<List<Event>> GetUpcommingEvents(int? courseId = null)
+    public async Task<List<Event>> GetUpcommingEventsAsync(int? courseId = null)
     {
         var query = SetFunction("core_calendar_get_calendar_upcoming_view").SetQueryParams(new { courseId });
         return (await ExecuteActionAsync<GetUpCommingEventsResponse>(query)).Events;
@@ -96,7 +96,7 @@ public class MoodleRepository
     /// </summary>
     /// <param name="userId">null = current user.</param>
     /// <param name="returnUserCount">Include count of enrolled users for each course? This can add several seconds to the response time if a user is on several large courses, so set this to false if the value will not be used to improve performance.</param>
-    public async Task<List<FullCourse>> GetEnrolledCourses(int? userId = null, bool returnUserCount = false)
+    public async Task<List<FullCourse>> GetEnrolledCoursesAsync(int? userId = null, bool returnUserCount = false)
     {
         var query = SetFunction("core_enrol_get_users_courses")
             .SetQueryParams(new
@@ -107,7 +107,7 @@ public class MoodleRepository
         return await ExecuteActionAsync<List<FullCourse>>(query);
     }
 
-    public async Task<List<CourseSection>> GetCourseContents(int courseId, Dictionary<GetCourseContentsOption, object>? Options = null)
+    public async Task<List<CourseSection>> GetCourseContentsAsync(int courseId, Dictionary<GetCourseContentsOption, object>? Options = null)
     {
         Options ??= new();
 

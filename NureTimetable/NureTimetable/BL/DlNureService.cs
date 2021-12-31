@@ -33,7 +33,7 @@ public static class DlNureService
             }
 
             CourseModule? attendance = (await new MoodleRepository()
-                .GetCourseContents(lessonId.Value, new() { { GetCourseContentsOption.ModName, "attendance" } }))
+                .GetCourseContentsAsync(lessonId.Value, new() { { GetCourseContentsOption.ModName, "attendance" } }))
                 .FirstOrDefault()?
                 .Modules
                 .FirstOrDefault();
@@ -66,7 +66,7 @@ public static class DlNureService
         {
             if (timetable == null)
             {
-                List<FullCourse> courses = await new MoodleRepository().GetEnrolledCourses();
+                List<FullCourse> courses = await new MoodleRepository().GetEnrolledCoursesAsync();
                 FullCourse? course = courses.Find(lesson).FirstOrDefault();
                 return course?.Id;
             }
@@ -97,7 +97,7 @@ public static class DlNureService
                 return timetable.LessonsInfo;
             }
 
-            List<FullCourse> courses = await new MoodleRepository().GetEnrolledCourses();
+            List<FullCourse> courses = await new MoodleRepository().GetEnrolledCoursesAsync();
             foreach (var lesson in lessons)
             {
                 var lessonInfo = timetable.GetAndAddLessonsInfo(lesson);
