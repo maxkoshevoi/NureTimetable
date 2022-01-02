@@ -3,8 +3,9 @@ using Microsoft.Maui.Controls;
 using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Consts;
 using NureTimetable.Core.Models.Exceptions;
-using NureTimetable.DAL;
-using NureTimetable.DAL.Models.Local;
+using NureTimetable.DAL.Cist;
+using NureTimetable.DAL.Models;
+using NureTimetable.DAL.Settings;
 using System.Net;
 
 namespace NureTimetable.BL
@@ -22,8 +23,7 @@ namespace NureTimetable.BL
             }
         }
 
-        public static Task<List<(Entity entity, Exception? exception)>> UpdateAsync(params Entity[] entities) =>
-            Task.Run(async () =>
+        public static Task<List<(Entity entity, Exception? exception)>> UpdateAsync(params Entity[] entities) => Task.Run(async () =>
             {
                 IReadOnlyList<Entity> entitiesAllowed = await SettingsRepository.CheckCistTimetableUpdateRightsAsync(entities);
                 if (entitiesAllowed.None())

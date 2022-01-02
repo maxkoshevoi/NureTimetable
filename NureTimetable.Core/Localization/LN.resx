@@ -325,7 +325,7 @@ To update, click on the button in the upper right corner.</value>
   <data name="FinishingUpdateDescription" xml:space="preserve">
     <value>In the new version, the data storage structure has changed. An application needs to convert data from the old format to the new one. Click OK to complete the upgrade.</value>
   </data>
-  <data name="FinishingUpdateFail" xml:space="preserve">
+  <data name="SomethingWentWrong" xml:space="preserve">
     <value>Something went wrong</value>
   </data>
   <data name="FinishingUpdateTitle" xml:space="preserve">
@@ -479,5 +479,55 @@ To update the list, click on the button in the upper right corner.</value>
   </data>
   <data name="TurnedOff" xml:space="preserve">
     <value>Turned off</value>
+  </data>
+  <data name="DlNureIntegration" xml:space="preserve">
+    <value>DL Nure Integration</value>
+  </data>
+  <data name="DlNureLoggedIn" xml:space="preserve">
+    <value>Logged in as: {0} ({1})</value>
+  </data>
+  <data name="DlNureSignedOut" xml:space="preserve">
+    <value>Turned off</value>
+  </data>
+  <data name="LoggedInAs" xml:space="preserve">
+    <value>Logged in as: {0} ({1})</value>
+  </data>
+  <data name="DlNureIntegrationDescription" xml:space="preserve">
+    <value>DL Nure integration enables:
+- Attendance management for ongoing event
+- Automatic lesson filtering
+
+Credentials are stored locally.</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="DlNureEmail" xml:space="preserve">
+    <value>@nure.ua email</value>
+  </data>
+  <data name="SyncDlNureLessonsTitle" xml:space="preserve">
+    <value>Autofiltration</value>
+  </data>
+  <data name="SyncDlNureLessonsMessage" xml:space="preserve">
+    <value>Hide lessons that are not present on dl.nure.ua?</value>
+  </data>
+  <data name="DlNureLessonId" xml:space="preserve">
+    <value>DL Nure lesson Id:</value>
+  </data>
+  <data name="AtTimeOfEvent" xml:space="preserve">
+    <value>At time of event</value>
+  </data>
+  <data name="LessonNotFound" xml:space="preserve">
+    <value>Unable to find lesson. It's possible, you don't have access to it. 
+Try adding lesson id manually on "Lesson management" page.</value>
+  </data>
+  <data name="NoAttendanceModule" xml:space="preserve">
+    <value>Lesson doesn't have an attendance module</value>
+  </data>
+  <data name="OpenAttendance" xml:space="preserve">
+    <value>Open attendance page</value>
+  </data>
+  <data name="NoUpcomingEvent" xml:space="preserve">
+    <value>Unable to find an event</value>
   </data>
 </root>

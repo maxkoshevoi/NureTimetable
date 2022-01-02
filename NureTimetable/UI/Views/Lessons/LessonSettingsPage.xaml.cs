@@ -10,11 +10,6 @@ namespace NureTimetable.UI.Views
             InitializeComponent();
         }
 
-        private void ListView_ItemTapped(object sender, ItemTappedEventArgs e)
-        {
-            ((ListView)sender).SelectedItem = null;
-        }
-
         protected override bool OnBackButtonPressed()
         {
             (BindingContext as LessonSettingsViewModel)!.BackButtonPressedCommand.Execute(null);

@@ -1,12 +1,12 @@
 ﻿using Microsoft.Maui.Essentials;
 using NureTimetable.Core.Localization;
-using NureTimetable.Core.Models.Settings;
-using NureTimetable.DAL;
+using NureTimetable.DAL.Settings;
+using NureTimetable.DAL.Settings.Models;
 using NureTimetable.UI.Views;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.ObjectModel;
 using static NureTimetable.UI.ViewModels.SettingsViewModel;
-using AppTheme = NureTimetable.Core.Models.Settings.AppTheme;
+using AppTheme = NureTimetable.DAL.Settings.Models.AppTheme;
 
 namespace NureTimetable.UI.ViewModels
 {

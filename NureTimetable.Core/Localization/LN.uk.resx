@@ -325,7 +325,7 @@
   <data name="FinishingUpdateDescription" xml:space="preserve">
     <value>В новій версії змінилась структура зберігання даних. Застосунку потрібно сконвертувати дані зі старого формату в новий. Натисніть ОК, щоб завершити оновлення.</value>
   </data>
-  <data name="FinishingUpdateFail" xml:space="preserve">
+  <data name="SomethingWentWrong" xml:space="preserve">
     <value>Щось пішло не так</value>
   </data>
   <data name="FinishingUpdateTitle" xml:space="preserve">
@@ -478,6 +478,56 @@
     <value>Повідомлення до пари в календарі</value>
   </data>
   <data name="TurnedOff" xml:space="preserve">
-    <value>Виключено</value>
+    <value>Вимкнено</value>
+  </data>
+  <data name="DlNureIntegration" xml:space="preserve">
+    <value>Інтеграція з DL Nure</value>
+  </data>
+  <data name="DlNureLoggedIn" xml:space="preserve">
+    <value>Ви увійшли як: {0} ({1})</value>
+  </data>
+  <data name="DlNureSignedOut" xml:space="preserve">
+    <value>Вимкнена</value>
+  </data>
+  <data name="LoggedInAs" xml:space="preserve">
+    <value>Ви увійшли як: {0} ({1})</value>
+  </data>
+  <data name="DlNureIntegrationDescription" xml:space="preserve">
+    <value>Інтеграція DL Nure дозволяє:
+- Управління відвідуваністю пари, що триває
+- Автоматична фільтрація уроків
+
+Облікові дані зберігаються локально.</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="DlNureEmail" xml:space="preserve">
+    <value>@nure.ua електронна адреса</value>
+  </data>
+  <data name="SyncDlNureLessonsTitle" xml:space="preserve">
+    <value>Автофільтрація</value>
+  </data>
+  <data name="SyncDlNureLessonsMessage" xml:space="preserve">
+    <value>Приховати уроки, яких немає на dl.nure.ua?</value>
+  </data>
+  <data name="DlNureLessonId" xml:space="preserve">
+    <value>Id предмета на DL Nure:</value>
+  </data>
+  <data name="AtTimeOfEvent" xml:space="preserve">
+    <value>На початку події</value>
+  </data>
+  <data name="LessonNotFound" xml:space="preserve">
+    <value>Не вдалося знайти предмет. Можливо, у вас немає до нього доступу. 
+Спробуйте додати id предмету вручну на сторінці «Управління предметом».</value>
+  </data>
+  <data name="NoAttendanceModule" xml:space="preserve">
+    <value>Урок немає модуля відвідування</value>
+  </data>
+  <data name="OpenAttendance" xml:space="preserve">
+    <value>Відкрити сторінку відвідуваності</value>
+  </data>
+  <data name="NoUpcomingEvent" xml:space="preserve">
+    <value>Не вдалося знайти пару</value>
   </data>
 </root>

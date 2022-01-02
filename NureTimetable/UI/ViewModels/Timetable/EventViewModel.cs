@@ -1,5 +1,5 @@
 ﻿using Microsoft.Maui.Graphics;
-using NureTimetable.DAL.Models.Local;
+using NureTimetable.DAL.Models;
 using NureTimetable.UI.Models.Consts;
 
 namespace NureTimetable.UI.ViewModels.Timetable

@@ -4,7 +4,7 @@
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels"
              xmlns:fonts="clr-namespace:NureTimetable.UI.Models.Consts"
-             xmlns:dal="clr-namespace:NureTimetable.DAL;assembly=NureTimetable.DAL"
+             xmlns:dal="clr-namespace:NureTimetable.DAL.Settings;assembly=NureTimetable.DAL"
              x:Class="NureTimetable.UI.Views.SettingsPage"
              x:DataType="vm:SettingsViewModel"
              Title="{xct:Translate Settings}">
@@ -73,7 +73,21 @@
             </StackLayout>
             
             <BoxView/>
-            
+
+            <StackLayout Style="{StaticResource Row}">
+                <Image Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.Connection}, Color={DynamicResource SecondaryTextColor}}" />
+                <StackLayout>
+                    <Label Text="{xct:Translate DlNureIntegration}" Style="{DynamicResource ListItemTextStyle}" />
+                    <Label Text="{Binding DlNureAccount.Localized}" FontSize="13" Style="{DynamicResource ListItemDetailTextStyle}" />
+                </StackLayout>
+
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding DlNureIntegrationCommand}"/>
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+
+            <BoxView/>
+
             <StackLayout Style="{StaticResource Row}">
                 <Image Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.BugOutline}, Color={DynamicResource SecondaryTextColor}}" />
                 <Label Text="{xct:Translate ShowErrors}" VerticalOptions="Center" Style="{DynamicResource ListItemTextStyle}"/>

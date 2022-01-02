@@ -27,12 +27,13 @@
     <Color x:Key="practiceColor">#8dd967</Color>
     <Color x:Key="laboratoryColor">#d9a7f1</Color>
     <Color x:Key="consultationColor">#98dce6</Color>
-    <Color x:Key="testColor">#f1f688</Color>
+    <Color x:Key="testColor">#d9e04f</Color>
     <Color x:Key="examColor">#f17674</Color>
     <!--Other colors-->
     <Color x:Key="SelectedEntityColor">#AED9FA</Color>
     <Color x:Key="BigImageBackgroundColor">#96d1ff</Color>
-    <Color x:Key="DonateButtonColor">#3acc0a</Color>
+    <Color x:Key="GreenButtonColor">#3acc0a</Color>
+    <Color x:Key="RedButtonColor">#ea3633</Color>
     <Color x:Key="ListIconColor">#6b6b6b</Color>
 
     <!--Controls-->

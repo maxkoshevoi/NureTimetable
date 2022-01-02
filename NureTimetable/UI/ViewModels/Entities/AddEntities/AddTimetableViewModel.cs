@@ -1,8 +1,9 @@
 ﻿using Microsoft.Maui.Controls;
 using NureTimetable.Core.Localization;
-using NureTimetable.DAL;
+using NureTimetable.DAL.Cist;
+using NureTimetable.DAL.Settings;
 using Xamarin.CommunityToolkit.ObjectModel;
-using static NureTimetable.DAL.UniversityEntitiesRepository;
+using static NureTimetable.DAL.Cist.UniversityEntitiesRepository;
 
 namespace NureTimetable.UI.ViewModels
 {

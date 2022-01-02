@@ -20,3 +20,4 @@ You can download the latest stable version here: https://play.google.com/store/a
 - Notes for lessons
 - Support for Ukrainian, Russian and English localization and different time zones
 - Dark and Light themes
+- dl.nure.ua integration

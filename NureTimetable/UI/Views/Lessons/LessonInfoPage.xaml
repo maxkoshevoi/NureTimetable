@@ -20,4 +20,5 @@
             <Label Text="{Binding Statistics.Localized}" />
         </StackLayout>
     </ScrollView>
+
 </ContentPage>

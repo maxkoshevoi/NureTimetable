@@ -2,8 +2,8 @@
 using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Consts;
-using NureTimetable.DAL;
-using NureTimetable.DAL.Models.Local;
+using NureTimetable.DAL.Cist;
+using NureTimetable.DAL.Models;
 using System.Collections.ObjectModel;
 using Xamarin.CommunityToolkit.Extensions;
 
@@ -50,19 +50,11 @@ namespace NureTimetable.UI.ViewModels
 
         protected IOrderedEnumerable<T> SearchEntities(string query, Func<T, string> nameSelector, Func<T, long> idSelector)
         {
-            query = NormalizeString(query);
+            query = query.Simplify();
 
             return _allEntities
-                .Where(e => NormalizeString(nameSelector(e)).Contains(query) || idSelector(e).ToString() == query)
+                .Where(e => nameSelector(e).Simplify().Contains(query) || idSelector(e).ToString() == query)
                 .OrderBy(e => nameSelector(e));
-
-            static string NormalizeString(string query) =>
-                query.ToLower()
-                .Replace('и', 'і')
-                .Replace('и', 'ї')
-                .Replace('э', 'є')
-                .Replace('\'', '`')
-                .Replace('\'', '"');
         }
 
         protected abstract List<T> GetAllEntities();

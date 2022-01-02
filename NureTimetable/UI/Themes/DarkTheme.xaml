@@ -32,7 +32,8 @@
     <!--Other colors-->
     <Color x:Key="SelectedEntityColor">#4e7694</Color>
     <Color x:Key="BigImageBackgroundColor">#5b99c9</Color>
-    <Color x:Key="DonateButtonColor">#28a300</Color>
+    <Color x:Key="GreenButtonColor">#28a300</Color>
+    <Color x:Key="RedButtonColor">DarkRed</Color>
     <Color x:Key="ListIconColor">#a1a1a1</Color>
 
     <!--Controls-->

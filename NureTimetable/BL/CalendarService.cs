@@ -3,8 +3,8 @@ using Microsoft.Maui.Controls;
 using Microsoft.Maui.Essentials;
 using NureTimetable.Core.BL;
 using NureTimetable.Core.Localization;
-using NureTimetable.DAL;
-using NureTimetable.DAL.Models.Local;
+using NureTimetable.DAL.Models;
+using NureTimetable.DAL.Settings;
 using Plugin.Calendars;
 using Plugin.Calendars.Abstractions;
 using Calendar = Plugin.Calendars.Abstractions.Calendar;
@@ -100,7 +100,7 @@ namespace NureTimetable.BL
             return calendars;
         }
 
-        public static CalendarEvent GenerateCalendarEvent(Event ev, int eventNumber, int eventsCount)
+        public static CalendarEvent GenerateCalendarEvent(Event ev, int eventNumber, int eventsCount, string? notes)
         {
             CalendarEvent calendarEvent = new()
             {
@@ -114,12 +114,17 @@ namespace NureTimetable.BL
                 Reminders = new List<CalendarEventReminder>()
             };
 
-            if (SettingsRepository.Settings.TimeBeforeEventReminder != TimeSpan.Zero)
+            if (notes != null)
+            {
+                calendarEvent.Description += $"\n{notes}\n";
+            }
+
+            if (SettingsRepository.Settings.TimeBeforeEventReminder != null)
             {
                 calendarEvent.Reminders.Add(new()
                 {
                     Method = CalendarReminderMethod.Alert,
-                    TimeBefore = SettingsRepository.Settings.TimeBeforeEventReminder
+                    TimeBefore = SettingsRepository.Settings.TimeBeforeEventReminder.Value
                 });
             }
 
@@ -133,7 +138,7 @@ namespace NureTimetable.BL
                 return false;
             }
 
-            Analytics.TrackEvent("Add To Calendar");
+            Analytics.TrackEvent("Add to calendar");
 
             static string? GetUniqueNamePart(string? n)
             {

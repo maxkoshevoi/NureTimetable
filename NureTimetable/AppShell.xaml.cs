@@ -1,12 +1,13 @@
-﻿using Microsoft.Maui.Controls;
+﻿using Microsoft.AppCenter.Analytics;
+using Microsoft.Maui.Controls;
 using Microsoft.Maui.Essentials;
 using NureTimetable.BL;
 using NureTimetable.Core.BL;
 using NureTimetable.Core.Localization;
-using NureTimetable.DAL;
+using NureTimetable.DAL.Settings;
 using NureTimetable.Migrations;
 using NureTimetable.UI.Models.Consts;
-using AppTheme = NureTimetable.Core.Models.Settings.AppTheme;
+using AppTheme = NureTimetable.DAL.Settings.Models.AppTheme;
 
 namespace NureTimetable
 {
@@ -16,6 +17,7 @@ namespace NureTimetable
         {
             InitializeComponent();
             InitTheme();
+            InitSettingsAnalytics();
 
             ExceptionService.ExceptionLogged += ex =>
             {
@@ -23,6 +25,32 @@ namespace NureTimetable
                 {
                     MainThread.BeginInvokeOnMainThread(() => Shell.Current.DisplayAlert(LN.ErrorDetails, ex.ToString(), LN.Ok));
                 }
+            };
+        }
+
+        private static void InitSettingsAnalytics()
+        {
+            string?[] excludeFromLogging = 
+            { 
+                null,
+                nameof(AppSettings.LastCistAllEntitiesUpdate)
+            };
+
+            SettingsRepository.Settings.PropertyChanged += (_, e) =>
+            {
+                if (excludeFromLogging.Contains(e.PropertyName))
+                {
+                    return;
+                }
+
+                Analytics.TrackEvent($"Setting changed: {e.PropertyName}", new Dictionary<string, string?>
+                {
+                    { "New Value", SettingsRepository.Settings
+                        .GetType()
+                        .GetProperty(e.PropertyName!)?
+                        .GetValue(SettingsRepository.Settings)?
+                        .ToString() }
+                });
             };
         }
 
@@ -58,7 +86,7 @@ namespace NureTimetable
             if (!VersionTracking.IsFirstLaunchForCurrentBuild)
                 return;
 
-            List<BaseMigration> migrationsToApply = await BaseMigration.Migrations.Where(async m => await m.IsNeedsToBeApplied()).ToListAsync();
+            List<BaseMigration> migrationsToApply = await BaseMigration.Migrations.Where(m => m.IsNeedsToBeApplied()).ToListAsync();
             if (migrationsToApply.Any())
             {
                 // Not Shell.Current.DisplayAlert cause Shell.Current is null here
@@ -77,7 +105,7 @@ namespace NureTimetable
                 }
                 else
                 {
-                    await App.Current!.MainPage.DisplayAlert(LN.FinishingUpdateTitle, LN.FinishingUpdateFail, LN.Ok);
+                    await App.Current!.MainPage.DisplayAlert(LN.FinishingUpdateTitle, LN.SomethingWentWrong, LN.Ok);
                 }
             }
         }

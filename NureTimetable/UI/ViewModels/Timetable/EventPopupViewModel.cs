@@ -1,8 +1,11 @@
-﻿using Microsoft.Maui.Controls;
+﻿using Microsoft.AppCenter.Analytics;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Essentials;
 using NureTimetable.BL;
 using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Localization;
-using NureTimetable.DAL.Models.Local;
+using NureTimetable.DAL.Models;
+using NureTimetable.DAL.Settings;
 using NureTimetable.UI.Views;
 using Rg.Plugins.Popup.Services;
 using Xamarin.CommunityToolkit.ObjectModel;
@@ -30,10 +33,14 @@ namespace NureTimetable.UI.ViewModels
         {
             Event = ev;
             TimetablePage = timetablePage;
-            LessonInfo = timetables.LessonsInfo.FirstOrDefault(li => li.Lesson == ev.Lesson) ?? new(ev.Lesson);
             if (timetables.Timetables.Count == 1)
             {
                 Timetable = timetables.Timetables.Single();
+                LessonInfo = Timetable.GetAndAddLessonsInfo(ev.Lesson);
+            }
+            else
+            {
+                LessonInfo = new(ev.Lesson);
             }
 
             EventNumber = timetables.Events
@@ -66,6 +73,10 @@ namespace NureTimetable.UI.ViewModels
                 options.Add(LN.LessonManagement);
                 options.Add(LN.LessonInfo);
             }
+            if (SettingsRepository.Settings.DlNureUser != null)
+            {
+                options.Add(LN.OpenAttendance);
+            }
 
             string result = await Shell.Current.DisplayActionSheet(LN.ChooseAction, LN.Cancel, null, options.ToArray());
             if (result == null || result == LN.Cancel)
@@ -91,11 +102,15 @@ namespace NureTimetable.UI.ViewModels
             }
             else if (result == LN.AddToCalendar)
             {
-                await AddEventToCalendar();
+                await AddEventToCalendarAsync();
             }
+            else if (result == LN.OpenAttendance)
+            {
+                await OpenAttendanceAsync();
+        }
         }
 
-        private async Task AddEventToCalendar()
+        private async Task AddEventToCalendarAsync()
         {
             if (!await CalendarService.RequestPermissionsAsync())
             {
@@ -110,7 +125,7 @@ namespace NureTimetable.UI.ViewModels
                 return;
             }
 
-            var calendarEvent = CalendarService.GenerateCalendarEvent(Event, EventNumber, EventsCount);
+            var calendarEvent = CalendarService.GenerateCalendarEvent(Event, EventNumber, EventsCount, Notes);
             bool isAdded = await CalendarService.AddOrUpdateEventAsync(calendar, calendarEvent);
             if (!isAdded)
             {
@@ -120,6 +135,20 @@ namespace NureTimetable.UI.ViewModels
             TimetablePage.DisplayToastAsync(LN.AddingEventToCalendarSuccess).Forget();
 
             await ClosePopup();
+        }
+
+        private async Task OpenAttendanceAsync()
+        {
+            Analytics.TrackEvent("Moodle: Open attendance");
+
+            var (attendanceUrl, errorMessage) = await DlNureService.GetAttendanceUrlAsync(LessonInfo.Lesson, Timetable);
+            if (attendanceUrl == null)
+            {
+                await Shell.Current.DisplayAlert(LN.SomethingWentWrong, errorMessage!, LN.Ok);
+                return;
+            }
+
+            await Browser.OpenAsync(attendanceUrl);
         }
 
         private static async Task ClosePopup()

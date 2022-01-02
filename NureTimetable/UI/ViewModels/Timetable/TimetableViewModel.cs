@@ -1,11 +1,14 @@
-﻿using Microsoft.Maui.Controls;
+﻿using Microsoft.AppCenter.Analytics;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Essentials;
 using NureTimetable.BL;
 using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Consts;
-using NureTimetable.Core.Models.Settings;
-using NureTimetable.DAL;
-using NureTimetable.DAL.Models.Local;
+using NureTimetable.DAL.Cist;
+using NureTimetable.DAL.Models;
+using NureTimetable.DAL.Settings;
+using NureTimetable.DAL.Settings.Models;
 using NureTimetable.UI.Models.Consts;
 using NureTimetable.UI.ViewModels.Timetable;
 using NureTimetable.UI.Views;
@@ -14,7 +17,7 @@ using Syncfusion.Maui.Scheduler;
 using System.Globalization;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.ObjectModel;
-using AppTheme = NureTimetable.Core.Models.Settings.AppTheme;
+using AppTheme = NureTimetable.DAL.Settings.Models.AppTheme;
 
 namespace NureTimetable.UI.ViewModels
 {
@@ -91,6 +94,8 @@ namespace NureTimetable.UI.ViewModels
         private string? _timeLeftText;
         public string? TimeLeftText { get => _timeLeftText; set => SetProperty(ref _timeLeftText, value); }
 
+        public double AttendanceOpacity => AttendanceClickCommand.CanExecute(null) ? 1 : 0.5;
+
         // Layouts
         private bool _isProgressLayoutVisible;
         public bool IsProgressLayoutVisible { get => _isProgressLayoutVisible; set => SetProperty(ref _isProgressLayoutVisible, value); }
@@ -110,6 +115,7 @@ namespace NureTimetable.UI.ViewModels
         public IAsyncCommand<SchedulerViewChangedEventArgs> TimetableVisibleDatesChangedCommand { get; }
         public Command BTodayClickedCommand { get; }
         public IAsyncCommand UpdateTimetableCommand { get; }
+        public IAsyncCommand AttendanceClickCommand { get; }
         #endregion
 
         public TimetableViewModel(ITimetablePageCommands timetablePage)
@@ -192,6 +198,10 @@ namespace NureTimetable.UI.ViewModels
                 () => TimetableInfoList.Timetables.Any() && !IsTimetableUpdating,
                 allowsMultipleExecutions: false
             );
+            AttendanceClickCommand = CommandFactory.Create(OpenAttendancePage, allowsMultipleExecutions: false);
+            AttendanceClickCommand.CanExecuteChanged += (_, args) => OnPropertyChanged(nameof(AttendanceOpacity));
+
+            IsProgressLayoutVisible = true;
 
             void SetTimetableLocale()
             {
@@ -203,8 +213,6 @@ namespace NureTimetable.UI.ViewModels
                 }
                 TimetableLocale = activeCultureCode;
             }
-
-            IsProgressLayoutVisible = true;
         }
 
         private async Task PageAppearing()
@@ -286,7 +294,7 @@ namespace NureTimetable.UI.ViewModels
             string? text = null;
             lock (enumeratingEvents)
             {
-                Event? currentEvent = TimetableInfoList.Events.FirstOrDefault(e => e.Start <= DateTime.Now && e.End >= DateTime.Now);
+                Event? currentEvent = TimetableInfoList.CurrentEvent();
                 if (currentEvent != null)
                 {
                     text = string.Format(
@@ -297,10 +305,7 @@ namespace NureTimetable.UI.ViewModels
                 }
                 else
                 {
-                    Event? nextEvent = TimetableInfoList.Events
-                        .Where(e => e.Start > DateTime.Now)
-                        .OrderBy(e => e.Start)
-                        .FirstOrDefault();
+                    Event? nextEvent = TimetableInfoList.NextEvent();
                     if (nextEvent != null && nextEvent.Start.Date == DateTime.Today)
                     {
                         text = string.Format(
@@ -366,7 +371,7 @@ namespace NureTimetable.UI.ViewModels
 
         private async Task UpdateEvents(List<Entity> selectedEntities)
         {
-            if (selectedEntities == null || !selectedEntities.Any())
+            if (selectedEntities == null || selectedEntities.None())
             {
                 Title = new(() => LN.AppName);
                 TimetableInfoList = TimetableInfoList.Empty;
@@ -534,6 +539,28 @@ namespace NureTimetable.UI.ViewModels
             }
 
             timetablePage.TimetableNavigateTo(moveTo);
+        }
+
+        private async Task OpenAttendancePage()
+        {
+            Analytics.TrackEvent("Moodle: Open attendance");
+
+            var currentEvent = TimetableInfoList.CurrentEvent() ?? TimetableInfoList.NextEvent();
+            if (currentEvent == null)
+            {
+                await Shell.Current.DisplayAlert(LN.SomethingWentWrong, LN.NoUpcomingEvent, LN.Ok);
+                return;
+    }
+
+            var currentTimetable = TimetableInfoList.Timetables.Count == 1 ? TimetableInfoList.Timetables.Single() : null;
+            var (attendanceUrl, errorMessage) = await DlNureService.GetAttendanceUrlAsync(currentEvent.Lesson, currentTimetable);
+            if (attendanceUrl == null)
+            {
+                await Shell.Current.DisplayAlert(LN.SomethingWentWrong, errorMessage!, LN.Ok);
+                return;
+            }
+
+            await Browser.OpenAsync(attendanceUrl);
         }
     }
 }

@@ -1,7 +1,8 @@
 ﻿using Microsoft.Maui.Controls;
 using NureTimetable.BL;
 using NureTimetable.Core.Localization;
-using NureTimetable.DAL;
+using NureTimetable.DAL.Settings;
+using NureTimetable.UI.Views;
 using Plugin.Calendars.Abstractions;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.ObjectModel;
@@ -13,20 +14,23 @@ namespace NureTimetable.UI.ViewModels
         #region Properties
         public LocalizedString DefaultCalendarName { get; }
         public LocalizedString TimeBeforeEventReminderValue { get; }
+        public LocalizedString DlNureAccount { get; }
 
         public IAsyncCommand PageAppearingCommand { get; }
         public Command ToggleDebugModeCommand { get; }
         public Command ToggleAutoupdateCommand { get; }
         public IAsyncCommand ChangeDefaultCalendarCommand { get; }
         public IAsyncCommand ChangeTimeBeforeEventReminderCommand { get; }
+        public IAsyncCommand DlNureIntegrationCommand { get; }
         #endregion
 
         #region Setting mappings
         List<(Func<string?> name, string id)>? calendarMapping;
 
-        List<(Func<string> name, TimeSpan value)> timeBeforeEventReminderMapping { get; } = new()
+        List<(Func<string> name, TimeSpan? value)> timeBeforeEventReminderMapping { get; } = new()
         {
-            (() => LN.TurnedOff, TimeSpan.Zero),
+            (() => LN.TurnedOff, null),
+            (() => LN.AtTimeOfEvent, TimeSpan.Zero),
             (() => string.Format(LN.MinutesBefore, 10), TimeSpan.FromMinutes(10)),
             (() => string.Format(LN.MinutesBefore, 30), TimeSpan.FromMinutes(30))
         };
@@ -42,12 +46,23 @@ namespace NureTimetable.UI.ViewModels
 
                 return calendarMapping.SingleOrDefault(m => m.id == SettingsRepository.Settings.DefaultCalendarId).name?.Invoke() ?? LN.InsufficientRights;
             });
+            DlNureAccount = new(() => 
+                SettingsRepository.Settings.DlNureUser == null ?
+                    LN.DlNureSignedOut :
+                    string.Format(LN.LoggedInAs, SettingsRepository.Settings.DlNureUser.FullName, SettingsRepository.Settings.DlNureUser.Id));
 
             PageAppearingCommand = CommandFactory.Create(PageAppearing);
             ChangeDefaultCalendarCommand = CommandFactory.Create(ChangeDefaultCalendar, allowsMultipleExecutions: false);
             ChangeTimeBeforeEventReminderCommand = CommandFactory.Create(ChangeTimeBeforeEventReminder, allowsMultipleExecutions: false);
             ToggleDebugModeCommand = CommandFactory.Create(() => SettingsRepository.Settings.IsDebugMode = !SettingsRepository.Settings.IsDebugMode);
             ToggleAutoupdateCommand = CommandFactory.Create(() => SettingsRepository.Settings.Autoupdate = !SettingsRepository.Settings.Autoupdate);
+            DlNureIntegrationCommand = CommandFactory.Create(() => Navigation.PushAsync(new DlNureLogin()), allowsMultipleExecutions: false);
+
+            SettingsRepository.Settings.PropertyChanged += (_, args) =>
+            {
+                if (args.PropertyName == nameof(SettingsRepository.Settings.DlNureUser))
+                    OnPropertyChanged(nameof(DlNureAccount));
+            };
         }
 
         private async Task PageAppearing()
@@ -108,9 +123,7 @@ namespace NureTimetable.UI.ViewModels
             );
         }
 
-
-        public Task ChangeTimeBeforeEventReminder() =>
-            ChangeSetting
+        public Task ChangeTimeBeforeEventReminder() => ChangeSetting
             (
                 LN.TimeBeforeEventReminder,
                 timeBeforeEventReminderMapping,

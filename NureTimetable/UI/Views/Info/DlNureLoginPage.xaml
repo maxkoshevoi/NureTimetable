@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels"
+             xmlns:dal="clr-namespace:NureTimetable.DAL.Settings;assembly=NureTimetable.DAL"
+             x:Class="NureTimetable.UI.Views.DlNureLogin"
+             x:DataType="vm:DlNureLoginViewModel"
+             Title="{xct:Translate DlNureIntegration}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Button">
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="Margin" Value="0,10,0,0"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <StackLayout Padding="16,40" Spacing="10">
+            <Frame BorderColor="Gray">
+                <Label Text="{xct:Translate DlNureIntegrationDescription}" />
+            </Frame>
+            <StackLayout Spacing="10" IsVisible="{Binding DlNureUser, Source={Static dal:SettingsRepository.Settings}, Converter={xct:IsNullOrEmptyConverter}}">
+                <Entry Text="{Binding Login}" Placeholder="{xct:Translate DlNureEmail}" TextTransform="Lowercase" Keyboard="Email" ClearButtonVisibility="WhileEditing" x:Name="DlLogin" />
+                <Entry Text="{Binding Password}" IsPassword="True" Placeholder="{xct:Translate Password}" ClearButtonVisibility="WhileEditing" x:Name="DlPass" />
+                <Button Text="Login" Command="{Binding LoginCommand}" BackgroundColor="{DynamicResource GreenButtonColor}" IsEnabled="{Binding Login, Converter={xct:IsNotNullOrEmptyConverter}}" />
+            </StackLayout>
+            <StackLayout Spacing="10" IsVisible="{Binding DlNureUser, Source={Static dal:SettingsRepository.Settings}, Converter={xct:IsNotNullOrEmptyConverter}}">
+                <Label Text="{Binding LoggedInAs.Localized}" />
+                <Button Text="Logout"  Command="{Binding LogoutCommand}" BackgroundColor="{DynamicResource RedButtonColor}" />
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+    
+</ContentPage>

@@ -1,4 +1,6 @@
-﻿namespace System.Linq
+﻿using System.Collections;
+
+namespace System.Linq
 {
     public static class EnumerableExtensions
     {
@@ -22,6 +24,17 @@
         /// Determines whether no element of a sequence satisfies a condition.
         /// </summary>
         public static bool None<T>(this IEnumerable<T> source, Func<T, bool> predicate) => !source.Any(predicate);
+
+        public static bool TryAdd(this IDictionary dictionary, object key, object? value)
+        {
+            if (dictionary.Contains(key))
+            {
+                return false;
+            }
+
+            dictionary.Add(key, value);
+            return true;
+        }
 
         public static IEnumerable<string> GroupBasedOnLastPart(this IEnumerable<string> collection, string sepparator = "-")
         {

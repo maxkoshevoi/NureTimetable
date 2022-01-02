@@ -5,8 +5,8 @@ using Microsoft.Maui.Controls;
 using Microsoft.Maui.Essentials;
 using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Consts;
-using NureTimetable.Core.Models.Settings;
-using NureTimetable.DAL;
+using NureTimetable.DAL.Settings;
+using NureTimetable.DAL.Settings.Models;
 using System.Globalization;
 using Xamarin.CommunityToolkit.Helpers;
 
@@ -19,6 +19,9 @@ namespace NureTimetable
             //SyncfusionLicenseProvider.RegisterLicense(Keys.SyncfusionLicenseKey);
             InitLanguage();
             VersionTracking.Track();
+#if DEBUG
+            SettingsRepository.Settings.IsDebugMode = true;
+#endif
 
             InitializeComponent();
             MainPage = new AppShell();
@@ -64,12 +67,6 @@ namespace NureTimetable
             }
 #endif
             AppCenter.Start(key, typeof(Analytics), typeof(Crashes));
-
-            // Log current timetable view mode
-            Analytics.TrackEvent("Timetable view mode", new Dictionary<string, string>
-            {
-                { nameof(SettingsRepository.Settings.TimetableViewMode), SettingsRepository.Settings.TimetableViewMode.ToString() }
-            });
 
             // Display crash information
             if (showCrashLog && await Crashes.HasCrashedInLastSessionAsync())

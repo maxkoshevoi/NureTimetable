@@ -1,8 +1,8 @@
 ﻿using Android.App;
 using Android.Content;
 using Java.Util;
-using NureTimetable.Core.Models.Settings;
-using NureTimetable.DAL;
+using NureTimetable.DAL.Settings;
+using NureTimetable.DAL.Settings.Models;
 using System.Globalization;
 using Xamarin.CommunityToolkit.Helpers;
 
