@@ -4,7 +4,6 @@
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels"
              xmlns:dal="clr-namespace:NureTimetable.DAL.Settings;assembly=NureTimetable.DAL"
-             xmlns:syncfusion="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
              x:Class="NureTimetable.UI.Views.LessonSettingsPage"
              x:DataType="vm:LessonSettingsViewModel"
              Title="{Binding LessonInfo.Lesson.FullName}">
@@ -24,27 +23,33 @@
                 <Setter Property="BindableLayout.ItemTemplate">
                     <DataTemplate>
                         <StackLayout>
-                            <syncfusion:SfCheckBox Style="{StaticResource EntityCheckbox}"  />
+                            <CheckBox Style="{StaticResource EntityCheckbox}"  />
+                            <Label Style="{StaticResource EntityLabel}" />
                         </StackLayout>
                     </DataTemplate>
                 </Setter>
             </Style>
-            <Style TargetType="syncfusion:SfCheckBox" x:Key="EntityCheckbox">
+            <Style TargetType="CheckBox" x:Key="EntityCheckbox">
                 <Setter Property="Margin" Value="10,5"/>
-                <Setter Property="Text" Value="{Binding Entity.ShortName}"/>
                 <Setter Property="IsChecked" Value="{Binding IsChecked}"/>
+            </Style>
+            <Style TargetType="Label" x:Key="EntityLabel">
+                <Setter Property="Text" Value="{Binding Entity.ShortName}" />
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
     
     <ScrollView>
         <StackLayout Margin="10">
-            
-            <syncfusion:SfCheckBox IsChecked="{Binding ShowLessonIsChecked}" Text="{xct:Translate DisplayLesson}">
-                <syncfusion:SfCheckBox.Behaviors>
-                    <xct:EventToCommandBehavior EventName="StateChanged" Command="{Binding ShowLessonStateChangedCommand}"/>
-                </syncfusion:SfCheckBox.Behaviors>
-            </syncfusion:SfCheckBox>
+
+            <StackLayout>
+                <Label Text="{xct:Translate DisplayLesson}" />
+                <CheckBox IsChecked="{Binding ShowLessonIsChecked}">
+                    <CheckBox.Behaviors>
+                        <xct:EventToCommandBehavior EventName="CheckedChanged" Command="{Binding ShowLessonStateChangedCommand}"/>
+                    </CheckBox.Behaviors>
+                </CheckBox>
+            </StackLayout>
 
             <StackLayout BindingContext="{Binding LvEventTypes}">
                 <Label Text="{xct:Translate DisplayLessonsForTypes}" />

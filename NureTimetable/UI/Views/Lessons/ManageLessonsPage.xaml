@@ -4,7 +4,6 @@
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              xmlns:fonts="clr-namespace:NureTimetable.UI.Models.Consts"
              xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels"
-             xmlns:sfb="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
              x:Class="NureTimetable.UI.Views.ManageLessonsPage"
              x:DataType="vm:ManageLessonsViewModel"
              Title="{Binding Title.Localized}">
@@ -46,9 +45,9 @@
                                     <Label Text="{Binding LessonInfo.Lesson.FullName}" LineBreakMode="TailTruncation" FontSize="13" Style="{DynamicResource ListItemDetailTextStyle}" />
                                 </StackLayout>
                                 <StackLayout Grid.Column="1" Orientation="Horizontal" Spacing="8">
-                                    <sfb:SfCheckBox IsChecked="{Binding IsChecked}" />
                                     <Image xct:TouchEffect.Command="{Binding InfoClickedCommand}" Source="{FontImageSource Glyph={Static fonts:MaterialIconsFont.InformationOutline}, FontFamily=MaterialDesignIcons, Color={DynamicResource ListIconColor}}" VerticalOptions="CenterAndExpand" xct:TouchEffect.NativeAnimation="True" xct:TouchEffect.NativeAnimationRadius="15" />
                                     <Image xct:TouchEffect.Command="{Binding SettingsClickedCommand}" Source="{FontImageSource Glyph={Static fonts:MaterialIconsFont.Cog}, FontFamily=MaterialDesignIcons, Color={DynamicResource ListIconColor}}" VerticalOptions="CenterAndExpand" xct:TouchEffect.NativeAnimation="True" xct:TouchEffect.NativeAnimationRadius="15" />
+                                    <CheckBox IsChecked="{Binding IsChecked}" />
                                 </StackLayout>
                             </Grid>
                         </ViewCell>
