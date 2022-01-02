@@ -32,7 +32,7 @@
     <ScrollView>
         <StackLayout Margin="0,20">
             <StackLayout Style="{StaticResource Row}">
-                <Image Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.Brightness6}, Color={DynamicResource SecondaryTextColor}}" />
+                <Image Source="{FontImageSource FontFamily=MaterialDesignIcons, Glyph={Static fonts:MaterialIconsFont.Brightness6}, Color={DynamicResource SecondaryTextColor}}" />
                 <StackLayout VerticalOptions="Center">
                     <Label Text="{xct:Translate Theme}" Style="{DynamicResource ListItemTextStyle}" />
                     <Label Text="{Binding AppThemeName.Localized}" FontSize="13" Style="{DynamicResource ListItemDetailTextStyle}" />
@@ -43,7 +43,7 @@
                 </StackLayout.GestureRecognizers>
             </StackLayout>
             <StackLayout Style="{StaticResource Row}">
-                <Image Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.Web}, Color={DynamicResource SecondaryTextColor}}" />
+                <Image Source="{FontImageSource FontFamily=MaterialDesignIcons, Glyph={Static fonts:MaterialIconsFont.Web}, Color={DynamicResource SecondaryTextColor}}" />
                 <StackLayout>
                     <Label Text="{xct:Translate Language}" Style="{DynamicResource ListItemTextStyle}" />
                     <Label Text="{Binding AppLanguageName.Localized}" FontSize="13" Style="{DynamicResource ListItemDetailTextStyle}" />
@@ -54,7 +54,7 @@
                 </StackLayout.GestureRecognizers>
             </StackLayout>
             <StackLayout Style="{StaticResource Row}">
-                <Image Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.DotsHorizontal}, Color={DynamicResource SecondaryTextColor}}" />
+                <Image Source="{FontImageSource FontFamily=MaterialDesignIcons, Glyph={Static fonts:MaterialIconsFont.DotsHorizontal}, Color={DynamicResource SecondaryTextColor}}" />
                 <Label Text="{xct:Translate OtherSettings}" Style="{DynamicResource ListItemTextStyle}" />
 
                 <StackLayout.GestureRecognizers>
@@ -65,7 +65,7 @@
             <BoxView/>
 
             <StackLayout Style="{StaticResource Row}">
-                <Image Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.CommentTextMultipleOutline}, Color={DynamicResource SecondaryTextColor}}" />
+                <Image Source="{FontImageSource FontFamily=MaterialDesignIcons, Glyph={Static fonts:MaterialIconsFont.CommentTextMultipleOutline}, Color={DynamicResource SecondaryTextColor}}" />
                 <Label Text="{xct:Translate Feedback}" VerticalOptions="Center" Style="{DynamicResource ListItemTextStyle}"/>
             
                 <StackLayout.GestureRecognizers>
@@ -73,7 +73,7 @@
                 </StackLayout.GestureRecognizers>
             </StackLayout>
             <StackLayout Style="{StaticResource Row}">
-                <Image Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.StarOutline}, Color={DynamicResource SecondaryTextColor}}" />
+                <Image Source="{FontImageSource FontFamily=MaterialDesignIcons, Glyph={Static fonts:MaterialIconsFont.StarOutline}, Color={DynamicResource SecondaryTextColor}}" />
                 <Label Text="{xct:Translate RateTheApp}" VerticalOptions="Center" Style="{DynamicResource ListItemTextStyle}"/>
             
                 <StackLayout.GestureRecognizers>
@@ -81,7 +81,7 @@
                 </StackLayout.GestureRecognizers>
             </StackLayout>
             <StackLayout Style="{StaticResource Row}">
-                <Image Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.Cash}, Color={DynamicResource SecondaryTextColor}}" />
+                <Image Source="{FontImageSource FontFamily=MaterialDesignIcons, Glyph={Static fonts:MaterialIconsFont.Cash}, Color={DynamicResource SecondaryTextColor}}" />
                 <Label Text="{xct:Translate Donate}" VerticalOptions="Center" Style="{DynamicResource ListItemTextStyle}"/>
 
                 <StackLayout.GestureRecognizers>
@@ -92,7 +92,7 @@
             <BoxView/>
 
             <StackLayout Style="{StaticResource Row}">
-                <Image Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.CodeBraces}, Color={DynamicResource SecondaryTextColor}}" />
+                <Image Source="{FontImageSource FontFamily=MaterialDesignIcons, Glyph={Static fonts:MaterialIconsFont.CodeBraces}, Color={DynamicResource SecondaryTextColor}}" />
                 <Label Text="{xct:Translate SourceCode}" VerticalOptions="Center" Style="{DynamicResource ListItemTextStyle}"/>
 
                 <StackLayout.GestureRecognizers>

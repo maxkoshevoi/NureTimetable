@@ -23,9 +23,9 @@
     </Shell.Resources>
 
     <TabBar Route="tabbar">
-        <ShellContent Title="{xct:Translate Events}" Route="Events" Icon="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.CalendarBlank}}" ContentTemplate="{DataTemplate views:TimetablePage}" />
-        <ShellContent Title="{xct:Translate Timetables}" Route="SavedTimetables" Icon="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.AccountMultiple}}" ContentTemplate="{DataTemplate views:ManageEntitiesPage}" />
-        <ShellContent Title="{xct:Translate Menu}" Route="Menu" Icon="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.Menu}}" ContentTemplate="{DataTemplate views:MenuPage}" />
+        <ShellContent Title="{xct:Translate Events}" Route="Events" Icon="{FontImageSource FontFamily=MaterialDesignIcons, Glyph={Static fonts:MaterialIconsFont.CalendarBlank}}" ContentTemplate="{DataTemplate views:TimetablePage}" />
+        <ShellContent Title="{xct:Translate Timetables}" Route="SavedTimetables" Icon="{FontImageSource FontFamily=MaterialDesignIcons, Glyph={Static fonts:MaterialIconsFont.AccountMultiple}}" ContentTemplate="{DataTemplate views:ManageEntitiesPage}" />
+        <ShellContent Title="{xct:Translate Menu}" Route="Menu" Icon="{FontImageSource FontFamily=MaterialDesignIcons, Glyph={Static fonts:MaterialIconsFont.Menu}}" ContentTemplate="{DataTemplate views:MenuPage}" />
     </TabBar>
     
 </Shell>

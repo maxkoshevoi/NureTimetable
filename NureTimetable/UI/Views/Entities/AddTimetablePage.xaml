@@ -15,7 +15,7 @@
     </TabbedPage.Behaviors>
 
     <TabbedPage.ToolbarItems>
-        <ToolbarItem IconImageSource="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.Sync}}" Command="{Binding UpdateCommand}" x:Name="UpdateFromCist" />
+        <ToolbarItem IconImageSource="{FontImageSource FontFamily=MaterialDesignIcons, Glyph={Static fonts:MaterialIconsFont.Sync}}" Command="{Binding UpdateCommand}" x:Name="UpdateFromCist" />
     </TabbedPage.ToolbarItems>
 
     <Shell.SearchHandler>

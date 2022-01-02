@@ -17,8 +17,8 @@
     </Shell.BackButtonBehavior>
     
     <ContentPage.ToolbarItems>
-        <ToolbarItem x:DataType="vm:ManageLessonsViewModel" IconImageSource="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.AccountSearch}}" Command="{Binding SyncDlNureClickedCommand}" />
-        <ToolbarItem x:DataType="vm:ManageLessonsViewModel" IconImageSource="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.ContentSave}}" Command="{Binding SaveClickedCommand}" />
+        <ToolbarItem x:DataType="vm:ManageLessonsViewModel" IconImageSource="{FontImageSource FontFamily=MaterialDesignIcons, Glyph={Static fonts:MaterialIconsFont.AccountSearch}}" Command="{Binding SyncDlNureClickedCommand}" />
+        <ToolbarItem x:DataType="vm:ManageLessonsViewModel" IconImageSource="{FontImageSource FontFamily=MaterialDesignIcons, Glyph={Static fonts:MaterialIconsFont.ContentSave}}" Command="{Binding SaveClickedCommand}" />
     </ContentPage.ToolbarItems>
 
     <AbsoluteLayout>
@@ -46,9 +46,9 @@
                                     <Label Text="{Binding LessonInfo.Lesson.FullName}" LineBreakMode="TailTruncation" FontSize="13" Style="{DynamicResource ListItemDetailTextStyle}" />
                                 </StackLayout>
                                 <StackLayout Grid.Column="1" Orientation="Horizontal" Spacing="8">
-                                    <Image xct:TouchEffect.Command="{Binding InfoClickedCommand}" Source="{FontImageSource Glyph={Static fonts:MaterialIconsFont.InformationOutline}, FontFamily={StaticResource MaterialFontFamily}, Color={DynamicResource ListIconColor}}" VerticalOptions="CenterAndExpand" xct:TouchEffect.NativeAnimation="True" xct:TouchEffect.NativeAnimationRadius="15" />
-                                    <Image xct:TouchEffect.Command="{Binding SettingsClickedCommand}" Source="{FontImageSource Glyph={Static fonts:MaterialIconsFont.Cog}, FontFamily={StaticResource MaterialFontFamily}, Color={DynamicResource ListIconColor}}" VerticalOptions="CenterAndExpand" xct:TouchEffect.NativeAnimation="True" xct:TouchEffect.NativeAnimationRadius="15" />
                                     <sfb:SfCheckBox IsChecked="{Binding IsChecked}" />
+                                    <Image xct:TouchEffect.Command="{Binding InfoClickedCommand}" Source="{FontImageSource Glyph={Static fonts:MaterialIconsFont.InformationOutline}, FontFamily=MaterialDesignIcons, Color={DynamicResource ListIconColor}}" VerticalOptions="CenterAndExpand" xct:TouchEffect.NativeAnimation="True" xct:TouchEffect.NativeAnimationRadius="15" />
+                                    <Image xct:TouchEffect.Command="{Binding SettingsClickedCommand}" Source="{FontImageSource Glyph={Static fonts:MaterialIconsFont.Cog}, FontFamily=MaterialDesignIcons, Color={DynamicResource ListIconColor}}" VerticalOptions="CenterAndExpand" xct:TouchEffect.NativeAnimation="True" xct:TouchEffect.NativeAnimationRadius="15" />
                                 </StackLayout>
                             </Grid>
                         </ViewCell>

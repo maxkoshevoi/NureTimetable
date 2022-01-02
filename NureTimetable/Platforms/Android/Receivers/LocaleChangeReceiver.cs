@@ -7,7 +7,7 @@ using Xamarin.CommunityToolkit.Helpers;
 
 namespace NureTimetable.Platforms.Android.Receivers;
 
-[BroadcastReceiver(Enabled = true)]
+[BroadcastReceiver(Enabled = true, Exported = true)]
 [IntentFilter(new[] { Intent.ActionLocaleChanged })]
 public class LocaleChangeReceiver : BroadcastReceiver
 {

@@ -35,7 +35,7 @@
     <ScrollView>
         <StackLayout Margin="0,20">
             <StackLayout Style="{StaticResource Row}">
-                <Image Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.Update}, Color={DynamicResource SecondaryTextColor}}" />
+                <Image Source="{FontImageSource FontFamily=MaterialDesignIcons, Glyph={Static fonts:MaterialIconsFont.Update}, Color={DynamicResource SecondaryTextColor}}" />
                 <StackLayout VerticalOptions="Center">
                     <Label Text="{xct:Translate Autoupdate}" Style="{DynamicResource ListItemTextStyle}" />
                     <Label Text="{xct:Translate AutoupdateDescription}" FontSize="13" Style="{DynamicResource ListItemDetailTextStyle}"/>
@@ -50,7 +50,7 @@
             <BoxView/>
             
             <StackLayout Style="{StaticResource Row}">
-                <Image Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.CalendarBlank}, Color={DynamicResource SecondaryTextColor}}" />
+                <Image Source="{FontImageSource FontFamily=MaterialDesignIcons, Glyph={Static fonts:MaterialIconsFont.CalendarBlank}, Color={DynamicResource SecondaryTextColor}}" />
                 <StackLayout>
                     <Label Text="{xct:Translate DefaultCalendar}" Style="{DynamicResource ListItemTextStyle}" />
                     <Label Text="{Binding DefaultCalendarName.Localized}" FontSize="13" Style="{DynamicResource ListItemDetailTextStyle}" />
@@ -61,7 +61,7 @@
                 </StackLayout.GestureRecognizers>
             </StackLayout>
             <StackLayout Style="{StaticResource Row}">
-                <Image Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.ClockTimeFourOutline}, Color={DynamicResource SecondaryTextColor}}" />
+                <Image Source="{FontImageSource FontFamily=MaterialDesignIcons, Glyph={Static fonts:MaterialIconsFont.ClockTimeFourOutline}, Color={DynamicResource SecondaryTextColor}}" />
                 <StackLayout>
                     <Label Text="{xct:Translate TimeBeforeEventReminder}" Style="{DynamicResource ListItemTextStyle}" />
                     <Label Text="{Binding TimeBeforeEventReminderValue.Localized}" FontSize="13" Style="{DynamicResource ListItemDetailTextStyle}" />
@@ -75,7 +75,7 @@
             <BoxView/>
 
             <StackLayout Style="{StaticResource Row}">
-                <Image Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.Connection}, Color={DynamicResource SecondaryTextColor}}" />
+                <Image Source="{FontImageSource FontFamily=MaterialDesignIcons, Glyph={Static fonts:MaterialIconsFont.Connection}, Color={DynamicResource SecondaryTextColor}}" />
                 <StackLayout>
                     <Label Text="{xct:Translate DlNureIntegration}" Style="{DynamicResource ListItemTextStyle}" />
                     <Label Text="{Binding DlNureAccount.Localized}" FontSize="13" Style="{DynamicResource ListItemDetailTextStyle}" />
@@ -89,7 +89,7 @@
             <BoxView/>
 
             <StackLayout Style="{StaticResource Row}">
-                <Image Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.BugOutline}, Color={DynamicResource SecondaryTextColor}}" />
+                <Image Source="{FontImageSource FontFamily=MaterialDesignIcons, Glyph={Static fonts:MaterialIconsFont.BugOutline}, Color={DynamicResource SecondaryTextColor}}" />
                 <Label Text="{xct:Translate ShowErrors}" VerticalOptions="Center" Style="{DynamicResource ListItemTextStyle}"/>
                 <Switch IsToggled="{Binding IsDebugMode, Source={Static dal:SettingsRepository.Settings}}" HorizontalOptions="EndAndExpand" VerticalOptions="Center" />
 

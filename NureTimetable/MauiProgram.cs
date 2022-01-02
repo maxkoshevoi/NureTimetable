@@ -21,9 +21,9 @@ public static class MauiProgram
             .ConfigureLifecycleEvents(lifecycle =>
             {
 #if ANDROID
-                    lifecycle.AddAndroid(d => d.OnBackPressed(activity => Popup.SendBackPressed(activity.OnBackPressed)));
+                lifecycle.AddAndroid(d => d.OnBackPressed(activity => Popup.SendBackPressed(activity.OnBackPressed)));
 #endif
-                });
+            });
 
         return builder.Build();
     }

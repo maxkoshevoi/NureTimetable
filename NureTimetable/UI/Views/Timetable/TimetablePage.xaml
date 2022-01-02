@@ -18,8 +18,8 @@
 
     <ContentPage.ToolbarItems>
         <ToolbarItem x:DataType="vm:TimetableViewModel" IconImageSource="{Binding HideSelectedEventsIcon, Converter={converters:ToolbarIconValueConverter}}" Command="{Binding HideSelectedEventsCommand}" />
-        <ToolbarItem x:DataType="vm:TimetableViewModel" IconImageSource="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.CalendarToday}}" Command="{Binding ScheduleModeCommand}" />
-        <ToolbarItem x:DataType="vm:TimetableViewModel" IconImageSource="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.Sync}}" Command="{Binding UpdateTimetableCommand}" />
+        <ToolbarItem x:DataType="vm:TimetableViewModel" IconImageSource="{FontImageSource FontFamily=MaterialDesignIcons, Glyph={Static fonts:MaterialIconsFont.CalendarToday}}" Command="{Binding ScheduleModeCommand}" />
+        <ToolbarItem x:DataType="vm:TimetableViewModel" IconImageSource="{FontImageSource FontFamily=MaterialDesignIcons, Glyph={Static fonts:MaterialIconsFont.Sync}}" Command="{Binding UpdateTimetableCommand}" />
     </ContentPage.ToolbarItems>
 
     <RefreshView IsRefreshing="{Binding IsTimetableUpdating}">
@@ -39,7 +39,7 @@
                            IsVisible="{Binding DlNureUser, Source={Static dal:SettingsRepository.Settings}, Converter={xct:IsNotNullOrEmptyConverter}}" 
                            xct:TouchEffect.Command="{Binding AttendanceClickCommand}" 
                            Opacity="{Binding AttendanceOpacity}"
-                           Source="{FontImageSource FontFamily={StaticResource MaterialFontFamily}, Glyph={Static fonts:MaterialIconsFont.BadgeAccountAlertOutline}, Color={DynamicResource ListIconColor}}" 
+                           Source="{FontImageSource FontFamily=MaterialDesignIcons, Glyph={Static fonts:MaterialIconsFont.BadgeAccountAlertOutline}, Color={DynamicResource ListIconColor}}" 
                            xct:TouchEffect.NativeAnimation="True" 
                            xct:TouchEffect.NativeAnimationRadius="15" />
                 </Grid>
@@ -115,7 +115,7 @@
                 HorizontalOptions="Center"
                 AbsoluteLayout.LayoutFlags="PositionProportional"
                 AbsoluteLayout.LayoutBounds="1,1,AutoSize,AutoSize"
-                FontFamily="{StaticResource MaterialFontFamily}" 
+                FontFamily="MaterialDesignIcons" 
                 CornerRadius="100"
                 FontSize="20"
                 Margin="20"
