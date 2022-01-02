@@ -10,8 +10,10 @@ namespace NureTimetable.Platforms.Android.Dependences
     {
         public NightModeStyle DefaultNightMode
         {
+#pragma warning disable CA1416 // Validate platform compatibility
             get => (NightModeStyle)AppCompatDelegate.DefaultNightMode;
             set => AppCompatDelegate.DefaultNightMode = (int)value;
+#pragma warning restore CA1416 // Validate platform compatibility
         }
     }
 }

@@ -5,7 +5,7 @@
              xmlns:fonts="clr-namespace:NureTimetable.UI.Models.Consts"
              xmlns:converters="clr-namespace:NureTimetable.UI.Converters"
              xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels"
-             xmlns:sfs="clr-namespace:Syncfusion.SfSchedule.XForms;assembly=Syncfusion.SfSchedule.XForms"
+             xmlns:sfs="clr-namespace:Syncfusion.Maui.Scheduler;assembly=Syncfusion.Maui.Scheduler"
              Shell.TabBarIsVisible="True"
              x:Class="NureTimetable.UI.Views.TimetablePage"
              x:DataType="vm:TimetableViewModel"
@@ -28,110 +28,72 @@
                     BackgroundColor="{DynamicResource PageBackgroundColor}" 
                     IsVisible="{Binding TimetableInfoList.Events, Converter={xct:ListIsNotNullOrEmptyConverter}}">
                 <Label HorizontalOptions="Center" FontSize="20" Margin="0,15,0,0" IsVisible="{Binding IsTimeLeftVisible}" Text="{Binding TimeLeftText}" />
-                <sfs:SfSchedule
-                        x:Name="Timetable"
-                        HeaderHeight="50"
-                        ViewHeaderHeight="50"
-                        FirstDayOfWeek="2"
-                        ShowAppointmentsInline="True"
-                        TimeIntervalHeight="-1"
-                        VerticalOptions="FillAndExpand"
-                        ShowCurrentTimeIndicator="True"
-                        CurrentTimeIndicatorColor="CornflowerBlue"
-                        BackgroundColor="{DynamicResource PageBackgroundColor}"
-                        TimeInterval="{Binding TimetableTimeInterval}"
-                        MinDisplayDate="{Binding TimetableMinDisplayDate}"
-                        MaxDisplayDate="{Binding TimetableMaxDisplayDate}"
-                        DataSource="{Binding TimetableDataSource}"
-                        IsEnabled="{Binding IsProgressLayoutVisible, Converter={xct:InvertedBoolConverter}}"
-                        ScheduleView="{Binding TimetableScheduleView}"
-                        Locale="{Binding TimetableLocale}"
-                        SelectedDate="{Binding TimetableSelectedDate}"
-                        CellTappedCommand="{Binding TimetableCellTappedCommand}"
-                        VisibleDatesChangedCommand="{Binding TimetableVisibleDatesChangedCommand}">
-                    <sfs:SfSchedule.Behaviors>
-                        <xct:EventToCommandBehavior x:DataType="vm:TimetableViewModel" EventName="MonthInlineAppointmentTapped" Command="{Binding TimetableMonthInlineAppointmentTappedCommand}"/>
-                        <xct:EventToCommandBehavior x:DataType="vm:TimetableViewModel" EventName="OnMonthInlineLoadedEvent" Command="{Binding TimetableMonthInlineLoadedCommand}"/>
-                    </sfs:SfSchedule.Behaviors>
-                    <sfs:SfSchedule.HeaderStyle>
-                        <sfs:HeaderStyle 
-                            FontSize="10" 
-                            FontAttributes="Bold" 
-                            BackgroundColor="{DynamicResource PageBackgroundColor}" 
-                            TextColor="{DynamicResource PrimaryTextColor}" />
-                    </sfs:SfSchedule.HeaderStyle>
-                    <sfs:SfSchedule.ViewHeaderStyle>
-                        <sfs:ViewHeaderStyle 
-                            DateFontSize="13" 
-                            DayFontSize="8" 
-                            CurrentDateTextColor="{DynamicResource CurrentDayColor}" 
-                            CurrentDayTextColor="{DynamicResource CurrentDayColor}" 
-                            BackgroundColor="{DynamicResource PageBackgroundColor}" 
-                            DateTextColor="{DynamicResource PrimaryTextColor}" 
-                            DayTextColor="{DynamicResource PrimaryTextColor}" />
-                    </sfs:SfSchedule.ViewHeaderStyle>
-                    <sfs:SfSchedule.WeekViewSettings>
-                        <sfs:WeekViewSettings 
+                <sfs:SfScheduler
+                    x:Name="Timetable"
+                    FirstDayOfWeek="Monday"
+                    VerticalOptions="FillAndExpand"
+                    BackgroundColor="{DynamicResource PageBackgroundColor}"
+                    MinimumDateTime="{Binding TimetableMinDisplayDate}"
+                    MaximumDateTime="{Binding TimetableMaxDisplayDate}"
+                    AppointmentsSource="{Binding TimetableDataSource}"
+                    IsEnabled="{Binding IsProgressLayoutVisible, Converter={xct:InvertedBoolConverter}}"
+                    View="{Binding TimetableScheduleView}"
+                    SelectedDate="{Binding TimetableSelectedDate}">
+                    <sfs:SfScheduler.Behaviors>
+                        <xct:EventToCommandBehavior EventName="Tapped" Command="{Binding TimetableCellTappedCommand}"/>
+                        <xct:EventToCommandBehavior EventName="ViewChanged" Command="{Binding TimetableVisibleDatesChangedCommand2}"/>
+                    </sfs:SfScheduler.Behaviors>
+                    <sfs:SfScheduler.DaysViewSettings>
+                        <sfs:SchedulerDaysViewSettings 
                             StartHour="{Binding TimetableStartHour}" 
                             EndHour="{Binding TimetableEndHour}" 
-                            WorkStartHour="0" 
-                            WorkEndHour="24" 
-                            TimeSlotColor="{DynamicResource PageBackgroundColor}"
-                            TimeSlotBorderColor="{DynamicResource BorderColor}"
-                            VerticalLineColor="{DynamicResource BorderColor}">
-                            <sfs:WeekViewSettings.WeekLabelSettings>
-                                <sfs:WeekLabelSettings TimeFormat="HH:mm"/>
-                            </sfs:WeekViewSettings.WeekLabelSettings>
-                        </sfs:WeekViewSettings>
-                    </sfs:SfSchedule.WeekViewSettings>
-                    <sfs:SfSchedule.DayViewSettings>
-                        <sfs:DayViewSettings 
-                            StartHour="{Binding TimetableStartHour}" 
-                            EndHour="{Binding TimetableEndHour}" 
-                            WorkStartHour="0"
-                            WorkEndHour="24"
-                            TimeSlotColor="{DynamicResource PageBackgroundColor}"
-                            TimeSlotBorderColor="{DynamicResource BorderColor}"
-                            VerticalLineColor="{DynamicResource BorderColor}">
-                            <sfs:DayViewSettings.DayLabelSettings>
-                                <sfs:DayLabelSettings TimeFormat="HH:mm"/>
-                            </sfs:DayViewSettings.DayLabelSettings>
-                        </sfs:DayViewSettings>
-                    </sfs:SfSchedule.DayViewSettings>
-                    <sfs:SfSchedule.MonthViewSettings>
-                        <sfs:MonthViewSettings 
-                            AppointmentIndicatorCount="6" 
-                            ShowWeekNumber="True" 
-                            AppointmentDisplayMode="Appointment">
-                            <sfs:MonthViewSettings.WeekNumberStyle>
-                                <sfs:WeekNumberStyle BackgroundColor="{DynamicResource PageBackgroundColor}"/>
-                            </sfs:MonthViewSettings.WeekNumberStyle>
-                        </sfs:MonthViewSettings>
-                    </sfs:SfSchedule.MonthViewSettings>
-                    <sfs:SfSchedule.MonthCellStyle>
-                        <sfs:MonthViewCellStyle 
-                            PreviousMonthBackgroundColor="{DynamicResource PageBackgroundColor}"
-                            PreviousMonthTextColor="{DynamicResource TertiaryTextColor}"
-                            BackgroundColor="{DynamicResource PageBackgroundColor}"
-                            TextColor="{DynamicResource PrimaryTextColor}"
-                            NextMonthBackgroundColor="{DynamicResource PageBackgroundColor}"
-                            NextMonthTextColor="{DynamicResource TertiaryTextColor}"
-                            TodayBackgroundColor="{DynamicResource PageBackgroundColor}"/>
-                    </sfs:SfSchedule.MonthCellStyle>
-                    <sfs:SfSchedule.AppointmentMapping>
-                        <sfs:ScheduleAppointmentMapping
-			                SubjectMapping="DisplayInfo"
-			                StartTimeMapping="Start"
-			                EndTimeMapping="End"
-                            ColorMapping="Color">
-                        </sfs:ScheduleAppointmentMapping>
-                    </sfs:SfSchedule.AppointmentMapping>
-                    <sfs:SfSchedule.AppointmentStyle>
-                        <sfs:AppointmentStyle 
-                            BorderColor="{DynamicResource PageBackgroundColor}"
-                            TextColor="{DynamicResource AppointmentTextColor}" />
-                    </sfs:SfSchedule.AppointmentStyle>
-                </sfs:SfSchedule>
+                            TimeInterval="{Binding TimetableTimeInterval}"
+                            TimeFormat="HH:mm"
+                            CurrentTimeIndicatorBrush="CornflowerBlue">
+                            <sfs:SchedulerDaysViewSettings.ViewHeaderSettings>
+                                <sfs:SchedulerViewHeaderSettings Background="{DynamicResource PageBackgroundColor}">
+                                    <sfs:SchedulerViewHeaderSettings.DayTextStyle>
+                                        <sfs:SchedulerTextStyle TextColor="{DynamicResource PrimaryTextColor}" FontSize="8" />
+                                    </sfs:SchedulerViewHeaderSettings.DayTextStyle>
+                                    <sfs:SchedulerViewHeaderSettings.DateTextStyle>
+                                        <sfs:SchedulerTextStyle TextColor="{DynamicResource PrimaryTextColor}" FontSize="13" />
+                                    </sfs:SchedulerViewHeaderSettings.DateTextStyle>
+                                </sfs:SchedulerViewHeaderSettings>
+                            </sfs:SchedulerDaysViewSettings.ViewHeaderSettings>
+                        </sfs:SchedulerDaysViewSettings>
+                    </sfs:SfScheduler.DaysViewSettings>
+                    <sfs:SfScheduler.MonthViewSettings>
+                        <sfs:SchedulerMonthViewSettings AppointmentDisplayMode="Text">
+                            <sfs:SchedulerMonthViewSettings.MonthCellStyle>
+                                <sfs:SchedulerMonthCellStyle 
+                                    LeadingMonthBackground="{DynamicResource PageBackgroundColor}"
+                                    Background="{DynamicResource PageBackgroundColor}"
+                                    TrailingMonthBackground="{DynamicResource PageBackgroundColor}"
+                                    TodayBackground="{DynamicResource PageBackgroundColor}">
+                                    <sfs:SchedulerMonthCellStyle.TextStyle>
+                                        <sfs:SchedulerTextStyle TextColor="{DynamicResource PrimaryTextColor}" />
+                                    </sfs:SchedulerMonthCellStyle.TextStyle>
+                                    <sfs:SchedulerMonthCellStyle.LeadingMonthTextStyle>
+                                        <sfs:SchedulerTextStyle TextColor="{DynamicResource TertiaryTextColor}" />
+                                    </sfs:SchedulerMonthCellStyle.LeadingMonthTextStyle>
+                                    <sfs:SchedulerMonthCellStyle.TrailingMonthTextStyle>
+                                        <sfs:SchedulerTextStyle TextColor="{DynamicResource TertiaryTextColor}" />
+                                    </sfs:SchedulerMonthCellStyle.TrailingMonthTextStyle>
+                                </sfs:SchedulerMonthCellStyle>
+                            </sfs:SchedulerMonthViewSettings.MonthCellStyle>
+                        </sfs:SchedulerMonthViewSettings>
+                    </sfs:SfScheduler.MonthViewSettings>
+                    <sfs:SfScheduler.AppointmentMapping>
+                        <sfs:SchedulerAppointmentMapping
+			                Subject="DisplayInfo"
+			                StartTime="Start"
+			                EndTime="End"
+                            Background="Color"/>
+                    </sfs:SfScheduler.AppointmentMapping>
+                    <sfs:SfScheduler.AppointmentTextStyle>
+                        <sfs:SchedulerTextStyle TextColor="{DynamicResource AppointmentTextColor}" />
+                    </sfs:SfScheduler.AppointmentTextStyle>
+                </sfs:SfScheduler>
             </StackLayout>
             <Button
                 x:Name="BToday"

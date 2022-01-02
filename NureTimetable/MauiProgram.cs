@@ -1,7 +1,8 @@
-﻿using Microsoft.Maui;
-using Microsoft.Maui.Controls.Hosting;
+﻿using Microsoft.Maui.Controls.Hosting;
 using Microsoft.Maui.Hosting;
 using Microsoft.Maui.LifecycleEvents;
+using Rg.Plugins.Popup;
+using Syncfusion.Maui.Core.Hosting;
 
 namespace NureTimetable
 {
@@ -11,6 +12,7 @@ namespace NureTimetable
         {
             var builder = MauiApp.CreateBuilder();
             builder
+                .ConfigureSyncfusionCore()
                 .UseMauiApp<App>()
                 .ConfigureFonts(fonts =>
                 {
@@ -19,13 +21,7 @@ namespace NureTimetable
                 .ConfigureLifecycleEvents(lifecycle =>
                 {
 #if ANDROID
-                    lifecycle.AddAndroid(d =>
-                    {
-                        d.OnBackPressed(activity =>
-                        {
-                            //bool isPopupStackEmpty = !Popup.SendBackPressed(activity.OnBackPressed);
-                        });
-                    });
+                    lifecycle.AddAndroid(d => d.OnBackPressed(activity => Popup.SendBackPressed(activity.OnBackPressed)));
 #endif
                 });
 

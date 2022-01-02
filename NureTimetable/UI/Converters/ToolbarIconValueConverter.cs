@@ -9,7 +9,7 @@ namespace NureTimetable.UI.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) =>
             new FontImageSource
             {
-                FontFamily = (OnPlatform<string>)Application.Current.Resources["MaterialFontFamily"],
+                FontFamily = (OnPlatform<string>)App.Current!.Resources["MaterialFontFamily"],
                 Glyph = (string)value
             };
 

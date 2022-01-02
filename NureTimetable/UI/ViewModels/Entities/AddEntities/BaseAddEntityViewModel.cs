@@ -5,6 +5,7 @@ using NureTimetable.Core.Models.Consts;
 using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
 using System.Collections.ObjectModel;
+using Xamarin.CommunityToolkit.Extensions;
 
 namespace NureTimetable.UI.ViewModels
 {

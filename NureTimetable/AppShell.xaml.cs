@@ -34,7 +34,7 @@ namespace NureTimetable
                 if (e.PropertyName == nameof(SettingsRepository.Settings.Theme))
                     ThemeService.SetAppTheme();
             };
-            App.Current.RequestedThemeChanged += (_, e) =>
+            App.Current!.RequestedThemeChanged += (_, e) =>
             {
                 if (SettingsRepository.Settings.Theme == AppTheme.FollowSystem)
                     ThemeService.SetAppTheme();
@@ -62,7 +62,7 @@ namespace NureTimetable
             if (migrationsToApply.Any())
             {
                 // Not Shell.Current.DisplayAlert cause Shell.Current is null here
-                await App.Current.MainPage.DisplayAlert(LN.FinishingUpdateTitle, LN.FinishingUpdateDescription, LN.Ok);
+                await App.Current!.MainPage!.DisplayAlert(LN.FinishingUpdateTitle, LN.FinishingUpdateDescription, LN.Ok);
                 bool isSuccess = true;
                 foreach (var migration in migrationsToApply)
                 {
@@ -73,11 +73,11 @@ namespace NureTimetable
                 }
                 if (isSuccess)
                 {
-                    App.Current.MainPage = new AppShell();
+                    App.Current!.MainPage = new AppShell();
                 }
                 else
                 {
-                    await App.Current.MainPage.DisplayAlert(LN.FinishingUpdateTitle, LN.FinishingUpdateFail, LN.Ok);
+                    await App.Current!.MainPage.DisplayAlert(LN.FinishingUpdateTitle, LN.FinishingUpdateFail, LN.Ok);
                 }
             }
         }

@@ -12,7 +12,7 @@ namespace NureTimetable.UI.Views
             BindingContext = new TimetableViewModel(this);
         }
 
-        public void TimetableNavigateTo(DateTime date) => Timetable.NavigateTo(date);
+        public void TimetableNavigateTo(DateTime date) => Timetable.DisplayDate = date;
 
         public Task ScaleTodayButtonTo(double scale) => BToday.ScaleTo(scale);
 

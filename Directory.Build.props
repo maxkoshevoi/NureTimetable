@@ -1,18 +1,18 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net6.0-android</TargetFramework> <!--Replace with "net.6.0" when AppCenter adds it as a TFM-->
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 
+	<SupportedOSPlatformVersion>21.0</SupportedOSPlatformVersion>  
     <UseMaui>true</UseMaui>
-    <!--<UseMauiEssentials>true</UseMauiEssentials>-->
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Xamarin.CommunityToolkit.MauiCompat" Version="1.3.0-compat-alpha3" />
+    <PackageReference Include="Xamarin.CommunityToolkit.MauiCompat" Version="1.3.0-compat-alpha4" />
   </ItemGroup>
 
   <ItemGroup>

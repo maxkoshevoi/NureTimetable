@@ -1,7 +1,9 @@
-﻿using NureTimetable.BL;
+﻿using Microsoft.Maui.Controls;
+using NureTimetable.BL;
 using NureTimetable.Core.Localization;
 using NureTimetable.DAL;
 using NureTimetable.DAL.Models.Local;
+using NureTimetable.UI.Models.Consts;
 using NureTimetable.UI.Views;
 using Xamarin.CommunityToolkit.ObjectModel;
 

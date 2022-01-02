@@ -1,7 +1,9 @@
-﻿using NureTimetable.BL;
+﻿using Microsoft.Maui.Controls;
+using NureTimetable.BL;
 using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Localization;
 using Plugin.InAppBilling;
+using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace NureTimetable.UI.ViewModels

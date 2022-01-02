@@ -25,7 +25,7 @@ namespace NureTimetable.BL
         {
             if (selectedTheme == AppTheme.FollowSystem)
             {
-                selectedTheme = (AppTheme)App.Current.RequestedTheme;
+                selectedTheme = (AppTheme)App.Current!.RequestedTheme;
             }
 
             ResourceDictionary theme = selectedTheme switch
@@ -35,7 +35,7 @@ namespace NureTimetable.BL
                 _ => throw new InvalidOperationException("Unsupported theme"),
             };
 
-            ICollection<ResourceDictionary> resources = Application.Current.Resources.MergedDictionaries;
+            ICollection<ResourceDictionary> resources = App.Current!.Resources.MergedDictionaries;
             if (resources.FirstOrDefault()?.GetType() == theme.GetType())
             {
                 return false;

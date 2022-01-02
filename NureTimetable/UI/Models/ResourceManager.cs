@@ -1,5 +1,6 @@
 ﻿using Microsoft.Maui.Graphics;
 using System.Runtime.CompilerServices;
+using Xamarin.CommunityToolkit.PlatformConfiguration.AndroidSpecific;
 
 namespace NureTimetable.UI.Models.Consts
 {
@@ -8,7 +9,7 @@ namespace NureTimetable.UI.Models.Consts
         public static Color EventColor(string typeName)
         {
             string key = $"{typeName.ToLower()}Color";
-            if (App.Current.Resources.TryGetValue(key, out object colorValue))
+            if (App.Current!.Resources.TryGetValue(key, out object colorValue))
             {
                 return (Color)colorValue;
             }
@@ -23,7 +24,7 @@ namespace NureTimetable.UI.Models.Consts
 
         public static Color NavigationBarColor => GetColor();
 
-        // public static NavigationBarStyle NavigationBarStyle => Get<NavigationBarStyle>();
+        public static NavigationBarStyle NavigationBarStyle => Get<NavigationBarStyle>();
 
         public static Color PageBackgroundColor => GetColor();
 
@@ -31,7 +32,7 @@ namespace NureTimetable.UI.Models.Consts
 
         private static T Get<T>([CallerMemberName] string resourceName = "")
         {
-            var value = (T)App.Current.Resources[resourceName];
+            var value = (T)App.Current!.Resources[resourceName];
             return value;
         }
     }

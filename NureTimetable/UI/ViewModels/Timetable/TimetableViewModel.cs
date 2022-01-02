@@ -10,7 +10,7 @@ using NureTimetable.UI.Models.Consts;
 using NureTimetable.UI.ViewModels.Timetable;
 using NureTimetable.UI.Views;
 using Rg.Plugins.Popup.Services;
-using Syncfusion.SfSchedule.XForms;
+using Syncfusion.Maui.Scheduler;
 using System.Globalization;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.ObjectModel;
@@ -62,8 +62,8 @@ namespace NureTimetable.UI.ViewModels
         private DateTime? _timetableSelectedDate;
         public DateTime? TimetableSelectedDate { get => _timetableSelectedDate; set => SetProperty(ref _timetableSelectedDate, value); }
 
-        private ScheduleView _timetableScheduleView = ScheduleView.WeekView;
-        public ScheduleView TimetableScheduleView { get => _timetableScheduleView; set => SetProperty(ref _timetableScheduleView, value); }
+        private SchedulerView _timetableScheduleView = SchedulerView.Week;
+        public SchedulerView TimetableScheduleView { get => _timetableScheduleView; set => SetProperty(ref _timetableScheduleView, value); }
 
         private string _timetableLocale = string.Empty;
         public string TimetableLocale { get => _timetableLocale; set => SetProperty(ref _timetableLocale, value); }
@@ -106,10 +106,8 @@ namespace NureTimetable.UI.ViewModels
         public Command PageDisappearingCommand { get; }
         public IAsyncCommand HideSelectedEventsCommand { get; }
         public IAsyncCommand ScheduleModeCommand { get; }
-        public IAsyncCommand<CellTappedEventArgs> TimetableCellTappedCommand { get; }
-        public IAsyncCommand<MonthInlineAppointmentTappedEventArgs> TimetableMonthInlineAppointmentTappedCommand { get; }
-        public Command TimetableMonthInlineLoadedCommand { get; }
-        public IAsyncCommand<VisibleDatesChangedEventArgs> TimetableVisibleDatesChangedCommand { get; }
+        public IAsyncCommand<SchedulerTappedEventArgs> TimetableCellTappedCommand { get; }
+        public IAsyncCommand<SchedulerViewChangedEventArgs> TimetableVisibleDatesChangedCommand { get; }
         public Command BTodayClickedCommand { get; }
         public IAsyncCommand UpdateTimetableCommand { get; }
         #endregion
@@ -126,9 +124,9 @@ namespace NureTimetable.UI.ViewModels
 
             TimetableScheduleView = SettingsRepository.Settings.TimetableViewMode switch
             {
-                TimetableViewMode.Day => ScheduleView.DayView,
-                TimetableViewMode.Week => ScheduleView.WeekView,
-                TimetableViewMode.Month => ScheduleView.MonthView,
+                TimetableViewMode.Day => SchedulerView.Day,
+                TimetableViewMode.Week => SchedulerView.Week,
+                TimetableViewMode.Month => SchedulerView.Month,
                 _ => TimetableScheduleView
             };
 
@@ -180,22 +178,13 @@ namespace NureTimetable.UI.ViewModels
             ScheduleModeCommand = CommandFactory.Create(ScheduleModeClicked, () => TimetableInfoList.Events.Any());
             BTodayClickedCommand = CommandFactory.Create(BTodayClicked);
             PageDisappearingCommand = CommandFactory.Create(() => isPageVisible = false);
-            TimetableCellTappedCommand = CommandFactory.Create<CellTappedEventArgs>(e => DisplayEventDetails((Event)e!.Appointment), allowsMultipleExecutions: false);
-            TimetableMonthInlineAppointmentTappedCommand = CommandFactory.Create<MonthInlineAppointmentTappedEventArgs>(e => DisplayEventDetails((Event)e!.Appointment), allowsMultipleExecutions: false);
-            TimetableMonthInlineLoadedCommand = CommandFactory.Create<MonthInlineLoadedEventArgs>(e =>
+            TimetableCellTappedCommand = CommandFactory.Create<SchedulerTappedEventArgs>(e => DisplayEventDetails((Event)e!.Appointments!.Single()), allowsMultipleExecutions: false);
+            TimetableVisibleDatesChangedCommand = CommandFactory.Create<SchedulerViewChangedEventArgs>(async (e) =>
             {
-                e.monthInlineViewStyle = new()
-                {
-                    BackgroundColor = ResourceManager.PageBackgroundColor,
-                    TimeTextFormat = "HH:mm",
-                };
-            });
-            TimetableVisibleDatesChangedCommand = CommandFactory.Create<VisibleDatesChangedEventArgs>(async (e) =>
-            {
-                if (e == null)
+                if (e?.NewVisibleDates == null)
                     return;
 
-                visibleDates = e.visibleDates;
+                visibleDates = e.NewVisibleDates;
                 await UpdateTodayButton(false);
             });
             UpdateTimetableCommand = CommandFactory.Create(
@@ -436,7 +425,7 @@ namespace NureTimetable.UI.ViewModels
                 }
 
                 TimetableDataSource = TimetableInfoList.Events
-                    .Select(ev => new EventViewModel(ev) { ShowTime = TimetableScheduleView != ScheduleView.MonthView })
+                    .Select(ev => new EventViewModel(ev) { ShowTime = TimetableScheduleView != SchedulerView.Month })
                     .ToList();
 
                 UpdateTimeLeft();
@@ -470,17 +459,17 @@ namespace NureTimetable.UI.ViewModels
             TimetableSelectedDate = null;
             if (displayMode == LN.Day)
             {
-                TimetableScheduleView = ScheduleView.DayView;
+                TimetableScheduleView = SchedulerView.Day;
                 SettingsRepository.Settings.TimetableViewMode = TimetableViewMode.Day;
             }
             else if (displayMode == LN.Week)
             {
-                TimetableScheduleView = ScheduleView.WeekView;
+                TimetableScheduleView = SchedulerView.Week;
                 SettingsRepository.Settings.TimetableViewMode = TimetableViewMode.Week;
             }
             else if (displayMode == LN.Month)
             {
-                TimetableScheduleView = ScheduleView.MonthView;
+                TimetableScheduleView = SchedulerView.Month;
                 SettingsRepository.Settings.TimetableViewMode = TimetableViewMode.Month;
             }
 
