@@ -1,9 +1,8 @@
-﻿namespace NureTimetable.DAL.Settings.Models
+﻿namespace NureTimetable.DAL.Settings.Models;
+
+public enum AppTheme
 {
-    public enum AppTheme
-    {
-        FollowSystem = 0,
-        Light = 1,
-        Dark = 2
-    }
+    FollowSystem = 0,
+    Light = 1,
+    Dark = 2
 }

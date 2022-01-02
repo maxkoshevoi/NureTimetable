@@ -10,12 +10,8 @@ using NureTimetable.DAL.Moodle.Models.Calendar;
 using NureTimetable.DAL.Moodle.Models.Courses;
 using NureTimetable.DAL.Moodle.Models.WebService;
 using NureTimetable.DAL.Settings;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 
 namespace NureTimetable.DAL.Moodle;
 
@@ -25,9 +21,9 @@ public class MoodleRepository
     private Uri baseWebServiceUrl;
 
     private MoodleUser? _user;
-    public MoodleUser? User 
-    { 
-        get => _user; 
+    public MoodleUser? User
+    {
+        get => _user;
         set
         {
             _user = value;
@@ -115,7 +111,7 @@ public class MoodleRepository
             .SelectMany((item, index) => new KeyValuePair<string, object>[]
             {
                 new($"options[{index}][name]", item.Key.ToString().ToLowerInvariant()),
-                new($"options[{index}][value]", item.Value.ToString())
+                new($"options[{index}][value]", item.Value.ToString()!)
             })
             .ToList();
         arguments.Add(new("courseid", courseId));

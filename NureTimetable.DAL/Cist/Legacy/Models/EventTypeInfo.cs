@@ -1,11 +1,10 @@
-﻿namespace NureTimetable.DAL.Cist.Legacy.Models
+﻿namespace NureTimetable.DAL.Cist.Legacy.Models;
+
+class EventTypeInfo
 {
-    class EventTypeInfo
-    {
-        public string? Name { get; set; }
+    public string? Name { get; set; }
 
-        public List<string> Teachers { get; } = new();
+    public List<string> Teachers { get; } = new();
 
-        public override string ToString() => $"{Name} - {string.Join(", ", Teachers)}";
-    }
+    public override string ToString() => $"{Name} - {string.Join(", ", Teachers)}";
 }

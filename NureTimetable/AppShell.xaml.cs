@@ -9,104 +9,103 @@ using NureTimetable.Migrations;
 using NureTimetable.UI.Models.Consts;
 using AppTheme = NureTimetable.DAL.Settings.Models.AppTheme;
 
-namespace NureTimetable
+namespace NureTimetable;
+
+public partial class AppShell : Shell
 {
-    public partial class AppShell : Shell
+    public AppShell()
     {
-        public AppShell()
-        {
-            InitializeComponent();
-            InitTheme();
-            InitSettingsAnalytics();
+        InitializeComponent();
+        InitTheme();
+        InitSettingsAnalytics();
 
-            ExceptionService.ExceptionLogged += ex =>
+        ExceptionService.ExceptionLogged += ex =>
+        {
+            if (SettingsRepository.Settings.IsDebugMode)
             {
-                if (SettingsRepository.Settings.IsDebugMode)
-                {
-                    MainThread.BeginInvokeOnMainThread(() => Shell.Current.DisplayAlert(LN.ErrorDetails, ex.ToString(), LN.Ok));
-                }
-            };
-        }
+                MainThread.BeginInvokeOnMainThread(() => Shell.Current.DisplayAlert(LN.ErrorDetails, ex.ToString(), LN.Ok));
+            }
+        };
+    }
 
-        private static void InitSettingsAnalytics()
+    private static void InitSettingsAnalytics()
+    {
+        string?[] excludeFromLogging =
         {
-            string?[] excludeFromLogging = 
-            { 
                 null,
                 nameof(AppSettings.LastCistAllEntitiesUpdate)
             };
 
-            SettingsRepository.Settings.PropertyChanged += (_, e) =>
+        SettingsRepository.Settings.PropertyChanged += (_, e) =>
+        {
+            if (excludeFromLogging.Contains(e.PropertyName))
             {
-                if (excludeFromLogging.Contains(e.PropertyName))
-                {
-                    return;
-                }
+                return;
+            }
 
-                Analytics.TrackEvent($"Setting changed: {e.PropertyName}", new Dictionary<string, string?>
-                {
+            Analytics.TrackEvent($"Setting changed: {e.PropertyName}", new Dictionary<string, string?>
+            {
                     { "New Value", SettingsRepository.Settings
                         .GetType()
                         .GetProperty(e.PropertyName!)?
                         .GetValue(SettingsRepository.Settings)?
                         .ToString() }
-                });
-            };
+            });
+        };
+    }
+
+    private static void InitTheme()
+    {
+        ThemeService.SetAppTheme();
+        SettingsRepository.Settings.PropertyChanged += (_, e) =>
+        {
+            if (e.PropertyName == nameof(SettingsRepository.Settings.Theme))
+                ThemeService.SetAppTheme();
+        };
+        App.Current!.RequestedThemeChanged += (_, e) =>
+        {
+            if (SettingsRepository.Settings.Theme == AppTheme.FollowSystem)
+                ThemeService.SetAppTheme();
+        };
+    }
+
+    protected override bool OnBackButtonPressed()
+    {
+        if (Shell.Current.CurrentItem.CurrentItem.Stack.Count == 1 &&
+            Shell.Current.CurrentState.Location.OriginalString != Route.EventsTab)
+        {
+            Shell.Current.GoToAsync(Route.EventsTab, true);
+            return true;
         }
 
-        private static void InitTheme()
-        {
-            ThemeService.SetAppTheme();
-            SettingsRepository.Settings.PropertyChanged += (_, e) =>
-            {
-                if (e.PropertyName == nameof(SettingsRepository.Settings.Theme))
-                    ThemeService.SetAppTheme();
-            };
-            App.Current!.RequestedThemeChanged += (_, e) =>
-            {
-                if (SettingsRepository.Settings.Theme == AppTheme.FollowSystem)
-                    ThemeService.SetAppTheme();
-            };
-        }
+        return base.OnBackButtonPressed();
+    }
 
-        protected override bool OnBackButtonPressed()
+    public static async Task PerformMigrations()
+    {
+        if (!VersionTracking.IsFirstLaunchForCurrentBuild)
+            return;
+
+        List<BaseMigration> migrationsToApply = await BaseMigration.Migrations.Where(m => m.IsNeedsToBeApplied()).ToListAsync();
+        if (migrationsToApply.Any())
         {
-            if (Shell.Current.CurrentItem.CurrentItem.Stack.Count == 1 &&
-                Shell.Current.CurrentState.Location.OriginalString != Route.EventsTab)
+            // Not Shell.Current.DisplayAlert cause Shell.Current is null here
+            await App.Current!.MainPage!.DisplayAlert(LN.FinishingUpdateTitle, LN.FinishingUpdateDescription, LN.Ok);
+            bool isSuccess = true;
+            foreach (var migration in migrationsToApply)
             {
-                Shell.Current.GoToAsync(Route.EventsTab, true);
-                return true;
+                if (!await migration.Apply())
+                {
+                    isSuccess = false;
+                }
             }
-
-            return base.OnBackButtonPressed();
-        }
-
-        public static async Task PerformMigrations()
-        {
-            if (!VersionTracking.IsFirstLaunchForCurrentBuild)
-                return;
-
-            List<BaseMigration> migrationsToApply = await BaseMigration.Migrations.Where(m => m.IsNeedsToBeApplied()).ToListAsync();
-            if (migrationsToApply.Any())
+            if (isSuccess)
             {
-                // Not Shell.Current.DisplayAlert cause Shell.Current is null here
-                await App.Current!.MainPage!.DisplayAlert(LN.FinishingUpdateTitle, LN.FinishingUpdateDescription, LN.Ok);
-                bool isSuccess = true;
-                foreach (var migration in migrationsToApply)
-                {
-                    if (!await migration.Apply())
-                    {
-                        isSuccess = false;
-                    }
-                }
-                if (isSuccess)
-                {
-                    App.Current!.MainPage = new AppShell();
-                }
-                else
-                {
-                    await App.Current!.MainPage.DisplayAlert(LN.FinishingUpdateTitle, LN.SomethingWentWrong, LN.Ok);
-                }
+                App.Current!.MainPage = new AppShell();
+            }
+            else
+            {
+                await App.Current!.MainPage.DisplayAlert(LN.FinishingUpdateTitle, LN.SomethingWentWrong, LN.Ok);
             }
         }
     }

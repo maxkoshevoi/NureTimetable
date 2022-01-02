@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace NureTimetable.DAL.Moodle.Models;
+﻿namespace NureTimetable.DAL.Moodle.Models;
 
 public record ErrorResult(string ErrorCode)
 {

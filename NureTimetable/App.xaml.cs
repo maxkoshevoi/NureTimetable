@@ -10,70 +10,69 @@ using NureTimetable.DAL.Settings.Models;
 using System.Globalization;
 using Xamarin.CommunityToolkit.Helpers;
 
-namespace NureTimetable
+namespace NureTimetable;
+
+public partial class App : Application
 {
-    public partial class App : Application
+    public App()
     {
-        public App()
-        {
-            //SyncfusionLicenseProvider.RegisterLicense(Keys.SyncfusionLicenseKey);
-            InitLanguage();
-            VersionTracking.Track();
+        //SyncfusionLicenseProvider.RegisterLicense(Keys.SyncfusionLicenseKey);
+        InitLanguage();
+        VersionTracking.Track();
 #if DEBUG
-            SettingsRepository.Settings.IsDebugMode = true;
+        SettingsRepository.Settings.IsDebugMode = true;
 #endif
 
-            InitializeComponent();
-            MainPage = new AppShell();
-        }
+        InitializeComponent();
+        MainPage = new AppShell();
+    }
 
-        private static void InitLanguage()
+    private static void InitLanguage()
+    {
+        CultureInfo culture = CultureInfo.CurrentCulture;
+        if (SettingsRepository.Settings.Language != AppLanguage.FollowSystem)
         {
-            CultureInfo culture = CultureInfo.CurrentCulture;
-            if (SettingsRepository.Settings.Language != AppLanguage.FollowSystem)
+            culture = new CultureInfo((int)SettingsRepository.Settings.Language);
+        }
+        LocalizationResourceManager.Current.PropertyChanged += (_, _) => LN.Culture = LocalizationResourceManager.Current.CurrentCulture;
+        LocalizationResourceManager.Current.Init(LN.ResourceManager, culture);
+        SettingsRepository.Settings.PropertyChanged += (_, e) =>
+        {
+            if (e.PropertyName == nameof(SettingsRepository.Settings.Language))
             {
-                culture = new CultureInfo((int)SettingsRepository.Settings.Language);
-            }
-            LocalizationResourceManager.Current.PropertyChanged += (_, _) => LN.Culture = LocalizationResourceManager.Current.CurrentCulture;
-            LocalizationResourceManager.Current.Init(LN.ResourceManager, culture);
-            SettingsRepository.Settings.PropertyChanged += (_, e) =>
-            {
-                if (e.PropertyName == nameof(SettingsRepository.Settings.Language))
+                CultureInfo newLanguage = CultureInfo.CurrentCulture;
+                if (SettingsRepository.Settings.Language != AppLanguage.FollowSystem)
                 {
-                    CultureInfo newLanguage = CultureInfo.CurrentCulture;
-                    if (SettingsRepository.Settings.Language != AppLanguage.FollowSystem)
-                    {
-                        newLanguage = new CultureInfo((int)SettingsRepository.Settings.Language);
-                    }
-                    LocalizationResourceManager.Current.CurrentCulture = newLanguage;
+                    newLanguage = new CultureInfo((int)SettingsRepository.Settings.Language);
                 }
-            };
-        }
+                LocalizationResourceManager.Current.CurrentCulture = newLanguage;
+            }
+        };
+    }
 
-        protected override async void OnStart()
-        {
-            await InitAppCenterLogging();
-        }
+    protected override async void OnStart()
+    {
+        await InitAppCenterLogging();
+    }
 
-        private static async Task InitAppCenterLogging()
-        {
-            bool showCrashLog = true;
-            string key = Keys.MicrosoftAppCenterDebugKey;
+    private static async Task InitAppCenterLogging()
+    {
+        bool showCrashLog = true;
+        string key = Keys.MicrosoftAppCenterDebugKey;
 #if RELEASE
-            showCrashLog = SettingsRepository.Settings.IsDebugMode;
-            if (DeviceInfo.DeviceType != DeviceType.Virtual)
-            {
-                key = Keys.MicrosoftAppCenterKey;
-            }
+        showCrashLog = SettingsRepository.Settings.IsDebugMode;
+        if (DeviceInfo.DeviceType != DeviceType.Virtual)
+        {
+            key = Keys.MicrosoftAppCenterKey;
+        }
 #endif
-            AppCenter.Start(key, typeof(Analytics), typeof(Crashes));
+        AppCenter.Start(key, typeof(Analytics), typeof(Crashes));
 
-            // Display crash information
-            if (showCrashLog && await Crashes.HasCrashedInLastSessionAsync())
-            {
-                var report = await Crashes.GetLastSessionCrashReportAsync();
-                await Shell.Current.DisplayAlert(LN.ErrorDetails, report.StackTrace, LN.Ok);
-            }
+        // Display crash information
+        if (showCrashLog && await Crashes.HasCrashedInLastSessionAsync())
+        {
+            var report = await Crashes.GetLastSessionCrashReportAsync();
+            await Shell.Current.DisplayAlert(LN.ErrorDetails, report.StackTrace, LN.Ok);
         }
     }
 }

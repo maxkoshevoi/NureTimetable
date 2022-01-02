@@ -1,9 +1,9 @@
-﻿namespace NureTimetable.DAL.Cist.Legacy.Models
+﻿namespace NureTimetable.DAL.Cist.Legacy.Models;
+
+static class KnownEventTypes
 {
-    static class KnownEventTypes
+    public static readonly string[] Values =
     {
-        public static readonly string[] Values =
-        {
             "лк",
             "пз",
             "лб",
@@ -11,5 +11,4 @@
             "зал",
             "іспкомб",
         };
-    }
 }

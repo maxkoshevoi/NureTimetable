@@ -2,29 +2,28 @@
 using NureTimetable.UI.ViewModels;
 using Xamarin.CommunityToolkit.Extensions;
 
-namespace NureTimetable.UI.Views
+namespace NureTimetable.UI.Views;
+
+public partial class TimetablePage : ContentPage, ITimetablePageCommands
 {
-    public partial class TimetablePage : ContentPage, ITimetablePageCommands
+    public TimetablePage()
     {
-        public TimetablePage()
+        InitializeComponent();
+        BindingContext = new TimetableViewModel(this);
+    }
+
+    public void TimetableNavigateTo(DateTime date) => Timetable.DisplayDate = date;
+
+    public Task ScaleTodayButtonTo(double scale) => BToday.ScaleTo(scale);
+
+    public async Task DisplayToastAsync(string message, int durationMilliseconds = 3000)
+    {
+        VisualElement anchor = this;
+        if (BToday.Scale > 0)
         {
-            InitializeComponent();
-            BindingContext = new TimetableViewModel(this);
+            anchor = BToday;
         }
 
-        public void TimetableNavigateTo(DateTime date) => Timetable.DisplayDate = date;
-
-        public Task ScaleTodayButtonTo(double scale) => BToday.ScaleTo(scale);
-
-        public async Task DisplayToastAsync(string message, int durationMilliseconds = 3000)
-        {
-            VisualElement anchor = this;
-            if (BToday.Scale > 0)
-            {
-                anchor = BToday;
-            }
-
-            await anchor.DisplayToastAsync(message);
-        }
+        await anchor.DisplayToastAsync(message);
     }
 }

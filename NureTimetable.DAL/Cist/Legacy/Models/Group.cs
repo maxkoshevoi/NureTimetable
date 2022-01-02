@@ -1,8 +1,7 @@
-﻿namespace NureTimetable.DAL.Cist.Legacy.Models
+﻿namespace NureTimetable.DAL.Cist.Legacy.Models;
+
+class Group
 {
-    class Group
-    {
-        public int ID { get; set; }
-        public string? Name { get; set; }
-    }
+    public int ID { get; set; }
+    public string? Name { get; set; }
 }

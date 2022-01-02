@@ -6,114 +6,113 @@ using System.Globalization;
 using Xamarin.CommunityToolkit.ObjectModel;
 using AppTheme = NureTimetable.DAL.Settings.Models.AppTheme;
 
-namespace NureTimetable.DAL.Settings
+namespace NureTimetable.DAL.Settings;
+
+public class AppSettings : ObservableObject
 {
-    public class AppSettings : ObservableObject
+    internal static AppSettings Instance { get; } = new();
+
+    private AppSettings()
     {
-        internal static AppSettings Instance { get; } = new();
+    }
 
-        private AppSettings()
+    public TimetableViewMode TimetableViewMode
+    {
+        get => (TimetableViewMode)Preferences.Get(nameof(TimetableViewMode), (int)TimetableViewMode.Week);
+        set
         {
+            var currentValue = TimetableViewMode;
+            SetProperty(ref currentValue, value, onChanged: () => Preferences.Set(nameof(TimetableViewMode), (int)value));
         }
+    }
 
-        public TimetableViewMode TimetableViewMode
+    public AppTheme Theme
+    {
+        get => (AppTheme)Preferences.Get(nameof(Theme), (int)AppTheme.FollowSystem);
+        set
         {
-            get => (TimetableViewMode)Preferences.Get(nameof(TimetableViewMode), (int)TimetableViewMode.Week);
-            set
-            {
-                var currentValue = TimetableViewMode;
-                SetProperty(ref currentValue, value, onChanged: () => Preferences.Set(nameof(TimetableViewMode), (int)value));
-            }
+            var currentValue = Theme;
+            SetProperty(ref currentValue, value, onChanged: () => Preferences.Set(nameof(Theme), (int)value));
         }
+    }
 
-        public AppTheme Theme
+    public AppLanguage Language
+    {
+        get => (AppLanguage)Preferences.Get(nameof(Language), (int)AppLanguage.FollowSystem);
+        set
         {
-            get => (AppTheme)Preferences.Get(nameof(Theme), (int)AppTheme.FollowSystem);
-            set
-            {
-                var currentValue = Theme;
-                SetProperty(ref currentValue, value, onChanged: () => Preferences.Set(nameof(Theme), (int)value));
-            }
+            var currentValue = Language;
+            SetProperty(ref currentValue, value, onChanged: () => Preferences.Set(nameof(Language), (int)value));
         }
+    }
 
-        public AppLanguage Language
+    #region Calendar settings
+    public string DefaultCalendarId
+    {
+        get => Preferences.Get(nameof(DefaultCalendarId), string.Empty);
+        set
         {
-            get => (AppLanguage)Preferences.Get(nameof(Language), (int)AppLanguage.FollowSystem);
-            set
-            {
-                var currentValue = Language;
-                SetProperty(ref currentValue, value, onChanged: () => Preferences.Set(nameof(Language), (int)value));
-            }
+            string currentValue = DefaultCalendarId;
+            SetProperty(ref currentValue, value, onChanged: () => Preferences.Set(nameof(DefaultCalendarId), value));
         }
+    }
 
-        #region Calendar settings
-        public string DefaultCalendarId
+    public TimeSpan? TimeBeforeEventReminder
+    {
+        get
         {
-            get => Preferences.Get(nameof(DefaultCalendarId), string.Empty);
-            set
-            {
-                string currentValue = DefaultCalendarId;
-                SetProperty(ref currentValue, value, onChanged: () => Preferences.Set(nameof(DefaultCalendarId), value));
-            }
+            double currentValue = Preferences.Get(nameof(TimeBeforeEventReminder), TimeSpan.FromMinutes(30).TotalMinutes);
+            return currentValue < 0 ? null : TimeSpan.FromMinutes(currentValue);
         }
-
-        public TimeSpan? TimeBeforeEventReminder
+        set
         {
-            get
-            {
-                double currentValue = Preferences.Get(nameof(TimeBeforeEventReminder), TimeSpan.FromMinutes(30).TotalMinutes);
-                return currentValue < 0 ? null : TimeSpan.FromMinutes(currentValue);
-            }
-            set
-            {
-                var currentValue = TimeBeforeEventReminder;
-                SetProperty(ref currentValue, value, onChanged: () => Preferences.Set(nameof(TimeBeforeEventReminder), value?.TotalMinutes ?? -1));
-            }
+            var currentValue = TimeBeforeEventReminder;
+            SetProperty(ref currentValue, value, onChanged: () => Preferences.Set(nameof(TimeBeforeEventReminder), value?.TotalMinutes ?? -1));
         }
-        #endregion
+    }
+    #endregion
 
-        public DateTime? LastCistAllEntitiesUpdate
+    public DateTime? LastCistAllEntitiesUpdate
+    {
+        get
         {
-            get
-            {
-                string storedValue = Preferences.Get(nameof(LastCistAllEntitiesUpdate), null);
-                return storedValue == null ? null : DateTime.Parse(storedValue, CultureInfo.InvariantCulture);
-            }
-            set
-            {
-                var currentValue = LastCistAllEntitiesUpdate;
-                SetProperty(ref currentValue, value, onChanged: () => Preferences.Set(nameof(LastCistAllEntitiesUpdate), value?.ToString(CultureInfo.InvariantCulture)));
-            }
+            string storedValue = Preferences.Get(nameof(LastCistAllEntitiesUpdate), null);
+            return storedValue == null ? null : DateTime.Parse(storedValue, CultureInfo.InvariantCulture);
         }
-
-        public bool IsDebugMode
+        set
         {
-            get => Preferences.Get(nameof(IsDebugMode), false);
-            set
-            {
-                bool currentValue = IsDebugMode;
-                SetProperty(ref currentValue, value, onChanged: () => Preferences.Set(nameof(IsDebugMode), value));
-            }
+            var currentValue = LastCistAllEntitiesUpdate;
+            SetProperty(ref currentValue, value, onChanged: () => Preferences.Set(nameof(LastCistAllEntitiesUpdate), value?.ToString(CultureInfo.InvariantCulture)));
         }
+    }
 
-        public bool Autoupdate
+    public bool IsDebugMode
+    {
+        get => Preferences.Get(nameof(IsDebugMode), false);
+        set
         {
-            get => Preferences.Get(nameof(Autoupdate), true);
-            set
-            {
-                bool currentValue = Autoupdate;
-                SetProperty(ref currentValue, value, onChanged: () => Preferences.Set(nameof(Autoupdate), value));
-            }
+            bool currentValue = IsDebugMode;
+            SetProperty(ref currentValue, value, onChanged: () => Preferences.Set(nameof(IsDebugMode), value));
         }
+    }
 
-        public MoodleUser? DlNureUser
+    public bool Autoupdate
+    {
+        get => Preferences.Get(nameof(Autoupdate), true);
+        set
         {
-            get => Serialisation.FromJsonFile<MoodleUser?>(FilePath.MoodleUser).GetAwaiter().GetResult();
-            set
-            {
-                MoodleUser? currentValue = DlNureUser;
-                SetProperty(ref currentValue, value, onChanged: () => Serialisation.ToJsonFile(value, FilePath.MoodleUser).GetAwaiter().GetResult());
-            }
+            bool currentValue = Autoupdate;
+            SetProperty(ref currentValue, value, onChanged: () => Preferences.Set(nameof(Autoupdate), value));
+        }
+    }
+
+    public MoodleUser? DlNureUser
+    {
+        get => Serialisation.FromJsonFile<MoodleUser?>(FilePath.MoodleUser).GetAwaiter().GetResult();
+        set
+        {
+            MoodleUser? currentValue = DlNureUser;
+            SetProperty(ref currentValue, value, onChanged: () => Serialisation.ToJsonFile(value, FilePath.MoodleUser).GetAwaiter().GetResult());
         }
     }
 }

@@ -1,9 +1,8 @@
-﻿namespace NureTimetable.DAL.Models
+﻿namespace NureTimetable.DAL.Models;
+
+public enum TimetableEntityType
 {
-    public enum TimetableEntityType
-    {
-        Group = 1,
-        Teacher = 2,
-        Room = 3
-    }
+    Group = 1,
+    Teacher = 2,
+    Room = 3
 }

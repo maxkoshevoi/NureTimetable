@@ -2,30 +2,29 @@
 using NureTimetable.DAL.Settings;
 using NureTimetable.UI.ViewModels;
 
-namespace NureTimetable.UI.Views
+namespace NureTimetable.UI.Views;
+
+public partial class ManageLessonsPage : ContentPage
 {
-    public partial class ManageLessonsPage : ContentPage
+    public ManageLessonsPage()
     {
-        public ManageLessonsPage()
-        {
-            InitializeComponent();
+        InitializeComponent();
 
-            // Remove SyncDl button if no DL user
-            if (SettingsRepository.Settings.DlNureUser == null)
-            {
-                ToolbarItems.RemoveAt(0);
-        }
-        }
-
-        private void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
+        // Remove SyncDl button if no DL user
+        if (SettingsRepository.Settings.DlNureUser == null)
         {
-            ((ListView)sender).SelectedItem = null;
+            ToolbarItems.RemoveAt(0);
         }
+    }
 
-        protected override bool OnBackButtonPressed()
-        {
-            (BindingContext as ManageLessonsViewModel)!.BackButtonPressedCommand.Execute(null);
-            return true;
-        }
+    private void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
+    {
+        ((ListView)sender).SelectedItem = null;
+    }
+
+    protected override bool OnBackButtonPressed()
+    {
+        (BindingContext as ManageLessonsViewModel)!.BackButtonPressedCommand.Execute(null);
+        return true;
     }
 }

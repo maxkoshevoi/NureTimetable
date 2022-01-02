@@ -1,11 +1,10 @@
-﻿namespace NureTimetable.UI.Views
+﻿namespace NureTimetable.UI.Views;
+
+public interface ITimetablePageCommands
 {
-    public interface ITimetablePageCommands
-    {
-        void TimetableNavigateTo(DateTime date);
+    void TimetableNavigateTo(DateTime date);
 
-        Task ScaleTodayButtonTo(double scale);
+    Task ScaleTodayButtonTo(double scale);
 
-        Task DisplayToastAsync(string message, int durationMilliseconds = 3000);
-    }
+    Task DisplayToastAsync(string message, int durationMilliseconds = 3000);
 }

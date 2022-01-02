@@ -1,9 +1,6 @@
-﻿using System;
+﻿namespace NureTimetable.DAL.Moodle.Consts;
 
-namespace NureTimetable.DAL.Moodle.Consts
+public static class Urls
 {
-    public static class Urls
-    {
-        public static Uri DlNure => new("https://dl.nure.ua");
-    }
+    public static Uri DlNure => new("https://dl.nure.ua");
 }

@@ -1,44 +1,43 @@
 ﻿using System.Collections;
 
-namespace NureTimetable.Core.Models.Exceptions
+namespace NureTimetable.Core.Models.Exceptions;
+
+public enum CistExceptionStatus
 {
-    public enum CistExceptionStatus
+    UnknownError = 0,
+    OutOfMemory = 04030,
+    ShutdownInProgress = 01089,
+    UnableToExtendTempSegment = 01652,
+    ObjectNoLongerExists = 08103
+}
+
+public class CistException : Exception
+{
+    public CistExceptionStatus Status { get; }
+
+    public CistException()
     {
-        UnknownError = 0,
-        OutOfMemory = 04030,
-        ShutdownInProgress = 01089,
-        UnableToExtendTempSegment = 01652,
-        ObjectNoLongerExists = 08103
     }
 
-    public class CistException : Exception
+    public CistException(string message) : base(message)
     {
-        public CistExceptionStatus Status { get; }
+    }
 
-        public CistException()
-        {
-        }
+    public CistException(string message, Exception innerException) : base(message, innerException)
+    {
+    }
 
-        public CistException(string message) : base(message)
-        {
-        }
+    public CistException(string message, CistExceptionStatus status) : base(message)
+    {
+        Status = status;
+    }
 
-        public CistException(string message, Exception innerException) : base(message, innerException)
+    public CistException(string message, CistExceptionStatus status, Exception innerException) : base(message, innerException)
+    {
+        Status = status;
+        foreach (DictionaryEntry de in innerException.Data)
         {
-        }
-
-        public CistException(string message, CistExceptionStatus status) : base(message)
-        {
-            Status = status;
-        }
-
-        public CistException(string message, CistExceptionStatus status, Exception innerException) : base(message, innerException)
-        {
-            Status = status;
-            foreach (DictionaryEntry de in innerException.Data)
-            {
-                Data.Add(de.Key, de.Value);
-            }
+            Data.Add(de.Key, de.Value);
         }
     }
 }

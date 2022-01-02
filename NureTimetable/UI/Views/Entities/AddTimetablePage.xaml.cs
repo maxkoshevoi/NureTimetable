@@ -1,14 +1,13 @@
 ﻿using Microsoft.Maui.Controls;
 using NureTimetable.UI.ViewModels;
 
-namespace NureTimetable.UI.Views
+namespace NureTimetable.UI.Views;
+
+public partial class AddTimetablePage : TabbedPage
 {
-    public partial class AddTimetablePage : TabbedPage
+    public AddTimetablePage()
     {
-        public AddTimetablePage()
-        {
-            InitializeComponent();
-            BindingContext = new AddTimetableViewModel();
-        }
+        InitializeComponent();
+        BindingContext = new AddTimetableViewModel();
     }
 }

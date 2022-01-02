@@ -1,14 +1,13 @@
 ﻿using Microsoft.Maui.Controls;
 using NureTimetable.UI.ViewModels;
 
-namespace NureTimetable.UI.Views
+namespace NureTimetable.UI.Views;
+
+public partial class SettingsPage : ContentPage
 {
-    public partial class SettingsPage : ContentPage
+    public SettingsPage()
     {
-        public SettingsPage()
-        {
-            InitializeComponent();
-            BindingContext = new SettingsViewModel();
-        }
+        InitializeComponent();
+        BindingContext = new SettingsViewModel();
     }
 }

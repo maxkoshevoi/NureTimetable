@@ -1,9 +1,8 @@
-﻿namespace NureTimetable.DAL.Models
-{
-    public class LessonSettings
-    {
-        public bool IsSomeSettingsApplied => Hiding.ShowLesson != true;
+﻿namespace NureTimetable.DAL.Models;
 
-        public HidingLessonSettings Hiding { get; } = new();
-    }
+public class LessonSettings
+{
+    public bool IsSomeSettingsApplied => Hiding.ShowLesson != true;
+
+    public HidingLessonSettings Hiding { get; } = new();
 }

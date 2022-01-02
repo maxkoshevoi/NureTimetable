@@ -1,16 +1,15 @@
 ﻿using Newtonsoft.Json;
 
-namespace NureTimetable.DAL.Cist.Models
+namespace NureTimetable.DAL.Cist.Models;
+
+public class HoursPlanned
 {
-    public class HoursPlanned
-    {
-        [JsonProperty("type")]
-        public long? EventTypeId { get; set; }
+    [JsonProperty("type")]
+    public long? EventTypeId { get; set; }
 
-        [JsonProperty("val")]
-        public long Hours { get; set; }
+    [JsonProperty("val")]
+    public long Hours { get; set; }
 
-        [JsonProperty("teachers")]
-        public List<long> TeacherIds { get; set; } = new();
-    }
+    [JsonProperty("teachers")]
+    public List<long> TeacherIds { get; set; } = new();
 }
