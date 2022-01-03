@@ -32,9 +32,9 @@ public partial class AppShell : Shell
     {
         string?[] excludeFromLogging =
         {
-                null,
-                nameof(AppSettings.LastCistAllEntitiesUpdate)
-            };
+            null,
+            nameof(AppSettings.LastCistAllEntitiesUpdate)
+        };
 
         SettingsRepository.Settings.PropertyChanged += (_, e) =>
         {
@@ -45,11 +45,11 @@ public partial class AppShell : Shell
 
             Analytics.TrackEvent($"Setting changed: {e.PropertyName}", new Dictionary<string, string?>
             {
-                    { "New Value", SettingsRepository.Settings
-                        .GetType()
-                        .GetProperty(e.PropertyName!)?
-                        .GetValue(SettingsRepository.Settings)?
-                        .ToString() }
+                { "New Value", SettingsRepository.Settings
+                    .GetType()
+                    .GetProperty(e.PropertyName!)?
+                    .GetValue(SettingsRepository.Settings)?
+                    .ToString() }
             });
         };
     }

@@ -9,7 +9,7 @@ public class ToolbarIconValueConverter : IValueConverter, IMarkupExtension
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture) =>
         new FontImageSource
         {
-            FontFamily = (OnPlatform<string>)App.Current!.Resources["MaterialFontFamily"],
+            FontFamily = "MaterialFontFamily",
             Glyph = (string)value
         };
 

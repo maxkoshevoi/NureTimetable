@@ -114,7 +114,7 @@
                 x:Name="BToday"
                 HorizontalOptions="Center"
                 AbsoluteLayout.LayoutFlags="PositionProportional"
-                AbsoluteLayout.LayoutBounds="1,1,AutoSize,AutoSize"
+                AbsoluteLayout.LayoutBounds="1,1,1,1"
                 FontFamily="MaterialDesignIcons" 
                 CornerRadius="100"
                 FontSize="20"

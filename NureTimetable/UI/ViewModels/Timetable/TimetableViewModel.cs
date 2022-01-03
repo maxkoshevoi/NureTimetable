@@ -60,7 +60,7 @@ public class TimetableViewModel : BaseViewModel
     public bool IsTimetableUpdating { get => _isTimetableUpdating; set => SetProperty(ref _isTimetableUpdating, value, onChanged: () => UpdateTimetableCommand.RaiseCanExecuteChanged()); }
 
     // Timetable
-    public int TimetableTimeInterval => 60;
+    public TimeSpan TimetableTimeInterval => TimeSpan.FromHours(1);
 
     private DateTime? _timetableSelectedDate;
     public DateTime? TimetableSelectedDate { get => _timetableSelectedDate; set => SetProperty(ref _timetableSelectedDate, value); }
@@ -426,7 +426,7 @@ public class TimetableViewModel : BaseViewModel
 
                 TimetableEndHour = 24;
                 TimetableStartHour = TimetableInfoList.StartTime().Hours;
-                TimetableEndHour = ((TimetableStartHour * 60d) + TimetableTimeInterval * Math.Ceiling((TimetableInfoList.EndTime().TotalMinutes - (TimetableStartHour * 60d)) / TimetableTimeInterval)) / 60d;
+                TimetableEndHour = ((TimetableStartHour * 60d) + TimetableTimeInterval.TotalMinutes * Math.Ceiling((TimetableInfoList.EndTime().TotalMinutes - (TimetableStartHour * 60d)) / TimetableTimeInterval.TotalMinutes)) / 60d;
             }
 
             TimetableDataSource = TimetableInfoList.Events
