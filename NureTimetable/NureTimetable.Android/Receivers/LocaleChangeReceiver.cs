@@ -6,6 +6,8 @@ using NureTimetable.DAL.Settings.Models;
 using System.Globalization;
 using Xamarin.CommunityToolkit.Helpers;
 
+#nullable enable
+
 namespace NureTimetable.Droid.Receivers
 {
     [BroadcastReceiver(Enabled = true)]

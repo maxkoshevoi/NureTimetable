@@ -1,10 +1,6 @@
 ﻿using NureTimetable.BL;
 using NureTimetable.Core.Localization;
-using NureTimetable.DAL.Moodle;
-using NureTimetable.DAL.Moodle.Models;
-using NureTimetable.DAL.Moodle.Models.Auth;
 using NureTimetable.DAL.Settings;
-using NureTimetable.UI.Views;
 using NureTimetable.UI.Views.Info;
 using Plugin.Calendars.Abstractions;
 using System;
