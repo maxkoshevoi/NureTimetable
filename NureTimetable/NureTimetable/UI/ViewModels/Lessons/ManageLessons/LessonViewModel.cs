@@ -21,8 +21,8 @@ namespace NureTimetable.UI.ViewModels
 
         public string MainTeacherNames { get; } = "-";
 
-        public bool? IsChecked 
-        { 
+        public bool? IsChecked
+        {
             get => LessonInfo.Settings.Hiding.ShowLesson;
             set
             {
@@ -32,7 +32,7 @@ namespace NureTimetable.UI.ViewModels
                 LessonInfo.Settings.Hiding.ShowLesson = value;
                 OnPropertyChanged();
                 manageLessonsViewModel.HasUnsavedChanges = true;
-            } 
+            }
         }
 
         public IAsyncCommand SettingsClickedCommand { get; }
@@ -67,13 +67,13 @@ namespace NureTimetable.UI.ViewModels
             InfoClickedCommand = CommandFactory.Create(InfoClicked, allowsMultipleExecutions: false);
         }
 
-        private Task SettingsClicked() => 
+        private Task SettingsClicked() =>
             Navigation.PushAsync(new LessonSettingsPage
             {
                 BindingContext = new LessonSettingsViewModel(LessonInfo, timetableInfo, false)
             });
 
-        private Task InfoClicked() => 
+        private Task InfoClicked() =>
             Navigation.PushAsync(new LessonInfoPage
             {
                 BindingContext = new LessonInfoViewModel(LessonInfo, timetableInfo)

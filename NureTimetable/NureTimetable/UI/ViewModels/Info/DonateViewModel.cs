@@ -17,7 +17,7 @@ namespace NureTimetable.UI.ViewModels
         {
             BuyProductCommand = CommandFactory.Create<string>(p => BuyProduct(p!), allowsMultipleExecutions: false);
         }
-        
+
         public static async Task BuyProduct(string productId)
         {
             InAppBillingPurchase? purchase = await InAppPurchase.Buy(productId, true);

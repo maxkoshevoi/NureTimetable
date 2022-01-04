@@ -1,6 +1,7 @@
-﻿namespace NureTimetable.DAL.Moodle.Models.Auth;
-
-public enum ServiceType
+﻿namespace NureTimetable.DAL.Moodle.Models.Auth
 {
-    moodle_mobile_app
+    public enum ServiceType
+    {
+        moodle_mobile_app
+    }
 }

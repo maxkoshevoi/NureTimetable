@@ -30,7 +30,7 @@ namespace NureTimetable.UI.Views
             MessagingCenter.Unsubscribe<Application, AppTheme>(this, MessageTypes.ThemeChanged);
 
             await Task.Delay(50);
-            
+
             On<Android>().SetNavigationBarColor(ResourceManager.NavigationBarColor);
             On<Android>().SetNavigationBarStyle(ResourceManager.NavigationBarStyle);
         }

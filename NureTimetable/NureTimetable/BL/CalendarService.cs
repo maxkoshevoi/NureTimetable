@@ -81,7 +81,7 @@ namespace NureTimetable.BL
             // Getting Calendar list
             IList<Calendar> calendars = await CrossCalendars.Current.GetCalendarsAsync();
             calendars = calendars
-                .Where(c => string.Equals(c.Name, c.AccountName, StringComparison.OrdinalIgnoreCase) 
+                .Where(c => string.Equals(c.Name, c.AccountName, StringComparison.OrdinalIgnoreCase)
                          || string.Equals(c.AccountName, CustomCalendarName, StringComparison.OrdinalIgnoreCase))
                 .ToList();
 

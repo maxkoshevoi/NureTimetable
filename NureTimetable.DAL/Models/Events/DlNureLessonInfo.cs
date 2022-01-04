@@ -1,12 +1,13 @@
 ﻿using System;
 
-namespace NureTimetable.DAL.Models;
-
-public class DlNureLessonInfo
+namespace NureTimetable.DAL.Models
 {
-    public int? LessonId { get; set; }
+    public class DlNureLessonInfo
+    {
+        public int? LessonId { get; set; }
 
-    public bool ShowAttendance { get; set; } = true;
+        public bool ShowAttendance { get; set; } = true;
 
-    public Uri? AttendanceUrl { get; set; }
+        public Uri? AttendanceUrl { get; set; }
+    }
 }

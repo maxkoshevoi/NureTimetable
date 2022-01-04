@@ -7,7 +7,7 @@ namespace NureTimetable.Migrations
 {
     public abstract class BaseMigration
     {
-        public static IReadOnlyCollection<BaseMigration> Migrations => new BaseMigration[] 
+        public static IReadOnlyCollection<BaseMigration> Migrations => new BaseMigration[]
         {
             new MoveEntityInsideSavedEntityMigration(),
             new RemoveTimelineViewMode(),

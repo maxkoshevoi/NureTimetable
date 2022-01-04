@@ -22,10 +22,10 @@ namespace NureTimetable.UI.ViewModels
             LessonInfo = lessonInfo;
             this.timetableInfo = timetableInfo;
             Statistics = new(GetStatistics);
-            
+
             LocalizationResourceManager.Current.PropertyChanged += (_, _) => OnPropertyChanged(nameof(Statistics));
         }
-        
+
         private string GetStatistics()
         {
             IEnumerable<Event> events = timetableInfo.Events.Where(e => e.Lesson == LessonInfo.Lesson);

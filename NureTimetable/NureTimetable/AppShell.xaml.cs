@@ -34,8 +34,8 @@ namespace NureTimetable
 
         private static void InitSettingsAnalytics()
         {
-            string[] excludeFromLogging = 
-            { 
+            string[] excludeFromLogging =
+            {
                 nameof(AppSettings.LastCistAllEntitiesUpdate)
             };
 

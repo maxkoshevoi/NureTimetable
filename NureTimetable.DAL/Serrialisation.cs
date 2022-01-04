@@ -111,7 +111,7 @@ namespace NureTimetable.DAL
         private static bool IsJson(string json)
         {
             json = json.Trim(' ', '\t', '\r', '\n');
-            return json == "null" 
+            return json == "null"
                 || ((json.StartsWith("{") || json.StartsWith("["))
                    && (json.EndsWith("}") || json.EndsWith("]")));
         }

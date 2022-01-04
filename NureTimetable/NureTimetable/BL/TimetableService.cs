@@ -20,7 +20,7 @@ namespace NureTimetable.BL
         {
             var updateResult = await UpdateAsync(entities);
             string? response = GetResponseMessageFromUpdateResult(updateResult);
-            
+
             if (response != null)
             {
                 await Shell.Current.DisplayAlert(LN.TimetableUpdate, response, LN.Ok);

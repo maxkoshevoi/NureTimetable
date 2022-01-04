@@ -59,7 +59,7 @@ namespace NureTimetable.UI.ViewModels
                 await Navigation.PopAsync();
                 return;
             }
-            
+
             Lessons.ReplaceRange
             (
                 timetable.Lessons()

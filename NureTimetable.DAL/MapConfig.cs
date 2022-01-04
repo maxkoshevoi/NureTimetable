@@ -11,7 +11,7 @@ namespace NureTimetable.DAL
 
         private static IMapper Instance => _instance ?? Init();
 
-        public static TDestination Map<TSource, TDestination>(TSource source) => 
+        public static TDestination Map<TSource, TDestination>(TSource source) =>
             Instance.Map<TSource, TDestination>(source);
 
         private static IMapper Init()

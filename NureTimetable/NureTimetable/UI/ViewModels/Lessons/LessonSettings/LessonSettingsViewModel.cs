@@ -16,12 +16,12 @@ namespace NureTimetable.UI.ViewModels
 
         #region Properties
         public LessonInfo LessonInfo { get; }
-        
+
         private bool? _showLessonIsChecked = false;
         public bool? ShowLessonIsChecked { get => _showLessonIsChecked; set => SetProperty(ref _showLessonIsChecked, value); }
-        
+
         public ObservableCollection<CheckedEntity<EventType>> LvEventTypes { get; set; }
-        
+
         public ObservableCollection<CheckedEntity<Teacher>> LvTeachers { get; set; }
 
         public Command ShowLessonStateChangedCommand { get; }
@@ -41,7 +41,7 @@ namespace NureTimetable.UI.ViewModels
                     .Select(et => new CheckedEntity<EventType>(et, EventTypeStateChanged))
                     .OrderBy(et => et.Entity.ShortName)
             );
-            LvTeachers = new 
+            LvTeachers = new
             (
                 timetable.Teachers(lessonInfo.Lesson.ID)
                     .Select(t => new CheckedEntity<Teacher>(t, TeacherStateChanged))
@@ -59,7 +59,7 @@ namespace NureTimetable.UI.ViewModels
                 await Shell.Current.GoToAsync("..", true);
             });
         }
-        
+
         private void EventTypeStateChanged(CheckedEntity<EventType> e)
         {
             LessonInfo.Settings.Hiding.EventTypesToHide.RemoveAll(id => id == e.Entity.ID);
@@ -129,7 +129,7 @@ namespace NureTimetable.UI.ViewModels
         /// <returns>true = all, false = none, null = some</returns>
         private bool? IsShowEvents()
         {
-            if (LessonInfo.Settings.Hiding.EventTypesToHide.None() && 
+            if (LessonInfo.Settings.Hiding.EventTypesToHide.None() &&
                 LessonInfo.Settings.Hiding.TeachersToHide.None())
             {
                 return true;

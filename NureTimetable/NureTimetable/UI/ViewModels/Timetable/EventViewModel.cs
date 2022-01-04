@@ -21,7 +21,7 @@ namespace NureTimetable.UI.ViewModels.Timetable
 
         public bool ShowTime { get; set; } = true;
 
-        public string DisplayInfo 
+        public string DisplayInfo
         {
             get
             {

@@ -88,7 +88,7 @@ namespace NureTimetable.UI.ViewModels
                 return;
             }
 
-            Shell.Current.CurrentPage.DisplaySnackBarAsync(string.Format(LN.TimetableSaved, newEntity.Entity.Name), LN.Undo, () => 
+            Shell.Current.CurrentPage.DisplaySnackBarAsync(string.Format(LN.TimetableSaved, newEntity.Entity.Name), LN.Undo, () =>
                 UniversityEntitiesRepository.ModifySavedAsync(savedEntities => !savedEntities.Remove(newEntity))
             ).Forget();
         }

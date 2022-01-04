@@ -1,13 +1,14 @@
 ﻿using NureTimetable.UI.ViewModels;
 using Xamarin.Forms;
 
-namespace NureTimetable.UI.Views.Info;
-
-public partial class DlNureLogin : ContentPage
+namespace NureTimetable.UI.Views.Info
 {
-    public DlNureLogin()
+    public partial class DlNureLogin : ContentPage
     {
-        InitializeComponent();
-        BindingContext = new DlNureLoginViewModel();
+        public DlNureLogin()
+        {
+            InitializeComponent();
+            BindingContext = new DlNureLoginViewModel();
+        }
     }
 }

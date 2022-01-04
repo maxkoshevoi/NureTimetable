@@ -8,7 +8,7 @@ namespace NureTimetable.Core.Extensions
     {
         private static readonly WebExceptionStatus[] noInternetStatuses =
         {
-            WebExceptionStatus.NameResolutionFailure, 
+            WebExceptionStatus.NameResolutionFailure,
             WebExceptionStatus.ConnectFailure
         };
 
