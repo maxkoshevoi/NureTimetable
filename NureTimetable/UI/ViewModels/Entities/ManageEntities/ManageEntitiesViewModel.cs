@@ -112,15 +112,15 @@ public class ManageEntitiesViewModel : BaseViewModel
         {
             SavedEntity savedEntity = currentSaved.Single(e => e == entity);
 
-                // Check state is changed
-                if (savedEntity.IsSelected == entity.IsSelected)
+            // Check state is changed
+            if (savedEntity.IsSelected == entity.IsSelected)
             {
                 return;
             }
             savedEntity.IsSelected = entity.IsSelected;
 
-                // User cannot deselect last selected entity
-                if (!savedEntity.IsSelected && currentSaved.None(e => e.IsSelected) && Entities.Any(e => e.SavedEntity == entity))
+            // User cannot deselect last selected entity
+            if (!savedEntity.IsSelected && currentSaved.None(e => e.IsSelected) && Entities.Any(e => e.SavedEntity == entity))
             {
                 savedEntity.IsSelected = true;
                 return;

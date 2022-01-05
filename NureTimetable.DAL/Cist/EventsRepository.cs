@@ -133,8 +133,8 @@ public static class EventsRepository
                 var savedEntity = savedEntities.SingleOrDefault(e => e == entity);
                 if (savedEntity == null)
                 {
-                        // Saved entity may be deleted while timetable is updating
-                        return true;
+                    // Saved entity may be deleted while timetable is updating
+                    return true;
                 }
 
                 savedEntity.LastUpdated = DateTime.Now;
