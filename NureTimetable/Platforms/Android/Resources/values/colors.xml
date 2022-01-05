@@ -3,4 +3,6 @@
   <color name="colorPrimary">@android:color/white</color>
   <color name="colorPrimaryDark">@android:color/black</color>
   <color name="colorAccent">#78909C</color>
+
+  <color name="splash_background">@android:color/white</color>
 </resources>
