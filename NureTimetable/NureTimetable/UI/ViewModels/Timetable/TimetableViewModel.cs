@@ -47,11 +47,11 @@ namespace NureTimetable.UI.ViewModels
         public TimetableInfoList TimetableInfoList
         {
             get => _timetableInfoList; set => SetProperty(ref _timetableInfoList, value, onChanged: () =>
-{
-HideSelectedEventsCommand.RaiseCanExecuteChanged();
-ScheduleModeCommand.RaiseCanExecuteChanged();
-UpdateTimetableCommand.RaiseCanExecuteChanged();
-});
+            {
+                HideSelectedEventsCommand.RaiseCanExecuteChanged();
+                ScheduleModeCommand.RaiseCanExecuteChanged();
+                UpdateTimetableCommand.RaiseCanExecuteChanged();
+            });
         }
 
         // Toolbar
@@ -349,34 +349,33 @@ UpdateTimetableCommand.RaiseCanExecuteChanged();
             lastTimeLeftVisible = IsTimeLeftVisible;
         }
 
-        private Task UpdateEventsWithUI(bool reloadSavedEntities = false)
-            => Task.Run(async () =>
-            {
-                IsProgressLayoutVisible = true;
+        private Task UpdateEventsWithUI(bool reloadSavedEntities = false) => Task.Run(async () =>
+        {
+            IsProgressLayoutVisible = true;
 
-                if (needToUpdateEventsUI)
+            if (needToUpdateEventsUI)
+            {
+                await Task.Delay(250);
+                UpdateEventsUI();
+            }
+            else
+            {
+                if (reloadSavedEntities)
                 {
-                    await Task.Delay(250);
-                    UpdateEventsUI();
+                    List<Entity> selectedEntities = (await UniversityEntitiesRepository.GetSavedAsync())
+                        .Where(e => e.IsSelected)
+                        .Select(e => e.Entity)
+                        .ToList();
+                    await UpdateEvents(selectedEntities);
                 }
                 else
                 {
-                    if (reloadSavedEntities)
-                    {
-                        List<Entity> selectedEntities = (await UniversityEntitiesRepository.GetSavedAsync())
-                            .Where(e => e.IsSelected)
-                            .Select(e => e.Entity)
-                            .ToList();
-                        await UpdateEvents(selectedEntities);
-                    }
-                    else
-                    {
-                        await UpdateEvents();
-                    }
+                    await UpdateEvents();
                 }
+            }
 
-                IsProgressLayoutVisible = false;
-            });
+            IsProgressLayoutVisible = false;
+        });
 
         /// <summary>
         /// Updates events for already displayed entities
