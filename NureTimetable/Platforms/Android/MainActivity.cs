@@ -1,6 +1,6 @@
-﻿using Android.Content.PM;
-using Microsoft.Maui;
-using Microsoft.Maui.Essentials;
+﻿using Android.App;
+using Android.Content.PM;
+using Android.OS;
 
 namespace NureTimetable.Platforms.Android;
 

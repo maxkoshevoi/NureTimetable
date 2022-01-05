@@ -1,7 +1,4 @@
-﻿using Microsoft.Maui.Controls;
-using Microsoft.Maui.Graphics;
-using NureTimetable.Core.Models.Consts;
-using NureTimetable.DAL.Settings.Models;
+﻿using NureTimetable.Core.Models.Consts;
 using NureTimetable.UI.Models.Consts;
 using Rg.Plugins.Popup.Pages;
 using Xamarin.CommunityToolkit.PlatformConfiguration.AndroidSpecific;

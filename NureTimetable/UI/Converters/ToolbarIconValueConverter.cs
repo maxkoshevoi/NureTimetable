@@ -1,6 +1,4 @@
-﻿using Microsoft.Maui.Controls;
-using Microsoft.Maui.Controls.Xaml;
-using System.Globalization;
+﻿using System.Globalization;
 
 namespace NureTimetable.UI.Converters;
 

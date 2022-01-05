@@ -1,6 +1,4 @@
 ﻿using Microsoft.AppCenter.Analytics;
-using Microsoft.Maui.Controls;
-using Microsoft.Maui.Essentials;
 using NureTimetable.BL;
 using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Localization;
@@ -17,7 +15,6 @@ using Syncfusion.Maui.Scheduler;
 using System.Globalization;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.ObjectModel;
-using AppTheme = NureTimetable.DAL.Settings.Models.AppTheme;
 
 namespace NureTimetable.UI.ViewModels;
 

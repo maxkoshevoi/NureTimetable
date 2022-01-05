@@ -1,6 +1,4 @@
 ﻿using Microsoft.AppCenter.Analytics;
-using Microsoft.Maui.Controls;
-using Microsoft.Maui.Essentials;
 using NureTimetable.Core.BL;
 using NureTimetable.Core.Localization;
 using NureTimetable.DAL.Models;

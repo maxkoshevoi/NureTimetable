@@ -5,7 +5,8 @@
     <OutputType>Exe</OutputType>
     <UseMaui>true</UseMaui>
     <SingleProject>true</SingleProject>
-    <UseInterpreter Condition="'$(Configuration)' == 'Debug'">True</UseInterpreter><!-- Required for C# Hot Reload -->
+    <!-- Required for C# Hot Reload -->
+    <UseInterpreter Condition="'$(Configuration)' == 'Debug'">True</UseInterpreter>
 
     <ApplicationId>com.whitebox.nuretimetable</ApplicationId>
     <ApplicationTitle>Nure Timetable</ApplicationTitle>
@@ -25,6 +26,7 @@
   <ItemGroup>
     <PackageReference Include="CClarke.Plugin.Calendars" Version="1.1.0" />
     <PackageReference Include="Rg.Plugins.Popup" Version="3.0.0-alpha1" />
+    <PackageReference Include="Syncfusion.Licensing" Version="19.4.0.41" />
     <PackageReference Include="Syncfusion.Maui.Scheduler" Version="19.4.40-preview" />
   </ItemGroup>
 
@@ -47,6 +49,7 @@
 
   <ItemGroup>
     <Using Include="Microsoft.Maui.Controls.ListView" Alias="ListView" />
+    <Using Include="NureTimetable.DAL.Settings.Models.AppTheme" Alias="AppTheme" />
   </ItemGroup>
 
 </Project>

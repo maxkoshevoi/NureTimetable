@@ -3,7 +3,8 @@
   <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
 
   <PropertyGroup>
-    <AndroidVersionCode>1004244</AndroidVersionCode>
+    <ApplicationVersion>185000</ApplicationVersion>
+    <AndroidVersionCode>1005000</AndroidVersionCode>
   </PropertyGroup>
 
   <Target Name="UpdateVersion">
@@ -20,5 +21,5 @@
     <XmlPoke XmlInputPath="$(MSBuildThisFile)" Query="/Project/PropertyGroup/ApplicationVersion" Value="$(ApplicationVersion)" />
     <Message Importance="High" Text="Build number: $(ApplicationVersion)" />
   </Target>
-  
+
 </Project>

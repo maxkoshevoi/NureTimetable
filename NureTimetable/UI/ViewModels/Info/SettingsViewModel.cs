@@ -1,5 +1,4 @@
-﻿using Microsoft.Maui.Controls;
-using NureTimetable.BL;
+﻿using NureTimetable.BL;
 using NureTimetable.Core.Localization;
 using NureTimetable.DAL.Settings;
 using NureTimetable.UI.Views;

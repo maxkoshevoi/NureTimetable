@@ -1,5 +1,4 @@
 ﻿using Microsoft.AppCenter.Analytics;
-using Microsoft.Maui.Controls;
 using NureTimetable.Core.BL;
 using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Models.Consts;

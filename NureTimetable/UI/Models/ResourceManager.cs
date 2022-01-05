@@ -1,5 +1,4 @@
-﻿using Microsoft.Maui.Graphics;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using Xamarin.CommunityToolkit.PlatformConfiguration.AndroidSpecific;
 
 namespace NureTimetable.UI.Models.Consts;

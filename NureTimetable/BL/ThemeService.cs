@@ -1,10 +1,8 @@
-﻿using Microsoft.Maui.Controls;
-using NureTimetable.Core.BL;
+﻿using NureTimetable.Core.BL;
 using NureTimetable.Core.Models.Consts;
 using NureTimetable.Core.Models.InterplatformCommunication;
 using NureTimetable.DAL.Settings;
 using NureTimetable.UI.Themes;
-using AppTheme = NureTimetable.DAL.Settings.Models.AppTheme;
 
 namespace NureTimetable.BL;
 

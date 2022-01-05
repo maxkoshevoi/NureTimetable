@@ -1,5 +1,4 @@
-﻿using Microsoft.Maui.Controls;
-using NureTimetable.BL;
+﻿using NureTimetable.BL;
 using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Consts;
 using NureTimetable.DAL.Cist;

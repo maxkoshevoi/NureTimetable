@@ -1,5 +1,4 @@
-﻿using Microsoft.Maui.Essentials;
-using NureTimetable.DAL.Consts;
+﻿using NureTimetable.DAL.Consts;
 using NureTimetable.DAL.Moodle.Models.Auth;
 using NureTimetable.DAL.Settings.Models;
 using System.Globalization;

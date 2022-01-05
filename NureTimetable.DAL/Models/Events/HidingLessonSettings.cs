@@ -1,6 +1,4 @@
-﻿using Microsoft.Maui.Controls;
-
-namespace NureTimetable.DAL.Models;
+﻿namespace NureTimetable.DAL.Models;
 
 // BindableObject needed for nullable types to bind properly
 public class HidingLessonSettings : BindableObject

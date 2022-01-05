@@ -1,6 +1,4 @@
-﻿using Microsoft.Maui.Graphics;
-
-namespace NureTimetable.DAL.Cist.Legacy.Models;
+﻿namespace NureTimetable.DAL.Cist.Legacy.Models;
 
 internal class Event
 {

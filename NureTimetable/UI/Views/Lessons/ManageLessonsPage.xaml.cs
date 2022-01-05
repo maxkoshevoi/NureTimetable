@@ -1,5 +1,4 @@
-﻿using Microsoft.Maui.Controls;
-using NureTimetable.DAL.Settings;
+﻿using NureTimetable.DAL.Settings;
 using NureTimetable.UI.ViewModels;
 
 namespace NureTimetable.UI.Views;

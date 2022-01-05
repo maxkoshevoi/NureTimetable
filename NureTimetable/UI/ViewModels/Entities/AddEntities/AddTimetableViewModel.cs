@@ -1,5 +1,4 @@
-﻿using Microsoft.Maui.Controls;
-using NureTimetable.Core.Localization;
+﻿using NureTimetable.Core.Localization;
 using NureTimetable.DAL.Cist;
 using NureTimetable.DAL.Settings;
 using Xamarin.CommunityToolkit.ObjectModel;

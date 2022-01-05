@@ -1,6 +1,5 @@
 ﻿using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
-using Microsoft.Maui.Controls;
 using Nito.AsyncEx;
 using NureTimetable.Core.BL;
 using NureTimetable.Core.Extensions;

@@ -1,6 +1,4 @@
-﻿using Microsoft.Maui.Controls;
-
-namespace NureTimetable.UI.Themes;
+﻿namespace NureTimetable.UI.Themes;
 
 public partial class DarkTheme : ResourceDictionary
 {

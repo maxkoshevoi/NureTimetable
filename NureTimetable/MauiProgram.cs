@@ -1,6 +1,4 @@
-﻿using Microsoft.Maui.Controls.Hosting;
-using Microsoft.Maui.Hosting;
-using Microsoft.Maui.LifecycleEvents;
+﻿using Microsoft.Maui.LifecycleEvents;
 using Rg.Plugins.Popup;
 using Syncfusion.Maui.Core.Hosting;
 using Xamarin.CommunityToolkit.Android.Effects;

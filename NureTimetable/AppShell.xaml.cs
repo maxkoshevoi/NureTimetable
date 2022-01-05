@@ -1,13 +1,10 @@
 ﻿using Microsoft.AppCenter.Analytics;
-using Microsoft.Maui.Controls;
-using Microsoft.Maui.Essentials;
 using NureTimetable.BL;
 using NureTimetable.Core.BL;
 using NureTimetable.Core.Localization;
 using NureTimetable.DAL.Settings;
 using NureTimetable.Migrations;
 using NureTimetable.UI.Models.Consts;
-using AppTheme = NureTimetable.DAL.Settings.Models.AppTheme;
 
 namespace NureTimetable;
 

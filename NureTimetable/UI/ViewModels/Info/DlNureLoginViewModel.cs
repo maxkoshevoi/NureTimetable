@@ -1,5 +1,4 @@
-﻿using Microsoft.Maui.Controls;
-using NureTimetable.Core.Localization;
+﻿using NureTimetable.Core.Localization;
 using NureTimetable.DAL.Moodle;
 using NureTimetable.DAL.Moodle.Models.Auth;
 using NureTimetable.DAL.Settings;

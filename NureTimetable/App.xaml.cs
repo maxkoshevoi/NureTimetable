@@ -1,12 +1,11 @@
 ﻿using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
-using Microsoft.Maui.Controls;
-using Microsoft.Maui.Essentials;
 using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Consts;
 using NureTimetable.DAL.Settings;
 using NureTimetable.DAL.Settings.Models;
+using Syncfusion.Licensing;
 using System.Globalization;
 using Xamarin.CommunityToolkit.Helpers;
 
@@ -16,7 +15,7 @@ public partial class App : Application
 {
     public App()
     {
-        //SyncfusionLicenseProvider.RegisterLicense(Keys.SyncfusionLicenseKey);
+        SyncfusionLicenseProvider.RegisterLicense(Keys.SyncfusionLicenseKey);
         InitLanguage();
         VersionTracking.Track();
 #if DEBUG
