@@ -57,15 +57,16 @@ public partial class App : Application
     private static async Task InitAppCenterLogging()
     {
         bool showCrashLog = true;
-        string key = Keys.MicrosoftAppCenterDebugKey;
+        bool isEnabled = false;
 #if RELEASE
         showCrashLog = SettingsRepository.Settings.IsDebugMode;
         if (DeviceInfo.DeviceType != DeviceType.Virtual)
         {
-            key = Keys.MicrosoftAppCenterKey;
+            isEnabled = true;
         }
 #endif
-        AppCenter.Start(key, typeof(Analytics), typeof(Crashes));
+        AppCenter.IsNetworkRequestsAllowed = isEnabled;
+        AppCenter.Start(Keys.MicrosoftAppCenterKey, typeof(Analytics), typeof(Crashes));
 
         // Display crash information
         if (showCrashLog && await Crashes.HasCrashedInLastSessionAsync())
