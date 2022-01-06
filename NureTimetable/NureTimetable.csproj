@@ -18,7 +18,7 @@
 
   <ItemGroup>
     <MauiIcon Include="Resources\AppIcons\icon.png" />
-    <MauiSplashScreen Include="Resources\AppIcons\icon.png" Color="#512BD4" />
+    <MauiSplashScreen Include="Resources\AppIcons\icon.png" />
     <MauiImage Include="Resources\Images\*" />
     <MauiFont Include="Resources\Fonts\*" />
   </ItemGroup>

@@ -4,5 +4,5 @@
   <color name="colorPrimaryDark">@android:color/black</color>
   <color name="colorAccent">#78909C</color>
 
-  <color name="splash_background">@android:color/white</color>
+  <color name="maui_splash_color">@android:color/white</color>
 </resources>
