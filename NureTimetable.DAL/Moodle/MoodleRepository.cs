@@ -86,6 +86,7 @@ namespace NureTimetable.DAL.Moodle
         }
 #pragma warning restore CS8774 // Member must have a non-null value when exiting.
 
+        [MemberNotNull(nameof(User))]
         public async Task UpdateTokenAsync()
         {
             if (User == null)
@@ -175,16 +176,15 @@ namespace NureTimetable.DAL.Moodle
                     var errorResult = Serialisation.FromJson<ErrorResult>(result);
                     if (errorResult.ErrorCode != null && errorResult.ErrorMessage != null)
                     {
-                        bool shouldTryRelogin = url.QueryParams.Contains(wstoken) && tryRelogin;
-                        if (!shouldTryRelogin || User == null)
+                        bool shouldTryRelogin = tryRelogin && errorResult.ErrorCode == MoodleErrorCodes.InvalidToken;
+                        if (shouldTryRelogin)
                         {
-                            MoodleException ex = new(errorResult.ErrorMessage.Replace("<br />", Environment.NewLine), errorResult.ErrorCode);
-                            ex.Data.Add("ErrorCode", ex.ErrorCode);
-                            ex.Data.Add("User", User?.Login);
-                            throw ex;
+                            return await ReloginAndReexecuteAsync();
                         }
 
-                        return await ReloginAndReexecuteAsync();
+                        MoodleException ex = new(errorResult.ErrorMessage.Replace("<br />", Environment.NewLine), errorResult.ErrorCode);
+                        ex.Data.Add("User", User?.Login);
+                        throw ex;
                     }
                 }
                 catch (JsonSerializationException) { }
