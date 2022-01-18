@@ -7,7 +7,6 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <TreatWarningsAsErrors Condition="'$(Configuration)' == 'Release'">true</TreatWarningsAsErrors>
 
-	<SupportedOSPlatformVersion>21.0</SupportedOSPlatformVersion>  
     <UseMaui>true</UseMaui>
   </PropertyGroup>
 
