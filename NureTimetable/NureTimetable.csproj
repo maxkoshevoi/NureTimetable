@@ -48,7 +48,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Using Include="Microsoft.Maui.Controls.ListView" Alias="ListView" />
     <Using Include="NureTimetable.DAL.Settings.Models.AppTheme" Alias="AppTheme" />
   </ItemGroup>
 

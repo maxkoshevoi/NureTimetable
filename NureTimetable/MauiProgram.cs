@@ -20,9 +20,7 @@ public static class MauiProgram
             })
             .ConfigureLifecycleEvents(lifecycle =>
             {
-#if ANDROID
                 lifecycle.AddAndroid(d => d.OnBackPressed(activity => Popup.SendBackPressed(activity.OnBackPressed)));
-#endif
             })
             .ConfigureEffects(effects =>
             {
