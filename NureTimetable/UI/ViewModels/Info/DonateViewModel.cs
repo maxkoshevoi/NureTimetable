@@ -1,4 +1,8 @@
-﻿using Xamarin.CommunityToolkit.Extensions;
+﻿using NureTimetable.BL;
+using NureTimetable.Core.Extensions;
+using NureTimetable.Core.Localization;
+using Plugin.InAppBilling;
+using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace NureTimetable.UI.ViewModels;
@@ -14,6 +18,8 @@ public class DonateViewModel : BaseViewModel
 
     public static async Task BuyProduct(string productId)
     {
-        await Shell.Current.CurrentPage.DisplayToastAsync("Not supported in MAUI yet.");
+        InAppBillingPurchase? purchase = await InAppPurchase.Buy(productId, true);
+        string message = purchase == null ? LN.PurchaseFailed : LN.ThanksForYourSupport;
+        Shell.Current.CurrentPage.DisplayToastAsync(message).Forget();
     }
 }
