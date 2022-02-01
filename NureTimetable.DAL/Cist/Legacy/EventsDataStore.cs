@@ -37,7 +37,7 @@ internal static class EventsDataStore
                 foreach (var group in groupsAllowed)
                 {
                     var groupEvents = new List<Event>();
-                    if (newEvents.Keys.Contains(group.Name))
+                    if (newEvents.ContainsKey(group.Name))
                     {
                         groupEvents = newEvents[group.Name];
                     }
@@ -317,7 +317,7 @@ internal static class EventsDataStore
     {
         //*РNet(ПЗПІ-16-)-2,
         //*РNet(ПЗПІ-16-)-1;*РNet(ПЗПІ-16-)-2,
-        if (groupsStr.Contains("("))
+        if (groupsStr.Contains('('))
         {
             return true;
         }

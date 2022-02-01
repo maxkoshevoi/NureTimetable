@@ -37,3 +37,6 @@ csharp_style_namespace_declarations = file_scoped:warning
 
 # Suppression preferences
 dotnet_remove_unnecessary_suppression_exclusions = suggestion
+
+# CA1822: Mark members as static
+dotnet_diagnostic.CA1822.severity = suggestion
