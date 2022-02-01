@@ -28,6 +28,7 @@
     <PackageReference Include="Rg.Plugins.Popup" Version="3.0.0-alpha11.1" />
     <PackageReference Include="Syncfusion.Licensing" Version="19.4.0.43" />
     <PackageReference Include="Syncfusion.Maui.Scheduler" Version="19.4.43-preview" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="6.0.2-mauipre.1.22054.8" />
   </ItemGroup>
 
   <ItemGroup>

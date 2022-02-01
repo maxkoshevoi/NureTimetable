@@ -7,6 +7,7 @@ using NureTimetable.DAL.Settings;
 using NureTimetable.DAL.Settings.Models;
 using Syncfusion.Licensing;
 using System.Globalization;
+using System.Text;
 using Xamarin.CommunityToolkit.Helpers;
 
 namespace NureTimetable;
@@ -15,6 +16,7 @@ public partial class App : Application
 {
     public App()
     {
+        Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
         SyncfusionLicenseProvider.RegisterLicense(Keys.SyncfusionLicenseKey);
         InitLanguage();
         VersionTracking.Track();
