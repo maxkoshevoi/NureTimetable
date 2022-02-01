@@ -126,7 +126,7 @@
     <LinkDescription Include="LinkerConfig.xml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.14" />
+    <PackageReference Include="Rg.Plugins.Popup" Version="2.1.0" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values-night\colors.xml">
