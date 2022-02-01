@@ -25,6 +25,7 @@ public static class MauiProgram
             .ConfigureEffects(effects =>
             {
                 effects.Add<StatusBarEffect, PlatformStatusBarEffect>();
+                effects.Add<TouchEffect, PlatformTouchEffect>();
             });
 
         return builder.Build();
