@@ -46,8 +46,8 @@
                                     <Label Text="{Binding LessonInfo.Lesson.FullName}" LineBreakMode="TailTruncation" FontSize="13" Style="{DynamicResource ListItemDetailTextStyle}" />
                                 </StackLayout>
                                 <StackLayout Grid.Column="1" Orientation="Horizontal" Spacing="8">
-                                    <Image xct:TouchEffect.Command="{Binding InfoClickedCommand}" Source="{FontImageSource Glyph={Static fonts:MaterialIconsFont.InformationOutline}, FontFamily={StaticResource MaterialFontFamily}, Color={DynamicResource ListIconColor}}" VerticalOptions="CenterAndExpand" xct:TouchEffect.NativeAnimation="True" xct:TouchEffect.NativeAnimationRadius="15" />
-                                    <Image xct:TouchEffect.Command="{Binding SettingsClickedCommand}" Source="{FontImageSource Glyph={Static fonts:MaterialIconsFont.Cog}, FontFamily={StaticResource MaterialFontFamily}, Color={DynamicResource ListIconColor}}" VerticalOptions="CenterAndExpand" xct:TouchEffect.NativeAnimation="True" xct:TouchEffect.NativeAnimationRadius="15" />
+                                    <Image xct:TouchEffect.Command="{Binding InfoClickedCommand}" Source="{FontImageSource Glyph={Static fonts:MaterialIconsFont.InformationOutline}, FontFamily={StaticResource MaterialFontFamily}, Color={DynamicResource ListIconColor}}" VerticalOptions="CenterAndExpand" xct:TouchEffect.NativeAnimation="True" xct:TouchEffect.NativeAnimationBorderless="True" />
+                                    <Image xct:TouchEffect.Command="{Binding SettingsClickedCommand}" Source="{FontImageSource Glyph={Static fonts:MaterialIconsFont.Cog}, FontFamily={StaticResource MaterialFontFamily}, Color={DynamicResource ListIconColor}}" VerticalOptions="CenterAndExpand" xct:TouchEffect.NativeAnimation="True" xct:TouchEffect.NativeAnimationBorderless="True" />
                                     <sfb:SfCheckBox IsChecked="{Binding IsChecked}" />
                                 </StackLayout>
                             </Grid>
