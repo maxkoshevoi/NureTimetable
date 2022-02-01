@@ -5,11 +5,7 @@ using NureTimetable.Core.Models.Exceptions;
 using NureTimetable.DAL.Cist;
 using NureTimetable.DAL.Models;
 using NureTimetable.DAL.Settings;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace NureTimetable.BL

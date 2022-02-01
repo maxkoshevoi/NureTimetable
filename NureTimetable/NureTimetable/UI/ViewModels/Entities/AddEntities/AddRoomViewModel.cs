@@ -1,8 +1,6 @@
 ﻿using NureTimetable.Core.Localization;
 using NureTimetable.DAL.Cist;
 using NureTimetable.DAL.Models;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace NureTimetable.UI.ViewModels
 {

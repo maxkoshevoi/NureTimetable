@@ -1,8 +1,6 @@
 ﻿using NureTimetable.Core.Localization;
 using NureTimetable.DAL.Moodle;
 using NureTimetable.DAL.Settings;
-using System;
-using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;

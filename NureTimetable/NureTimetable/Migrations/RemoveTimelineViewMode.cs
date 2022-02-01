@@ -1,6 +1,5 @@
 ﻿using NureTimetable.DAL.Settings;
 using NureTimetable.DAL.Settings.Models;
-using System.Threading.Tasks;
 
 namespace NureTimetable.Migrations
 {

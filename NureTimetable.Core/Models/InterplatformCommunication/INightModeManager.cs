@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace NureTimetable.Core.Models.InterplatformCommunication
+﻿namespace NureTimetable.Core.Models.InterplatformCommunication
 {
     public interface INightModeManager
     {

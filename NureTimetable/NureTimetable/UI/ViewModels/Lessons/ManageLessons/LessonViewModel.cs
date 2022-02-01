@@ -1,8 +1,6 @@
 ﻿using NureTimetable.Core.Models.Consts;
 using NureTimetable.DAL.Models;
 using NureTimetable.UI.Views;
-using System.Linq;
-using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 

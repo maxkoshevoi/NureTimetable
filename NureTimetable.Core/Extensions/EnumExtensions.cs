@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-
-namespace NureTimetable.Core.Extensions
+﻿namespace NureTimetable.Core.Extensions
 {
     public static class EnumExtensions
     {

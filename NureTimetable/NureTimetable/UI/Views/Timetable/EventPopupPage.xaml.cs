@@ -2,7 +2,6 @@
 using NureTimetable.DAL.Settings.Models;
 using NureTimetable.Models.Consts;
 using Rg.Plugins.Popup.Pages;
-using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.PlatformConfiguration.AndroidSpecific;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration;

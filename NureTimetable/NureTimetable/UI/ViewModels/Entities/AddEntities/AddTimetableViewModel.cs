@@ -1,8 +1,6 @@
 ﻿using NureTimetable.Core.Localization;
 using NureTimetable.DAL.Cist;
 using NureTimetable.DAL.Settings;
-using System;
-using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 using static NureTimetable.DAL.Cist.UniversityEntitiesRepository;

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace NureTimetable.Core.Models.Exceptions
+﻿namespace NureTimetable.Core.Models.Exceptions
 {
     public static class MoodleErrorCodes
     {

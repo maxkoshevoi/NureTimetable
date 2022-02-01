@@ -2,10 +2,6 @@
 using NureTimetable.DAL.Settings;
 using NureTimetable.DAL.Settings.Models;
 using NureTimetable.UI.Views;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Essentials;

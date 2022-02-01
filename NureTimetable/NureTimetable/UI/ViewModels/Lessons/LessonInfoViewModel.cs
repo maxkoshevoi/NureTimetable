@@ -1,8 +1,5 @@
 ﻿using NureTimetable.Core.Localization;
 using NureTimetable.DAL.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Xamarin.CommunityToolkit.Helpers;
 
 namespace NureTimetable.UI.ViewModels

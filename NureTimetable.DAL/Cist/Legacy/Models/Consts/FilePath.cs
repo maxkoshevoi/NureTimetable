@@ -1,7 +1,4 @@
-﻿using System;
-using System.IO;
-
-namespace NureTimetable.DAL.Cist.Legacy.Models.Consts
+﻿namespace NureTimetable.DAL.Cist.Legacy.Models.Consts
 {
     [Obsolete("", true)]
     static class FilePath

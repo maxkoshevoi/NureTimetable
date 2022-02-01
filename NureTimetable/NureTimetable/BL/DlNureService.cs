@@ -6,10 +6,6 @@ using NureTimetable.DAL.Cist;
 using NureTimetable.DAL.Models;
 using NureTimetable.DAL.Moodle;
 using NureTimetable.DAL.Moodle.Models.Courses;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace NureTimetable.BL
 {

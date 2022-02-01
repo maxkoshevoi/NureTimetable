@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace NureTimetable.DAL.Moodle.Models.WebService
+﻿namespace NureTimetable.DAL.Moodle.Models.WebService
 {
     public record SiteInfo
     {

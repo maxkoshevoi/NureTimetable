@@ -12,12 +12,8 @@ using NureTimetable.DAL.Moodle.Models.Calendar;
 using NureTimetable.DAL.Moodle.Models.Courses;
 using NureTimetable.DAL.Moodle.Models.WebService;
 using NureTimetable.DAL.Settings;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 
 namespace NureTimetable.DAL.Moodle
 {

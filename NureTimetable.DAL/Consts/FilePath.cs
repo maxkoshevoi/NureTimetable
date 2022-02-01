@@ -1,6 +1,4 @@
 ﻿using NureTimetable.DAL.Models;
-using System;
-using System.IO;
 
 namespace NureTimetable.DAL.Consts
 {

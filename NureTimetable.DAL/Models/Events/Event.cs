@@ -1,7 +1,4 @@
 ﻿using NureTimetable.Core.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace NureTimetable.DAL.Models
 {

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace NureTimetable.UI.ViewModels.Lessons.LessonSettings
+﻿namespace NureTimetable.UI.ViewModels.Lessons.LessonSettings
 {
     public class CheckedEntity<T> : BaseViewModel
     {

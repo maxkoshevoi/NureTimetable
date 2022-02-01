@@ -1,7 +1,6 @@
 ﻿using NureTimetable.DAL.Consts;
 using NureTimetable.DAL.Moodle.Models.Auth;
 using NureTimetable.DAL.Settings.Models;
-using System;
 using System.Globalization;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Essentials;

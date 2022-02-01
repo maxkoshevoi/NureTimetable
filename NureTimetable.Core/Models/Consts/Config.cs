@@ -1,5 +1,4 @@
-﻿using System;
-using static System.TimeZoneInfo;
+﻿using static System.TimeZoneInfo;
 
 namespace NureTimetable.Core.Models.Consts
 {

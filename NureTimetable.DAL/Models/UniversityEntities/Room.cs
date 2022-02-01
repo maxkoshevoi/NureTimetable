@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace NureTimetable.DAL.Models
+﻿namespace NureTimetable.DAL.Models
 {
     public class Room
     {

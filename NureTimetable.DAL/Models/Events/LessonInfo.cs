@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace NureTimetable.DAL.Models
+﻿namespace NureTimetable.DAL.Models
 {
     public class LessonInfo
     {

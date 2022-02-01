@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace NureTimetable.DAL.Moodle.Consts
+﻿namespace NureTimetable.DAL.Moodle.Consts
 {
     public static class Urls
     {

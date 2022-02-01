@@ -1,10 +1,6 @@
 ﻿using NureTimetable.Core.Models.Consts;
 using NureTimetable.DAL.Cist;
 using NureTimetable.DAL.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace NureTimetable.DAL.Settings
 {

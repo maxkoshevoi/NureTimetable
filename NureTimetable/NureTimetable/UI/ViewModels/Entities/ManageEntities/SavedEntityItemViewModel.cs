@@ -4,9 +4,6 @@ using NureTimetable.DAL.Cist;
 using NureTimetable.DAL.Models;
 using NureTimetable.Models.Consts;
 using NureTimetable.UI.Views;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 

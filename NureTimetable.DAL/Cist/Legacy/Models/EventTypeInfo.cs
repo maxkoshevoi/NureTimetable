@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace NureTimetable.DAL.Cist.Legacy.Models
+﻿namespace NureTimetable.DAL.Cist.Legacy.Models
 {
     class EventTypeInfo
     {

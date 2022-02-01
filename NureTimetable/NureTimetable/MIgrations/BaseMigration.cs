@@ -1,7 +1,4 @@
 ﻿using NureTimetable.Core.BL;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace NureTimetable.Migrations
 {

@@ -1,5 +1,4 @@
 ﻿using NureTimetable.Core.Models.Exceptions;
-using System;
 using System.Text.RegularExpressions;
 
 namespace NureTimetable.DAL.Cist

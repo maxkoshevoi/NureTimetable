@@ -1,6 +1,5 @@
 ﻿using NureTimetable.DAL.Models;
 using NureTimetable.Models.Consts;
-using System;
 using Xamarin.Forms;
 
 namespace NureTimetable.UI.ViewModels.Timetable

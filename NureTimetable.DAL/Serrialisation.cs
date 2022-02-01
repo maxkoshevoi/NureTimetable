@@ -5,11 +5,6 @@ using Nito.AsyncEx;
 using NureTimetable.Core.BL;
 using NureTimetable.Core.Extensions;
 using NureTimetable.DAL.Cist;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace NureTimetable.DAL
 {

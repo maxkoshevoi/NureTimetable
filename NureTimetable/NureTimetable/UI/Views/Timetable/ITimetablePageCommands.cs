@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-
-namespace NureTimetable.UI.Views
+﻿namespace NureTimetable.UI.Views
 {
     public interface ITimetablePageCommands
     {

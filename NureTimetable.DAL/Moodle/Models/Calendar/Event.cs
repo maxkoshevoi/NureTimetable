@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using NureTimetable.DAL.Moodle.Models.Courses;
-using System;
 using static NureTimetable.DAL.Serialisation;
 
 namespace NureTimetable.DAL.Moodle.Models.Calendar

@@ -2,7 +2,6 @@
 using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Localization;
 using Plugin.InAppBilling;
-using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;

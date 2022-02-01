@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace NureTimetable.DAL.Models
+﻿namespace NureTimetable.DAL.Models
 {
     public struct BaseEntity<T> : IEquatable<BaseEntity<T>> where T : IComparable<T>
     {

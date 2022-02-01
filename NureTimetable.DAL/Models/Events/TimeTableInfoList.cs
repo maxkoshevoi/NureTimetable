@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace NureTimetable.DAL.Models
+﻿namespace NureTimetable.DAL.Models
 {
     public class TimetableInfoList : TimetableStatistics
     {

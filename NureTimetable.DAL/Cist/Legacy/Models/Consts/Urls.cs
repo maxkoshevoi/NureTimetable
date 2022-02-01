@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace NureTimetable.DAL.Cist.Legacy.Models.Consts
+﻿namespace NureTimetable.DAL.Cist.Legacy.Models.Consts
 {
     [Obsolete("", true)]
     static class Urls

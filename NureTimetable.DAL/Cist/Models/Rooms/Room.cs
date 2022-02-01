@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System.Collections.Generic;
 using static NureTimetable.DAL.Serialisation;
 
 namespace NureTimetable.DAL.Cist.Models

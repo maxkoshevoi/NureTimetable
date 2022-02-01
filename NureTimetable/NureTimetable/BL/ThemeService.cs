@@ -3,9 +3,6 @@ using NureTimetable.Core.Models.Consts;
 using NureTimetable.Core.Models.InterplatformCommunication;
 using NureTimetable.DAL.Settings;
 using NureTimetable.UI.Themes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Xamarin.Forms;
 using AppTheme = NureTimetable.DAL.Settings.Models.AppTheme;
 

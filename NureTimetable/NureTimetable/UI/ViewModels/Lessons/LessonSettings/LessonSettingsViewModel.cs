@@ -4,7 +4,6 @@ using NureTimetable.DAL.Cist;
 using NureTimetable.DAL.Models;
 using NureTimetable.UI.ViewModels.Lessons.LessonSettings;
 using System.Collections.ObjectModel;
-using System.Linq;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 
