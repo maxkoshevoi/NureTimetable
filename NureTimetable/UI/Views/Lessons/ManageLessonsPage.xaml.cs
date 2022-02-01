@@ -16,6 +16,26 @@ public partial class ManageLessonsPage : ContentPage
         }
     }
 
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+
+        _ = Task.Run(async () =>
+        {
+            await Task.Delay(1000);
+
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                var items = ToolbarItems.ToList();
+                ToolbarItems.Clear();
+                foreach (var item in items)
+                {
+                    ToolbarItems.Add(item);
+                }
+            });
+        });
+    }
+
     private void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
     {
         ((ListView)sender).SelectedItem = null;

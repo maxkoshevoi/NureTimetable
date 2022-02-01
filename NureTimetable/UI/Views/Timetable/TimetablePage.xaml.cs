@@ -11,6 +11,26 @@ public partial class TimetablePage : ContentPage, ITimetablePageCommands
         BindingContext = new TimetableViewModel(this);
     }
 
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+
+        _ = Task.Run(async () =>
+        {
+            await Task.Delay(1000);
+
+            MainThread.BeginInvokeOnMainThread(() => 
+            {
+                var items = ToolbarItems.ToList();
+                ToolbarItems.Clear();
+                foreach (var item in items)
+                {
+                    ToolbarItems.Add(item);
+                }
+            });
+        });
+    }
+
     public void TimetableNavigateTo(DateTime date) => Timetable.DisplayDate = date;
 
     public Task ScaleTodayButtonTo(double scale) => BToday.ScaleTo(scale);
