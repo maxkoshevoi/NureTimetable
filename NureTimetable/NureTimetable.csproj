@@ -25,9 +25,9 @@
   <ItemGroup>
     <PackageReference Include="CClarke.Plugin.Calendars" Version="1.1.0" />
     <PackageReference Include="Plugin.InAppBilling" Version="6.0.0-beta" />
-    <PackageReference Include="Rg.Plugins.Popup" Version="3.0.0-alpha11.1" />
-    <PackageReference Include="Syncfusion.Licensing" Version="19.4.0.43" />
-    <PackageReference Include="Syncfusion.Maui.Scheduler" Version="19.4.43-preview" />
+    <PackageReference Include="Rg.Plugins.Popup" Version="3.0.0-alpha12.0" />
+    <PackageReference Include="Syncfusion.Licensing" Version="19.4.0.48" />
+    <PackageReference Include="Syncfusion.Maui.Scheduler" Version="19.4.48-preview" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="6.0.2-mauipre.1.22054.8" />
   </ItemGroup>
 
