@@ -139,7 +139,7 @@ public class MoodleRepository
             .SelectMany((item, index) => new KeyValuePair<string, object>[]
             {
                 new($"options[{index}][name]", item.Key.ToString().ToLowerInvariant()),
-                new($"options[{index}][value]", item.Value.ToString())
+                new($"options[{index}][value]", item.Value.ToString()!)
             })
             .ToList();
         arguments.Add(new("courseid", courseId));
