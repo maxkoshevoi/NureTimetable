@@ -41,7 +41,7 @@
                            Opacity="{Binding AttendanceOpacity}"
                            Source="{FontImageSource FontFamily=MaterialDesignIcons, Glyph={Static fonts:MaterialIconsFont.BadgeAccountAlertOutline}, Color={DynamicResource ListIconColor}}" 
                            xct:TouchEffect.NativeAnimation="True" 
-                           xct:TouchEffect.NativeAnimationRadius="15" />
+                           xct:TouchEffect.NativeAnimationBorderless="True" />
                 </Grid>
                 <sfs:SfScheduler
                     x:Name="Timetable"

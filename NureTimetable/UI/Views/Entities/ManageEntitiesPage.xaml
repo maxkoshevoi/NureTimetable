@@ -50,10 +50,10 @@
                                 </StackLayout>
                                 <StackLayout Grid.Column="2" Padding="0,5,10,5" Orientation="Horizontal" Spacing="17">
                                     <StackLayout VerticalOptions="CenterAndExpand">
-                                        <Image xct:TouchEffect.Command="{Binding UpdateClickedCommand}" IsVisible="{Binding IsUpdating, Converter={xct:InvertedBoolConverter}}" Source="{FontImageSource Glyph={Static fonts:MaterialIconsFont.Refresh}, FontFamily=MaterialDesignIcons, Color={DynamicResource ListIconColor}}" xct:TouchEffect.NativeAnimation="True" xct:TouchEffect.NativeAnimationRadius="15" />
+                                        <Image xct:TouchEffect.Command="{Binding UpdateClickedCommand}" IsVisible="{Binding IsUpdating, Converter={xct:InvertedBoolConverter}}" Source="{FontImageSource Glyph={Static fonts:MaterialIconsFont.Refresh}, FontFamily=MaterialDesignIcons, Color={DynamicResource ListIconColor}}" xct:TouchEffect.NativeAnimation="True" xct:TouchEffect.NativeAnimationBorderless="True" />
                                         <ActivityIndicator IsVisible="{Binding IsUpdating}" Color="{DynamicResource ListIconColor}" IsRunning="True" HeightRequest="30" WidthRequest="30"/>
                                     </StackLayout>
-                                    <Image xct:TouchEffect.Command="{Binding SettingsClickedCommand}" VerticalOptions="CenterAndExpand" Source="{FontImageSource Glyph={Static fonts:MaterialIconsFont.Cog}, FontFamily=MaterialDesignIcons, Color={DynamicResource ListIconColor}}" xct:TouchEffect.NativeAnimation="True" xct:TouchEffect.NativeAnimationRadius="15" />
+                                    <Image xct:TouchEffect.Command="{Binding SettingsClickedCommand}" VerticalOptions="CenterAndExpand" Source="{FontImageSource Glyph={Static fonts:MaterialIconsFont.Cog}, FontFamily=MaterialDesignIcons, Color={DynamicResource ListIconColor}}" xct:TouchEffect.NativeAnimation="True" xct:TouchEffect.NativeAnimationBorderless="True" />
                                 </StackLayout>
                             </Grid>
                         </ViewCell>

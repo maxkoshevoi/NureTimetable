@@ -1,8 +1,10 @@
 ﻿using Flurl;
 using Flurl.Http;
 using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 using Newtonsoft.Json;
 using NureTimetable.Core.Extensions;
+using NureTimetable.Core.Models.Exceptions;
 using NureTimetable.DAL.Moodle.Consts;
 using NureTimetable.DAL.Moodle.Models;
 using NureTimetable.DAL.Moodle.Models.Auth;
@@ -17,6 +19,8 @@ namespace NureTimetable.DAL.Moodle;
 
 public class MoodleRepository
 {
+    private const string wstoken = nameof(wstoken);
+
     private readonly Uri baseUrl;
     private Uri baseWebServiceUrl;
 
@@ -27,7 +31,7 @@ public class MoodleRepository
         set
         {
             _user = value;
-            baseWebServiceUrl = baseWebServiceUrl.SetQueryParam("wstoken", User?.Token).ToUri();
+            baseWebServiceUrl = baseWebServiceUrl.SetQueryParam(wstoken, User?.Token).ToUri();
         }
     }
 
@@ -39,9 +43,18 @@ public class MoodleRepository
         User = SettingsRepository.Settings.DlNureUser;
     }
 
-    [MemberNotNull(nameof(User))]
+    public Url GetAuthenticateUrl(string username, string password, ServiceType? service = ServiceType.moodle_mobile_app) => baseUrl
+        .AppendPathSegment("login/token.php")
+        .SetQueryParams(new
+        {
+            username,
+            password,
+            service = service?.ToString()
+        });
+
 #pragma warning disable CS8774 // Member must have a non-null value when exiting. It'll be set, trust me
-    public async Task<MoodleUser> AuthenticateAsync(string username, string password, ServiceType? service = null)
+    [MemberNotNull(nameof(User))]
+    public async Task AuthenticateAsync(string username, string password, ServiceType? service = ServiceType.moodle_mobile_app)
     {
         var url = baseUrl
             .AppendPathSegment("login/token.php")
@@ -51,10 +64,10 @@ public class MoodleRepository
                 password,
                 service = service?.ToString()
             });
-        var response = await ExecuteActionAsync<TokenResponse>(url, true);
-
+        var response = await ExecuteActionAsync<TokenResponse>(url, true, false);
         await UpdateUserInfoAsync(response.Token);
-        return User!;
+
+        SettingsRepository.Settings.DlNureUser = User;
 
         async Task UpdateUserInfoAsync(string token)
         {
@@ -68,6 +81,21 @@ public class MoodleRepository
         }
     }
 #pragma warning restore CS8774 // Member must have a non-null value when exiting.
+
+    [MemberNotNull(nameof(User))]
+    public async Task UpdateTokenAsync()
+    {
+        if (User == null)
+        {
+            throw new InvalidOperationException($"{nameof(User)} cannot be null");
+        }
+
+        var url = GetAuthenticateUrl(User.Login, User.Password);
+        var response = await ExecuteActionAsync<TokenResponse>(url, true, false);
+        User = User with { Token = response.Token };
+
+        SettingsRepository.Settings.DlNureUser = User;
+    }
 
     /// <summary>
     /// Return some site info / user info / list web service functions.
@@ -111,7 +139,7 @@ public class MoodleRepository
             .SelectMany((item, index) => new KeyValuePair<string, object>[]
             {
                 new($"options[{index}][name]", item.Key.ToString().ToLowerInvariant()),
-                new($"options[{index}][value]", item.Value.ToString()!)
+                new($"options[{index}][value]", item.Value.ToString())
             })
             .ToList();
         arguments.Add(new("courseid", courseId));
@@ -123,30 +151,51 @@ public class MoodleRepository
     private Url SetFunction(string name) => baseWebServiceUrl.SetQueryParam("wsfunction", name);
 
     /// <exception cref="InvalidOperationException"></exception>
-    private async Task<T> ExecuteActionAsync<T>(Url url, bool allowAnonymous = false, [CallerMemberName] string method = "")
+    private async Task<T> ExecuteActionAsync<T>(Url url, bool allowAnonymous = false, bool tryRelogin = true, [CallerMemberName] string method = "")
     {
-        Analytics.TrackEvent("Moodle request", new Dictionary<string, string>
-        {
-            { "Type", method }
-        });
-
-        if (!allowAnonymous && !url.QueryParams.Contains("wstoken"))
-        {
-            throw new InvalidOperationException($"Call {nameof(AuthenticateAsync)} or set {nameof(User)} before making this request.");
-        }
-
-        string result = await url.ToUri().GetStringOrWebExceptionAsync();
-
         try
         {
-            var errorResult = Serialisation.FromJson<ErrorResult>(result);
-            if (errorResult.ErrorCode != null && errorResult.ErrorMessage != null)
+            Analytics.TrackEvent("Moodle request", new Dictionary<string, string>
             {
-                throw new InvalidOperationException(errorResult.ErrorMessage.Replace("<br />", Environment.NewLine));
-            }
-        }
-        catch (JsonSerializationException) { }
+                { "Type", method }
+            });
 
-        return Serialisation.FromJson<T>(result);
+            if (!allowAnonymous && !url.QueryParams.Contains(wstoken))
+            {
+                throw new InvalidOperationException($"Call {nameof(AuthenticateAsync)} or set {nameof(User)} before making this request.");
+            }
+
+            string result = await url.ToUri().GetStringOrWebExceptionAsync();
+
+            try
+            {
+                var errorResult = Serialisation.FromJson<ErrorResult>(result);
+                if (errorResult.ErrorCode != null && errorResult.ErrorMessage != null)
+                {
+                    bool shouldTryRelogin = tryRelogin && errorResult.ErrorCode == MoodleErrorCodes.InvalidToken;
+                    if (shouldTryRelogin)
+                    {
+                        return await ReloginAndReexecuteAsync();
+                    }
+
+                    throw new MoodleException(errorResult.ErrorMessage.Replace("<br />", Environment.NewLine), errorResult.ErrorCode);
+                }
+            }
+            catch (JsonSerializationException) { }
+
+            return Serialisation.FromJson<T>(result);
+        }
+        catch (Exception ex)
+        {
+            ex.Data.TryAdd("Url", ErrorAttachmentLog.AttachmentWithText(url.ToString(), "Url.txt"));
+            throw;
+        }
+
+        async Task<T> ReloginAndReexecuteAsync()
+        {
+            await UpdateTokenAsync();
+            url.SetQueryParam(wstoken, User.Token);
+            return await ExecuteActionAsync<T>(url, allowAnonymous, false, method);
+        }
     }
 }

@@ -41,8 +41,7 @@ public class DlNureLoginViewModel : BaseViewModel
     {
         try
         {
-            var user = await moodleRepository.AuthenticateAsync(Login, Password, ServiceType.moodle_mobile_app);
-            SettingsRepository.Settings.DlNureUser = user;
+            await moodleRepository.AuthenticateAsync(Login, Password);
             OnPropertyChanged(nameof(LoggedInAs));
         }
         catch (Exception ex)
