@@ -21,8 +21,8 @@ namespace NureTimetable.DAL.Moodle
     {
         private const string wstoken = nameof(wstoken);
 
-        private readonly Uri baseUrl;
-        private Uri baseWebServiceUrl;
+        private readonly string baseUrl;
+        private string baseWebServiceUrl;
 
         private MoodleUser? _user;
         public MoodleUser? User
@@ -31,14 +31,14 @@ namespace NureTimetable.DAL.Moodle
             set
             {
                 _user = value;
-                baseWebServiceUrl = baseWebServiceUrl.SetQueryParam(wstoken, User?.Token).ToUri();
+                baseWebServiceUrl = baseWebServiceUrl.SetQueryParam(wstoken, User?.Token);
             }
         }
 
         public MoodleRepository()
         {
-            baseUrl = Urls.DlNure.SetQueryParam("moodlewsrestformat", "json").ToUri();
-            baseWebServiceUrl = baseUrl.AppendPathSegment("webservice/rest/server.php").ToUri();
+            baseUrl = Urls.DlNure.SetQueryParam("moodlewsrestformat", "json");
+            baseWebServiceUrl = baseUrl.AppendPathSegment("webservice/rest/server.php");
 
             User = SettingsRepository.Settings.DlNureUser;
         }
