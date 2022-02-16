@@ -19,7 +19,6 @@ public partial class App : Application
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
         SyncfusionLicenseProvider.RegisterLicense(Keys.SyncfusionLicenseKey);
         InitLanguage();
-        VersionTracking.Track();
 #if DEBUG
         SettingsRepository.Settings.IsDebugMode = true;
 #endif

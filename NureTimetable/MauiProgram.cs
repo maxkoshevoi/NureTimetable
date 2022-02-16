@@ -12,12 +12,9 @@ public static class MauiProgram
     {
         var builder = MauiApp.CreateBuilder();
         builder
-            .ConfigureSyncfusionCore()
             .UseMauiApp<App>()
-            .ConfigureFonts(fonts =>
-            {
-                fonts.AddFont("materialdesignicons-webfont.ttf", "MaterialDesignIcons");
-            })
+            .ConfigureEssentials(config => config.UseVersionTracking())
+            .ConfigureFonts(fonts => fonts.AddFont("materialdesignicons-webfont.ttf", "MaterialDesignIcons"))
             .ConfigureLifecycleEvents(lifecycle =>
             {
                 lifecycle.AddAndroid(d => d.OnBackPressed(activity => Popup.SendBackPressed(activity.OnBackPressed)));
@@ -26,7 +23,8 @@ public static class MauiProgram
             {
                 effects.Add<StatusBarEffect, PlatformStatusBarEffect>();
                 effects.Add<TouchEffect, PlatformTouchEffect>();
-            });
+            })
+            .ConfigureSyncfusionCore();
 
         return builder.Build();
     }
