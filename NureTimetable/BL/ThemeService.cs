@@ -1,7 +1,8 @@
 ﻿using NureTimetable.Core.BL;
 using NureTimetable.Core.Models.Consts;
-using NureTimetable.Core.Models.InterplatformCommunication;
 using NureTimetable.DAL.Settings;
+using NureTimetable.Platforms.Android.Models;
+using NureTimetable.Platforms.Android.Services;
 using NureTimetable.UI.Themes;
 
 namespace NureTimetable.BL;
@@ -62,7 +63,6 @@ public static class ThemeService
             _ => throw new InvalidOperationException("Unsupported theme"),
         };
 
-        var nightModeManager = DependencyService.Get<INightModeManager>();
-        nightModeManager.DefaultNightMode = style;
+        NightModeService.DefaultNightMode = style;
     }
 }

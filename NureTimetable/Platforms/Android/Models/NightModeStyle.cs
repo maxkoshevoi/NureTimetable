@@ -1,9 +1,4 @@
-﻿namespace NureTimetable.Core.Models.InterplatformCommunication;
-
-public interface INightModeManager
-{
-    NightModeStyle DefaultNightMode { get; set; }
-}
+﻿namespace NureTimetable.Platforms.Android.Models;
 
 public enum NightModeStyle
 {
