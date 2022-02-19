@@ -132,18 +132,17 @@ public static class Serialisation
 
     internal class StringBoolConverter : JsonConverter
     {
-        private readonly Dictionary<string, bool> replacementValues = new() { { "1", true }, { "0", false } };
+        private readonly Dictionary<string, bool?> replacementValues = new() { { "1", true }, { "0", false } };
 
         public override bool CanConvert(Type t) => t == typeof(bool?) || t == typeof(bool);
 
         public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
         {
-            string? key = (string?)reader.Value;
-            if (key == null || !replacementValues.ContainsKey(key))
+            if (reader.Value is not string key)
             {
                 return null;
             }
-            return replacementValues[key];
+            return replacementValues.GetValueOrDefault(key);
         }
 
         public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)

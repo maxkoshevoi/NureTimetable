@@ -149,6 +149,7 @@ public class MoodleRepository
     private Url SetFunction(string name) => baseWebServiceUrl.SetQueryParam("wsfunction", name);
 
     /// <exception cref="InvalidOperationException"></exception>
+    /// <exception cref="MoodleException"></exception>
     private async Task<T> ExecuteActionAsync<T>(Url url, bool allowAnonymous = false, bool tryRelogin = true, [CallerMemberName] string method = "")
     {
         try
@@ -170,7 +171,7 @@ public class MoodleRepository
                 var errorResult = Serialisation.FromJson<ErrorResult>(result);
                 if (errorResult.ErrorCode != null && errorResult.ErrorMessage != null)
                 {
-                    bool shouldTryRelogin = tryRelogin && errorResult.ErrorCode == MoodleErrorCodes.InvalidToken;
+                    bool shouldTryRelogin = tryRelogin && errorResult.ErrorCode is MoodleErrorCodes.InvalidToken or MoodleErrorCodes.AccessException;
                     if (shouldTryRelogin)
                     {
                         return await ReloginAndReexecuteAsync();
@@ -179,12 +180,13 @@ public class MoodleRepository
                     throw new MoodleException(errorResult.ErrorMessage.Replace("<br />", Environment.NewLine), errorResult.ErrorCode);
                 }
             }
-            catch (JsonSerializationException) { }
+            catch (JsonException) { }
 
             return Serialisation.FromJson<T>(result);
         }
         catch (Exception ex)
         {
+            ex.Data.TryAdd("Type", method);
             ex.Data.TryAdd("Url", ErrorAttachmentLog.AttachmentWithText(url.ToString(), "Url.txt"));
             throw;
         }
