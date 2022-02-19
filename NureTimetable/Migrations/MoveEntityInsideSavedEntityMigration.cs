@@ -1,6 +1,5 @@
 ﻿using NureTimetable.DAL;
 using NureTimetable.DAL.Consts;
-using NureTimetable.DAL.Models;
 
 namespace NureTimetable.Migrations;
 

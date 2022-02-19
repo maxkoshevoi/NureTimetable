@@ -23,6 +23,20 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Using Include="NureTimetable.BL" />
+    <Using Include="NureTimetable.DAL.Cist" />
+    <Using Include="NureTimetable.DAL.Models" />
+    <Using Include="NureTimetable.DAL.Settings" />
+    <Using Include="NureTimetable.DAL.Settings.Models" />
+    <Using Include="NureTimetable.UI.Views" />
+    <Using Include="NureTimetable.UI.ViewModels" />
+    <Using Include="Xamarin.CommunityToolkit.Extensions" />
+    <Using Include="Xamarin.CommunityToolkit.Helpers" />
+    <Using Include="Xamarin.CommunityToolkit.ObjectModel" />
+    <Using Include="Plugin.Calendars.Abstractions.Calendar" Alias="Calendar" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="CClarke.Plugin.Calendars" Version="1.1.0" />
     <PackageReference Include="Plugin.InAppBilling" Version="6.3.1-beta" />
     <PackageReference Include="Rg.Plugins.Popup" Version="3.0.0-alpha12.0" />

@@ -1,11 +1,4 @@
-﻿using Microsoft.AppCenter.Analytics;
-using NureTimetable.BL;
-using NureTimetable.Core.Localization;
-using NureTimetable.DAL.Models;
-using NureTimetable.DAL.Settings;
-using NureTimetable.UI.Views;
-using Rg.Plugins.Popup.Services;
-using Xamarin.CommunityToolkit.ObjectModel;
+﻿using Rg.Plugins.Popup.Services;
 
 namespace NureTimetable.UI.ViewModels;
 

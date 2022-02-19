@@ -1,8 +1,4 @@
-﻿using Microsoft.AppCenter.Analytics;
-using Microsoft.AppCenter.Crashes;
-using Nito.AsyncEx;
-using NureTimetable.Core.Models.Consts;
-using NureTimetable.Core.Models.Exceptions;
+﻿using Nito.AsyncEx;
 using NureTimetable.DAL.Cist.Consts;
 using NureTimetable.DAL.Consts;
 using NureTimetable.DAL.Settings;

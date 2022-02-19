@@ -1,8 +1,4 @@
-﻿using NureTimetable.BL;
-using NureTimetable.Core.Localization;
-using Plugin.InAppBilling;
-using Xamarin.CommunityToolkit.Extensions;
-using Xamarin.CommunityToolkit.ObjectModel;
+﻿using Plugin.InAppBilling;
 
 namespace NureTimetable.UI.ViewModels;
 

@@ -1,5 +1,4 @@
-﻿using NureTimetable.Core.Models.Consts;
-using NureTimetable.UI.Models.Consts;
+﻿using NureTimetable.UI.Models.Consts;
 using Rg.Plugins.Popup.Pages;
 using Xamarin.CommunityToolkit.PlatformConfiguration.AndroidSpecific;
 using Platform = Microsoft.Maui.Controls.PlatformConfiguration;

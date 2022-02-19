@@ -1,7 +1,4 @@
-﻿using NureTimetable.DAL.Settings;
-using NureTimetable.DAL.Settings.Models;
-
-namespace NureTimetable.Migrations;
+﻿namespace NureTimetable.Migrations;
 
 class RemoveTimelineViewMode : BaseMigration
 {

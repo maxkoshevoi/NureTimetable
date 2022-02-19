@@ -1,10 +1,4 @@
-﻿using NureTimetable.Core.Localization;
-using NureTimetable.DAL.Settings;
-using NureTimetable.DAL.Settings.Models;
-using NureTimetable.UI.Views;
-using Xamarin.CommunityToolkit.Helpers;
-using Xamarin.CommunityToolkit.ObjectModel;
-using static NureTimetable.UI.ViewModels.SettingsViewModel;
+﻿using static NureTimetable.UI.ViewModels.SettingsViewModel;
 
 namespace NureTimetable.UI.ViewModels;
 

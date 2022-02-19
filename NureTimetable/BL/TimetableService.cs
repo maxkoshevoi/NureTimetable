@@ -1,11 +1,4 @@
-﻿using Microsoft.AppCenter.Analytics;
-using NureTimetable.Core.Localization;
-using NureTimetable.Core.Models.Consts;
-using NureTimetable.Core.Models.Exceptions;
-using NureTimetable.DAL.Cist;
-using NureTimetable.DAL.Models;
-using NureTimetable.DAL.Settings;
-using System.Net;
+﻿using System.Net;
 
 namespace NureTimetable.BL;
 

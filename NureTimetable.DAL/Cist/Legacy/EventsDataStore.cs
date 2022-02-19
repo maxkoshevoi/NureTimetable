@@ -1,6 +1,5 @@
 ﻿using NureTimetable.DAL.Cist.Legacy.Models;
 using NureTimetable.DAL.Cist.Legacy.Models.Consts;
-using System.Globalization;
 using System.Net;
 using System.Text;
 

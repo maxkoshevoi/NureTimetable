@@ -1,8 +1,4 @@
-﻿using Microsoft.AppCenter.Analytics;
-using NureTimetable.BL;
-using NureTimetable.Core.Localization;
-using NureTimetable.DAL.Settings;
-using NureTimetable.Migrations;
+﻿using NureTimetable.Migrations;
 using NureTimetable.UI.Models.Consts;
 
 namespace NureTimetable;

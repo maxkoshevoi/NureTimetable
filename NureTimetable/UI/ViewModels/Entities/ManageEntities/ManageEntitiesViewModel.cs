@@ -1,12 +1,5 @@
-﻿using NureTimetable.BL;
-using NureTimetable.Core.Localization;
-using NureTimetable.Core.Models.Consts;
-using NureTimetable.DAL.Cist;
-using NureTimetable.DAL.Models;
-using NureTimetable.UI.Models.Consts;
-using NureTimetable.UI.Views;
+﻿using NureTimetable.UI.Models.Consts;
 using System.ComponentModel;
-using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace NureTimetable.UI.ViewModels;
 

@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace NureTimetable.DAL.Moodle.Models.Courses;
+﻿namespace NureTimetable.DAL.Moodle.Models.Courses;
 
 public record CourseSection
 {

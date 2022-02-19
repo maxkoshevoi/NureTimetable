@@ -1,5 +1,4 @@
-﻿using NureTimetable.Core.Models.Consts;
-using NureTimetable.DAL.Models;
+﻿using NureTimetable.DAL.Models;
 
 namespace NureTimetable.DAL.Cist.Consts;
 

@@ -12,9 +12,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Using Include="Microsoft.AppCenter.Analytics" />
+    <Using Include="Microsoft.AppCenter.Crashes" />
     <Using Include="NureTimetable.Core.BL" />
     <Using Include="NureTimetable.Core.Extensions" />
+    <Using Include="NureTimetable.Core.Localization" />
+    <Using Include="NureTimetable.Core.Models.Consts" />
+    <Using Include="NureTimetable.Core.Models.Exceptions" />
     <Using Include="System.Diagnostics.CodeAnalysis" />
+    <Using Include="System.Globalization" />
   </ItemGroup>
   
   <ItemGroup>

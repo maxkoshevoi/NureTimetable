@@ -1,8 +1,4 @@
-﻿using NureTimetable.Core.Localization;
-using NureTimetable.DAL.Models;
-using Xamarin.CommunityToolkit.Helpers;
-
-namespace NureTimetable.UI.ViewModels;
+﻿namespace NureTimetable.UI.ViewModels;
 
 public class LessonInfoViewModel : BaseViewModel
 {

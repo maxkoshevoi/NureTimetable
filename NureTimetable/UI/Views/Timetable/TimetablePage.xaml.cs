@@ -1,7 +1,4 @@
-﻿using NureTimetable.UI.ViewModels;
-using Xamarin.CommunityToolkit.Extensions;
-
-namespace NureTimetable.UI.Views;
+﻿namespace NureTimetable.UI.Views;
 
 public partial class TimetablePage : ContentPage, ITimetablePageCommands
 {

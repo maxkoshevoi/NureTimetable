@@ -1,12 +1,4 @@
-﻿using NureTimetable.BL;
-using NureTimetable.Core.Localization;
-using NureTimetable.DAL.Settings;
-using NureTimetable.UI.Views;
-using Plugin.Calendars.Abstractions;
-using Xamarin.CommunityToolkit.Helpers;
-using Xamarin.CommunityToolkit.ObjectModel;
-
-namespace NureTimetable.UI.ViewModels;
+﻿namespace NureTimetable.UI.ViewModels;
 
 public class SettingsViewModel : BaseViewModel
 {

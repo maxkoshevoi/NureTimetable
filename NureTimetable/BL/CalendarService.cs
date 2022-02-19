@@ -1,10 +1,5 @@
-﻿using Microsoft.AppCenter.Analytics;
-using NureTimetable.Core.Localization;
-using NureTimetable.DAL.Models;
-using NureTimetable.DAL.Settings;
-using Plugin.Calendars;
+﻿using Plugin.Calendars;
 using Plugin.Calendars.Abstractions;
-using Calendar = Plugin.Calendars.Abstractions.Calendar;
 
 namespace NureTimetable.BL;
 

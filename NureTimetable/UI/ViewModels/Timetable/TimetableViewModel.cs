@@ -1,19 +1,7 @@
-﻿using Microsoft.AppCenter.Analytics;
-using NureTimetable.BL;
-using NureTimetable.Core.Localization;
-using NureTimetable.Core.Models.Consts;
-using NureTimetable.DAL.Cist;
-using NureTimetable.DAL.Models;
-using NureTimetable.DAL.Settings;
-using NureTimetable.DAL.Settings.Models;
-using NureTimetable.UI.Models.Consts;
+﻿using NureTimetable.UI.Models.Consts;
 using NureTimetable.UI.ViewModels.Timetable;
-using NureTimetable.UI.Views;
 using Rg.Plugins.Popup.Services;
 using Syncfusion.Maui.Scheduler;
-using System.Globalization;
-using Xamarin.CommunityToolkit.Helpers;
-using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace NureTimetable.UI.ViewModels;
 

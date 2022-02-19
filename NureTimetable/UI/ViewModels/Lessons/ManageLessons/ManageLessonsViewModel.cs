@@ -1,13 +1,4 @@
-﻿using Microsoft.AppCenter.Analytics;
-using NureTimetable.BL;
-using NureTimetable.Core.Localization;
-using NureTimetable.DAL.Cist;
-using NureTimetable.DAL.Models;
-using NureTimetable.DAL.Settings;
-using Xamarin.CommunityToolkit.Extensions;
-using Xamarin.CommunityToolkit.ObjectModel;
-
-namespace NureTimetable.UI.ViewModels;
+﻿namespace NureTimetable.UI.ViewModels;
 
 public class ManageLessonsViewModel : BaseViewModel
 {

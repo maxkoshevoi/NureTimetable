@@ -1,7 +1,4 @@
-﻿using Xamarin.CommunityToolkit.Helpers;
-using Xamarin.CommunityToolkit.ObjectModel;
-
-namespace NureTimetable.UI.ViewModels;
+﻿namespace NureTimetable.UI.ViewModels;
 
 public abstract class BaseViewModel : ObservableObject
 {

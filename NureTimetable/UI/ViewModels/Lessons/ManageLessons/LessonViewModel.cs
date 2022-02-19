@@ -1,9 +1,4 @@
-﻿using NureTimetable.Core.Models.Consts;
-using NureTimetable.DAL.Models;
-using NureTimetable.UI.Views;
-using Xamarin.CommunityToolkit.ObjectModel;
-
-namespace NureTimetable.UI.ViewModels;
+﻿namespace NureTimetable.UI.ViewModels;
 
 public class LessonViewModel : BaseViewModel
 {

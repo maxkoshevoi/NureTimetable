@@ -1,8 +1,4 @@
-﻿using NureTimetable.Core.Localization;
-using NureTimetable.DAL.Cist;
-using NureTimetable.DAL.Models;
-
-namespace NureTimetable.UI.ViewModels;
+﻿namespace NureTimetable.UI.ViewModels;
 
 public class AddGroupViewModel : BaseAddEntityViewModel<Group>
 {

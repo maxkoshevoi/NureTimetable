@@ -1,6 +1,4 @@
-﻿using Microsoft.AppCenter.Crashes;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+﻿using Newtonsoft.Json.Converters;
 using Nito.AsyncEx;
 using NureTimetable.DAL.Cist;
 

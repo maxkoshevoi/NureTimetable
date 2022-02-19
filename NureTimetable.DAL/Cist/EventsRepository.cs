@@ -1,6 +1,4 @@
-﻿using Microsoft.AppCenter.Analytics;
-using NureTimetable.Core.Models.Consts;
-using NureTimetable.DAL.Cist.Consts;
+﻿using NureTimetable.DAL.Cist.Consts;
 using NureTimetable.DAL.Consts;
 using NureTimetable.DAL.Settings;
 using Cist = NureTimetable.DAL.Cist.Models;

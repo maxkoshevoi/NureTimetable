@@ -1,5 +1,4 @@
-﻿using NureTimetable.DAL.Models;
-using NureTimetable.UI.Models.Consts;
+﻿using NureTimetable.UI.Models.Consts;
 
 namespace NureTimetable.UI.ViewModels.Timetable;
 

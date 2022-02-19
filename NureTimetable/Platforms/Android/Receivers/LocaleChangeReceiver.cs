@@ -1,9 +1,5 @@
 ﻿using Android.App;
 using Android.Content;
-using NureTimetable.DAL.Settings;
-using NureTimetable.DAL.Settings.Models;
-using System.Globalization;
-using Xamarin.CommunityToolkit.Helpers;
 
 namespace NureTimetable.Platforms.Android.Receivers;
 

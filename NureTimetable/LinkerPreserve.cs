@@ -1,6 +1,4 @@
-﻿using System.Globalization;
-
-namespace NureTimetable;
+﻿namespace NureTimetable;
 
 public static class LinkerPreserve
 {

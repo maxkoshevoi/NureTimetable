@@ -1,6 +1,4 @@
-﻿using Xamarin.CommunityToolkit.ObjectModel;
-
-namespace NureTimetable.UI.Helpers;
+﻿namespace NureTimetable.UI.Helpers;
 
 public static class CommonCommands
 {

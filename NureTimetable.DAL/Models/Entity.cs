@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace NureTimetable.DAL.Models;
+﻿namespace NureTimetable.DAL.Models;
 
 public class Entity
 {

@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace NureTimetable.DAL.Cist.Models;
+﻿namespace NureTimetable.DAL.Cist.Models;
 
 public class Speciality
 {

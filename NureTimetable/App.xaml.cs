@@ -1,14 +1,6 @@
 ﻿using Microsoft.AppCenter;
-using Microsoft.AppCenter.Analytics;
-using Microsoft.AppCenter.Crashes;
-using NureTimetable.Core.Localization;
-using NureTimetable.Core.Models.Consts;
-using NureTimetable.DAL.Settings;
-using NureTimetable.DAL.Settings.Models;
 using Syncfusion.Licensing;
-using System.Globalization;
 using System.Text;
-using Xamarin.CommunityToolkit.Helpers;
 
 namespace NureTimetable;
 

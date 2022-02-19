@@ -1,6 +1,4 @@
-﻿using System.Globalization;
-
-namespace NureTimetable.UI.Converters;
+﻿namespace NureTimetable.UI.Converters;
 
 public class ToolbarIconValueConverter : IValueConverter, IMarkupExtension
 {

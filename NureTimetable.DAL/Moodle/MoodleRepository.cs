@@ -1,9 +1,5 @@
 ﻿using Flurl;
 using Flurl.Http;
-using Microsoft.AppCenter.Analytics;
-using Microsoft.AppCenter.Crashes;
-using Newtonsoft.Json;
-using NureTimetable.Core.Models.Exceptions;
 using NureTimetable.DAL.Moodle.Consts;
 using NureTimetable.DAL.Moodle.Models;
 using NureTimetable.DAL.Moodle.Models.Auth;

@@ -8,6 +8,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Using Include="Newtonsoft.Json" />
+  </ItemGroup>
+  
+  <ItemGroup>
     <ProjectReference Include="..\NureTimetable.Core\NureTimetable.Core.csproj" />
   </ItemGroup>
 
