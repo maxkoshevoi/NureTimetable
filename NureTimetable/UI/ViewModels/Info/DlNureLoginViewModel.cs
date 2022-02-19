@@ -1,6 +1,5 @@
 ﻿using NureTimetable.Core.Localization;
 using NureTimetable.DAL.Moodle;
-using NureTimetable.DAL.Moodle.Models.Auth;
 using NureTimetable.DAL.Settings;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.ObjectModel;

@@ -1,6 +1,5 @@
 ﻿using Microsoft.AppCenter.Analytics;
 using NureTimetable.BL;
-using NureTimetable.Core.BL;
 using NureTimetable.Core.Localization;
 using NureTimetable.DAL.Settings;
 using NureTimetable.Migrations;

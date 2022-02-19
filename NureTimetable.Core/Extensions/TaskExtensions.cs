@@ -1,6 +1,4 @@
-﻿using NureTimetable.Core.BL;
-
-namespace NureTimetable.Core.Extensions;
+﻿namespace NureTimetable.Core.Extensions;
 
 public static class TaskExtensions
 {

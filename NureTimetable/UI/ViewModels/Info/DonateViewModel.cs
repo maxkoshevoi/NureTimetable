@@ -1,5 +1,4 @@
 ﻿using NureTimetable.BL;
-using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Localization;
 using Plugin.InAppBilling;
 using Xamarin.CommunityToolkit.Extensions;

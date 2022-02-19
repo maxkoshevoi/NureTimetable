@@ -59,7 +59,7 @@ public static class ExceptionService
         }
         else if (ex is CistException cistEx)
         {
-                // CistException happens for external reasons, and shouldn't be treated as an exception
+            // CistException happens for external reasons, and shouldn't be treated as an exception
 
             if (!properties.ContainsKey("Status"))
             {
@@ -69,16 +69,16 @@ public static class ExceptionService
             Analytics.TrackEvent("CistException", properties);
             return;
         }
-            else if (ex is MoodleException moodleEx)
-            {
-                // MoodleException happens for external reasons, and shouldn't be treated as an exception
+        else if (ex is MoodleException moodleEx)
+        {
+            // MoodleException happens for external reasons, and shouldn't be treated as an exception
 
-                properties.Add("ErrorCode", moodleEx.ErrorCode);
-                properties.Add("Message", moodleEx.Message);
+            properties.Add("ErrorCode", moodleEx.ErrorCode);
+            properties.Add("Message", moodleEx.Message);
 
-                Analytics.TrackEvent("MoodleException", properties);
-                return;
-            }
+            Analytics.TrackEvent("MoodleException", properties);
+            return;
+        }
         else if (ex is IOException && ex.Message.StartsWith("Disk full."))
         {
             return;

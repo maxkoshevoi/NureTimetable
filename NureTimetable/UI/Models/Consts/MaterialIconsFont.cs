@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-namespace NureTimetable.UI.Models.Consts;
+﻿namespace NureTimetable.UI.Models.Consts;
 
 /// <summary>
 /// Full icon list: https://pictogrammers.github.io/@mdi/font/5.4.55

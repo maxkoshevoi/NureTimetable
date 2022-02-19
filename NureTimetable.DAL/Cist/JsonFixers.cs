@@ -1,5 +1,4 @@
-﻿using NureTimetable.Core.Extensions;
-using System.Text;
+﻿using System.Text;
 
 namespace NureTimetable.DAL.Cist;
 

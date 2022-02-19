@@ -1,6 +1,4 @@
 ﻿using Flurl;
-using NureTimetable.Core.BL;
-using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Localization;
 using NureTimetable.DAL.Cist;
 using NureTimetable.DAL.Models;

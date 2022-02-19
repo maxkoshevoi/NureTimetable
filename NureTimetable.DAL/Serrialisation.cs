@@ -2,7 +2,6 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Nito.AsyncEx;
-using NureTimetable.Core.BL;
 using NureTimetable.DAL.Cist;
 
 namespace NureTimetable.DAL;
@@ -55,12 +54,15 @@ public static class Serialisation
         }
     }
 
+    /// <exception cref="JsonException"></exception>
     public static string ToJson<T>(T instance)
     {
         string json = JsonConvert.SerializeObject(instance);
         return json;
     }
 
+    /// <exception cref="ArgumentException"></exception>
+    /// <exception cref="JsonException"></exception>
     public static T FromJson<T>(string json)
     {
         try

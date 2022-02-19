@@ -19,7 +19,7 @@ public partial class TimetablePage : ContentPage, ITimetablePageCommands
         {
             await Task.Delay(1000);
 
-            MainThread.BeginInvokeOnMainThread(() => 
+            MainThread.BeginInvokeOnMainThread(() =>
             {
                 var items = ToolbarItems.ToList();
                 ToolbarItems.Clear();

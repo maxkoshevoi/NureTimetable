@@ -1,5 +1,4 @@
-﻿using NureTimetable.Core.BL;
-using Plugin.InAppBilling;
+﻿using Plugin.InAppBilling;
 
 namespace NureTimetable.BL;
 

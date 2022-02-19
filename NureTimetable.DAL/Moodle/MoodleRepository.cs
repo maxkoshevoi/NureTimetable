@@ -3,7 +3,6 @@ using Flurl.Http;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using Newtonsoft.Json;
-using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Models.Exceptions;
 using NureTimetable.DAL.Moodle.Consts;
 using NureTimetable.DAL.Moodle.Models;
@@ -12,7 +11,6 @@ using NureTimetable.DAL.Moodle.Models.Calendar;
 using NureTimetable.DAL.Moodle.Models.Courses;
 using NureTimetable.DAL.Moodle.Models.WebService;
 using NureTimetable.DAL.Settings;
-using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 
 namespace NureTimetable.DAL.Moodle;

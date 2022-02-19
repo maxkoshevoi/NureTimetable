@@ -1,6 +1,5 @@
 ﻿using Microsoft.AppCenter.Analytics;
 using NureTimetable.BL;
-using NureTimetable.Core.Extensions;
 using NureTimetable.Core.Localization;
 using NureTimetable.DAL.Cist;
 using NureTimetable.DAL.Models;

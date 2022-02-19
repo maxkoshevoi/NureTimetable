@@ -1,6 +1,4 @@
-﻿using NureTimetable.Core.BL;
-
-namespace NureTimetable.Migrations;
+﻿namespace NureTimetable.Migrations;
 
 public abstract class BaseMigration
 {

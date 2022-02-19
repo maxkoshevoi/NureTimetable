@@ -1,5 +1,4 @@
-﻿using NureTimetable.Core.BL;
-using NureTimetable.Core.Models.Consts;
+﻿using NureTimetable.Core.Models.Consts;
 using NureTimetable.DAL.Settings;
 using NureTimetable.Platforms.Android.Models;
 using NureTimetable.Platforms.Android.Services;

@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 
-namespace System.Linq;
+namespace NureTimetable.Core.Extensions;
 
 public static class EnumerableExtensions
 {
