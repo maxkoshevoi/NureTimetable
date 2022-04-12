@@ -3,23 +3,23 @@
   <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
 
   <PropertyGroup>
-    <ApplicationVersion>185000</ApplicationVersion>
-    <AndroidVersionCode>1005000</AndroidVersionCode>
+    <ApplicationDisplayVersion>1.8.5000</ApplicationDisplayVersion>
+    <ApplicationVersion>1005000</ApplicationVersion>
   </PropertyGroup>
 
   <Target Name="UpdateVersion">
     <PropertyGroup>
-      <OldBuildNumber>$(AndroidVersionCode)</OldBuildNumber>
+      <OldBuildNumber>$(ApplicationVersion)</OldBuildNumber>
       <NewBuildNumber>$([MSBuild]::Add($(OldBuildNumber), 1))</NewBuildNumber>
       <RealNewBuildNumber>$([MSBuild]::Subtract($(NewBuildNumber), 1000000))</RealNewBuildNumber>
-      <OldVersion>$(ApplicationVersion)</OldVersion>
+      <OldVersion>$(ApplicationDisplayVersion)</OldVersion>
       <NewVersion>$(OldVersion.Remove($(OldVersion.LastIndexOf('.')))).$(RealNewBuildNumber)</NewVersion>
-      <AndroidVersionCode>$(NewBuildNumber)</AndroidVersionCode>
-      <ApplicationVersion>$(NewVersion)</ApplicationVersion>
+      <ApplicationVersion>$(NewBuildNumber)</ApplicationVersion>
+      <ApplicationDisplayVersion>$(NewVersion)</ApplicationDisplayVersion>
     </PropertyGroup>
-    <XmlPoke XmlInputPath="$(MSBuildThisFile)" Query="/Project/PropertyGroup/AndroidVersionCode" Value="$(AndroidVersionCode)" />
     <XmlPoke XmlInputPath="$(MSBuildThisFile)" Query="/Project/PropertyGroup/ApplicationVersion" Value="$(ApplicationVersion)" />
-    <Message Importance="High" Text="Build number: $(ApplicationVersion)" />
+    <XmlPoke XmlInputPath="$(MSBuildThisFile)" Query="/Project/PropertyGroup/ApplicationDisplayVersion" Value="$(ApplicationDisplayVersion)" />
+    <Message Importance="High" Text="Build number: $(ApplicationDisplayVersion)" />
   </Target>
 
 </Project>
