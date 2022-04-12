@@ -61,7 +61,7 @@ public static class InAppPurchase
         {
             if (purchase.ConsumptionState == ConsumptionState.NoYetConsumed)
             {
-                await billing.ConsumePurchaseAsync(purchase.ProductId, purchase.PurchaseToken);
+                await billing.ConsumePurchaseAsync(purchase.ProductId, purchase.PurchaseToken, purchase.Id);
             }
             return;
         }

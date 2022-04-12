@@ -74,7 +74,7 @@ public class AppSettings : ObservableObject
     {
         get
         {
-            string storedValue = Preferences.Get(nameof(LastCistAllEntitiesUpdate), null);
+            string? storedValue = Preferences.Get(nameof(LastCistAllEntitiesUpdate), null);
             return storedValue == null ? null : DateTime.Parse(storedValue, CultureInfo.InvariantCulture);
         }
         set

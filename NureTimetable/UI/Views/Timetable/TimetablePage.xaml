@@ -58,14 +58,14 @@
                         <xct:EventToCommandBehavior EventName="Tapped" Command="{Binding TimetableCellTappedCommand}"/>
                         <xct:EventToCommandBehavior EventName="ViewChanged" Command="{Binding TimetableVisibleDatesChangedCommand2}"/>
                     </sfs:SfScheduler.Behaviors>
-                    <sfs:SfScheduler.DaysViewSettings>
-                        <sfs:SchedulerDaysViewSettings 
+                    <sfs:SfScheduler.DaysView>
+                        <sfs:SchedulerDaysView 
                             StartHour="{Binding TimetableStartHour}" 
                             EndHour="{Binding TimetableEndHour}" 
                             TimeInterval="{Binding TimetableTimeInterval}"
                             TimeFormat="HH:mm"
                             CurrentTimeIndicatorBrush="CornflowerBlue">
-                            <sfs:SchedulerDaysViewSettings.ViewHeaderSettings>
+                            <sfs:SchedulerDaysView.ViewHeaderSettings>
                                 <sfs:SchedulerViewHeaderSettings Background="{DynamicResource PageBackgroundColor}">
                                     <sfs:SchedulerViewHeaderSettings.DayTextStyle>
                                         <sfs:SchedulerTextStyle TextColor="{DynamicResource PrimaryTextColor}" FontSize="8" />
@@ -74,12 +74,12 @@
                                         <sfs:SchedulerTextStyle TextColor="{DynamicResource PrimaryTextColor}" FontSize="13" />
                                     </sfs:SchedulerViewHeaderSettings.DateTextStyle>
                                 </sfs:SchedulerViewHeaderSettings>
-                            </sfs:SchedulerDaysViewSettings.ViewHeaderSettings>
-                        </sfs:SchedulerDaysViewSettings>
-                    </sfs:SfScheduler.DaysViewSettings>
-                    <sfs:SfScheduler.MonthViewSettings>
-                        <sfs:SchedulerMonthViewSettings AppointmentDisplayMode="Text">
-                            <sfs:SchedulerMonthViewSettings.MonthCellStyle>
+                            </sfs:SchedulerDaysView.ViewHeaderSettings>
+                        </sfs:SchedulerDaysView>
+                    </sfs:SfScheduler.DaysView>
+                    <sfs:SfScheduler.MonthView>
+                        <sfs:SchedulerMonthView AppointmentDisplayMode="Text">
+                            <sfs:SchedulerMonthView.CellStyle>
                                 <sfs:SchedulerMonthCellStyle 
                                     LeadingMonthBackground="{DynamicResource PageBackgroundColor}"
                                     Background="{DynamicResource PageBackgroundColor}"
@@ -95,9 +95,9 @@
                                         <sfs:SchedulerTextStyle TextColor="{DynamicResource TertiaryTextColor}" />
                                     </sfs:SchedulerMonthCellStyle.TrailingMonthTextStyle>
                                 </sfs:SchedulerMonthCellStyle>
-                            </sfs:SchedulerMonthViewSettings.MonthCellStyle>
-                        </sfs:SchedulerMonthViewSettings>
-                    </sfs:SfScheduler.MonthViewSettings>
+                            </sfs:SchedulerMonthView.CellStyle>
+                        </sfs:SchedulerMonthView>
+                    </sfs:SfScheduler.MonthView>
                     <sfs:SfScheduler.AppointmentMapping>
                         <sfs:SchedulerAppointmentMapping
 			                Subject="DisplayInfo"
