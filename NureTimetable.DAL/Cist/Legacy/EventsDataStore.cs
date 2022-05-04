@@ -1,12 +1,14 @@
-﻿using NureTimetable.DAL.Cist.Legacy.Models;
+﻿using NureTimetable.Core.BL;
+using NureTimetable.DAL.Cist.Legacy.Models;
 using NureTimetable.DAL.Cist.Legacy.Models.Consts;
 using System.Globalization;
 using System.Net;
 using System.Text;
 
+#nullable disable
+
 namespace NureTimetable.DAL.Cist.Legacy
 {
-#pragma warning disable CS8600, CS8603, CS8604 // Possible null reference
     [Obsolete("", true)]
     static class EventsDataStore
     {
@@ -208,9 +210,9 @@ namespace NureTimetable.DAL.Cist.Legacy
                         timetables[groupName].Add(ev);
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    //ExceptionService.LogException(ex);
+                    ExceptionService.LogException(ex);
                     return null;
                 }
             }
@@ -306,9 +308,9 @@ namespace NureTimetable.DAL.Cist.Legacy
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //ExceptionService.LogException(ex);
+                ExceptionService.LogException(ex);
                 groupsLessons = null;
             }
             return groupsLessons;
@@ -351,5 +353,4 @@ namespace NureTimetable.DAL.Cist.Legacy
         }
         #endregion
     }
-#pragma warning restore CS8600, CS8603, CS8604 // Possible null reference
 }

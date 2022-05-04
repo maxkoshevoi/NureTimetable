@@ -2,6 +2,7 @@
 
 namespace NureTimetable.DAL.Cist.Legacy.Models
 {
+    [Obsolete("", true)]
     class Event
     {
         public string? Lesson { get; set; }
