@@ -1,5 +1,6 @@
 ﻿namespace NureTimetable.DAL.Cist.Legacy.Models;
 
+[Obsolete("", true)]
 class TimetableInfo
 {
     public Group Group { get; set; } = new();

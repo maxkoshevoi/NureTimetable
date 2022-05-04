@@ -1,5 +1,6 @@
 ﻿namespace NureTimetable.DAL.Cist.Legacy.Models;
 
+[Obsolete("", true)]
 class EventTypeInfo
 {
     public string? Name { get; set; }

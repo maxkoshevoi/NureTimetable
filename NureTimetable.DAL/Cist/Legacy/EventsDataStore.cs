@@ -3,8 +3,10 @@ using NureTimetable.DAL.Cist.Legacy.Models.Consts;
 using System.Net;
 using System.Text;
 
+#nullable disable
+
 namespace NureTimetable.DAL.Cist.Legacy;
-#pragma warning disable CS8600, CS8603, CS8604 // Possible null reference
+
 [Obsolete("", true)]
 internal static class EventsDataStore
 {
@@ -206,9 +208,9 @@ internal static class EventsDataStore
                     timetables[groupName].Add(ev);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //ExceptionService.LogException(ex);
+                ExceptionService.LogException(ex);
                 return null;
             }
         }
@@ -304,9 +306,9 @@ internal static class EventsDataStore
                 }
             }
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            //ExceptionService.LogException(ex);
+            ExceptionService.LogException(ex);
             groupsLessons = null;
         }
         return groupsLessons;
