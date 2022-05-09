@@ -266,10 +266,10 @@ public static class UniversityEntitiesRepository
     private static async Task<List<Cist::Faculty>> GetAllGroupsFromCistHtmlAsync()
     {
         Analytics.TrackEvent("Cist request", new Dictionary<string, string>
-            {
-                { "Type", "GetAllGroupsHtml" },
-                { "Hour of the day", DateTime.Now.Hour.ToString() }
-            });
+        {
+            { "Type", "GetAllGroupsHtml" },
+            { "Hour of the day", DateTime.Now.Hour.ToString() }
+        });
 
         List<Cist::Faculty> faculties = new();
 
@@ -324,10 +324,10 @@ public static class UniversityEntitiesRepository
     private static async Task<List<Cist::Faculty>> GetAllTeachersFromCistHtmlAsync()
     {
         Analytics.TrackEvent("Cist request", new Dictionary<string, string>
-            {
-                { "Type", "GetAllTeachersHtml" },
-                { "Hour of the day", DateTime.Now.Hour.ToString() }
-            });
+        {
+            { "Type", "GetAllTeachersHtml" },
+            { "Hour of the day", DateTime.Now.Hour.ToString() }
+        });
 
         List<Cist::Faculty> faculties = new();
 

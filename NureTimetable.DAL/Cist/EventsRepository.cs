@@ -66,11 +66,11 @@ public static class EventsRepository
         {
             MessagingCenter.Send(Application.Current, MessageTypes.TimetableUpdating, entity);
             Analytics.TrackEvent("Cist request", new Dictionary<string, string>
-                {
-                    { "Type", "GetTimetable" },
-                    { "Subtype", entity.Type.ToString() },
-                    { "Hour of the day", DateTime.Now.Hour.ToString() }
-                });
+            {
+                { "Type", "GetTimetable" },
+                { "Subtype", entity.Type.ToString() },
+                { "Hour of the day", DateTime.Now.Hour.ToString() }
+            });
 
             // Getting events
             Local::TimetableInfo timetable = await GetTimetableLocalAsync(entity) ?? new(entity);
@@ -85,11 +85,11 @@ public static class EventsRepository
             if (timetable.Events.Any() && cistTimetable.Events.None())
             {
                 Analytics.TrackEvent("Received timetable is empty", new Dictionary<string, string>
-                    {
-                        { "Entity", $"{entity.Type} {entity.Name} ({entity.ID})" },
-                        { "From", dateStart.ToString("dd.MM.yyyy") },
-                        { "To", dateEnd.ToString("dd.MM.yyyy") }
-                    });
+                {
+                    { "Entity", $"{entity.Type} {entity.Name} ({entity.ID})" },
+                    { "From", dateStart.ToString("dd.MM.yyyy") },
+                    { "To", dateEnd.ToString("dd.MM.yyyy") }
+                });
 
                 return (null, null);
             }
