@@ -41,7 +41,8 @@ public partial class AppShell : Shell
                     .GetType()
                     .GetProperty(e.PropertyName!)?
                     .GetValue(SettingsRepository.Settings)?
-                    .ToString() }
+                    .ToString() 
+                }
             });
         };
     }

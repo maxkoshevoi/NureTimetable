@@ -1,5 +1,4 @@
 ﻿using Microsoft.AppCenter;
-using Syncfusion.Licensing;
 using System.Text;
 
 namespace NureTimetable;
@@ -9,7 +8,6 @@ public partial class App : Application
     public App()
     {
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-        SyncfusionLicenseProvider.RegisterLicense(Keys.SyncfusionLicenseKey);
         InitLanguage();
 #if DEBUG
         SettingsRepository.Settings.IsDebugMode = true;
