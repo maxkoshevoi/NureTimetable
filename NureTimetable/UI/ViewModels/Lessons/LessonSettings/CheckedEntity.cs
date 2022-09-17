@@ -7,7 +7,17 @@ public class CheckedEntity<T> : BaseViewModel
     public T Entity { get; }
 
     private bool? _isChecked;
-    public bool? IsChecked { get => _isChecked; set => SetProperty(ref _isChecked, value, onChanged: _stateChanged); }
+    public bool? IsChecked 
+    { 
+        get => _isChecked;
+        set
+        {
+            if (SetProperty(ref _isChecked, value))
+            {
+                _stateChanged();
+            }
+        }
+    }
 
     public CheckedEntity(T entity, Action<CheckedEntity<T>>? stateChanged = null)
     {

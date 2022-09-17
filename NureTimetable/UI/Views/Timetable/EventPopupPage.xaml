@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <pages:PopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
     xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
     xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels"
@@ -37,11 +37,11 @@
         <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
             <Label Text="{Binding Event.Lesson.FullName}" FontSize="16" FontAttributes="Bold" />
             <StackLayout HorizontalOptions="EndAndExpand" Orientation="Horizontal">
-                <Image xct:TouchEffect.Command="{Binding OptionsCommand}" Source="{FontImageSource FontFamily=MaterialDesignIcons, Glyph={Static fonts:MaterialIconsFont.DotsVertical}, Color=Black}" xct:TouchEffect.NativeAnimation="True" xct:TouchEffect.NativeAnimationBorderless="True" />
+                <Image mct:TouchEffect.Command="{Binding OptionsCommand}" Source="{FontImageSource FontFamily=MaterialDesignIcons, Glyph={Static fonts:MaterialIconsFont.DotsVertical}, Color=Black}" mct:TouchEffect.NativeAnimation="True" mct:TouchEffect.NativeAnimationBorderless="True" />
             </StackLayout>
         </StackLayout>
         <Label Text="{Binding Details}"/>
-        <StackLayout IsVisible="{Binding Notes, Converter={xct:IsNotNullOrEmptyConverter}}">
+        <StackLayout IsVisible="{Binding Notes, Converter={mct:IsStringNotNullOrEmptyConverter}}">
             <Label Text="{Binding Notes}" 
                    IsVisible="{Binding Notes, Converter={converters:IsNotUriConverter}}" />
             <Label Text="{Binding Notes}" 

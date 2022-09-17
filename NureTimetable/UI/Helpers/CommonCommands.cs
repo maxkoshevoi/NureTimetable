@@ -2,6 +2,6 @@
 
 public static class CommonCommands
 {
-    public static IAsyncCommand<string> NavigateUriCommand { get; } =
-        CommandFactory.Create<string>(async url => await Browser.OpenAsync(url!));
+    public static IRelayCommand<string> NavigateUriCommand { get; } =
+        CommandFactory.Create<string>(url => Browser.OpenAsync(url!));
 }

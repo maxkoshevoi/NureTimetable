@@ -5,7 +5,7 @@ using Syncfusion.Maui.Scheduler;
 
 namespace NureTimetable.UI.ViewModels;
 
-public class TimetableViewModel : BaseViewModel
+public partial class TimetableViewModel : BaseViewModel
 {
     #region Variables
     private readonly ITimetablePageCommands timetablePage;
@@ -23,83 +23,59 @@ public class TimetableViewModel : BaseViewModel
     #endregion
 
     #region Properties
+
+    [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(HideSelectedEventsCommand))]
+    [NotifyCanExecuteChangedFor(nameof(ScheduleModeCommand))]
+    [NotifyCanExecuteChangedFor(nameof(UpdateTimetableCommand))]
     private TimetableInfoList _timetableInfoList = TimetableInfoList.Empty;
-    public TimetableInfoList TimetableInfoList
-    {
-        get => _timetableInfoList; set => SetProperty(ref _timetableInfoList, value, onChanged: () =>
-        {
-            HideSelectedEventsCommand.RaiseCanExecuteChanged();
-            ScheduleModeCommand.RaiseCanExecuteChanged();
-            UpdateTimetableCommand.RaiseCanExecuteChanged();
-        });
-    }
 
     // Toolbar
-    private bool applyHiddingSettings = true;
+    [ObservableProperty]
     private string _hideSelectedEventsIcon = MaterialIconsFont.Filter;
-    public string HideSelectedEventsIcon { get => _hideSelectedEventsIcon; set => SetProperty(ref _hideSelectedEventsIcon, value); }
+    private bool applyHiddingSettings = true;
 
-    private readonly List<Entity> updatingTimetables = new();
+    [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(UpdateTimetableCommand))]
     private bool _isTimetableUpdating = false;
-    public bool IsTimetableUpdating { get => _isTimetableUpdating; set => SetProperty(ref _isTimetableUpdating, value, onChanged: () => UpdateTimetableCommand.RaiseCanExecuteChanged()); }
+    private readonly List<Entity> updatingTimetables = new();
 
     // Timetable
     public TimeSpan TimetableTimeInterval => TimeSpan.FromHours(1);
 
-    private DateTime? _timetableSelectedDate;
-    public DateTime? TimetableSelectedDate { get => _timetableSelectedDate; set => SetProperty(ref _timetableSelectedDate, value); }
-
-    private SchedulerView _timetableScheduleView = SchedulerView.Week;
-    public SchedulerView TimetableScheduleView { get => _timetableScheduleView; set => SetProperty(ref _timetableScheduleView, value); }
-
-    private string _timetableLocale = string.Empty;
-    public string TimetableLocale { get => _timetableLocale; set => SetProperty(ref _timetableLocale, value); }
-
-    private List<EventViewModel>? _timetableDataSource;
-    public List<EventViewModel>? TimetableDataSource { get => _timetableDataSource; private set => SetProperty(ref _timetableDataSource, value); }
-
-    private DateTime _timetableMaxDisplayDate;
-    public DateTime TimetableMaxDisplayDate { get => _timetableMaxDisplayDate; set => SetProperty(ref _timetableMaxDisplayDate, value); }
-
-    private DateTime _timetableMinDisplayDate;
-    public DateTime TimetableMinDisplayDate { get => _timetableMinDisplayDate; set => SetProperty(ref _timetableMinDisplayDate, value); }
-
-    private double _timetableStartHour = 0;
-    public double TimetableStartHour { get => _timetableStartHour; set => SetProperty(ref _timetableStartHour, value); }
-
-    private double _timetableEndHour = 24;
-    public double TimetableEndHour { get => _timetableEndHour; set => SetProperty(ref _timetableEndHour, value); }
+    [ObservableProperty] private DateTime? _timetableSelectedDate;
+    [ObservableProperty] private SchedulerView _timetableScheduleView = SchedulerView.Week;
+    [ObservableProperty] private string _timetableLocale = string.Empty;
+    [ObservableProperty] private List<EventViewModel>? _timetableDataSource;
+    [ObservableProperty] private DateTime _timetableMaxDisplayDate;
+    [ObservableProperty] private DateTime _timetableMinDisplayDate;
+    [ObservableProperty] private double _timetableStartHour = 0;
+    [ObservableProperty] private double _timetableEndHour = 24;
 
     // TimeLeft
     private bool lastTimeLeftVisible;
-    private bool _isTimeLeftVisible;
-    public bool IsTimeLeftVisible { get => _isTimeLeftVisible; set => SetProperty(ref _isTimeLeftVisible, value); }
-
-    private string? _timeLeftText;
-    public string? TimeLeftText { get => _timeLeftText; set => SetProperty(ref _timeLeftText, value); }
+    [ObservableProperty] private bool _isTimeLeftVisible;
+    [ObservableProperty] private string? _timeLeftText;
 
     public double AttendanceOpacity => AttendanceClickCommand.CanExecute(null) ? 1 : 0.5;
 
     // Layouts
+    [ObservableProperty]
     private bool _isProgressLayoutVisible;
-    public bool IsProgressLayoutVisible { get => _isProgressLayoutVisible; set => SetProperty(ref _isProgressLayoutVisible, value); }
 
     // bToday
-    private string _bTodayText = string.Empty;
-    public string BTodayText { get => _bTodayText; set => SetProperty(ref _bTodayText, value); }
+    [ObservableProperty] private string _bTodayText = string.Empty;
+    [ObservableProperty] private double _bTodayScale = 0;
 
-    private double _bTodayScale = 0;
-    public double BTodayScale { get => _bTodayScale; set => SetProperty(ref _bTodayScale, value); }
-
-    public IAsyncCommand PageAppearingCommand { get; }
-    public Command PageDisappearingCommand { get; }
-    public IAsyncCommand HideSelectedEventsCommand { get; }
-    public IAsyncCommand ScheduleModeCommand { get; }
-    public IAsyncCommand<SchedulerTappedEventArgs> TimetableCellTappedCommand { get; }
-    public IAsyncCommand<SchedulerViewChangedEventArgs> TimetableVisibleDatesChangedCommand { get; }
-    public Command BTodayClickedCommand { get; }
-    public IAsyncCommand UpdateTimetableCommand { get; }
-    public IAsyncCommand AttendanceClickCommand { get; }
+    public IRelayCommand PageAppearingCommand { get; }
+    public IRelayCommand PageDisappearingCommand { get; }
+    public IRelayCommand HideSelectedEventsCommand { get; }
+    public IRelayCommand ScheduleModeCommand { get; }
+    public IRelayCommand<SchedulerTappedEventArgs> TimetableCellTappedCommand { get; }
+    public IRelayCommand<SchedulerViewChangedEventArgs> TimetableVisibleDatesChangedCommand { get; }
+    public IRelayCommand BTodayClickedCommand { get; }
+    public IRelayCommand UpdateTimetableCommand { get; }
+    public IRelayCommand AttendanceClickCommand { get; }
     #endregion
 
     public TimetableViewModel(ITimetablePageCommands timetablePage)
@@ -164,11 +140,11 @@ public class TimetableViewModel : BaseViewModel
         });
 
         PageAppearingCommand = CommandFactory.Create(PageAppearing);
-        HideSelectedEventsCommand = CommandFactory.Create(HideSelectedEventsClicked, () => TimetableInfoList.Events.Any(), allowsMultipleExecutions: false);
+        HideSelectedEventsCommand = CommandFactory.Create(HideSelectedEventsClicked, () => TimetableInfoList.Events.Any());
         ScheduleModeCommand = CommandFactory.Create(ScheduleModeClicked, () => TimetableInfoList.Events.Any());
         BTodayClickedCommand = CommandFactory.Create(BTodayClicked);
         PageDisappearingCommand = CommandFactory.Create(() => isPageVisible = false);
-        TimetableCellTappedCommand = CommandFactory.Create<SchedulerTappedEventArgs>(e => DisplayEventDetails((Event)e!.Appointments!.Single()), allowsMultipleExecutions: false);
+        TimetableCellTappedCommand = CommandFactory.Create<SchedulerTappedEventArgs>(e => DisplayEventDetails((Event)e!.Appointments!.Single()));
         TimetableVisibleDatesChangedCommand = CommandFactory.Create<SchedulerViewChangedEventArgs>(async (e) =>
         {
             if (e?.NewVisibleDates == null)
@@ -179,10 +155,9 @@ public class TimetableViewModel : BaseViewModel
         });
         UpdateTimetableCommand = CommandFactory.Create(
             () => TimetableService.UpdateAndDisplayResultAsync(TimetableInfoList.Entities.ToArray()),
-            () => TimetableInfoList.Timetables.Any() && !IsTimetableUpdating,
-            allowsMultipleExecutions: false
+            () => TimetableInfoList.Timetables.Any() && !IsTimetableUpdating
         );
-        AttendanceClickCommand = CommandFactory.Create(OpenAttendancePage, allowsMultipleExecutions: false);
+        AttendanceClickCommand = CommandFactory.Create(OpenAttendancePage);
         AttendanceClickCommand.CanExecuteChanged += (_, args) => OnPropertyChanged(nameof(AttendanceOpacity));
 
         IsProgressLayoutVisible = true;

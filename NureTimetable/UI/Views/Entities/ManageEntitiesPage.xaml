@@ -1,15 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:fonts="clr-namespace:NureTimetable.UI.Models.Consts"
              xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels"
+             xmlns:ui="clr-namespace:NureTimetable.UI.Helpers"
              Shell.TabBarIsVisible="True"
              x:Class="NureTimetable.UI.Views.ManageEntitiesPage"
              x:DataType="vm:ManageEntitiesViewModel"
-             Title="{xct:Translate SavedTimetables}">
+             Title="{ui:Translate SavedTimetables}">
     <ContentPage.Behaviors>
-        <xct:EventToCommandBehavior x:DataType="vm:ManageEntitiesViewModel" EventName="Appearing" Command="{Binding PageAppearingCommand}"/>
+        <mct:EventToCommandBehavior x:DataType="vm:ManageEntitiesViewModel" EventName="Appearing" Command="{Binding PageAppearingCommand}"/>
     </ContentPage.Behaviors>
 
     <ContentPage.ToolbarItems>
@@ -18,7 +19,7 @@
     </ContentPage.ToolbarItems>
 
     <AbsoluteLayout>
-        <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All"  IsVisible="{Binding Entities, Converter={xct:ListIsNotNullOrEmptyConverter}}">
+        <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All"  IsVisible="{Binding Entities, Converter={mct:IsListNotNullOrEmptyConverter}}">
             <ListView x:Name="EntitiesList"
                     ItemTapped="EntitiesList_OnItemTapped"
                     CachingStrategy="RecycleElement"
@@ -26,7 +27,7 @@
                     ItemsSource="{Binding Entities}">
 
                 <ListView.Behaviors>
-                    <xct:EventToCommandBehavior EventName="ItemSelected" Command="{Binding EntitySelectedCommand}"/>
+                    <mct:EventToCommandBehavior EventName="ItemSelected" Command="{Binding EntitySelectedCommand}"/>
                 </ListView.Behaviors>
                 
                 <ListView.ItemTemplate>
@@ -38,7 +39,7 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <StackLayout WidthRequest="10" IsVisible="{Binding ManageEntitiesViewModel.IsMultiselectMode, Converter={xct:InvertedBoolConverter}}">
+                                <StackLayout WidthRequest="10" IsVisible="{Binding ManageEntitiesViewModel.IsMultiselectMode, Converter={mct:InvertedBoolConverter}}">
                                     <BoxView BackgroundColor="{DynamicResource SelectedEntityColor}" VerticalOptions="FillAndExpand" IsVisible="{Binding SavedEntity.IsSelected}" />
                                 </StackLayout>
                                 <StackLayout IsVisible="{Binding ManageEntitiesViewModel.IsMultiselectMode}">
@@ -50,10 +51,10 @@
                                 </StackLayout>
                                 <StackLayout Grid.Column="2" Padding="0,5,10,5" Orientation="Horizontal" Spacing="17">
                                     <StackLayout VerticalOptions="CenterAndExpand">
-                                        <Image xct:TouchEffect.Command="{Binding UpdateClickedCommand}" IsVisible="{Binding IsUpdating, Converter={xct:InvertedBoolConverter}}" Source="{FontImageSource Glyph={Static fonts:MaterialIconsFont.Refresh}, FontFamily=MaterialDesignIcons, Color={DynamicResource ListIconColor}}" xct:TouchEffect.NativeAnimation="True" xct:TouchEffect.NativeAnimationBorderless="True" />
+                                        <Image mct:TouchEffect.Command="{Binding UpdateClickedCommand}" IsVisible="{Binding IsUpdating, Converter={mct:InvertedBoolConverter}}" Source="{FontImageSource Glyph={Static fonts:MaterialIconsFont.Refresh}, FontFamily=MaterialDesignIcons, Color={DynamicResource ListIconColor}}" mct:TouchEffect.NativeAnimation="True" mct:TouchEffect.NativeAnimationBorderless="True" />
                                         <ActivityIndicator IsVisible="{Binding IsUpdating}" Color="{DynamicResource ListIconColor}" IsRunning="True" HeightRequest="30" WidthRequest="30"/>
                                     </StackLayout>
-                                    <Image xct:TouchEffect.Command="{Binding SettingsClickedCommand}" VerticalOptions="CenterAndExpand" Source="{FontImageSource Glyph={Static fonts:MaterialIconsFont.Cog}, FontFamily=MaterialDesignIcons, Color={DynamicResource ListIconColor}}" xct:TouchEffect.NativeAnimation="True" xct:TouchEffect.NativeAnimationBorderless="True" />
+                                    <Image mct:TouchEffect.Command="{Binding SettingsClickedCommand}" VerticalOptions="CenterAndExpand" Source="{FontImageSource Glyph={Static fonts:MaterialIconsFont.Cog}, FontFamily=MaterialDesignIcons, Color={DynamicResource ListIconColor}}" mct:TouchEffect.NativeAnimation="True" mct:TouchEffect.NativeAnimationBorderless="True" />
                                 </StackLayout>
                             </Grid>
                         </ViewCell>
@@ -63,12 +64,12 @@
         </StackLayout>
         <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" Margin="5">
             <StackLayout.IsVisible>
-                <MultiBinding Converter="{xct:VariableMultiValueConverter ConditionType=All}">
-                    <Binding Path="Entities" Converter="{xct:ListIsNullOrEmptyConverter}" />
-                    <Binding Path="IsProgressLayoutVisible" Converter="{xct:InvertedBoolConverter}" />
+                <MultiBinding Converter="{mct:VariableMultiValueConverter ConditionType=All}">
+                    <Binding Path="Entities" Converter="{mct:IsListNullOrEmptyConverter}" />
+                    <Binding Path="IsProgressLayoutVisible" Converter="{mct:InvertedBoolConverter}" />
                 </MultiBinding>
             </StackLayout.IsVisible>
-            <Label Text="{xct:Translate NoSavedTimetables}"
+            <Label Text="{ui:Translate NoSavedTimetables}"
                     VerticalOptions="CenterAndExpand" 
                     HorizontalOptions="CenterAndExpand"
                     HorizontalTextAlignment="Center" />
@@ -77,7 +78,7 @@
                     AbsoluteLayout.LayoutFlags="PositionProportional"
                     AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
             <ActivityIndicator IsRunning="True"/>
-            <Label Text="{xct:Translate Wait}" HorizontalOptions="Center" TextColor="{DynamicResource ActivityIndicatorTextColor}"/>
+            <Label Text="{ui:Translate Wait}" HorizontalOptions="Center" TextColor="{DynamicResource ActivityIndicatorTextColor}"/>
         </StackLayout>
     </AbsoluteLayout>
 </ContentPage>

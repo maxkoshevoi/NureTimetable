@@ -3,30 +3,27 @@ using System.ComponentModel;
 
 namespace NureTimetable.UI.ViewModels;
 
-public class ManageEntitiesViewModel : BaseViewModel
+public partial class ManageEntitiesViewModel : BaseViewModel
 {
     private readonly object updatingEntities = new();
 
     #region Properties
-    private bool _isMultiselectMode;
-    public bool IsMultiselectMode { get => _isMultiselectMode; set => SetProperty(ref _isMultiselectMode, value); }
-
-    private bool _isProgressLayoutVisible;
-    public bool IsProgressLayoutVisible { get => _isProgressLayoutVisible; set => SetProperty(ref _isProgressLayoutVisible, value); }
+    [ObservableProperty] private bool _isMultiselectMode;
+    [ObservableProperty] private bool _isProgressLayoutVisible;
 
     public ObservableRangeCollection<SavedEntityItemViewModel> Entities { get; } = new();
 
-    public IAsyncCommand PageAppearingCommand { get; }
-    public IAsyncCommand UpdateAllCommand { get; }
-    public IAsyncCommand AddEntityCommand { get; }
-    public IAsyncCommand<SelectedItemChangedEventArgs> EntitySelectedCommand { get; }
+    public IRelayCommand PageAppearingCommand { get; }
+    public IRelayCommand UpdateAllCommand { get; }
+    public IRelayCommand AddEntityCommand { get; }
+    public IRelayCommand<SelectedItemChangedEventArgs> EntitySelectedCommand { get; }
     #endregion
 
     public ManageEntitiesViewModel()
     {
         PageAppearingCommand = CommandFactory.Create(PageAppearing);
-        UpdateAllCommand = CommandFactory.Create(UpdateAll, () => { lock (updatingEntities) { return Entities.Any() && Entities.All(e => !e.IsUpdating); } }, allowsMultipleExecutions: false);
-        AddEntityCommand = CommandFactory.Create(() => Navigation.PushAsync(new AddTimetablePage()), allowsMultipleExecutions: false);
+        UpdateAllCommand = CommandFactory.Create(UpdateAll, () => { lock (updatingEntities) { return Entities.Any() && Entities.All(e => !e.IsUpdating); } });
+        AddEntityCommand = CommandFactory.Create(() => Navigation.PushAsync(new AddTimetablePage()));
         EntitySelectedCommand = CommandFactory.Create<SelectedItemChangedEventArgs>(async args =>
         {
             if (args!.SelectedItem is not SavedEntityItemViewModel entity)
@@ -64,10 +61,10 @@ public class ManageEntitiesViewModel : BaseViewModel
             }
         });
 
-        // ListIsNullOrEmptyConverter needs to know that Entities are updated
+        // IsListNullOrEmptyConverter needs to know that Entities are updated
         Entities.CollectionChanged += (_, _) =>
         {
-            UpdateAllCommand.RaiseCanExecuteChanged();
+            UpdateAllCommand.NotifyCanExecuteChanged();
             OnPropertyChanged(nameof(Entities));
         };
 

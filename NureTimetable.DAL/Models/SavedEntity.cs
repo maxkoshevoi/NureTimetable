@@ -1,8 +1,8 @@
-﻿using Xamarin.CommunityToolkit.ObjectModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace NureTimetable.DAL.Models;
 
-public class SavedEntity : ObservableObject
+public partial class SavedEntity : ObservableObject
 {
     public SavedEntity(Entity entity)
     {
@@ -11,11 +11,11 @@ public class SavedEntity : ObservableObject
 
     public Entity Entity { get; }
 
+    [ObservableProperty]
     private DateTime? lastUpdated;
-    public DateTime? LastUpdated { get => lastUpdated; set => SetProperty(ref lastUpdated, value); }
 
+    [ObservableProperty]
     private bool isSelected;
-    public bool IsSelected { get => isSelected; set => SetProperty(ref isSelected, value); }
 
     #region Equals
     public static implicit operator Entity(SavedEntity savedEntity) =>

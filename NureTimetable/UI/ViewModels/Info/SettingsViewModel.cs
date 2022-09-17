@@ -7,12 +7,12 @@ public class SettingsViewModel : BaseViewModel
     public LocalizedString TimeBeforeEventReminderValue { get; }
     public LocalizedString DlNureAccount { get; }
 
-    public IAsyncCommand PageAppearingCommand { get; }
-    public Command ToggleDebugModeCommand { get; }
-    public Command ToggleAutoupdateCommand { get; }
-    public IAsyncCommand ChangeDefaultCalendarCommand { get; }
-    public IAsyncCommand ChangeTimeBeforeEventReminderCommand { get; }
-    public IAsyncCommand DlNureIntegrationCommand { get; }
+    public IRelayCommand PageAppearingCommand { get; }
+    public IRelayCommand ToggleDebugModeCommand { get; }
+    public IRelayCommand ToggleAutoupdateCommand { get; }
+    public IRelayCommand ChangeDefaultCalendarCommand { get; }
+    public IRelayCommand ChangeTimeBeforeEventReminderCommand { get; }
+    public IRelayCommand DlNureIntegrationCommand { get; }
     #endregion
 
     #region Setting mappings
@@ -43,11 +43,11 @@ public class SettingsViewModel : BaseViewModel
                 string.Format(LN.LoggedInAs, SettingsRepository.Settings.DlNureUser.FullName, SettingsRepository.Settings.DlNureUser.Id));
 
         PageAppearingCommand = CommandFactory.Create(PageAppearing);
-        ChangeDefaultCalendarCommand = CommandFactory.Create(ChangeDefaultCalendar, allowsMultipleExecutions: false);
-        ChangeTimeBeforeEventReminderCommand = CommandFactory.Create(ChangeTimeBeforeEventReminder, allowsMultipleExecutions: false);
+        ChangeDefaultCalendarCommand = CommandFactory.Create(ChangeDefaultCalendar);
+        ChangeTimeBeforeEventReminderCommand = CommandFactory.Create(ChangeTimeBeforeEventReminder);
         ToggleDebugModeCommand = CommandFactory.Create(() => SettingsRepository.Settings.IsDebugMode = !SettingsRepository.Settings.IsDebugMode);
         ToggleAutoupdateCommand = CommandFactory.Create(() => SettingsRepository.Settings.Autoupdate = !SettingsRepository.Settings.Autoupdate);
-        DlNureIntegrationCommand = CommandFactory.Create(() => Navigation.PushAsync(new DlNureLogin()), allowsMultipleExecutions: false);
+        DlNureIntegrationCommand = CommandFactory.Create(() => Navigation.PushAsync(new DlNureLogin()));
 
         SettingsRepository.Settings.PropertyChanged += (_, args) =>
         {
@@ -115,14 +115,14 @@ public class SettingsViewModel : BaseViewModel
     }
 
     public Task ChangeTimeBeforeEventReminder() => ChangeSetting
-        (
-            LN.TimeBeforeEventReminder,
-            timeBeforeEventReminderMapping,
-            SettingsRepository.Settings.TimeBeforeEventReminder,
-            newTime =>
-            {
-                SettingsRepository.Settings.TimeBeforeEventReminder = newTime;
-                OnPropertyChanged(nameof(TimeBeforeEventReminderValue));
-            }
-        );
+    (
+        LN.TimeBeforeEventReminder,
+        timeBeforeEventReminderMapping,
+        SettingsRepository.Settings.TimeBeforeEventReminder,
+        newTime =>
+        {
+            SettingsRepository.Settings.TimeBeforeEventReminder = newTime;
+            OnPropertyChanged(nameof(TimeBeforeEventReminderValue));
+        }
+    );
 }

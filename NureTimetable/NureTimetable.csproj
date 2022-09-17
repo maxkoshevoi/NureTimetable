@@ -27,6 +27,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Using Include="CommunityToolkit.Maui.Alerts" />
+    <Using Include="CommunityToolkit.Mvvm.ComponentModel" />
+    <Using Include="CommunityToolkit.Mvvm.Input" />
     <Using Include="NureTimetable.BL" />
     <Using Include="NureTimetable.DAL.Cist" />
     <Using Include="NureTimetable.DAL.Models" />
@@ -34,9 +37,7 @@
     <Using Include="NureTimetable.DAL.Settings.Models" />
     <Using Include="NureTimetable.UI.Views" />
     <Using Include="NureTimetable.UI.ViewModels" />
-    <Using Include="Xamarin.CommunityToolkit.Extensions" />
-    <Using Include="Xamarin.CommunityToolkit.Helpers" />
-    <Using Include="Xamarin.CommunityToolkit.ObjectModel" />
+    <Using Include="NureTimetable.UI.Helpers" />
     <Using Include="Plugin.Calendars.Abstractions.Calendar" Alias="Calendar" />
   </ItemGroup>
 
@@ -44,8 +45,8 @@
     <PackageReference Include="CClarke.Plugin.Calendars" Version="1.1.0" />
     <PackageReference Include="Plugin.InAppBilling" Version="6.4.0" />
     <PackageReference Include="Rg.Plugins.Popup" Version="3.0.0-alpha-rc1.0" />
-    <PackageReference Include="Syncfusion.Licensing" Version="20.2.0.49" />
-    <PackageReference Include="Syncfusion.Maui.Scheduler" Version="20.2.49" />
+    <PackageReference Include="Syncfusion.Licensing" Version="20.2.0.*" />
+    <PackageReference Include="Syncfusion.Maui.Scheduler" Version="20.2.*" />
   </ItemGroup>
 
   <ItemGroup>

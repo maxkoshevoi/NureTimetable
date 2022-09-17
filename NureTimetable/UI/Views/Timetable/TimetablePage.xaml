@@ -1,19 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:fonts="clr-namespace:NureTimetable.UI.Models.Consts"
              xmlns:converters="clr-namespace:NureTimetable.UI.Converters"
              xmlns:dal="clr-namespace:NureTimetable.DAL.Settings;assembly=NureTimetable.DAL"
              xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels"
              xmlns:sfs="clr-namespace:Syncfusion.Maui.Scheduler;assembly=Syncfusion.Maui.Scheduler"
+             xmlns:ui="clr-namespace:NureTimetable.UI.Helpers"
              Shell.TabBarIsVisible="True"
              x:Class="NureTimetable.UI.Views.TimetablePage"
              x:DataType="vm:TimetableViewModel"
              Title="{Binding Title.Localized}">
     <ContentPage.Behaviors>
-        <xct:EventToCommandBehavior x:DataType="vm:TimetableViewModel" EventName="Appearing" Command="{Binding PageAppearingCommand}"/>
-        <xct:EventToCommandBehavior x:DataType="vm:TimetableViewModel" EventName="Disappearing" Command="{Binding PageDisappearingCommand}"/>
+        <mct:EventToCommandBehavior x:DataType="vm:TimetableViewModel" EventName="Appearing" Command="{Binding PageAppearingCommand}"/>
+        <mct:EventToCommandBehavior x:DataType="vm:TimetableViewModel" EventName="Disappearing" Command="{Binding PageDisappearingCommand}"/>
     </ContentPage.Behaviors>
 
     <ContentPage.ToolbarItems>
@@ -27,7 +28,7 @@
             <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" 
                     AbsoluteLayout.LayoutFlags="All" 
                     BackgroundColor="{DynamicResource PageBackgroundColor}" 
-                    IsVisible="{Binding TimetableInfoList.Events, Converter={xct:ListIsNotNullOrEmptyConverter}}">
+                    IsVisible="{Binding TimetableInfoList.Events, Converter={mct:IsListNotNullOrEmptyConverter}}">
                 <Grid Margin="0,15,0,0" IsVisible="{Binding IsTimeLeftVisible}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -36,12 +37,12 @@
                     <Label Grid.Column="0" HorizontalOptions="Center" FontSize="20" Text="{Binding TimeLeftText}" />
                     <Image Grid.Column="1" 
                            Margin="0,0,10,0" 
-                           IsVisible="{Binding DlNureUser, Source={Static dal:SettingsRepository.Settings}, Converter={xct:IsNotNullOrEmptyConverter}}" 
-                           xct:TouchEffect.Command="{Binding AttendanceClickCommand}" 
+                           IsVisible="{Binding DlNureUser, Source={Static dal:SettingsRepository.Settings}, Converter={mct:IsStringNullOrEmptyConverter}}" 
+                           mct:TouchEffect.Command="{Binding AttendanceClickCommand}" 
                            Opacity="{Binding AttendanceOpacity}"
                            Source="{FontImageSource FontFamily=MaterialDesignIcons, Glyph={Static fonts:MaterialIconsFont.BadgeAccountAlertOutline}, Color={DynamicResource ListIconColor}}" 
-                           xct:TouchEffect.NativeAnimation="True" 
-                           xct:TouchEffect.NativeAnimationBorderless="True" />
+                           mct:TouchEffect.NativeAnimation="True" 
+                           mct:TouchEffect.NativeAnimationBorderless="True" />
                 </Grid>
                 <sfs:SfScheduler
                     x:Name="Timetable"
@@ -51,12 +52,12 @@
                     MinimumDateTime="{Binding TimetableMinDisplayDate}"
                     MaximumDateTime="{Binding TimetableMaxDisplayDate}"
                     AppointmentsSource="{Binding TimetableDataSource}"
-                    IsEnabled="{Binding IsProgressLayoutVisible, Converter={xct:InvertedBoolConverter}}"
+                    IsEnabled="{Binding IsProgressLayoutVisible, Converter={mct:InvertedBoolConverter}}"
                     View="{Binding TimetableScheduleView}"
                     SelectedDate="{Binding TimetableSelectedDate}">
                     <sfs:SfScheduler.Behaviors>
-                        <xct:EventToCommandBehavior EventName="Tapped" Command="{Binding TimetableCellTappedCommand}"/>
-                        <xct:EventToCommandBehavior EventName="ViewChanged" Command="{Binding TimetableVisibleDatesChangedCommand2}"/>
+                        <mct:EventToCommandBehavior EventName="Tapped" Command="{Binding TimetableCellTappedCommand}"/>
+                        <mct:EventToCommandBehavior EventName="ViewChanged" Command="{Binding TimetableVisibleDatesChangedCommand2}"/>
                     </sfs:SfScheduler.Behaviors>
                     <sfs:SfScheduler.DaysView>
                         <sfs:SchedulerDaysView 
@@ -123,7 +124,7 @@
                 HeightRequest="47" 
                 BackgroundColor="{DynamicResource CurrentDayColor}" 
                 TextColor="White"
-                IsVisible="{Binding TimetableInfoList.Events, Converter={xct:ListIsNotNullOrEmptyConverter}}" 
+                IsVisible="{Binding TimetableInfoList.Events, Converter={mct:IsListNotNullOrEmptyConverter}}" 
                 Scale="{Binding BTodayScale, Mode=TwoWay}"
                 Command="{Binding BTodayClickedCommand}"
                 Text="{Binding BTodayText}"/>
@@ -133,19 +134,19 @@
                     HorizontalOptions="CenterAndExpand"
                     Margin="5">
                 <StackLayout.IsVisible>
-                    <MultiBinding Converter="{xct:VariableMultiValueConverter ConditionType=All}">
-                        <Binding Path="TimetableInfoList.Events" Converter="{xct:ListIsNullOrEmptyConverter}" />
-                        <Binding Path="IsProgressLayoutVisible" Converter="{xct:InvertedBoolConverter}" />
+                    <MultiBinding Converter="{mct:VariableMultiValueConverter ConditionType=All}">
+                        <Binding Path="TimetableInfoList.Events" Converter="{mct:IsListNullOrEmptyConverter}" />
+                        <Binding Path="IsProgressLayoutVisible" Converter="{mct:InvertedBoolConverter}" />
                     </MultiBinding>
                 </StackLayout.IsVisible>
-                <Label Text="{xct:Translate NoTimetable}" IsVisible="{Binding TimetableInfoList.Timetables, Converter={xct:ListIsNullOrEmptyConverter}}"/>
-                <Label Text="{xct:Translate TimetableIsEmpty}" IsVisible="{Binding TimetableInfoList.Timetables, Converter={xct:ListIsNotNullOrEmptyConverter}}" />
+                <Label Text="{ui:Translate NoTimetable}" IsVisible="{Binding TimetableInfoList.Timetables, Converter={mct:IsListNullOrEmptyConverter}}"/>
+                <Label Text="{ui:Translate TimetableIsEmpty}" IsVisible="{Binding TimetableInfoList.Timetables, Converter={mct:IsListNotNullOrEmptyConverter}}" />
             </StackLayout>
             <StackLayout IsVisible="{Binding IsProgressLayoutVisible}" Padding="12"
                     AbsoluteLayout.LayoutFlags="PositionProportional"
                     AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
                 <ActivityIndicator IsRunning="True"/>
-                <Label Text="{xct:Translate Wait}" HorizontalOptions="Center" TextColor="{DynamicResource ActivityIndicatorTextColor}"/>
+                <Label Text="{ui:Translate Wait}" HorizontalOptions="Center" TextColor="{DynamicResource ActivityIndicatorTextColor}"/>
             </StackLayout>
         </AbsoluteLayout>
     </RefreshView>

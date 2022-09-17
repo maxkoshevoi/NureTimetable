@@ -22,9 +22,5 @@
     <Using Include="System.Diagnostics.CodeAnalysis" />
     <Using Include="System.Globalization" />
   </ItemGroup>
-  
-  <ItemGroup>
-    <PackageReference Include="Xamarin.CommunityToolkit.MauiCompat" Version="2.0.2-preview1013" />
-  </ItemGroup>
 
 </Project>

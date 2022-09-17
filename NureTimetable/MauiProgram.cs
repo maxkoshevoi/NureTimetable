@@ -1,9 +1,8 @@
-﻿using Microsoft.Maui.LifecycleEvents;
+﻿using CommunityToolkit.Maui;
+using Microsoft.Maui.LifecycleEvents;
 using Rg.Plugins.Popup;
 using Syncfusion.Licensing;
 using Syncfusion.Maui.Core.Hosting;
-using Xamarin.CommunityToolkit.Android.Effects;
-using Xamarin.CommunityToolkit.Effects;
 
 namespace NureTimetable;
 
@@ -20,11 +19,7 @@ public static class MauiProgram
             {
                 lifecycle.AddAndroid(d => d.OnBackPressed(activity => Popup.SendBackPressed(activity.OnBackPressed)));
             })
-            .ConfigureEffects(effects =>
-            {
-                effects.Add<StatusBarEffect, PlatformStatusBarEffect>();
-                effects.Add<TouchEffect, PlatformTouchEffect>();
-            })
+            .UseMauiCommunityToolkit()
             .ConfigureSyncfusion();
 
         return builder.Build();

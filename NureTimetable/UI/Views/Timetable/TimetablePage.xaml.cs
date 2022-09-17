@@ -40,6 +40,6 @@ public partial class TimetablePage : ContentPage, ITimetablePageCommands
             anchor = BToday;
         }
 
-        await anchor.DisplayToastAsync(message);
+        await Snackbar.Make(message, duration: TimeSpan.FromMilliseconds(durationMilliseconds), anchor: anchor).Show();
     }
 }

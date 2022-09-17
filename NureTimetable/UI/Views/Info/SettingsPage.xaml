@@ -1,16 +1,17 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels"
              xmlns:fonts="clr-namespace:NureTimetable.UI.Models.Consts"
              xmlns:dal="clr-namespace:NureTimetable.DAL.Settings;assembly=NureTimetable.DAL"
+             xmlns:ui="clr-namespace:NureTimetable.UI.Helpers"
              x:Class="NureTimetable.UI.Views.SettingsPage"
              x:DataType="vm:SettingsViewModel"
-             Title="{xct:Translate Settings}">
+             Title="{ui:Translate Settings}">
 
     <ContentPage.Behaviors>
-        <xct:EventToCommandBehavior x:DataType="vm:SettingsViewModel" EventName="Appearing" Command="{Binding PageAppearingCommand}"/>
+        <mct:EventToCommandBehavior x:DataType="vm:SettingsViewModel" EventName="Appearing" Command="{Binding PageAppearingCommand}"/>
     </ContentPage.Behaviors>
 
     <ContentPage.Resources>
@@ -18,7 +19,7 @@
             <Style x:Key="Row" TargetType="StackLayout">
                 <Setter Property="Orientation" Value="Horizontal"/>
                 <Setter Property="Padding" Value="20,10"/>
-                <Setter Property="xct:TouchEffect.NativeAnimation" Value="True"/>
+                <Setter Property="mct:TouchEffect.NativeAnimation" Value="True"/>
             </Style>
             <Style TargetType="Image">
                 <Setter Property="VerticalOptions" Value="Center"/>
@@ -37,8 +38,8 @@
             <StackLayout Style="{StaticResource Row}">
                 <Image Source="{FontImageSource FontFamily=MaterialDesignIcons, Glyph={Static fonts:MaterialIconsFont.Update}, Color={DynamicResource SecondaryTextColor}}" />
                 <StackLayout VerticalOptions="Center">
-                    <Label Text="{xct:Translate Autoupdate}" Style="{DynamicResource ListItemTextStyle}" />
-                    <Label Text="{xct:Translate AutoupdateDescription}" FontSize="13" Style="{DynamicResource ListItemDetailTextStyle}"/>
+                    <Label Text="{ui:Translate Autoupdate}" Style="{DynamicResource ListItemTextStyle}" />
+                    <Label Text="{ui:Translate AutoupdateDescription}" FontSize="13" Style="{DynamicResource ListItemDetailTextStyle}"/>
                 </StackLayout>
                 <Switch IsToggled="{Binding Autoupdate, Source={Static dal:SettingsRepository.Settings}}" HorizontalOptions="EndAndExpand" VerticalOptions="Center" />
 
@@ -52,7 +53,7 @@
             <StackLayout Style="{StaticResource Row}">
                 <Image Source="{FontImageSource FontFamily=MaterialDesignIcons, Glyph={Static fonts:MaterialIconsFont.CalendarBlank}, Color={DynamicResource SecondaryTextColor}}" />
                 <StackLayout>
-                    <Label Text="{xct:Translate DefaultCalendar}" Style="{DynamicResource ListItemTextStyle}" />
+                    <Label Text="{ui:Translate DefaultCalendar}" Style="{DynamicResource ListItemTextStyle}" />
                     <Label Text="{Binding DefaultCalendarName.Localized}" FontSize="13" Style="{DynamicResource ListItemDetailTextStyle}" />
                 </StackLayout>
 
@@ -63,7 +64,7 @@
             <StackLayout Style="{StaticResource Row}">
                 <Image Source="{FontImageSource FontFamily=MaterialDesignIcons, Glyph={Static fonts:MaterialIconsFont.ClockTimeFourOutline}, Color={DynamicResource SecondaryTextColor}}" />
                 <StackLayout>
-                    <Label Text="{xct:Translate TimeBeforeEventReminder}" Style="{DynamicResource ListItemTextStyle}" />
+                    <Label Text="{ui:Translate TimeBeforeEventReminder}" Style="{DynamicResource ListItemTextStyle}" />
                     <Label Text="{Binding TimeBeforeEventReminderValue.Localized}" FontSize="13" Style="{DynamicResource ListItemDetailTextStyle}" />
                 </StackLayout>
 
@@ -77,7 +78,7 @@
             <StackLayout Style="{StaticResource Row}">
                 <Image Source="{FontImageSource FontFamily=MaterialDesignIcons, Glyph={Static fonts:MaterialIconsFont.Connection}, Color={DynamicResource SecondaryTextColor}}" />
                 <StackLayout>
-                    <Label Text="{xct:Translate DlNureIntegration}" Style="{DynamicResource ListItemTextStyle}" />
+                    <Label Text="{ui:Translate DlNureIntegration}" Style="{DynamicResource ListItemTextStyle}" />
                     <Label Text="{Binding DlNureAccount.Localized}" FontSize="13" Style="{DynamicResource ListItemDetailTextStyle}" />
                 </StackLayout>
 
@@ -90,7 +91,7 @@
 
             <StackLayout Style="{StaticResource Row}">
                 <Image Source="{FontImageSource FontFamily=MaterialDesignIcons, Glyph={Static fonts:MaterialIconsFont.BugOutline}, Color={DynamicResource SecondaryTextColor}}" />
-                <Label Text="{xct:Translate ShowErrors}" VerticalOptions="Center" Style="{DynamicResource ListItemTextStyle}"/>
+                <Label Text="{ui:Translate ShowErrors}" VerticalOptions="Center" Style="{DynamicResource ListItemTextStyle}"/>
                 <Switch IsToggled="{Binding IsDebugMode, Source={Static dal:SettingsRepository.Settings}}" HorizontalOptions="EndAndExpand" VerticalOptions="Center" />
 
                 <StackLayout.GestureRecognizers>

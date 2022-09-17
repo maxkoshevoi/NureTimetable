@@ -2,21 +2,18 @@
 
 namespace NureTimetable.UI.ViewModels;
 
-public class DlNureLoginViewModel : BaseViewModel
+public partial class DlNureLoginViewModel : BaseViewModel
 {
     private readonly MoodleRepository moodleRepository = new();
 
     #region Properties
-    private string _login = string.Empty;
-    public string Login { get => _login; set => SetProperty(ref _login, value); }
-
-    private string _password = string.Empty;
-    public string Password { get => _password; set => SetProperty(ref _password, value); }
+    [ObservableProperty] private string _login = string.Empty;
+    [ObservableProperty] private string _password = string.Empty;
 
     public LocalizedString LoggedInAs { get; } = new(() => string.Format(LN.LoggedInAs, SettingsRepository.Settings.DlNureUser?.FullName, SettingsRepository.Settings.DlNureUser?.Id));
 
-    public IAsyncCommand LoginCommand { get; }
-    public Command LogoutCommand { get; }
+    public IRelayCommand LoginCommand { get; }
+    public IRelayCommand LogoutCommand { get; }
     #endregion
 
     public DlNureLoginViewModel()
@@ -28,7 +25,7 @@ public class DlNureLoginViewModel : BaseViewModel
             Password = currectUser.Password;
         }
 
-        LoginCommand = CommandFactory.Create(OnLogin, allowsMultipleExecutions: false);
+        LoginCommand = CommandFactory.Create(OnLogin);
         LogoutCommand = CommandFactory.Create(OnLogout);
     }
 

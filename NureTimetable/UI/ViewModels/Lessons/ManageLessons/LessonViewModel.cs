@@ -27,8 +27,8 @@ public class LessonViewModel : BaseViewModel
         }
     }
 
-    public IAsyncCommand SettingsClickedCommand { get; }
-    public IAsyncCommand InfoClickedCommand { get; }
+    public IRelayCommand SettingsClickedCommand { get; }
+    public IRelayCommand InfoClickedCommand { get; }
     #endregion
 
     public LessonViewModel(LessonInfo lessonInfo, bool hasUpcomingEvents, TimetableInfo timetableInfo, ManageLessonsViewModel manageLessonsViewModel)
@@ -55,8 +55,8 @@ public class LessonViewModel : BaseViewModel
             manageLessonsViewModel.HasUnsavedChanges = true;
         });
 
-        SettingsClickedCommand = CommandFactory.Create(SettingsClicked, allowsMultipleExecutions: false);
-        InfoClickedCommand = CommandFactory.Create(InfoClicked, allowsMultipleExecutions: false);
+        SettingsClickedCommand = CommandFactory.Create(SettingsClicked);
+        InfoClickedCommand = CommandFactory.Create(InfoClicked);
     }
 
     private Task SettingsClicked() =>

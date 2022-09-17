@@ -1,5 +1,4 @@
 ﻿using System.Runtime.CompilerServices;
-using Xamarin.CommunityToolkit.PlatformConfiguration.AndroidSpecific;
 
 namespace NureTimetable.UI.Models.Consts;
 
@@ -19,13 +18,9 @@ public static class ResourceManager
         }
     }
 
-    public static Color StatusBarColor => GetColor();
 
     public static Color NavigationBarColor => GetColor();
-
     public static NavigationBarStyle NavigationBarStyle => Get<NavigationBarStyle>();
-
-    public static Color PageBackgroundColor => GetColor();
 
     private static Color GetColor([CallerMemberName] string resourceName = "") => Get<Color>(resourceName);
 

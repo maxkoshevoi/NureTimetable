@@ -3,22 +3,22 @@ using System.Collections.ObjectModel;
 
 namespace NureTimetable.UI.ViewModels;
 
-public class LessonSettingsViewModel : BaseViewModel
+public partial class LessonSettingsViewModel : BaseViewModel
 {
     private bool updatingProgrammatically = false;
 
     #region Properties
     public LessonInfo LessonInfo { get; }
 
+    [ObservableProperty]
     private bool? _showLessonIsChecked = false;
-    public bool? ShowLessonIsChecked { get => _showLessonIsChecked; set => SetProperty(ref _showLessonIsChecked, value); }
 
     public ObservableCollection<CheckedEntity<EventType>> LvEventTypes { get; set; }
 
     public ObservableCollection<CheckedEntity<Teacher>> LvTeachers { get; set; }
 
-    public Command ShowLessonStateChangedCommand { get; }
-    public IAsyncCommand BackButtonPressedCommand { get; }
+    public IRelayCommand ShowLessonStateChangedCommand { get; }
+    public IRelayCommand BackButtonPressedCommand { get; }
     #endregion
 
     public LessonSettingsViewModel(LessonInfo lessonInfo, TimetableInfo timetable, bool saveOnExit)

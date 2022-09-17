@@ -2,20 +2,15 @@
 
 namespace NureTimetable.UI.ViewModels;
 
-public abstract class BaseAddEntityViewModel<T> : BaseViewModel
+public abstract partial class BaseAddEntityViewModel<T> : BaseViewModel
 {
     private protected List<T> _allEntities = new();
 
     #region Properties
     // ObservableRangeCollection.ReplaceRange causes ArgumentOutOfRangeException in UpdateEntities from time to time
-    public ObservableCollection<T> entities = new();
-    public ObservableCollection<T> Entities { get => entities; set => SetProperty(ref entities, value); }
-
-    private protected bool _isProgressLayoutVisible;
-    public bool IsProgressLayoutVisible { get => _isProgressLayoutVisible; set => SetProperty(ref _isProgressLayoutVisible, value); }
-
-    private string lastSearchQuery = string.Empty;
-    public string LastSearchQuery { get => lastSearchQuery; private set => SetProperty(ref lastSearchQuery, value); }
+    [ObservableProperty] public ObservableCollection<T> entities = new();
+    [ObservableProperty] private protected bool _isProgressLayoutVisible;
+    [ObservableProperty] private string lastSearchQuery = string.Empty;
 
     public T? SelectedEntity
     {
@@ -65,7 +60,7 @@ public abstract class BaseAddEntityViewModel<T> : BaseViewModel
         {
             if (savedEntities.Any(e => e == newEntity))
             {
-                Shell.Current.CurrentPage.DisplayToastAsync(string.Format(LN.TimetableAlreadySaved, newEntity.Entity.Name)).Forget();
+                Toast.Make(string.Format(LN.TimetableAlreadySaved, newEntity.Entity.Name)).Show().Forget();
                 return true;
             }
 
@@ -77,9 +72,11 @@ public abstract class BaseAddEntityViewModel<T> : BaseViewModel
             return;
         }
 
-        Shell.Current.CurrentPage.DisplaySnackBarAsync(string.Format(LN.TimetableSaved, newEntity.Entity.Name), LN.Undo, () =>
-            UniversityEntitiesRepository.ModifySavedAsync(savedEntities => !savedEntities.Remove(newEntity))
-        ).Forget();
+        Snackbar.Make(
+            string.Format(LN.TimetableSaved, newEntity.Entity.Name), 
+            async () => await UniversityEntitiesRepository.ModifySavedAsync(savedEntities => !savedEntities.Remove(newEntity)), 
+            LN.Undo)
+            .Show().Forget();
     }
 
     public void SearchQueryChanged(string searchQuery)

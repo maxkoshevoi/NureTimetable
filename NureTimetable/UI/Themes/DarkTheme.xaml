@@ -3,8 +3,8 @@
     x:Class="NureTimetable.UI.Themes.DarkTheme"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-    xmlns:droid="clr-namespace:Xamarin.CommunityToolkit.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.CommunityToolkit.MauiCompat"
-    xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
+    xmlns:mct="clr-namespace:CommunityToolkit.Maui.Core;assembly=CommunityToolkit.Maui.Core">
+    <!--xmlns:droid="clr-namespace:Xamarin.CommunityToolkit.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.CommunityToolkit.MauiCompat"-->
 
     <!--Global Styles-->
     <Color x:Key="PrimaryColor">Black</Color>
@@ -13,7 +13,7 @@
 
     <Color x:Key="PageBackgroundColor">Black</Color>
     <Color x:Key="StatusBarColor">Black</Color>
-    <xct:StatusBarStyle x:Key="StatusBarStyle">LightContent</xct:StatusBarStyle>
+    <mct:StatusBarStyle x:Key="StatusBarStyle">LightContent</mct:StatusBarStyle>
     <Color x:Key="NavigationBarColor">Black</Color>
     <droid:NavigationBarStyle x:Key="NavigationBarStyle">LightContent</droid:NavigationBarStyle>
 

@@ -1,7 +1,7 @@
-﻿using NureTimetable.DAL.Consts;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using NureTimetable.DAL.Consts;
 using NureTimetable.DAL.Moodle.Models.Auth;
 using NureTimetable.DAL.Settings.Models;
-using Xamarin.CommunityToolkit.ObjectModel;
 using AppTheme = NureTimetable.DAL.Settings.Models.AppTheme;
 
 namespace NureTimetable.DAL.Settings;
@@ -19,8 +19,11 @@ public class AppSettings : ObservableObject
         get => (TimetableViewMode)Preferences.Get(nameof(TimetableViewMode), (int)TimetableViewMode.Week);
         set
         {
-            var currentValue = TimetableViewMode;
-            SetProperty(ref currentValue, value, onChanged: () => Preferences.Set(nameof(TimetableViewMode), (int)value));
+            if (TimetableViewMode != value)
+            {
+                Preferences.Set(nameof(TimetableViewMode), (int)value);
+                OnPropertyChanged(nameof(TimetableViewMode));
+            }
         }
     }
 
@@ -29,8 +32,11 @@ public class AppSettings : ObservableObject
         get => (AppTheme)Preferences.Get(nameof(Theme), (int)AppTheme.FollowSystem);
         set
         {
-            var currentValue = Theme;
-            SetProperty(ref currentValue, value, onChanged: () => Preferences.Set(nameof(Theme), (int)value));
+            if (Theme != value)
+            {
+                Preferences.Set(nameof(Theme), (int)value);
+                OnPropertyChanged(nameof(Theme));
+            }
         }
     }
 
@@ -39,8 +45,11 @@ public class AppSettings : ObservableObject
         get => (AppLanguage)Preferences.Get(nameof(Language), (int)AppLanguage.FollowSystem);
         set
         {
-            var currentValue = Language;
-            SetProperty(ref currentValue, value, onChanged: () => Preferences.Set(nameof(Language), (int)value));
+            if (Language != value)
+            {
+                Preferences.Set(nameof(Language), (int)value);
+                OnPropertyChanged(nameof(Language));
+            }
         }
     }
 
@@ -50,8 +59,11 @@ public class AppSettings : ObservableObject
         get => Preferences.Get(nameof(DefaultCalendarId), string.Empty);
         set
         {
-            string currentValue = DefaultCalendarId;
-            SetProperty(ref currentValue, value, onChanged: () => Preferences.Set(nameof(DefaultCalendarId), value));
+            if (DefaultCalendarId != value)
+            {
+                Preferences.Set(nameof(DefaultCalendarId), value);
+                OnPropertyChanged(nameof(DefaultCalendarId));
+            }
         }
     }
 
@@ -64,8 +76,11 @@ public class AppSettings : ObservableObject
         }
         set
         {
-            var currentValue = TimeBeforeEventReminder;
-            SetProperty(ref currentValue, value, onChanged: () => Preferences.Set(nameof(TimeBeforeEventReminder), value?.TotalMinutes ?? -1));
+            if (TimeBeforeEventReminder != value)
+            {
+                Preferences.Set(nameof(TimeBeforeEventReminder), value?.TotalMinutes ?? -1);
+                OnPropertyChanged(nameof(TimeBeforeEventReminder));
+            }
         }
     }
     #endregion
@@ -79,8 +94,11 @@ public class AppSettings : ObservableObject
         }
         set
         {
-            var currentValue = LastCistAllEntitiesUpdate;
-            SetProperty(ref currentValue, value, onChanged: () => Preferences.Set(nameof(LastCistAllEntitiesUpdate), value?.ToString(CultureInfo.InvariantCulture)));
+            if (LastCistAllEntitiesUpdate != value)
+            {
+                Preferences.Set(nameof(LastCistAllEntitiesUpdate), value?.ToString(CultureInfo.InvariantCulture));
+                OnPropertyChanged(nameof(LastCistAllEntitiesUpdate));
+            }
         }
     }
 
@@ -89,8 +107,11 @@ public class AppSettings : ObservableObject
         get => Preferences.Get(nameof(IsDebugMode), false);
         set
         {
-            bool currentValue = IsDebugMode;
-            SetProperty(ref currentValue, value, onChanged: () => Preferences.Set(nameof(IsDebugMode), value));
+            if (IsDebugMode != value)
+            {
+                Preferences.Set(nameof(IsDebugMode), value);
+                OnPropertyChanged(nameof(IsDebugMode));
+            }
         }
     }
 
@@ -99,8 +120,11 @@ public class AppSettings : ObservableObject
         get => Preferences.Get(nameof(Autoupdate), true);
         set
         {
-            bool currentValue = Autoupdate;
-            SetProperty(ref currentValue, value, onChanged: () => Preferences.Set(nameof(Autoupdate), value));
+            if (Autoupdate != value)
+            {
+                Preferences.Set(nameof(Autoupdate), value);
+                OnPropertyChanged(nameof(Autoupdate));
+            }
         }
     }
 
@@ -109,8 +133,11 @@ public class AppSettings : ObservableObject
         get => Serialisation.FromJsonFile<MoodleUser?>(FilePath.MoodleUser).GetAwaiter().GetResult();
         set
         {
-            MoodleUser? currentValue = DlNureUser;
-            SetProperty(ref currentValue, value, onChanged: () => Serialisation.ToJsonFile(value, FilePath.MoodleUser).GetAwaiter().GetResult());
+            if (DlNureUser != value)
+            {
+                Serialisation.ToJsonFile(value, FilePath.MoodleUser).GetAwaiter().GetResult();
+                OnPropertyChanged(nameof(DlNureUser));
+            }
         }
     }
 }

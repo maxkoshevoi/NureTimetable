@@ -11,10 +11,10 @@ public class MenuViewModel : BaseViewModel
 
     public LocalizedString AppThemeName { get; }
 
-    public IAsyncCommand OpenDonatePageCommand { get; }
-    public IAsyncCommand ChangeThemeCommand { get; }
-    public IAsyncCommand ChangeLanguageCommand { get; }
-    public IAsyncCommand OpenSettingsCommand { get; }
+    public IRelayCommand OpenDonatePageCommand { get; }
+    public IRelayCommand ChangeThemeCommand { get; }
+    public IRelayCommand ChangeLanguageCommand { get; }
+    public IRelayCommand OpenSettingsCommand { get; }
     #endregion
 
     #region Setting mappings
@@ -39,10 +39,10 @@ public class MenuViewModel : BaseViewModel
         AppLanguageName = new(() => languageMapping.Single(m => m.value == SettingsRepository.Settings.Language).name());
         AppThemeName = new(() => themeMapping.Single(m => m.value == SettingsRepository.Settings.Theme).name());
 
-        OpenDonatePageCommand = CommandFactory.Create(() => Navigation.PushAsync(new DonatePage()), allowsMultipleExecutions: false);
-        ChangeThemeCommand = CommandFactory.Create(ChangeTheme, allowsMultipleExecutions: false);
-        ChangeLanguageCommand = CommandFactory.Create(ChangeLanguage, allowsMultipleExecutions: false);
-        OpenSettingsCommand = CommandFactory.Create(() => Navigation.PushAsync(new SettingsPage()), allowsMultipleExecutions: false);
+        OpenDonatePageCommand = CommandFactory.Create(() => Navigation.PushAsync(new DonatePage()));
+        ChangeThemeCommand = CommandFactory.Create(ChangeTheme);
+        ChangeLanguageCommand = CommandFactory.Create(ChangeLanguage);
+        OpenSettingsCommand = CommandFactory.Create(() => Navigation.PushAsync(new SettingsPage()));
 
         SettingsRepository.Settings.PropertyChanged += (_, e) =>
         {
@@ -51,21 +51,19 @@ public class MenuViewModel : BaseViewModel
         };
     }
 
-    public Task ChangeTheme() =>
-        ChangeSetting
-        (
-            LN.Theme,
-            themeMapping,
-            SettingsRepository.Settings.Theme,
-            newTheme => SettingsRepository.Settings.Theme = newTheme
-        );
+    public Task ChangeTheme() => ChangeSetting
+    (
+        LN.Theme,
+        themeMapping,
+        SettingsRepository.Settings.Theme,
+        newTheme => SettingsRepository.Settings.Theme = newTheme
+    );
 
-    public Task ChangeLanguage() =>
-        ChangeSetting
-        (
-            LN.Language,
-            languageMapping,
-            SettingsRepository.Settings.Language,
-            newLanguage => SettingsRepository.Settings.Language = newLanguage
-        );
+    public Task ChangeLanguage() => ChangeSetting
+    (
+        LN.Language,
+        languageMapping,
+        SettingsRepository.Settings.Language,
+        newLanguage => SettingsRepository.Settings.Language = newLanguage
+    );
 }

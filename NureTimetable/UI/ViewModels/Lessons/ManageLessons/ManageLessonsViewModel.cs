@@ -9,10 +9,10 @@ public class ManageLessonsViewModel : BaseViewModel
 
     public ObservableRangeCollection<LessonViewModel> Lessons { get; } = new();
 
-    public IAsyncCommand PageAppearingCommand { get; }
-    public IAsyncCommand SaveClickedCommand { get; }
-    public IAsyncCommand SyncDlNureClickedCommand { get; }
-    public IAsyncCommand BackButtonPressedCommand { get; }
+    public IRelayCommand PageAppearingCommand { get; }
+    public IRelayCommand SaveClickedCommand { get; }
+    public IRelayCommand SyncDlNureClickedCommand { get; }
+    public IRelayCommand BackButtonPressedCommand { get; }
     #endregion
 
     public ManageLessonsViewModel(Entity entity)
@@ -22,12 +22,12 @@ public class ManageLessonsViewModel : BaseViewModel
         this.entity = entity;
         PageAppearingCommand = CommandFactory.Create(PageAppearing);
         BackButtonPressedCommand = CommandFactory.Create(BackButtonPressed);
-        SaveClickedCommand = CommandFactory.Create(SaveClicked, () => Lessons.Any(), allowsMultipleExecutions: false);
-        SyncDlNureClickedCommand = CommandFactory.Create(SyncDlNureClecked, () => SettingsRepository.Settings.DlNureUser != null, allowsMultipleExecutions: false);
+        SaveClickedCommand = CommandFactory.Create(SaveClicked, () => Lessons.Any());
+        SyncDlNureClickedCommand = CommandFactory.Create(SyncDlNureClecked, () => SettingsRepository.Settings.DlNureUser != null);
 
         Lessons.CollectionChanged += (_, _) =>
         {
-            SaveClickedCommand.RaiseCanExecuteChanged();
+            SaveClickedCommand.NotifyCanExecuteChanged();
             OnPropertyChanged(nameof(Lessons));
         };
     }
@@ -61,7 +61,7 @@ public class ManageLessonsViewModel : BaseViewModel
         HasUnsavedChanges = false;
 
         await Shell.Current.GoToAsync("..", true);
-        Shell.Current.CurrentPage.DisplayToastAsync(string.Format(LN.EntityLessonSettingsSaved, entity.Name)).Forget();
+        Toast.Make(string.Format(LN.EntityLessonSettingsSaved, entity.Name)).Show().Forget();
     }
 
     private async Task SyncDlNureClecked()

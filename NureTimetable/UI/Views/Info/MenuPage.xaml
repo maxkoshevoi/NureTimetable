@@ -1,21 +1,21 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels"
              xmlns:fonts="clr-namespace:NureTimetable.UI.Models.Consts"
              xmlns:ui="clr-namespace:NureTimetable.UI.Helpers"
              Shell.TabBarIsVisible="True"
              x:Class="NureTimetable.UI.Views.MenuPage"
              x:DataType="vm:MenuViewModel"
-             Title="{xct:Translate AppName}">
+             Title="{ui:Translate AppName}">
 
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="Row" TargetType="StackLayout">
                 <Setter Property="Orientation" Value="Horizontal"/>
                 <Setter Property="Padding" Value="20,10"/>
-                <Setter Property="xct:TouchEffect.NativeAnimation" Value="True"/>
+                <Setter Property="mct:TouchEffect.NativeAnimation" Value="True"/>
             </Style>
             <Style TargetType="Image">
                 <Setter Property="VerticalOptions" Value="Center"/>
@@ -34,7 +34,7 @@
             <StackLayout Style="{StaticResource Row}">
                 <Image Source="{FontImageSource FontFamily=MaterialDesignIcons, Glyph={Static fonts:MaterialIconsFont.Brightness6}, Color={DynamicResource SecondaryTextColor}}" />
                 <StackLayout VerticalOptions="Center">
-                    <Label Text="{xct:Translate Theme}" Style="{DynamicResource ListItemTextStyle}" />
+                    <Label Text="{ui:Translate Theme}" Style="{DynamicResource ListItemTextStyle}" />
                     <Label Text="{Binding AppThemeName.Localized}" FontSize="13" Style="{DynamicResource ListItemDetailTextStyle}" />
                 </StackLayout>
 
@@ -45,7 +45,7 @@
             <StackLayout Style="{StaticResource Row}">
                 <Image Source="{FontImageSource FontFamily=MaterialDesignIcons, Glyph={Static fonts:MaterialIconsFont.Web}, Color={DynamicResource SecondaryTextColor}}" />
                 <StackLayout>
-                    <Label Text="{xct:Translate Language}" Style="{DynamicResource ListItemTextStyle}" />
+                    <Label Text="{ui:Translate Language}" Style="{DynamicResource ListItemTextStyle}" />
                     <Label Text="{Binding AppLanguageName.Localized}" FontSize="13" Style="{DynamicResource ListItemDetailTextStyle}" />
                 </StackLayout>
 
@@ -55,7 +55,7 @@
             </StackLayout>
             <StackLayout Style="{StaticResource Row}">
                 <Image Source="{FontImageSource FontFamily=MaterialDesignIcons, Glyph={Static fonts:MaterialIconsFont.DotsHorizontal}, Color={DynamicResource SecondaryTextColor}}" />
-                <Label Text="{xct:Translate OtherSettings}" Style="{DynamicResource ListItemTextStyle}" />
+                <Label Text="{ui:Translate OtherSettings}" Style="{DynamicResource ListItemTextStyle}" />
 
                 <StackLayout.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding OpenSettingsCommand}"/>
@@ -66,7 +66,7 @@
 
             <StackLayout Style="{StaticResource Row}">
                 <Image Source="{FontImageSource FontFamily=MaterialDesignIcons, Glyph={Static fonts:MaterialIconsFont.CommentTextMultipleOutline}, Color={DynamicResource SecondaryTextColor}}" />
-                <Label Text="{xct:Translate Feedback}" VerticalOptions="Center" Style="{DynamicResource ListItemTextStyle}"/>
+                <Label Text="{ui:Translate Feedback}" VerticalOptions="Center" Style="{DynamicResource ListItemTextStyle}"/>
             
                 <StackLayout.GestureRecognizers>
                     <TapGestureRecognizer Command="{Static ui:CommonCommands.NavigateUriCommand}" CommandParameter="https://t.me/nuretimetable_group" />
@@ -74,7 +74,7 @@
             </StackLayout>
             <StackLayout Style="{StaticResource Row}">
                 <Image Source="{FontImageSource FontFamily=MaterialDesignIcons, Glyph={Static fonts:MaterialIconsFont.StarOutline}, Color={DynamicResource SecondaryTextColor}}" />
-                <Label Text="{xct:Translate RateTheApp}" VerticalOptions="Center" Style="{DynamicResource ListItemTextStyle}"/>
+                <Label Text="{ui:Translate RateTheApp}" VerticalOptions="Center" Style="{DynamicResource ListItemTextStyle}"/>
             
                 <StackLayout.GestureRecognizers>
                     <TapGestureRecognizer Command="{Static ui:CommonCommands.NavigateUriCommand}" CommandParameter="https://play.google.com/store/apps/details?id=com.whitebox.nuretimetable" />
@@ -82,7 +82,7 @@
             </StackLayout>
             <StackLayout Style="{StaticResource Row}">
                 <Image Source="{FontImageSource FontFamily=MaterialDesignIcons, Glyph={Static fonts:MaterialIconsFont.Cash}, Color={DynamicResource SecondaryTextColor}}" />
-                <Label Text="{xct:Translate Donate}" VerticalOptions="Center" Style="{DynamicResource ListItemTextStyle}"/>
+                <Label Text="{ui:Translate Donate}" VerticalOptions="Center" Style="{DynamicResource ListItemTextStyle}"/>
 
                 <StackLayout.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding OpenDonatePageCommand}"/>
@@ -93,7 +93,7 @@
 
             <StackLayout Style="{StaticResource Row}">
                 <Image Source="{FontImageSource FontFamily=MaterialDesignIcons, Glyph={Static fonts:MaterialIconsFont.CodeBraces}, Color={DynamicResource SecondaryTextColor}}" />
-                <Label Text="{xct:Translate SourceCode}" VerticalOptions="Center" Style="{DynamicResource ListItemTextStyle}"/>
+                <Label Text="{ui:Translate SourceCode}" VerticalOptions="Center" Style="{DynamicResource ListItemTextStyle}"/>
 
                 <StackLayout.GestureRecognizers>
                     <TapGestureRecognizer Command="{Static ui:CommonCommands.NavigateUriCommand}" CommandParameter="https://github.com/maxkoshevoi/NureTimetable" />

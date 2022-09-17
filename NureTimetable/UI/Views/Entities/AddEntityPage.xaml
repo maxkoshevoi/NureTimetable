@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels"
+             xmlns:ui="clr-namespace:NureTimetable.UI.Helpers"
              x:Class="NureTimetable.UI.Views.AddEntityPage"
              Title="{Binding Title.Localized}">
 
@@ -28,19 +29,19 @@
                 HorizontalOptions="CenterAndExpand"
                 Margin="5">
             <StackLayout.IsVisible>
-                <MultiBinding Converter="{xct:VariableMultiValueConverter ConditionType=All}">
-                    <Binding Path="Entities" Converter="{xct:ListIsNullOrEmptyConverter}" />
-                    <Binding Path="IsProgressLayoutVisible" Converter="{xct:InvertedBoolConverter}" />
+                <MultiBinding Converter="{mct:VariableMultiValueConverter ConditionType=All}">
+                    <Binding Path="Entities" Converter="{mct:IsListNullOrEmptyConverter}" />
+                    <Binding Path="IsProgressLayoutVisible" Converter="{mct:InvertedBoolConverter}" />
                 </MultiBinding>
             </StackLayout.IsVisible>
-            <Label Text="{xct:Translate NoUniversityInfo}" HorizontalTextAlignment="Center" IsVisible="{Binding LastSearchQuery, Converter={xct:IsNullOrEmptyConverter}}" />
-            <Label Text="{xct:Translate EmptyUniversityInfoSearch}" HorizontalTextAlignment="Center" IsVisible="{Binding LastSearchQuery, Converter={xct:IsNotNullOrEmptyConverter}}" />
+            <Label Text="{ui:Translate NoUniversityInfo}" HorizontalTextAlignment="Center" IsVisible="{Binding LastSearchQuery, Converter={mct:IsStringNullOrEmptyConverter}}" />
+            <Label Text="{ui:Translate EmptyUniversityInfoSearch}" HorizontalTextAlignment="Center" IsVisible="{Binding LastSearchQuery, Converter={mct:IsStringNotNullOrEmptyConverter}}" />
         </StackLayout>
         <StackLayout IsVisible="{Binding IsProgressLayoutVisible}" Padding="12"
                     AbsoluteLayout.LayoutFlags="PositionProportional"
                     AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
             <ActivityIndicator IsRunning="True"/>
-            <Label Text="{xct:Translate Wait}" HorizontalOptions="Center" TextColor="{DynamicResource ActivityIndicatorTextColor}"/>
+            <Label Text="{ui:Translate Wait}" HorizontalOptions="Center" TextColor="{DynamicResource ActivityIndicatorTextColor}"/>
         </StackLayout>
     </AbsoluteLayout>
 </ContentPage>

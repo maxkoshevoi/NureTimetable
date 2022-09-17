@@ -2,17 +2,28 @@
 
 namespace NureTimetable.UI.ViewModels;
 
-public class AddTimetableViewModel : BaseViewModel
+public partial class AddTimetableViewModel : BaseViewModel
 {
     #region Properties
-    public IAsyncCommand PageAppearingCommand { get; }
-    public IAsyncCommand UpdateCommand { get; }
+    public IRelayCommand PageAppearingCommand { get; }
+    public IRelayCommand UpdateCommand { get; }
 
+    [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(UpdateCommand))]
     private bool updateCommandEnabled = true;
-    public bool UpdateCommandEnabled { get => updateCommandEnabled; set { updateCommandEnabled = value; UpdateCommand.RaiseCanExecuteChanged(); } }
 
     private string searchQuery = string.Empty;
-    public string SearchQuery { get => searchQuery; set => SetProperty(ref searchQuery, value, onChanged: () => SearchEntities(value)); }
+    public string SearchQuery 
+    { 
+        get => searchQuery;
+        set
+        {
+            if (SetProperty(ref searchQuery, value))
+            {
+                SearchEntities(value);
+            }
+        }
+    }
 
     public AddGroupViewModel AddGroupPageViewModel { get; } = new();
     public AddTeacherViewModel AddTeacherPageViewModel { get; } = new();
@@ -29,7 +40,7 @@ public class AddTimetableViewModel : BaseViewModel
         }
 
         PageAppearingCommand = CommandFactory.Create(() => UpdateEntitiesOnAllTabs());
-        UpdateCommand = CommandFactory.Create(UpdateEntities, () => UpdateCommandEnabled, allowsMultipleExecutions: false);
+        UpdateCommand = CommandFactory.Create(UpdateEntities, () => UpdateCommandEnabled);
     }
 
     private void SearchEntities(string value)

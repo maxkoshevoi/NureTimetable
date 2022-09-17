@@ -10,10 +10,10 @@ public class SavedEntityItemViewModel : BaseViewModel
     public SavedEntity SavedEntity { get; }
 
     private bool _isUpdating;
-    public bool IsUpdating { get => _isUpdating; set { SetProperty(ref _isUpdating, value); ManageEntitiesViewModel.UpdateAllCommand.RaiseCanExecuteChanged(); } }
+    public bool IsUpdating { get => _isUpdating; set { SetProperty(ref _isUpdating, value); ManageEntitiesViewModel.UpdateAllCommand.NotifyCanExecuteChanged(); } }
 
-    public IAsyncCommand SettingsClickedCommand { get; }
-    public IAsyncCommand UpdateClickedCommand { get; }
+    public IRelayCommand SettingsClickedCommand { get; }
+    public IRelayCommand UpdateClickedCommand { get; }
     #endregion
 
     public SavedEntityItemViewModel(SavedEntity savedEntity, ManageEntitiesViewModel manageEntitiesViewModel)
@@ -27,8 +27,8 @@ public class SavedEntityItemViewModel : BaseViewModel
             IsUpdating = existingEntity.IsUpdating;
         }
 
-        UpdateClickedCommand = CommandFactory.Create(() => TimetableService.UpdateAndDisplayResultAsync(SavedEntity), allowsMultipleExecutions: false);
-        SettingsClickedCommand = CommandFactory.Create(SettingsClicked, allowsMultipleExecutions: false);
+        UpdateClickedCommand = CommandFactory.Create(() => TimetableService.UpdateAndDisplayResultAsync(SavedEntity));
+        SettingsClickedCommand = CommandFactory.Create(SettingsClicked);
     }
 
     public async Task SettingsClicked()

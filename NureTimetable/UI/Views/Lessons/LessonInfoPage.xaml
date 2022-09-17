@@ -1,22 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels"
+             xmlns:ui="clr-namespace:NureTimetable.UI.Helpers"
              x:Class="NureTimetable.UI.Views.LessonInfoPage"
              x:DataType="vm:LessonInfoViewModel"
-             Title="{xct:Translate LessonInfo}">
+             Title="{ui:Translate LessonInfo}">
 
     <ScrollView>
         <StackLayout Padding="16,20" Spacing="10">
-            <Label Text="{xct:Translate LessonName}" FontAttributes="Bold" FontSize="16" />
+            <Label Text="{ui:Translate LessonName}" FontAttributes="Bold" FontSize="16" />
             <Label>
                 <MultiBinding StringFormat="{}{0} ({1})">
                     <Binding Path="LessonInfo.Lesson.FullName" />
                     <Binding Path="LessonInfo.Lesson.ShortName" />
                 </MultiBinding>
             </Label>
-            <Label Text="{xct:Translate Statistics}" FontAttributes="Bold" FontSize="16" Margin="0,15,0,0" />
+            <Label Text="{ui:Translate Statistics}" FontAttributes="Bold" FontSize="16" Margin="0,15,0,0" />
             <Label Text="{Binding Statistics.Localized}" />
         </StackLayout>
     </ScrollView>

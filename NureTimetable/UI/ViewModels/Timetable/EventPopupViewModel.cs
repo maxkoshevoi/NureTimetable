@@ -17,7 +17,7 @@ public class EventPopupViewModel : BaseViewModel
 
     public string? Notes { get; }
 
-    public IAsyncCommand OptionsCommand { get; }
+    public IRelayCommand OptionsCommand { get; }
 
     public EventPopupViewModel(Event ev, TimetableInfoList timetables, ITimetablePageCommands timetablePage)
     {
@@ -49,7 +49,7 @@ public class EventPopupViewModel : BaseViewModel
           $"{string.Format(LN.EventTime, ev.Start.ToString("HH:mm"), ev.End.ToString("HH:mm"))}";
         Notes = LessonInfo.Notes?.Trim();
 
-        OptionsCommand = CommandFactory.Create(ShowOptions, allowsMultipleExecutions: false);
+        OptionsCommand = CommandFactory.Create(ShowOptions);
     }
 
     private async Task ShowOptions()

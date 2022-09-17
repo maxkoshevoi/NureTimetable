@@ -1,14 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:fonts="clr-namespace:NureTimetable.UI.Models.Consts"
              xmlns:vm="clr-namespace:NureTimetable.UI.ViewModels"
+             xmlns:ui="clr-namespace:NureTimetable.UI.Helpers"
              x:Class="NureTimetable.UI.Views.ManageLessonsPage"
              x:DataType="vm:ManageLessonsViewModel"
              Title="{Binding Title.Localized}">
     <ContentPage.Behaviors>
-        <xct:EventToCommandBehavior x:DataType="vm:ManageLessonsViewModel" EventName="Appearing" Command="{Binding PageAppearingCommand}"/>
+        <mct:EventToCommandBehavior x:DataType="vm:ManageLessonsViewModel" EventName="Appearing" Command="{Binding PageAppearingCommand}"/>
     </ContentPage.Behaviors>
     
     <Shell.BackButtonBehavior>
@@ -21,7 +22,7 @@
     </ContentPage.ToolbarItems>
 
     <AbsoluteLayout>
-        <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="{Binding Lessons, Converter={xct:ListIsNotNullOrEmptyConverter}}">
+        <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="{Binding Lessons, Converter={mct:IsListNotNullOrEmptyConverter}}">
             <ListView x:Name="LessonsList"
                     ItemsSource="{Binding Lessons}"
                     ItemTapped="Handle_ItemTapped"
@@ -35,7 +36,7 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <StackLayout Grid.Column="0" Margin="0,5" Opacity="{Binding HasUpcomingEvents, Converter={xct:BoolToObjectConverter TrueObject=1, FalseObject=0.5}}">
+                                <StackLayout Grid.Column="0" Margin="0,5" Opacity="{Binding HasUpcomingEvents, Converter={mct:BoolToObjectConverter TrueObject=1, FalseObject=0.5}}">
                                     <Label LineBreakMode="TailTruncation" Style="{DynamicResource ListItemTextStyle}">
                                         <MultiBinding StringFormat="{}{0} ({1})">
                                             <Binding Path="LessonInfo.Lesson.ShortName" />
@@ -45,8 +46,8 @@
                                     <Label Text="{Binding LessonInfo.Lesson.FullName}" LineBreakMode="TailTruncation" FontSize="13" Style="{DynamicResource ListItemDetailTextStyle}" />
                                 </StackLayout>
                                 <StackLayout Grid.Column="1" Orientation="Horizontal" Spacing="8">
-                                    <Image xct:TouchEffect.Command="{Binding InfoClickedCommand}" Source="{FontImageSource Glyph={Static fonts:MaterialIconsFont.InformationOutline}, FontFamily=MaterialDesignIcons, Color={DynamicResource ListIconColor}}" VerticalOptions="CenterAndExpand" xct:TouchEffect.NativeAnimation="True" xct:TouchEffect.NativeAnimationBorderless="True" />
-                                    <Image xct:TouchEffect.Command="{Binding SettingsClickedCommand}" Source="{FontImageSource Glyph={Static fonts:MaterialIconsFont.Cog}, FontFamily=MaterialDesignIcons, Color={DynamicResource ListIconColor}}" VerticalOptions="CenterAndExpand" xct:TouchEffect.NativeAnimation="True" xct:TouchEffect.NativeAnimationBorderless="True" />
+                                    <Image mct:TouchEffect.Command="{Binding InfoClickedCommand}" Source="{FontImageSource Glyph={Static fonts:MaterialIconsFont.InformationOutline}, FontFamily=MaterialDesignIcons, Color={DynamicResource ListIconColor}}" VerticalOptions="CenterAndExpand" mct:TouchEffect.NativeAnimation="True" mct:TouchEffect.NativeAnimationBorderless="True" />
+                                    <Image mct:TouchEffect.Command="{Binding SettingsClickedCommand}" Source="{FontImageSource Glyph={Static fonts:MaterialIconsFont.Cog}, FontFamily=MaterialDesignIcons, Color={DynamicResource ListIconColor}}" VerticalOptions="CenterAndExpand" mct:TouchEffect.NativeAnimation="True" mct:TouchEffect.NativeAnimationBorderless="True" />
                                     <CheckBox IsChecked="{Binding IsChecked}" />
                                 </StackLayout>
                             </Grid>
@@ -58,8 +59,8 @@
         <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" 
                 AbsoluteLayout.LayoutFlags="All" 
                 Margin="5" 
-                IsVisible="{Binding Lessons, Converter={xct:ListIsNullOrEmptyConverter}}">
-            <Label Text="{xct:Translate EmptyLessonsList}"
+                IsVisible="{Binding Lessons, Converter={mct:IsListNullOrEmptyConverter}}">
+            <Label Text="{ui:Translate EmptyLessonsList}"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" 
                 HorizontalTextAlignment="Center" />

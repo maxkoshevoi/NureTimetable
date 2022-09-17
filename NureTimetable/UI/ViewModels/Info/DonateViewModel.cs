@@ -4,17 +4,16 @@ namespace NureTimetable.UI.ViewModels;
 
 public class DonateViewModel : BaseViewModel
 {
-    public IAsyncCommand<string> BuyProductCommand { get; }
+    public IRelayCommand<string> BuyProductCommand { get; }
 
     public DonateViewModel()
     {
-        BuyProductCommand = CommandFactory.Create<string>(p => BuyProduct(p!), allowsMultipleExecutions: false);
+        BuyProductCommand = CommandFactory.Create<string>(p => BuyProduct(p!));
     }
 
     public static async Task BuyProduct(string productId)
     {
         InAppBillingPurchase? purchase = await InAppPurchase.Buy(productId, true);
-        string message = purchase == null ? LN.PurchaseFailed : LN.ThanksForYourSupport;
-        Shell.Current.CurrentPage.DisplayToastAsync(message).Forget();
+        Toast.Make(purchase == null ? LN.PurchaseFailed : LN.ThanksForYourSupport).Show().Forget();
     }
 }

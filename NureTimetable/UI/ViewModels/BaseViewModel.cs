@@ -1,13 +1,10 @@
 ﻿namespace NureTimetable.UI.ViewModels;
 
-public abstract class BaseViewModel : ObservableObject
+[INotifyPropertyChanged]
+public abstract partial class BaseViewModel
 {
     private protected INavigation Navigation => Shell.Current.Navigation;
 
-    private LocalizedString? title;
-    public LocalizedString Title
-    {
-        get => title ?? throw new NullReferenceException();
-        set => SetProperty(ref title, value);
-    }
+    [ObservableProperty]
+    private LocalizedString title = null!;
 }
