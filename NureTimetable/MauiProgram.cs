@@ -1,5 +1,6 @@
 ﻿using Microsoft.Maui.LifecycleEvents;
 using Rg.Plugins.Popup;
+using Syncfusion.Licensing;
 using Syncfusion.Maui.Core.Hosting;
 using Xamarin.CommunityToolkit.Android.Effects;
 using Xamarin.CommunityToolkit.Effects;
@@ -24,8 +25,14 @@ public static class MauiProgram
                 effects.Add<StatusBarEffect, PlatformStatusBarEffect>();
                 effects.Add<TouchEffect, PlatformTouchEffect>();
             })
-            .ConfigureSyncfusionCore();
+            .ConfigureSyncfusion();
 
         return builder.Build();
+    }
+
+    public static MauiAppBuilder ConfigureSyncfusion(this MauiAppBuilder builder)
+    {
+        SyncfusionLicenseProvider.RegisterLicense(Keys.SyncfusionLicenseKey);
+        return builder.ConfigureSyncfusionCore();
     }
 }
