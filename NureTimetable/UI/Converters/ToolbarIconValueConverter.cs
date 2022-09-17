@@ -2,12 +2,11 @@
 
 public class ToolbarIconValueConverter : IValueConverter, IMarkupExtension
 {
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture) =>
-        new FontImageSource
-        {
-            FontFamily = "MaterialFontFamily",
-            Glyph = (string)value
-        };
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => new FontImageSource
+    {
+        FontFamily = "MaterialDesignIcons",
+        Glyph = (string)value
+    };
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) =>
         throw new NotImplementedException();
