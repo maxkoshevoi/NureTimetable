@@ -62,14 +62,14 @@ namespace NureTimetable.BL
             {
                 if (purchase.ConsumptionState == ConsumptionState.NoYetConsumed)
                 {
-                    await billing.ConsumePurchaseAsync(purchase.ProductId, purchase.PurchaseToken);
+                    await billing.ConsumePurchaseAsync(purchase.ProductId, purchase.TransactionIdentifier);
                 }
                 return;
             }
 
             if (purchase.IsAcknowledged == false)
             {
-                await billing.AcknowledgePurchaseAsync(purchase.PurchaseToken);
+                await billing.FinalizePurchaseAsync(purchase.TransactionIdentifier);
             }
         }
     }
