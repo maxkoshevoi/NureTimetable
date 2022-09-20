@@ -32,25 +32,29 @@ namespace NureTimetable
 
         private static void InitLanguage()
         {
-            CultureInfo culture = CultureInfo.CurrentCulture;
-            if (SettingsRepository.Settings.Language != AppLanguage.FollowSystem)
-            {
-                culture = new CultureInfo((int)SettingsRepository.Settings.Language);
-            }
             LocalizationResourceManager.Current.PropertyChanged += (_, _) => LN.Culture = LocalizationResourceManager.Current.CurrentCulture;
-            LocalizationResourceManager.Current.Init(LN.ResourceManager, culture);
+            LocalizationResourceManager.Current.Init(LN.ResourceManager, GetCurrentCulture());
             SettingsRepository.Settings.PropertyChanged += (_, e) =>
             {
                 if (e.PropertyName == nameof(SettingsRepository.Settings.Language))
                 {
-                    CultureInfo newLanguage = CultureInfo.CurrentCulture;
-                    if (SettingsRepository.Settings.Language != AppLanguage.FollowSystem)
-                    {
-                        newLanguage = new CultureInfo((int)SettingsRepository.Settings.Language);
-                    }
-                    LocalizationResourceManager.Current.CurrentCulture = newLanguage;
+                    LocalizationResourceManager.Current.CurrentCulture = GetCurrentCulture();
                 }
             };
+
+            static CultureInfo GetCurrentCulture()
+            {
+                if (SettingsRepository.Settings.Language != AppLanguage.FollowSystem)
+                {
+                    return new CultureInfo((int)SettingsRepository.Settings.Language);
+                }
+                else if (CultureInfo.CurrentCulture.TwoLetterISOLanguageName == "ru")
+                {
+                    return new CultureInfo((int)AppLanguage.Ukrainian);
+                }
+
+                return CultureInfo.CurrentCulture;
+            }
         }
 
         protected override async void OnStart()

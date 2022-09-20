@@ -14,7 +14,7 @@ namespace NureTimetable.Droid
 {
 	
 	
-	[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Android.Build.Tasks", "12.3.99.43")]
+	[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Android.Build.Tasks", "13.0.99.109")]
 	public partial class Resource
 	{
 		
@@ -26,7 +26,6 @@ namespace NureTimetable.Droid
 		public static void UpdateIdValues()
 		{
 			global::Plugin.InAppBilling.Resource.Attribute.alpha = global::NureTimetable.Droid.Resource.Attribute.alpha;
-			global::Plugin.InAppBilling.Resource.Attribute.coordinatorLayoutStyle = global::NureTimetable.Droid.Resource.Attribute.coordinatorLayoutStyle;
 			global::Plugin.InAppBilling.Resource.Attribute.font = global::NureTimetable.Droid.Resource.Attribute.font;
 			global::Plugin.InAppBilling.Resource.Attribute.fontProviderAuthority = global::NureTimetable.Droid.Resource.Attribute.fontProviderAuthority;
 			global::Plugin.InAppBilling.Resource.Attribute.fontProviderCerts = global::NureTimetable.Droid.Resource.Attribute.fontProviderCerts;
@@ -37,23 +36,15 @@ namespace NureTimetable.Droid
 			global::Plugin.InAppBilling.Resource.Attribute.fontStyle = global::NureTimetable.Droid.Resource.Attribute.fontStyle;
 			global::Plugin.InAppBilling.Resource.Attribute.fontVariationSettings = global::NureTimetable.Droid.Resource.Attribute.fontVariationSettings;
 			global::Plugin.InAppBilling.Resource.Attribute.fontWeight = global::NureTimetable.Droid.Resource.Attribute.fontWeight;
-			global::Plugin.InAppBilling.Resource.Attribute.keylines = global::NureTimetable.Droid.Resource.Attribute.keylines;
-			global::Plugin.InAppBilling.Resource.Attribute.layout_anchor = global::NureTimetable.Droid.Resource.Attribute.layout_anchor;
-			global::Plugin.InAppBilling.Resource.Attribute.layout_anchorGravity = global::NureTimetable.Droid.Resource.Attribute.layout_anchorGravity;
-			global::Plugin.InAppBilling.Resource.Attribute.layout_behavior = global::NureTimetable.Droid.Resource.Attribute.layout_behavior;
-			global::Plugin.InAppBilling.Resource.Attribute.layout_dodgeInsetEdges = global::NureTimetable.Droid.Resource.Attribute.layout_dodgeInsetEdges;
-			global::Plugin.InAppBilling.Resource.Attribute.layout_insetEdge = global::NureTimetable.Droid.Resource.Attribute.layout_insetEdge;
-			global::Plugin.InAppBilling.Resource.Attribute.layout_keyline = global::NureTimetable.Droid.Resource.Attribute.layout_keyline;
-			global::Plugin.InAppBilling.Resource.Attribute.statusBarBackground = global::NureTimetable.Droid.Resource.Attribute.statusBarBackground;
 			global::Plugin.InAppBilling.Resource.Attribute.ttcIndex = global::NureTimetable.Droid.Resource.Attribute.ttcIndex;
+			global::Plugin.InAppBilling.Resource.Color.androidx_core_ripple_material_light = global::NureTimetable.Droid.Resource.Color.androidx_core_ripple_material_light;
+			global::Plugin.InAppBilling.Resource.Color.androidx_core_secondary_text_default_material_light = global::NureTimetable.Droid.Resource.Color.androidx_core_secondary_text_default_material_light;
 			global::Plugin.InAppBilling.Resource.Color.browser_actions_bg_grey = global::NureTimetable.Droid.Resource.Color.browser_actions_bg_grey;
 			global::Plugin.InAppBilling.Resource.Color.browser_actions_divider_color = global::NureTimetable.Droid.Resource.Color.browser_actions_divider_color;
 			global::Plugin.InAppBilling.Resource.Color.browser_actions_text_color = global::NureTimetable.Droid.Resource.Color.browser_actions_text_color;
 			global::Plugin.InAppBilling.Resource.Color.browser_actions_title_color = global::NureTimetable.Droid.Resource.Color.browser_actions_title_color;
 			global::Plugin.InAppBilling.Resource.Color.notification_action_color_filter = global::NureTimetable.Droid.Resource.Color.notification_action_color_filter;
 			global::Plugin.InAppBilling.Resource.Color.notification_icon_bg_color = global::NureTimetable.Droid.Resource.Color.notification_icon_bg_color;
-			global::Plugin.InAppBilling.Resource.Color.ripple_material_light = global::NureTimetable.Droid.Resource.Color.ripple_material_light;
-			global::Plugin.InAppBilling.Resource.Color.secondary_text_default_material_light = global::NureTimetable.Droid.Resource.Color.secondary_text_default_material_light;
 			global::Plugin.InAppBilling.Resource.Dimension.browser_actions_context_menu_max_width = global::NureTimetable.Droid.Resource.Dimension.browser_actions_context_menu_max_width;
 			global::Plugin.InAppBilling.Resource.Dimension.browser_actions_context_menu_min_padding = global::NureTimetable.Droid.Resource.Dimension.browser_actions_context_menu_min_padding;
 			global::Plugin.InAppBilling.Resource.Dimension.compat_button_inset_horizontal_material = global::NureTimetable.Droid.Resource.Dimension.compat_button_inset_horizontal_material;
@@ -128,43 +119,28 @@ namespace NureTimetable.Droid
 			global::Plugin.InAppBilling.Resource.Id.action_divider = global::NureTimetable.Droid.Resource.Id.action_divider;
 			global::Plugin.InAppBilling.Resource.Id.action_image = global::NureTimetable.Droid.Resource.Id.action_image;
 			global::Plugin.InAppBilling.Resource.Id.action_text = global::NureTimetable.Droid.Resource.Id.action_text;
-			global::Plugin.InAppBilling.Resource.Id.all = global::NureTimetable.Droid.Resource.Id.all;
 			global::Plugin.InAppBilling.Resource.Id.async = global::NureTimetable.Droid.Resource.Id.async;
 			global::Plugin.InAppBilling.Resource.Id.blocking = global::NureTimetable.Droid.Resource.Id.blocking;
-			global::Plugin.InAppBilling.Resource.Id.bottom = global::NureTimetable.Droid.Resource.Id.bottom;
 			global::Plugin.InAppBilling.Resource.Id.browser_actions_header_text = global::NureTimetable.Droid.Resource.Id.browser_actions_header_text;
 			global::Plugin.InAppBilling.Resource.Id.browser_actions_menu_items = global::NureTimetable.Droid.Resource.Id.browser_actions_menu_items;
 			global::Plugin.InAppBilling.Resource.Id.browser_actions_menu_item_icon = global::NureTimetable.Droid.Resource.Id.browser_actions_menu_item_icon;
 			global::Plugin.InAppBilling.Resource.Id.browser_actions_menu_item_text = global::NureTimetable.Droid.Resource.Id.browser_actions_menu_item_text;
 			global::Plugin.InAppBilling.Resource.Id.browser_actions_menu_view = global::NureTimetable.Droid.Resource.Id.browser_actions_menu_view;
-			global::Plugin.InAppBilling.Resource.Id.center = global::NureTimetable.Droid.Resource.Id.center;
-			global::Plugin.InAppBilling.Resource.Id.center_horizontal = global::NureTimetable.Droid.Resource.Id.center_horizontal;
-			global::Plugin.InAppBilling.Resource.Id.center_vertical = global::NureTimetable.Droid.Resource.Id.center_vertical;
 			global::Plugin.InAppBilling.Resource.Id.chronometer = global::NureTimetable.Droid.Resource.Id.chronometer;
-			global::Plugin.InAppBilling.Resource.Id.clip_horizontal = global::NureTimetable.Droid.Resource.Id.clip_horizontal;
-			global::Plugin.InAppBilling.Resource.Id.clip_vertical = global::NureTimetable.Droid.Resource.Id.clip_vertical;
 			global::Plugin.InAppBilling.Resource.Id.dialog_button = global::NureTimetable.Droid.Resource.Id.dialog_button;
-			global::Plugin.InAppBilling.Resource.Id.end = global::NureTimetable.Droid.Resource.Id.end;
-			global::Plugin.InAppBilling.Resource.Id.fill = global::NureTimetable.Droid.Resource.Id.fill;
-			global::Plugin.InAppBilling.Resource.Id.fill_horizontal = global::NureTimetable.Droid.Resource.Id.fill_horizontal;
-			global::Plugin.InAppBilling.Resource.Id.fill_vertical = global::NureTimetable.Droid.Resource.Id.fill_vertical;
 			global::Plugin.InAppBilling.Resource.Id.forever = global::NureTimetable.Droid.Resource.Id.forever;
 			global::Plugin.InAppBilling.Resource.Id.icon = global::NureTimetable.Droid.Resource.Id.icon;
 			global::Plugin.InAppBilling.Resource.Id.icon_group = global::NureTimetable.Droid.Resource.Id.icon_group;
 			global::Plugin.InAppBilling.Resource.Id.info = global::NureTimetable.Droid.Resource.Id.info;
 			global::Plugin.InAppBilling.Resource.Id.italic = global::NureTimetable.Droid.Resource.Id.italic;
-			global::Plugin.InAppBilling.Resource.Id.left = global::NureTimetable.Droid.Resource.Id.left;
 			global::Plugin.InAppBilling.Resource.Id.line1 = global::NureTimetable.Droid.Resource.Id.line1;
 			global::Plugin.InAppBilling.Resource.Id.line3 = global::NureTimetable.Droid.Resource.Id.line3;
-			global::Plugin.InAppBilling.Resource.Id.none = global::NureTimetable.Droid.Resource.Id.none;
 			global::Plugin.InAppBilling.Resource.Id.normal = global::NureTimetable.Droid.Resource.Id.normal;
 			global::Plugin.InAppBilling.Resource.Id.notification_background = global::NureTimetable.Droid.Resource.Id.notification_background;
 			global::Plugin.InAppBilling.Resource.Id.notification_main_column = global::NureTimetable.Droid.Resource.Id.notification_main_column;
 			global::Plugin.InAppBilling.Resource.Id.notification_main_column_container = global::NureTimetable.Droid.Resource.Id.notification_main_column_container;
-			global::Plugin.InAppBilling.Resource.Id.right = global::NureTimetable.Droid.Resource.Id.right;
 			global::Plugin.InAppBilling.Resource.Id.right_icon = global::NureTimetable.Droid.Resource.Id.right_icon;
 			global::Plugin.InAppBilling.Resource.Id.right_side = global::NureTimetable.Droid.Resource.Id.right_side;
-			global::Plugin.InAppBilling.Resource.Id.start = global::NureTimetable.Droid.Resource.Id.start;
 			global::Plugin.InAppBilling.Resource.Id.tag_accessibility_actions = global::NureTimetable.Droid.Resource.Id.tag_accessibility_actions;
 			global::Plugin.InAppBilling.Resource.Id.tag_accessibility_clickable_spans = global::NureTimetable.Droid.Resource.Id.tag_accessibility_clickable_spans;
 			global::Plugin.InAppBilling.Resource.Id.tag_accessibility_heading = global::NureTimetable.Droid.Resource.Id.tag_accessibility_heading;
@@ -177,7 +153,7 @@ namespace NureTimetable.Droid
 			global::Plugin.InAppBilling.Resource.Id.text2 = global::NureTimetable.Droid.Resource.Id.text2;
 			global::Plugin.InAppBilling.Resource.Id.time = global::NureTimetable.Droid.Resource.Id.time;
 			global::Plugin.InAppBilling.Resource.Id.title = global::NureTimetable.Droid.Resource.Id.title;
-			global::Plugin.InAppBilling.Resource.Id.top = global::NureTimetable.Droid.Resource.Id.top;
+			global::Plugin.InAppBilling.Resource.Id.view_tree_lifecycle_owner = global::NureTimetable.Droid.Resource.Id.view_tree_lifecycle_owner;
 			global::Plugin.InAppBilling.Resource.Integer.status_bar_notification_info_maxnum = global::NureTimetable.Droid.Resource.Integer.status_bar_notification_info_maxnum;
 			global::Plugin.InAppBilling.Resource.Layout.browser_actions_context_menu_page = global::NureTimetable.Droid.Resource.Layout.browser_actions_context_menu_page;
 			global::Plugin.InAppBilling.Resource.Layout.browser_actions_context_menu_row = global::NureTimetable.Droid.Resource.Layout.browser_actions_context_menu_row;
@@ -188,6 +164,10 @@ namespace NureTimetable.Droid
 			global::Plugin.InAppBilling.Resource.Layout.notification_template_icon_group = global::NureTimetable.Droid.Resource.Layout.notification_template_icon_group;
 			global::Plugin.InAppBilling.Resource.Layout.notification_template_part_chronometer = global::NureTimetable.Droid.Resource.Layout.notification_template_part_chronometer;
 			global::Plugin.InAppBilling.Resource.Layout.notification_template_part_time = global::NureTimetable.Droid.Resource.Layout.notification_template_part_time;
+			global::Plugin.InAppBilling.Resource.String.copy_toast_msg = global::NureTimetable.Droid.Resource.String.copy_toast_msg;
+			global::Plugin.InAppBilling.Resource.String.fallback_menu_item_copy_link = global::NureTimetable.Droid.Resource.String.fallback_menu_item_copy_link;
+			global::Plugin.InAppBilling.Resource.String.fallback_menu_item_open_in_browser = global::NureTimetable.Droid.Resource.String.fallback_menu_item_open_in_browser;
+			global::Plugin.InAppBilling.Resource.String.fallback_menu_item_share_link = global::NureTimetable.Droid.Resource.String.fallback_menu_item_share_link;
 			global::Plugin.InAppBilling.Resource.String.status_bar_notification_info_overflow = global::NureTimetable.Droid.Resource.String.status_bar_notification_info_overflow;
 			global::Plugin.InAppBilling.Resource.Style.TextAppearance_Compat_Notification = global::NureTimetable.Droid.Resource.Style.TextAppearance_Compat_Notification;
 			global::Plugin.InAppBilling.Resource.Style.TextAppearance_Compat_Notification_Info = global::NureTimetable.Droid.Resource.Style.TextAppearance_Compat_Notification_Info;
@@ -196,22 +176,10 @@ namespace NureTimetable.Droid
 			global::Plugin.InAppBilling.Resource.Style.TextAppearance_Compat_Notification_Title = global::NureTimetable.Droid.Resource.Style.TextAppearance_Compat_Notification_Title;
 			global::Plugin.InAppBilling.Resource.Style.Widget_Compat_NotificationActionContainer = global::NureTimetable.Droid.Resource.Style.Widget_Compat_NotificationActionContainer;
 			global::Plugin.InAppBilling.Resource.Style.Widget_Compat_NotificationActionText = global::NureTimetable.Droid.Resource.Style.Widget_Compat_NotificationActionText;
-			global::Plugin.InAppBilling.Resource.Style.Widget_Support_CoordinatorLayout = global::NureTimetable.Droid.Resource.Style.Widget_Support_CoordinatorLayout;
 			global::Plugin.InAppBilling.Resource.Styleable.ColorStateListItem = global::NureTimetable.Droid.Resource.Styleable.ColorStateListItem;
 			global::Plugin.InAppBilling.Resource.Styleable.ColorStateListItem_alpha = global::NureTimetable.Droid.Resource.Styleable.ColorStateListItem_alpha;
 			global::Plugin.InAppBilling.Resource.Styleable.ColorStateListItem_android_alpha = global::NureTimetable.Droid.Resource.Styleable.ColorStateListItem_android_alpha;
 			global::Plugin.InAppBilling.Resource.Styleable.ColorStateListItem_android_color = global::NureTimetable.Droid.Resource.Styleable.ColorStateListItem_android_color;
-			global::Plugin.InAppBilling.Resource.Styleable.CoordinatorLayout = global::NureTimetable.Droid.Resource.Styleable.CoordinatorLayout;
-			global::Plugin.InAppBilling.Resource.Styleable.CoordinatorLayout_keylines = global::NureTimetable.Droid.Resource.Styleable.CoordinatorLayout_keylines;
-			global::Plugin.InAppBilling.Resource.Styleable.CoordinatorLayout_Layout = global::NureTimetable.Droid.Resource.Styleable.CoordinatorLayout_Layout;
-			global::Plugin.InAppBilling.Resource.Styleable.CoordinatorLayout_Layout_android_layout_gravity = global::NureTimetable.Droid.Resource.Styleable.CoordinatorLayout_Layout_android_layout_gravity;
-			global::Plugin.InAppBilling.Resource.Styleable.CoordinatorLayout_Layout_layout_anchor = global::NureTimetable.Droid.Resource.Styleable.CoordinatorLayout_Layout_layout_anchor;
-			global::Plugin.InAppBilling.Resource.Styleable.CoordinatorLayout_Layout_layout_anchorGravity = global::NureTimetable.Droid.Resource.Styleable.CoordinatorLayout_Layout_layout_anchorGravity;
-			global::Plugin.InAppBilling.Resource.Styleable.CoordinatorLayout_Layout_layout_behavior = global::NureTimetable.Droid.Resource.Styleable.CoordinatorLayout_Layout_layout_behavior;
-			global::Plugin.InAppBilling.Resource.Styleable.CoordinatorLayout_Layout_layout_dodgeInsetEdges = global::NureTimetable.Droid.Resource.Styleable.CoordinatorLayout_Layout_layout_dodgeInsetEdges;
-			global::Plugin.InAppBilling.Resource.Styleable.CoordinatorLayout_Layout_layout_insetEdge = global::NureTimetable.Droid.Resource.Styleable.CoordinatorLayout_Layout_layout_insetEdge;
-			global::Plugin.InAppBilling.Resource.Styleable.CoordinatorLayout_Layout_layout_keyline = global::NureTimetable.Droid.Resource.Styleable.CoordinatorLayout_Layout_layout_keyline;
-			global::Plugin.InAppBilling.Resource.Styleable.CoordinatorLayout_statusBarBackground = global::NureTimetable.Droid.Resource.Styleable.CoordinatorLayout_statusBarBackground;
 			global::Plugin.InAppBilling.Resource.Styleable.FontFamily = global::NureTimetable.Droid.Resource.Styleable.FontFamily;
 			global::Plugin.InAppBilling.Resource.Styleable.FontFamilyFont = global::NureTimetable.Droid.Resource.Styleable.FontFamilyFont;
 			global::Plugin.InAppBilling.Resource.Styleable.FontFamilyFont_android_font = global::NureTimetable.Droid.Resource.Styleable.FontFamilyFont_android_font;
@@ -246,6 +214,7 @@ namespace NureTimetable.Droid
 			global::Plugin.InAppBilling.Resource.Styleable.GradientColor_android_startY = global::NureTimetable.Droid.Resource.Styleable.GradientColor_android_startY;
 			global::Plugin.InAppBilling.Resource.Styleable.GradientColor_android_tileMode = global::NureTimetable.Droid.Resource.Styleable.GradientColor_android_tileMode;
 			global::Plugin.InAppBilling.Resource.Styleable.GradientColor_android_type = global::NureTimetable.Droid.Resource.Styleable.GradientColor_android_type;
+			global::Plugin.InAppBilling.Resource.Xml.image_share_filepaths = global::NureTimetable.Droid.Resource.Xml.image_share_filepaths;
 			global::Plugin.InAppBilling.Resource.Xml.xamarin_essentials_fileprovider_file_paths = global::NureTimetable.Droid.Resource.Xml.xamarin_essentials_fileprovider_file_paths;
 			global::Rg.Plugins.Popup.Resource.Animation.abc_fade_in = global::NureTimetable.Droid.Resource.Animation.abc_fade_in;
 			global::Rg.Plugins.Popup.Resource.Animation.abc_fade_out = global::NureTimetable.Droid.Resource.Animation.abc_fade_out;

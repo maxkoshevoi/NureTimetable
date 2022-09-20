@@ -10,7 +10,7 @@ You can download the latest stable version here: https://play.google.com/store/a
 
 ## Features
 
-- Day, week and month view
+- Day, week, and month view
 - Offline viewing and adding timetables
 - Autoupdate of selected timetables
 - Filtering by lessons, event types and teachers
@@ -18,6 +18,6 @@ You can download the latest stable version here: https://play.google.com/store/a
 - Timer before lesson and lesson break
 - Lesson statistics (event count, date of the next event and teachers grouped by event type)
 - Notes for lessons
-- Support for Ukrainian, Russian and English localization and different time zones
+- Support for Ukrainian and English localization and different time zones
 - Dark and Light themes
 - dl.nure.ua integration

@@ -8,6 +8,7 @@ namespace NureTimetable.Migrations
         {
             new MoveEntityInsideSavedEntityMigration(),
             new RemoveTimelineViewMode(),
+            new Removerussian(),
         };
 
         public Task<bool> IsNeedsToBeApplied() =>

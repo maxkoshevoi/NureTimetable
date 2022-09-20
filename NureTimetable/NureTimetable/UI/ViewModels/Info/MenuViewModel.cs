@@ -30,7 +30,6 @@ namespace NureTimetable.UI.ViewModels
         {
             (() => LN.FollowSystem, AppLanguage.FollowSystem),
             (() => LN.EnglishLanguage, AppLanguage.English),
-            (() => LN.RussianLanguage, AppLanguage.Russian),
             (() => LN.UkrainianLanguage, AppLanguage.Ukrainian),
         };
 
@@ -74,7 +73,11 @@ namespace NureTimetable.UI.ViewModels
                 LN.Language,
                 languageMapping,
                 SettingsRepository.Settings.Language,
-                newLanguage => SettingsRepository.Settings.Language = newLanguage
+                newLanguage => 
+                {
+                    SettingsRepository.Settings.Language = newLanguage;
+                    OnPropertyChanged(nameof(AppLanguageName));
+                }
             );
     }
 }
