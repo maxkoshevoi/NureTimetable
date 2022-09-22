@@ -626,7 +626,7 @@ namespace NureTimetable.Core.Localization {
         
         /// <summary>
         ///   Looks up a localized string similar to Unable to find lesson. It&apos;s possible, you don&apos;t have access to it. 
-        ///Try adding lesson id manually on &quot;Lesson management&quot; page..
+        ///Try adding lesson id manually on &quot;Lesson management&quot; page and select single timetable..
         /// </summary>
         public static string LessonNotFound {
             get {

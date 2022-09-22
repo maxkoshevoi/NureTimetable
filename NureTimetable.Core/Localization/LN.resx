@@ -516,7 +516,7 @@ Credentials are stored locally.</value>
   </data>
   <data name="LessonNotFound" xml:space="preserve">
     <value>Unable to find lesson. It's possible, you don't have access to it. 
-Try adding lesson id manually on "Lesson management" page.</value>
+Try adding lesson id manually on "Lesson management" page and select single timetable.</value>
   </data>
   <data name="NoAttendanceModule" xml:space="preserve">
     <value>Lesson doesn't have an attendance module</value>

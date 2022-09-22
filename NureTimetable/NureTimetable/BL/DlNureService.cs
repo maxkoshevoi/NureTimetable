@@ -63,12 +63,12 @@ namespace NureTimetable.BL
                 if (timetable == null)
                 {
                     List<FullCourse> courses = await new MoodleRepository().GetEnrolledCoursesAsync();
-                    FullCourse? course = courses.Find(lesson).FirstOrDefault();
-                    return course?.Id;
+                    int? lessonId = courses.Find(lesson).FirstOrDefault()?.Id;
+                    return lessonId;
                 }
                 else
                 {
-                    var lessonInfos = await UpdateLessonIdsAsync(timetable);
+                    var lessonInfos = await AddMissingLessonIdsAsync(timetable);
                     return lessonInfos.FirstOrDefault(li => li.Lesson == lesson)?.DlNureInfo.LessonId;
                 }
             }
@@ -80,7 +80,7 @@ namespace NureTimetable.BL
             }
         }
 
-        public static async Task<List<LessonInfo>> UpdateLessonIdsAsync(TimetableInfo timetable)
+        public static async Task<List<LessonInfo>> AddMissingLessonIdsAsync(TimetableInfo timetable)
         {
             try
             {
@@ -142,10 +142,9 @@ namespace NureTimetable.BL
                 if (ongoingCourses.Any())
                 {
                     matchedCourses = ongoingCourses;
-
                     if (matchedCourses.Count > 1)
                     {
-                        InvalidOperationException ex = new("Found multiple moodle courses")
+                        InvalidOperationException ex = new("Found multiple ongoing moodle courses")
                         {
                             Data = { { "Lesson", $"{lesson.FullName} ({lesson.ShortName})" } }
                         };
