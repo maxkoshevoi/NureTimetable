@@ -843,15 +843,6 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Русский.
-        /// </summary>
-        public static string RussianLanguage {
-            get {
-                return ResourceManager.GetString("RussianLanguage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Saved timetables.
         /// </summary>
         public static string SavedTimetables {
@@ -987,7 +978,7 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Say big thank you.
+        ///   Looks up a localized string similar to Buy a coffee.
         /// </summary>
         public static string Thank2 {
             get {
@@ -996,7 +987,7 @@ namespace NureTimetable.Core.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Say huge thank you.
+        ///   Looks up a localized string similar to Treat with a borsch.
         /// </summary>
         public static string Thank3 {
             get {
