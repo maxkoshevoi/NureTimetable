@@ -1,8 +1,7 @@
 ﻿using Android.App;
 using Android.Content;
 using Java.Util;
-using NureTimetable.DAL.Settings;
-using NureTimetable.DAL.Settings.Models;
+using NureTimetable.BL;
 using System.Globalization;
 using Xamarin.CommunityToolkit.Helpers;
 
@@ -17,10 +16,7 @@ namespace NureTimetable.Droid.Receivers
         public override void OnReceive(Context? context, Intent? intent)
         {
             CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo(Locale.Default.Language);
-            if (SettingsRepository.Settings.Language == AppLanguage.FollowSystem)
-            {
-                LocalizationResourceManager.Current.CurrentCulture = CultureInfo.CurrentCulture;
-            }
+            LocalizationResourceManager.Current.CurrentCulture = LocalizationService.GetPreferredCulture();
         }
     }
 }

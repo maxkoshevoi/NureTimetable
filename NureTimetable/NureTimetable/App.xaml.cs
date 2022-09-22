@@ -1,6 +1,7 @@
 ﻿using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
+using NureTimetable.BL;
 using NureTimetable.Core.Localization;
 using NureTimetable.Core.Models.Consts;
 using NureTimetable.DAL.Settings;
@@ -33,28 +34,14 @@ namespace NureTimetable
         private static void InitLanguage()
         {
             LocalizationResourceManager.Current.PropertyChanged += (_, _) => LN.Culture = LocalizationResourceManager.Current.CurrentCulture;
-            LocalizationResourceManager.Current.Init(LN.ResourceManager, GetCurrentCulture());
+            LocalizationResourceManager.Current.Init(LN.ResourceManager, LocalizationService.GetPreferredCulture());
             SettingsRepository.Settings.PropertyChanged += (_, e) =>
             {
                 if (e.PropertyName == nameof(SettingsRepository.Settings.Language))
                 {
-                    LocalizationResourceManager.Current.CurrentCulture = GetCurrentCulture();
+                    LocalizationResourceManager.Current.CurrentCulture = LocalizationService.GetPreferredCulture();
                 }
             };
-
-            static CultureInfo GetCurrentCulture()
-            {
-                if (SettingsRepository.Settings.Language != AppLanguage.FollowSystem)
-                {
-                    return new CultureInfo((int)SettingsRepository.Settings.Language);
-                }
-                else if (CultureInfo.CurrentCulture.TwoLetterISOLanguageName == "ru")
-                {
-                    return new CultureInfo((int)AppLanguage.Ukrainian);
-                }
-
-                return CultureInfo.CurrentCulture;
-            }
         }
 
         protected override async void OnStart()
