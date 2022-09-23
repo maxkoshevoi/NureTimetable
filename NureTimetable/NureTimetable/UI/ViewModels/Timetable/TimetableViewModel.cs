@@ -12,7 +12,6 @@ using NureTimetable.UI.ViewModels.Timetable;
 using NureTimetable.UI.Views;
 using Rg.Plugins.Popup.Services;
 using Syncfusion.SfSchedule.XForms;
-using System.Globalization;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Essentials;
@@ -216,13 +215,16 @@ namespace NureTimetable.UI.ViewModels
 
             void SetTimetableLocale()
             {
-                string activeCultureCode = Cultures.SupportedCultures[0].TwoLetterISOLanguageName;
-                if (Cultures.SupportedCultures.Any(c => c.TwoLetterISOLanguageName == CultureInfo.CurrentCulture.TwoLetterISOLanguageName))
+                string currentCulture = LocalizationResourceManager.Current.CurrentCulture.TwoLetterISOLanguageName;
+                if (Cultures.SupportedCultures.Any(c => c.TwoLetterISOLanguageName == currentCulture))
                 {
                     // Set custom TimetableLocale only if it is one of supported cultures
-                    activeCultureCode = LocalizationResourceManager.Current.CurrentCulture.TwoLetterISOLanguageName;
+                    TimetableLocale = currentCulture;
                 }
-                TimetableLocale = activeCultureCode;
+                else
+                {
+                    TimetableLocale = Cultures.SupportedCultures[0].TwoLetterISOLanguageName;
+                }
             }
         }
 
