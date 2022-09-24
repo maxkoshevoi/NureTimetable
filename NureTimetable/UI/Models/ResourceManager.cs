@@ -18,9 +18,9 @@ public static class ResourceManager
         }
     }
 
+    //public static Color NavigationBarColor => GetColor();
 
-    public static Color NavigationBarColor => GetColor();
-    public static NavigationBarStyle NavigationBarStyle => Get<NavigationBarStyle>();
+    //public static NavigationBarStyle NavigationBarStyle => Get<NavigationBarStyle>();
 
     private static Color GetColor([CallerMemberName] string resourceName = "") => Get<Color>(resourceName);
 

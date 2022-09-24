@@ -15,7 +15,7 @@
     <Color x:Key="StatusBarColor">#1976D2</Color>
     <mct:StatusBarStyle x:Key="StatusBarStyle">LightContent</mct:StatusBarStyle>
     <Color x:Key="NavigationBarColor">#1976D2</Color>
-    <droid:NavigationBarStyle x:Key="NavigationBarStyle">LightContent</droid:NavigationBarStyle>
+    <!--<droid:NavigationBarStyle x:Key="NavigationBarStyle">LightContent</droid:NavigationBarStyle>-->
 
     <Color x:Key="PrimaryTextColor">Black</Color>
     <Color x:Key="SecondaryTextColor">#4a4a4a</Color>

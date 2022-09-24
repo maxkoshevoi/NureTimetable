@@ -26,13 +26,13 @@ public partial class EventPopupPage : PopupPage
 
         await Task.Delay(50);
 
-        On<Platform::Android>().SetNavigationBarColor(ResourceManager.NavigationBarColor);
-        On<Platform::Android>().SetNavigationBarStyle(ResourceManager.NavigationBarStyle);
+        //On<Platform::Android>().SetNavigationBarColor(ResourceManager.NavigationBarColor);
+        //On<Platform::Android>().SetNavigationBarStyle(ResourceManager.NavigationBarStyle);
     }
 
     private void SetCustomNavigationBar()
     {
-        On<Platform::Android>().SetNavigationBarColor(Colors.White);
-        On<Platform::Android>().SetNavigationBarStyle(NavigationBarStyle.DarkContent);
+        //On<Platform::Android>().SetNavigationBarColor(Colors.White);
+        //On<Platform::Android>().SetNavigationBarStyle(NavigationBarStyle.DarkContent);
     }
 }

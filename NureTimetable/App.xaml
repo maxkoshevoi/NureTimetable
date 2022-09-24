@@ -11,6 +11,8 @@
                 <Setter Property="Shell.TabBarIsVisible" Value="False" />
                 <Setter Property="mct:StatusBarBehavior.StatusBarColor" Value="{DynamicResource StatusBarColor}" />
                 <Setter Property="mct:StatusBarBehavior.StatusBarStyle" Value="{DynamicResource StatusBarStyle}" />
+                <!--<Setter Property="droid:NavigationBarEffect.Color" Value="{DynamicResource NavigationBarColor}" />
+                <Setter Property="droid:NavigationBarEffect.Style" Value="{DynamicResource NavigationBarStyle}" />-->
             </Style>
             <Style TargetType="TabbedPage" ApplyToDerivedTypes="True">
                 <Setter Property="BarBackgroundColor" Value="{DynamicResource PrimaryColor}" />
