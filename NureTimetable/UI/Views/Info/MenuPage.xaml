@@ -15,7 +15,6 @@
             <Style x:Key="Row" TargetType="StackLayout">
                 <Setter Property="Orientation" Value="Horizontal"/>
                 <Setter Property="Padding" Value="20,10"/>
-                <Setter Property="mct:TouchEffect.NativeAnimation" Value="True"/>
             </Style>
             <Style TargetType="Image">
                 <Setter Property="VerticalOptions" Value="Center"/>

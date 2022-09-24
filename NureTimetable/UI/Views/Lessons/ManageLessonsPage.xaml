@@ -46,8 +46,8 @@
                                     <Label Text="{Binding LessonInfo.Lesson.FullName}" LineBreakMode="TailTruncation" FontSize="13" Style="{DynamicResource ListItemDetailTextStyle}" />
                                 </StackLayout>
                                 <StackLayout Grid.Column="1" Orientation="Horizontal" Spacing="8">
-                                    <Image mct:TouchEffect.Command="{Binding InfoClickedCommand}" Source="{FontImageSource Glyph={Static fonts:MaterialIconsFont.InformationOutline}, FontFamily=MaterialDesignIcons, Color={DynamicResource ListIconColor}}" VerticalOptions="CenterAndExpand" mct:TouchEffect.NativeAnimation="True" mct:TouchEffect.NativeAnimationBorderless="True" />
-                                    <Image mct:TouchEffect.Command="{Binding SettingsClickedCommand}" Source="{FontImageSource Glyph={Static fonts:MaterialIconsFont.Cog}, FontFamily=MaterialDesignIcons, Color={DynamicResource ListIconColor}}" VerticalOptions="CenterAndExpand" mct:TouchEffect.NativeAnimation="True" mct:TouchEffect.NativeAnimationBorderless="True" />
+                                    <Image Source="{FontImageSource Glyph={Static fonts:MaterialIconsFont.InformationOutline}, FontFamily=MaterialDesignIcons, Color={DynamicResource ListIconColor}}" VerticalOptions="CenterAndExpand" />
+                                    <Image Source="{FontImageSource Glyph={Static fonts:MaterialIconsFont.Cog}, FontFamily=MaterialDesignIcons, Color={DynamicResource ListIconColor}}" VerticalOptions="CenterAndExpand" />
                                     <CheckBox IsChecked="{Binding IsChecked}" />
                                 </StackLayout>
                             </Grid>

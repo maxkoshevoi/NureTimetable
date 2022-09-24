@@ -38,11 +38,8 @@
                     <Image Grid.Column="1" 
                            Margin="0,0,10,0" 
                            IsVisible="{Binding DlNureUser, Source={Static dal:SettingsRepository.Settings}, Converter={mct:IsStringNullOrEmptyConverter}}" 
-                           mct:TouchEffect.Command="{Binding AttendanceClickCommand}" 
                            Opacity="{Binding AttendanceOpacity}"
-                           Source="{FontImageSource FontFamily=MaterialDesignIcons, Glyph={Static fonts:MaterialIconsFont.BadgeAccountAlertOutline}, Color={DynamicResource ListIconColor}}" 
-                           mct:TouchEffect.NativeAnimation="True" 
-                           mct:TouchEffect.NativeAnimationBorderless="True" />
+                           Source="{FontImageSource FontFamily=MaterialDesignIcons, Glyph={Static fonts:MaterialIconsFont.BadgeAccountAlertOutline}, Color={DynamicResource ListIconColor}}" />
                 </Grid>
                 <sfs:SfScheduler
                     x:Name="Timetable"

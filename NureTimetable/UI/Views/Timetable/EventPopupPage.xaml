@@ -37,7 +37,7 @@
         <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
             <Label Text="{Binding Event.Lesson.FullName}" FontSize="16" FontAttributes="Bold" />
             <StackLayout HorizontalOptions="EndAndExpand" Orientation="Horizontal">
-                <Image mct:TouchEffect.Command="{Binding OptionsCommand}" Source="{FontImageSource FontFamily=MaterialDesignIcons, Glyph={Static fonts:MaterialIconsFont.DotsVertical}, Color=Black}" mct:TouchEffect.NativeAnimation="True" mct:TouchEffect.NativeAnimationBorderless="True" />
+                <Image Source="{FontImageSource FontFamily=MaterialDesignIcons, Glyph={Static fonts:MaterialIconsFont.DotsVertical}, Color=Black}" />
             </StackLayout>
         </StackLayout>
         <Label Text="{Binding Details}"/>
