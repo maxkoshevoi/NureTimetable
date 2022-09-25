@@ -75,7 +75,7 @@ public class ManageLessonsViewModel : BaseViewModel
         Analytics.TrackEvent("Moodle: Sync lessons");
 
         TimetableInfo? timetable = await EventsRepository.GetTimetableLocalAsync(entity);
-        var lessonInfos = await DlNureService.UpdateLessonIdsAsync(timetable!);
+        var lessonInfos = await DlNureService.AddMissingLessonIdsAsync(timetable!);
 
         foreach (var lesson in Lessons)
         {

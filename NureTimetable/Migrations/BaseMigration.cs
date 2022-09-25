@@ -4,8 +4,9 @@ public abstract class BaseMigration
 {
     public static IReadOnlyCollection<BaseMigration> Migrations => new BaseMigration[]
     {
-            new MoveEntityInsideSavedEntityMigration(),
-            new RemoveTimelineViewMode(),
+        new MoveEntityInsideSavedEntityMigration(),
+        new RemoveTimelineViewMode(),
+        new Removerussian(),
     };
 
     public Task<bool> IsNeedsToBeApplied() =>

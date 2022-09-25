@@ -164,13 +164,16 @@ public partial class TimetableViewModel : BaseViewModel
 
         void SetTimetableLocale()
         {
-            string activeCultureCode = Cultures.SupportedCultures[0].TwoLetterISOLanguageName;
-            if (Cultures.SupportedCultures.Any(c => c.TwoLetterISOLanguageName == CultureInfo.CurrentCulture.TwoLetterISOLanguageName))
+            string currentCulture = LocalizationResourceManager.Current.CurrentCulture.TwoLetterISOLanguageName;
+            if (Cultures.SupportedCultures.Any(c => c.TwoLetterISOLanguageName == currentCulture))
             {
                 // Set custom TimetableLocale only if it is one of supported cultures
-                activeCultureCode = LocalizationResourceManager.Current.CurrentCulture.TwoLetterISOLanguageName;
+                TimetableLocale = currentCulture;
             }
-            TimetableLocale = activeCultureCode;
+            else
+            {
+                TimetableLocale = Cultures.SupportedCultures[0].TwoLetterISOLanguageName;
+            }
         }
     }
 

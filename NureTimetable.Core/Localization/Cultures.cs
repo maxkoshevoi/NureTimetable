@@ -7,6 +7,6 @@ public static class Cultures
 {
     public static readonly CultureInfo[] SupportedCultures =
     {
-            new("en"), new("ru"), new("uk"),
+            new("en"), new("uk"),
     };
 }

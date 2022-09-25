@@ -175,10 +175,10 @@
     <value>Say thank you</value>
   </data>
   <data name="Thank2" xml:space="preserve">
-    <value>Say big thank you</value>
+    <value>Buy a coffee</value>
   </data>
   <data name="Thank3" xml:space="preserve">
-    <value>Say huge thank you</value>
+    <value>Treat with a borsch</value>
   </data>
   <data name="ThisApp" xml:space="preserve">
     <value>This app </value>
@@ -410,9 +410,6 @@ Try again later, or try using different WiFi network or mobile internet connecti
   <data name="RateTheApp" xml:space="preserve">
     <value>Rate the app</value>
   </data>
-  <data name="RussianLanguage" xml:space="preserve">
-    <value>Русский</value>
-  </data>
   <data name="SourceCode" xml:space="preserve">
     <value>Source code</value>
   </data>
@@ -519,7 +516,7 @@ Credentials are stored locally.</value>
   </data>
   <data name="LessonNotFound" xml:space="preserve">
     <value>Unable to find lesson. It's possible, you don't have access to it. 
-Try adding lesson id manually on "Lesson management" page.</value>
+Try adding lesson id manually on "Lesson management" page and select single timetable.</value>
   </data>
   <data name="NoAttendanceModule" xml:space="preserve">
     <value>Lesson doesn't have an attendance module</value>

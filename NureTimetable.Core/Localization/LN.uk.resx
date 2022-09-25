@@ -175,10 +175,10 @@
     <value>Сказати дякую</value>
   </data>
   <data name="Thank2" xml:space="preserve">
-    <value>Сказати великие дякую</value>
+    <value>Купити кави</value>
   </data>
   <data name="Thank3" xml:space="preserve">
-    <value>Сказати величезне дякую</value>
+    <value>Пригостити борщем</value>
   </data>
   <data name="ThisApp" xml:space="preserve">
     <value>Цей застосунок </value>
@@ -199,7 +199,7 @@
     <value>Відміна</value>
   </data>
   <data name="ChooseAction" xml:space="preserve">
-    <value>Оберіть дію</value>
+    <value>Виберіть дію</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Видалити</value>
@@ -259,7 +259,7 @@
     <value>Зворотній зв'язок</value>
   </data>
   <data name="Groups" xml:space="preserve">
-    <value>Группи</value>
+    <value>Групи</value>
   </data>
   <data name="Month" xml:space="preserve">
     <value>Місяць</value>
@@ -365,7 +365,7 @@
     <value>Додавання в календар</value>
   </data>
   <data name="ChooseCalendar" xml:space="preserve">
-    <value>Оберіть календар:</value>
+    <value>Виберіть календар:</value>
   </data>
   <data name="CannotGetDataFromCist" xml:space="preserve">
     <value>Помилка при отриманні даних з cist.nure.ua.
@@ -411,22 +411,19 @@
     <value>Оцініть додаток</value>
   </data>
   <data name="SourceCode" xml:space="preserve">
-    <value>Початковий код</value>
+    <value>Вихідний код</value>
   </data>
   <data name="Version" xml:space="preserve">
     <value>Версія {0}</value>
   </data>
   <data name="RestartRequired" xml:space="preserve">
-    <value>Необхідний перезапуск</value>
+    <value>Потрібен перезапуск</value>
   </data>
   <data name="EnterName" xml:space="preserve">
     <value>Введіть ім'я...</value>
   </data>
   <data name="InsufficientRights" xml:space="preserve">
     <value>У додатку немає достатніх прав на виконання цієї дії</value>
-  </data>
-  <data name="RussianLanguage" xml:space="preserve">
-    <value>Русский</value>
   </data>
   <data name="EnglishLanguage" xml:space="preserve">
     <value>English</value>
@@ -519,7 +516,7 @@
   </data>
   <data name="LessonNotFound" xml:space="preserve">
     <value>Не вдалося знайти предмет. Можливо, у вас немає до нього доступу. 
-Спробуйте додати id предмету вручну на сторінці «Управління предметом».</value>
+Спробуйте додати id предмету вручну на сторінці «Управління предметом» та обрати один розклад.</value>
   </data>
   <data name="NoAttendanceModule" xml:space="preserve">
     <value>Урок немає модуля відвідування</value>

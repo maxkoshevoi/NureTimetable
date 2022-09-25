@@ -22,7 +22,6 @@ public class MenuViewModel : BaseViewModel
     {
         (() => LN.FollowSystem, AppLanguage.FollowSystem),
         (() => LN.EnglishLanguage, AppLanguage.English),
-        (() => LN.RussianLanguage, AppLanguage.Russian),
         (() => LN.UkrainianLanguage, AppLanguage.Ukrainian),
     };
 
@@ -64,6 +63,10 @@ public class MenuViewModel : BaseViewModel
         LN.Language,
         languageMapping,
         SettingsRepository.Settings.Language,
-        newLanguage => SettingsRepository.Settings.Language = newLanguage
+        newLanguage => 
+        {
+            SettingsRepository.Settings.Language = newLanguage;
+            OnPropertyChanged(nameof(AppLanguageName));
+        }
     );
 }
