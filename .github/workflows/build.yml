@@ -15,11 +15,11 @@ jobs:
       matrix:
         configuration: ['Debug', 'Release']
     steps:
-    - uses: actions/setup-dotnet@v3
+    - uses: actions/checkout@v3
+    - uses: actions/setup-dotnet@v2
       with:
         dotnet-version: 7.0.x
         dotnet-quality: preview
-    - uses: actions/checkout@v2
     - name: Install workload
       run: dotnet workload install maui-android
     - name: Setup Java SDK
