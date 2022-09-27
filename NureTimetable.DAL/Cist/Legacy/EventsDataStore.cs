@@ -24,10 +24,10 @@ namespace NureTimetable.DAL.Cist.Legacy
                 client.Encoding = Encoding.GetEncoding("Windows-1251");
                 try
                 {
-                    List<TimetableInfo> timetables = new List<TimetableInfo>(); //GetTimetableLocal(groupsAllowed.ToArray());
+                    List<TimetableInfo> timetables = new(); //GetTimetableLocal(groupsAllowed.ToArray());
 
                     // Getting events
-                    Uri uri = new Uri(Urls.CistGroupTimetableUrl(Urls.CistTimetableFormat.Csv, dateStart, dateEnd, groupsAllowed.Select(g => g.ID).ToArray()));
+                    Uri uri = new(Urls.CistGroupTimetableUrl(Urls.CistTimetableFormat.Csv, dateStart, dateEnd, groupsAllowed.Select(g => g.ID).ToArray()));
                     string data = client.DownloadString(uri);
                     Dictionary<string, List<Event>> newEvents = ParseCistCsvTimetable(data, groupsAllowed.Count > 1);
                     if (newEvents == null)
@@ -40,7 +40,7 @@ namespace NureTimetable.DAL.Cist.Legacy
                     foreach (var group in groupsAllowed)
                     {
                         var groupEvents = new List<Event>();
-                        if (newEvents.Keys.Contains(group.Name))
+                        if (newEvents.ContainsKey(group.Name))
                         {
                             groupEvents = newEvents[group.Name];
                         }
@@ -191,7 +191,7 @@ namespace NureTimetable.DAL.Cist.Legacy
                             eventDescription.RemoveAt(3);
                         }
 
-                        Event ev = new Event
+                        Event ev = new()
                         {
                             Lesson = eventDescription[0],
                             Type = eventDescription[1],
@@ -320,7 +320,7 @@ namespace NureTimetable.DAL.Cist.Legacy
         {
             //*РNet(ПЗПІ-16-)-2,
             //*РNet(ПЗПІ-16-)-1;*РNet(ПЗПІ-16-)-2,
-            if (groupsStr.Contains("("))
+            if (groupsStr.Contains('('))
             {
                 return true;
             }
