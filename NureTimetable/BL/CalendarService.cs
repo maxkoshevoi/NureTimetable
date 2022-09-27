@@ -66,7 +66,17 @@ public static class CalendarService
         }
 
         // Getting Calendar list
-        IList<Calendar> calendars = await CrossCalendars.Current.GetCalendarsAsync();
+        IList<Calendar> calendars;
+        try
+        {
+            calendars = await CrossCalendars.Current.GetCalendarsAsync();
+        }
+        catch (NullReferenceException ex)
+        {
+            calendars = new List<Calendar>();
+            ExceptionService.LogException(ex);
+        }
+
         calendars = calendars
             .Where(c => string.Equals(c.Name, c.AccountName, StringComparison.OrdinalIgnoreCase)
                      || string.Equals(c.AccountName, CustomCalendarName, StringComparison.OrdinalIgnoreCase))
