@@ -19,7 +19,7 @@ jobs:
     - uses: actions/setup-dotnet@v2
       with:
         dotnet-version: 7.0.x
-        dotnet-quality: preview
+        include-prerelease: true
     - name: Install workload
       run: dotnet workload install maui-android
     - name: Setup Java SDK
