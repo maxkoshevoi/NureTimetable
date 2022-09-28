@@ -42,4 +42,6 @@ public partial class TimetablePage : ContentPage, ITimetablePageCommands
 
         await Snackbar.Make(message, duration: TimeSpan.FromMilliseconds(durationMilliseconds), anchor: anchor).Show();
     }
+
+    public void StartTimer(TimeSpan interval, Func<bool> callback) => Dispatcher.StartTimer(interval, callback);
 }

@@ -7,4 +7,6 @@ public interface ITimetablePageCommands
     Task ScaleTodayButtonTo(double scale);
 
     Task DisplayToastAsync(string message, int durationMilliseconds = 3000);
+
+    void StartTimer(TimeSpan interval, Func<bool> callback);
 }

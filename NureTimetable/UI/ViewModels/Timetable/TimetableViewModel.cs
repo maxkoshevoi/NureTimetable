@@ -214,7 +214,7 @@ public partial class TimetableViewModel : BaseViewModel
             }
         }
 
-        Device.StartTimer(TimeSpan.FromSeconds(1), () => { UpdateTimeLeft(); return isPageVisible; });
+        timetablePage.StartTimer(TimeSpan.FromSeconds(1), () => { UpdateTimeLeft(); return isPageVisible; });
         await UpdateTimetableIfNeeded();
     }
 
