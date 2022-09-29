@@ -1,5 +1,7 @@
-﻿using NureTimetable.Platforms.Android.Models;
+﻿using CommunityToolkit.Maui.Core.Platform;
+using NureTimetable.Platforms.Android.Models;
 using NureTimetable.Platforms.Android.Services;
+using NureTimetable.UI.Models.Consts;
 using NureTimetable.UI.Themes;
 
 namespace NureTimetable.BL;
@@ -12,9 +14,23 @@ public static class ThemeService
 
         UpdateNativeStyle(selectedTheme);
         UpdateAppStyle(selectedTheme);
+        UpdateBarStyle().Forget();
 
         MessagingCenter.Send(Application.Current, MessageTypes.ThemeChanged, selectedTheme);
         return true;
+    }
+
+    private static void UpdateNativeStyle(AppTheme selectedTheme)
+    {
+        NightModeStyle style = selectedTheme switch
+        {
+            AppTheme.Dark => NightModeStyle.Yes,
+            AppTheme.Light => NightModeStyle.No,
+            AppTheme.FollowSystem => NightModeStyle.FollowSystem,
+            _ => throw new InvalidOperationException("Unsupported theme"),
+        };
+
+        NightModeService.DefaultNightMode = style;
     }
 
     private static bool UpdateAppStyle(AppTheme selectedTheme)
@@ -50,16 +66,14 @@ public static class ThemeService
         return true;
     }
 
-    private static void UpdateNativeStyle(AppTheme selectedTheme)
+    private static async Task UpdateBarStyle()
     {
-        NightModeStyle style = selectedTheme switch
+        if (Platform.CurrentActivity == null)
         {
-            AppTheme.Dark => NightModeStyle.Yes,
-            AppTheme.Light => NightModeStyle.No,
-            AppTheme.FollowSystem => NightModeStyle.FollowSystem,
-            _ => throw new InvalidOperationException("Unsupported theme"),
-        };
+            await Task.Yield();
+        }
 
-        NightModeService.DefaultNightMode = style;
+        StatusBar.SetColor(ResourceManager.StatusBarColor);
+        StatusBar.SetStyle(ResourceManager.StatusBarStyle);
     }
 }

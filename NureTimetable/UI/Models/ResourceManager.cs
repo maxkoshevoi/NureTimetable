@@ -1,9 +1,18 @@
-﻿using System.Runtime.CompilerServices;
+﻿using CommunityToolkit.Maui.Core;
+using System.Runtime.CompilerServices;
 
 namespace NureTimetable.UI.Models.Consts;
 
 public static class ResourceManager
 {
+    public static Color StatusBarColor => GetColor();
+
+    public static StatusBarStyle StatusBarStyle => Get<StatusBarStyle>();
+
+    //public static Color NavigationBarColor => GetColor();
+
+    //public static NavigationBarStyle NavigationBarStyle => Get<NavigationBarStyle>();
+
     public static Color EventColor(string typeName)
     {
         string key = $"{typeName.ToLower()}Color";
@@ -17,10 +26,6 @@ public static class ResourceManager
             return typeColor;
         }
     }
-
-    //public static Color NavigationBarColor => GetColor();
-
-    //public static NavigationBarStyle NavigationBarStyle => Get<NavigationBarStyle>();
 
     private static Color GetColor([CallerMemberName] string resourceName = "") => Get<Color>(resourceName);
 
