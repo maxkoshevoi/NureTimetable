@@ -75,5 +75,8 @@ public static class ThemeService
 
         StatusBar.SetColor(ResourceManager.StatusBarColor);
         StatusBar.SetStyle(ResourceManager.StatusBarStyle);
+
+        NavigationBar.SetColor(ResourceManager.NavigationBarColor);
+        NavigationBar.SetStyle(ResourceManager.NavigationBarStyle);
     }
 }

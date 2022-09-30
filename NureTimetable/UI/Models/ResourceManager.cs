@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Maui.Core.Platform;
 using System.Runtime.CompilerServices;
 
 namespace NureTimetable.UI.Models.Consts;
@@ -9,9 +10,9 @@ public static class ResourceManager
 
     public static StatusBarStyle StatusBarStyle => Get<StatusBarStyle>();
 
-    //public static Color NavigationBarColor => GetColor();
+    public static Color NavigationBarColor => GetColor();
 
-    //public static NavigationBarStyle NavigationBarStyle => Get<NavigationBarStyle>();
+    public static NavigationBarStyle NavigationBarStyle => Get<NavigationBarStyle>();
 
     public static Color EventColor(string typeName)
     {
