@@ -7,7 +7,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <AnalysisLevel>latest-minimum</AnalysisLevel>
     <TreatWarningsAsErrors Condition="'$(Configuration)' == 'Release'">true</TreatWarningsAsErrors>
-
+    <NoWarn>CS0436</NoWarn> <!-- Workaround for CommunityToolkit.Maui issue -->
+    
     <UseMaui>true</UseMaui>
   </PropertyGroup>
 
@@ -23,8 +24,4 @@
     <Using Include="System.Globalization" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="CommunityToolkit.Maui" Version="1.3.*" PrivateAssets="all" />
-  </ItemGroup>
-  
 </Project>
