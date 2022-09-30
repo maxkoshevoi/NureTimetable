@@ -23,4 +23,8 @@
     <Using Include="System.Globalization" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Maui" Version="1.3.*" PrivateAssets="all" />
+  </ItemGroup>
+  
 </Project>

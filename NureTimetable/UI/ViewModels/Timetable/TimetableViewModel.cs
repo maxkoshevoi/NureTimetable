@@ -2,6 +2,7 @@
 using NureTimetable.UI.ViewModels.Timetable;
 using Rg.Plugins.Popup.Services;
 using Syncfusion.Maui.Scheduler;
+using System.Collections.ObjectModel;
 
 namespace NureTimetable.UI.ViewModels;
 
@@ -14,7 +15,7 @@ public partial class TimetableViewModel : BaseViewModel
     private bool isPageVisible = false;
     private (Entity[] entities, DateTime updateStart) lastAutoupdateInfo = (Array.Empty<Entity>(), default);
 
-    private List<DateTime> visibleDates = new();
+    private ReadOnlyCollection<DateTime> visibleDates = Array.Empty<DateTime>().AsReadOnly();
     private bool needToUpdateEventsUI = false;
 
     // Lock objects
