@@ -68,15 +68,18 @@ public static class ThemeService
 
     private static async Task UpdateBarStyle()
     {
-        if (Platform.CurrentActivity == null)
+        if (OperatingSystem.IsAndroidVersionAtLeast(23))
         {
-            await Task.Yield();
+            if (Platform.CurrentActivity == null)
+            {
+                await Task.Yield();
+            }
+
+            StatusBar.SetColor(ResourceManager.StatusBarColor);
+            StatusBar.SetStyle(ResourceManager.StatusBarStyle);
+
+            NavigationBar.SetColor(ResourceManager.NavigationBarColor);
+            NavigationBar.SetStyle(ResourceManager.NavigationBarStyle);
         }
-
-        StatusBar.SetColor(ResourceManager.StatusBarColor);
-        StatusBar.SetStyle(ResourceManager.StatusBarStyle);
-
-        NavigationBar.SetColor(ResourceManager.NavigationBarColor);
-        NavigationBar.SetStyle(ResourceManager.NavigationBarStyle);
     }
 }

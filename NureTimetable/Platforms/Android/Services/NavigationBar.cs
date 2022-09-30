@@ -29,6 +29,7 @@ public enum NavigationBarStyle
 /// <summary>
 /// Class that hold the method to customize the NavigationBar
 /// </summary>
+[SupportedOSPlatform("android23.0")]
 public static partial class NavigationBar
 {
     /// <summary>

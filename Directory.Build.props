@@ -7,6 +7,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <AnalysisLevel>latest-minimum</AnalysisLevel>
     <TreatWarningsAsErrors Condition="'$(Configuration)' == 'Release'">true</TreatWarningsAsErrors>
+    <WarningsAsErrors>CA1416;CS0612</WarningsAsErrors>
     <NoWarn>CS0436</NoWarn> <!-- Workaround for CommunityToolkit.Maui issue -->
     
     <UseMaui>true</UseMaui>
