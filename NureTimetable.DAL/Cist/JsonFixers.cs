@@ -8,24 +8,24 @@ public static class JsonFixers
     private const string stringStart = "\":\"";
     private static readonly string[] stringEnd =
     {
-            "\",",
-            "\"}",
-            "\"]",
-            "\",\""
-        };
+        "\",",
+        "\"}",
+        "\"]",
+        "\",\""
+    };
     private static readonly string[] nonEssentialCharacters =
     {
-            "\r",
-            "\n",
-            " ",
-            "\t"
-        };
+        "\r",
+        "\n",
+        " ",
+        "\t"
+    };
     private static readonly string[] noValue =
     {
-            ":,",
-            ":]",
-            ":}"
-        };
+        ":,",
+        ":]",
+        ":}"
+    };
 
     /// <summary>
     /// 1. Escapes double quotes in json property values
