@@ -1,14 +1,13 @@
 ﻿using NureTimetable.UI.ViewModels;
 using Xamarin.Forms;
 
-namespace NureTimetable.UI.Views
+namespace NureTimetable.UI.Views;
+
+public partial class MenuPage : ContentPage
 {
-    public partial class MenuPage : ContentPage
+    public MenuPage()
     {
-        public MenuPage()
-        {
-            InitializeComponent();
-            BindingContext = new MenuViewModel();
-        }
+        InitializeComponent();
+        BindingContext = new MenuViewModel();
     }
 }

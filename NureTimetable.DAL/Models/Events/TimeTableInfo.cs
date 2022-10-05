@@ -1,53 +1,52 @@
-﻿namespace NureTimetable.DAL.Models
+﻿namespace NureTimetable.DAL.Models;
+
+public class TimetableInfo : TimetableStatistics
 {
-    public class TimetableInfo : TimetableStatistics
+    public Entity Entity { get; }
+
+    public List<Event> Events
     {
-        public Entity Entity { get; }
+        get => events;
+        set => events = value;
+    }
 
-        public List<Event> Events
+    /// <summary>
+    /// Gets all available lesson infos (some lessons might not have one).
+    /// </summary>
+    public List<LessonInfo> LessonsInfo { get; set; } = new();
+
+    public TimetableInfo(Entity entity)
+    {
+        Entity = entity ?? throw new ArgumentNullException(nameof(entity));
+    }
+
+    public LessonInfo GetAndAddLessonsInfo(Lesson lesson)
+    {
+        var lessonInfo = LessonsInfo.SingleOrDefault(i => i.Lesson == lesson);
+        if (lessonInfo == null)
         {
-            get => events;
-            set => events = value;
+            lessonInfo = new(lesson);
+            LessonsInfo.Add(lessonInfo);
         }
 
-        /// <summary>
-        /// Gets all available lesson infos (some lessons might not have one).
-        /// </summary>
-        public List<LessonInfo> LessonsInfo { get; set; } = new();
+        return lessonInfo;
+    }
 
-        public TimetableInfo(Entity entity)
+    public void ApplyLessonSettings()
+    {
+        foreach (var lInfo in LessonsInfo.Where(ls => ls.Settings.IsSomeSettingsApplied))
         {
-            Entity = entity ?? throw new ArgumentNullException(nameof(entity));
-        }
-
-        public LessonInfo GetAndAddLessonsInfo(Lesson lesson)
-        {
-            var lessonInfo = LessonsInfo.SingleOrDefault(i => i.Lesson == lesson);
-            if (lessonInfo == null)
+            // Hiding settings
+            if (lInfo.Settings.Hiding.ShowLesson == false)
             {
-                lessonInfo = new(lesson);
-                LessonsInfo.Add(lessonInfo);
+                Events.RemoveAll(ev => ev.Lesson == lInfo.Lesson);
             }
-
-            return lessonInfo;
-        }
-
-        public void ApplyLessonSettings()
-        {
-            foreach (var lInfo in LessonsInfo.Where(ls => ls.Settings.IsSomeSettingsApplied))
+            else if (lInfo.Settings.Hiding.ShowLesson == null)
             {
-                // Hiding settings
-                if (lInfo.Settings.Hiding.ShowLesson == false)
-                {
-                    Events.RemoveAll(ev => ev.Lesson == lInfo.Lesson);
-                }
-                else if (lInfo.Settings.Hiding.ShowLesson == null)
-                {
-                    Events.RemoveAll(ev => ev.Lesson == lInfo.Lesson &&
-                        (lInfo.Settings.Hiding.EventTypesToHide.Contains(ev.Type.ID) ||
-                        lInfo.Settings.Hiding.TeachersToHide.Intersect(ev.Teachers.Select(t => t.ID)).Any())
-                    );
-                }
+                Events.RemoveAll(ev => ev.Lesson == lInfo.Lesson &&
+                    (lInfo.Settings.Hiding.EventTypesToHide.Contains(ev.Type.ID) ||
+                    lInfo.Settings.Hiding.TeachersToHide.Intersect(ev.Teachers.Select(t => t.ID)).Any())
+                );
             }
         }
     }

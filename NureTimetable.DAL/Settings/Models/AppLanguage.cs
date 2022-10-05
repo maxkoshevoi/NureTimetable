@@ -1,9 +1,8 @@
-﻿namespace NureTimetable.DAL.Settings.Models
+﻿namespace NureTimetable.DAL.Settings.Models;
+
+public enum AppLanguage
 {
-    public enum AppLanguage
-    {
-        FollowSystem,
-        English = 9,
-        Ukrainian = 34,
-    }
+    FollowSystem,
+    English = 9,
+    Ukrainian = 34,
 }

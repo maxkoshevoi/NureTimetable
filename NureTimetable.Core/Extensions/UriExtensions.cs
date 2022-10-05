@@ -1,23 +1,22 @@
 ﻿using System.Net;
 
-namespace NureTimetable.Core.Extensions
+namespace NureTimetable.Core.Extensions;
+
+public static class UriExtensions
 {
-    public static class UriExtensions
+    private static readonly Lazy<HttpClient> httpClient = new();
+
+    public static async Task<string> GetStringOrWebExceptionAsync(this Uri requestUri)
     {
-        private static readonly Lazy<HttpClient> httpClient = new();
+        _ = requestUri ?? throw new ArgumentNullException(nameof(requestUri));
 
-        public static async Task<string> GetStringOrWebExceptionAsync(this Uri requestUri)
+        try
         {
-            _ = requestUri ?? throw new ArgumentNullException(nameof(requestUri));
-
-            try
-            {
-                return await httpClient.Value.GetStringAsync(requestUri);
-            }
-            catch (Exception ex)
-            {
-                throw new WebException(ex.Message, ex);
-            }
+            return await httpClient.Value.GetStringAsync(requestUri);
+        }
+        catch (Exception ex)
+        {
+            throw new WebException(ex.Message, ex);
         }
     }
 }

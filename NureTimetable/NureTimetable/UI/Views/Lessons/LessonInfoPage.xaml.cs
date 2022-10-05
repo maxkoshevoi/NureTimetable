@@ -1,12 +1,11 @@
 ﻿using Xamarin.Forms;
 
-namespace NureTimetable.UI.Views
+namespace NureTimetable.UI.Views;
+
+public partial class LessonInfoPage : ContentPage
 {
-    public partial class LessonInfoPage : ContentPage
+    public LessonInfoPage()
     {
-        public LessonInfoPage()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

@@ -1,13 +1,12 @@
 ﻿using Newtonsoft.Json;
 
-namespace NureTimetable.DAL.Cist.Models
-{
-    public class Group
-    {
-        [JsonProperty("id")]
-        public long Id { get; set; }
+namespace NureTimetable.DAL.Cist.Models;
 
-        [JsonProperty("name")]
-        public string Name { get; set; } = string.Empty;
-    }
+public class Group
+{
+    [JsonProperty("id")]
+    public long Id { get; set; }
+
+    [JsonProperty("name")]
+    public string Name { get; set; } = string.Empty;
 }

@@ -7,157 +7,156 @@ using NureTimetable.DAL.Models;
 using NureTimetable.DAL.Moodle;
 using NureTimetable.DAL.Moodle.Models.Courses;
 
-namespace NureTimetable.BL
+namespace NureTimetable.BL;
+
+public static class DlNureService
 {
-    public static class DlNureService
+    /// <param name="timetable">Used to save results</param>
+    public static async ValueTask<(Url? attendanceUrl, string? errorMessage)> GetAttendanceUrlAsync(Lesson lesson, TimetableInfo? timetable = null)
     {
-        /// <param name="timetable">Used to save results</param>
-        public static async ValueTask<(Url? attendanceUrl, string? errorMessage)> GetAttendanceUrlAsync(Lesson lesson, TimetableInfo? timetable = null)
+        try
         {
-            try
+            var lessonInfo = timetable?.GetAndAddLessonsInfo(lesson);
+            if (lessonInfo?.DlNureInfo.AttendanceUrl != null)
             {
-                var lessonInfo = timetable?.GetAndAddLessonsInfo(lesson);
-                if (lessonInfo?.DlNureInfo.AttendanceUrl != null)
-                {
-                    return (lessonInfo.DlNureInfo.AttendanceUrl, null);
-                }
-
-                int? lessonId = await GetLessonIdAsync(lesson, timetable);
-                if (lessonId == null)
-                {
-                    return (null, LN.LessonNotFound);
-                }
-
-                CourseModule? attendance = (await new MoodleRepository()
-                    .GetCourseContentsAsync(lessonId.Value, new() { { GetCourseContentsOption.ModName, "attendance" } }))
-                    .FirstOrDefault()?
-                    .Modules
-                    .FirstOrDefault();
-                if (attendance == null)
-                {
-                    return (null, LN.NoAttendanceModule);
-                }
-
-                Uri attendanceUrl = new(attendance.Url);
-                if (timetable != null)
-                {
-                    lessonInfo!.DlNureInfo.AttendanceUrl = attendanceUrl;
-                    await EventsRepository.UpdateLessonsInfo(timetable);
-                }
-
-                return (attendanceUrl, null);
+                return (lessonInfo.DlNureInfo.AttendanceUrl, null);
             }
-            catch (Exception ex)
+
+            int? lessonId = await GetLessonIdAsync(lesson, timetable);
+            if (lessonId == null)
             {
-                EnrichException(ex, timetable?.Entity, lesson);
-                ExceptionService.LogException(ex);
-                return (null, ex.Message);
+                return (null, LN.LessonNotFound);
             }
-        }
 
-        /// <param name="timetable">Used to save results</param>
-        public static async ValueTask<int?> GetLessonIdAsync(Lesson lesson, TimetableInfo? timetable = null)
-        {
-            try
+            CourseModule? attendance = (await new MoodleRepository()
+                .GetCourseContentsAsync(lessonId.Value, new() { { GetCourseContentsOption.ModName, "attendance" } }))
+                .FirstOrDefault()?
+                .Modules
+                .FirstOrDefault();
+            if (attendance == null)
             {
-                if (timetable == null)
-                {
-                    List<FullCourse> courses = await new MoodleRepository().GetEnrolledCoursesAsync();
-                    int? lessonId = courses.Find(lesson).FirstOrDefault()?.Id;
-                    return lessonId;
-                }
-                else
-                {
-                    var lessonInfos = await AddMissingLessonIdsAsync(timetable);
-                    return lessonInfos.FirstOrDefault(li => li.Lesson == lesson)?.DlNureInfo.LessonId;
-                }
+                return (null, LN.NoAttendanceModule);
             }
-            catch (Exception ex)
+
+            Uri attendanceUrl = new(attendance.Url);
+            if (timetable != null)
             {
-                EnrichException(ex, timetable?.Entity, lesson);
-                ExceptionService.LogException(ex);
-                return null;
-            }
-        }
-
-        public static async Task<List<LessonInfo>> AddMissingLessonIdsAsync(TimetableInfo timetable)
-        {
-            try
-            {
-                List<Lesson> lessons = timetable.Lessons().ToList();
-                bool areAllIdsPresent = lessons
-                    .Select(l => timetable.GetAndAddLessonsInfo(l))
-                    .All(li => li.DlNureInfo.LessonId != null);
-                if (areAllIdsPresent)
-                {
-                    return timetable.LessonsInfo;
-                }
-
-                List<FullCourse> courses = await new MoodleRepository().GetEnrolledCoursesAsync();
-                foreach (var lesson in lessons)
-                {
-                    var lessonInfo = timetable.GetAndAddLessonsInfo(lesson);
-                    if (lessonInfo.DlNureInfo.LessonId != null)
-                    {
-                        continue;
-                    }
-
-                    lessonInfo.DlNureInfo.LessonId = courses.Find(lesson).FirstOrDefault()?.Id;
-                }
-
+                lessonInfo!.DlNureInfo.AttendanceUrl = attendanceUrl;
                 await EventsRepository.UpdateLessonsInfo(timetable);
-
-                return timetable.LessonsInfo;
             }
-            catch (Exception ex)
+
+            return (attendanceUrl, null);
+        }
+        catch (Exception ex)
+        {
+            EnrichException(ex, timetable?.Entity, lesson);
+            ExceptionService.LogException(ex);
+            return (null, ex.Message);
+        }
+    }
+
+    /// <param name="timetable">Used to save results</param>
+    public static async ValueTask<int?> GetLessonIdAsync(Lesson lesson, TimetableInfo? timetable = null)
+    {
+        try
+        {
+            if (timetable == null)
             {
-                EnrichException(ex, timetable.Entity);
-                ExceptionService.LogException(ex);
-                return timetable.LessonsInfo;
+                List<FullCourse> courses = await new MoodleRepository().GetEnrolledCoursesAsync();
+                int? lessonId = courses.Find(lesson).FirstOrDefault()?.Id;
+                return lessonId;
+            }
+            else
+            {
+                var lessonInfos = await AddMissingLessonIdsAsync(timetable);
+                return lessonInfos.FirstOrDefault(li => li.Lesson == lesson)?.DlNureInfo.LessonId;
             }
         }
-
-        private static void EnrichException(Exception ex, Entity? entity = null, Lesson? lesson = null)
+        catch (Exception ex)
         {
-            if (lesson != null)
-            {
-                ex.Data.Add("Lesson", $"{lesson.FullName} ({lesson.ShortName} - {lesson.ID})");
-            }
-            if (entity != null)
-            {
-                ex.Data.Add("Entity", $"{entity.Type} {entity.Name} ({entity.ID})");
-            }
+            EnrichException(ex, timetable?.Entity, lesson);
+            ExceptionService.LogException(ex);
+            return null;
         }
+    }
 
-        private static List<FullCourse> Find(this IEnumerable<FullCourse> courses, Lesson lesson)
+    public static async Task<List<LessonInfo>> AddMissingLessonIdsAsync(TimetableInfo timetable)
+    {
+        try
         {
-            string simplifiedFullName = lesson.FullName.Simplify();
-            List<FullCourse> matchedCourses = courses
-                .Where(c => c.ShortName.Contains($":{lesson.ShortName}:") || simplifiedFullName.StartsWith(c.FullName.Simplify()))
-                .ToList();
-
-            if (matchedCourses.Count > 1)
+            List<Lesson> lessons = timetable.Lessons().ToList();
+            bool areAllIdsPresent = lessons
+                .Select(l => timetable.GetAndAddLessonsInfo(l))
+                .All(li => li.DlNureInfo.LessonId != null);
+            if (areAllIdsPresent)
             {
-                List<FullCourse> ongoingCourses = matchedCourses.Where(c => c.StartDateUtc <= DateTime.UtcNow && c.EndDateUtc > DateTime.UtcNow).ToList();
-                if (ongoingCourses.Any())
+                return timetable.LessonsInfo;
+            }
+
+            List<FullCourse> courses = await new MoodleRepository().GetEnrolledCoursesAsync();
+            foreach (var lesson in lessons)
+            {
+                var lessonInfo = timetable.GetAndAddLessonsInfo(lesson);
+                if (lessonInfo.DlNureInfo.LessonId != null)
                 {
-                    matchedCourses = ongoingCourses;
-                    if (matchedCourses.Count > 1)
+                    continue;
+                }
+
+                lessonInfo.DlNureInfo.LessonId = courses.Find(lesson).FirstOrDefault()?.Id;
+            }
+
+            await EventsRepository.UpdateLessonsInfo(timetable);
+
+            return timetable.LessonsInfo;
+        }
+        catch (Exception ex)
+        {
+            EnrichException(ex, timetable.Entity);
+            ExceptionService.LogException(ex);
+            return timetable.LessonsInfo;
+        }
+    }
+
+    private static void EnrichException(Exception ex, Entity? entity = null, Lesson? lesson = null)
+    {
+        if (lesson != null)
+        {
+            ex.Data.Add("Lesson", $"{lesson.FullName} ({lesson.ShortName} - {lesson.ID})");
+        }
+        if (entity != null)
+        {
+            ex.Data.Add("Entity", $"{entity.Type} {entity.Name} ({entity.ID})");
+        }
+    }
+
+    private static List<FullCourse> Find(this IEnumerable<FullCourse> courses, Lesson lesson)
+    {
+        string simplifiedFullName = lesson.FullName.Simplify();
+        List<FullCourse> matchedCourses = courses
+            .Where(c => c.ShortName.Contains($":{lesson.ShortName}:") || simplifiedFullName.StartsWith(c.FullName.Simplify()))
+            .ToList();
+
+        if (matchedCourses.Count > 1)
+        {
+            List<FullCourse> ongoingCourses = matchedCourses.Where(c => c.StartDateUtc <= DateTime.UtcNow && c.EndDateUtc > DateTime.UtcNow).ToList();
+            if (ongoingCourses.Any())
+            {
+                matchedCourses = ongoingCourses;
+                if (matchedCourses.Count > 1)
+                {
+                    InvalidOperationException ex = new("Found multiple ongoing moodle courses")
                     {
-                        InvalidOperationException ex = new("Found multiple ongoing moodle courses")
-                        {
-                            Data = { { "Lesson", $"{lesson.FullName} ({lesson.ShortName})" } }
-                        };
-                        for (int i = 0; i < matchedCourses.Count; i++)
-                        {
-                            ex.Data.Add($"Course {i}", $"{matchedCourses[i].FullName} ({matchedCourses[i].ShortName})");
-                        }
-                        ExceptionService.LogException(ex);
+                        Data = { { "Lesson", $"{lesson.FullName} ({lesson.ShortName})" } }
+                    };
+                    for (int i = 0; i < matchedCourses.Count; i++)
+                    {
+                        ex.Data.Add($"Course {i}", $"{matchedCourses[i].FullName} ({matchedCourses[i].ShortName})");
                     }
+                    ExceptionService.LogException(ex);
                 }
             }
-
-            return matchedCourses;
         }
+
+        return matchedCourses;
     }
 }

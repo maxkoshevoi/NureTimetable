@@ -1,16 +1,15 @@
-﻿namespace NureTimetable.DAL.Cist.Legacy.Models
+﻿namespace NureTimetable.DAL.Cist.Legacy.Models;
+
+[Obsolete("", true)]
+static class KnownEventTypes
 {
-    [Obsolete("", true)]
-    static class KnownEventTypes
+    public static readonly string[] Values =
     {
-        public static readonly string[] Values =
-        {
-            "лк",
-            "пз",
-            "лб",
-            "конс",
-            "зал",
-            "іспкомб",
-        };
-    }
+        "лк",
+        "пз",
+        "лб",
+        "конс",
+        "зал",
+        "іспкомб",
+    };
 }

@@ -1,21 +1,20 @@
-﻿namespace NureTimetable.Core.Models.Exceptions
+﻿namespace NureTimetable.Core.Models.Exceptions;
+
+public static class MoodleErrorCodes
 {
-    public static class MoodleErrorCodes
+    public const string InvalidLogin = "invalidlogin";
+
+    public const string InvalidToken = "invalidtoken";
+
+    public const string SiteMaintenance = "sitemaintenance";
+}
+
+public class MoodleException : Exception
+{
+    public MoodleException(string message, string errorCode) : base(message)
     {
-        public const string InvalidLogin = "invalidlogin";
-
-        public const string InvalidToken = "invalidtoken";
-
-        public const string SiteMaintenance = "sitemaintenance";
+        ErrorCode = errorCode;
     }
 
-    public class MoodleException : Exception
-    {
-        public MoodleException(string message, string errorCode) : base(message)
-        {
-            ErrorCode = errorCode;
-        }
-
-        public string ErrorCode { get; }
-    }
+    public string ErrorCode { get; }
 }

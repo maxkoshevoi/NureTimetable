@@ -1,11 +1,10 @@
-﻿namespace NureTimetable.DAL.Models
+﻿namespace NureTimetable.DAL.Models;
+
+public class DlNureLessonInfo
 {
-    public class DlNureLessonInfo
-    {
-        public int? LessonId { get; set; }
+    public int? LessonId { get; set; }
 
-        public bool ShowAttendance { get; set; } = true;
+    public bool ShowAttendance { get; set; } = true;
 
-        public Uri? AttendanceUrl { get; set; }
-    }
+    public Uri? AttendanceUrl { get; set; }
 }

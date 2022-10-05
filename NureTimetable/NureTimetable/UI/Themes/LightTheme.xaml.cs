@@ -1,12 +1,11 @@
 ﻿using Xamarin.Forms;
 
-namespace NureTimetable.UI.Themes
+namespace NureTimetable.UI.Themes;
+
+public partial class LightTheme : ResourceDictionary
 {
-    public partial class LightTheme : ResourceDictionary
+    public LightTheme()
     {
-        public LightTheme()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

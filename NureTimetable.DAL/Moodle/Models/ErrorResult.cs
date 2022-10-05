@@ -1,11 +1,10 @@
-﻿namespace NureTimetable.DAL.Moodle.Models
+﻿namespace NureTimetable.DAL.Moodle.Models;
+
+public record ErrorResult(string ErrorCode)
 {
-    public record ErrorResult(string ErrorCode)
-    {
-        public string? Error { get; init; }
+    public string? Error { get; init; }
 
-        public string? Message { get; init; }
+    public string? Message { get; init; }
 
-        public string? ErrorMessage => Error ?? Message;
-    }
+    public string? ErrorMessage => Error ?? Message;
 }

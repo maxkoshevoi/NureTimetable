@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace System.Runtime.CompilerServices
-{
-    [EditorBrowsable(EditorBrowsableState.Never)]
-    public class IsExternalInit { }
-}
+namespace System.Runtime.CompilerServices;
+
+[EditorBrowsable(EditorBrowsableState.Never)]
+public class IsExternalInit { }
