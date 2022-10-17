@@ -17,7 +17,7 @@ public static class MauiProgram
             .ConfigureFonts(fonts => fonts.AddFont("materialdesignicons-webfont.ttf", "MaterialDesignIcons"))
             .ConfigureLifecycleEvents(lifecycle =>
             {
-                lifecycle.AddAndroid(d => d.OnBackPressed(activity => Popup.SendBackPressed(activity.OnBackPressed)));
+                lifecycle.AddAndroid(d => d.OnBackPressed(_ => Popup.SendBackPressed()));
             })
             .UseMauiCommunityToolkit()
             .ConfigureSyncfusion();

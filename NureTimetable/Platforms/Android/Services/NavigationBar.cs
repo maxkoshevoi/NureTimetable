@@ -1,5 +1,6 @@
 ﻿using Android.OS;
 using Android.Views;
+using AndroidX.Core.View;
 using Microsoft.Maui.Platform;
 using System.Runtime.Versioning;
 using Activity = Android.App.Activity;
@@ -29,7 +30,7 @@ public enum NavigationBarStyle
 /// <summary>
 /// Class that hold the method to customize the NavigationBar
 /// </summary>
-[SupportedOSPlatform("android23.0")]
+[SupportedOSPlatform("Android23.0")]
 public static partial class NavigationBar
 {
     /// <summary>
@@ -69,12 +70,12 @@ static partial class NavigationBar
         switch (style)
         {
             case NavigationBarStyle.DarkContent:
-                AddBarAppearanceFlag(Activity, (StatusBarVisibility)SystemUiFlags.LightNavigationBar);
+                SetNavigationBarAppearance(Activity, true);
                 break;
 
             case NavigationBarStyle.Default:
             case NavigationBarStyle.LightContent:
-                RemoveBarAppearanceFlag(Activity, (StatusBarVisibility)SystemUiFlags.LightNavigationBar);
+                SetNavigationBarAppearance(Activity, false);
                 break;
 
             default:
@@ -82,20 +83,13 @@ static partial class NavigationBar
         }
     }
 
-    static void AddBarAppearanceFlag(Activity activity, StatusBarVisibility flag) =>
-        SetBarAppearance(activity, barAppearance => barAppearance |= flag);
-
-
-    static void RemoveBarAppearanceFlag(Activity activity, StatusBarVisibility flag) =>
-        SetBarAppearance(activity, barAppearance => barAppearance &= ~flag);
-
-
-    static void SetBarAppearance(Activity activity, Func<StatusBarVisibility, StatusBarVisibility> updateAppearance)
+    static void SetNavigationBarAppearance(Activity activity, bool lightNavigationBars)
     {
         var window = GetCurrentWindow(activity);
-        var appearance = window.DecorView.SystemUiVisibility;
-        appearance = updateAppearance(appearance);
-        window.DecorView.SystemUiVisibility = appearance;
+        _ = new WindowInsetsControllerCompat(window, window.DecorView)
+        {
+            AppearanceLightNavigationBars = lightNavigationBars
+        };
 
         static Window GetCurrentWindow(Activity activity)
         {
