@@ -83,13 +83,11 @@ static partial class NavigationBar
         }
     }
 
-    static void SetNavigationBarAppearance(Activity activity, bool lightNavigationBars)
+    static void SetNavigationBarAppearance(Activity activity, bool isLightNavigationBars)
     {
         var window = GetCurrentWindow(activity);
-        _ = new WindowInsetsControllerCompat(window, window.DecorView)
-        {
-            AppearanceLightNavigationBars = lightNavigationBars
-        };
+        var windowController = WindowCompat.GetInsetsController(window, window.DecorView);
+        windowController.AppearanceLightNavigationBars = isLightNavigationBars;
 
         static Window GetCurrentWindow(Activity activity)
         {
