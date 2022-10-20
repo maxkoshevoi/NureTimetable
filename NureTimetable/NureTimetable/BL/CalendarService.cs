@@ -38,40 +38,44 @@ public static class CalendarService
         return readStatus == PermissionStatus.Granted && writeStatus == PermissionStatus.Granted;
     }
 
-    public static async Task<Calendar?> GetCalendarAsync()
+    public static async Task<(Calendar? calendar, bool isError)> GetCalendarAsync()
     {
         if (!await RequestPermissionsAsync())
         {
-            return null;
+            return (null, true);
         }
 
-        IList<Calendar> calendars = await GetAllCalendarsAsync();
+        IList<Calendar>? calendars = await GetAllCalendarsAsync();
+        if (calendars == null)
+        {
+            return (null, true);
+        }
 
         Calendar? defaultCalendar = calendars.SingleOrDefault(c => c.ExternalID == SettingsRepository.Settings.DefaultCalendarId);
         if (defaultCalendar != null)
         {
-            return defaultCalendar;
+            return (defaultCalendar, false);
         }
 
         if (calendars.Count == 1)
         {
-            return calendars.First();
+            return (calendars.First(), false);
         }
 
         string targetCalendarName = await Shell.Current.DisplayActionSheet(LN.ChooseCalendar, LN.Cancel, null, calendars.Select(c => c.Name).ToArray());
         if (targetCalendarName == null || targetCalendarName == LN.Cancel)
         {
-            return null;
+            return (null, false);
         }
         Calendar selectedCalendar = calendars.First(c => c.Name == targetCalendarName);
-        return selectedCalendar;
+        return (selectedCalendar, false);
     }
 
-    public static async Task<IList<Calendar>> GetAllCalendarsAsync()
+    public static async Task<IList<Calendar>?> GetAllCalendarsAsync()
     {
         if (!await RequestPermissionsAsync())
         {
-            return new List<Calendar>();
+            return null;
         }
 
         // Getting Calendar list
@@ -82,8 +86,8 @@ public static class CalendarService
         }
         catch (NullReferenceException ex)
         {
-            calendars = new List<Calendar>();
             ExceptionService.LogException(ex);
+            return null;
         }
 
         calendars = calendars

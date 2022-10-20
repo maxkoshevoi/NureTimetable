@@ -97,7 +97,7 @@ public class SettingsViewModel : BaseViewModel
 
         if (requestPermissionIfNeeded || await CalendarService.CheckPermissionsAsync())
         {
-            IList<Calendar> calendars = await CalendarService.GetAllCalendarsAsync();
+            IList<Calendar> calendars = await CalendarService.GetAllCalendarsAsync() ?? new List<Calendar>();
             newMapping.AddRange(calendars.Select(c => (
                 (Func<string?>)(() => c.Name),
                 c.ExternalID ?? throw new NullReferenceException(nameof(Calendar.ExternalID)))));

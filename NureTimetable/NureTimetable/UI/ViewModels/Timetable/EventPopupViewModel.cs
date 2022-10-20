@@ -86,7 +86,7 @@ public class EventPopupViewModel : BaseViewModel
 
         if (result == LN.LessonManagement)
         {
-            await ClosePopup();
+            await ClosePopupAsync();
             await Navigation.PushAsync(new LessonSettingsPage
             {
                 BindingContext = new LessonSettingsViewModel(LessonInfo, Timetable!, true)
@@ -94,7 +94,7 @@ public class EventPopupViewModel : BaseViewModel
         }
         else if (result == LN.LessonInfo)
         {
-            await ClosePopup();
+            await ClosePopupAsync();
             await Navigation.PushAsync(new LessonInfoPage
             {
                 BindingContext = new LessonInfoViewModel(LessonInfo, Timetable!)
@@ -112,13 +112,13 @@ public class EventPopupViewModel : BaseViewModel
 
     private async Task AddEventToCalendarAsync()
     {
-        if (!await CalendarService.RequestPermissionsAsync())
-        {
+        var (calendar, isError) = await CalendarService.GetCalendarAsync();
+        if (isError) 
+        { 
             await Shell.Current.DisplayAlert(LN.AddingToCalendarTitle, LN.InsufficientRights, LN.Ok);
             return;
         }
 
-        var calendar = await CalendarService.GetCalendarAsync();
         if (calendar == null)
         {
             // User didn't choose calendar
@@ -134,7 +134,7 @@ public class EventPopupViewModel : BaseViewModel
         }
         TimetablePage.DisplayToastAsync(LN.AddingEventToCalendarSuccess).Forget();
 
-        await ClosePopup();
+        await ClosePopupAsync();
     }
 
     private async Task OpenAttendanceAsync()
@@ -151,7 +151,7 @@ public class EventPopupViewModel : BaseViewModel
         await Browser.OpenAsync(attendanceUrl);
     }
 
-    private static async Task ClosePopup()
+    private static async Task ClosePopupAsync()
     {
         if (PopupNavigation.Instance.PopupStack.Any())
         {
