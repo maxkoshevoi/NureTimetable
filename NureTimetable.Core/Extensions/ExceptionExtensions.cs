@@ -6,13 +6,13 @@ public static class ExceptionExtensions
 {
     private static readonly WebExceptionStatus[] noInternetStatuses =
     {
-            WebExceptionStatus.NameResolutionFailure,
-            WebExceptionStatus.ConnectFailure
-        };
+        WebExceptionStatus.NameResolutionFailure,
+        WebExceptionStatus.ConnectFailure
+    };
 
     public static bool IsNoInternet(this WebException ex)
     {
-        _ = ex ?? throw new ArgumentNullException(nameof(ex));
+        ArgumentNullException.ThrowIfNull(ex);
 
         return noInternetStatuses.Contains(ex.Status);
     }

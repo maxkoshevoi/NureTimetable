@@ -2,6 +2,7 @@
 using Android.Views;
 using AndroidX.Core.View;
 using Microsoft.Maui.Platform;
+using System.Diagnostics;
 using System.Runtime.Versioning;
 using Activity = Android.App.Activity;
 using Window = Android.Views.Window;
@@ -79,7 +80,7 @@ static partial class NavigationBar
                 break;
 
             default:
-                throw new NotSupportedException($"{nameof(NavigationBarStyle)} {style} is not yet supported on Android");
+                throw new UnreachableException($"{nameof(NavigationBarStyle)} {style} is not yet supported on Android");
         }
     }
 

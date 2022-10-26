@@ -8,7 +8,7 @@ public static class UriExtensions
 
     public static async Task<string> GetStringOrWebExceptionAsync(this Uri requestUri)
     {
-        _ = requestUri ?? throw new ArgumentNullException(nameof(requestUri));
+        ArgumentNullException.ThrowIfNull(requestUri);
 
         try
         {

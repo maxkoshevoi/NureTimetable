@@ -3,6 +3,7 @@ using NureTimetable.Platforms.Android.Models;
 using NureTimetable.Platforms.Android.Services;
 using NureTimetable.UI.Models.Consts;
 using NureTimetable.UI.Themes;
+using System.Diagnostics;
 
 namespace NureTimetable.BL;
 
@@ -27,7 +28,7 @@ public static class ThemeService
             AppTheme.Dark => NightModeStyle.Yes,
             AppTheme.Light => NightModeStyle.No,
             AppTheme.FollowSystem => NightModeStyle.FollowSystem,
-            _ => throw new InvalidOperationException("Unsupported theme"),
+            _ => throw new UnreachableException(),
         };
 
         NightModeService.DefaultNightMode = style;
@@ -44,7 +45,7 @@ public static class ThemeService
         {
             AppTheme.Dark => new DarkTheme(),
             AppTheme.Light => new LightTheme(),
-            _ => throw new InvalidOperationException("Unsupported theme"),
+            _ => throw new UnreachableException(),
         };
 
         ICollection<ResourceDictionary> resources = App.Current!.Resources.MergedDictionaries;
