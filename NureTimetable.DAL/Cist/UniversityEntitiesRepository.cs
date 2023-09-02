@@ -124,7 +124,7 @@ public static class UniversityEntitiesRepository
             return null;
         }
 
-        var loadedUniversity = await Serialisation.FromJsonFile<Cist::University>(filePath);
+        var loadedUniversity = await Serialization.FromJsonFile<Cist::University>(filePath);
         return loadedUniversity;
     }
 
@@ -190,7 +190,7 @@ public static class UniversityEntitiesRepository
 
         if (!result.IsAllFail)
         {
-            await Serialisation.ToJsonFile(university, FilePath.UniversityEntities);
+            await Serialization.ToJsonFile(university, FilePath.UniversityEntities);
             if (result.IsAllSuccessful)
             {
                 SettingsRepository.Settings.LastCistAllEntitiesUpdate = DateTime.Now;
@@ -489,7 +489,7 @@ public static class UniversityEntitiesRepository
             return loadedEntities;
         }
 
-        loadedEntities = await Serialisation.FromJsonFile<List<Local::SavedEntity>>(filePath) ?? loadedEntities;
+        loadedEntities = await Serialization.FromJsonFile<List<Local::SavedEntity>>(filePath) ?? loadedEntities;
         return loadedEntities;
     }
 
@@ -543,7 +543,7 @@ public static class UniversityEntitiesRepository
         }
 
         // Saving saved entities list
-        await Serialisation.ToJsonFile(savedEntities, FilePath.SavedEntitiesList);
+        await Serialization.ToJsonFile(savedEntities, FilePath.SavedEntitiesList);
         MessagingCenter.Send(Application.Current, MessageTypes.SavedEntitiesChanged, savedEntities);
 
         if (oldSavedEntities.Count(e => e.IsSelected) != savedEntities.Count(e => e.IsSelected)

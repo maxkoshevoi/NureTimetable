@@ -26,7 +26,7 @@ public static class EventsRepository
         }
         foreach (var entity in entities)
         {
-            Local::TimetableInfo? timetableInfo = await Serialisation.FromJsonFile<Local::TimetableInfo>(FilePath.SavedTimetable(entity.Type, entity.ID));
+            Local::TimetableInfo? timetableInfo = await Serialization.FromJsonFile<Local::TimetableInfo>(FilePath.SavedTimetable(entity.Type, entity.ID));
             if (timetableInfo == null)
             {
                 continue;
@@ -38,7 +38,7 @@ public static class EventsRepository
 
     private static Task UpdateTimetableLocalAsync(Local::TimetableInfo newTimetable)
     {
-        return Serialisation.ToJsonFile(newTimetable, FilePath.SavedTimetable(newTimetable.Entity.Type, newTimetable.Entity.ID));
+        return Serialization.ToJsonFile(newTimetable, FilePath.SavedTimetable(newTimetable.Entity.Type, newTimetable.Entity.ID));
     }
 
     #region Lesson Info

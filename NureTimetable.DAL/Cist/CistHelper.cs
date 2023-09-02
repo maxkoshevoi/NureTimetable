@@ -9,7 +9,7 @@ public static class CistHelper
     {
         try
         {
-            T result = Serialisation.FromJson<T>(json);
+            T result = Serialization.FromJson<T>(json);
             return result;
         }
         catch (ArgumentException ex) when (json.Contains("ORA-04030"))

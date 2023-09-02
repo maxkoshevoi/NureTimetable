@@ -8,7 +8,7 @@ using NureTimetable.DAL.Cist;
 
 namespace NureTimetable.DAL;
 
-public static class Serialisation
+public static class Serialization
 {
     private static readonly AsyncReaderWriterLock fileLock = new();
 

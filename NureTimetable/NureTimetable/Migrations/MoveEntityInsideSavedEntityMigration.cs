@@ -8,15 +8,15 @@ class MoveEntityInsideSavedEntityMigration : BaseMigration
 {
     protected override async Task<bool> IsNeedsToBeAppliedInternal()
     {
-        var entities = await Serialisation.FromJsonFile<List<Entity>>(FilePath.SavedEntitiesList);
+        var entities = await Serialization.FromJsonFile<List<Entity>>(FilePath.SavedEntitiesList);
         return entities?.Any() == true && entities.First().ID > 0;
     }
 
     protected override async Task<bool> ApplyInternal()
     {
         List<SavedEntity> updatedSavedEntities = new();
-        var selectedEntities = await Serialisation.FromJsonFile<List<SavedEntityWithoutEntity>>(FilePath.SavedEntitiesList);
-        var entities = await Serialisation.FromJsonFile<List<Entity>>(FilePath.SavedEntitiesList);
+        var selectedEntities = await Serialization.FromJsonFile<List<SavedEntityWithoutEntity>>(FilePath.SavedEntitiesList);
+        var entities = await Serialization.FromJsonFile<List<Entity>>(FilePath.SavedEntitiesList);
         if (selectedEntities == null || entities == null)
         {
             File.Delete(FilePath.SavedEntitiesList);
@@ -32,7 +32,7 @@ class MoveEntityInsideSavedEntityMigration : BaseMigration
             });
         }
 
-        await Serialisation.ToJsonFile(updatedSavedEntities, FilePath.SavedEntitiesList);
+        await Serialization.ToJsonFile(updatedSavedEntities, FilePath.SavedEntitiesList);
         return true;
     }
 

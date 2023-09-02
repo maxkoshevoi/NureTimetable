@@ -169,7 +169,7 @@ public class MoodleRepository
 
             try
             {
-                var errorResult = Serialisation.FromJson<ErrorResult>(result);
+                var errorResult = Serialization.FromJson<ErrorResult>(result);
                 if (errorResult.ErrorCode != null && errorResult.ErrorMessage != null)
                 {
                     bool shouldTryRelogin = tryRelogin && errorResult.ErrorCode == MoodleErrorCodes.InvalidToken;
@@ -183,7 +183,7 @@ public class MoodleRepository
             }
             catch (JsonSerializationException) { }
 
-            return Serialisation.FromJson<T>(result);
+            return Serialization.FromJson<T>(result);
         }
         catch (Exception ex)
         {

@@ -108,11 +108,11 @@ public class AppSettings : ObservableObject
 
     public MoodleUser? DlNureUser
     {
-        get => Serialisation.FromJsonFile<MoodleUser?>(FilePath.MoodleUser).GetAwaiter().GetResult();
+        get => Serialization.FromJsonFile<MoodleUser?>(FilePath.MoodleUser).GetAwaiter().GetResult();
         set
         {
             MoodleUser? currentValue = DlNureUser;
-            SetProperty(ref currentValue, value, onChanged: () => Serialisation.ToJsonFile(value, FilePath.MoodleUser).GetAwaiter().GetResult());
+            SetProperty(ref currentValue, value, onChanged: () => Serialization.ToJsonFile(value, FilePath.MoodleUser).GetAwaiter().GetResult());
         }
     }
 }
