@@ -15,9 +15,9 @@ public static class EventsRepository
 {
     #region Local
     public static async Task<Local::TimetableInfo?> GetTimetableLocalAsync(Local::Entity entity) =>
-        (await GetTimetableLocal(new List<Local::Entity>() { entity })).SingleOrDefault();
+        (await GetTimetableLocalAsync(new List<Local::Entity>() { entity })).SingleOrDefault();
 
-    public static async Task<List<Local::TimetableInfo>> GetTimetableLocal(List<Local::Entity> entities)
+    public static async Task<List<Local::TimetableInfo>> GetTimetableLocalAsync(List<Local::Entity> entities)
     {
         List<Local::TimetableInfo> timetables = new();
         if (entities == null)

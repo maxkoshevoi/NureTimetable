@@ -2,14 +2,9 @@
 
 namespace NureTimetable.DAL.Models;
 
-public class SavedEntity : ObservableObject
+public class SavedEntity(Entity entity) : ObservableObject
 {
-    public SavedEntity(Entity entity)
-    {
-        Entity = entity ?? throw new ArgumentNullException(nameof(entity));
-    }
-
-    public Entity Entity { get; }
+    public Entity Entity { get; } = entity ?? throw new ArgumentNullException(nameof(entity));
 
     private DateTime? lastUpdated;
     public DateTime? LastUpdated { get => lastUpdated; set => SetProperty(ref lastUpdated, value); }

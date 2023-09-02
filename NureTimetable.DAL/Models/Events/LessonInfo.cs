@@ -1,13 +1,8 @@
 ﻿namespace NureTimetable.DAL.Models;
 
-public class LessonInfo
+public class LessonInfo(Lesson lesson)
 {
-    public LessonInfo(Lesson lesson)
-    {
-        Lesson = lesson;
-    }
-
-    public Lesson Lesson { get; }
+    public Lesson Lesson { get; } = lesson;
 
     public string? Notes { get; set; }
 

@@ -40,9 +40,9 @@ static class EventsDataStore
                 foreach (var group in groupsAllowed)
                 {
                     var groupEvents = new List<Event>();
-                    if (newEvents.ContainsKey(group.Name))
+                    if (newEvents.TryGetValue(group.Name, out List<Event> events))
                     {
-                        groupEvents = newEvents[group.Name];
+                        groupEvents = events;
                     }
                     else if (groupsAllowed.Count == 1 && newEvents.Count == 1)
                     {
@@ -203,11 +203,11 @@ static class EventsDataStore
                                     .Add(TimeSpan.ParseExact(rawEvent[4], "hh\\:mm\\:ss", CultureInfo.InvariantCulture)),
                     };
 
-                    if (!timetables.ContainsKey(groupName))
+                    if (!timetables.TryGetValue(groupName, out List<Event> events))
                     {
                         timetables.Add(groupName, new List<Event>());
                     }
-                    timetables[groupName].Add(ev);
+                    events.Add(ev);
                 }
             }
             catch (Exception ex)

@@ -1,8 +1,8 @@
 ﻿namespace NureTimetable.DAL.Models;
 
-public class TimetableInfo : TimetableStatistics
+public class TimetableInfo(Entity entity) : TimetableStatistics
 {
-    public Entity Entity { get; }
+    public Entity Entity { get; } = entity ?? throw new ArgumentNullException(nameof(entity));
 
     public List<Event> Events
     {
@@ -14,11 +14,6 @@ public class TimetableInfo : TimetableStatistics
     /// Gets all available lesson infos (some lessons might not have one).
     /// </summary>
     public List<LessonInfo> LessonsInfo { get; set; } = new();
-
-    public TimetableInfo(Entity entity)
-    {
-        Entity = entity ?? throw new ArgumentNullException(nameof(entity));
-    }
 
     public LessonInfo GetAndAddLessonsInfo(Lesson lesson)
     {

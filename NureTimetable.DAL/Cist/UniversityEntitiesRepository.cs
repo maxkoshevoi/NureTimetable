@@ -23,13 +23,8 @@ public static class UniversityEntitiesRepository
     private static readonly AsyncLock updatingSavedLock = new();
     private static readonly object initializingLock = new();
 
-    public class UniversityEntitiesCistUpdateResult
+    public class UniversityEntitiesCistUpdateResult(Cist::University updatedUniversity)
     {
-        public UniversityEntitiesCistUpdateResult(Cist::University updatedUniversity)
-        {
-            UpdatedUniversity = updatedUniversity;
-        }
-
         public UniversityEntitiesCistUpdateResult(Cist::University updatedUniversity, Exception? groupsException, Exception? teachersException, Exception? roomsException)
             : this(updatedUniversity)
         {
@@ -38,7 +33,7 @@ public static class UniversityEntitiesRepository
             RoomsException = roomsException;
         }
 
-        public Cist::University UpdatedUniversity { get; }
+        public Cist::University UpdatedUniversity { get; } = updatedUniversity;
 
         public Exception? GroupsException { get; }
         public Exception? TeachersException { get; }

@@ -71,7 +71,7 @@ public static class CalendarService
         return (selectedCalendar, false);
     }
 
-    public static async Task<IList<Calendar>?> GetAllCalendarsAsync()
+    public static async Task<List<Calendar>?> GetAllCalendarsAsync()
     {
         if (!await RequestPermissionsAsync())
         {
@@ -79,10 +79,10 @@ public static class CalendarService
         }
 
         // Getting Calendar list
-        IList<Calendar> calendars;
+        List<Calendar> calendars;
         try
         {
-            calendars = await CrossCalendars.Current.GetCalendarsAsync();
+            calendars = (await CrossCalendars.Current.GetCalendarsAsync()).ToList();
         }
         catch (NullReferenceException ex)
         {

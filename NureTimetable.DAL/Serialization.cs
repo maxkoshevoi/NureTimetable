@@ -138,11 +138,11 @@ public static class Serialization
         public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
         {
             string? key = (string?)reader.Value;
-            if (key == null || !replacementValues.ContainsKey(key))
+            if (key == null || !replacementValues.TryGetValue(key, out bool replacementValue))
             {
                 return null;
             }
-            return replacementValues[key];
+            return replacementValue;
         }
 
         public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)

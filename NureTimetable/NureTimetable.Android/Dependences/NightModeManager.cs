@@ -3,14 +3,13 @@ using NureTimetable.Core.Models.InterplatformCommunication;
 using NureTimetable.Droid.Dependences;
 
 [assembly: Xamarin.Forms.Dependency(typeof(NightModeManager))]
-namespace NureTimetable.Droid.Dependences
+namespace NureTimetable.Droid.Dependences;
+
+public class NightModeManager : INightModeManager
 {
-    public class NightModeManager : INightModeManager
+    public NightModeStyle DefaultNightMode
     {
-        public NightModeStyle DefaultNightMode
-        {
-            get => (NightModeStyle)AppCompatDelegate.DefaultNightMode;
-            set => AppCompatDelegate.DefaultNightMode = (int)value;
-        }
+        get => (NightModeStyle)AppCompatDelegate.DefaultNightMode;
+        set => AppCompatDelegate.DefaultNightMode = (int)value;
     }
 }
