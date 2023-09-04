@@ -5,4 +5,8 @@
   <assembly fullname="Xamarin.AndroidX.AppCompat">
     <type fullname="AndroidX.AppCompat.Widget.FitWindowsLinearLayout" />
   </assembly>
+  <assembly fullname="System.Runtime"> <!-- For AutoMapper -->
+    <type fullname="System.Enum" preserve="all" />
+  </assembly>
+  <assembly fullname="AutoMapper" preserve="all" />
 </linker>

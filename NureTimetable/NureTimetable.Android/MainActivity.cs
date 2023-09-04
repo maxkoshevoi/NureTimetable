@@ -2,6 +2,7 @@
 using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
+using System;
 using Xamarin.Forms.Platform.Android;
 
 namespace NureTimetable.Droid;
@@ -28,6 +29,7 @@ public class MainActivity : FormsAppCompatActivity
         base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
+    [Obsolete]
     public override void OnBackPressed()
     {
         bool isPopupStackEmpty = !Rg.Plugins.Popup.Popup.SendBackPressed(base.OnBackPressed);
